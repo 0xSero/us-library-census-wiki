@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 21:00 UTC",
+  "generated": "2026-08-14 21:10 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -9196,6 +9196,2794 @@
         }
       ]
     }
+  },
+  "bls_salaries": {
+    "occupations": {
+      "25-4022": {
+        "title": "Librarians and Media Collections Specialists",
+        "total_employment": 133200.0,
+        "states_with_data": 53,
+        "avg_mean_wage": 65149.24528301887,
+        "highest_mean_wage": 94300.0,
+        "lowest_mean_wage": 49200.0,
+        "avg_median_wage": 64254.15094339623,
+        "top_by_employment": [
+          {
+            "state": "New York",
+            "employment": 11020.0,
+            "mean_wage": 82150.0,
+            "median_wage": 77080.0
+          },
+          {
+            "state": "California",
+            "employment": 10030.0,
+            "mean_wage": 90960.0,
+            "median_wage": 86590.0
+          },
+          {
+            "state": "Texas",
+            "employment": 9430.0,
+            "mean_wage": 64910.0,
+            "median_wage": 64910.0
+          },
+          {
+            "state": "Florida",
+            "employment": 5960.0,
+            "mean_wage": 63860.0,
+            "median_wage": 59890.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 5420.0,
+            "mean_wage": 61700.0,
+            "median_wage": 60120.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 5120.0,
+            "mean_wage": 76600.0,
+            "median_wage": 75790.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 4770.0,
+            "mean_wage": 59720.0,
+            "median_wage": 57130.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 4750.0,
+            "mean_wage": 73340.0,
+            "median_wage": 74320.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 4610.0,
+            "mean_wage": 67380.0,
+            "median_wage": 62360.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 3990.0,
+            "mean_wage": 62070.0,
+            "median_wage": 59860.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 3510.0,
+            "mean_wage": 81250.0,
+            "median_wage": 79380.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 3450.0,
+            "mean_wage": 70900.0,
+            "median_wage": 73500.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 3430.0,
+            "mean_wage": 61030.0,
+            "median_wage": 59520.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 3270.0,
+            "mean_wage": 85520.0,
+            "median_wage": 81690.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 3260.0,
+            "mean_wage": 58510.0,
+            "median_wage": 62240.0
+          }
+        ],
+        "top_by_wage": [
+          {
+            "state": "District of Columbia",
+            "mean_wage": 94300.0,
+            "median_wage": 93740.0,
+            "employment": 940.0
+          },
+          {
+            "state": "Washington",
+            "mean_wage": 91280.0,
+            "median_wage": 94400.0,
+            "employment": 2830.0
+          },
+          {
+            "state": "California",
+            "mean_wage": 90960.0,
+            "median_wage": 86590.0,
+            "employment": 10030.0
+          },
+          {
+            "state": "Maryland",
+            "mean_wage": 85520.0,
+            "median_wage": 81690.0,
+            "employment": 3270.0
+          },
+          {
+            "state": "New York",
+            "mean_wage": 82150.0,
+            "median_wage": 77080.0,
+            "employment": 11020.0
+          },
+          {
+            "state": "New Jersey",
+            "mean_wage": 81250.0,
+            "median_wage": 79380.0,
+            "employment": 3510.0
+          },
+          {
+            "state": "Connecticut",
+            "mean_wage": 79080.0,
+            "median_wage": 76380.0,
+            "employment": 2430.0
+          },
+          {
+            "state": "Delaware",
+            "mean_wage": 77850.0,
+            "median_wage": 78300.0,
+            "employment": 330.0
+          },
+          {
+            "state": "Alaska",
+            "mean_wage": 77090.0,
+            "median_wage": 78280.0,
+            "employment": 330.0
+          },
+          {
+            "state": "Massachusetts",
+            "mean_wage": 76600.0,
+            "median_wage": 75790.0,
+            "employment": 5120.0
+          },
+          {
+            "state": "Nevada",
+            "mean_wage": 76480.0,
+            "median_wage": 79710.0,
+            "employment": 650.0
+          },
+          {
+            "state": "Oregon",
+            "mean_wage": 73900.0,
+            "median_wage": 75360.0,
+            "employment": 1650.0
+          },
+          {
+            "state": "Minnesota",
+            "mean_wage": 73480.0,
+            "median_wage": 75260.0,
+            "employment": 2290.0
+          },
+          {
+            "state": "Virginia",
+            "mean_wage": 73340.0,
+            "median_wage": 74320.0,
+            "employment": 4750.0
+          },
+          {
+            "state": "Rhode Island",
+            "mean_wage": 72800.0,
+            "median_wage": 72820.0,
+            "employment": 810.0
+          }
+        ],
+        "lowest_by_wage": [
+          {
+            "state": "Mississippi",
+            "mean_wage": 49200.0,
+            "median_wage": 50320.0,
+            "employment": 1300.0
+          },
+          {
+            "state": "West Virginia",
+            "mean_wage": 49240.0,
+            "median_wage": 48640.0,
+            "employment": 430.0
+          },
+          {
+            "state": "Puerto Rico",
+            "mean_wage": 50460.0,
+            "median_wage": 49800.0,
+            "employment": 1290.0
+          },
+          {
+            "state": "Wyoming",
+            "mean_wage": 50550.0,
+            "median_wage": 48290.0,
+            "employment": 360.0
+          },
+          {
+            "state": "South Dakota",
+            "mean_wage": 51970.0,
+            "median_wage": 49290.0,
+            "employment": 460.0
+          },
+          {
+            "state": "Indiana",
+            "mean_wage": 52880.0,
+            "median_wage": 48880.0,
+            "employment": 2160.0
+          },
+          {
+            "state": "Idaho",
+            "mean_wage": 52930.0,
+            "median_wage": 46570.0,
+            "employment": 530.0
+          },
+          {
+            "state": "Kansas",
+            "mean_wage": 53860.0,
+            "median_wage": 59580.0,
+            "employment": 1680.0
+          },
+          {
+            "state": "Iowa",
+            "mean_wage": 54270.0,
+            "median_wage": 52780.0,
+            "employment": 1820.0
+          },
+          {
+            "state": "Arkansas",
+            "mean_wage": 54530.0,
+            "median_wage": 56770.0,
+            "employment": 1470.0
+          }
+        ],
+        "all_states": [
+          {
+            "state": "District of Columbia",
+            "employment": 940.0,
+            "mean_wage": 94300.0,
+            "median_wage": 93740.0
+          },
+          {
+            "state": "Washington",
+            "employment": 2830.0,
+            "mean_wage": 91280.0,
+            "median_wage": 94400.0
+          },
+          {
+            "state": "California",
+            "employment": 10030.0,
+            "mean_wage": 90960.0,
+            "median_wage": 86590.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 3270.0,
+            "mean_wage": 85520.0,
+            "median_wage": 81690.0
+          },
+          {
+            "state": "New York",
+            "employment": 11020.0,
+            "mean_wage": 82150.0,
+            "median_wage": 77080.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 3510.0,
+            "mean_wage": 81250.0,
+            "median_wage": 79380.0
+          },
+          {
+            "state": "Connecticut",
+            "employment": 2430.0,
+            "mean_wage": 79080.0,
+            "median_wage": 76380.0
+          },
+          {
+            "state": "Delaware",
+            "employment": 330.0,
+            "mean_wage": 77850.0,
+            "median_wage": 78300.0
+          },
+          {
+            "state": "Alaska",
+            "employment": 330.0,
+            "mean_wage": 77090.0,
+            "median_wage": 78280.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 5120.0,
+            "mean_wage": 76600.0,
+            "median_wage": 75790.0
+          },
+          {
+            "state": "Nevada",
+            "employment": 650.0,
+            "mean_wage": 76480.0,
+            "median_wage": 79710.0
+          },
+          {
+            "state": "Oregon",
+            "employment": 1650.0,
+            "mean_wage": 73900.0,
+            "median_wage": 75360.0
+          },
+          {
+            "state": "Minnesota",
+            "employment": 2290.0,
+            "mean_wage": 73480.0,
+            "median_wage": 75260.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 4750.0,
+            "mean_wage": 73340.0,
+            "median_wage": 74320.0
+          },
+          {
+            "state": "Rhode Island",
+            "employment": 810.0,
+            "mean_wage": 72800.0,
+            "median_wage": 72820.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 3450.0,
+            "mean_wage": 70900.0,
+            "median_wage": 73500.0
+          },
+          {
+            "state": "Colorado",
+            "employment": 2130.0,
+            "mean_wage": 69970.0,
+            "median_wage": 64980.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 4610.0,
+            "mean_wage": 67380.0,
+            "median_wage": 62360.0
+          },
+          {
+            "state": "Hawaii",
+            "employment": 330.0,
+            "mean_wage": 67340.0,
+            "median_wage": 62880.0
+          },
+          {
+            "state": "Wisconsin",
+            "employment": 2370.0,
+            "mean_wage": 65400.0,
+            "median_wage": 63610.0
+          },
+          {
+            "state": "Texas",
+            "employment": 9430.0,
+            "mean_wage": 64910.0,
+            "median_wage": 64910.0
+          },
+          {
+            "state": "North Dakota",
+            "employment": 460.0,
+            "mean_wage": 64520.0,
+            "median_wage": 61540.0
+          },
+          {
+            "state": "New Mexico",
+            "employment": 660.0,
+            "mean_wage": 64380.0,
+            "median_wage": 60560.0
+          },
+          {
+            "state": "Florida",
+            "employment": 5960.0,
+            "mean_wage": 63860.0,
+            "median_wage": 59890.0
+          },
+          {
+            "state": "New Hampshire",
+            "employment": 1170.0,
+            "mean_wage": 63370.0,
+            "median_wage": 61350.0
+          },
+          {
+            "state": "Kentucky",
+            "employment": 2010.0,
+            "mean_wage": 62370.0,
+            "median_wage": 63460.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 3990.0,
+            "mean_wage": 62070.0,
+            "median_wage": 59860.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 5420.0,
+            "mean_wage": 61700.0,
+            "median_wage": 60120.0
+          },
+          {
+            "state": "Arizona",
+            "employment": 1880.0,
+            "mean_wage": 61090.0,
+            "median_wage": 58760.0
+          },
+          {
+            "state": "Montana",
+            "employment": 610.0,
+            "mean_wage": 61090.0,
+            "median_wage": 62020.0
+          },
+          {
+            "state": "Vermont",
+            "employment": 580.0,
+            "mean_wage": 61090.0,
+            "median_wage": 60230.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 3430.0,
+            "mean_wage": 61030.0,
+            "median_wage": 59520.0
+          },
+          {
+            "state": "South Carolina",
+            "employment": 2320.0,
+            "mean_wage": 60900.0,
+            "median_wage": 60050.0
+          },
+          {
+            "state": "Louisiana",
+            "employment": 1890.0,
+            "mean_wage": 60090.0,
+            "median_wage": 59090.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 4770.0,
+            "mean_wage": 59720.0,
+            "median_wage": 57130.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 3260.0,
+            "mean_wage": 58510.0,
+            "median_wage": 62240.0
+          },
+          {
+            "state": "Nebraska",
+            "employment": 1150.0,
+            "mean_wage": 57760.0,
+            "median_wage": 61990.0
+          },
+          {
+            "state": "Tennessee",
+            "employment": 2590.0,
+            "mean_wage": 57330.0,
+            "median_wage": 59710.0
+          },
+          {
+            "state": "Virgin Islands",
+            "employment": 40.0,
+            "mean_wage": 57150.0,
+            "median_wage": 62470.0
+          },
+          {
+            "state": "Maine",
+            "employment": 930.0,
+            "mean_wage": 56920.0,
+            "median_wage": 56520.0
+          },
+          {
+            "state": "Utah",
+            "employment": 1630.0,
+            "mean_wage": 55760.0,
+            "median_wage": 49760.0
+          },
+          {
+            "state": "Missouri",
+            "employment": 2660.0,
+            "mean_wage": 55210.0,
+            "median_wage": 53600.0
+          },
+          {
+            "state": "Oklahoma",
+            "employment": 2010.0,
+            "mean_wage": 55120.0,
+            "median_wage": 53340.0
+          },
+          {
+            "state": "Arkansas",
+            "employment": 1470.0,
+            "mean_wage": 54530.0,
+            "median_wage": 56770.0
+          },
+          {
+            "state": "Iowa",
+            "employment": 1820.0,
+            "mean_wage": 54270.0,
+            "median_wage": 52780.0
+          },
+          {
+            "state": "Kansas",
+            "employment": 1680.0,
+            "mean_wage": 53860.0,
+            "median_wage": 59580.0
+          },
+          {
+            "state": "Idaho",
+            "employment": 530.0,
+            "mean_wage": 52930.0,
+            "median_wage": 46570.0
+          },
+          {
+            "state": "Indiana",
+            "employment": 2160.0,
+            "mean_wage": 52880.0,
+            "median_wage": 48880.0
+          },
+          {
+            "state": "South Dakota",
+            "employment": 460.0,
+            "mean_wage": 51970.0,
+            "median_wage": 49290.0
+          },
+          {
+            "state": "Wyoming",
+            "employment": 360.0,
+            "mean_wage": 50550.0,
+            "median_wage": 48290.0
+          },
+          {
+            "state": "Puerto Rico",
+            "employment": 1290.0,
+            "mean_wage": 50460.0,
+            "median_wage": 49800.0
+          },
+          {
+            "state": "West Virginia",
+            "employment": 430.0,
+            "mean_wage": 49240.0,
+            "median_wage": 48640.0
+          },
+          {
+            "state": "Mississippi",
+            "employment": 1300.0,
+            "mean_wage": 49200.0,
+            "median_wage": 50320.0
+          }
+        ]
+      },
+      "25-4031": {
+        "title": "Library Technicians",
+        "total_employment": 74080.0,
+        "states_with_data": 52,
+        "avg_mean_wage": 41464.61538461538,
+        "highest_mean_wage": 60160.0,
+        "lowest_mean_wage": 29070.0,
+        "avg_median_wage": 40095.769230769234,
+        "top_by_employment": [
+          {
+            "state": "California",
+            "employment": 7760.0,
+            "mean_wage": 54580.0,
+            "median_wage": 51290.0
+          },
+          {
+            "state": "Texas",
+            "employment": 5160.0,
+            "mean_wage": 38200.0,
+            "median_wage": 37920.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 5090.0,
+            "mean_wage": 37320.0,
+            "median_wage": 35230.0
+          },
+          {
+            "state": "New York",
+            "employment": 4070.0,
+            "mean_wage": 47940.0,
+            "median_wage": 46700.0
+          },
+          {
+            "state": "Florida",
+            "employment": 3610.0,
+            "mean_wage": 42960.0,
+            "median_wage": 38810.0
+          },
+          {
+            "state": "Wisconsin",
+            "employment": 2780.0,
+            "mean_wage": 34330.0,
+            "median_wage": 33030.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 2690.0,
+            "mean_wage": 45060.0,
+            "median_wage": 45140.0
+          },
+          {
+            "state": "Colorado",
+            "employment": 2560.0,
+            "mean_wage": 43880.0,
+            "median_wage": 44870.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 2540.0,
+            "mean_wage": 45400.0,
+            "median_wage": 43920.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 2450.0,
+            "mean_wage": 42900.0,
+            "median_wage": 44800.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 2230.0,
+            "mean_wage": 35510.0,
+            "median_wage": 34320.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 1910.0,
+            "mean_wage": 51870.0,
+            "median_wage": 49650.0
+          },
+          {
+            "state": "Oregon",
+            "employment": 1900.0,
+            "mean_wage": 46930.0,
+            "median_wage": 46950.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 1880.0,
+            "mean_wage": 36170.0,
+            "median_wage": 36650.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 1820.0,
+            "mean_wage": 40260.0,
+            "median_wage": 38150.0
+          }
+        ],
+        "top_by_wage": [
+          {
+            "state": "District of Columbia",
+            "mean_wage": 60160.0,
+            "median_wage": 58780.0,
+            "employment": 460.0
+          },
+          {
+            "state": "Washington",
+            "mean_wage": 59880.0,
+            "median_wage": 57550.0,
+            "employment": 1630.0
+          },
+          {
+            "state": "Connecticut",
+            "mean_wage": 55290.0,
+            "median_wage": 54550.0,
+            "employment": 950.0
+          },
+          {
+            "state": "California",
+            "mean_wage": 54580.0,
+            "median_wage": 51290.0,
+            "employment": 7760.0
+          },
+          {
+            "state": "Massachusetts",
+            "mean_wage": 51870.0,
+            "median_wage": 49650.0,
+            "employment": 1910.0
+          },
+          {
+            "state": "Maryland",
+            "mean_wage": 51860.0,
+            "median_wage": 49340.0,
+            "employment": 1470.0
+          },
+          {
+            "state": "Rhode Island",
+            "mean_wage": 48610.0,
+            "median_wage": 46910.0,
+            "employment": 140.0
+          },
+          {
+            "state": "New Jersey",
+            "mean_wage": 48280.0,
+            "median_wage": 46730.0,
+            "employment": 1140.0
+          },
+          {
+            "state": "New York",
+            "mean_wage": 47940.0,
+            "median_wage": 46700.0,
+            "employment": 4070.0
+          },
+          {
+            "state": "New Hampshire",
+            "mean_wage": 47810.0,
+            "median_wage": 47640.0,
+            "employment": 240.0
+          },
+          {
+            "state": "Minnesota",
+            "mean_wage": 47230.0,
+            "median_wage": 47330.0,
+            "employment": 1430.0
+          },
+          {
+            "state": "Oregon",
+            "mean_wage": 46930.0,
+            "median_wage": 46950.0,
+            "employment": 1900.0
+          },
+          {
+            "state": "Alaska",
+            "mean_wage": 46830.0,
+            "median_wage": 46530.0,
+            "employment": 220.0
+          },
+          {
+            "state": "Delaware",
+            "mean_wage": 46090.0,
+            "median_wage": 46820.0,
+            "employment": 190.0
+          },
+          {
+            "state": "Hawaii",
+            "mean_wage": 46070.0,
+            "median_wage": 44200.0,
+            "employment": 130.0
+          }
+        ],
+        "lowest_by_wage": [
+          {
+            "state": "Mississippi",
+            "mean_wage": 29070.0,
+            "median_wage": 26080.0,
+            "employment": 470.0
+          },
+          {
+            "state": "Puerto Rico",
+            "mean_wage": 31720.0,
+            "median_wage": 30620.0,
+            "employment": 310.0
+          },
+          {
+            "state": "Arkansas",
+            "mean_wage": 32180.0,
+            "median_wage": 30790.0,
+            "employment": 440.0
+          },
+          {
+            "state": "Oklahoma",
+            "mean_wage": 32670.0,
+            "median_wage": 28490.0,
+            "employment": 600.0
+          },
+          {
+            "state": "Kentucky",
+            "mean_wage": 32730.0,
+            "median_wage": 30750.0,
+            "employment": 1300.0
+          },
+          {
+            "state": "South Dakota",
+            "mean_wage": 33060.0,
+            "median_wage": 28370.0,
+            "employment": 500.0
+          },
+          {
+            "state": "Indiana",
+            "mean_wage": 33480.0,
+            "median_wage": 32420.0,
+            "employment": 1750.0
+          },
+          {
+            "state": "Idaho",
+            "mean_wage": 33550.0,
+            "median_wage": 33700.0,
+            "employment": 520.0
+          },
+          {
+            "state": "Wisconsin",
+            "mean_wage": 34330.0,
+            "median_wage": 33030.0,
+            "employment": 2780.0
+          },
+          {
+            "state": "West Virginia",
+            "mean_wage": 34340.0,
+            "median_wage": 31080.0,
+            "employment": 190.0
+          }
+        ],
+        "all_states": [
+          {
+            "state": "District of Columbia",
+            "employment": 460.0,
+            "mean_wage": 60160.0,
+            "median_wage": 58780.0
+          },
+          {
+            "state": "Washington",
+            "employment": 1630.0,
+            "mean_wage": 59880.0,
+            "median_wage": 57550.0
+          },
+          {
+            "state": "Connecticut",
+            "employment": 950.0,
+            "mean_wage": 55290.0,
+            "median_wage": 54550.0
+          },
+          {
+            "state": "California",
+            "employment": 7760.0,
+            "mean_wage": 54580.0,
+            "median_wage": 51290.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 1910.0,
+            "mean_wage": 51870.0,
+            "median_wage": 49650.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 1470.0,
+            "mean_wage": 51860.0,
+            "median_wage": 49340.0
+          },
+          {
+            "state": "Rhode Island",
+            "employment": 140.0,
+            "mean_wage": 48610.0,
+            "median_wage": 46910.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 1140.0,
+            "mean_wage": 48280.0,
+            "median_wage": 46730.0
+          },
+          {
+            "state": "New York",
+            "employment": 4070.0,
+            "mean_wage": 47940.0,
+            "median_wage": 46700.0
+          },
+          {
+            "state": "New Hampshire",
+            "employment": 240.0,
+            "mean_wage": 47810.0,
+            "median_wage": 47640.0
+          },
+          {
+            "state": "Minnesota",
+            "employment": 1430.0,
+            "mean_wage": 47230.0,
+            "median_wage": 47330.0
+          },
+          {
+            "state": "Oregon",
+            "employment": 1900.0,
+            "mean_wage": 46930.0,
+            "median_wage": 46950.0
+          },
+          {
+            "state": "Alaska",
+            "employment": 220.0,
+            "mean_wage": 46830.0,
+            "median_wage": 46530.0
+          },
+          {
+            "state": "Delaware",
+            "employment": 190.0,
+            "mean_wage": 46090.0,
+            "median_wage": 46820.0
+          },
+          {
+            "state": "Hawaii",
+            "employment": 130.0,
+            "mean_wage": 46070.0,
+            "median_wage": 44200.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 2540.0,
+            "mean_wage": 45400.0,
+            "median_wage": 43920.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 2690.0,
+            "mean_wage": 45060.0,
+            "median_wage": 45140.0
+          },
+          {
+            "state": "Vermont",
+            "employment": 150.0,
+            "mean_wage": 44280.0,
+            "median_wage": 43470.0
+          },
+          {
+            "state": "Colorado",
+            "employment": 2560.0,
+            "mean_wage": 43880.0,
+            "median_wage": 44870.0
+          },
+          {
+            "state": "Nevada",
+            "employment": 480.0,
+            "mean_wage": 43500.0,
+            "median_wage": 43490.0
+          },
+          {
+            "state": "Florida",
+            "employment": 3610.0,
+            "mean_wage": 42960.0,
+            "median_wage": 38810.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 2450.0,
+            "mean_wage": 42900.0,
+            "median_wage": 44800.0
+          },
+          {
+            "state": "Maine",
+            "employment": 400.0,
+            "mean_wage": 42690.0,
+            "median_wage": 41330.0
+          },
+          {
+            "state": "Arizona",
+            "employment": 770.0,
+            "mean_wage": 41630.0,
+            "median_wage": 40330.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 1820.0,
+            "mean_wage": 40260.0,
+            "median_wage": 38150.0
+          },
+          {
+            "state": "Kansas",
+            "employment": 580.0,
+            "mean_wage": 40250.0,
+            "median_wage": 38990.0
+          },
+          {
+            "state": "Iowa",
+            "employment": 1500.0,
+            "mean_wage": 39980.0,
+            "median_wage": 37180.0
+          },
+          {
+            "state": "New Mexico",
+            "employment": 660.0,
+            "mean_wage": 39240.0,
+            "median_wage": 36170.0
+          },
+          {
+            "state": "North Dakota",
+            "employment": 410.0,
+            "mean_wage": 39240.0,
+            "median_wage": 37770.0
+          },
+          {
+            "state": "Missouri",
+            "employment": 1420.0,
+            "mean_wage": 38580.0,
+            "median_wage": 37850.0
+          },
+          {
+            "state": "Louisiana",
+            "employment": 1530.0,
+            "mean_wage": 38440.0,
+            "median_wage": 37210.0
+          },
+          {
+            "state": "Texas",
+            "employment": 5160.0,
+            "mean_wage": 38200.0,
+            "median_wage": 37920.0
+          },
+          {
+            "state": "Nebraska",
+            "employment": 640.0,
+            "mean_wage": 38030.0,
+            "median_wage": 37310.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 5090.0,
+            "mean_wage": 37320.0,
+            "median_wage": 35230.0
+          },
+          {
+            "state": "Wyoming",
+            "employment": 200.0,
+            "mean_wage": 36770.0,
+            "median_wage": 35570.0
+          },
+          {
+            "state": "Utah",
+            "employment": 510.0,
+            "mean_wage": 36400.0,
+            "median_wage": 36630.0
+          },
+          {
+            "state": "Montana",
+            "employment": 430.0,
+            "mean_wage": 36290.0,
+            "median_wage": 36140.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 1880.0,
+            "mean_wage": 36170.0,
+            "median_wage": 36650.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 510.0,
+            "mean_wage": 35930.0,
+            "median_wage": 32910.0
+          },
+          {
+            "state": "South Carolina",
+            "employment": 860.0,
+            "mean_wage": 35920.0,
+            "median_wage": 34860.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 2230.0,
+            "mean_wage": 35510.0,
+            "median_wage": 34320.0
+          },
+          {
+            "state": "Tennessee",
+            "employment": 500.0,
+            "mean_wage": 34770.0,
+            "median_wage": 31660.0
+          },
+          {
+            "state": "West Virginia",
+            "employment": 190.0,
+            "mean_wage": 34340.0,
+            "median_wage": 31080.0
+          },
+          {
+            "state": "Wisconsin",
+            "employment": 2780.0,
+            "mean_wage": 34330.0,
+            "median_wage": 33030.0
+          },
+          {
+            "state": "Idaho",
+            "employment": 520.0,
+            "mean_wage": 33550.0,
+            "median_wage": 33700.0
+          },
+          {
+            "state": "Indiana",
+            "employment": 1750.0,
+            "mean_wage": 33480.0,
+            "median_wage": 32420.0
+          },
+          {
+            "state": "South Dakota",
+            "employment": 500.0,
+            "mean_wage": 33060.0,
+            "median_wage": 28370.0
+          },
+          {
+            "state": "Kentucky",
+            "employment": 1300.0,
+            "mean_wage": 32730.0,
+            "median_wage": 30750.0
+          },
+          {
+            "state": "Oklahoma",
+            "employment": 600.0,
+            "mean_wage": 32670.0,
+            "median_wage": 28490.0
+          },
+          {
+            "state": "Arkansas",
+            "employment": 440.0,
+            "mean_wage": 32180.0,
+            "median_wage": 30790.0
+          },
+          {
+            "state": "Puerto Rico",
+            "employment": 310.0,
+            "mean_wage": 31720.0,
+            "median_wage": 30620.0
+          },
+          {
+            "state": "Mississippi",
+            "employment": 470.0,
+            "mean_wage": 29070.0,
+            "median_wage": 26080.0
+          }
+        ]
+      },
+      "43-4111": {
+        "title": "Library Assistants, Bookkeeping, Clerical",
+        "total_employment": 159620.0,
+        "states_with_data": 51,
+        "avg_mean_wage": 43227.05882352941,
+        "highest_mean_wage": 55150.0,
+        "lowest_mean_wage": 24370.0,
+        "avg_median_wage": 41756.27450980392,
+        "top_by_employment": [
+          {
+            "state": "California",
+            "employment": 24430.0,
+            "mean_wage": 54920.0,
+            "median_wage": 51720.0
+          },
+          {
+            "state": "Texas",
+            "employment": 12570.0,
+            "mean_wage": 40650.0,
+            "median_wage": 40380.0
+          },
+          {
+            "state": "New York",
+            "employment": 11570.0,
+            "mean_wage": 52840.0,
+            "median_wage": 51990.0
+          },
+          {
+            "state": "Florida",
+            "employment": 7690.0,
+            "mean_wage": 40890.0,
+            "median_wage": 39310.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 7400.0,
+            "mean_wage": 42790.0,
+            "median_wage": 40100.0
+          },
+          {
+            "state": "Colorado",
+            "employment": 5930.0,
+            "mean_wage": 49780.0,
+            "median_wage": 48470.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 4570.0,
+            "mean_wage": 43800.0,
+            "median_wage": 43060.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 4470.0,
+            "mean_wage": 46420.0,
+            "median_wage": 46460.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 4330.0,
+            "mean_wage": 45480.0,
+            "median_wage": 41610.0
+          },
+          {
+            "state": "Indiana",
+            "employment": 4070.0,
+            "mean_wage": 42190.0,
+            "median_wage": 39220.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 4060.0,
+            "mean_wage": 41790.0,
+            "median_wage": 40870.0
+          },
+          {
+            "state": "Louisiana",
+            "employment": 3870.0,
+            "mean_wage": 37120.0,
+            "median_wage": 36530.0
+          },
+          {
+            "state": "Kansas",
+            "employment": 3760.0,
+            "mean_wage": 40600.0,
+            "median_wage": 38280.0
+          },
+          {
+            "state": "Missouri",
+            "employment": 3630.0,
+            "mean_wage": 41730.0,
+            "median_wage": 39150.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 3160.0,
+            "mean_wage": 46100.0,
+            "median_wage": 45090.0
+          }
+        ],
+        "top_by_wage": [
+          {
+            "state": "District of Columbia",
+            "mean_wage": 55150.0,
+            "median_wage": 48270.0,
+            "employment": 830.0
+          },
+          {
+            "state": "California",
+            "mean_wage": 54920.0,
+            "median_wage": 51720.0,
+            "employment": 24430.0
+          },
+          {
+            "state": "New York",
+            "mean_wage": 52840.0,
+            "median_wage": 51990.0,
+            "employment": 11570.0
+          },
+          {
+            "state": "Rhode Island",
+            "mean_wage": 52660.0,
+            "median_wage": 50420.0,
+            "employment": 430.0
+          },
+          {
+            "state": "Oregon",
+            "mean_wage": 51670.0,
+            "median_wage": 50230.0,
+            "employment": 2280.0
+          },
+          {
+            "state": "Massachusetts",
+            "mean_wage": 51250.0,
+            "median_wage": 48940.0,
+            "employment": 2970.0
+          },
+          {
+            "state": "Delaware",
+            "mean_wage": 51150.0,
+            "median_wage": 50860.0,
+            "employment": 540.0
+          },
+          {
+            "state": "Connecticut",
+            "mean_wage": 51110.0,
+            "median_wage": 48250.0,
+            "employment": 1300.0
+          },
+          {
+            "state": "Washington",
+            "mean_wage": 50890.0,
+            "median_wage": 48570.0,
+            "employment": 2360.0
+          },
+          {
+            "state": "Colorado",
+            "mean_wage": 49780.0,
+            "median_wage": 48470.0,
+            "employment": 5930.0
+          },
+          {
+            "state": "Alaska",
+            "mean_wage": 49210.0,
+            "median_wage": 46650.0,
+            "employment": 150.0
+          },
+          {
+            "state": "Minnesota",
+            "mean_wage": 47840.0,
+            "median_wage": 47680.0,
+            "employment": 1840.0
+          },
+          {
+            "state": "New Hampshire",
+            "mean_wage": 47790.0,
+            "median_wage": 47310.0,
+            "employment": 1370.0
+          },
+          {
+            "state": "New Jersey",
+            "mean_wage": 46420.0,
+            "median_wage": 46460.0,
+            "employment": 4470.0
+          },
+          {
+            "state": "Maryland",
+            "mean_wage": 46100.0,
+            "median_wage": 45090.0,
+            "employment": 3160.0
+          }
+        ],
+        "lowest_by_wage": [
+          {
+            "state": "Puerto Rico",
+            "mean_wage": 24370.0,
+            "median_wage": 21910.0,
+            "employment": 2700.0
+          },
+          {
+            "state": "Alabama",
+            "mean_wage": 34310.0,
+            "median_wage": 33020.0,
+            "employment": 2940.0
+          },
+          {
+            "state": "Mississippi",
+            "mean_wage": 34410.0,
+            "median_wage": 33950.0,
+            "employment": 2670.0
+          },
+          {
+            "state": "West Virginia",
+            "mean_wage": 34700.0,
+            "median_wage": 34240.0,
+            "employment": 2020.0
+          },
+          {
+            "state": "Hawaii",
+            "mean_wage": 35590.0,
+            "median_wage": 35050.0,
+            "employment": 0
+          },
+          {
+            "state": "Louisiana",
+            "mean_wage": 37120.0,
+            "median_wage": 36530.0,
+            "employment": 3870.0
+          },
+          {
+            "state": "Idaho",
+            "mean_wage": 37150.0,
+            "median_wage": 38130.0,
+            "employment": 590.0
+          },
+          {
+            "state": "Arkansas",
+            "mean_wage": 38520.0,
+            "median_wage": 37260.0,
+            "employment": 3140.0
+          },
+          {
+            "state": "Georgia",
+            "mean_wage": 38750.0,
+            "median_wage": 37700.0,
+            "employment": 1230.0
+          },
+          {
+            "state": "Iowa",
+            "mean_wage": 39140.0,
+            "median_wage": 38360.0,
+            "employment": 1920.0
+          }
+        ],
+        "all_states": [
+          {
+            "state": "District of Columbia",
+            "employment": 830.0,
+            "mean_wage": 55150.0,
+            "median_wage": 48270.0
+          },
+          {
+            "state": "California",
+            "employment": 24430.0,
+            "mean_wage": 54920.0,
+            "median_wage": 51720.0
+          },
+          {
+            "state": "New York",
+            "employment": 11570.0,
+            "mean_wage": 52840.0,
+            "median_wage": 51990.0
+          },
+          {
+            "state": "Rhode Island",
+            "employment": 430.0,
+            "mean_wage": 52660.0,
+            "median_wage": 50420.0
+          },
+          {
+            "state": "Oregon",
+            "employment": 2280.0,
+            "mean_wage": 51670.0,
+            "median_wage": 50230.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 2970.0,
+            "mean_wage": 51250.0,
+            "median_wage": 48940.0
+          },
+          {
+            "state": "Delaware",
+            "employment": 540.0,
+            "mean_wage": 51150.0,
+            "median_wage": 50860.0
+          },
+          {
+            "state": "Connecticut",
+            "employment": 1300.0,
+            "mean_wage": 51110.0,
+            "median_wage": 48250.0
+          },
+          {
+            "state": "Washington",
+            "employment": 2360.0,
+            "mean_wage": 50890.0,
+            "median_wage": 48570.0
+          },
+          {
+            "state": "Colorado",
+            "employment": 5930.0,
+            "mean_wage": 49780.0,
+            "median_wage": 48470.0
+          },
+          {
+            "state": "Alaska",
+            "employment": 150.0,
+            "mean_wage": 49210.0,
+            "median_wage": 46650.0
+          },
+          {
+            "state": "Minnesota",
+            "employment": 1840.0,
+            "mean_wage": 47840.0,
+            "median_wage": 47680.0
+          },
+          {
+            "state": "New Hampshire",
+            "employment": 1370.0,
+            "mean_wage": 47790.0,
+            "median_wage": 47310.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 4470.0,
+            "mean_wage": 46420.0,
+            "median_wage": 46460.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 3160.0,
+            "mean_wage": 46100.0,
+            "median_wage": 45090.0
+          },
+          {
+            "state": "Vermont",
+            "employment": 400.0,
+            "mean_wage": 45680.0,
+            "median_wage": 45050.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 4330.0,
+            "mean_wage": 45480.0,
+            "median_wage": 41610.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 3030.0,
+            "mean_wage": 44790.0,
+            "median_wage": 42990.0
+          },
+          {
+            "state": "Montana",
+            "employment": 470.0,
+            "mean_wage": 44490.0,
+            "median_wage": 43120.0
+          },
+          {
+            "state": "Nevada",
+            "employment": 2270.0,
+            "mean_wage": 44180.0,
+            "median_wage": 39400.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 4570.0,
+            "mean_wage": 43800.0,
+            "median_wage": 43060.0
+          },
+          {
+            "state": "Wisconsin",
+            "employment": 750.0,
+            "mean_wage": 42930.0,
+            "median_wage": 43400.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 7400.0,
+            "mean_wage": 42790.0,
+            "median_wage": 40100.0
+          },
+          {
+            "state": "Nebraska",
+            "employment": 1590.0,
+            "mean_wage": 42700.0,
+            "median_wage": 42120.0
+          },
+          {
+            "state": "Arizona",
+            "employment": 2610.0,
+            "mean_wage": 42550.0,
+            "median_wage": 41280.0
+          },
+          {
+            "state": "Maine",
+            "employment": 1050.0,
+            "mean_wage": 42220.0,
+            "median_wage": 40240.0
+          },
+          {
+            "state": "Indiana",
+            "employment": 4070.0,
+            "mean_wage": 42190.0,
+            "median_wage": 39220.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 4060.0,
+            "mean_wage": 41790.0,
+            "median_wage": 40870.0
+          },
+          {
+            "state": "Missouri",
+            "employment": 3630.0,
+            "mean_wage": 41730.0,
+            "median_wage": 39150.0
+          },
+          {
+            "state": "Wyoming",
+            "employment": 380.0,
+            "mean_wage": 41540.0,
+            "median_wage": 39250.0
+          },
+          {
+            "state": "North Dakota",
+            "employment": 40.0,
+            "mean_wage": 40990.0,
+            "median_wage": 40400.0
+          },
+          {
+            "state": "Florida",
+            "employment": 7690.0,
+            "mean_wage": 40890.0,
+            "median_wage": 39310.0
+          },
+          {
+            "state": "South Dakota",
+            "employment": 520.0,
+            "mean_wage": 40720.0,
+            "median_wage": 38720.0
+          },
+          {
+            "state": "Utah",
+            "employment": 720.0,
+            "mean_wage": 40720.0,
+            "median_wage": 41030.0
+          },
+          {
+            "state": "Texas",
+            "employment": 12570.0,
+            "mean_wage": 40650.0,
+            "median_wage": 40380.0
+          },
+          {
+            "state": "Kansas",
+            "employment": 3760.0,
+            "mean_wage": 40600.0,
+            "median_wage": 38280.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 2850.0,
+            "mean_wage": 40040.0,
+            "median_wage": 39070.0
+          },
+          {
+            "state": "Oklahoma",
+            "employment": 1300.0,
+            "mean_wage": 39990.0,
+            "median_wage": 39380.0
+          },
+          {
+            "state": "South Carolina",
+            "employment": 980.0,
+            "mean_wage": 39620.0,
+            "median_wage": 36650.0
+          },
+          {
+            "state": "Tennessee",
+            "employment": 2150.0,
+            "mean_wage": 39360.0,
+            "median_wage": 39170.0
+          },
+          {
+            "state": "Kentucky",
+            "employment": 1720.0,
+            "mean_wage": 39300.0,
+            "median_wage": 39260.0
+          },
+          {
+            "state": "Iowa",
+            "employment": 1920.0,
+            "mean_wage": 39140.0,
+            "median_wage": 38360.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 1230.0,
+            "mean_wage": 38750.0,
+            "median_wage": 37700.0
+          },
+          {
+            "state": "Arkansas",
+            "employment": 3140.0,
+            "mean_wage": 38520.0,
+            "median_wage": 37260.0
+          },
+          {
+            "state": "Idaho",
+            "employment": 590.0,
+            "mean_wage": 37150.0,
+            "median_wage": 38130.0
+          },
+          {
+            "state": "Louisiana",
+            "employment": 3870.0,
+            "mean_wage": 37120.0,
+            "median_wage": 36530.0
+          },
+          {
+            "state": "Hawaii",
+            "employment": 0,
+            "mean_wage": 35590.0,
+            "median_wage": 35050.0
+          },
+          {
+            "state": "West Virginia",
+            "employment": 2020.0,
+            "mean_wage": 34700.0,
+            "median_wage": 34240.0
+          },
+          {
+            "state": "Mississippi",
+            "employment": 2670.0,
+            "mean_wage": 34410.0,
+            "median_wage": 33950.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 2940.0,
+            "mean_wage": 34310.0,
+            "median_wage": 33020.0
+          },
+          {
+            "state": "Puerto Rico",
+            "employment": 2700.0,
+            "mean_wage": 24370.0,
+            "median_wage": 21910.0
+          }
+        ]
+      },
+      "25-1082": {
+        "title": "Library Science Teachers, Postsecondary",
+        "total_employment": 3660.0,
+        "states_with_data": 30,
+        "avg_mean_wage": 80060.33333333333,
+        "highest_mean_wage": 133140.0,
+        "lowest_mean_wage": 62100.0,
+        "avg_median_wage": 76414.66666666667,
+        "top_by_employment": [
+          {
+            "state": "Illinois",
+            "employment": 540.0,
+            "mean_wage": 76430.0,
+            "median_wage": 76030.0
+          },
+          {
+            "state": "California",
+            "employment": 380.0,
+            "mean_wage": 133140.0,
+            "median_wage": 118760.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 270.0,
+            "mean_wage": 79710.0,
+            "median_wage": 77390.0
+          },
+          {
+            "state": "Tennessee",
+            "employment": 210.0,
+            "mean_wage": 80880.0,
+            "median_wage": 66490.0
+          },
+          {
+            "state": "Texas",
+            "employment": 200.0,
+            "mean_wage": 79410.0,
+            "median_wage": 76190.0
+          },
+          {
+            "state": "New York",
+            "employment": 170.0,
+            "mean_wage": 72810.0,
+            "median_wage": 63130.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 150.0,
+            "mean_wage": 73460.0,
+            "median_wage": 73250.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 130.0,
+            "mean_wage": 88850.0,
+            "median_wage": 82800.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 120.0,
+            "mean_wage": 71340.0,
+            "median_wage": 65190.0
+          },
+          {
+            "state": "Minnesota",
+            "employment": 120.0,
+            "mean_wage": 83180.0,
+            "median_wage": 80330.0
+          },
+          {
+            "state": "Mississippi",
+            "employment": 110.0,
+            "mean_wage": 65870.0,
+            "median_wage": 62900.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 100.0,
+            "mean_wage": 77480.0,
+            "median_wage": 79740.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 100.0,
+            "mean_wage": 86110.0,
+            "median_wage": 79530.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 90.0,
+            "mean_wage": 104870.0,
+            "median_wage": 102910.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 90.0,
+            "mean_wage": 81330.0,
+            "median_wage": 79830.0
+          }
+        ],
+        "top_by_wage": [
+          {
+            "state": "California",
+            "mean_wage": 133140.0,
+            "median_wage": 118760.0,
+            "employment": 380.0
+          },
+          {
+            "state": "Washington",
+            "mean_wage": 112830.0,
+            "median_wage": 103950.0,
+            "employment": 90.0
+          },
+          {
+            "state": "Maryland",
+            "mean_wage": 104870.0,
+            "median_wage": 102910.0,
+            "employment": 90.0
+          },
+          {
+            "state": "New Jersey",
+            "mean_wage": 88850.0,
+            "median_wage": 82800.0,
+            "employment": 130.0
+          },
+          {
+            "state": "Virginia",
+            "mean_wage": 86110.0,
+            "median_wage": 79530.0,
+            "employment": 100.0
+          },
+          {
+            "state": "Indiana",
+            "mean_wage": 84750.0,
+            "median_wage": 79970.0,
+            "employment": 70.0
+          },
+          {
+            "state": "Minnesota",
+            "mean_wage": 83180.0,
+            "median_wage": 80330.0,
+            "employment": 120.0
+          },
+          {
+            "state": "Oregon",
+            "mean_wage": 82550.0,
+            "median_wage": 78820.0,
+            "employment": 50.0
+          },
+          {
+            "state": "Pennsylvania",
+            "mean_wage": 82200.0,
+            "median_wage": 81060.0,
+            "employment": 80.0
+          },
+          {
+            "state": "Ohio",
+            "mean_wage": 81950.0,
+            "median_wage": 81190.0,
+            "employment": 50.0
+          },
+          {
+            "state": "Michigan",
+            "mean_wage": 81330.0,
+            "median_wage": 79830.0,
+            "employment": 90.0
+          },
+          {
+            "state": "Tennessee",
+            "mean_wage": 80880.0,
+            "median_wage": 66490.0,
+            "employment": 210.0
+          },
+          {
+            "state": "North Carolina",
+            "mean_wage": 79710.0,
+            "median_wage": 77390.0,
+            "employment": 270.0
+          },
+          {
+            "state": "Texas",
+            "mean_wage": 79410.0,
+            "median_wage": 76190.0,
+            "employment": 200.0
+          },
+          {
+            "state": "Utah",
+            "mean_wage": 77860.0,
+            "median_wage": 79880.0,
+            "employment": 70.0
+          }
+        ],
+        "lowest_by_wage": [
+          {
+            "state": "Wisconsin",
+            "mean_wage": 62100.0,
+            "median_wage": 62820.0,
+            "employment": 40.0
+          },
+          {
+            "state": "Kentucky",
+            "mean_wage": 65010.0,
+            "median_wage": 61090.0,
+            "employment": 60.0
+          },
+          {
+            "state": "Mississippi",
+            "mean_wage": 65870.0,
+            "median_wage": 62900.0,
+            "employment": 110.0
+          },
+          {
+            "state": "Puerto Rico",
+            "mean_wage": 66360.0,
+            "median_wage": 62040.0,
+            "employment": 60.0
+          },
+          {
+            "state": "Oklahoma",
+            "mean_wage": 69380.0,
+            "median_wage": 62970.0,
+            "employment": 80.0
+          },
+          {
+            "state": "Idaho",
+            "mean_wage": 69990.0,
+            "median_wage": 64620.0,
+            "employment": 60.0
+          },
+          {
+            "state": "South Carolina",
+            "mean_wage": 70110.0,
+            "median_wage": 63950.0,
+            "employment": 50.0
+          },
+          {
+            "state": "Missouri",
+            "mean_wage": 70820.0,
+            "median_wage": 65300.0,
+            "employment": 70.0
+          },
+          {
+            "state": "Georgia",
+            "mean_wage": 71340.0,
+            "median_wage": 65190.0,
+            "employment": 120.0
+          },
+          {
+            "state": "New York",
+            "mean_wage": 72810.0,
+            "median_wage": 63130.0,
+            "employment": 170.0
+          }
+        ],
+        "all_states": [
+          {
+            "state": "California",
+            "employment": 380.0,
+            "mean_wage": 133140.0,
+            "median_wage": 118760.0
+          },
+          {
+            "state": "Washington",
+            "employment": 90.0,
+            "mean_wage": 112830.0,
+            "median_wage": 103950.0
+          },
+          {
+            "state": "Maryland",
+            "employment": 90.0,
+            "mean_wage": 104870.0,
+            "median_wage": 102910.0
+          },
+          {
+            "state": "New Jersey",
+            "employment": 130.0,
+            "mean_wage": 88850.0,
+            "median_wage": 82800.0
+          },
+          {
+            "state": "Virginia",
+            "employment": 100.0,
+            "mean_wage": 86110.0,
+            "median_wage": 79530.0
+          },
+          {
+            "state": "Indiana",
+            "employment": 70.0,
+            "mean_wage": 84750.0,
+            "median_wage": 79970.0
+          },
+          {
+            "state": "Minnesota",
+            "employment": 120.0,
+            "mean_wage": 83180.0,
+            "median_wage": 80330.0
+          },
+          {
+            "state": "Oregon",
+            "employment": 50.0,
+            "mean_wage": 82550.0,
+            "median_wage": 78820.0
+          },
+          {
+            "state": "Pennsylvania",
+            "employment": 80.0,
+            "mean_wage": 82200.0,
+            "median_wage": 81060.0
+          },
+          {
+            "state": "Ohio",
+            "employment": 50.0,
+            "mean_wage": 81950.0,
+            "median_wage": 81190.0
+          },
+          {
+            "state": "Michigan",
+            "employment": 90.0,
+            "mean_wage": 81330.0,
+            "median_wage": 79830.0
+          },
+          {
+            "state": "Tennessee",
+            "employment": 210.0,
+            "mean_wage": 80880.0,
+            "median_wage": 66490.0
+          },
+          {
+            "state": "North Carolina",
+            "employment": 270.0,
+            "mean_wage": 79710.0,
+            "median_wage": 77390.0
+          },
+          {
+            "state": "Texas",
+            "employment": 200.0,
+            "mean_wage": 79410.0,
+            "median_wage": 76190.0
+          },
+          {
+            "state": "Utah",
+            "employment": 70.0,
+            "mean_wage": 77860.0,
+            "median_wage": 79880.0
+          },
+          {
+            "state": "Massachusetts",
+            "employment": 100.0,
+            "mean_wage": 77480.0,
+            "median_wage": 79740.0
+          },
+          {
+            "state": "Florida",
+            "employment": 0,
+            "mean_wage": 76700.0,
+            "median_wage": 80480.0
+          },
+          {
+            "state": "Illinois",
+            "employment": 540.0,
+            "mean_wage": 76430.0,
+            "median_wage": 76030.0
+          },
+          {
+            "state": "Kansas",
+            "employment": 50.0,
+            "mean_wage": 74330.0,
+            "median_wage": 79830.0
+          },
+          {
+            "state": "Alabama",
+            "employment": 150.0,
+            "mean_wage": 73460.0,
+            "median_wage": 73250.0
+          },
+          {
+            "state": "New York",
+            "employment": 170.0,
+            "mean_wage": 72810.0,
+            "median_wage": 63130.0
+          },
+          {
+            "state": "Georgia",
+            "employment": 120.0,
+            "mean_wage": 71340.0,
+            "median_wage": 65190.0
+          },
+          {
+            "state": "Missouri",
+            "employment": 70.0,
+            "mean_wage": 70820.0,
+            "median_wage": 65300.0
+          },
+          {
+            "state": "South Carolina",
+            "employment": 50.0,
+            "mean_wage": 70110.0,
+            "median_wage": 63950.0
+          },
+          {
+            "state": "Idaho",
+            "employment": 60.0,
+            "mean_wage": 69990.0,
+            "median_wage": 64620.0
+          },
+          {
+            "state": "Oklahoma",
+            "employment": 80.0,
+            "mean_wage": 69380.0,
+            "median_wage": 62970.0
+          },
+          {
+            "state": "Puerto Rico",
+            "employment": 60.0,
+            "mean_wage": 66360.0,
+            "median_wage": 62040.0
+          },
+          {
+            "state": "Mississippi",
+            "employment": 110.0,
+            "mean_wage": 65870.0,
+            "median_wage": 62900.0
+          },
+          {
+            "state": "Kentucky",
+            "employment": 60.0,
+            "mean_wage": 65010.0,
+            "median_wage": 61090.0
+          },
+          {
+            "state": "Wisconsin",
+            "employment": 40.0,
+            "mean_wage": 62100.0,
+            "median_wage": 62820.0
+          }
+        ]
+      }
+    },
+    "source_year": 2024
+  },
+  "acp": {
+    "total_national_claims": 14892204659.65,
+    "total_national_subscribers": 461362645.0,
+    "date_range": "Jan 2022 \u2013 May 2024",
+    "months_active": 29,
+    "top_by_claim": [
+      {
+        "state": "CA",
+        "total_claim_amount": 1790216104.0600002,
+        "total_subscribers": 55850108.0
+      },
+      {
+        "state": "TX",
+        "total_claim_amount": 1095488940.7699997,
+        "total_subscribers": 34879799.0
+      },
+      {
+        "state": "NY",
+        "total_claim_amount": 1090088591.0900002,
+        "total_subscribers": 33894314.0
+      },
+      {
+        "state": "FL",
+        "total_claim_amount": 1067901564.4999998,
+        "total_subscribers": 33302864.0
+      },
+      {
+        "state": "OH",
+        "total_claim_amount": 738766137.2999998,
+        "total_subscribers": 23784618.0
+      },
+      {
+        "state": "NC",
+        "total_claim_amount": 585526447.23,
+        "total_subscribers": 18784268.0
+      },
+      {
+        "state": "MI",
+        "total_claim_amount": 558812405.8199999,
+        "total_subscribers": 17172916.0
+      },
+      {
+        "state": "PR",
+        "total_claim_amount": 489717659.2900001,
+        "total_subscribers": 15098549.0
+      },
+      {
+        "state": "PA",
+        "total_claim_amount": 488086591.74000007,
+        "total_subscribers": 15440995.0
+      },
+      {
+        "state": "GA",
+        "total_claim_amount": 480409445.5500001,
+        "total_subscribers": 15101698.0
+      },
+      {
+        "state": "IL",
+        "total_claim_amount": 437086323.44000006,
+        "total_subscribers": 13740556.0
+      },
+      {
+        "state": "OK",
+        "total_claim_amount": 372103676.9600001,
+        "total_subscribers": 6976078.0
+      },
+      {
+        "state": "AZ",
+        "total_claim_amount": 368545962.97,
+        "total_subscribers": 10408339.0
+      },
+      {
+        "state": "LA",
+        "total_claim_amount": 353634888.69,
+        "total_subscribers": 10871305.0
+      },
+      {
+        "state": "KY",
+        "total_claim_amount": 296255063.3400001,
+        "total_subscribers": 9415185.0
+      },
+      {
+        "state": "VA",
+        "total_claim_amount": 287814332.05,
+        "total_subscribers": 9027714.0
+      },
+      {
+        "state": "TN",
+        "total_claim_amount": 283086100.77000004,
+        "total_subscribers": 9062972.0
+      },
+      {
+        "state": "WI",
+        "total_claim_amount": 272704536.01,
+        "total_subscribers": 8749378.0
+      },
+      {
+        "state": "AL",
+        "total_claim_amount": 272661219.16,
+        "total_subscribers": 8645743.0
+      },
+      {
+        "state": "SC",
+        "total_claim_amount": 271379667.16,
+        "total_subscribers": 8650754.0
+      }
+    ],
+    "top_by_subscribers": [
+      {
+        "state": "CA",
+        "total_subscribers": 55850108.0,
+        "total_claim_amount": 1790216104.0600002
+      },
+      {
+        "state": "TX",
+        "total_subscribers": 34879799.0,
+        "total_claim_amount": 1095488940.7699997
+      },
+      {
+        "state": "NY",
+        "total_subscribers": 33894314.0,
+        "total_claim_amount": 1090088591.0900002
+      },
+      {
+        "state": "FL",
+        "total_subscribers": 33302864.0,
+        "total_claim_amount": 1067901564.4999998
+      },
+      {
+        "state": "OH",
+        "total_subscribers": 23784618.0,
+        "total_claim_amount": 738766137.2999998
+      },
+      {
+        "state": "NC",
+        "total_subscribers": 18784268.0,
+        "total_claim_amount": 585526447.23
+      },
+      {
+        "state": "MI",
+        "total_subscribers": 17172916.0,
+        "total_claim_amount": 558812405.8199999
+      },
+      {
+        "state": "PA",
+        "total_subscribers": 15440995.0,
+        "total_claim_amount": 488086591.74000007
+      },
+      {
+        "state": "GA",
+        "total_subscribers": 15101698.0,
+        "total_claim_amount": 480409445.5500001
+      },
+      {
+        "state": "PR",
+        "total_subscribers": 15098549.0,
+        "total_claim_amount": 489717659.2900001
+      },
+      {
+        "state": "IL",
+        "total_subscribers": 13740556.0,
+        "total_claim_amount": 437086323.44000006
+      },
+      {
+        "state": "LA",
+        "total_subscribers": 10871305.0,
+        "total_claim_amount": 353634888.69
+      },
+      {
+        "state": "AZ",
+        "total_subscribers": 10408339.0,
+        "total_claim_amount": 368545962.97
+      },
+      {
+        "state": "KY",
+        "total_subscribers": 9415185.0,
+        "total_claim_amount": 296255063.3400001
+      },
+      {
+        "state": "TN",
+        "total_subscribers": 9062972.0,
+        "total_claim_amount": 283086100.77000004
+      },
+      {
+        "state": "VA",
+        "total_subscribers": 9027714.0,
+        "total_claim_amount": 287814332.05
+      },
+      {
+        "state": "WI",
+        "total_subscribers": 8749378.0,
+        "total_claim_amount": 272704536.01
+      },
+      {
+        "state": "SC",
+        "total_subscribers": 8650754.0,
+        "total_claim_amount": 271379667.16
+      },
+      {
+        "state": "AL",
+        "total_subscribers": 8645743.0,
+        "total_claim_amount": 272661219.16
+      },
+      {
+        "state": "IN",
+        "total_subscribers": 8620583.0,
+        "total_claim_amount": 270171258.99999994
+      }
+    ],
+    "monthly_trend": [
+      {
+        "month": "Apr 2022",
+        "amount": 308345166.0300001,
+        "subscribers": 9807730.0
+      },
+      {
+        "month": "Apr 2023",
+        "amount": 556056475.8,
+        "subscribers": 16764435.0
+      },
+      {
+        "month": "Apr 2024",
+        "amount": 620995666.7300004,
+        "subscribers": 20282257.0
+      },
+      {
+        "month": "Aug 2022",
+        "amount": 402053846.65000015,
+        "subscribers": 12457700.0
+      },
+      {
+        "month": "Aug 2023",
+        "amount": 660652303.6400001,
+        "subscribers": 19702497.0
+      },
+      {
+        "month": "Dec 2022",
+        "amount": 460029207.08000016,
+        "subscribers": 14368005.0
+      },
+      {
+        "month": "Dec 2023",
+        "amount": 717348784.9399999,
+        "subscribers": 21623940.0
+      },
+      {
+        "month": "Feb 2022",
+        "amount": 387531574.4400001,
+        "subscribers": 8714543.0
+      },
+      {
+        "month": "Feb 2023",
+        "amount": 498776643.6399999,
+        "subscribers": 15514412.0
+      },
+      {
+        "month": "Feb 2024",
+        "amount": 687802105.89,
+        "subscribers": 21946247.0
+      },
+      {
+        "month": "Jan 2022",
+        "amount": 395619522.85000014,
+        "subscribers": 8235728.0
+      },
+      {
+        "month": "Jan 2023",
+        "amount": 474551064.5000001,
+        "subscribers": 14878914.0
+      },
+      {
+        "month": "Jan 2024",
+        "amount": 740249695.6699997,
+        "subscribers": 22208909.0
+      },
+      {
+        "month": "Jul 2022",
+        "amount": 372916206.76000005,
+        "subscribers": 11730621.0
+      },
+      {
+        "month": "Jul 2023",
+        "amount": 630042874.3299999,
+        "subscribers": 18874314.0
+      },
+      {
+        "month": "Jun 2022",
+        "amount": 354823483.28999996,
+        "subscribers": 11168026.0
+      },
+      {
+        "month": "Jun 2023",
+        "amount": 614750732.6100001,
+        "subscribers": 18238485.0
+      },
+      {
+        "month": "Mar 2022",
+        "amount": 301215234.0,
+        "subscribers": 9457580.0
+      },
+      {
+        "month": "Mar 2023",
+        "amount": 530205772.9999999,
+        "subscribers": 16112053.0
+      },
+      {
+        "month": "Mar 2024",
+        "amount": 643763001.73,
+        "subscribers": 21013471.0
+      },
+      {
+        "month": "May 2022",
+        "amount": 331801969.3399999,
+        "subscribers": 10479102.0
+      },
+      {
+        "month": "May 2023",
+        "amount": 592913867.1399999,
+        "subscribers": 17469348.0
+      },
+      {
+        "month": "May 2024",
+        "amount": 256347373.30999997,
+        "subscribers": 17878904.0
+      },
+      {
+        "month": "Nov 2022",
+        "amount": 448025391.29000014,
+        "subscribers": 14060525.0
+      },
+      {
+        "month": "Nov 2023",
+        "amount": 699519845.4699998,
+        "subscribers": 21112658.0
+      },
+      {
+        "month": "Oct 2022",
+        "amount": 439738768.3200001,
+        "subscribers": 13705068.0
+      },
+      {
+        "month": "Oct 2023",
+        "amount": 682645853.3600001,
+        "subscribers": 20512086.0
+      },
+      {
+        "month": "Sep 2022",
+        "amount": 417970957.5800001,
+        "subscribers": 13024246.0
+      },
+      {
+        "month": "Sep 2023",
+        "amount": 665511270.26,
+        "subscribers": 20020841.0
+      }
+    ],
+    "states": [
+      {
+        "state": "AK",
+        "total_claim_amount": 27664391.990000002,
+        "total_subscribers": 415648.0
+      },
+      {
+        "state": "AL",
+        "total_claim_amount": 272661219.16,
+        "total_subscribers": 8645743.0
+      },
+      {
+        "state": "AR",
+        "total_claim_amount": 136228574.48000005,
+        "total_subscribers": 4243605.0
+      },
+      {
+        "state": "AS",
+        "total_claim_amount": 1579021.4200000002,
+        "total_subscribers": 50394.0
+      },
+      {
+        "state": "AZ",
+        "total_claim_amount": 368545962.97,
+        "total_subscribers": 10408339.0
+      },
+      {
+        "state": "CA",
+        "total_claim_amount": 1790216104.0600002,
+        "total_subscribers": 55850108.0
+      },
+      {
+        "state": "CO",
+        "total_claim_amount": 156298457.29000005,
+        "total_subscribers": 4994565.0
+      },
+      {
+        "state": "CT",
+        "total_claim_amount": 122633986.10000001,
+        "total_subscribers": 3862442.0
+      },
+      {
+        "state": "DC",
+        "total_claim_amount": 42499792.56,
+        "total_subscribers": 1298310.0
+      },
+      {
+        "state": "DE",
+        "total_claim_amount": 31646230.82,
+        "total_subscribers": 986512.0
+      },
+      {
+        "state": "FL",
+        "total_claim_amount": 1067901564.4999998,
+        "total_subscribers": 33302864.0
+      },
+      {
+        "state": "GA",
+        "total_claim_amount": 480409445.5500001,
+        "total_subscribers": 15101698.0
+      },
+      {
+        "state": "GU",
+        "total_claim_amount": 895396.27,
+        "total_subscribers": 29950.0
+      },
+      {
+        "state": "HI",
+        "total_claim_amount": 36138139.67999999,
+        "total_subscribers": 1132920.0
+      },
+      {
+        "state": "IA",
+        "total_claim_amount": 76388764.02,
+        "total_subscribers": 2375793.0
+      },
+      {
+        "state": "ID",
+        "total_claim_amount": 31079264.559999995,
+        "total_subscribers": 956998.0
+      },
+      {
+        "state": "IL",
+        "total_claim_amount": 437086323.44000006,
+        "total_subscribers": 13740556.0
+      },
+      {
+        "state": "IN",
+        "total_claim_amount": 270171258.99999994,
+        "total_subscribers": 8620583.0
+      },
+      {
+        "state": "KS",
+        "total_claim_amount": 80009227.89999999,
+        "total_subscribers": 2612004.0
+      },
+      {
+        "state": "KY",
+        "total_claim_amount": 296255063.3400001,
+        "total_subscribers": 9415185.0
+      },
+      {
+        "state": "LA",
+        "total_claim_amount": 353634888.69,
+        "total_subscribers": 10871305.0
+      },
+      {
+        "state": "MA",
+        "total_claim_amount": 234265657.62000003,
+        "total_subscribers": 7404064.0
+      },
+      {
+        "state": "MD",
+        "total_claim_amount": 177262185.03,
+        "total_subscribers": 5568642.0
+      },
+      {
+        "state": "ME",
+        "total_claim_amount": 59851605.42,
+        "total_subscribers": 1960899.0
+      },
+      {
+        "state": "MI",
+        "total_claim_amount": 558812405.8199999,
+        "total_subscribers": 17172916.0
+      },
+      {
+        "state": "MN",
+        "total_claim_amount": 153971614.57,
+        "total_subscribers": 4895586.0
+      },
+      {
+        "state": "MO",
+        "total_claim_amount": 243682899.86,
+        "total_subscribers": 7789016.0
+      },
+      {
+        "state": "MP",
+        "total_claim_amount": 2610839.0899999994,
+        "total_subscribers": 83573.0
+      },
+      {
+        "state": "MS",
+        "total_claim_amount": 164840080.74000004,
+        "total_subscribers": 5030010.0
+      },
+      {
+        "state": "MT",
+        "total_claim_amount": 35323663.14,
+        "total_subscribers": 1075988.0
+      },
+      {
+        "state": "NC",
+        "total_claim_amount": 585526447.23,
+        "total_subscribers": 18784268.0
+      },
+      {
+        "state": "ND",
+        "total_claim_amount": 10638045.289999997,
+        "total_subscribers": 315417.0
+      },
+      {
+        "state": "NE",
+        "total_claim_amount": 58506115.07999999,
+        "total_subscribers": 1919746.0
+      },
+      {
+        "state": "NH",
+        "total_claim_amount": 24116274.65,
+        "total_subscribers": 792819.0
+      },
+      {
+        "state": "NJ",
+        "total_claim_amount": 201455480.63,
+        "total_subscribers": 6240159.0
+      },
+      {
+        "state": "NM",
+        "total_claim_amount": 151760988.26999998,
+        "total_subscribers": 4012984.0
+      },
+      {
+        "state": "NV",
+        "total_claim_amount": 171764118.66000006,
+        "total_subscribers": 5325164.0
+      },
+      {
+        "state": "NY",
+        "total_claim_amount": 1090088591.0900002,
+        "total_subscribers": 33894314.0
+      },
+      {
+        "state": "OH",
+        "total_claim_amount": 738766137.2999998,
+        "total_subscribers": 23784618.0
+      },
+      {
+        "state": "OK",
+        "total_claim_amount": 372103676.9600001,
+        "total_subscribers": 6976078.0
+      },
+      {
+        "state": "OR",
+        "total_claim_amount": 139745970.82,
+        "total_subscribers": 4493996.0
+      },
+      {
+        "state": "PA",
+        "total_claim_amount": 488086591.74000007,
+        "total_subscribers": 15440995.0
+      },
+      {
+        "state": "PR",
+        "total_claim_amount": 489717659.2900001,
+        "total_subscribers": 15098549.0
+      },
+      {
+        "state": "RI",
+        "total_claim_amount": 49427401.72,
+        "total_subscribers": 1575495.0
+      },
+      {
+        "state": "SC",
+        "total_claim_amount": 271379667.16,
+        "total_subscribers": 8650754.0
+      },
+      {
+        "state": "SD",
+        "total_claim_amount": 18256827.74,
+        "total_subscribers": 449465.0
+      },
+      {
+        "state": "TN",
+        "total_claim_amount": 283086100.77000004,
+        "total_subscribers": 9062972.0
+      },
+      {
+        "state": "TX",
+        "total_claim_amount": 1095488940.7699997,
+        "total_subscribers": 34879799.0
+      },
+      {
+        "state": "UT",
+        "total_claim_amount": 46205004.099999994,
+        "total_subscribers": 1417867.0
+      },
+      {
+        "state": "VA",
+        "total_claim_amount": 287814332.05,
+        "total_subscribers": 9027714.0
+      },
+      {
+        "state": "VI",
+        "total_claim_amount": 2839896.5299999993,
+        "total_subscribers": 92277.0
+      },
+      {
+        "state": "VT",
+        "total_claim_amount": 15716255.330000002,
+        "total_subscribers": 514811.0
+      },
+      {
+        "state": "WA",
+        "total_claim_amount": 221626170.51999998,
+        "total_subscribers": 7011445.0
+      },
+      {
+        "state": "WI",
+        "total_claim_amount": 272704536.01,
+        "total_subscribers": 8749378.0
+      },
+      {
+        "state": "WV",
+        "total_claim_amount": 81641755.04,
+        "total_subscribers": 2534097.0
+      },
+      {
+        "state": "WY",
+        "total_claim_amount": 13177645.809999999,
+        "total_subscribers": 421248.0
+      }
+    ]
   },
   "imls_grants": {
     "total_count": 21325,

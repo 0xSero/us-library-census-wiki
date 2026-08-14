@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:38 UTC",
+  "generated": "2026-08-14 22:43 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -24350,6 +24350,380 @@
       "Universities"
     ],
     "note": "DPLA's API (api.dp.la/v2) requires an API key and is currently returning 403. Item counts are estimated from DPLA's published growth reports and Wayback Machine snapshots. The most recent exact count from DPLA was ~50M items in 2023."
+  },
+  "nces_school_full": {
+    "source": "NCES Schools and Staffing Survey (SASS) Table Library",
+    "source_url": "https://nces.ed.gov/surveys/ntps/estable/Tables/cat:Library",
+    "data_years": [
+      "2003-04",
+      "2007-08",
+      "2011-12"
+    ],
+    "most_recent_year": "2011-12",
+    "data_currency_note": "The 2011-12 SASS is the most recent NCES school library data. SASS was replaced by the National Teacher and Principal Survey (NTPS) in 2015-16, but NTPS did not include a school library media center component. NCES has not published newer national school library statistics as of 2026.",
+    "national_totals_2011_12": {
+      "total_public_schools": 90000,
+      "school_libraries": 81200,
+      "pct_schools_with_library": 90.2,
+      "schools_without_library": 8800,
+      "lmc_with_fulltime_certified_librarian": 53940,
+      "lmc_with_parttime_only": 10260,
+      "lmc_with_no_certified_librarian": 16990,
+      "pct_lmc_with_fulltime_certified": 66.4,
+      "pct_lmc_with_parttime_only": 12.6,
+      "pct_lmc_with_no_certified": 20.9,
+      "pct_lmc_with_any_certified_librarian": 79.0,
+      "total_paid_professional_specialists": 88520,
+      "pct_specialists_state_certified": 63,
+      "pct_specialists_library_related_major": 51.8,
+      "pct_specialists_masters_degree": 82.9,
+      "total_paid_aides_clerical": 55010,
+      "total_volunteers": 273260
+    },
+    "national_holdings_2011_12": {
+      "avg_book_titles_per_lmc": 12780,
+      "avg_av_materials_per_lmc": 470,
+      "avg_book_titles_acquired": 520,
+      "avg_book_expenditure_dollars": 6010,
+      "avg_total_expenditure_dollars": 9340
+    },
+    "trends_over_time": [
+      {
+        "year": "2003-04",
+        "total_public_schools": 88113,
+        "school_libraries": 78257,
+        "pct_schools_with_library": 88.8,
+        "pct_with_fulltime_certified_librarian": null,
+        "note": "2003-04 SASS staffing table used degree-based breakdown, not full-time certified status."
+      },
+      {
+        "year": "2007-08",
+        "total_public_schools": 90760,
+        "school_libraries": 81920,
+        "pct_schools_with_library": 90.3,
+        "lmc_with_fulltime_certified_librarian": 50910,
+        "pct_lmc_with_fulltime_certified": 62.2,
+        "pct_lmc_with_any_certified": 73.0,
+        "pct_lmc_with_no_certified": 27
+      },
+      {
+        "year": "2011-12",
+        "total_public_schools": 90000,
+        "school_libraries": 81200,
+        "pct_schools_with_library": 90.2,
+        "lmc_with_fulltime_certified_librarian": 53940,
+        "lmc_with_parttime_only": 10260,
+        "lmc_with_no_certified": 16990,
+        "pct_lmc_with_fulltime_certified": 66.4,
+        "pct_lmc_with_parttime_only": 12.6,
+        "pct_lmc_with_no_certified": 20.9,
+        "pct_lmc_with_any_certified": 79.0,
+        "total_paid_professional_specialists": 88520,
+        "pct_specialists_state_certified": 63,
+        "pct_specialists_library_major": 51.8,
+        "pct_specialists_masters_degree": 82.9,
+        "total_paid_aides": 55010,
+        "total_volunteers": 273260
+      }
+    ],
+    "breakdown_by_school_characteristic_2011_12": {
+      "schools_with_lmc": {
+        "Traditional public": {
+          "total_schools": 85500,
+          "schools_with_lmc": 79000
+        },
+        "Charter school": {
+          "total_schools": 4500,
+          "schools_with_lmc": 2200
+        },
+        "City": {
+          "total_schools": 23600,
+          "schools_with_lmc": 20200
+        },
+        "Suburban": {
+          "total_schools": 24300,
+          "schools_with_lmc": 22500
+        },
+        "Town": {
+          "total_schools": 12200,
+          "schools_with_lmc": 11000
+        },
+        "Rural": {
+          "total_schools": 29900,
+          "schools_with_lmc": 27500
+        },
+        "Primary": {
+          "total_schools": 50300,
+          "schools_with_lmc": 47400
+        },
+        "Middle": {
+          "total_schools": 14000,
+          "schools_with_lmc": 13400
+        },
+        "High": {
+          "total_schools": 18400,
+          "schools_with_lmc": 15400
+        },
+        "Combined": {
+          "total_schools": 7400,
+          "schools_with_lmc": 5000
+        }
+      },
+      "certified_staffing": {
+        "Traditional public": {
+          "pct_fulltime_certified": 67.4,
+          "pct_no_certified": 19.9
+        },
+        "Charter school": {
+          "pct_fulltime_certified": 32.8,
+          "pct_no_certified": 56.4
+        },
+        "City": {
+          "pct_fulltime_certified": 64.9,
+          "pct_no_certified": 24
+        },
+        "Suburban": {
+          "pct_fulltime_certified": 69.2,
+          "pct_no_certified": 19.2
+        },
+        "Town": {
+          "pct_fulltime_certified": 66.2,
+          "pct_no_certified": 20.1
+        },
+        "Rural": {
+          "pct_fulltime_certified": 65.4,
+          "pct_no_certified": 20.4
+        },
+        "Primary": {
+          "pct_fulltime_certified": 61.9,
+          "pct_no_certified": 23.5
+        },
+        "Middle": {
+          "pct_fulltime_certified": 75.1,
+          "pct_no_certified": 13.7
+        },
+        "High": {
+          "pct_fulltime_certified": 75.9,
+          "pct_no_certified": 15.8
+        },
+        "Combined": {
+          "pct_fulltime_certified": 56.8,
+          "pct_no_certified": 32.1
+        }
+      }
+    },
+    "state_rankings_2011_12": {
+      "highest_pct_fulltime_certified": [
+        {
+          "state": "Tennessee",
+          "pct_fulltime_certified": 97.6
+        },
+        {
+          "state": "Virginia",
+          "pct_fulltime_certified": 96.9
+        },
+        {
+          "state": "Alabama",
+          "pct_fulltime_certified": 96.4
+        },
+        {
+          "state": "Georgia",
+          "pct_fulltime_certified": 93.7
+        },
+        {
+          "state": "North Carolina",
+          "pct_fulltime_certified": 90.8
+        },
+        {
+          "state": "South Carolina",
+          "pct_fulltime_certified": 90.8
+        },
+        {
+          "state": "Arkansas",
+          "pct_fulltime_certified": 89.3
+        },
+        {
+          "state": "New Jersey",
+          "pct_fulltime_certified": 83
+        },
+        {
+          "state": "Nevada",
+          "pct_fulltime_certified": 80.8
+        },
+        {
+          "state": "Missouri",
+          "pct_fulltime_certified": 79.7
+        }
+      ],
+      "lowest_pct_fulltime_certified": [
+        {
+          "state": "California",
+          "pct_fulltime_certified": 25.2
+        },
+        {
+          "state": "Alaska",
+          "pct_fulltime_certified": 29.7
+        },
+        {
+          "state": "Oregon",
+          "pct_fulltime_certified": 33.2
+        },
+        {
+          "state": "South Dakota",
+          "pct_fulltime_certified": 37.9
+        },
+        {
+          "state": "Arizona",
+          "pct_fulltime_certified": 45.3
+        },
+        {
+          "state": "Idaho",
+          "pct_fulltime_certified": 45.8
+        },
+        {
+          "state": "Utah",
+          "pct_fulltime_certified": 53.6
+        },
+        {
+          "state": "Illinois",
+          "pct_fulltime_certified": 54
+        },
+        {
+          "state": "West Virginia",
+          "pct_fulltime_certified": 54.1
+        },
+        {
+          "state": "Vermont",
+          "pct_fulltime_certified": 55.5
+        }
+      ],
+      "highest_pct_no_certified": [
+        {
+          "state": "Alaska",
+          "pct_no_certified": 58.7
+        },
+        {
+          "state": "California",
+          "pct_no_certified": 53.7
+        },
+        {
+          "state": "Arizona",
+          "pct_no_certified": 48.7
+        },
+        {
+          "state": "Oregon",
+          "pct_no_certified": 43.7
+        },
+        {
+          "state": "Utah",
+          "pct_no_certified": 42.2
+        },
+        {
+          "state": "Idaho",
+          "pct_no_certified": 41.6
+        },
+        {
+          "state": "West Virginia",
+          "pct_no_certified": 40
+        },
+        {
+          "state": "Illinois",
+          "pct_no_certified": 35.9
+        },
+        {
+          "state": "New Mexico",
+          "pct_no_certified": 33
+        },
+        {
+          "state": "South Dakota",
+          "pct_no_certified": 31.4
+        }
+      ],
+      "most_school_libraries": [
+        {
+          "state": "California",
+          "schools_with_lmc": 8280
+        },
+        {
+          "state": "Texas",
+          "schools_with_lmc": 7420
+        },
+        {
+          "state": "New York",
+          "schools_with_lmc": 3870
+        },
+        {
+          "state": "Illinois",
+          "schools_with_lmc": 3690
+        },
+        {
+          "state": "Florida",
+          "schools_with_lmc": 3190
+        },
+        {
+          "state": "Ohio",
+          "schools_with_lmc": 3140
+        },
+        {
+          "state": "Pennsylvania",
+          "schools_with_lmc": 3010
+        },
+        {
+          "state": "North Carolina",
+          "schools_with_lmc": 2340
+        },
+        {
+          "state": "Georgia",
+          "schools_with_lmc": 2300
+        },
+        {
+          "state": "New Jersey",
+          "schools_with_lmc": 2280
+        }
+      ]
+    },
+    "state_level_variation_2011_12": {
+      "pct_fulltime_certified": {
+        "min": 25.2,
+        "max": 97.6,
+        "range": 72.4,
+        "mean": 67.3,
+        "count": 41
+      },
+      "pct_no_certified": {
+        "min": 1,
+        "max": 58.7,
+        "range": 57.7,
+        "mean": 21.8,
+        "count": 34
+      },
+      "pct_schools_with_lmc": {
+        "min": 74.5,
+        "max": 99.3,
+        "range": 24.8,
+        "mean": 91.2,
+        "count": 42
+      },
+      "pct_specialists_state_certified": {
+        "min": 22,
+        "max": 88.5,
+        "range": 66.5,
+        "mean": 64.1,
+        "count": 41
+      }
+    },
+    "symbols_legend": {
+      "!": "Interpret with caution (coefficient of variation >= 30%)",
+      "#": "Rounds to zero",
+      "double_dagger": "Reporting standards not met (too few responses)"
+    },
+    "caveats": [
+      "Data are from the 2011-12 SASS, the most recent NCES school library survey.",
+      "NTPS (2015-16 onward) did not include a school library component.",
+      "Maryland and District of Columbia staffing data were largely suppressed (reporting standards not met).",
+      "Charter schools have markedly lower librarian staffing than traditional public schools (32.8% full-time certified vs 67.4%).",
+      "Figures are for public schools only; private school library data were not collected in the SASS library media center component."
+    ]
   },
   "imls_grants": {
     "total_count": 21325,

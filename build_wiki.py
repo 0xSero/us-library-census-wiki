@@ -170,6 +170,7 @@ def panel(active=""):
     <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
     <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
     <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
+    <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -391,6 +392,12 @@ def load_all():
             data['dpla'] = json.load(f)
     else:
         data['dpla'] = {}
+    nces_full_path = os.path.join(DATA, "nces_school_libraries_summary.json")
+    if os.path.exists(nces_full_path):
+        with open(nces_full_path) as f:
+            data['nces_school_full'] = json.load(f)
+    else:
+        data['nces_school_full'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1440,6 +1447,9 @@ def compute_stats(data):
 
     # ---- Digital Public Library of America ----
     stats['dpla'] = data.get('dpla', {})
+
+    # ---- NCES School Libraries (full state-level data) ----
+    stats['nces_school_full'] = data.get('nces_school_full', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -4117,6 +4127,102 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: DPLA website (dp.la/about), Wayback Machine snapshots of DPLA news and reports, and DPLA annual reports. DPLA launched April 18, 2013 with 2.5 million records from 6 Service Hubs and 10 Content Hubs representing over 400 institutions. By late 2013 it had doubled to 5.3M items from 21 hubs and 1,100 institutions. Current item count is estimated at ~{dpla_items/1e6:.0f}M based on published growth reports. DPLA is a 501(c)(3) nonprofit (EIN 46-1160948) headquartered in Boston, MA. Its API at api.dp.la/v2 requires an API key for programmatic access.</p>'
+
+    # ---- School Libraries: State-Level Certified Librarian Access ----
+    nces_full = stats.get('nces_school_full', {})
+    if nces_full and nces_full.get('national_totals_2011_12'):
+        nat = nces_full['national_totals_2011_12']
+        sr = nces_full.get('state_rankings_2011_12', {})
+        sv = nces_full.get('state_level_variation_2011_12', {})
+        trends_nces = nces_full.get('trends_over_time', [])
+        breakdown = nces_full.get('breakdown_by_school_characteristic_2011_12', {})
+
+        body += f"""
+
+<h2 id="school-librarians">School Libraries: Certified Librarian Access by State</h2>
+<p class="wiki-sub">While public libraries get most attention, the nation's 81,200 school library media centers are where most Americans first encounter libraries. NCES data from 2011-12 (the most recent available, as the SASS survey was discontinued) reveals stark state-level disparities: Tennessee has certified librarians in 97.6% of school libraries, while California has them in only 25.2% - a 72 percentage-point gap. Nationwide, only 66.4% of school libraries have a full-time certified librarian, meaning roughly 1 in 5 school libraries (16,990) have no certified librarian at all.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nat.get('school_libraries', 81200):,}</div><div class="label">School libraries (2011-12)</div></div>
+  <div class="stat-card"><div class="num">{nat.get('pct_schools_with_library', 90.2)}%</div><div class="label">Schools with a library</div></div>
+  <div class="stat-card"><div class="num">{nat.get('pct_lmc_with_fulltime_certified', 66.4)}%</div><div class="label">With full-time certified librarian</div></div>
+  <div class="stat-card"><div class="num">{nat.get('pct_lmc_with_no_certified', 20.9)}%</div><div class="label">With NO certified librarian</div></div>
+  <div class="stat-card"><div class="num">{nat.get('total_paid_professional_specialists', 88520):,}</div><div class="label">Paid library specialists</div></div>
+  <div class="stat-card"><div class="num">{nat.get('total_volunteers', 273260):,}</div><div class="label">Volunteers in school libraries</div></div>
+</div>"""
+
+        # Highest certified librarian states
+        highest = sr.get('highest_pct_fulltime_certified', [])
+        if highest:
+            body += """
+<h3>States with the highest certified librarian rates</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>% full-time certified librarian</th></tr>"""
+            for i, s in enumerate(highest[:10], 1):
+                st_name = s.get('state', '')
+                body += f'\n  <tr><td class="pct">{i}</td><td>{esc(st_name)}</td><td class="pct">{s.get("pct_fulltime_certified", 0):.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Lowest certified librarian states
+        lowest = sr.get('lowest_pct_fulltime_certified', [])
+        if lowest:
+            body += """
+<h3>States with the lowest certified librarian rates</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>% full-time certified librarian</th></tr>"""
+            for i, s in enumerate(lowest[:10], 1):
+                st_name = s.get('state', '')
+                body += f'\n  <tr><td class="pct">{i}</td><td>{esc(st_name)}</td><td class="pct">{s.get("pct_fulltime_certified", 0):.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # States with most school libraries with NO certified librarian
+        no_cert = sr.get('highest_pct_no_certified', [])
+        if no_cert:
+            body += """
+<h3>States where school libraries have NO certified librarian (highest rates)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>% with no certified librarian</th></tr>"""
+            for s in no_cert[:10]:
+                body += f'\n  <tr><td>{esc(s.get("state", ""))}</td><td class="pct">{s.get("pct_no_certified", 0):.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Most school libraries by state
+        most_sl = sr.get('most_school_libraries', [])
+        if most_sl:
+            body += """
+<h3>States with the most school libraries</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>School libraries</th></tr>"""
+            for s in most_sl[:10]:
+                body += f'\n  <tr><td>{esc(s.get("state", ""))}</td><td>{s.get("school_libraries", 0):,}</td></tr>'
+            body += '\n</table>'
+
+        # State variation stats
+        if sv:
+            body += f"""
+<h3>National variation in school librarian access</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>"""
+            for k, v in sv.items():
+                display = k.replace("_", " ").title()
+                if isinstance(v, float):
+                    val = f"{v:.1f}"
+                else:
+                    val = str(v)
+                body += f'\n  <tr><td>{esc(display)}</td><td class="pct">{val}</td></tr>'
+            body += '\n</table>'
+
+        # Trends table
+        if trends_nces:
+            body += """
+<h3>School library trends over time</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Schools</th><th>Libraries</th><th>% with library</th><th>% full-time certified</th></tr>"""
+            for t in trends_nces:
+                pct_cert = t.get('pct_lmc_with_fulltime_certified') or t.get('pct_with_fulltime_certified_librarian')
+                body += f'\n  <tr><td>{t.get("year", "")}</td><td>{t.get("total_public_schools", 0):,}</td><td>{t.get("school_libraries", 0):,}</td><td class="pct">{t.get("pct_schools_with_library", 0):.1f}%</td><td class="pct">{f"{pct_cert:.1f}%" if pct_cert else "N/A"}</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: NCES Schools and Staffing Survey (SASS), Table Library. Data from 2011-12 is the most recent available because the SASS was replaced by the National Teacher and Principal Survey (NTPS) in 2015-16, which does not include a school library component. The 72.4 percentage-point spread between Tennessee (97.6%) and California (25.2%) represents one of the largest state-level disparities in any educational metric. Charter schools have dramatically lower staffing: 32.8% full-time certified vs 67.4% for traditional public schools. Data currency note: this data is over a decade old; current school librarian access rates are likely lower due to budget cuts and the SASS/NTPS discontinuation has created a data gap.</p>'
 
     # ---- State-level book censorship breakdown ----
     stcens = stats.get('state_censorship', {})

@@ -1364,6 +1364,94 @@
       "no_computer": 17.5
     }
   ],
+  "fcc_broadband": {
+    "gigabit_avg": 64.5,
+    "fiber_avg": 54.9,
+    "rural_avg": 41.6,
+    "count": 17019
+  },
+  "lowest_gigabit": [
+    {
+      "name": "ANIAK PUBLIC LIBRARY",
+      "city": "Aniak",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 20.5,
+      "rural": 77.9
+    },
+    {
+      "name": "CHARLES EVANS COMMUNITY/SCHOOL LIBRARY",
+      "city": "Galena",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 0.0,
+      "rural": 100.0
+    },
+    {
+      "name": "CHINIAK PUBLIC LIBRARY",
+      "city": "Chiniak",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 6.1,
+      "rural": 37.5
+    },
+    {
+      "name": "CHUKCHI CONSORTIUM LIBRARY",
+      "city": "Kotzebue",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 7.9,
+      "rural": 100.0
+    },
+    {
+      "name": "CITY OF ADAK PUBLIC LIBRARY",
+      "city": "Adak",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 53.2,
+      "rural": 100.0
+    },
+    {
+      "name": "COLD BAY PUBLIC LIBRARY",
+      "city": "Cold Bay",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 77.0,
+      "rural": 100.0
+    },
+    {
+      "name": "DILLINGHAM PUBLIC LIBRARY",
+      "city": "Dillingham",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 0.0,
+      "rural": 100.0
+    },
+    {
+      "name": "IGIUGIG TRIBAL LIBRARY",
+      "city": "Igiugig",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 21.7,
+      "rural": 100.0
+    },
+    {
+      "name": "JESSIE WAKEFIELD MEMORIAL LIBRARY",
+      "city": "Port Lions",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 6.1,
+      "rural": 37.5
+    },
+    {
+      "name": "KEGOAYAH KOZGA LIBRARY",
+      "city": "Nome",
+      "state": "AK",
+      "gigabit": 0.0,
+      "fiber": 0.0,
+      "rural": 100.0
+    }
+  ],
   "most_visited": [
     {
       "name": "115TH STREET BRANCH",
@@ -1488,7 +1576,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 16:48 UTC",
+  "generated": "2026-08-14 17:01 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,

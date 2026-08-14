@@ -323,6 +323,15 @@
       if (r.ddiv) html += row('Digital divide ratio', esc(r.ddiv) + '× (low-income vs overall)');
     }
 
+    // ---- FCC broadband infrastructure ----
+    if (r.fccgig || r.fccfib || r.fccrur || r.fccloc) {
+      html += section('FCC broadband infrastructure');
+      if (r.fccgig) html += row('Gigabit availability', esc(r.fccgig) + '% of locations');
+      if (r.fccfib) html += row('Fiber availability', esc(r.fccfib) + '% of locations');
+      if (r.fccloc) html += row('Total serviceable locations', esc(r.fccloc));
+      if (r.fccrur) html += row('Rural locations', esc(r.fccrur) + '%');
+    }
+
     // ---- Facility & funding ----
     if (r.sqft || r.coll || r.psrv || r.ft || r.fsrc) {
       html += section('Facility & funding');

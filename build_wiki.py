@@ -167,6 +167,7 @@ def panel(active=""):
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
+    <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -3682,6 +3683,81 @@ def build_index(data, stats):
             body += '<p class="rsrc">Source: NCES Digest of Education Statistics, Table 701.10, from the Schools and Staffing Survey (SASS). The SASS was discontinued after 2011-12, making this the most recent comprehensive national school library data available. School library expenditure per pupil declined from $23.37 (1999-2000) to $16.00 (2011-12) in current dollars - a real-terms cut of over 50%.</p>'
 
         body += '<p class="rsrc">Demographics source: Gallup (Dec 2019 poll), Pew Research Center (2016 Libraries survey, 2015 Hispanic media survey), and NEA SPPA 2022. Reasons for use from Pew 2016. Library services from ALA Digital Inclusion Survey 2014. Library attendance at programs increased 10 points from 2015 to 2016 (17% to 27%), the largest gain of any usage category.</p>'
+
+        # NEA 2022 reading trends
+        nea_reading = demo.get('nea_reading_trends', {})
+        if nea_reading and nea_reading.get('books_read_any_2017_2022_by_demographic'):
+            br = nea_reading['books_read_any_2017_2022_by_demographic']
+            lit = nea_reading.get('literature_read_2017_2022_by_demographic', {})
+            novels = nea_reading.get('novels_or_short_stories_2017_2022', {})
+            poetry = nea_reading.get('poetry_2017_2022', {})
+
+            all_books = br.get('all_adults', {})
+            all_lit = lit.get('all_adults', {})
+            all_novels = novels.get('all_adults', {})
+            all_poetry = poetry.get('all_adults', {})
+
+            body += f"""
+
+<h2 id="reading-trends">Reading Trends: The Decline of Book Reading (NEA 2017-2022)</h2>
+<p class="wiki-sub">The NEA's 2022 Survey of Public Participation in the Arts reveals a significant decline in book reading among American adults. From 2017 to 2022, the share of adults who read books fell from {all_books.get('2017', 0)*100:.1f}% to {all_books.get('2022', 0)*100:.1f}% - a {abs(all_books.get('pp_change', 0)):.1f} percentage point drop. Literature reading (novels, poetry, plays) fell even more sharply, from {all_lit.get('2017', 0)*100:.1f}% to {all_lit.get('2022', 0)*100:.1f}%. Novel reading hit a record low of {all_novels.get('2022', 0)*100:.1f}%. This decline has direct implications for libraries, which exist to serve a population that is reading less.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{all_books.get('2022', 0)*100:.1f}%</div><div class="label">Adults who read books (2022)</div></div>
+  <div class="stat-card"><div class="num">{all_books.get('pp_change', 0):.1f}pp</div><div class="label">Change from 2017</div></div>
+  <div class="stat-card"><div class="num">{all_lit.get('2022', 0)*100:.1f}%</div><div class="label">Read literature (2022)</div></div>
+  <div class="stat-card"><div class="num">{all_novels.get('2022', 0)*100:.1f}%</div><div class="label">Read novels (record low)</div></div>
+  <div class="stat-card"><div class="num">{all_poetry.get('2022', 0)*100:.1f}%</div><div class="label">Read poetry (2022)</div></div>
+  <div class="stat-card"><div class="num">{br.get('female',{}).get('2022',0)*100:.1f}%</div><div class="label">Women reading books</div></div>
+</div>"""
+
+            # Reading by gender and age bars
+            body += """
+<h3>Book reading rate by demographic (2017 vs 2022, % who read any books)</h3>
+<table class="wikitable">
+  <tr><th>Demographic group</th><th>2017</th><th>2022</th><th>Change</th><th>Significant?</th></tr>"""
+            demo_labels = [
+                ("All adults", "all_adults"),
+                ("Male", "male"), ("Female", "female"),
+                ("Hispanic", "hispanic"), ("White", "white"),
+                ("African American", "african_american"), ("Asian", "asian"),
+                ("Ages 18-24", "age_18_24"), ("Ages 25-34", "age_25_34"),
+                ("Ages 35-44", "age_35_44"), ("Ages 45-54", "age_45_54"),
+                ("Ages 55-64", "age_55_64"), ("Ages 65-74", "age_65_74"),
+                ("Ages 75+", "age_75_plus"),
+                ("Grade school", "education_grade_school"),
+                ("Some high school", "education_some_high_school"),
+                ("High school diploma", "education_high_school_diploma"),
+                ("Some college", "education_some_college"),
+                ("Bachelor's", "education_bachelors"),
+                ("Graduate/professional", "education_graduate_professional"),
+            ]
+            for label, key in demo_labels:
+                grp = br.get(key, {})
+                v17 = grp.get('2017', 0)
+                v22 = grp.get('2022', 0)
+                chg = grp.get('pp_change', 0)
+                sig = "Yes" if grp.get('significant', False) else "No"
+                body += f'\n  <tr><td>{label}</td><td class="pct">{v17*100:.1f}%</td><td class="pct">{v22*100:.1f}%</td><td class="pct">{"+" if chg >= 0 else ""}{chg:.1f}pp</td><td>{sig}</td></tr>'
+            body += '\n</table>'
+
+            # Literature reading comparison
+            if lit:
+                body += """
+<h3>Literature reading (novels, poetry, plays) by demographic</h3>
+<table class="wikitable">
+  <tr><th>Group</th><th>2017</th><th>2022</th><th>Change</th></tr>"""
+                lit_groups = [("All adults", "all_adults"), ("Male", "male"), ("Female", "female"),
+                              ("Ages 18-24", "age_18_24"), ("Ages 55-64", "age_55_64"),
+                              ("Ages 65-74", "age_65_74"), ("Graduate/professional", "education_graduate_professional")]
+                for label, key in lit_groups:
+                    grp = lit.get(key, {})
+                    v17 = grp.get('2017', 0)
+                    v22 = grp.get('2022', 0)
+                    chg = grp.get('pp_change', 0)
+                    body += f'\n  <tr><td>{label}</td><td class="pct">{v17*100:.1f}%</td><td class="pct">{v22*100:.1f}%</td><td class="pct">{"+" if chg >= 0 else ""}{chg:.1f}pp</td></tr>'
+                body += '\n</table>'
+
+            body += '<p class="rsrc">Source: NEA Survey of Public Participation in the Arts (SPPA) 2022, a supplement to the U.S. Census Bureau Current Population Survey (n=40,718). Reading rates are the share of U.S. adults who read books (excluding work/school reading) in the prior 12 months. The 2022 U.S. adult population was 255.4 million. The decline in book reading from 52.7% to 48.5% represents approximately 10.7 million fewer adult readers. Older adults (55+) saw the steepest declines, while young adults (18-34) held steady. Poetry reading fell to a record low of 9.2%.</p>'
 
     # ---- COVID-19 Impact and Recovery ----
     cov = stats.get('covid_recovery', {})

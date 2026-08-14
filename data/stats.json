@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:11 UTC",
+  "generated": "2026-08-14 22:15 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -22925,6 +22925,250 @@
         "There are approximately 133,200 librarians/media collections specialists and ~402,590 core library workers (BLS OES 2024). IMLS reports 143,324 total public library staff (FY2024).",
         "Library computer/internet access serves a critical equity role: ~23% of all Americans 16+ used library computers/internet/Wi-Fi (Pew 2016); 77 million used library computers/wireless (Gates Foundation 2010)."
       ]
+    },
+    "nea_reading_trends": {
+      "source": "NEA 2022 SPPA demographic tables (DemographicTables-2022-Core.xlsx, Reading sheet). Rates are share of U.S. adults who read books (excluding work/school) in prior 12 months. 2022 U.S. adult population: 255.4 million.",
+      "books_read_any_2017_2022_by_demographic": {
+        "all_adults": {
+          "pop_millions": 255.4,
+          "2017": 0.527,
+          "2022": 0.485,
+          "pp_change": -4.2,
+          "significant": true
+        },
+        "male": {
+          "pop_millions": 124.2,
+          "2017": 0.443,
+          "2022": 0.4,
+          "pp_change": -4.3,
+          "significant": true
+        },
+        "female": {
+          "pop_millions": 131.2,
+          "2017": 0.6053,
+          "2022": 0.566,
+          "pp_change": -3.93,
+          "significant": true
+        },
+        "hispanic": {
+          "pop_millions": 44.0,
+          "2017": 0.322,
+          "2022": 0.328,
+          "pp_change": 0.6,
+          "significant": false
+        },
+        "white": {
+          "pop_millions": 158.0,
+          "2017": 0.5958,
+          "2022": 0.549,
+          "pp_change": -4.68,
+          "significant": true
+        },
+        "african_american": {
+          "pop_millions": 30.5,
+          "2017": 0.4655,
+          "2022": 0.421,
+          "pp_change": -4.45,
+          "significant": false
+        },
+        "asian": {
+          "pop_millions": 15.9,
+          "2017": 0.448,
+          "2022": 0.424,
+          "pp_change": -2.4,
+          "significant": false
+        },
+        "age_18_24": {
+          "pop_millions": 29.4,
+          "2017": 0.4732,
+          "2022": 0.474,
+          "pp_change": 0.08,
+          "significant": false
+        },
+        "age_25_34": {
+          "pop_millions": 44.2,
+          "2017": 0.5255,
+          "2022": 0.526,
+          "pp_change": 0.05,
+          "significant": false
+        },
+        "age_35_44": {
+          "pop_millions": 43.0,
+          "2017": 0.5363,
+          "2022": 0.51,
+          "pp_change": -2.63,
+          "significant": false
+        },
+        "age_45_54": {
+          "pop_millions": 40.0,
+          "2017": 0.5049,
+          "2022": 0.481,
+          "pp_change": -2.39,
+          "significant": false
+        },
+        "age_55_64": {
+          "pop_millions": 42.2,
+          "2017": 0.5357,
+          "2022": 0.436,
+          "pp_change": -9.97,
+          "significant": true
+        },
+        "age_65_74": {
+          "pop_millions": 34.0,
+          "2017": 0.5716,
+          "2022": 0.496,
+          "pp_change": -7.56,
+          "significant": true
+        },
+        "age_75_plus": {
+          "pop_millions": 22.7,
+          "2017": 0.5537,
+          "2022": 0.458,
+          "pp_change": -9.57,
+          "significant": true
+        },
+        "education_grade_school": {
+          "pop_millions": 9.1,
+          "2017": 0.1909,
+          "2022": 0.198,
+          "pp_change": 0.71,
+          "significant": false
+        },
+        "education_some_high_school": {
+          "pop_millions": 14.8,
+          "2017": 0.2668,
+          "2022": 0.329,
+          "pp_change": 6.22,
+          "significant": false
+        },
+        "education_high_school_diploma": {
+          "pop_millions": 74.1,
+          "2017": 0.3988,
+          "2022": 0.324,
+          "pp_change": -7.48,
+          "significant": true
+        },
+        "education_some_college": {
+          "pop_millions": 69.0,
+          "2017": 0.5524,
+          "2022": 0.497,
+          "pp_change": -5.54,
+          "significant": true
+        },
+        "education_bachelors": {
+          "pop_millions": 56.6,
+          "2017": 0.6849,
+          "2022": 0.641,
+          "pp_change": -4.39,
+          "significant": false
+        },
+        "education_graduate_professional": {
+          "pop_millions": 31.9,
+          "2017": 0.7856,
+          "2022": 0.711,
+          "pp_change": -7.46,
+          "significant": true
+        }
+      },
+      "literature_read_2017_2022_by_demographic": {
+        "note": "Literature = novels or short stories, poetry, or plays",
+        "all_adults": {
+          "2017": 0.442,
+          "2022": 0.396,
+          "pp_change": -4.6,
+          "significant": true
+        },
+        "male": {
+          "2017": 0.3521,
+          "2022": 0.295,
+          "pp_change": -5.71,
+          "significant": true
+        },
+        "female": {
+          "2017": 0.5254,
+          "2022": 0.492,
+          "pp_change": -3.34,
+          "significant": false
+        },
+        "age_18_24": {
+          "2017": 0.435,
+          "2022": 0.37,
+          "pp_change": -6.5,
+          "significant": true
+        },
+        "age_55_64": {
+          "2017": 0.4407,
+          "2022": 0.358,
+          "pp_change": -8.27,
+          "significant": true
+        },
+        "age_65_74": {
+          "2017": 0.4826,
+          "2022": 0.389,
+          "pp_change": -9.36,
+          "significant": true
+        },
+        "education_graduate_professional": {
+          "2017": 0.6854,
+          "2022": 0.607,
+          "pp_change": -7.84,
+          "significant": false
+        }
+      },
+      "novels_or_short_stories_2017_2022": {
+        "all_adults": {
+          "2017": 0.4178,
+          "2022": 0.376,
+          "pp_change": -4.18,
+          "significant": true
+        },
+        "male": {
+          "2017": 0.3302,
+          "2022": 0.277,
+          "pp_change": -5.32,
+          "significant": true
+        },
+        "female": {
+          "2017": 0.4997,
+          "2022": 0.469,
+          "pp_change": -3.07,
+          "significant": false
+        }
+      },
+      "poetry_2017_2022": {
+        "all_adults": {
+          "2017": 0.1172,
+          "2022": 0.092,
+          "pp_change": -2.52,
+          "significant": true
+        },
+        "male": {
+          "2017": 0.087,
+          "2022": 0.065,
+          "pp_change": -2.2,
+          "significant": true
+        },
+        "female": {
+          "2017": 0.1454,
+          "2022": 0.118,
+          "pp_change": -2.74,
+          "significant": true
+        }
+      },
+      "plays_2017_2022": {
+        "all_adults": {
+          "2017": 0.0368,
+          "2022": 0.024,
+          "pp_change": -1.28,
+          "significant": true
+        },
+        "female": {
+          "2017": 0.0445,
+          "2022": 0.029,
+          "pp_change": -1.55,
+          "significant": true
+        }
+      }
     }
   },
   "imls_grants": {

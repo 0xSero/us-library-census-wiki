@@ -32,16 +32,18 @@
       fetchJSON(DATA_DIR + 'public_libraries.json').catch(function () { return []; }),
       fetchJSON(DATA_DIR + 'private_libraries.json').catch(function () { return []; }),
       fetchJSON(DATA_DIR + 'gov_sites.json').catch(function () { return []; }),
+      fetchJSON(DATA_DIR + 'academic_libraries.json').catch(function () { return []; }),
       fetchJSON(DATA_DIR + 'library_hours.json').catch(function () { return {}; }),
       fetchJSON(DATA_DIR + 'library_services.json').catch(function () { return {}; }),
     ]).then(function (results) {
-      hoursMap = results[3] || {};
-      servicesMap = results[4] || {};
+      hoursMap = results[4] || {};
+      servicesMap = results[5] || {};
       // Merge all record types into one array
       allRecords = []
         .concat(results[0] || [])
         .concat(results[1] || [])
-        .concat(results[2] || []);
+        .concat(results[2] || [])
+        .concat(results[3] || []);
       populateStateFilter();
       var info = document.getElementById('searchInfo');
       if (info) info.textContent = allRecords.length.toLocaleString() + ' records loaded. Start typing to search.';
@@ -370,6 +372,21 @@
       if (r.cbr) html += row('Central libraries', esc(r.cbr));
       if (r.nbr) html += row('Branch libraries', esc(r.nbr));
       if (r.bkm) html += row('Bookmobiles', esc(r.bkm));
+    }
+
+    // ---- Academic library operations (NCES ALS 2012) ----
+    if (r.type === 'academic' && (r.sfte || r.slf || r.stf || r.slsal || r.stsal || r.xbks || r.xtot || r.coll || r.pres)) {
+      html += section('Academic library operations (ALS 2012)');
+      if (r.sfte) html += row('Student FTE', fmtNum(r.sfte));
+      if (r.slf) html += row('Librarian staff (FTE)', esc(r.slf));
+      if (r.stf) html += row('Total staff (FTE)', esc(r.stf));
+      if (r.slsal) html += row('Librarian salaries', fmtMoney(r.slsal));
+      if (r.stsal) html += row('Total salaries', fmtMoney(r.stsal));
+      if (r.xbks) html += row('Book/material expenditures', fmtMoney(r.xbks));
+      if (r.xtot) html += row('Total expenditures', fmtMoney(r.xtot));
+      if (r.coll) html += row('Book collection', fmtNum(r.coll));
+      if (r.pres) html += row('Presentations', fmtNum(r.pres));
+      if (r.year) html += row('Survey year', esc(r.year));
     }
 
     // ---- Location ----

@@ -773,3 +773,35 @@ body.map-page { overflow: hidden; }
 }
 [data-theme="dark"] .slaa-box .data-table th { background: var(--wiki-table-hdr); color: var(--wiki-text); }
 
+/* ---- Academic library trends (ALS 2000-2012) ---- */
+.academic-box { background: var(--wiki-accent-light); border: 1px solid var(--wiki-border); border-radius: 4px; padding: 0 16px 12px; margin: 16px 0 24px; }
+.academic-box > h2 { border-bottom: 2px solid var(--wiki-accent); padding-bottom: 4px; margin-top: 12px; }
+.academic-box .data-table { margin-top: 8px; width: 100%; }
+.academic-box .data-table th { background: var(--wiki-table-hdr); text-align: left; white-space: nowrap; width: 18%; padding: 6px 10px; font-weight: 600; color: var(--wiki-text); }
+.academic-box .data-table td { padding: 6px 10px; }
+.academic-box .stats-grid { margin: 10px 0; }
+.academic-box .rsrc { font-size: 0.85em; color: var(--wiki-text-muted); margin: 8px 0 0; }
+
+/* Trend table — compact year rows */
+.trend-table { font-size: 0.9em; }
+.trend-table .yr { font-weight: 700; white-space: nowrap; }
+.trend-table td { white-space: nowrap; }
+
+/* Trend bar chart (inline SVG) */
+.trend-chart { max-width: 100%; height: auto; margin: 12px 0; display: block; }
+.trend-chart rect:hover { fill: #1d4ed8; }
+
+/* ALS largest collections table */
+.als-largest-table { font-size: 0.9em; }
+.als-largest-table td:nth-child(5),
+.als-largest-table td:nth-child(6) { white-space: nowrap; }
+
+[data-theme="dark"] .academic-box {
+  background: rgba(51,102,204,0.08);
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .academic-box .data-table th { background: var(--wiki-table-hdr); color: var(--wiki-text); }
+[data-theme="dark"] .trend-chart text { fill: var(--wiki-text-muted); }
+[data-theme="dark"] .trend-chart rect { fill: #60a5fa; }
+[data-theme="dark"] .trend-chart line { stroke: var(--wiki-border); }
+

@@ -683,5 +683,461 @@
     "avg_income": 75739.5302115689,
     "income_count": 17063
   },
-  "generated": "2026-08-14 11:31 UTC"
+  "infrastructure": {
+    "total_sqft": 216874308,
+    "total_collection": 8726314684,
+    "avg_sqft": 13009,
+    "avg_collection": 500247,
+    "sqft_count": 16671,
+    "coll_count": 17444
+  },
+  "biggest_libraries": [
+    {
+      "name": "BOSTON PUBLIC LIBRARY",
+      "city": "Boston",
+      "state": "MA",
+      "sqft": 970000,
+      "collection": "6721731"
+    },
+    {
+      "name": "CHICAGO PUBLIC LIBRARY",
+      "city": "Chicago",
+      "state": "IL",
+      "sqft": 756000,
+      "collection": "4901210"
+    },
+    {
+      "name": "STEPHEN A. SCHWARZMAN BUILDING",
+      "city": "New York",
+      "state": "NY",
+      "sqft": 660000,
+      "collection": "25319115"
+    },
+    {
+      "name": "DALLAS PUBLIC LIBRARY",
+      "city": "Dallas",
+      "state": "TX",
+      "sqft": 646733,
+      "collection": "1652469"
+    },
+    {
+      "name": "CINCINNATI AND HAMILTON COUNTY, PL OF",
+      "city": "Cincinnati",
+      "state": "OH",
+      "sqft": 550000,
+      "collection": "3880302"
+    },
+    {
+      "name": "DENVER PUBLIC LIBRARY",
+      "city": "Denver",
+      "state": "CO",
+      "sqft": 540315,
+      "collection": "2654033"
+    },
+    {
+      "name": "CENTRAL LIBRARY",
+      "city": "Los Angeles",
+      "state": "CA",
+      "sqft": 538802,
+      "collection": "5780333"
+    },
+    {
+      "name": "CLEVELAND PUBLIC LIBRARY",
+      "city": "Cleveland",
+      "state": "OH",
+      "sqft": 529204,
+      "collection": "3127982"
+    },
+    {
+      "name": "SAN DIEGO CENTRAL LIBRARY",
+      "city": "San Diego",
+      "state": "CA",
+      "sqft": 497652,
+      "collection": "2004579"
+    },
+    {
+      "name": "DR. MARTIN LUTHER KING, JR. LIBRARY",
+      "city": "San Jose",
+      "state": "CA",
+      "sqft": 475000,
+      "collection": "1660974"
+    }
+  ],
+  "books_per_capita": [
+    {
+      "name": "JIM G. FERGUSON SEARCY COUNTY LIBRARY",
+      "city": "Marshall",
+      "state": "AR",
+      "collection": 49798,
+      "population": 1136,
+      "ratio": 43.8362676056338
+    },
+    {
+      "name": "PROCTOR FREE",
+      "city": "Proctor",
+      "state": "VT",
+      "collection": 65744,
+      "population": 1792,
+      "ratio": 36.6875
+    },
+    {
+      "name": "IDA LONG GOODMAN MEMORIAL LIBRARY",
+      "city": "St. John",
+      "state": "KS",
+      "collection": 38730,
+      "population": 1171,
+      "ratio": 33.07429547395389
+    },
+    {
+      "name": "CAIRO PUBLIC LIBRARY",
+      "city": "Cairo",
+      "state": "IL",
+      "collection": 56006,
+      "population": 1733,
+      "ratio": 32.31736872475476
+    },
+    {
+      "name": "AVALON FREE PUBLIC LIBRARY",
+      "city": "Avalon",
+      "state": "NJ",
+      "collection": 35259,
+      "population": 1243,
+      "ratio": 28.366049879324216
+    },
+    {
+      "name": "AVALON MUSEUM AND HISTORICAL SOCIETY",
+      "city": "Avalon",
+      "state": "NJ",
+      "collection": 35259,
+      "population": 1243,
+      "ratio": 28.366049879324216
+    },
+    {
+      "name": "RANSOMVILLE FREE LIBRARY",
+      "city": "Ransomville",
+      "state": "NY",
+      "collection": 36489,
+      "population": 1316,
+      "ratio": 27.727203647416413
+    },
+    {
+      "name": "HARTFORD PUBLIC LIBRARY DISTRICT",
+      "city": "Hartford",
+      "state": "IL",
+      "collection": 32030,
+      "population": 1185,
+      "ratio": 27.029535864978904
+    },
+    {
+      "name": "WAGNALLS MEMORIAL LIBRARY",
+      "city": "Lithopolis",
+      "state": "OH",
+      "collection": 56382,
+      "population": 2134,
+      "ratio": 26.420805998125587
+    },
+    {
+      "name": "ROGERSVILLE PUBLIC LIBRARY",
+      "city": "Rogersville",
+      "state": "AL",
+      "collection": 35291,
+      "population": 1365,
+      "ratio": 25.854212454212455
+    }
+  ],
+  "funding_sources": [
+    {
+      "source": "Local",
+      "total": 241213609252.0,
+      "count": 17448,
+      "pct": "91.9%"
+    },
+    {
+      "source": "State",
+      "total": 19467219131.0,
+      "count": 17448,
+      "pct": "7.4%"
+    },
+    {
+      "source": "Federal",
+      "total": 1730523335.0,
+      "count": 17448,
+      "pct": "0.7%"
+    }
+  ],
+  "poverty_stats": {
+    "avg": 12.889640220321107,
+    "min": 1.7,
+    "max": 52.8,
+    "count": 17066,
+    "high_poverty": 109
+  },
+  "gov_tech": {
+    "servers": [
+      {
+        "name": "cloudflare",
+        "count": 5318
+      },
+      {
+        "name": "nginx",
+        "count": 2282
+      },
+      {
+        "name": "Apache",
+        "count": 2135
+      },
+      {
+        "name": "Microsoft-IIS",
+        "count": 1046
+      },
+      {
+        "name": "awselb",
+        "count": 972
+      },
+      {
+        "name": "AkamaiGHost",
+        "count": 517
+      },
+      {
+        "name": "Pepyaka",
+        "count": 463
+      },
+      {
+        "name": "LiteSpeed",
+        "count": 303
+      },
+      {
+        "name": "Squarespace",
+        "count": 201
+      },
+      {
+        "name": "DPS",
+        "count": 137
+      }
+    ],
+    "statuses": [
+      {
+        "code": "0",
+        "count": 5878
+      },
+      {
+        "code": "200",
+        "count": 10313
+      },
+      {
+        "code": "202",
+        "count": 412
+      },
+      {
+        "code": "206",
+        "count": 3551
+      },
+      {
+        "code": "301",
+        "count": 1
+      },
+      {
+        "code": "307",
+        "count": 55
+      },
+      {
+        "code": "400",
+        "count": 7
+      },
+      {
+        "code": "401",
+        "count": 10
+      },
+      {
+        "code": "402",
+        "count": 1
+      },
+      {
+        "code": "403",
+        "count": 4270
+      },
+      {
+        "code": "404",
+        "count": 362
+      },
+      {
+        "code": "405",
+        "count": 1
+      },
+      {
+        "code": "409",
+        "count": 16
+      },
+      {
+        "code": "410",
+        "count": 5
+      },
+      {
+        "code": "421",
+        "count": 3
+      },
+      {
+        "code": "429",
+        "count": 14
+      },
+      {
+        "code": "439",
+        "count": 1
+      },
+      {
+        "code": "444",
+        "count": 5
+      },
+      {
+        "code": "500",
+        "count": 18
+      },
+      {
+        "code": "502",
+        "count": 1
+      },
+      {
+        "code": "503",
+        "count": 44
+      },
+      {
+        "code": "504",
+        "count": 4
+      },
+      {
+        "code": "508",
+        "count": 1
+      },
+      {
+        "code": "520",
+        "count": 6
+      },
+      {
+        "code": "521",
+        "count": 10
+      },
+      {
+        "code": "522",
+        "count": 2
+      },
+      {
+        "code": "523",
+        "count": 4
+      },
+      {
+        "code": "525",
+        "count": 15
+      },
+      {
+        "code": "526",
+        "count": 6
+      },
+      {
+        "code": "530",
+        "count": 8
+      },
+      {
+        "code": "999",
+        "count": 1
+      }
+    ],
+    "total_checked": 25025
+  },
+  "agency_timeline": {
+    "oldest": [
+      {
+        "name": "United States Postal Service",
+        "level": "federal",
+        "state": "",
+        "year": 1775
+      },
+      {
+        "name": "Department of State",
+        "level": "federal",
+        "state": "",
+        "year": 1789
+      },
+      {
+        "name": "Department of the Treasury",
+        "level": "federal",
+        "state": "DC",
+        "year": 1789
+      },
+      {
+        "name": "House of Representatives",
+        "level": "federal",
+        "state": "DC",
+        "year": 1789
+      },
+      {
+        "name": "White House",
+        "level": "federal",
+        "state": "DC",
+        "year": 1792
+      },
+      {
+        "name": "Library of Congress",
+        "level": "federal",
+        "state": "DC",
+        "year": 1800
+      },
+      {
+        "name": "Department of the Interior",
+        "level": "federal",
+        "state": "",
+        "year": 1849
+      },
+      {
+        "name": "Bureau of the Fiscal Service",
+        "level": "federal",
+        "state": "DC",
+        "year": 1849
+      },
+      {
+        "name": "Architect of the Capitol",
+        "level": "federal",
+        "state": "DC",
+        "year": 1851
+      },
+      {
+        "name": "Government Publishing Office",
+        "level": "federal",
+        "state": "DC",
+        "year": 1861
+      }
+    ],
+    "newest": [
+      {
+        "name": "Consumer Financial Protection Bureau",
+        "level": "federal",
+        "state": "DC",
+        "year": 2011
+      },
+      {
+        "name": "Office of the Director of National Intelligence",
+        "level": "federal",
+        "state": "VA",
+        "year": 2004
+      },
+      {
+        "name": "Customs and Border Protection",
+        "level": "federal",
+        "state": "DC",
+        "year": 2003
+      },
+      {
+        "name": "Immigration and Customs Enforcement",
+        "level": "federal",
+        "state": "DC",
+        "year": 2003
+      },
+      {
+        "name": "Department of Homeland Security",
+        "level": "federal",
+        "state": "",
+        "year": 2002
+      }
+    ]
+  },
+  "generated": "2026-08-14 11:57 UTC"
 }

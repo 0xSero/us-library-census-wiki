@@ -413,6 +413,9 @@ body.wiki-body {
   background: linear-gradient(90deg, var(--wiki-accent), #5b9bd5);
   border-radius: 2px;
 }
+.wiki-body-content .svc-fill-tech {
+  background: linear-gradient(90deg, #8e44ff, #b785ff);
+}
 .wiki-body-content .svc-count {
   font-weight: 700;
   color: var(--wiki-text-muted);
@@ -631,6 +634,9 @@ body.map-page { overflow: hidden; }
 [data-theme="dark"] .wiki-body-content .svc-bar { background: #1a1d22; border-color: var(--wiki-border-soft); }
 [data-theme="dark"] .wiki-body-content .svc-fill {
   background: linear-gradient(90deg, #4a8fe7, #2c6db8);
+}
+[data-theme="dark"] .wiki-body-content .svc-fill-tech {
+  background: linear-gradient(90deg, #8e44ff, #6a2eb8);
 }
 [data-theme="dark"] .wiki-body-content .svc-name { color: var(--wiki-text); }
 [data-theme="dark"] .wiki-body-content .svc-count { color: var(--wiki-text-muted); }

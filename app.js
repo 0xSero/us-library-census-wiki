@@ -233,6 +233,12 @@
 
     if (r.pop) html += row('Area population', esc(r.pop));
     if (r.income) html += row('Median household income', esc(r.income));
+    if (r.sqft) html += row('Building size', esc(r.sqft) + ' sqft');
+    if (r.coll) html += row('Collection size', esc(r.coll) + ' items');
+    if (r.psrv) html += row('Population served', esc(r.psrv));
+    if (r.fsrc) html += row('Funding source', esc(r.fsrc));
+    if (r.pov) html += row('Poverty rate', esc(r.pov) + '%');
+    if (r.age) html += row('Median age', esc(r.age) + ' years');
     if (r.lat && r.lng) {
       var mapUrl = 'https://www.google.com/maps?q=' + encodeURIComponent(r.lat + ',' + r.lng);
       html += row('Coordinates', esc(r.lat) + ', ' + esc(r.lng) + ' · <a href="' + mapUrl + '" target="_blank" rel="noopener">View on Google Maps →</a>');

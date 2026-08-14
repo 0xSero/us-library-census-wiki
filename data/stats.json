@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:08 UTC",
+  "generated": "2026-08-14 22:11 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -22395,6 +22395,537 @@
     ],
     "oldest_designation_year": 1814,
     "newest_designation_year": 2025
+  },
+  "library_demographics": {
+    "title": "Library User Demographics and Usage Patterns",
+    "source": "Pew Research Center, Gallup, NEA SPPA 2022, NCES, ALA Digital Inclusion Survey",
+    "demographics": {
+      "summary_by_source": {
+        "gallup_2019_frequency": {
+          "note": "Average visits per adult per year",
+          "women": 13.4,
+          "men": 7.5,
+          "ages_18_29": 15.5,
+          "ages_30_49": 12.3,
+          "ages_50_64": 6.8,
+          "ages_65_plus": 8.2,
+          "income_less_than_40000": 12.2,
+          "income_40000_99999": 10.4,
+          "income_100000_plus": 8.5,
+          "midwest": 12.9,
+          "east": 10.4,
+          "west": 10.1,
+          "south": 9.3
+        },
+        "pew_2016_visit_rate_by_demographic": {
+          "college_degree_holders": 59,
+          "women": 57,
+          "parents": 55,
+          "ages_16_to_29": 55,
+          "black_americans": 52,
+          "households_earning_30000_or_less": 50
+        },
+        "pew_2015_hispanic_use": {
+          "latinos_16plus": 72,
+          "whites": 83,
+          "blacks": 80,
+          "us_born_latinos": 83,
+          "immigrant_latinos": 60
+        }
+      },
+      "nea_sppa_2022_reading_by_demographic": {
+        "source": "NEA 2022 SPPA demographic tables (DemographicTables-2022-Core.xlsx, Reading sheet). Rates are share of U.S. adults who read books (excluding work/school) in prior 12 months. 2022 U.S. adult population: 255.4 million.",
+        "books_read_any_2017_2022_by_demographic": {
+          "all_adults": {
+            "pop_millions": 255.4,
+            "2017": 0.527,
+            "2022": 0.485,
+            "pp_change": -4.2,
+            "significant": true
+          },
+          "male": {
+            "pop_millions": 124.2,
+            "2017": 0.443,
+            "2022": 0.4,
+            "pp_change": -4.3,
+            "significant": true
+          },
+          "female": {
+            "pop_millions": 131.2,
+            "2017": 0.6053,
+            "2022": 0.566,
+            "pp_change": -3.93,
+            "significant": true
+          },
+          "hispanic": {
+            "pop_millions": 44.0,
+            "2017": 0.322,
+            "2022": 0.328,
+            "pp_change": 0.6,
+            "significant": false
+          },
+          "white": {
+            "pop_millions": 158.0,
+            "2017": 0.5958,
+            "2022": 0.549,
+            "pp_change": -4.68,
+            "significant": true
+          },
+          "african_american": {
+            "pop_millions": 30.5,
+            "2017": 0.4655,
+            "2022": 0.421,
+            "pp_change": -4.45,
+            "significant": false
+          },
+          "asian": {
+            "pop_millions": 15.9,
+            "2017": 0.448,
+            "2022": 0.424,
+            "pp_change": -2.4,
+            "significant": false
+          },
+          "age_18_24": {
+            "pop_millions": 29.4,
+            "2017": 0.4732,
+            "2022": 0.474,
+            "pp_change": 0.08,
+            "significant": false
+          },
+          "age_25_34": {
+            "pop_millions": 44.2,
+            "2017": 0.5255,
+            "2022": 0.526,
+            "pp_change": 0.05,
+            "significant": false
+          },
+          "age_35_44": {
+            "pop_millions": 43.0,
+            "2017": 0.5363,
+            "2022": 0.51,
+            "pp_change": -2.63,
+            "significant": false
+          },
+          "age_45_54": {
+            "pop_millions": 40.0,
+            "2017": 0.5049,
+            "2022": 0.481,
+            "pp_change": -2.39,
+            "significant": false
+          },
+          "age_55_64": {
+            "pop_millions": 42.2,
+            "2017": 0.5357,
+            "2022": 0.436,
+            "pp_change": -9.97,
+            "significant": true
+          },
+          "age_65_74": {
+            "pop_millions": 34.0,
+            "2017": 0.5716,
+            "2022": 0.496,
+            "pp_change": -7.56,
+            "significant": true
+          },
+          "age_75_plus": {
+            "pop_millions": 22.7,
+            "2017": 0.5537,
+            "2022": 0.458,
+            "pp_change": -9.57,
+            "significant": true
+          },
+          "education_grade_school": {
+            "pop_millions": 9.1,
+            "2017": 0.1909,
+            "2022": 0.198,
+            "pp_change": 0.71,
+            "significant": false
+          },
+          "education_some_high_school": {
+            "pop_millions": 14.8,
+            "2017": 0.2668,
+            "2022": 0.329,
+            "pp_change": 6.22,
+            "significant": false
+          },
+          "education_high_school_diploma": {
+            "pop_millions": 74.1,
+            "2017": 0.3988,
+            "2022": 0.324,
+            "pp_change": -7.48,
+            "significant": true
+          },
+          "education_some_college": {
+            "pop_millions": 69.0,
+            "2017": 0.5524,
+            "2022": 0.497,
+            "pp_change": -5.54,
+            "significant": true
+          },
+          "education_bachelors": {
+            "pop_millions": 56.6,
+            "2017": 0.6849,
+            "2022": 0.641,
+            "pp_change": -4.39,
+            "significant": false
+          },
+          "education_graduate_professional": {
+            "pop_millions": 31.9,
+            "2017": 0.7856,
+            "2022": 0.711,
+            "pp_change": -7.46,
+            "significant": true
+          }
+        },
+        "literature_read_2017_2022_by_demographic": {
+          "note": "Literature = novels or short stories, poetry, or plays",
+          "all_adults": {
+            "2017": 0.442,
+            "2022": 0.396,
+            "pp_change": -4.6,
+            "significant": true
+          },
+          "male": {
+            "2017": 0.3521,
+            "2022": 0.295,
+            "pp_change": -5.71,
+            "significant": true
+          },
+          "female": {
+            "2017": 0.5254,
+            "2022": 0.492,
+            "pp_change": -3.34,
+            "significant": false
+          },
+          "age_18_24": {
+            "2017": 0.435,
+            "2022": 0.37,
+            "pp_change": -6.5,
+            "significant": true
+          },
+          "age_55_64": {
+            "2017": 0.4407,
+            "2022": 0.358,
+            "pp_change": -8.27,
+            "significant": true
+          },
+          "age_65_74": {
+            "2017": 0.4826,
+            "2022": 0.389,
+            "pp_change": -9.36,
+            "significant": true
+          },
+          "education_graduate_professional": {
+            "2017": 0.6854,
+            "2022": 0.607,
+            "pp_change": -7.84,
+            "significant": false
+          }
+        },
+        "novels_or_short_stories_2017_2022": {
+          "all_adults": {
+            "2017": 0.4178,
+            "2022": 0.376,
+            "pp_change": -4.18,
+            "significant": true
+          },
+          "male": {
+            "2017": 0.3302,
+            "2022": 0.277,
+            "pp_change": -5.32,
+            "significant": true
+          },
+          "female": {
+            "2017": 0.4997,
+            "2022": 0.469,
+            "pp_change": -3.07,
+            "significant": false
+          }
+        },
+        "poetry_2017_2022": {
+          "all_adults": {
+            "2017": 0.1172,
+            "2022": 0.092,
+            "pp_change": -2.52,
+            "significant": true
+          },
+          "male": {
+            "2017": 0.087,
+            "2022": 0.065,
+            "pp_change": -2.2,
+            "significant": true
+          },
+          "female": {
+            "2017": 0.1454,
+            "2022": 0.118,
+            "pp_change": -2.74,
+            "significant": true
+          }
+        },
+        "plays_2017_2022": {
+          "all_adults": {
+            "2017": 0.0368,
+            "2022": 0.024,
+            "pp_change": -1.28,
+            "significant": true
+          },
+          "female": {
+            "2017": 0.0445,
+            "2022": 0.029,
+            "pp_change": -1.55,
+            "significant": true
+          }
+        }
+      }
+    },
+    "reasons_for_use": {
+      "source": "Pew Research Center, Libraries 2016 and Library Usage and Engagement (2016)",
+      "among_library_visitors_past_12_months": {
+        "checked_out_printed_book_percent": 64,
+        "checked_out_printed_book_2012": 73,
+        "checked_out_printed_book_2015": 66,
+        "sat_read_studied_engaged_with_media_percent": 49,
+        "sat_read_studied_2012": 49,
+        "got_help_from_librarians_percent": 35,
+        "got_help_from_librarians_2015": 42,
+        "got_help_from_librarians_2012": 50,
+        "attended_classes_programs_lectures_percent": 27,
+        "attended_classes_2015": 17,
+        "note_attendance_increase": "10-point increase from 2015",
+        "used_3d_printers_or_new_tech_percent": 13
+      },
+      "among_library_tech_users": {
+        "research_for_school_or_work_percent": 61,
+        "check_email_or_send_texts_percent": 53,
+        "acquire_health_information_percent": 38,
+        "complete_online_classes_percent": 26
+      },
+      "among_library_website_users_27pct": {
+        "search_library_catalog_percent": 58,
+        "reserve_or_place_holds_percent": 44,
+        "research_or_homework_help_percent": 44,
+        "renew_materials_percent": 40,
+        "use_online_databases_percent": 37,
+        "read_reviews_or_recommendations_percent": 31
+      },
+      "library_services_offered": {
+        "source": "ALA Digital Inclusion Survey 2014",
+        "free_public_wifi_percent": 98,
+        "summer_reading_programs_percent": 95,
+        "basic_digital_literacy_training_percent": 90,
+        "help_apply_for_jobs_percent": 73,
+        "online_job_resources_percent": 68,
+        "assist_online_government_services_percent": 76,
+        "host_adult_events_percent": 61,
+        "host_teen_events_percent": 60,
+        "early_learning_tech_prek_percent": 45,
+        "training_new_devices_percent": 62,
+        "training_safe_online_practices_percent": 57,
+        "training_social_media_percent": 56,
+        "business_information_resources_percent": 48
+      }
+    },
+    "services_offered": {
+      "source": "ALA Digital Inclusion Survey 2014",
+      "free_public_wifi_percent": 98,
+      "summer_reading_programs_percent": 95,
+      "basic_digital_literacy_training_percent": 90,
+      "help_apply_for_jobs_percent": 73,
+      "online_job_resources_percent": 68,
+      "assist_online_government_services_percent": 76,
+      "host_adult_events_percent": 61,
+      "host_teen_events_percent": 60,
+      "early_learning_tech_prek_percent": 45,
+      "training_new_devices_percent": 62,
+      "training_safe_online_practices_percent": 57,
+      "training_social_media_percent": 56,
+      "business_information_resources_percent": 48
+    },
+    "attitudes": {
+      "source": "Pew Research Center, Libraries 2016 and How Americans Value Public Libraries (2013)",
+      "say_libraries_provide_resources_they_need_percent": 77,
+      "say_closing_library_major_impact_community_percent_2016": 66,
+      "say_closing_library_major_impact_community_percent_2013": 63,
+      "say_closing_library_major_impact_family_percent": 33,
+      "say_closing_library_major_impact_family_percent_2013": 29,
+      "say_libraries_contribute_a_lot_safe_place_percent": 69,
+      "say_libraries_contribute_a_lot_educational_opportunities_percent": 58,
+      "say_libraries_contribute_a_lot_spark_creativity_young_percent": 49,
+      "say_libraries_contribute_a_lot_trusted_tech_learning_percent": 47,
+      "say_libraries_contribute_a_lot_deciding_info_to_trust_percent": 37,
+      "expectations_for_library_offerings": {
+        "definitely_teach_digital_skills_percent": 80,
+        "definitely_offer_comfortable_spaces_percent": 57,
+        "definitely_help_learn_new_creative_tech_percent": 50
+      },
+      "attitudes_on_moving_books_for_tech_spaces_2016": {
+        "support_definitely_moving_books_percent": 24,
+        "say_definitely_not_move_books_percent": 31,
+        "say_maybe_move_books_percent": 40
+      }
+    },
+    "nces_school_libraries": {
+      "source": "NCES Digest of Education Statistics, Table 701.10 - Selected statistics on public school libraries/media centers, by level of school. Data from Schools and Staffing Survey (SASS). Table prepared for Digest 2023 (d23). Latest data year is 2011-12 (SASS was discontinued).",
+      "table_url": "https://nces.ed.gov/programs/digest/d23/tables/dt23_701.10.asp",
+      "number_of_schools_with_libraries_media_centers": {
+        "1999_2000_total": 77300,
+        "2003_04_total": 78300,
+        "2007_08_total": 81900,
+        "2011_12_total": 81200,
+        "2011_12_elementary": 58000,
+        "2011_12_secondary": 17100,
+        "2011_12_combined": 6100
+      },
+      "average_staff_per_library_media_center": {
+        "1999_2000": 1.89,
+        "2003_04": 1.76,
+        "2007_08": 1.72,
+        "2011_12": 1.77
+      },
+      "certified_library_media_specialists_per_center": {
+        "1999_2000": 0.81,
+        "2003_04": 0.79,
+        "2007_08": 0.78,
+        "2011_12": 0.9
+      },
+      "percent_with_automated_catalog": {
+        "1999_2000": 72.8,
+        "2003_04": 82.7,
+        "2007_08": 87.2,
+        "2011_12": 88.3
+      },
+      "percent_with_internet_connection": {
+        "1999_2000": 90.1,
+        "2003_04": 95.1,
+        "2007_08": 96.7,
+        "2011_12": 95.9
+      },
+      "computer_workstations_per_100_students": {
+        "2003_04": 2.3,
+        "2007_08": 2.6,
+        "2011_12": 3.1
+      },
+      "books_per_100_students": {
+        "1999_2000": 1803,
+        "2003_04": 1891,
+        "2007_08": 2015,
+        "2011_12": 2188
+      },
+      "expenditures_per_pupil_current_dollars": {
+        "1999_2000_total": 23.37,
+        "2011_12_total": 16.0,
+        "note": "Decline reflects shift in funding; in constant 2021-22 dollars the 1999-2000 total was $38.93."
+      }
+    },
+    "trends": {
+      "library_visits_trend": [
+        {
+          "era": "Pre-2012",
+          "note": "Pew measured 53% in-person visit rate (2012 peak)"
+        },
+        {
+          "year": 2013,
+          "pew_in_person_visit_rate": 48,
+          "pew_any_use_rate": 54,
+          "note": "Declined from 2012"
+        },
+        {
+          "year": 2015,
+          "pew_in_person_visit_rate": 44
+        },
+        {
+          "year": 2016,
+          "pew_in_person_visit_rate": 48,
+          "pew_any_interaction_rate": 53
+        },
+        {
+          "year": 2019,
+          "gallup_avg_visits_per_adult": 10.5,
+          "imls_total_visits": "1.25 billion",
+          "imls_per_capita": 3.85
+        },
+        {
+          "year": 2020,
+          "imls_total_visits": "732 million",
+          "imls_per_capita": 2.23,
+          "note": "COVID-19 pandemic caused sharp decline"
+        },
+        {
+          "year": 2022,
+          "nea_sppa_public_library_visit_rate": 23,
+          "imls_total_visits": "671 million",
+          "imls_per_capita": 2.01,
+          "note": "NEA SPPA first measured library visits; lowest IMLS per-capita in series"
+        },
+        {
+          "year": 2023,
+          "imls_total_visits": "803 million",
+          "imls_per_capita": 2.39,
+          "note": "Recovery underway"
+        },
+        {
+          "year": 2024,
+          "imls_total_visits": "869 million",
+          "imls_per_capita": 2.53,
+          "note": "Continued recovery but still ~34% below FY2019 per-capita"
+        }
+      ],
+      "reading_trend_nea_sppa": [
+        {
+          "year": 2012,
+          "read_any_book": 54.6,
+          "read_novels_short_stories": 45.2,
+          "read_poetry": 6.7,
+          "read_plays": 2.9
+        },
+        {
+          "year": 2017,
+          "read_any_book": 52.7,
+          "read_novels_short_stories": 41.8,
+          "read_poetry": 11.7,
+          "read_plays": 3.7,
+          "read_books_and_or_literature": 57
+        },
+        {
+          "year": 2022,
+          "read_any_book": 48.5,
+          "read_novels_short_stories": 37.6,
+          "read_poetry": 9.2,
+          "read_plays": 2.4,
+          "read_books_and_or_literature": 53,
+          "read_books_and_or_audiobooks": 51.9
+        }
+      ],
+      "book_format_trend_pew": [
+        {
+          "year": 2011,
+          "print": 72,
+          "ebook": 17,
+          "audiobook": 11,
+          "any_book": 75
+        },
+        {
+          "year": 2025,
+          "print": 64,
+          "ebook": 31,
+          "audiobook": 26,
+          "any_book": 75,
+          "note": "Print declining, e-books and audiobooks growing; overall reading rate stable"
+        }
+      ],
+      "key_takeaways": [
+        "Library visitation peaked in the early 2010s (~53% of adults, ~3.85 per-capita IMLS visits in FY2019) and declined sharply during COVID-19 (2.01 per-capita in FY2022), with partial recovery by FY2024 (2.53 per-capita).",
+        "In 2022, the NEA SPPA (a Census Bureau CPS supplement) found 23% of adults visited a public library in the prior 12 months - the first time this question was asked.",
+        "Gallup (2019) found visiting the library was the most common cultural activity, averaging 10.5 visits/adult/year - more than double movie theater visits (5.3).",
+        "Women visit libraries nearly twice as often as men (Gallup: 13.4 vs 7.5; Pew: 57% vs lower for men). Low-income households visit most frequently.",
+        "Book reading has declined: 48.5% of adults read any book in 2022 (down from 54.6% in 2012). Novel/short-story reading hit a record low of 37.6%.",
+        "Print books remain dominant (64% read print in 2025 vs 31% e-book, 26% audiobook), but digital formats have grown substantially since 2011.",
+        "The main reasons for library visits are borrowing printed books (64% of visitors), reading/studying (49%), and getting help from librarians (35%).",
+        "Libraries are highly valued: 95-94% say libraries improve community quality of life; 66% say closing would majorly impact their community.",
+        "There are approximately 133,200 librarians/media collections specialists and ~402,590 core library workers (BLS OES 2024). IMLS reports 143,324 total public library staff (FY2024).",
+        "Library computer/internet access serves a critical equity role: ~23% of all Americans 16+ used library computers/internet/Wi-Fi (Pew 2016); 77 million used library computers/wireless (Gates Foundation 2010)."
+      ]
+    }
   },
   "imls_grants": {
     "total_count": 21325,

@@ -166,6 +166,7 @@ def panel(active=""):
     <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
+    <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -369,6 +370,12 @@ def load_all():
             data['fdlp_summary'] = json.load(f)
     else:
         data['fdlp_summary'] = {}
+    demo_path = os.path.join(DATA, "library_demographics_summary.json")
+    if os.path.exists(demo_path):
+        with open(demo_path) as f:
+            data['library_demographics'] = json.load(f)
+    else:
+        data['library_demographics'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1409,6 +1416,9 @@ def compute_stats(data):
 
     # ---- Federal Depository Library Program (FDLP) ----
     stats['fdlp_summary'] = data.get('fdlp_summary', {})
+
+    # ---- Library user demographics and usage patterns ----
+    stats['library_demographics'] = data.get('library_demographics', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -3495,6 +3505,183 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: Pew Research Center Internet & American Life Project ({survey_yr} survey, n={lu.get("sample_size", 6224):,}), Gallup ({dem.get("survey_year", 2019)} poll), and NEA Survey of Public Participation in the Arts (2022, n={nea_n:,}). Pew surveyed Americans aged 16+ on library use and attitudes. In-person visits declined {ou.get("in_person_visit_2012", 53) - ou.get("in_person_visit", 48)}pp from 2012 to {survey_yr} while website visits increased {ou.get("website_visit", 30) - ou.get("website_visit_2012", 25)}pp - a shift toward digital access that the PLS data confirms. The NEA SPPA 2022 library-visit question is not directly comparable to Pew due to different wording (in-person public library visits by adults 18+) and methodology.</p>'
+
+    # ---- Library User Demographics and Usage Patterns ----
+    demo = stats.get('library_demographics', {})
+    if demo and demo.get('demographics'):
+        demo_data = demo.get('demographics', {}).get('summary_by_source', {})
+        reasons = demo.get('reasons_for_use', {})
+        services = demo.get('services_offered', {})
+        nces = demo.get('nces_school_libraries', {})
+
+        gallup_demo = demo_data.get('gallup_2019_frequency', {})
+        pew_demo = demo_data.get('pew_2016_visit_rate_by_demographic', {})
+        pew_hisp = demo_data.get('pew_2015_hispanic_use', {})
+        visitor_reasons = reasons.get('among_library_visitors_past_12_months', {})
+
+        body += f"""
+
+<h2 id="demographics">Who Uses Libraries & Why</h2>
+<p class="wiki-sub">Survey data reveals stark demographic patterns in library use. Gallup's 2019 poll found that women visit libraries nearly twice as often as men (13.4 vs 7.5 visits/year), young adults aged 18-29 visit most frequently (15.5/year), and low-income households use libraries more than high-income ones (12.2 vs 8.5 visits/year). Pew's 2016 survey found that college graduates (59%) and parents (55%) visit libraries at higher rates - suggesting libraries serve both the educated and those caring for children.</p>"""
+
+        # Demographic stat cards
+        if gallup_demo:
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{gallup_demo.get('women', 13.4)}</div><div class="label">Women: avg visits/year</div></div>
+  <div class="stat-card"><div class="num">{gallup_demo.get('men', 7.5)}</div><div class="label">Men: avg visits/year</div></div>
+  <div class="stat-card"><div class="num">{gallup_demo.get('ages_18_29', 15.5)}</div><div class="label">Ages 18-29 visits/year</div></div>
+  <div class="stat-card"><div class="num">{gallup_demo.get('ages_65_plus', 8.2)}</div><div class="label">Ages 65+ visits/year</div></div>
+  <div class="stat-card"><div class="num">{gallup_demo.get('income_less_than_40000', 12.2)}</div><div class="label">Low-income visits/year</div></div>
+  <div class="stat-card"><div class="num">{gallup_demo.get('income_100000_plus', 8.5)}</div><div class="label">High-income visits/year</div></div>
+</div>"""
+
+        # Gallup demographic bars
+        if gallup_demo:
+            body += """
+<h3>Library visits per year by demographic group (Gallup 2019)</h3>
+<div class="services-bars">"""
+            demo_pairs = [
+                ("Women", "women"), ("Men", "men"),
+                ("Ages 18-29", "ages_18_29"), ("Ages 30-49", "ages_30_49"),
+                ("Ages 50-64", "ages_50_64"), ("Ages 65+", "ages_65_plus"),
+                ("Income <$40K", "income_less_than_40000"),
+                ("Income $40-100K", "income_40000_99999"),
+                ("Income $100K+", "income_100000_plus"),
+                ("Midwest", "midwest"), ("East", "east"),
+                ("West", "west"), ("South", "south"),
+            ]
+            max_d = max(gallup_demo.get(k, 0) for _, k in demo_pairs) or 1
+            for label, key in demo_pairs:
+                val = gallup_demo.get(key, 0)
+                pct_w = (val / max_d) * 100 if max_d else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{label}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Pew visit rate by demographic
+        if pew_demo:
+            body += """
+<h3>Library visit rate by demographic (Pew 2016, % who visited in past year)</h3>
+<div class="services-bars">"""
+            max_p = max(pew_demo.values()) or 1
+            for label, val in sorted(pew_demo.items(), key=lambda x: -x[1]):
+                pct_w = (val / max_p) * 100 if max_p else 0
+                display = label.replace("_", " ").title()
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(display)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Reasons for use
+        if visitor_reasons:
+            body += """
+<h3>Why library visitors use the library (Pew 2016, % of past-year visitors)</h3>
+<div class="services-bars">"""
+            reason_pairs = [
+                ("Checked out a printed book", "checked_out_printed_book_percent"),
+                ("Sat, read, studied, or engaged with media", "sat_read_studied_engaged_with_media_percent"),
+                ("Got help from a librarian", "got_help_from_librarians_percent"),
+                ("Attended classes, programs, or lectures", "attended_classes_programs_lectures_percent"),
+                ("Used 3D printers or new technology", "used_3d_printers_or_new_tech_percent"),
+            ]
+            max_r = max(visitor_reasons.get(k, 0) for _, k in reason_pairs) or 1
+            for label, key in reason_pairs:
+                val = visitor_reasons.get(key, 0)
+                pct_w = (val / max_r) * 100 if max_r else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{label}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Library services offered (ALA Digital Inclusion Survey)
+        if services:
+            body += """
+<h3>Services offered by public libraries (ALA Digital Inclusion Survey 2014)</h3>
+<div class="services-bars">"""
+            svc_pairs = [
+                ("Free public WiFi", "free_public_wifi_percent"),
+                ("Summer reading programs", "summer_reading_programs_percent"),
+                ("Digital literacy training", "basic_digital_literacy_training_percent"),
+                ("Assist with gov services online", "assist_online_government_services_percent"),
+                ("Help apply for jobs", "help_apply_for_jobs_percent"),
+                ("Online job resources", "online_job_resources_percent"),
+                ("Host adult events", "host_adult_events_percent"),
+                ("Host teen events", "host_teen_events_percent"),
+                ("Training on new devices", "training_new_devices_percent"),
+                ("Safe online practices training", "training_safe_online_practices_percent"),
+                ("Social media training", "training_social_media_percent"),
+                ("Early learning tech (Pre-K)", "early_learning_tech_prek_percent"),
+                ("Business information resources", "business_information_resources_percent"),
+            ]
+            max_s = max(services.get(k, 0) for _, k in svc_pairs) or 1
+            for label, key in svc_pairs:
+                val = services.get(key, 0)
+                pct_w = (val / max_s) * 100 if max_s else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{label}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # NCES School Libraries
+        if nces and nces.get('number_of_schools_with_libraries_media_centers'):
+            sl = nces['number_of_schools_with_libraries_media_centers']
+            staff = nces.get('average_staff_per_library_media_center', {})
+            cat = nces.get('percent_with_automated_catalog', {})
+            books = nces.get('books_per_100_students', {})
+            workstations = nces.get('computer_workstations_per_100_students', {})
+            internet = nces.get('percent_with_internet_connection', {})
+
+            body += f"""
+
+<h3>School Libraries / Media Centers (NCES, 2011-12)</h3>
+<p class="wiki-sub">The NCES Schools and Staffing Survey (SASS) - since discontinued - provides the most recent comprehensive data on school libraries. In 2011-12, {sl.get('2011_12_total', 81200):,} public schools had library media centers ({sl.get('2011_12_elementary', 58000):,} elementary, {sl.get('2011_12_secondary', 17100):,} secondary). Each center averaged {staff.get('2011_12', 1.77)} staff and {cat.get('2011_12', 88.3)}% had automated catalogs.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{sl.get('2011_12_total', 81200):,}</div><div class="label">Schools with libraries (2011-12)</div></div>
+  <div class="stat-card"><div class="num">{staff.get('2011_12', 1.77)}</div><div class="label">Avg staff per media center</div></div>
+  <div class="stat-card"><div class="num">{cat.get('2011_12', 88.3)}%</div><div class="label">With automated catalog</div></div>
+  <div class="stat-card"><div class="num">{books.get('2011_12', 2188):,}</div><div class="label">Books per 100 students</div></div>
+  <div class="stat-card"><div class="num">{workstations.get('2011_12', 3.1)}</div><div class="label">Computers per 100 students</div></div>
+  <div class="stat-card"><div class="num">{internet.get('2011_12', 95.9)}%</div><div class="label">With internet connection</div></div>
+</div>"""
+
+            # School library trend table
+            body += """
+<h3>School library trends over time</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>1999-2000</th><th>2003-04</th><th>2007-08</th><th>2011-12</th></tr>"""
+            trend_rows = [
+                ("Schools with libraries", sl.get("1999_2000_total"), sl.get("2003_04_total"), sl.get("2007_08_total"), sl.get("2011_12_total")),
+                ("Avg staff per center", staff.get("1999_2000"), staff.get("2003_04"), staff.get("2007_08"), staff.get("2011_12")),
+                ("% with automated catalog", cat.get("1999_2000"), cat.get("2003_04"), cat.get("2007_08"), cat.get("2011_12")),
+                ("% with internet", internet.get("1999_2000"), internet.get("2003_04"), internet.get("2007_08"), internet.get("2011_12")),
+                ("Books per 100 students", books.get("1999_2000"), books.get("2003_04"), books.get("2007_08"), books.get("2011_12")),
+                ("Computers per 100 students", None, workstations.get("2003_04"), workstations.get("2007_08"), workstations.get("2011_12")),
+            ]
+            for label, v1, v2, v3, v4 in trend_rows:
+                def fmt(v):
+                    if v is None: return "-"
+                    if isinstance(v, float): return f"{v:.1f}"
+                    return f"{v:,}"
+                body += f'\n  <tr><td>{label}</td><td class="pct">{fmt(v1)}</td><td class="pct">{fmt(v2)}</td><td class="pct">{fmt(v3)}</td><td class="pct">{fmt(v4)}</td></tr>'
+            body += '\n</table>'
+
+            body += '<p class="rsrc">Source: NCES Digest of Education Statistics, Table 701.10, from the Schools and Staffing Survey (SASS). The SASS was discontinued after 2011-12, making this the most recent comprehensive national school library data available. School library expenditure per pupil declined from $23.37 (1999-2000) to $16.00 (2011-12) in current dollars - a real-terms cut of over 50%.</p>'
+
+        body += '<p class="rsrc">Demographics source: Gallup (Dec 2019 poll), Pew Research Center (2016 Libraries survey, 2015 Hispanic media survey), and NEA SPPA 2022. Reasons for use from Pew 2016. Library services from ALA Digital Inclusion Survey 2014. Library attendance at programs increased 10 points from 2015 to 2016 (17% to 27%), the largest gain of any usage category.</p>'
 
     # ---- COVID-19 Impact and Recovery ----
     cov = stats.get('covid_recovery', {})

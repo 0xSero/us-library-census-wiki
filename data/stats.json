@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 21:32 UTC",
+  "generated": "2026-08-14 21:37 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -13322,6 +13322,49 @@
         "amount": 3500000.0
       }
     ]
+  },
+  "library_usage": {
+    "source": "Pew Research Center (2013 survey of 6,224 Americans aged 16+) + Gallup (2019)",
+    "survey_year": 2013,
+    "sample_size": 6224,
+    "overall_usage": {
+      "used_library_past_year": 54,
+      "used_library_2012": 59,
+      "in_person_visit": 48,
+      "in_person_visit_2012": 53,
+      "website_visit": 30,
+      "website_visit_2012": 25,
+      "library_household": 72,
+      "feel_libraries_keep_up_tech": 55,
+      "feel_libraries_behind_tech": 34,
+      "say_libraries_not_needed_as_much": 52,
+      "disagree_libraries_not_needed": 46
+    },
+    "community_value": {
+      "libraries_help_everyone_succeed": 95,
+      "libraries_provide_unique_services": 81,
+      "closure_would_impact_community": 90,
+      "closure_major_impact": 63,
+      "libraries_improve_quality_of_life": 94,
+      "closure_would_impact_family": 67,
+      "closure_major_impact_family": 29
+    },
+    "demographic_usage": {
+      "note": "From Gallup 2019 poll: Americans visited library 10.5 times per year on average",
+      "gallup_2019_visits_per_year_avg": 10.5,
+      "gallup_2019_visitors_low_income": "More frequent among low-income households",
+      "gallup_2019_visitors_women": "Women visit more than men (13.4 vs 7.5 avg visits)",
+      "gallup_2019_visitors_young_adults": "Adults 18-29 visit most frequently"
+    },
+    "service_importance": {
+      "library_computers_veryimportant_no_home_internet": 56,
+      "library_computers_veryimportant_all": 33,
+      "librarian_help_veryimportant_unemployed_retired": 49,
+      "librarian_help_veryimportant_employed": 41,
+      "job_search_help_veryimportant": 47,
+      "gov_services_help_veryimportant_disabled": 40,
+      "gov_services_help_veryimportant_nondisabled": 27
+    }
   },
   "imls_grants": {
     "total_count": 21325,

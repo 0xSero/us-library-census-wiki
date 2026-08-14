@@ -162,6 +162,7 @@ def panel(active=""):
     <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
     <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
     <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
@@ -348,6 +349,12 @@ def load_all():
             data['ala_report'] = json.load(f)
     else:
         data['ala_report'] = {}
+    pc_path = os.path.join(DATA, "state_per_capita_rankings.json")
+    if os.path.exists(pc_path):
+        with open(pc_path) as f:
+            data['state_per_capita'] = json.load(f)
+    else:
+        data['state_per_capita'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1379,6 +1386,9 @@ def compute_stats(data):
 
     # ---- ALA State of America's Libraries Report 2024 ----
     stats['ala_report'] = data.get('ala_report', {})
+
+    # ---- State per-capita library rankings (PLS FY2024) ----
+    stats['state_per_capita'] = data.get('state_per_capita', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -3465,6 +3475,142 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: Pew Research Center Internet & American Life Project ({survey_yr} survey, n={lu.get("sample_size", 6224):,}), Gallup ({dem.get("survey_year", 2019)} poll), and NEA Survey of Public Participation in the Arts (2022, n={nea_n:,}). Pew surveyed Americans aged 16+ on library use and attitudes. In-person visits declined {ou.get("in_person_visit_2012", 53) - ou.get("in_person_visit", 48)}pp from 2012 to {survey_yr} while website visits increased {ou.get("website_visit", 30) - ou.get("website_visit_2012", 25)}pp - a shift toward digital access that the PLS data confirms. The NEA SPPA 2022 library-visit question is not directly comparable to Pew due to different wording (in-person public library visits by adults 18+) and methodology.</p>'
+
+    # ---- State Per-Capita Library Rankings (PLS FY2024) ----
+    pc = stats.get('state_per_capita', {})
+    if pc and pc.get('rankings'):
+        rankings = pc['rankings']
+        tot_pop = pc.get('total_population', 0)
+        tot_visits = pc.get('total_visits', 0)
+        tot_circ = pc.get('total_circulation', 0)
+        tot_income = pc.get('total_income', 0)
+        tot_buildings = pc.get('total_buildings', 0)
+        n_states = pc.get('total_states', 56)
+
+        body += f"""
+
+<h2 id="per-capita-rankings">State Per-Capita Library Rankings (FY2024)</h2>
+<p class="wiki-sub">Normalizing library statistics by population reveals which states invest most heavily in library services relative to their size. These per-capita rankings, computed from IMLS Public Libraries Survey FY2024 data across {n_states} states and territories serving {tot_pop/1e6:.0f}M residents, show a different picture than raw totals. The District of Columbia consistently tops per-capita measures, reflecting its urban density and concentrated library investment. Below are the top 10 states across {len(rankings)} key metrics.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{tot_visits/1e6:.0f}M</div><div class="label">Total library visits (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{tot_circ/1e9:.1f}B</div><div class="label">Total circulation</div></div>
+  <div class="stat-card"><div class="num">${tot_income/1e9:.1f}B</div><div class="label">Total library income</div></div>
+  <div class="stat-card"><div class="num">{tot_buildings:,}</div><div class="label">Library buildings</div></div>
+  <div class="stat-card"><div class="num">{tot_visits/tot_pop:.1f}</div><div class="label">National visits per capita</div></div>
+  <div class="stat-card"><div class="num">${tot_income/tot_pop:.0f}</div><div class="label">National $ per capita</div></div>
+</div>"""
+
+        # Top 10 visits per capita
+        vc = rankings.get('visits_per_capita', [])
+        if vc:
+            body += """
+<h3>Top 10 states: library visits per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Visits per capita</th><th>Total visits</th><th>Population</th></tr>"""
+            for i, r in enumerate(vc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["visits_per_capita"]:.2f}</td><td>{r["visits"]:,}</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 spending per capita
+        sc = rankings.get('spending_per_capita', [])
+        if sc:
+            body += """
+<h3>Top 10 states: library spending per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>$ per capita</th><th>Total income</th><th>Local share</th></tr>"""
+            for i, r in enumerate(sc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">${r["spending_per_capita"]:.0f}</td><td>${r["income"]/1e6:.0f}M</td><td class="pct">{r["local_pct"]:.0f}%</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 circulation per capita
+        cc = rankings.get('circ_per_capita', [])
+        if cc:
+            body += """
+<h3>Top 10 states: circulation per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Circ per capita</th><th>Digital circ %</th><th>Total circulation</th></tr>"""
+            for i, r in enumerate(cc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["circ_per_capita"]:.1f}</td><td class="pct">{r["digital_circ_pct"]:.0f}%</td><td>{r["circulation"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 librarians per 10K population
+        lc = rankings.get('librarians_per_10k', [])
+        if lc:
+            body += """
+<h3>Top 10 states: librarians per 10,000 residents</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Librarians per 10K</th><th>Total librarians</th><th>Population</th></tr>"""
+            for i, r in enumerate(lc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["librarians_per_10k"]:.2f}</td><td>{r["librarians"]:,}</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 books per capita
+        bc = rankings.get('books_per_capita', [])
+        if bc:
+            body += """
+<h3>Top 10 states: book volumes per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Books per capita</th><th>Total volumes</th><th>Population</th></tr>"""
+            for i, r in enumerate(bc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["books_per_capita"]:.2f}</td><td>{r["books"]:,}</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 WiFi sessions per capita
+        wc = rankings.get('wifi_per_capita', [])
+        if wc:
+            body += """
+<h3>Top 10 states: WiFi sessions per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>WiFi per capita</th><th>Total sessions</th><th>Population</th></tr>"""
+            for i, r in enumerate(wc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["wifi_per_capita"]:.1f}</td><td>{r["wifi_sessions"]:,}</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 digital circulation percentage
+        dc = rankings.get('digital_circ_pct', [])
+        if dc:
+            body += """
+<h3>Top 10 states: digital circulation as % of total</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Digital circ %</th><th>E-circulation</th><th>Total circulation</th></tr>"""
+            for i, r in enumerate(dc[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["digital_circ_pct"]:.0f}%</td><td>{r.get("ecirc_per_capita", 0) * r["population"]:,.0f}</td><td>{r["circulation"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 programs per 10K
+        pc10 = rankings.get('programs_per_10k', [])
+        if pc10:
+            body += """
+<h3>Top 10 states: programs per 10,000 residents</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Programs per 10K</th><th>Total programs</th><th>Attendance</th></tr>"""
+            for i, r in enumerate(pc10[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["programs_per_10k"]:.1f}</td><td>{r["programs"]:,}</td><td>{r["program_attendance"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 registered borrowers %
+        rb = rankings.get('registered_pct', [])
+        if rb:
+            body += """
+<h3>Top 10 states: registered borrowers as % of population</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Registered %</th><th>Registered borrowers</th><th>Population</th></tr>"""
+            for i, r in enumerate(rb[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">{r["registered_pct"]:.0f}%</td><td>{r["registered_borrowers"]:,}</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Lowest spending per capita
+        low_spend = pc.get('lowest', {}).get('spending_per_capita', [])
+        if low_spend:
+            body += """
+<h3>Lowest library spending per capita</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>$ per capita</th><th>Total income</th><th>Population</th></tr>"""
+            for r in low_spend:
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state_name"])}</a></td><td class="pct">${r["spending_per_capita"]:.0f}</td><td>${r["income"]/1e6:.0f}M</td><td>{r["population"]:,}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024, compiled via ALA State of America\'s Libraries data. Per-capita metrics are computed by dividing each state\'s aggregate library statistic by its total population served. Rankings include all {n_states} states and territories with population &ge; 1,000. Some territories show extreme ratios (e.g., 100% digital circulation) due to small library systems with specialized collections.</p>'
 
     # ---- ALA State of America's Libraries Report 2024 ----
     ala = stats.get('ala_report', {})

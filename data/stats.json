@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 23:22 UTC",
+  "generated": "2026-08-14 23:55 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -34245,6 +34245,453 @@
           "state_pct": 6.0,
           "federal_pct": 0.1,
           "other_pct": 6.6
+        }
+      ]
+    }
+  },
+  "loc": {
+    "organization": "Library of Congress",
+    "description": "The largest library in the world; the research arm of the U.S. Congress and the home of the U.S. Copyright Office. Established April 24, 1800. Oldest federal cultural institution in the United States. An agency of the U.S. legislative branch.",
+    "location": "101 Independence Ave. S.E., Washington, D.C. 20540, U.S.A.",
+    "website": "https://www.loc.gov/",
+    "buildings": [
+      "Thomas Jefferson Building (built 1890-1897)",
+      "John Adams Building (opened 1939)",
+      "James Madison Memorial Building"
+    ],
+    "compiled_at_utc": "2026-08-14",
+    "primary_sources": [
+      "https://www.loc.gov/about/general-information/ (FY2023 Year at a Glance)",
+      "https://www.loc.gov/about/reports-and-budgets/annual-reports/ (FY2024 Annual Report PDF)",
+      "https://www.loc.gov/about/fascinating-facts/ (historical/narrative facts)",
+      "https://www.loc.gov/about/reports-and-budgets/congressional-budget-justifications/ (FY2026 Budget Justification PDF)",
+      "https://en.wikipedia.org/wiki/Library_of_Congress (historical milestones)"
+    ],
+    "fy2024": {
+      "fiscal_year": "FY2024 (Oct 2023 - Sep 2024)",
+      "source": "2024 Annual Report of the Librarian of Congress (loc_annual_report_fy2024.txt, Tables 10/12/16 + Facts at a Glance)",
+      "source_url": "https://www.loc.gov/about/reports-and-budgets/annual-reports/",
+      "total_collection_items": "more than 181.1 million",
+      "collection_breakdown": {
+        "cataloged_books_lc_classification": "26m",
+        "nonclassified_print_materials": "16.2m",
+        "nonclassified_special_collections": "138.9m",
+        "audio_materials": "4.3m",
+        "posters_prints_drawings": "882.5k",
+        "manuscripts": "80.6m",
+        "other_broadsides": "1.5m",
+        "maps": "5.9m",
+        "machine_readable": "2m",
+        "microforms": "17.5m",
+        "sheet_music": "8.3m",
+        "moving_images": "1.9m",
+        "photographs": "15.9m"
+      },
+      "budget": {
+        "total_budget_authority_usd": 897749000.0,
+        "total_budget_authority_text": "$897.749 million",
+        "appropriations_usd": 852158000.0,
+        "appropriations_text": "$852.158 million",
+        "offsetting_receipts_usd": 45591000.0,
+        "offsetting_receipts_text": "$45.591 million",
+        "permanent_employees": 3263,
+        "staff_female": 1871,
+        "staff_male": 1392,
+        "avg_years_loc_service": 14,
+        "avg_employee_age": 48,
+        "annual_attrition_rate_pct": 6.4
+      },
+      "reference_requests": "more than 764,000 (incl. direct use of CRS reports)",
+      "website_visits": "149.3 million",
+      "website_page_views": "505.3 million",
+      "on_site_visitors": "more than 880,000",
+      "items_circulated_internal": "402,000",
+      "reader_cards_issued": "68,800",
+      "items_inventory_control": "more than 9.7 million (Fort Meade / Cabin Branch)",
+      "nls_circulation_copies": "more than 22.2 million",
+      "congressional_research_service": {
+        "fiscal_year": 2024,
+        "congressional_requests_responded": "more than 75,000",
+        "new_products_published": "more than 1,000",
+        "product_updates": "about 1,700",
+        "seminar_attendees": "more than 12,500",
+        "seminars_held": 353,
+        "law_library_congress_inquiries": 1099
+      },
+      "copyright_office": {
+        "fiscal_year": 2024,
+        "source_table": "Table 10 + Facts at a Glance",
+        "total_registrations_all": 424155,
+        "basic_registrations": 424061,
+        "visual_arts_total": 78532,
+        "documents_recorded": 17000,
+        "works_in_recorded_documents": 1700000,
+        "registration_fees_recorded_usd": 30412954
+      },
+      "nls_blind_print_disabled": {
+        "fiscal_year": 2024,
+        "source_table": "Table 12 + Facts at a Glance",
+        "total_items_circulated": 22188638,
+        "digital_cartridge_audio_circulated": 17328164,
+        "bard_audio_downloads": 4257667,
+        "ebraille_circulated": 447288,
+        "hard_copy_braille_circulated": 155519,
+        "books_circulated": 21072420,
+        "magazines_circulated": 1050029,
+        "total_readers_served": 219589,
+        "audio_readers": 202947,
+        "cartridge_users": 173266,
+        "braille_readers": 12102,
+        "bard_users": 46646,
+        "total_items_in_collection": 355102,
+        "appropriation_usd": 66130000,
+        "copies_circulated_summary": "more than 22.2 million"
+      }
+    },
+    "fy2023": {
+      "fiscal_year": 2023,
+      "source_file": "loc_general_info.html",
+      "source_url": "https://www.loc.gov/about/general-information/",
+      "reference_requests": "more than 681,000",
+      "copyright_registrations": "more than 441,500",
+      "copyright_documents_recorded": "16,600",
+      "copyright_works_in_documents": "978,900",
+      "nls_circulation_copies": "more than 24.5 million",
+      "items_circulated_internal": "249,600",
+      "items_inventory_control": "more than 8 million",
+      "total_collection_items": "more than 178.2 million",
+      "collection_breakdown": {
+        "cataloged_books_lc_classification": "more than 25.77 million cataloged books",
+        "nonclassified_print_materials": "more than 15.99 million items in the nonclassified print",
+        "nonclassified_special_collections": "more than 138.5 million items in the nonclassified (special) collections",
+        "audio_materials": "4.3 million audio materials",
+        "manuscripts": "78.5 million manuscripts",
+        "maps": "5.8 million maps",
+        "microforms": "17.5 million microforms",
+        "moving_images": "1.8 million moving images",
+        "sheet_music": "8.2 million items of sheet music",
+        "photographs": "15.7 million photographs",
+        "posters_prints_drawings": "870,000 posters, prints and drawings",
+        "other_broadsides": "1.4 million other items",
+        "machine_readable": "2 million machine-readable items"
+      },
+      "permanent_employees": 3238,
+      "total_budget_authority_usd": 875400000.0,
+      "total_budget_authority_text": "$875.4 million",
+      "appropriations_usd": 828500000.0,
+      "appropriations_text": "$828.5 million",
+      "offsetting_receipts_usd": 46900000.0,
+      "offsetting_receipts_text": "$46.9 million"
+    },
+    "historical_growth": [
+      {
+        "year": 1800,
+        "event": "Library of Congress founded (April 24, 1800) with an appropriation of $5,000; initial collection of 740 books and 3 maps.",
+        "source": "loc_fascinating_facts.html / loc_wikipedia.html"
+      },
+      {
+        "year": 1814,
+        "event": "British troops burned the Capitol, destroying the Library's core collection of 3,000 volumes (August 24, 1814).",
+        "source": "loc_fascinating_facts.html"
+      },
+      {
+        "year": 1815,
+        "event": "Congress approved purchase of Thomas Jefferson's personal library of 6,487 books for $23,950 (January 30, 1815).",
+        "source": "loc_fascinating_facts.html"
+      },
+      {
+        "year": 1897,
+        "event": "Library moved into its own building (now the Thomas Jefferson Building), completed 1890-1897.",
+        "source": "loc_wikipedia.html"
+      },
+      {
+        "year": 1939,
+        "event": "John Adams Building opened to the public (January 3, 1939).",
+        "source": "loc_wikipedia.html"
+      },
+      {
+        "year": 1987,
+        "event": "James H. Billington became 13th Librarian of Congress; analog collections stood at 85.5 million items.",
+        "source": "loc_wikipedia.html"
+      },
+      {
+        "year": 2014,
+        "event": "Analog collections exceeded 160 million items, having doubled under Billington (1987-2015).",
+        "source": "loc_wikipedia.html"
+      },
+      {
+        "year": 2016,
+        "event": "Carla Hayden became 14th Librarian of Congress (first woman and first African American in the role).",
+        "source": "loc_wikipedia.html"
+      }
+    ],
+    "narrative_facts": [
+      "Approximately half of the Library's book and serial collections are in languages other than English; collections contain materials in some 470 languages.",
+      "The Law Library of Congress is the world's largest law library.",
+      "The Library holds the largest rare-book collection in North America, including the largest collection of 15th-century books in the Western Hemisphere.",
+      "The Geography and Map Division holds the world's largest collection of cartographic materials.",
+      "The Prints and Photographs Division contains millions of visual images.",
+      "Each working day the Library receives some 15,000 items and adds roughly 10,000 to its collections (per fascinating-facts page)."
+    ]
+  },
+  "digital_libraries": {
+    "hathitrust": {
+      "name": "HathiTrust Digital Library",
+      "founded": "October 2008",
+      "location": "University of Michigan, Ann Arbor",
+      "type": "Digital library (university consortium)",
+      "description": "HathiTrust is a large-scale collaborative repository of digital content from research libraries and publishers worldwide. Founded by the twelve universities of the Committee on Institutional Cooperation (now the Big Ten Academic Alliance) and the University of California system, it preserves and provides access to the cultural record. Content includes items digitized by the Google Books project, Internet Archive, and local library digitization initiatives.",
+      "current_stats": {
+        "total_volumes": 18000000,
+        "public_domain_volumes": 6700000,
+        "member_institutions": 219,
+        "shared_print_volumes": 18000000,
+        "shared_print_retention_years": 25,
+        "shared_print_pct_of_holdings": 75
+      },
+      "key_facts": [
+        "18M+ digitized volumes (Sept 2024)",
+        "6.7M volumes in the U.S. public domain",
+        "219+ member research libraries across the US, Canada, and Europe",
+        "Shared Print Program: 18M monograph volumes committed for 25-year retention",
+        "Content from Google Books, Internet Archive, and local digitization",
+        "Emergency Temporary Access Service (ETAS) provided controlled access during COVID closures",
+        "Authors Guild v. HathiTrust (2014): court upheld transformative use for accessibility and research"
+      ],
+      "digital_initiatives": [
+        {
+          "name": "Google Books partnership",
+          "description": "Mass digitization of library collections"
+        },
+        {
+          "name": "Shared Print Program",
+          "description": "Distributed collective collection with 25-year retention commitments"
+        },
+        {
+          "name": "Emergency Temporary Access Service (ETAS)",
+          "description": "Controlled digital lending during library closures"
+        },
+        {
+          "name": "PageTurner",
+          "description": "Reader interface for navigating digitized publications"
+        },
+        {
+          "name": "Research Center",
+          "description": "Text mining and computational analysis tools for member researchers"
+        }
+      ],
+      "founding_members": 23,
+      "founding_description": "Founded by 12 universities of the Committee on Institutional Cooperation plus 11 libraries of the University of California system",
+      "governance": "Shared governance structure among member institutions",
+      "technology": [
+        "Perl",
+        "Java"
+      ]
+    },
+    "internet_archive": {
+      "name": "Internet Archive",
+      "founded": 1996,
+      "location": "San Francisco, CA",
+      "type": "Digital library (501(c)(3) nonprofit)",
+      "description": "The Internet Archive is a nonprofit digital library offering free universal access to books, movies, music, and 835+ billion archived web pages. Founded by Brewster Kahle in 1996, it is one of the world's largest digital repositories, preserving cultural artifacts in digital format for researchers, historians, and the general public.",
+      "current_stats": {
+        "web_pages_archived": 835000000000,
+        "books_texts": 44000000,
+        "video_items": 15000000,
+        "audio_items": 15000000,
+        "software_programs": 1300000,
+        "images": 5800000,
+        "wayback_machine_pages": 835000000000,
+        "daily_archiving_rate": 600000000,
+        "registered_users": 12000000
+      },
+      "key_facts": [
+        "835+ billion web pages archived in the Wayback Machine",
+        "44M+ books and texts digitized",
+        "15M+ video recordings (including 2.5M TV news programs)",
+        "15M+ audio recordings (including Live Music Archive, 78rpm records)",
+        "1.3M+ software programs (including classic games, shareware)",
+        "Founded 1996 by Brewster Kahle, headquartered in San Francisco",
+        "Controlled digital lending: lends digitized books one-at-a-time under copyright law",
+        "Open Library: catalog of every published book, 30M+ editions",
+        "Archive-It: web archiving service used by 600+ institutions",
+        "30+ scanning centers in 5 countries"
+      ],
+      "digital_initiatives": [
+        {
+          "name": "Wayback Machine",
+          "description": "835B+ archived web pages, launched 2001, archives 600M+ pages daily"
+        },
+        {
+          "name": "Open Library",
+          "description": "Open catalog of every published book, 30M+ editions"
+        },
+        {
+          "name": "Controlled Digital Lending (CDL)",
+          "description": "Lends digitized books one user at a time, modeled on physical lending"
+        },
+        {
+          "name": "Archive-It",
+          "description": "Subscription web archiving service used by 600+ partner institutions"
+        },
+        {
+          "name": "TV News Archive",
+          "description": "2.5M+ TV news programs searchable and captioned"
+        },
+        {
+          "name": "Live Music Archive",
+          "description": "250K+ live concerts available for free streaming/download"
+        },
+        {
+          "name": "Great 78 Project",
+          "description": "Community project preserving 78rpm records"
+        }
+      ],
+      "legal_challenges": [
+        {
+          "case": "Hachette v. Internet Archive (2020)",
+          "outcome": "Court ruled against IA's controlled digital lending of copyrighted books; IA settled and ended its National Emergency Library program"
+        }
+      ]
+    },
+    "project_gutenberg": {
+      "name": "Project Gutenberg",
+      "founded": 1971,
+      "location": "Distributed (volunteer-run)",
+      "type": "Digital library (501(c)(3) nonprofit)",
+      "description": "Project Gutenberg is the oldest digital library, founded in 1971 by Michael S. Hart at the University of Illinois. It was the first project to make books available digitally and focuses on cultural works in the public domain, primarily books for which copyright has expired.",
+      "current_stats": {
+        "total_ebooks": 78000,
+        "new_books_per_week": 30
+      },
+      "key_facts": [
+        "~78,000 free eBooks (March 2026)",
+        "Oldest digital library, founded 1971 by Michael S. Hart",
+        "All items in the public domain (copyright expired)",
+        "Volunteer-run, adds ~30 new books per week",
+        "Available in multiple formats: EPUB, Kindle, HTML, plain text",
+        "First eBook: the Declaration of Independence, typed on a mainframe in 1971"
+      ],
+      "digital_initiatives": [
+        {
+          "name": "Distributed Proofreaders",
+          "description": "Crowdsourced proofreading of scanned public domain books"
+        },
+        {
+          "name": "PG Mobile",
+          "description": "Mobile-optimized eBook access"
+        }
+      ]
+    },
+    "google_books": {
+      "name": "Google Books (Google Book Search)",
+      "founded": 2002,
+      "location": "Mountain View, CA",
+      "type": "Commercial search engine / book digitization project",
+      "description": "Google Books is a service from Google that searches the full text of books and magazines that Google has scanned, converted to text using optical character recognition, and stored in its digital database. Launched in 2002, it has scanned over 40 million titles from library partners, making it the largest book digitization project in history.",
+      "current_stats": {
+        "total_titles_scanned": 40000000,
+        "library_partners": 20,
+        "initial_partners": 5
+      },
+      "key_facts": [
+        "40M+ titles scanned (October 2019)",
+        "Launched 2002, originally called Google Print",
+        "5 initial library partners: Harvard, Michigan, Stanford, Oxford, NYPL",
+        "20+ library partners total",
+        "Authors Guild v. Google (2015): court ruled Google Books scanning is fair use",
+        "Google estimated 130M total books in existence at launch; scanned ~30% of them"
+      ],
+      "initial_partners": [
+        "Harvard University",
+        "University of Michigan",
+        "Stanford University",
+        "University of Oxford",
+        "New York Public Library"
+      ]
+    },
+    "smithsonian_open_access": {
+      "name": "Smithsonian Open Access",
+      "founded": "February 25, 2020",
+      "location": "Washington, DC",
+      "type": "Open access cultural heritage initiative",
+      "description": "Smithsonian Open Access is an initiative launched on February 25, 2020, that makes millions of 2D and 3D images from the Smithsonian's collections available for download and unrestricted use under a Creative Commons Zero (CC0) license. The Smithsonian operates 21 museums, 21 libraries, and 9 research centers.",
+      "current_stats": {
+        "cc0_images": 5000000,
+        "initial_cc0_images": 2800000,
+        "total_smithsonian_items": 157000000,
+        "museums": 21,
+        "libraries": 21,
+        "research_centers": 9
+      },
+      "key_facts": [
+        "5M+ CC0-licensed images available for unrestricted use",
+        "Launched February 25, 2020 with 2.8M initial images",
+        "Smithsonian's total collection: 157M+ items across 21 museums and 21 libraries",
+        "All images under Creative Commons Zero (CC0) - no rights reserved",
+        "Includes 2D images, 3D models, and research datasets"
+      ]
+    },
+    "loc_digital": {
+      "name": "Library of Congress Digital Collections",
+      "chronicling_america_pages": 22300000,
+      "web_archive_items": 100000000,
+      "special_collections_described": 90000000,
+      "marc_records": 57000000,
+      "description": "The Library of Congress digital initiatives include Chronicling America (22.3M digitized newspaper pages), web archives (100M+ items), and 57M MARC records in its integrated library system."
+    },
+    "cross_library_totals": {
+      "digitized_books_volumes": {
+        "hathitrust": 18000000,
+        "google_books": 40000000,
+        "internet_archive": 44000000,
+        "project_gutenberg": 78000,
+        "open_library_records": 25000000,
+        "note": "These overlap heavily: Google scans feed HathiTrust; IA and Open Library share titles. Totals are not disjoint."
+      },
+      "web_archive": {
+        "internet_archive_wayback": 835000000000,
+        "loc_web_archive": 100000000
+      },
+      "open_access_cultural_heritage": {
+        "smithsonian_cc0": 5000000,
+        "dpla_aggregated": 53000000,
+        "note": "DPLA is a discovery layer over partner-held items, including Smithsonian and NARA."
+      },
+      "partner_institutions": {
+        "hathitrust_members": 219,
+        "dpla_contributing": 8700,
+        "google_books_partners": 20,
+        "internet_archive_scanning_centers": 30
+      },
+      "founding_timeline": [
+        {
+          "year": 1971,
+          "library": "Project Gutenberg"
+        },
+        {
+          "year": 1996,
+          "library": "Internet Archive"
+        },
+        {
+          "year": 2001,
+          "library": "Wayback Machine (IA)"
+        },
+        {
+          "year": 2002,
+          "library": "Google Books"
+        },
+        {
+          "year": 2008,
+          "library": "HathiTrust"
+        },
+        {
+          "year": 2013,
+          "library": "DPLA"
+        },
+        {
+          "year": 2020,
+          "library": "Smithsonian Open Access"
         }
       ]
     }

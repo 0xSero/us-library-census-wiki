@@ -174,6 +174,8 @@ def panel(active=""):
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
     <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
     <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
+    <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
+    <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
     <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
     <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
     <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
@@ -422,6 +424,18 @@ def load_all():
             data['state_funding'] = json.load(f)
     else:
         data['state_funding'] = {}
+    loc_path = os.path.join(DATA, "loc_summary.json")
+    if os.path.exists(loc_path):
+        with open(loc_path) as f:
+            data['loc'] = json.load(f)
+    else:
+        data['loc'] = {}
+    dl_path = os.path.join(DATA, "digital_libraries_summary.json")
+    if os.path.exists(dl_path):
+        with open(dl_path) as f:
+            data['digital_libraries'] = json.load(f)
+    else:
+        data['digital_libraries'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1501,6 +1515,12 @@ def compute_stats(data):
 
     # ---- State library funding analysis ----
     stats['state_funding'] = data.get('state_funding', {})
+
+    # ---- Library of Congress ----
+    stats['loc'] = data.get('loc', {})
+
+    # ---- Digital libraries (HathiTrust, IA, Gutenberg, etc.) ----
+    stats['digital_libraries'] = data.get('digital_libraries', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3694,29 +3714,30 @@ def build_index(data, stats):
     neh = stats.get('neh_grants', {})
     if neh and neh.get('total_grants'):
         n_total = neh['total_grants']
-        n_dollars = neh['total_dollars']
-        n_avg = neh['avg_grant']
-        n_median = neh['median_grant']
-        n_largest = neh['largest_grant']
-        n_states = neh['states_reached']
-        n_top_states = neh.get('top_states', [])
+        n_dollars = neh.get('total_awarded', neh.get('total_dollars', 0))
+        n_states = len(neh.get('grants_by_state', []))
         n_top_recipients = neh.get('top_recipients', [])
-        n_years = neh.get('by_year', [])
-        n_largest_grants = neh.get('largest_grants', [])
-        n_newspaper = neh.get('newspaper_projects', {})
-        n_dates = neh.get('date_range', {})
+        n_by_state = neh.get('grants_by_state', [])
+        n_by_year = neh.get('grants_by_year', [])
+        n_by_program = neh.get('grants_by_program', [])
+        n_largest = neh.get('largest_awards', neh.get('largest_grants', []))
+        n_yr_range = neh.get('year_range', {})
+        n_yr_min = n_yr_range.get('min', '')
+        n_yr_max = n_yr_range.get('max', '')
+        n_avg = n_dollars / n_total if n_total else 0
+        n_largest_amt = n_largest[0]['amount'] if n_largest else 0
 
         body += f"""
 
 <h2 id="neh-grants">National Endowment for the Humanities: Library Grants</h2>
-<p class="wiki-sub">The National Endowment for the Humanities (NEH) is an independent federal agency that funds humanities research, education, preservation, and public programs. Libraries are major NEH recipients - from the American Library Association's national reading programs to state newspaper digitization projects. From {n_dates.get('earliest','')[:4]} to {n_dates.get('latest','')[:4]}, NEH awarded {n_total} grants totaling ${n_dollars/1e6:.1f}M to library recipients across {n_states} states, with an average grant of ${n_avg/1e3:.0f}K and a median of ${n_median/1e3:.0f}K.</p>
+<p class="wiki-sub">The National Endowment for the Humanities (NEH) is an independent federal agency that funds humanities research, education, preservation, and public programs. Libraries are major NEH recipients - from the American Library Association's national reading programs to state newspaper digitization projects. From FY{n_yr_min} to FY{n_yr_max}, NEH awarded {n_total} grants totaling ${n_dollars/1e6:.1f}M to library recipients across {n_states} states, with an average grant of ${n_avg/1e3:.0f}K. The largest single award was ${n_largest_amt/1e6:.2f}M to the American Library Association in 2021 for American Rescue Plan humanities relief.</p>
 <div class="stats-grid">
   <div class="stat-card"><div class="num">${n_dollars/1e6:.1f}M</div><div class="label">Total NEH library grants</div></div>
   <div class="stat-card"><div class="num">{n_total}</div><div class="label">Awards to libraries</div></div>
   <div class="stat-card"><div class="num">${n_avg/1e3:.0f}K</div><div class="label">Average grant</div></div>
-  <div class="stat-card"><div class="num">${n_largest/1e6:.2f}M</div><div class="label">Largest single grant</div></div>
+  <div class="stat-card"><div class="num">${n_largest_amt/1e6:.2f}M</div><div class="label">Largest single grant</div></div>
   <div class="stat-card"><div class="num">{n_states}</div><div class="label">States reached</div></div>
-  <div class="stat-card"><div class="num">{n_newspaper.get('count', 0)}</div><div class="label">Newspaper digitization projects (${n_newspaper.get('total_dollars',0)/1e6:.1f}M)</div></div>
+  <div class="stat-card"><div class="num">{len(n_by_program)}</div><div class="label">NEH funding programs</div></div>
 </div>"""
 
         # Top recipients bar chart
@@ -3724,30 +3745,41 @@ def build_index(data, stats):
             body += """
 <h3>Top NEH library recipients</h3>
 <div class="services-bars">"""
-            max_amt = n_top_recipients[0]['amount'] or 1
+            max_amt = n_top_recipients[0].get('total_awarded', n_top_recipients[0].get('amount', 0)) or 1
             for r in n_top_recipients[:12]:
-                name = r['name'].title().replace('Llc', 'LLC')
-                amt = r['amount']
+                name = r.get('recipient', r.get('name', '')).title().replace('Llc', 'LLC')
+                amt = r.get('total_awarded', r.get('amount', 0))
+                grnts = r.get('grants', 1)
                 pct = (amt / max_amt) * 100 if max_amt else 0
-                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(name)}</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.2f}M</span></div>'
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(name)} ({grnts} grants)</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.2f}M</span></div>'
             body += '\n</div>'
 
+        # NEH programs breakdown
+        if n_by_program:
+            body += """
+<h3>NEH library grants by program (CFDA)</h3>
+<table class="wikitable">
+  <tr><th>Program</th><th>Grants</th><th>Total awarded</th><th>Average award</th></tr>"""
+            for p in n_by_program:
+                body += f'\n  <tr><td>{esc(p.get("program",""))}</td><td>{p.get("grants",0)}</td><td class="pct">${p.get("total_awarded",0)/1e6:.1f}M</td><td>${p.get("avg_award",0)/1e3:.0f}K</td></tr>'
+            body += '\n</table>'
+
         # Top states
-        if n_top_states:
+        if n_by_state:
             body += """
 <h3>NEH library grants by state</h3>
 <table class="wikitable">
-  <tr><th>State</th><th>Total awarded</th></tr>"""
-            for s in n_top_states[:15]:
-                body += f'\n  <tr><td>{s["state"]}</td><td class="pct">${s["amount"]/1e6:.2f}M</td></tr>'
+  <tr><th>State</th><th>Grants</th><th>Total awarded</th><th>Avg award</th><th>Recipients</th></tr>"""
+            for s in n_by_state[:15]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{s["state"]}</a></td><td>{s.get("grants",0)}</td><td class="pct">${s.get("total_awarded",0)/1e6:.1f}M</td><td>${s.get("avg_award",0)/1e3:.0f}K</td><td>{s.get("recipients",0)}</td></tr>'
             body += '\n</table>'
 
         # By year SVG
-        if n_years and len(n_years) >= 2:
-            labels = [y['year'] for y in n_years]
-            amounts = [y['amount'] for y in n_years]
+        if n_by_year and len(n_by_year) >= 2:
+            labels = [str(y['year']) for y in n_by_year]
+            amounts = [y.get('total_awarded', y.get('amount', 0)) for y in n_by_year]
             max_amt = max(amounts) or 1
-            n = len(n_years)
+            n = len(n_by_year)
             bw = 38
             chart_w = n * bw + 60
             chart_h = 220
@@ -3761,16 +3793,24 @@ def build_index(data, stats):
             body += '</svg>'
 
         # Largest individual grants
-        if n_largest_grants:
+        if n_largest:
             body += """
 <h3>Largest individual NEH library grants</h3>
 <table class="wikitable">
-  <tr><th>Recipient</th><th>State</th><th>Description</th><th>Amount</th><th>Year</th></tr>"""
-            for g in n_largest_grants[:15]:
-                body += f'\n  <tr><td>{esc(g["recipient"].title())}</td><td>{g.get("state","") or "&mdash;"}</td><td>{esc(g.get("description",""))}</td><td class="pct">${g["amount"]/1e6:.2f}M</td><td>{g.get("year","")}</td></tr>'
+  <tr><th>Recipient</th><th>State</th><th>Program</th><th>Description</th><th>Amount</th><th>Year</th></tr>"""
+            for g in n_largest[:15]:
+                body += f'\n  <tr><td>{esc(g.get("recipient","").title())}</td><td>{g.get("state","") or "&mdash;"}</td><td>{esc(g.get("program",""))}</td><td>{esc(g.get("description","")[:120])}{"..." if len(g.get("description",""))>120 else ""}</td><td class="pct">${g.get("amount",0)/1e6:.2f}M</td><td>{g.get("year","")}</td></tr>'
             body += '\n</table>'
 
-        body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the National Endowment for the Humanities (toptier agency) where the recipient name contains "library" and award type codes 02-05 (grants). The {n_total} awards span FY{n_dates.get("earliest","")[:4]}-FY{n_dates.get("latest","")[:4]} and total ${n_dollars/1e6:.1f}M. The American Library Association alone received ${n_top_recipients[0]["amount"]/1e6:.1f}M ({n_top_recipients[0]["amount"]/n_dollars*100:.0f}% of all NEH library funding) for national programs including the Great American Read, Big Read, and We the People bookshelf programs. The National Digital Newspaper Program (NDNP) accounts for {n_newspaper.get("count",0)} grants totaling ${n_newspaper.get("total_dollars",0)/1e6:.1f}M, supporting state-by-state newspaper digitization through Chronicling America.</p>'
+        ala_note = ''
+        if n_top_recipients:
+            ala_amt = n_top_recipients[0].get('total_awarded', n_top_recipients[0].get('amount', 0))
+            ala_pct = (ala_amt / n_dollars * 100) if n_dollars else 0
+            ala_note = f' The American Library Association alone received ${ala_amt/1e6:.1f}M ({ala_pct:.0f}% of all NEH library funding) for national programs including the Great American Read, Big Read, We the People bookshelf, and American Rescue Plan humanities relief.'
+        prog_note = ''
+        if n_by_program:
+            prog_note = f' The top NEH program for libraries is {n_by_program[0].get("program","")} ({n_by_program[0].get("grants",0)} grants, ${n_by_program[0].get("total_awarded",0)/1e6:.1f}M).'
+        body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the National Endowment for the Humanities (toptier agency code 418) where the recipient name contains "library" and award type codes 02-05 (grants). The {n_total} awards span FY{n_yr_min}-FY{n_yr_max} and total ${n_dollars/1e6:.1f}M. Records cover awards with action dates on or after 2007-10-01 (USASpending search limit); NEH\'s own public query (securegrants.neh.gov) covers full history back to 1965 but was unreachable.{ala_note}{prog_note}</p>'
 
     # ---- Library Usage Survey Data (Pew Research + Gallup) ----
     lu = stats.get('library_usage', {})
@@ -4930,6 +4970,197 @@ def build_index(data, stats):
 </ul>"""
 
         body += '<p class="rsrc">Source: Bureau of Justice Statistics (BJS) yearend 2023 prison statistics, ALA "Investing in Prison Libraries" (2025), Congress.gov (H.R. 7247 / S. 4320), and Ithaka S+R (2024). The central data limitation: no comprehensive national dataset on prison libraries exists. BJS counts prisoners but not libraries; BOP facility-library inventories are not public; state DOCs vary widely. The facility census most recently collected was 2019. The Prison Libraries Act would be the first federal legislation to specifically establish and expand prison library services.</p>'
+
+    # ---- Library of Congress ----
+    loc = stats.get('loc', {})
+    if loc and loc.get('fy2024'):
+        fy24 = loc['fy2024']
+        loc_items_text = fy24.get('total_collection_items', '181.1 million')
+        loc_budget_dict = fy24.get('budget', {})
+        loc_budget = loc_budget_dict.get('total_budget_authority_usd', 897749000)
+        loc_approp = loc_budget_dict.get('appropriations_usd', 852158000)
+        loc_visits = fy24.get('website_visits', '149.3 million')
+        loc_pages = fy24.get('website_page_views', '505.3 million')
+        loc_onsite = fy24.get('on_site_visitors', '880,000')
+        loc_ref = fy24.get('reference_requests', '764,000')
+        loc_staff = loc_budget_dict.get('permanent_employees', 3263)
+        loc_female = loc_budget_dict.get('staff_female', 1871)
+        loc_male = loc_budget_dict.get('staff_male', 1392)
+        loc_buildings = loc.get('buildings', [])
+        loc_growth = loc.get('historical_growth', [])
+        loc_facts = loc.get('narrative_facts', [])
+        loc_crs = fy24.get('congressional_research_service', {})
+        loc_copyright = fy24.get('copyright_office', {})
+        loc_nls = fy24.get('nls_blind_print_disabled', {})
+        loc_coll_breakdown = fy24.get('collection_breakdown', [])
+
+        body += f"""
+
+<h2 id="loc">Library of Congress: The World's Largest Library</h2>
+<p class="wiki-sub">Founded on April 24, 1800, the Library of Congress is the largest library in the world and the research arm of the U.S. Congress. From Thomas Jefferson's personal library of 6,487 books (purchased for $23,950 in 1815 after British troops burned the original collection) to {esc(loc_items_text)} items today, the LoC serves as both the national library of the United States and an international cultural repository. The Library operates across three buildings on Capitol Hill and employs {loc_staff:,} permanent staff.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{esc(loc_items_text)}</div><div class="label">Total items in collection</div></div>
+  <div class="stat-card"><div class="num">${loc_budget/1e6:.0f}M</div><div class="label">FY2024 budget authority</div></div>
+  <div class="stat-card"><div class="num">{esc(loc_visits)}</div><div class="label">Website visits (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{esc(loc_pages)}</div><div class="label">Website page views</div></div>
+  <div class="stat-card"><div class="num">{esc(loc_onsite)}</div><div class="label">Onsite visitors</div></div>
+  <div class="stat-card"><div class="num">{loc_staff:,}</div><div class="label">Permanent employees</div></div>
+</div>"""
+
+        # Historical growth timeline
+        if loc_growth:
+            body += """
+<h3>Historical growth timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for g in loc_growth:
+                body += f'\n  <tr><td class="pct">{g["year"]}</td><td>{esc(g["event"])}</td></tr>'
+            body += '\n</table>'
+
+        # NLS for the Blind and Print Disabled
+        if loc_nls:
+            body += f"""
+<h3>National Library Service for the Blind and Print Disabled (NLS)</h3>
+<p>The NLS provides free braille and talking-book services to eligible readers. In FY2024 it served {loc_nls.get("total_readers_served",0):,} readers and circulated {loc_nls.get("total_items_circulated",0):,} items.</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total items circulated</td><td class="pct">{loc_nls.get("total_items_circulated",0):,}</td></tr>
+  <tr><td>Digital cartridge audio circulated</td><td class="pct">{loc_nls.get("digital_cartridge_audio_circulated",0):,}</td></tr>
+  <tr><td>BARD audio downloads</td><td class="pct">{loc_nls.get("bard_audio_downloads",0):,}</td></tr>
+  <tr><td>E-braille circulated</td><td class="pct">{loc_nls.get("ebraille_circulated",0):,}</td></tr>
+  <tr><td>Total readers served</td><td class="pct">{loc_nls.get("total_readers_served",0):,}</td></tr>
+  <tr><td>Total items in collection</td><td class="pct">{loc_nls.get("total_items_in_collection",0):,}</td></tr>
+  <tr><td>Appropriation</td><td class="pct">${loc_nls.get("appropriation_usd",0)/1e6:.1f}M</td></tr>
+</table>"""
+
+        # Copyright Office
+        if loc_copyright:
+            body += f"""
+<h3>U.S. Copyright Office (LoC)</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total registrations</td><td class="pct">{loc_copyright.get("total_registrations_all",0):,}</td></tr>
+  <tr><td>Basic registrations</td><td class="pct">{loc_copyright.get("basic_registrations",0):,}</td></tr>
+  <tr><td>Visual arts registrations</td><td class="pct">{loc_copyright.get("visual_arts_total",0):,}</td></tr>
+  <tr><td>Documents recorded</td><td class="pct">{loc_copyright.get("documents_recorded",0):,}</td></tr>
+  <tr><td>Works in recorded documents</td><td class="pct">{loc_copyright.get("works_in_recorded_documents",0):,}</td></tr>
+  <tr><td>Registration fees recorded</td><td class="pct">${loc_copyright.get("registration_fees_recorded_usd",0)/1e6:.1f}M</td></tr>
+</table>"""
+
+        # Congressional Research Service
+        if loc_crs:
+            body += f"""
+<h3>Congressional Research Service (CRS)</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Congressional requests responded to</td><td class="pct">{esc(str(loc_crs.get("congressional_requests_responded","")))}</td></tr>
+  <tr><td>New products published</td><td class="pct">{esc(str(loc_crs.get("new_products_published","")))}</td></tr>
+  <tr><td>Product updates</td><td class="pct">{esc(str(loc_crs.get("product_updates","")))}</td></tr>
+  <tr><td>Seminar attendees</td><td class="pct">{esc(str(loc_crs.get("seminar_attendees","")))}</td></tr>
+  <tr><td>Seminars held</td><td class="pct">{loc_crs.get("seminars_held",0):,}</td></tr>
+</table>"""
+
+        # Narrative facts
+        if loc_facts:
+            body += """
+<h3>Notable facts about the Library of Congress</h3>
+<ul class="wiki-list">"""
+            for f in loc_facts[:12]:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: Library of Congress FY2024 Annual Report of the Librarian of Congress (loc.gov/about/reports-and-budgets/annual-reports/), loc.gov/about/fascinating-facts/, and Wikipedia. The Library operates with a total budget authority of ${loc_budget/1e6:.0f}M (${loc_approp/1e6:.0f}M appropriations + ${loc_budget_dict.get("offsetting_receipts_usd",0)/1e6:.0f}M offsetting receipts). The Library employs {loc_staff:,} permanent staff ({loc_female:,} female, {loc_male:,} male), with an average of {loc_budget_dict.get("avg_years_loc_service",0)} years of service. Collections span {loc_coll_breakdown and len(loc_coll_breakdown) or 13} categories including cataloged books, manuscripts, maps, photographs, audio materials, and moving images. The NLS served {loc_nls.get("total_readers_served",0):,} blind and print-disabled readers in FY2024.</p>'
+
+    # ---- Digital Libraries (HathiTrust, Internet Archive, etc.) ----
+    dl = stats.get('digital_libraries', {})
+    if dl and dl.get('hathitrust'):
+        ht = dl.get('hathitrust', {})
+        ia = dl.get('internet_archive', {})
+        pg = dl.get('project_gutenberg', {})
+        gb = dl.get('google_books', {})
+        si = dl.get('smithsonian_open_access', {})
+        clt = dl.get('cross_library_totals', {})
+        ht_vols = ht.get('current_stats', {}).get('total_volumes', 0)
+        ht_members = ht.get('current_stats', {}).get('member_institutions', 0)
+        ia_pages = ia.get('current_stats', {}).get('web_pages_archived', 0)
+        ia_books = ia.get('current_stats', {}).get('books_texts', 0)
+        pg_books = pg.get('current_stats', {}).get('total_ebooks', 0)
+        gb_titles = gb.get('current_stats', {}).get('total_titles_scanned', 0)
+        si_images = si.get('current_stats', {}).get('cc0_images', 0)
+
+        body += f"""
+
+<h2 id="digital-libraries">Digital Libraries: HathiTrust, Internet Archive & Beyond</h2>
+<p class="wiki-sub">Beyond the physical library system, a parallel digital infrastructure has emerged over the past two decades. These digital libraries collectively hold billions of items - from the Internet Archive's {ia_pages/1e9:.0f}+ billion archived web pages to HathiTrust's {ht_vols/1e6:.0f}M digitized book volumes. Together they represent a massive expansion of access to human knowledge, though one constrained by copyright law, funding sustainability, and ongoing legal challenges.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ia_pages/1e9:.0f}B+</div><div class="label">IA Wayback web pages</div></div>
+  <div class="stat-card"><div class="num">{ht_vols/1e6:.0f}M</div><div class="label">HathiTrust volumes</div></div>
+  <div class="stat-card"><div class="num">{gb_titles/1e6:.0f}M+</div><div class="label">Google Books scanned</div></div>
+  <div class="stat-card"><div class="num">{ia_books/1e6:.0f}M</div><div class="label">IA books & texts</div></div>
+  <div class="stat-card"><div class="num">{si_images/1e6:.0f}M</div><div class="label">Smithsonian CC0 images</div></div>
+  <div class="stat-card"><div class="num">{pg_books/1e3:.0f}K</div><div class="label">Project Gutenberg eBooks</div></div>
+</div>"""
+
+        # HathiTrust section
+        body += f"""
+<h3>HathiTrust Digital Library</h3>
+<p>{esc(ht.get("description", ""))}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total digitized volumes</td><td class="pct">{ht_vols:,}</td></tr>
+  <tr><td>Public domain volumes (US)</td><td class="pct">{ht.get("current_stats",{}).get("public_domain_volumes",0):,}</td></tr>
+  <tr><td>Member institutions</td><td class="pct">{ht_members}</td></tr>
+  <tr><td>Shared print volumes (25-yr retention)</td><td class="pct">{ht.get("current_stats",{}).get("shared_print_volumes",0):,}</td></tr>
+  <tr><td>Founded</td><td class="pct">{esc(ht.get("founded",""))}</td></tr>
+</table>"""
+        if ht.get('key_facts'):
+            body += '<ul class="wiki-list">'
+            for f in ht['key_facts']:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        # Internet Archive section
+        body += f"""
+<h3>Internet Archive</h3>
+<p>{esc(ia.get("description", ""))}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Web pages archived (Wayback Machine)</td><td class="pct">{ia_pages:,}</td></tr>
+  <tr><td>Books & texts</td><td class="pct">{ia_books:,}</td></tr>
+  <tr><td>Video recordings</td><td class="pct">{ia.get("current_stats",{}).get("video_items",0):,}</td></tr>
+  <tr><td>Audio recordings</td><td class="pct">{ia.get("current_stats",{}).get("audio_items",0):,}</td></tr>
+  <tr><td>Software programs</td><td class="pct">{ia.get("current_stats",{}).get("software_programs",0):,}</td></tr>
+  <tr><td>Daily archiving rate</td><td class="pct">{ia.get("current_stats",{}).get("daily_archiving_rate",0):,} pages/day</td></tr>
+  <tr><td>Founded</td><td class="pct">{ia.get("founded","")}</td></tr>
+</table>"""
+        if ia.get('key_facts'):
+            body += '<ul class="wiki-list">'
+            for f in ia['key_facts']:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        # Other digital libraries table
+        body += """
+<h3>Other major digital libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Founded</th><th>Key figure</th><th>Description</th></tr>"""
+        body += f'\n  <tr><td>Project Gutenberg</td><td>{pg.get("founded","")}</td><td class="pct">{pg_books:,} eBooks</td><td>{esc(pg.get("description",""))}</td></tr>'
+        body += f'\n  <tr><td>Google Books</td><td>{gb.get("founded","")}</td><td class="pct">{gb_titles:,} titles scanned</td><td>{esc(gb.get("description",""))}</td></tr>'
+        body += f'\n  <tr><td>Smithsonian Open Access</td><td>{si.get("founded","")}</td><td class="pct">{si_images:,} CC0 images</td><td>{esc(si.get("description",""))}</td></tr>'
+        body += '\n</table>'
+
+        # Founding timeline
+        timeline = clt.get('founding_timeline', [])
+        if timeline:
+            body += """
+<h3>Founding timeline of major digital libraries</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Library</th></tr>"""
+            for t in timeline:
+                body += f'\n  <tr><td class="pct">{t["year"]}</td><td>{esc(t["library"])}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: Wikipedia articles for HathiTrust, Internet Archive, Project Gutenberg, Google Books, and Smithsonian Open Access (citing primary sources including annual reports, press releases, and court opinions). HathiTrust: {ht_vols/1e6:.0f}M volumes ({ht.get("current_stats",{}).get("public_domain_volumes",0)/1e6:.1f}M public domain) from {ht_members} member institutions. Internet Archive: {ia_pages/1e9:.0f}B+ archived web pages and {ia_books/1e6:.0f}M books/texts. Google Books scanned {gb_titles/1e6:.0f}M+ titles with {gb.get("current_stats",{}).get("library_partners",0)} library partners. Note: these collections overlap heavily (Google scans feed HathiTrust; IA and Open Library share titles). Cross-library totals are not disjoint.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

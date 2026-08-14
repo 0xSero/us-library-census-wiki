@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 21:10 UTC",
+  "generated": "2026-08-14 21:28 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -11347,643 +11347,1672 @@
     "source_year": 2024
   },
   "acp": {
-    "total_national_claims": 14892204659.65,
-    "total_national_subscribers": 461362645.0,
-    "date_range": "Jan 2022 \u2013 May 2024",
+    "total_national_enrolled": 23269550,
+    "total_national_claims": 29784409319.300003,
+    "date_range": "Enrollment Jan 1, 2022 - Feb 8, 2024 (enrollment freeze)",
+    "claims_date_range": "Claims Jan 2022 - May 2024 (29 monthly data months)",
     "months_active": 29,
-    "top_by_claim": [
+    "top_by_enrollment": [
       {
         "state": "CA",
-        "total_claim_amount": 1790216104.0600002,
-        "total_subscribers": 55850108.0
-      },
-      {
-        "state": "TX",
-        "total_claim_amount": 1095488940.7699997,
-        "total_subscribers": 34879799.0
+        "state_name": "California",
+        "households_enrolled": 2945282,
+        "total_claims": 1790216104.0600002
       },
       {
         "state": "NY",
-        "total_claim_amount": 1090088591.0900002,
-        "total_subscribers": 33894314.0
-      },
-      {
-        "state": "FL",
-        "total_claim_amount": 1067901564.4999998,
-        "total_subscribers": 33302864.0
-      },
-      {
-        "state": "OH",
-        "total_claim_amount": 738766137.2999998,
-        "total_subscribers": 23784618.0
-      },
-      {
-        "state": "NC",
-        "total_claim_amount": 585526447.23,
-        "total_subscribers": 18784268.0
-      },
-      {
-        "state": "MI",
-        "total_claim_amount": 558812405.8199999,
-        "total_subscribers": 17172916.0
-      },
-      {
-        "state": "PR",
-        "total_claim_amount": 489717659.2900001,
-        "total_subscribers": 15098549.0
-      },
-      {
-        "state": "PA",
-        "total_claim_amount": 488086591.74000007,
-        "total_subscribers": 15440995.0
-      },
-      {
-        "state": "GA",
-        "total_claim_amount": 480409445.5500001,
-        "total_subscribers": 15101698.0
-      },
-      {
-        "state": "IL",
-        "total_claim_amount": 437086323.44000006,
-        "total_subscribers": 13740556.0
-      },
-      {
-        "state": "OK",
-        "total_claim_amount": 372103676.9600001,
-        "total_subscribers": 6976078.0
-      },
-      {
-        "state": "AZ",
-        "total_claim_amount": 368545962.97,
-        "total_subscribers": 10408339.0
-      },
-      {
-        "state": "LA",
-        "total_claim_amount": 353634888.69,
-        "total_subscribers": 10871305.0
-      },
-      {
-        "state": "KY",
-        "total_claim_amount": 296255063.3400001,
-        "total_subscribers": 9415185.0
-      },
-      {
-        "state": "VA",
-        "total_claim_amount": 287814332.05,
-        "total_subscribers": 9027714.0
-      },
-      {
-        "state": "TN",
-        "total_claim_amount": 283086100.77000004,
-        "total_subscribers": 9062972.0
-      },
-      {
-        "state": "WI",
-        "total_claim_amount": 272704536.01,
-        "total_subscribers": 8749378.0
-      },
-      {
-        "state": "AL",
-        "total_claim_amount": 272661219.16,
-        "total_subscribers": 8645743.0
-      },
-      {
-        "state": "SC",
-        "total_claim_amount": 271379667.16,
-        "total_subscribers": 8650754.0
-      }
-    ],
-    "top_by_subscribers": [
-      {
-        "state": "CA",
-        "total_subscribers": 55850108.0,
-        "total_claim_amount": 1790216104.0600002
+        "state_name": "New York",
+        "households_enrolled": 1792187,
+        "total_claims": 1090088591.0900002
       },
       {
         "state": "TX",
-        "total_subscribers": 34879799.0,
-        "total_claim_amount": 1095488940.7699997
-      },
-      {
-        "state": "NY",
-        "total_subscribers": 33894314.0,
-        "total_claim_amount": 1090088591.0900002
+        "state_name": "Texas",
+        "households_enrolled": 1718552,
+        "total_claims": 1095488940.7699997
       },
       {
         "state": "FL",
-        "total_subscribers": 33302864.0,
-        "total_claim_amount": 1067901564.4999998
+        "state_name": "Florida",
+        "households_enrolled": 1707856,
+        "total_claims": 1067901564.4999998
       },
       {
         "state": "OH",
-        "total_subscribers": 23784618.0,
-        "total_claim_amount": 738766137.2999998
-      },
-      {
-        "state": "NC",
-        "total_subscribers": 18784268.0,
-        "total_claim_amount": 585526447.23
+        "state_name": "Ohio",
+        "households_enrolled": 1157054,
+        "total_claims": 738766137.2999998
       },
       {
         "state": "MI",
-        "total_subscribers": 17172916.0,
-        "total_claim_amount": 558812405.8199999
+        "state_name": "Michigan",
+        "households_enrolled": 941244,
+        "total_claims": 558812405.8199999
+      },
+      {
+        "state": "NC",
+        "state_name": "North Carolina",
+        "households_enrolled": 901394,
+        "total_claims": 585526447.23
       },
       {
         "state": "PA",
-        "total_subscribers": 15440995.0,
-        "total_claim_amount": 488086591.74000007
+        "state_name": "Pennsylvania",
+        "households_enrolled": 763742,
+        "total_claims": 488086591.74000007
       },
       {
         "state": "GA",
-        "total_subscribers": 15101698.0,
-        "total_claim_amount": 480409445.5500001
-      },
-      {
-        "state": "PR",
-        "total_subscribers": 15098549.0,
-        "total_claim_amount": 489717659.2900001
+        "state_name": "Georgia",
+        "households_enrolled": 722473,
+        "total_claims": 480409445.5500001
       },
       {
         "state": "IL",
-        "total_subscribers": 13740556.0,
-        "total_claim_amount": 437086323.44000006
+        "state_name": "Illinois",
+        "households_enrolled": 704532,
+        "total_claims": 437086323.44000006
+      },
+      {
+        "state": "PR",
+        "state_name": "Puerto Rico",
+        "households_enrolled": 664623,
+        "total_claims": 489717659.2900001
       },
       {
         "state": "LA",
-        "total_subscribers": 10871305.0,
-        "total_claim_amount": 353634888.69
+        "state_name": "Louisiana",
+        "households_enrolled": 558780,
+        "total_claims": 353634888.69
       },
       {
         "state": "AZ",
-        "total_subscribers": 10408339.0,
-        "total_claim_amount": 368545962.97
-      },
-      {
-        "state": "KY",
-        "total_subscribers": 9415185.0,
-        "total_claim_amount": 296255063.3400001
-      },
-      {
-        "state": "TN",
-        "total_subscribers": 9062972.0,
-        "total_claim_amount": 283086100.77000004
+        "state_name": "Arizona",
+        "households_enrolled": 522188,
+        "total_claims": 368545962.97
       },
       {
         "state": "VA",
-        "total_subscribers": 9027714.0,
-        "total_claim_amount": 287814332.05
+        "state_name": "Virginia",
+        "households_enrolled": 470457,
+        "total_claims": 287814332.05
+      },
+      {
+        "state": "KY",
+        "state_name": "Kentucky",
+        "households_enrolled": 455685,
+        "total_claims": 296255063.3400001
+      },
+      {
+        "state": "TN",
+        "state_name": "Tennessee",
+        "households_enrolled": 429621,
+        "total_claims": 283086100.77000004
       },
       {
         "state": "WI",
-        "total_subscribers": 8749378.0,
-        "total_claim_amount": 272704536.01
-      },
-      {
-        "state": "SC",
-        "total_subscribers": 8650754.0,
-        "total_claim_amount": 271379667.16
-      },
-      {
-        "state": "AL",
-        "total_subscribers": 8645743.0,
-        "total_claim_amount": 272661219.16
+        "state_name": "Wisconsin",
+        "households_enrolled": 426733,
+        "total_claims": 272704536.01
       },
       {
         "state": "IN",
-        "total_subscribers": 8620583.0,
-        "total_claim_amount": 270171258.99999994
+        "state_name": "Indiana",
+        "households_enrolled": 425968,
+        "total_claims": 270171258.99999994
+      },
+      {
+        "state": "SC",
+        "state_name": "South Carolina",
+        "households_enrolled": 415680,
+        "total_claims": 271379667.16
+      },
+      {
+        "state": "AL",
+        "state_name": "Alabama",
+        "households_enrolled": 413668,
+        "total_claims": 272661219.16
+      }
+    ],
+    "top_by_claims": [
+      {
+        "state": "Total",
+        "state_name": "",
+        "total_claims": 14892204659.65,
+        "households_enrolled": 0
+      },
+      {
+        "state": "CA",
+        "state_name": "California",
+        "total_claims": 1790216104.0600002,
+        "households_enrolled": 2945282
+      },
+      {
+        "state": "TX",
+        "state_name": "Texas",
+        "total_claims": 1095488940.7699997,
+        "households_enrolled": 1718552
+      },
+      {
+        "state": "NY",
+        "state_name": "New York",
+        "total_claims": 1090088591.0900002,
+        "households_enrolled": 1792187
+      },
+      {
+        "state": "FL",
+        "state_name": "Florida",
+        "total_claims": 1067901564.4999998,
+        "households_enrolled": 1707856
+      },
+      {
+        "state": "OH",
+        "state_name": "Ohio",
+        "total_claims": 738766137.2999998,
+        "households_enrolled": 1157054
+      },
+      {
+        "state": "NC",
+        "state_name": "North Carolina",
+        "total_claims": 585526447.23,
+        "households_enrolled": 901394
+      },
+      {
+        "state": "MI",
+        "state_name": "Michigan",
+        "total_claims": 558812405.8199999,
+        "households_enrolled": 941244
+      },
+      {
+        "state": "PR",
+        "state_name": "Puerto Rico",
+        "total_claims": 489717659.2900001,
+        "households_enrolled": 664623
+      },
+      {
+        "state": "PA",
+        "state_name": "Pennsylvania",
+        "total_claims": 488086591.74000007,
+        "households_enrolled": 763742
+      },
+      {
+        "state": "GA",
+        "state_name": "Georgia",
+        "total_claims": 480409445.5500001,
+        "households_enrolled": 722473
+      },
+      {
+        "state": "IL",
+        "state_name": "Illinois",
+        "total_claims": 437086323.44000006,
+        "households_enrolled": 704532
+      },
+      {
+        "state": "OK",
+        "state_name": "Oklahoma",
+        "total_claims": 372103676.9600001,
+        "households_enrolled": 351879
+      },
+      {
+        "state": "AZ",
+        "state_name": "Arizona",
+        "total_claims": 368545962.97,
+        "households_enrolled": 522188
+      },
+      {
+        "state": "LA",
+        "state_name": "Louisiana",
+        "total_claims": 353634888.69,
+        "households_enrolled": 558780
+      },
+      {
+        "state": "KY",
+        "state_name": "Kentucky",
+        "total_claims": 296255063.3400001,
+        "households_enrolled": 455685
+      },
+      {
+        "state": "VA",
+        "state_name": "Virginia",
+        "total_claims": 287814332.05,
+        "households_enrolled": 470457
+      },
+      {
+        "state": "TN",
+        "state_name": "Tennessee",
+        "total_claims": 283086100.77000004,
+        "households_enrolled": 429621
+      },
+      {
+        "state": "WI",
+        "state_name": "Wisconsin",
+        "total_claims": 272704536.01,
+        "households_enrolled": 426733
+      },
+      {
+        "state": "AL",
+        "state_name": "Alabama",
+        "total_claims": 272661219.16,
+        "households_enrolled": 413668
       }
     ],
     "monthly_trend": [
       {
         "month": "Apr 2022",
-        "amount": 308345166.0300001,
-        "subscribers": 9807730.0
+        "amount": 616690332.0600001
       },
       {
         "month": "Apr 2023",
-        "amount": 556056475.8,
-        "subscribers": 16764435.0
+        "amount": 1112112951.6
       },
       {
         "month": "Apr 2024",
-        "amount": 620995666.7300004,
-        "subscribers": 20282257.0
+        "amount": 1241991333.4600005
       },
       {
         "month": "Aug 2022",
-        "amount": 402053846.65000015,
-        "subscribers": 12457700.0
+        "amount": 804107693.3000002
       },
       {
         "month": "Aug 2023",
-        "amount": 660652303.6400001,
-        "subscribers": 19702497.0
+        "amount": 1321304607.2800002
       },
       {
         "month": "Dec 2022",
-        "amount": 460029207.08000016,
-        "subscribers": 14368005.0
+        "amount": 920058414.1600002
       },
       {
         "month": "Dec 2023",
-        "amount": 717348784.9399999,
-        "subscribers": 21623940.0
+        "amount": 1434697569.8799999
       },
       {
         "month": "Feb 2022",
-        "amount": 387531574.4400001,
-        "subscribers": 8714543.0
+        "amount": 775063148.8800001
       },
       {
         "month": "Feb 2023",
-        "amount": 498776643.6399999,
-        "subscribers": 15514412.0
+        "amount": 997553287.28
       },
       {
         "month": "Feb 2024",
-        "amount": 687802105.89,
-        "subscribers": 21946247.0
+        "amount": 1375604211.78
       },
       {
         "month": "Jan 2022",
-        "amount": 395619522.85000014,
-        "subscribers": 8235728.0
+        "amount": 791239045.7000002
       },
       {
         "month": "Jan 2023",
-        "amount": 474551064.5000001,
-        "subscribers": 14878914.0
+        "amount": 949102129.0000001
       },
       {
         "month": "Jan 2024",
-        "amount": 740249695.6699997,
-        "subscribers": 22208909.0
+        "amount": 1480499391.3399997
       },
       {
         "month": "Jul 2022",
-        "amount": 372916206.76000005,
-        "subscribers": 11730621.0
+        "amount": 745832413.5200001
       },
       {
         "month": "Jul 2023",
-        "amount": 630042874.3299999,
-        "subscribers": 18874314.0
+        "amount": 1260085748.6599998
       },
       {
         "month": "Jun 2022",
-        "amount": 354823483.28999996,
-        "subscribers": 11168026.0
+        "amount": 709646966.5799999
       },
       {
         "month": "Jun 2023",
-        "amount": 614750732.6100001,
-        "subscribers": 18238485.0
+        "amount": 1229501465.2200003
       },
       {
         "month": "Mar 2022",
-        "amount": 301215234.0,
-        "subscribers": 9457580.0
+        "amount": 602430468.0
       },
       {
         "month": "Mar 2023",
-        "amount": 530205772.9999999,
-        "subscribers": 16112053.0
+        "amount": 1060411545.9999999
       },
       {
         "month": "Mar 2024",
-        "amount": 643763001.73,
-        "subscribers": 21013471.0
+        "amount": 1287526003.46
       },
       {
         "month": "May 2022",
-        "amount": 331801969.3399999,
-        "subscribers": 10479102.0
+        "amount": 663603938.68
       },
       {
         "month": "May 2023",
-        "amount": 592913867.1399999,
-        "subscribers": 17469348.0
+        "amount": 1185827734.28
       },
       {
         "month": "May 2024",
-        "amount": 256347373.30999997,
-        "subscribers": 17878904.0
+        "amount": 512694746.62
       },
       {
         "month": "Nov 2022",
-        "amount": 448025391.29000014,
-        "subscribers": 14060525.0
+        "amount": 896050782.5800002
       },
       {
         "month": "Nov 2023",
-        "amount": 699519845.4699998,
-        "subscribers": 21112658.0
+        "amount": 1399039690.9399998
       },
       {
         "month": "Oct 2022",
-        "amount": 439738768.3200001,
-        "subscribers": 13705068.0
+        "amount": 879477536.6400001
       },
       {
         "month": "Oct 2023",
-        "amount": 682645853.3600001,
-        "subscribers": 20512086.0
+        "amount": 1365291706.72
       },
       {
         "month": "Sep 2022",
-        "amount": 417970957.5800001,
-        "subscribers": 13024246.0
+        "amount": 835941915.1600001
       },
       {
         "month": "Sep 2023",
-        "amount": 665511270.26,
-        "subscribers": 20020841.0
+        "amount": 1331022540.52
       }
     ],
     "states": [
       {
-        "state": "AK",
-        "total_claim_amount": 27664391.990000002,
-        "total_subscribers": 415648.0
-      },
-      {
-        "state": "AL",
-        "total_claim_amount": 272661219.16,
-        "total_subscribers": 8645743.0
-      },
-      {
-        "state": "AR",
-        "total_claim_amount": 136228574.48000005,
-        "total_subscribers": 4243605.0
-      },
-      {
-        "state": "AS",
-        "total_claim_amount": 1579021.4200000002,
-        "total_subscribers": 50394.0
-      },
-      {
-        "state": "AZ",
-        "total_claim_amount": 368545962.97,
-        "total_subscribers": 10408339.0
-      },
-      {
         "state": "CA",
-        "total_claim_amount": 1790216104.0600002,
-        "total_subscribers": 55850108.0
-      },
-      {
-        "state": "CO",
-        "total_claim_amount": 156298457.29000005,
-        "total_subscribers": 4994565.0
-      },
-      {
-        "state": "CT",
-        "total_claim_amount": 122633986.10000001,
-        "total_subscribers": 3862442.0
-      },
-      {
-        "state": "DC",
-        "total_claim_amount": 42499792.56,
-        "total_subscribers": 1298310.0
-      },
-      {
-        "state": "DE",
-        "total_claim_amount": 31646230.82,
-        "total_subscribers": 986512.0
-      },
-      {
-        "state": "FL",
-        "total_claim_amount": 1067901564.4999998,
-        "total_subscribers": 33302864.0
-      },
-      {
-        "state": "GA",
-        "total_claim_amount": 480409445.5500001,
-        "total_subscribers": 15101698.0
-      },
-      {
-        "state": "GU",
-        "total_claim_amount": 895396.27,
-        "total_subscribers": 29950.0
-      },
-      {
-        "state": "HI",
-        "total_claim_amount": 36138139.67999999,
-        "total_subscribers": 1132920.0
-      },
-      {
-        "state": "IA",
-        "total_claim_amount": 76388764.02,
-        "total_subscribers": 2375793.0
-      },
-      {
-        "state": "ID",
-        "total_claim_amount": 31079264.559999995,
-        "total_subscribers": 956998.0
-      },
-      {
-        "state": "IL",
-        "total_claim_amount": 437086323.44000006,
-        "total_subscribers": 13740556.0
-      },
-      {
-        "state": "IN",
-        "total_claim_amount": 270171258.99999994,
-        "total_subscribers": 8620583.0
-      },
-      {
-        "state": "KS",
-        "total_claim_amount": 80009227.89999999,
-        "total_subscribers": 2612004.0
-      },
-      {
-        "state": "KY",
-        "total_claim_amount": 296255063.3400001,
-        "total_subscribers": 9415185.0
-      },
-      {
-        "state": "LA",
-        "total_claim_amount": 353634888.69,
-        "total_subscribers": 10871305.0
-      },
-      {
-        "state": "MA",
-        "total_claim_amount": 234265657.62000003,
-        "total_subscribers": 7404064.0
-      },
-      {
-        "state": "MD",
-        "total_claim_amount": 177262185.03,
-        "total_subscribers": 5568642.0
-      },
-      {
-        "state": "ME",
-        "total_claim_amount": 59851605.42,
-        "total_subscribers": 1960899.0
-      },
-      {
-        "state": "MI",
-        "total_claim_amount": 558812405.8199999,
-        "total_subscribers": 17172916.0
-      },
-      {
-        "state": "MN",
-        "total_claim_amount": 153971614.57,
-        "total_subscribers": 4895586.0
-      },
-      {
-        "state": "MO",
-        "total_claim_amount": 243682899.86,
-        "total_subscribers": 7789016.0
-      },
-      {
-        "state": "MP",
-        "total_claim_amount": 2610839.0899999994,
-        "total_subscribers": 83573.0
-      },
-      {
-        "state": "MS",
-        "total_claim_amount": 164840080.74000004,
-        "total_subscribers": 5030010.0
-      },
-      {
-        "state": "MT",
-        "total_claim_amount": 35323663.14,
-        "total_subscribers": 1075988.0
-      },
-      {
-        "state": "NC",
-        "total_claim_amount": 585526447.23,
-        "total_subscribers": 18784268.0
-      },
-      {
-        "state": "ND",
-        "total_claim_amount": 10638045.289999997,
-        "total_subscribers": 315417.0
-      },
-      {
-        "state": "NE",
-        "total_claim_amount": 58506115.07999999,
-        "total_subscribers": 1919746.0
-      },
-      {
-        "state": "NH",
-        "total_claim_amount": 24116274.65,
-        "total_subscribers": 792819.0
-      },
-      {
-        "state": "NJ",
-        "total_claim_amount": 201455480.63,
-        "total_subscribers": 6240159.0
-      },
-      {
-        "state": "NM",
-        "total_claim_amount": 151760988.26999998,
-        "total_subscribers": 4012984.0
-      },
-      {
-        "state": "NV",
-        "total_claim_amount": 171764118.66000006,
-        "total_subscribers": 5325164.0
+        "state_name": "California",
+        "households_enrolled": 2945282,
+        "total_claims": 1790216104.0600002
       },
       {
         "state": "NY",
-        "total_claim_amount": 1090088591.0900002,
-        "total_subscribers": 33894314.0
-      },
-      {
-        "state": "OH",
-        "total_claim_amount": 738766137.2999998,
-        "total_subscribers": 23784618.0
-      },
-      {
-        "state": "OK",
-        "total_claim_amount": 372103676.9600001,
-        "total_subscribers": 6976078.0
-      },
-      {
-        "state": "OR",
-        "total_claim_amount": 139745970.82,
-        "total_subscribers": 4493996.0
-      },
-      {
-        "state": "PA",
-        "total_claim_amount": 488086591.74000007,
-        "total_subscribers": 15440995.0
-      },
-      {
-        "state": "PR",
-        "total_claim_amount": 489717659.2900001,
-        "total_subscribers": 15098549.0
-      },
-      {
-        "state": "RI",
-        "total_claim_amount": 49427401.72,
-        "total_subscribers": 1575495.0
-      },
-      {
-        "state": "SC",
-        "total_claim_amount": 271379667.16,
-        "total_subscribers": 8650754.0
-      },
-      {
-        "state": "SD",
-        "total_claim_amount": 18256827.74,
-        "total_subscribers": 449465.0
-      },
-      {
-        "state": "TN",
-        "total_claim_amount": 283086100.77000004,
-        "total_subscribers": 9062972.0
+        "state_name": "New York",
+        "households_enrolled": 1792187,
+        "total_claims": 1090088591.0900002
       },
       {
         "state": "TX",
-        "total_claim_amount": 1095488940.7699997,
-        "total_subscribers": 34879799.0
+        "state_name": "Texas",
+        "households_enrolled": 1718552,
+        "total_claims": 1095488940.7699997
       },
       {
-        "state": "UT",
-        "total_claim_amount": 46205004.099999994,
-        "total_subscribers": 1417867.0
+        "state": "FL",
+        "state_name": "Florida",
+        "households_enrolled": 1707856,
+        "total_claims": 1067901564.4999998
+      },
+      {
+        "state": "OH",
+        "state_name": "Ohio",
+        "households_enrolled": 1157054,
+        "total_claims": 738766137.2999998
+      },
+      {
+        "state": "MI",
+        "state_name": "Michigan",
+        "households_enrolled": 941244,
+        "total_claims": 558812405.8199999
+      },
+      {
+        "state": "NC",
+        "state_name": "North Carolina",
+        "households_enrolled": 901394,
+        "total_claims": 585526447.23
+      },
+      {
+        "state": "PA",
+        "state_name": "Pennsylvania",
+        "households_enrolled": 763742,
+        "total_claims": 488086591.74000007
+      },
+      {
+        "state": "GA",
+        "state_name": "Georgia",
+        "households_enrolled": 722473,
+        "total_claims": 480409445.5500001
+      },
+      {
+        "state": "IL",
+        "state_name": "Illinois",
+        "households_enrolled": 704532,
+        "total_claims": 437086323.44000006
+      },
+      {
+        "state": "PR",
+        "state_name": "Puerto Rico",
+        "households_enrolled": 664623,
+        "total_claims": 489717659.2900001
+      },
+      {
+        "state": "LA",
+        "state_name": "Louisiana",
+        "households_enrolled": 558780,
+        "total_claims": 353634888.69
+      },
+      {
+        "state": "AZ",
+        "state_name": "Arizona",
+        "households_enrolled": 522188,
+        "total_claims": 368545962.97
       },
       {
         "state": "VA",
-        "total_claim_amount": 287814332.05,
-        "total_subscribers": 9027714.0
+        "state_name": "Virginia",
+        "households_enrolled": 470457,
+        "total_claims": 287814332.05
       },
       {
-        "state": "VI",
-        "total_claim_amount": 2839896.5299999993,
-        "total_subscribers": 92277.0
+        "state": "KY",
+        "state_name": "Kentucky",
+        "households_enrolled": 455685,
+        "total_claims": 296255063.3400001
       },
       {
-        "state": "VT",
-        "total_claim_amount": 15716255.330000002,
-        "total_subscribers": 514811.0
-      },
-      {
-        "state": "WA",
-        "total_claim_amount": 221626170.51999998,
-        "total_subscribers": 7011445.0
+        "state": "TN",
+        "state_name": "Tennessee",
+        "households_enrolled": 429621,
+        "total_claims": 283086100.77000004
       },
       {
         "state": "WI",
-        "total_claim_amount": 272704536.01,
-        "total_subscribers": 8749378.0
+        "state_name": "Wisconsin",
+        "households_enrolled": 426733,
+        "total_claims": 272704536.01
+      },
+      {
+        "state": "IN",
+        "state_name": "Indiana",
+        "households_enrolled": 425968,
+        "total_claims": 270171258.99999994
+      },
+      {
+        "state": "SC",
+        "state_name": "South Carolina",
+        "households_enrolled": 415680,
+        "total_claims": 271379667.16
+      },
+      {
+        "state": "AL",
+        "state_name": "Alabama",
+        "households_enrolled": 413668,
+        "total_claims": 272661219.16
+      },
+      {
+        "state": "MO",
+        "state_name": "Missouri",
+        "households_enrolled": 395504,
+        "total_claims": 243682899.86
+      },
+      {
+        "state": "MA",
+        "state_name": "Massachusetts",
+        "households_enrolled": 367884,
+        "total_claims": 234265657.62000003
+      },
+      {
+        "state": "WA",
+        "state_name": "Washington",
+        "households_enrolled": 358024,
+        "total_claims": 221626170.51999998
+      },
+      {
+        "state": "OK",
+        "state_name": "Oklahoma",
+        "households_enrolled": 351879,
+        "total_claims": 372103676.9600001
+      },
+      {
+        "state": "NJ",
+        "state_name": "New Jersey",
+        "households_enrolled": 337969,
+        "total_claims": 201455480.63
+      },
+      {
+        "state": "MD",
+        "state_name": "Maryland",
+        "households_enrolled": 287722,
+        "total_claims": 177262185.03
+      },
+      {
+        "state": "NV",
+        "state_name": "Nevada",
+        "households_enrolled": 276024,
+        "total_claims": 171764118.66000006
+      },
+      {
+        "state": "CO",
+        "state_name": "Colorado",
+        "households_enrolled": 251506,
+        "total_claims": 156298457.29000005
+      },
+      {
+        "state": "MN",
+        "state_name": "Minnesota",
+        "households_enrolled": 244916,
+        "total_claims": 153971614.57
+      },
+      {
+        "state": "MS",
+        "state_name": "Mississippi",
+        "households_enrolled": 244280,
+        "total_claims": 164840080.74000004
+      },
+      {
+        "state": "OR",
+        "state_name": "Oregon",
+        "households_enrolled": 238974,
+        "total_claims": 139745970.82
+      },
+      {
+        "state": "AR",
+        "state_name": "Arkansas",
+        "households_enrolled": 215017,
+        "total_claims": 136228574.48000005
+      },
+      {
+        "state": "CT",
+        "state_name": "Connecticut",
+        "households_enrolled": 186531,
+        "total_claims": 122633986.10000001
+      },
+      {
+        "state": "NM",
+        "state_name": "New Mexico",
+        "households_enrolled": 184131,
+        "total_claims": 151760988.26999998
+      },
+      {
+        "state": "KS",
+        "state_name": "Kansas",
+        "households_enrolled": 133746,
+        "total_claims": 80009227.89999999
       },
       {
         "state": "WV",
-        "total_claim_amount": 81641755.04,
-        "total_subscribers": 2534097.0
+        "state_name": "West Virginia",
+        "households_enrolled": 128571,
+        "total_claims": 81641755.04
+      },
+      {
+        "state": "IA",
+        "state_name": "Iowa",
+        "households_enrolled": 124054,
+        "total_claims": 76388764.02
+      },
+      {
+        "state": "ME",
+        "state_name": "Maine",
+        "households_enrolled": 98639,
+        "total_claims": 59851605.42
+      },
+      {
+        "state": "NE",
+        "state_name": "Nebraska",
+        "households_enrolled": 96140,
+        "total_claims": 58506115.07999999
+      },
+      {
+        "state": "RI",
+        "state_name": "Rhode Island",
+        "households_enrolled": 83516,
+        "total_claims": 49427401.72
+      },
+      {
+        "state": "UT",
+        "state_name": "Utah",
+        "households_enrolled": 75088,
+        "total_claims": 46205004.099999994
+      },
+      {
+        "state": "DC",
+        "state_name": "District of Columbia",
+        "households_enrolled": 63806,
+        "total_claims": 42499792.56
+      },
+      {
+        "state": "HI",
+        "state_name": "Hawaii",
+        "households_enrolled": 60721,
+        "total_claims": 36138139.67999999
+      },
+      {
+        "state": "MT",
+        "state_name": "Montana",
+        "households_enrolled": 54539,
+        "total_claims": 35323663.14
+      },
+      {
+        "state": "ID",
+        "state_name": "Idaho",
+        "households_enrolled": 53962,
+        "total_claims": 31079264.559999995
+      },
+      {
+        "state": "DE",
+        "state_name": "Delaware",
+        "households_enrolled": 52446,
+        "total_claims": 31646230.82
+      },
+      {
+        "state": "NH",
+        "state_name": "New Hampshire",
+        "households_enrolled": 38859,
+        "total_claims": 24116274.65
+      },
+      {
+        "state": "VT",
+        "state_name": "Vermont",
+        "households_enrolled": 25923,
+        "total_claims": 15716255.330000002
+      },
+      {
+        "state": "AK",
+        "state_name": "Alaska",
+        "households_enrolled": 24784,
+        "total_claims": 27664391.990000002
+      },
+      {
+        "state": "SD",
+        "state_name": "South Dakota",
+        "households_enrolled": 24194,
+        "total_claims": 18256827.74
       },
       {
         "state": "WY",
-        "total_claim_amount": 13177645.809999999,
-        "total_subscribers": 421248.0
+        "state_name": "Wyoming",
+        "households_enrolled": 21736,
+        "total_claims": 13177645.809999999
+      },
+      {
+        "state": "ND",
+        "state_name": "North Dakota",
+        "households_enrolled": 17742,
+        "total_claims": 10638045.289999997
+      },
+      {
+        "state": "VI",
+        "state_name": "Virgin Islands",
+        "households_enrolled": 6780,
+        "total_claims": 2839896.5299999993
+      },
+      {
+        "state": "MP",
+        "state_name": "Northern Mariana Islands",
+        "households_enrolled": 3218,
+        "total_claims": 2610839.0899999994
+      },
+      {
+        "state": "AS",
+        "state_name": "American Samoa",
+        "households_enrolled": 1684,
+        "total_claims": 1579021.4200000002
+      },
+      {
+        "state": "GU",
+        "state_name": "Guam",
+        "households_enrolled": 1322,
+        "total_claims": 895396.27
+      },
+      {
+        "state": "Total",
+        "state_name": "",
+        "households_enrolled": 0,
+        "total_claims": 14892204659.65
       }
     ]
+  },
+  "erate": {
+    "total_records": 252923,
+    "total_cost": 2283098245.130721,
+    "year_range": "FY2016-FY2026",
+    "unique_applicants": 4066,
+    "unique_bens": 3987,
+    "by_state": [
+      {
+        "state": "IN",
+        "count": 11911,
+        "cost": 181073741.30999961
+      },
+      {
+        "state": "CA",
+        "count": 29523,
+        "cost": 166780132.08999965
+      },
+      {
+        "state": "PR",
+        "count": 18885,
+        "cost": 156940397.53000045
+      },
+      {
+        "state": "NY",
+        "count": 6502,
+        "cost": 138199360.2100005
+      },
+      {
+        "state": "GA",
+        "count": 8406,
+        "cost": 111765191.81000054
+      },
+      {
+        "state": "LA",
+        "count": 6573,
+        "cost": 110453440.26000005
+      },
+      {
+        "state": "MS",
+        "count": 11602,
+        "cost": 97448821.00999962
+      },
+      {
+        "state": "OH",
+        "count": 8912,
+        "cost": 95285535.86000006
+      },
+      {
+        "state": "WA",
+        "count": 5310,
+        "cost": 86960189.06000037
+      },
+      {
+        "state": "MI",
+        "count": 12927,
+        "cost": 84344413.91999975
+      },
+      {
+        "state": "FL",
+        "count": 4551,
+        "cost": 75281765.84000008
+      },
+      {
+        "state": "OK",
+        "count": 7973,
+        "cost": 71256628.23000056
+      },
+      {
+        "state": "TX",
+        "count": 8711,
+        "cost": 68601471.71000011
+      },
+      {
+        "state": "NV",
+        "count": 1441,
+        "cost": 64954989.99000009
+      },
+      {
+        "state": "AZ",
+        "count": 4934,
+        "cost": 61165322.42000013
+      },
+      {
+        "state": "VA",
+        "count": 8160,
+        "cost": 58833343.259999596
+      },
+      {
+        "state": "IL",
+        "count": 10937,
+        "cost": 56266241.92999974
+      },
+      {
+        "state": "PA",
+        "count": 5141,
+        "cost": 50139150.509999625
+      },
+      {
+        "state": "CO",
+        "count": 3363,
+        "cost": 48217697.69000001
+      },
+      {
+        "state": "NJ",
+        "count": 4560,
+        "cost": 47680106.230000004
+      },
+      {
+        "state": "NC",
+        "count": 6003,
+        "cost": 46316074.13000018
+      },
+      {
+        "state": "KY",
+        "count": 11040,
+        "cost": 45632603.80000007
+      },
+      {
+        "state": "MO",
+        "count": 1872,
+        "cost": 34637637.00999996
+      },
+      {
+        "state": "MN",
+        "count": 2476,
+        "cost": 29923848.17999997
+      },
+      {
+        "state": "HI",
+        "count": 1213,
+        "cost": 29887428.439999975
+      },
+      {
+        "state": "AR",
+        "count": 4263,
+        "cost": 28538964.059999578
+      },
+      {
+        "state": "TN",
+        "count": 3869,
+        "cost": 26412687.599999838
+      },
+      {
+        "state": "DC",
+        "count": 346,
+        "cost": 23987956.47999998
+      },
+      {
+        "state": "AK",
+        "count": 2022,
+        "cost": 23172897.100000013
+      },
+      {
+        "state": "SC",
+        "count": 10009,
+        "cost": 22530276.68999994
+      },
+      {
+        "state": "NM",
+        "count": 4163,
+        "cost": 20923395.82000014
+      },
+      {
+        "state": "KS",
+        "count": 7369,
+        "cost": 20258513.880000114
+      },
+      {
+        "state": "ID",
+        "count": 3456,
+        "cost": 18767216.999999996
+      },
+      {
+        "state": "CT",
+        "count": 3395,
+        "cost": 15595609.020000039
+      },
+      {
+        "state": "MD",
+        "count": 1620,
+        "cost": 14940644.920000007
+      },
+      {
+        "state": "AL",
+        "count": 1084,
+        "cost": 9419779.409999995
+      },
+      {
+        "state": "OR",
+        "count": 988,
+        "cost": 9146316.470000004
+      },
+      {
+        "state": "WI",
+        "count": 499,
+        "cost": 7365546.979999993
+      },
+      {
+        "state": "NE",
+        "count": 2085,
+        "cost": 7133421.580000022
+      },
+      {
+        "state": "WV",
+        "count": 804,
+        "cost": 4048051.1099999947
+      },
+      {
+        "state": "IA",
+        "count": 2172,
+        "cost": 3946900.969999964
+      },
+      {
+        "state": "UT",
+        "count": 266,
+        "cost": 2968880.329999998
+      },
+      {
+        "state": "MA",
+        "count": 229,
+        "cost": 1564165.7599999995
+      },
+      {
+        "state": "RI",
+        "count": 176,
+        "cost": 1080624.98
+      },
+      {
+        "state": "MT",
+        "count": 371,
+        "cost": 1008952.8400000014
+      },
+      {
+        "state": "SD",
+        "count": 311,
+        "cost": 654512.160000001
+      },
+      {
+        "state": "VI",
+        "count": 39,
+        "cost": 564302.5599999999
+      },
+      {
+        "state": "ME",
+        "count": 165,
+        "cost": 299986.07000000007
+      },
+      {
+        "state": "MP",
+        "count": 153,
+        "cost": 268530.72
+      },
+      {
+        "state": "VT",
+        "count": 73,
+        "cost": 185397.83
+      },
+      {
+        "state": "WY",
+        "count": 36,
+        "cost": 155961.74000000002
+      },
+      {
+        "state": "GU",
+        "count": 14,
+        "cost": 102300.0
+      },
+      {
+        "state": "ND",
+        "count": 18,
+        "cost": 8038.859999999999
+      },
+      {
+        "state": "NH",
+        "count": 2,
+        "cost": 2879.76
+      }
+    ],
+    "by_year": [
+      {
+        "year": "2016",
+        "count": 2,
+        "cost": 132074.4
+      },
+      {
+        "year": "2017",
+        "count": 31214,
+        "cost": 265558523.3199984
+      },
+      {
+        "year": "2018",
+        "count": 21371,
+        "cost": 234612170.41999933
+      },
+      {
+        "year": "2019",
+        "count": 25018,
+        "cost": 230378779.02000356
+      },
+      {
+        "year": "2020",
+        "count": 30398,
+        "cost": 236099587.87999997
+      },
+      {
+        "year": "2021",
+        "count": 31863,
+        "cost": 212186323.1900037
+      },
+      {
+        "year": "2022",
+        "count": 22105,
+        "cost": 206557423.39999935
+      },
+      {
+        "year": "2023",
+        "count": 24233,
+        "cost": 247054831.88000044
+      },
+      {
+        "year": "2024",
+        "count": 23961,
+        "cost": 220538668.2100009
+      },
+      {
+        "year": "2025",
+        "count": 23724,
+        "cost": 260824167.8500012
+      },
+      {
+        "year": "2026",
+        "count": 19034,
+        "cost": 169155695.56000176
+      }
+    ],
+    "by_applicant_type": [
+      {
+        "type": "Library System",
+        "count": 177287,
+        "cost": 1902375160.6701906
+      },
+      {
+        "type": "Library",
+        "count": 75636,
+        "cost": 380723084.45995766
+      }
+    ],
+    "by_function_type": [
+      {
+        "type": "Fiber",
+        "count": 69465,
+        "cost": 1461858246.4101303
+      },
+      {
+        "type": "Data Distribution",
+        "count": 15723,
+        "cost": 148063718.0399997
+      },
+      {
+        "type": "Miscellaneous",
+        "count": 35784,
+        "cost": 117928447.16999972
+      },
+      {
+        "type": "Copper",
+        "count": 18033,
+        "cost": 70825701.15999839
+      },
+      {
+        "type": "Cabling/Connectors",
+        "count": 30435,
+        "cost": 63306819.920001045
+      },
+      {
+        "type": "Wireless",
+        "count": 7383,
+        "cost": 63280846.910000265
+      },
+      {
+        "type": "Wireless Data Distribution",
+        "count": 12699,
+        "cost": 62619855.25000002
+      },
+      {
+        "type": "License",
+        "count": 11363,
+        "cost": 56444242.36000015
+      },
+      {
+        "type": "Data Protection",
+        "count": 11431,
+        "cost": 51409863.080000155
+      },
+      {
+        "type": "Voice",
+        "count": 10166,
+        "cost": 48506653.550000034
+      },
+      {
+        "type": "Basic Maintenance of Internal Connections",
+        "count": 5947,
+        "cost": 38533293.089999974
+      },
+      {
+        "type": "Module",
+        "count": 2793,
+        "cost": 23042067.619999994
+      },
+      {
+        "type": "Managed services contract of already installed equipment",
+        "count": 3284,
+        "cost": 21049650.310000014
+      },
+      {
+        "type": "Other",
+        "count": 5152,
+        "cost": 15543587.540000513
+      },
+      {
+        "type": "Managed and leased from a third party service provider",
+        "count": 2956,
+        "cost": 13351119.800000066
+      }
+    ]
+  },
+  "bead": {
+    "total_appropriated": 42450000000,
+    "total_distributed": 41601000000.0,
+    "admin_reserve": 849000000.0,
+    "states_count": 56,
+    "largest": [
+      {
+        "state": "Texas",
+        "allocation": 3312616455.45,
+        "minimum": 100000000.0,
+        "above_minimum": 3212616455.45
+      },
+      {
+        "state": "California",
+        "allocation": 1864136508.93,
+        "minimum": 100000000.0,
+        "above_minimum": 1764136508.93
+      },
+      {
+        "state": "Missouri",
+        "allocation": 1736302708.39,
+        "minimum": 100000000.0,
+        "above_minimum": 1636302708.39
+      },
+      {
+        "state": "Michigan",
+        "allocation": 1559362479.29,
+        "minimum": 100000000.0,
+        "above_minimum": 1459362479.29
+      },
+      {
+        "state": "North Carolina",
+        "allocation": 1532999481.15,
+        "minimum": 100000000.0,
+        "above_minimum": 1432999481.15
+      },
+      {
+        "state": "Virginia",
+        "allocation": 1481489572.87,
+        "minimum": 100000000.0,
+        "above_minimum": 1381489572.87
+      },
+      {
+        "state": "Alabama",
+        "allocation": 1401221901.77,
+        "minimum": 100000000.0,
+        "above_minimum": 1301221901.77
+      },
+      {
+        "state": "Louisiana",
+        "allocation": 1355554552.94,
+        "minimum": 100000000.0,
+        "above_minimum": 1255554552.94
+      },
+      {
+        "state": "Georgia",
+        "allocation": 1307214371.3,
+        "minimum": 100000000.0,
+        "above_minimum": 1207214371.3
+      },
+      {
+        "state": "Washington",
+        "allocation": 1227742066.3,
+        "minimum": 100000000.0,
+        "above_minimum": 1127742066.3
+      },
+      {
+        "state": "West Virginia",
+        "allocation": 1210800969.85,
+        "minimum": 100000000.0,
+        "above_minimum": 1110800969.85
+      },
+      {
+        "state": "Mississippi",
+        "allocation": 1203561563.05,
+        "minimum": 100000000.0,
+        "above_minimum": 1103561563.05
+      },
+      {
+        "state": "Florida",
+        "allocation": 1169947392.7,
+        "minimum": 100000000.0,
+        "above_minimum": 1069947392.7
+      },
+      {
+        "state": "Pennsylvania",
+        "allocation": 1161778272.41,
+        "minimum": 100000000.0,
+        "above_minimum": 1061778272.4100001
+      },
+      {
+        "state": "Kentucky",
+        "allocation": 1086172536.86,
+        "minimum": 100000000.0,
+        "above_minimum": 986172536.8599999
+      },
+      {
+        "state": "Wisconsin",
+        "allocation": 1055823573.71,
+        "minimum": 100000000.0,
+        "above_minimum": 955823573.71
+      },
+      {
+        "state": "Illinois",
+        "allocation": 1040420751.5,
+        "minimum": 100000000.0,
+        "above_minimum": 940420751.5
+      },
+      {
+        "state": "Arkansas",
+        "allocation": 1024303993.86,
+        "minimum": 100000000.0,
+        "above_minimum": 924303993.86
+      },
+      {
+        "state": "Alaska",
+        "allocation": 1017139672.42,
+        "minimum": 100000000.0,
+        "above_minimum": 917139672.42
+      },
+      {
+        "state": "Arizona",
+        "allocation": 993112231.37,
+        "minimum": 100000000.0,
+        "above_minimum": 893112231.37
+      }
+    ],
+    "smallest": [
+      {
+        "state": "U.S. Virgin Islands",
+        "allocation": 27103240.86,
+        "minimum": 25000000.0,
+        "above_minimum": 2103240.8599999994
+      },
+      {
+        "state": "American Samoa",
+        "allocation": 37564827.53,
+        "minimum": 25000000.0,
+        "above_minimum": 12564827.530000001
+      },
+      {
+        "state": "Commonwealth of the Northern Mariana Islands",
+        "allocation": 80796709.02,
+        "minimum": 25000000.0,
+        "above_minimum": 55796709.019999996
+      },
+      {
+        "state": "District of Columbia",
+        "allocation": 100694786.93,
+        "minimum": 100000000.0,
+        "above_minimum": 694786.9300000072
+      },
+      {
+        "state": "Delaware",
+        "allocation": 107748384.66,
+        "minimum": 100000000.0,
+        "above_minimum": 7748384.659999996
+      },
+      {
+        "state": "Rhode Island",
+        "allocation": 108718820.75,
+        "minimum": 100000000.0,
+        "above_minimum": 8718820.75
+      },
+      {
+        "state": "North Dakota",
+        "allocation": 130162815.12,
+        "minimum": 100000000.0,
+        "above_minimum": 30162815.120000005
+      },
+      {
+        "state": "Connecticut",
+        "allocation": 144180792.71,
+        "minimum": 100000000.0,
+        "above_minimum": 44180792.71000001
+      },
+      {
+        "state": "Massachusetts",
+        "allocation": 147422464.39,
+        "minimum": 100000000.0,
+        "above_minimum": 47422464.389999986
+      },
+      {
+        "state": "Hawaii",
+        "allocation": 149484493.57,
+        "minimum": 100000000.0,
+        "above_minimum": 49484493.56999999
+      }
+    ],
+    "all_states": [
+      {
+        "state": "Texas",
+        "allocation": 3312616455.45,
+        "minimum": 100000000.0,
+        "above_minimum": 3212616455.45
+      },
+      {
+        "state": "California",
+        "allocation": 1864136508.93,
+        "minimum": 100000000.0,
+        "above_minimum": 1764136508.93
+      },
+      {
+        "state": "Missouri",
+        "allocation": 1736302708.39,
+        "minimum": 100000000.0,
+        "above_minimum": 1636302708.39
+      },
+      {
+        "state": "Michigan",
+        "allocation": 1559362479.29,
+        "minimum": 100000000.0,
+        "above_minimum": 1459362479.29
+      },
+      {
+        "state": "North Carolina",
+        "allocation": 1532999481.15,
+        "minimum": 100000000.0,
+        "above_minimum": 1432999481.15
+      },
+      {
+        "state": "Virginia",
+        "allocation": 1481489572.87,
+        "minimum": 100000000.0,
+        "above_minimum": 1381489572.87
+      },
+      {
+        "state": "Alabama",
+        "allocation": 1401221901.77,
+        "minimum": 100000000.0,
+        "above_minimum": 1301221901.77
+      },
+      {
+        "state": "Louisiana",
+        "allocation": 1355554552.94,
+        "minimum": 100000000.0,
+        "above_minimum": 1255554552.94
+      },
+      {
+        "state": "Georgia",
+        "allocation": 1307214371.3,
+        "minimum": 100000000.0,
+        "above_minimum": 1207214371.3
+      },
+      {
+        "state": "Washington",
+        "allocation": 1227742066.3,
+        "minimum": 100000000.0,
+        "above_minimum": 1127742066.3
+      },
+      {
+        "state": "West Virginia",
+        "allocation": 1210800969.85,
+        "minimum": 100000000.0,
+        "above_minimum": 1110800969.85
+      },
+      {
+        "state": "Mississippi",
+        "allocation": 1203561563.05,
+        "minimum": 100000000.0,
+        "above_minimum": 1103561563.05
+      },
+      {
+        "state": "Florida",
+        "allocation": 1169947392.7,
+        "minimum": 100000000.0,
+        "above_minimum": 1069947392.7
+      },
+      {
+        "state": "Pennsylvania",
+        "allocation": 1161778272.41,
+        "minimum": 100000000.0,
+        "above_minimum": 1061778272.4100001
+      },
+      {
+        "state": "Kentucky",
+        "allocation": 1086172536.86,
+        "minimum": 100000000.0,
+        "above_minimum": 986172536.8599999
+      },
+      {
+        "state": "Wisconsin",
+        "allocation": 1055823573.71,
+        "minimum": 100000000.0,
+        "above_minimum": 955823573.71
+      },
+      {
+        "state": "Illinois",
+        "allocation": 1040420751.5,
+        "minimum": 100000000.0,
+        "above_minimum": 940420751.5
+      },
+      {
+        "state": "Arkansas",
+        "allocation": 1024303993.86,
+        "minimum": 100000000.0,
+        "above_minimum": 924303993.86
+      },
+      {
+        "state": "Alaska",
+        "allocation": 1017139672.42,
+        "minimum": 100000000.0,
+        "above_minimum": 917139672.42
+      },
+      {
+        "state": "Arizona",
+        "allocation": 993112231.37,
+        "minimum": 100000000.0,
+        "above_minimum": 893112231.37
+      },
+      {
+        "state": "Indiana",
+        "allocation": 868109929.79,
+        "minimum": 100000000.0,
+        "above_minimum": 768109929.79
+      },
+      {
+        "state": "Colorado",
+        "allocation": 826522650.41,
+        "minimum": 100000000.0,
+        "above_minimum": 726522650.41
+      },
+      {
+        "state": "Tennessee",
+        "allocation": 813319680.22,
+        "minimum": 100000000.0,
+        "above_minimum": 713319680.22
+      },
+      {
+        "state": "Oklahoma",
+        "allocation": 797435691.25,
+        "minimum": 100000000.0,
+        "above_minimum": 697435691.25
+      },
+      {
+        "state": "Ohio",
+        "allocation": 793688107.63,
+        "minimum": 100000000.0,
+        "above_minimum": 693688107.63
+      },
+      {
+        "state": "Oregon",
+        "allocation": 688914932.17,
+        "minimum": 100000000.0,
+        "above_minimum": 588914932.17
+      },
+      {
+        "state": "New Mexico",
+        "allocation": 675372311.86,
+        "minimum": 100000000.0,
+        "above_minimum": 575372311.86
+      },
+      {
+        "state": "New York",
+        "allocation": 664618251.49,
+        "minimum": 100000000.0,
+        "above_minimum": 564618251.49
+      },
+      {
+        "state": "Minnesota",
+        "allocation": 651839368.2,
+        "minimum": 100000000.0,
+        "above_minimum": 551839368.2
+      },
+      {
+        "state": "Montana",
+        "allocation": 628973798.59,
+        "minimum": 100000000.0,
+        "above_minimum": 528973798.59000003
+      },
+      {
+        "state": "Idaho",
+        "allocation": 583256249.88,
+        "minimum": 100000000.0,
+        "above_minimum": 483256249.88
+      },
+      {
+        "state": "South Carolina",
+        "allocation": 551535983.05,
+        "minimum": 100000000.0,
+        "above_minimum": 451535983.04999995
+      },
+      {
+        "state": "Kansas",
+        "allocation": 451725998.15,
+        "minimum": 100000000.0,
+        "above_minimum": 351725998.15
+      },
+      {
+        "state": "Nevada",
+        "allocation": 416666229.74,
+        "minimum": 100000000.0,
+        "above_minimum": 316666229.74
+      },
+      {
+        "state": "Iowa",
+        "allocation": 415331313.0,
+        "minimum": 100000000.0,
+        "above_minimum": 315331313.0
+      },
+      {
+        "state": "Nebraska",
+        "allocation": 405281070.41,
+        "minimum": 100000000.0,
+        "above_minimum": 305281070.41
+      },
+      {
+        "state": "Wyoming",
+        "allocation": 347877921.27,
+        "minimum": 100000000.0,
+        "above_minimum": 247877921.26999998
+      },
+      {
+        "state": "Puerto Rico",
+        "allocation": 334614151.7,
+        "minimum": 100000000.0,
+        "above_minimum": 234614151.7
+      },
+      {
+        "state": "Utah",
+        "allocation": 317399741.54,
+        "minimum": 100000000.0,
+        "above_minimum": 217399741.54000002
+      },
+      {
+        "state": "Maine",
+        "allocation": 271977723.07,
+        "minimum": 100000000.0,
+        "above_minimum": 171977723.07
+      },
+      {
+        "state": "Maryland",
+        "allocation": 267738400.71,
+        "minimum": 100000000.0,
+        "above_minimum": 167738400.71
+      },
+      {
+        "state": "New Jersey",
+        "allocation": 263689548.65,
+        "minimum": 100000000.0,
+        "above_minimum": 163689548.65
+      },
+      {
+        "state": "Vermont",
+        "allocation": 228913019.08,
+        "minimum": 100000000.0,
+        "above_minimum": 128913019.08000001
+      },
+      {
+        "state": "South Dakota",
+        "allocation": 207227523.92,
+        "minimum": 100000000.0,
+        "above_minimum": 107227523.91999999
+      },
+      {
+        "state": "New Hampshire",
+        "allocation": 196560278.97,
+        "minimum": 100000000.0,
+        "above_minimum": 96560278.97
+      },
+      {
+        "state": "Guam",
+        "allocation": 156831733.59,
+        "minimum": 25000000.0,
+        "above_minimum": 131831733.59
+      },
+      {
+        "state": "Hawaii",
+        "allocation": 149484493.57,
+        "minimum": 100000000.0,
+        "above_minimum": 49484493.56999999
+      },
+      {
+        "state": "Massachusetts",
+        "allocation": 147422464.39,
+        "minimum": 100000000.0,
+        "above_minimum": 47422464.389999986
+      },
+      {
+        "state": "Connecticut",
+        "allocation": 144180792.71,
+        "minimum": 100000000.0,
+        "above_minimum": 44180792.71000001
+      },
+      {
+        "state": "North Dakota",
+        "allocation": 130162815.12,
+        "minimum": 100000000.0,
+        "above_minimum": 30162815.120000005
+      },
+      {
+        "state": "Rhode Island",
+        "allocation": 108718820.75,
+        "minimum": 100000000.0,
+        "above_minimum": 8718820.75
+      },
+      {
+        "state": "Delaware",
+        "allocation": 107748384.66,
+        "minimum": 100000000.0,
+        "above_minimum": 7748384.659999996
+      },
+      {
+        "state": "District of Columbia",
+        "allocation": 100694786.93,
+        "minimum": 100000000.0,
+        "above_minimum": 694786.9300000072
+      },
+      {
+        "state": "Commonwealth of the Northern Mariana Islands",
+        "allocation": 80796709.02,
+        "minimum": 25000000.0,
+        "above_minimum": 55796709.019999996
+      },
+      {
+        "state": "American Samoa",
+        "allocation": 37564827.53,
+        "minimum": 25000000.0,
+        "above_minimum": 12564827.530000001
+      },
+      {
+        "state": "U.S. Virgin Islands",
+        "allocation": 27103240.86,
+        "minimum": 25000000.0,
+        "above_minimum": 2103240.8599999994
+      }
+    ],
+    "date_announced": "2023-06-26",
+    "methodology": "Each entity's allocation = Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Based on FCC Broadband DATA Maps."
   },
   "imls_grants": {
     "total_count": 21325,

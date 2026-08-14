@@ -379,6 +379,22 @@ body.wiki-body {
   width: 32%; font-size: 0.82rem;
 }
 .detail-table td { padding: 0.3em 0.5em; border: 1px solid var(--wiki-border-soft); font-size: 0.82rem; }
+.detail-table tr.detail-section td {
+  background: var(--wiki-bg);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--wiki-text-muted);
+  padding: 0.4em 0.6em;
+  border-bottom: 2px solid var(--wiki-border);
+}
+/* HTTP status code colors */
+.status-ok    { color: #14866d; font-weight: 600; }
+.status-redir { color: #704ba8; font-weight: 600; }
+.status-warn  { color: #b8860b; font-weight: 600; }
+.status-err   { color: #d33; font-weight: 600; }
+.status-other { color: var(--wiki-text-muted); font-weight: 600; }
 
 /* ---- Homepage enrichment: services bars, top-rated, leaderboard ---- */
 .wiki-body-content .services-bars {
@@ -682,7 +698,12 @@ body.map-page { overflow: hidden; }
 }
 [data-theme="dark"] .detail-table th { background: var(--wiki-table-hdr); border-color: var(--wiki-border-soft); }
 [data-theme="dark"] .detail-table td { border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .detail-table tr.detail-section td { background: var(--wiki-table-hdr); color: var(--wiki-text-muted); border-bottom-color: var(--wiki-border-strong); }
 [data-theme="dark"] .detail-meta { color: var(--wiki-text-muted); }
+[data-theme="dark"] .status-ok    { color: #4dd6a8; }
+[data-theme="dark"] .status-redir { color: #b390e0; }
+[data-theme="dark"] .status-warn  { color: #e8b339; }
+[data-theme="dark"] .status-err   { color: #ff6b6b; }
 
 /* Footer */
 [data-theme="dark"] .wiki-footer { background: var(--wiki-bg); border-color: var(--wiki-border-strong); }

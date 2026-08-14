@@ -1,11 +1,11 @@
 {
-  "total_nodes": 46410,
+  "total_nodes": 46335,
   "public": {
     "total": 17615,
     "rated": 8086,
     "rated_pct": "45.9%",
-    "websites": 12737,
-    "web_pct": "72.3%",
+    "websites": 12769,
+    "web_pct": "72.5%",
     "emails": 2505,
     "email_pct": "14.2%",
     "social": 4904,
@@ -14,11 +14,11 @@
     "demo_pct": "100.0%"
   },
   "private": {
-    "total": 3770,
-    "rated": 1048,
-    "rated_pct": "27.8%",
-    "websites": 3763,
-    "web_pct": "99.8%"
+    "total": 3695,
+    "rated": 0,
+    "rated_pct": "0.0%",
+    "websites": 3695,
+    "web_pct": "100.0%"
   },
   "gov": {
     "total": 25025,
@@ -76,7 +76,7 @@
     "AZ": {
       "name": "Arizona",
       "pub": 231,
-      "priv": 57,
+      "priv": 56,
       "gov": 292
     },
     "AR": {
@@ -88,19 +88,19 @@
     "CA": {
       "name": "California",
       "pub": 1236,
-      "priv": 398,
+      "priv": 392,
       "gov": 860
     },
     "CO": {
       "name": "Colorado",
       "pub": 284,
-      "priv": 56,
+      "priv": 55,
       "gov": 287
     },
     "CT": {
       "name": "Connecticut",
       "pub": 241,
-      "priv": 27,
+      "priv": 26,
       "gov": 183
     },
     "DE": {
@@ -112,13 +112,13 @@
     "FL": {
       "name": "Florida",
       "pub": 558,
-      "priv": 162,
+      "priv": 161,
       "gov": 542
     },
     "GA": {
       "name": "Georgia",
       "pub": 407,
-      "priv": 102,
+      "priv": 99,
       "gov": 365
     },
     "HI": {
@@ -136,7 +136,7 @@
     "IL": {
       "name": "Illinois",
       "pub": 794,
-      "priv": 151,
+      "priv": 147,
       "gov": 460
     },
     "IN": {
@@ -160,7 +160,7 @@
     "KY": {
       "name": "Kentucky",
       "pub": 273,
-      "priv": 59,
+      "priv": 58,
       "gov": 232
     },
     "LA": {
@@ -178,25 +178,25 @@
     "MD": {
       "name": "Maryland",
       "pub": 218,
-      "priv": 52,
+      "priv": 49,
       "gov": 277
     },
     "MA": {
       "name": "Massachusetts",
       "pub": 463,
-      "priv": 105,
+      "priv": 101,
       "gov": 372
     },
     "MI": {
       "name": "Michigan",
       "pub": 666,
-      "priv": 87,
+      "priv": 86,
       "gov": 635
     },
     "MN": {
       "name": "Minnesota",
       "pub": 367,
-      "priv": 80,
+      "priv": 79,
       "gov": 605
     },
     "MS": {
@@ -208,7 +208,7 @@
     "MO": {
       "name": "Missouri",
       "pub": 396,
-      "priv": 87,
+      "priv": 86,
       "gov": 364
     },
     "MT": {
@@ -238,7 +238,7 @@
     "NJ": {
       "name": "New Jersey",
       "pub": 454,
-      "priv": 85,
+      "priv": 83,
       "gov": 332
     },
     "NM": {
@@ -250,13 +250,13 @@
     "NY": {
       "name": "New York",
       "pub": 1071,
-      "priv": 299,
+      "priv": 293,
       "gov": 1422
     },
     "NC": {
       "name": "North Carolina",
       "pub": 425,
-      "priv": 134,
+      "priv": 132,
       "gov": 408
     },
     "ND": {
@@ -268,7 +268,7 @@
     "OH": {
       "name": "Ohio",
       "pub": 784,
-      "priv": 151,
+      "priv": 149,
       "gov": 670
     },
     "OK": {
@@ -280,13 +280,13 @@
     "OR": {
       "name": "Oregon",
       "pub": 225,
-      "priv": 48,
+      "priv": 46,
       "gov": 292
     },
     "PA": {
       "name": "Pennsylvania",
       "pub": 631,
-      "priv": 176,
+      "priv": 175,
       "gov": 387
     },
     "RI": {
@@ -316,13 +316,13 @@
     "TX": {
       "name": "Texas",
       "pub": 893,
-      "priv": 208,
+      "priv": 207,
       "gov": 746
     },
     "UT": {
       "name": "Utah",
       "pub": 133,
-      "priv": 24,
+      "priv": 23,
       "gov": 402
     },
     "VT": {
@@ -334,13 +334,13 @@
     "VA": {
       "name": "Virginia",
       "pub": 390,
-      "priv": 101,
+      "priv": 98,
       "gov": 337
     },
     "WA": {
       "name": "Washington",
       "pub": 362,
-      "priv": 70,
+      "priv": 67,
       "gov": 257
     },
     "WV": {
@@ -352,7 +352,7 @@
     "WI": {
       "name": "Wisconsin",
       "pub": 466,
-      "priv": 62,
+      "priv": 61,
       "gov": 830
     },
     "WY": {
@@ -364,7 +364,7 @@
     "DC": {
       "name": "District of Columbia",
       "pub": 27,
-      "priv": 37,
+      "priv": 16,
       "gov": 988
     },
     "PR": {
@@ -607,89 +607,89 @@
       "code": "NY",
       "name": "New York",
       "pub": 1071,
-      "priv": 299,
+      "priv": 293,
       "gov": 1422
     },
     {
       "code": "CA",
       "name": "California",
       "pub": 1236,
-      "priv": 398,
+      "priv": 392,
       "gov": 860
     },
     {
       "code": "TX",
       "name": "Texas",
       "pub": 893,
-      "priv": 208,
+      "priv": 207,
       "gov": 746
     },
     {
       "code": "OH",
       "name": "Ohio",
       "pub": 784,
-      "priv": 151,
+      "priv": 149,
       "gov": 670
     },
     {
       "code": "IL",
       "name": "Illinois",
       "pub": 794,
-      "priv": 151,
+      "priv": 147,
       "gov": 460
     },
     {
       "code": "MI",
       "name": "Michigan",
       "pub": 666,
-      "priv": 87,
+      "priv": 86,
       "gov": 635
     },
     {
       "code": "WI",
       "name": "Wisconsin",
       "pub": 466,
-      "priv": 62,
+      "priv": 61,
       "gov": 830
     },
     {
       "code": "FL",
       "name": "Florida",
       "pub": 558,
-      "priv": 162,
+      "priv": 161,
       "gov": 542
     },
     {
       "code": "PA",
       "name": "Pennsylvania",
       "pub": 631,
-      "priv": 176,
+      "priv": 175,
       "gov": 387
     },
     {
       "code": "MN",
       "name": "Minnesota",
       "pub": 367,
-      "priv": 80,
+      "priv": 79,
       "gov": 605
     }
   ],
   "funding": {
-    "total": 288885288222.0,
-    "avg": 16556928.485900963,
-    "count": 17448
+    "total": 288886693758.0,
+    "avg": 16556060.161499226,
+    "count": 17449
   },
   "demographics": {
     "avg_income": 75739.5302115689,
     "income_count": 17063
   },
   "infrastructure": {
-    "total_sqft": 216874308,
-    "total_collection": 8726314684,
-    "avg_sqft": 13009,
-    "avg_collection": 500247,
-    "sqft_count": 16671,
-    "coll_count": 17444
+    "total_sqft": 218525383,
+    "total_collection": 8726357044,
+    "avg_sqft": 12999,
+    "avg_collection": 500221,
+    "sqft_count": 16810,
+    "coll_count": 17445
   },
   "biggest_libraries": [
     {
@@ -848,20 +848,20 @@
   "funding_sources": [
     {
       "source": "Local",
-      "total": 241213609252.0,
-      "count": 17448,
+      "total": 241215010771.0,
+      "count": 17449,
       "pct": "91.9%"
     },
     {
       "source": "State",
       "total": 19467219131.0,
-      "count": 17448,
+      "count": 17449,
       "pct": "7.4%"
     },
     {
       "source": "Federal",
-      "total": 1730523335.0,
-      "count": 17448,
+      "total": 1730524646.0,
+      "count": 17449,
       "pct": "0.7%"
     }
   ],
@@ -1139,5 +1139,5 @@
       }
     ]
   },
-  "generated": "2026-08-14 12:54 UTC"
+  "generated": "2026-08-14 13:02 UTC"
 }

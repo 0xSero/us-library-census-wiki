@@ -200,6 +200,36 @@
   };
 
   // ---------- Detail panel ----------
+  function fmtMoney(s) {
+    var n = parseFloat(s);
+    if (isNaN(n)) return esc(s);
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+    return '$' + n.toLocaleString();
+  }
+  function fmtBytes(s) {
+    var n = parseInt(s, 10);
+    if (isNaN(n)) return esc(s);
+    if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  function fmtStatus(code) {
+    var n = parseInt(code, 10);
+    var label = esc(code);
+    var cls = 'status-other';
+    if (n >= 200 && n < 300) cls = 'status-ok';
+    else if (n >= 300 && n < 400) cls = 'status-redir';
+    else if (n >= 400 && n < 500) cls = 'status-warn';
+    else if (n >= 500) cls = 'status-err';
+    else if (n === 0) cls = 'status-err';
+    return '<span class="' + cls + '">' + label + '</span>';
+  }
+  function section(title) {
+    return '<tr class="detail-section"><td colspan="2">' + esc(title) + '</td></tr>';
+  }
+
   window.showDetail = function (idx) {
     var r = filtered[idx];
     if (!r) return;
@@ -207,6 +237,7 @@
     var content = document.getElementById('detailContent');
     if (!panel || !content) return;
 
+    var isGov = r.type === 'gov';
     var html = '<h2>' + esc(r.name || '') + '</h2>';
     html += '<div class="detail-meta"><span class="type-badge type-' + esc(r.type) + '">' + esc(r.type) + (r.tier ? '/' + esc(r.tier) : '') + '</span>';
     if (r.state) html += ' · ' + esc(r.state);
@@ -214,38 +245,79 @@
     html += '</div>';
 
     html += '<table class="detail-table">';
-    if (r.address) html += row('Address', esc(r.address) + (r.zip ? ', ' + esc(r.zip) : ''));
-    if (r.phone) html += row('Phone', esc(r.phone));
-    if (r.website) html += row('Website', '<a href="' + esc(r.website) + '" target="_blank" rel="noopener">' + esc(r.website) + '</a>');
-    if (r.email) html += row('Email', '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a>');
-    if (r.fb) html += row('Facebook', '<a href="' + esc(r.fb) + '" target="_blank" rel="noopener">' + esc(r.fb) + '</a>');
-    if (r.rating) html += row('Rating', '★ ' + esc(r.rating) + (r.rcount ? ' (' + esc(r.rcount) + ' reviews)' : '') + (r.rsrc ? ' <span class="rsrc">via ' + esc(r.rsrc) + '</span>' : ''));
 
-    // Hours
-    var hrs = hoursMap[r.id];
-    if (hrs && hrs.raw) {
-      html += row('Hours', esc(hrs.raw) + (hrs.structured ? '<br><code>' + esc(hrs.structured) + '</code>' : ''));
+    // ---- Contact ----
+    var hasContact = r.address || r.phone || r.email || r.fb || r.tw || r.ig || r.yt;
+    if (hasContact) {
+      html += section('Contact');
+      if (r.address) html += row('Address', esc(r.address) + (r.zip ? ', ' + esc(r.zip) : ''));
+      if (r.phone) html += row('Phone', esc(r.phone));
+      if (r.email) html += row('Email', '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a>');
+      if (r.fb) html += row('Facebook', '<a href="' + esc(r.fb) + '" target="_blank" rel="noopener">' + esc(r.fb) + '</a>');
+      if (r.tw) html += row('Twitter / X', '<a href="' + esc(r.tw) + '" target="_blank" rel="noopener">' + esc(r.tw) + '</a>');
+      if (r.ig) html += row('Instagram', '<a href="' + esc(r.ig) + '" target="_blank" rel="noopener">' + esc(r.ig) + '</a>');
+      if (r.yt) html += row('YouTube', '<a href="' + esc(r.yt) + '" target="_blank" rel="noopener">' + esc(r.yt) + '</a>');
     }
 
-    // Services
-    var svc = servicesMap[r.id];
-    if (svc) html += row('Services', esc(svc));
+    // ---- Website & verification ----
+    var hasWeb = r.website || r.ttl || r.furl || r.ulive || r.hstat || r.srv || r.ctype || r.clen || r.lmod || r.redir || r.cerr || r.cat;
+    if (hasWeb) {
+      html += section('Website');
+      if (r.website) html += row('Website', '<a href="' + esc(r.website) + '" target="_blank" rel="noopener">' + esc(r.website) + '</a>');
+      if (r.ttl) html += row('Page title', esc(r.ttl));
+      if (r.furl && r.furl !== r.website) html += row('Final URL', '<a href="' + esc(r.furl) + '" target="_blank" rel="noopener">' + esc(r.furl) + '</a>');
+      if (r.ulive !== undefined) html += row('Live', r.ulive && r.ulive !== 'False' ? '<span class="live">● Yes</span>' : '<span class="dead">○ No</span>');
+      if (r.hstat) html += row('HTTP status', fmtStatus(r.hstat));
+      if (r.srv) html += row('Server', esc(r.srv));
+      if (r.ctype) html += row('Content type', esc(r.ctype));
+      if (r.clen) html += row('Content length', fmtBytes(r.clen));
+      if (r.lmod) html += row('Last modified', esc(r.lmod));
+      if (r.redir) html += row('Redirects', esc(r.redir));
+      if (r.cerr) html += row('Check error', '<span class="dead">' + esc(r.cerr) + '</span>');
+      if (r.cat) html += row('Checked at', esc(r.cat));
+    }
 
-    if (r.pop) html += row('Area population', esc(r.pop));
-    if (r.income) html += row('Median household income', esc(r.income));
-    if (r.sqft) html += row('Building size', esc(r.sqft) + ' sqft');
-    if (r.coll) html += row('Collection size', esc(r.coll) + ' items');
-    if (r.psrv) html += row('Population served', esc(r.psrv));
-    if (r.fsrc) html += row('Funding source', esc(r.fsrc));
-    if (r.pov) html += row('Poverty rate', esc(r.pov) + '%');
-    if (r.age) html += row('Median age', esc(r.age) + ' years');
+    // ---- Reviews ----
+    if (r.rating) html += section('Reviews') + row('Rating', '★ ' + esc(r.rating) + (r.rcount ? ' (' + esc(r.rcount) + ' reviews)' : '') + (r.rsrc ? ' <span class="rsrc">via ' + esc(r.rsrc) + '</span>' : ''));
+
+    // ---- Hours & services ----
+    var hrs = hoursMap[r.id];
+    var svc = servicesMap[r.id];
+    if ((hrs && hrs.raw) || svc) {
+      html += section('Hours & services');
+      if (hrs && hrs.raw) html += row('Hours', esc(hrs.raw) + (hrs.structured ? '<br><code>' + esc(hrs.structured) + '</code>' : ''));
+      if (svc) html += row('Services', esc(svc));
+    }
+
+    // ---- Demographics ----
+    if (r.pop || r.income || r.pov || r.age) {
+      html += section('Community demographics');
+      if (r.pop) html += row('Area population', esc(r.pop));
+      if (r.income) html += row('Median household income', fmtMoney(r.income));
+      if (r.pov) html += row('Poverty rate', esc(r.pov) + '%');
+      if (r.age) html += row('Median age', esc(r.age) + ' years');
+    }
+
+    // ---- Facility & funding ----
+    if (r.sqft || r.coll || r.psrv || r.ft || r.fsrc) {
+      html += section('Facility & funding');
+      if (r.sqft) html += row('Building size', esc(r.sqft) + ' sqft');
+      if (r.coll) html += row('Collection size', esc(r.coll) + ' items');
+      if (r.psrv) html += row('Population served', esc(r.psrv));
+      if (r.ft) html += row('Funding total', fmtMoney(r.ft));
+      if (r.fsrc) html += row('Funding source', esc(r.fsrc));
+    }
+
+    // ---- Location ----
     if (r.lat && r.lng) {
+      html += section('Location');
       var mapUrl = 'https://www.google.com/maps?q=' + encodeURIComponent(r.lat + ',' + r.lng);
       html += row('Coordinates', esc(r.lat) + ', ' + esc(r.lng) + ' · <a href="' + mapUrl + '" target="_blank" rel="noopener">View on Google Maps →</a>');
     }
-    if (r.live !== undefined) {
-      html += row('Status', r.live ? '<span class="live">● Live</span>' : '<span class="dead">○ Down</span>');
-    }
+
+    // ---- Source metadata ----
+    if (r.nt) html += section('Source metadata') + row('Notes', esc(r.nt));
+
     html += '</table>';
 
     content.innerHTML = html;

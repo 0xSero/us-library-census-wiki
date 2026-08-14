@@ -1139,5 +1139,1540 @@
       }
     ]
   },
-  "generated": "2026-08-14 13:02 UTC"
+  "pls_operations": {
+    "visits": {
+      "total": 11177278885,
+      "avg": 641046,
+      "count": 17436
+    },
+    "circulation": {
+      "total": 25628801345,
+      "avg": 1899415,
+      "count": 13493
+    },
+    "ecirc": {
+      "total": 10330540372,
+      "avg": 764942,
+      "count": 13505
+    },
+    "pcir": {
+      "total": 17941140483,
+      "avg": 1028381,
+      "count": 17446
+    },
+    "programs": {
+      "total": 55561442,
+      "avg": 3265,
+      "count": 17018
+    },
+    "attendance": {
+      "total": 1120262220,
+      "avg": 66213,
+      "count": 16919
+    },
+    "wifi": {
+      "total": 5815453257,
+      "avg": 387956,
+      "count": 14990
+    },
+    "terminals": {
+      "total": 1539687995,
+      "avg": 88315,
+      "count": 17434
+    },
+    "borrowers": {
+      "total": 2488346194,
+      "avg": 142623,
+      "count": 17447
+    },
+    "ill_to": {
+      "total": 254097410,
+      "avg": 14571,
+      "count": 17438
+    },
+    "ill_from": {
+      "total": 279443347,
+      "avg": 16025,
+      "count": 17438
+    },
+    "staff": {
+      "total": 2004604,
+      "avg": 115,
+      "count": 17447
+    },
+    "librarians": {
+      "total": 600887,
+      "avg": 34,
+      "count": 17447
+    },
+    "branches": {
+      "total": 135088,
+      "avg": 8,
+      "count": 17583
+    },
+    "bookmobiles": {
+      "total": 7264,
+      "avg": 0,
+      "count": 17583
+    }
+  },
+  "acs_extended": {
+    "bachelors": {
+      "avg": 31,
+      "count": 17019
+    },
+    "computer": {
+      "avg": 93,
+      "count": 17019
+    },
+    "internet": {
+      "avg": 88,
+      "count": 17019
+    },
+    "non_english": {
+      "avg": 19,
+      "count": 17595
+    }
+  },
+  "most_visited": [
+    {
+      "name": "115TH STREET BRANCH",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "53RD STREET LIBRARY",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "58 STREET BRANCH LIBRARY",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "67TH STREET BRANCH",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "96TH STREET BRANCH",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "AGUILAR BRANCH",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "ALLERTON BRANCH",
+      "city": "Bronx",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "ANDREW HEISKELL BRAILLE & TALKING BOOK LIBRARY",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "BATTERY PARK CITY LIBRARY",
+      "city": "New York",
+      "state": "NY",
+      "visits": 12325494
+    },
+    {
+      "name": "BAYCHESTER BRANCH",
+      "city": "Bronx",
+      "state": "NY",
+      "visits": 12325494
+    }
+  ],
+  "most_circulated": [
+    {
+      "name": "ALMA REAVES WOODS WATTS BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "ANGELES MESA BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "ARROYO SECO REGIONAL BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "ASCOT BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "ATWATER VILLAGE BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "BALDWIN HILLS BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "BENJAMIN FRANKLIN BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "CAHUENGA BRANCH",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "CANOGA PARK BRANCH",
+      "city": "Canoga Park",
+      "state": "CA",
+      "circulation": 25569226
+    },
+    {
+      "name": "CENTRAL LIBRARY",
+      "city": "Los Angeles",
+      "state": "CA",
+      "circulation": 25569226
+    }
+  ],
+  "generated": "2026-08-14 16:29 UTC",
+  "consortia": {
+    "total": 283,
+    "us_total": 163,
+    "with_website": 237,
+    "sources": [
+      "ICOLC",
+      "ICOLC+Wikipedia",
+      "Wikipedia"
+    ]
+  },
+  "consortia_list": [
+    {
+      "consortium_name": "Abilene Library Consortium",
+      "abbreviation": "ALC",
+      "website": "http://www.alc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Academic Libraries of Indiana",
+      "abbreviation": "ALI",
+      "website": "http://academiclibrariesofindiana.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Amigos Library Services",
+      "abbreviation": "Amigos",
+      "website": "http://www.amigos.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Appalachian College Association",
+      "abbreviation": "ACA",
+      "website": "http://www.acaweb.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Arizona Community College Library Consortium",
+      "abbreviation": "ACCLC",
+      "website": "http://www.azcclc.org/news/home",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Arizona Health Information Network",
+      "abbreviation": "AZHIN",
+      "website": "http://www.azhin.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Arizona Universities Library Consortium",
+      "abbreviation": "AULC",
+      "website": "",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "ARKLink Library Consortium",
+      "abbreviation": "ARKLink",
+      "website": "http://arklinklibraries.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Arrowhead Library System",
+      "abbreviation": "ALS",
+      "website": "https://www.alslib.info/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Association for Collaborative Partnerships",
+      "abbreviation": "ACP",
+      "website": "http://www.acpinc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Association of Research Libraries",
+      "abbreviation": "ARL",
+      "website": "http://www.arl.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Association of Southeastern Research Libraries",
+      "abbreviation": "ASERL",
+      "website": "http://www.aserl.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Atla",
+      "abbreviation": "Atla",
+      "website": "https://www.atla.com",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Bibliographic Association of the Red River",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Bibliographical Center for Research",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Big Ten Academic Alliance",
+      "abbreviation": "BTAA",
+      "website": "http://www.btaa.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Boston Library Consortium",
+      "abbreviation": "BLC",
+      "website": "http://www.blc.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "C/W MARS, Inc.",
+      "abbreviation": "CW MARS",
+      "website": "https://www.cwmars.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Califa Group",
+      "abbreviation": "CALIFA",
+      "website": "http://califa.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "California",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "California Digital Library",
+      "abbreviation": "CDL",
+      "website": "http://www.cdlib.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "California State University Libraries",
+      "abbreviation": "CSU",
+      "website": "http://libraries.calstate.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Capital District Library Council",
+      "abbreviation": "CDLC",
+      "website": "http://cdlc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Carolina Consortium",
+      "abbreviation": "CC",
+      "website": "https://carolinaconsortium.charlotte.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Catamount Library Network",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Center for Research Libraries",
+      "abbreviation": "CRL",
+      "website": "https://www.crl.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Central Library Consortium",
+      "abbreviation": "CLC",
+      "website": "https://clcohio.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Chemeketa Cooperative Regional Library Service",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Chesapeake Information and Research Library Alliance",
+      "abbreviation": "CIRLA",
+      "website": "http://www.cirla.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Chief Officers of State Library Agencies",
+      "abbreviation": "COSLA",
+      "website": "http://www.cosla.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "CLEVNET",
+      "abbreviation": "CLEVNET",
+      "website": "http://www.clevnet.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Colorado Alliance of Research Libraries",
+      "abbreviation": "Colorado Alliance",
+      "website": "http://www.coalliance.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Colorado Library Consortium",
+      "abbreviation": "CLiC",
+      "website": "http://www.clicweb.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Community College League of California Library Consortium",
+      "abbreviation": "CCLC",
+      "website": "http://www.cclibrarians.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Community College Libraries in North Carolina",
+      "abbreviation": "CCLINC",
+      "website": "https://www.nccommunitycolleges.edu/library-services",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Connecticut Library Consortium",
+      "abbreviation": "CLC",
+      "website": "http://www.ctlibrarians.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Connecticut State Colleges &amp; Universities Library Consortium",
+      "abbreviation": "CSCU Library Consortium",
+      "website": "https://www.ct.edu/libraries",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "ConnectNY",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "CONSORT Colleges",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Consortium of Academic and Research Libraries in Illinois",
+      "abbreviation": "CARLI",
+      "website": "http://www.carli.illinois.edu/",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Consortium of Universities of the Washington Metropolitan Area",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Cooperating Libraries in Consortium",
+      "abbreviation": "CLIC",
+      "website": "http://clic.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Cooperative Computer Services",
+      "abbreviation": "CCS",
+      "website": "http://www.ccslib.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Detroit Area Library Network",
+      "abbreviation": "DALNET",
+      "website": "http://www.dalnet.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Digital Library Federation",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Digital Scriptorium",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Eastern Academic Scholars&#039; Trust",
+      "abbreviation": "EAST",
+      "website": "http://www.eastlibraries.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Empire State Library Network (formerly NY 3Rs Inc.)",
+      "abbreviation": "ESLN",
+      "website": "http://www.esln.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Federation of Kentucky Academic Libraries",
+      "abbreviation": "FoKAL",
+      "website": "http://fokal.pbworks.com/w/page/5304439/FrontPage",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Florida Virtual Campus (formerly Florida Academic Library Services Cooperative)",
+      "abbreviation": "FLVC",
+      "website": "https://libraries.flvc.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "GALILEO (GeorgiA LIbrary LEarning Online)",
+      "abbreviation": "GALILEO",
+      "website": "http://www.galileo.usg.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Greater Western Library Alliance",
+      "abbreviation": "GWLA",
+      "website": "http://www.gwla.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Hawaii Library Consortium",
+      "abbreviation": "HLC",
+      "website": "https://sites.google.com/view/hawaiilibraryconsortium",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "HBCU Library Alliance",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "HELIN - Higher Education Library Information Network",
+      "abbreviation": "HELIN",
+      "website": "https://helininc.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "HSLANJ Group Licensing Initiative",
+      "abbreviation": "HSLANJ GLI",
+      "website": "http://www.hslanj.org/gli.html",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "IDS Network",
+      "abbreviation": "IDS",
+      "website": "http://www.idsnetwork.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Illinois Heartland Library System",
+      "abbreviation": "IHLS",
+      "website": "http://www.illinoisheartland.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "INFOhio",
+      "abbreviation": "INFOhio",
+      "website": "https://www.infohio.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Jefferson County Library Cooperative",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Kentucky Virtual Library",
+      "abbreviation": "KYVL",
+      "website": "https://kyvl.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Keystone Library Network",
+      "abbreviation": "KLN",
+      "website": "https://www.klnpa.org/",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Legal Information Preservation Alliance",
+      "abbreviation": "LIPA",
+      "website": "http://lipalliance.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Library and Information Resources Network",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Library and Information Resources Network (LIRN)",
+      "abbreviation": "LIRN",
+      "website": "https://www.lirn.net/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Library Connection, Inc.",
+      "abbreviation": "LCI",
+      "website": "http://libraryconnection.info",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "LibraryLinkNJ",
+      "abbreviation": "LLNJ",
+      "website": "https://librarylinknj.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "LIBROS",
+      "abbreviation": "LIBROS",
+      "website": "http://libguides.unm.edu/LIBROS/Home",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "LINCC: Libraries in Clackamas County",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Long Island Library Resources Council",
+      "abbreviation": "LILRC",
+      "website": "http://www.lilrc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "LOUIS: The Louisiana Library Network",
+      "abbreviation": "LOUIS",
+      "website": "http://LOUISLibraries.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Lyrasis",
+      "abbreviation": "Lyrasis",
+      "website": "http://www.lyrasis.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Main Library Alliance",
+      "abbreviation": "Main",
+      "website": "https://mainlib.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Maine InfoNet",
+      "abbreviation": "",
+      "website": "http://www.maineinfonet.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Marmot Library Network",
+      "abbreviation": "Marmot",
+      "website": "http://marmot.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Maryland Digital Library",
+      "abbreviation": "MDL",
+      "website": "http://md-diglib.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Massachusetts Board of Library Commissioners",
+      "abbreviation": "MBLC",
+      "website": "http://www.mass.gov/mblc",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Massachusetts Library Association",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Massachusetts Library System",
+      "abbreviation": "MLS",
+      "website": "http://www.masslibsystem.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Metropolitan Library Service Agency",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Metropolitan New York Library Council",
+      "abbreviation": "METRO",
+      "website": "http://metro.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Michigan eLibrary",
+      "abbreviation": "MeL",
+      "website": "https://www.mel.org/welcome",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Michigan Library Consortium",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Mid-America Law Library Consortium",
+      "abbreviation": "MALLCO",
+      "website": "http://mallco.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Midwest Collaborative for Library Services",
+      "abbreviation": "MCLS",
+      "website": "http://mcls.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Midwest Transportation Knowledge Network",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Minitex",
+      "abbreviation": "Minitex",
+      "website": "http://www.minitex.umn.edu",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Minuteman Library Network",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Missouri Library Network Corporation",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "MOBIUS",
+      "abbreviation": "MOBIUS",
+      "website": "http://mobiusconsortium.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Municipal Library Consortium of St. Louis County",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "National Research Libraries Alliance",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "NC Live",
+      "abbreviation": "",
+      "website": "https://nclive.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "NEFLIN",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "NELINET",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Network of Alabama Academic Libraries",
+      "abbreviation": "NAAL",
+      "website": "https://naal.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Network of Illinois Learning Resources in Community Colleges",
+      "abbreviation": "NILRC",
+      "website": "https://www.nilrc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Nevada Council of Academic Libraries",
+      "abbreviation": "NCAL",
+      "website": "",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "New York Area Theological Library Association",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "New York State Higher Education Initiative",
+      "abbreviation": "NYSHEI",
+      "website": "http://www.nyshei.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Next Search Catalog",
+      "abbreviation": "Next",
+      "website": "http://nextkansas.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "North of Boston Library Exchange",
+      "abbreviation": "NOBLE",
+      "website": "https://www.noblenet.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Northeast Florida Library Information Network",
+      "abbreviation": "NEFLIN",
+      "website": "http://www.neflin.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "NorthEast Research Libraries Consortium",
+      "abbreviation": "NERL",
+      "website": "http://nerl.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Nylink",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Ohio Library and Information Network",
+      "abbreviation": "OhioLINK",
+      "website": "http://www.ohiolink.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Ohio Private Academic Libraries",
+      "abbreviation": "OPAL",
+      "website": "http://www.opal-libraries.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Ohio Public Library Information Network",
+      "abbreviation": "OPLIN",
+      "website": "http://oplin.ohio.gov",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "OhioLINK",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "OhioNet",
+      "abbreviation": "",
+      "website": "http://www.ohionet.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Online Dakota Information Network",
+      "abbreviation": "ODIN",
+      "website": "https://www.odin.nodak.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Orbis Cascade Alliance",
+      "abbreviation": "Alliance",
+      "website": "http://www.orbiscascade.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "PALCI - Partnership for Academic Library Collaboration &amp; Innovation (formerly known as the Pennsylvania Academic Library Consortium, Inc.)",
+      "abbreviation": "PALCI",
+      "website": "https://www.palci.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Partnership Among South Carolina Academic Libraries (PASCAL)",
+      "abbreviation": "PASCAL",
+      "website": "http://pascalsc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Pennsylvania Integrated Library System Consortium",
+      "abbreviation": "SPARK",
+      "website": "https://sparkpa.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Philadelphia Area Consortium of Special Collections Libraries, Inc.",
+      "abbreviation": "PACSCL",
+      "website": "https://pacscl.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Pinnacle Library Cooperative",
+      "abbreviation": "PLC",
+      "website": "http://pinnaclelibraries.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "PrairieCat",
+      "abbreviation": "PrairieCat",
+      "website": "https://support.prairiecat.info",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Private Academic Library Network of Indiana",
+      "abbreviation": "PALNI",
+      "website": "https://palni.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Reaching Across Illinois Library System",
+      "abbreviation": "RAILS",
+      "website": "http://www.railslibraries.info",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Recollection Wisconsin",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Research Collections and Preservation Consortium",
+      "abbreviation": "ReCAP",
+      "website": "https://recap.princeton.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Research Libraries Group",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Rigler-Deutsch Index",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Rochester Regional Library Council",
+      "abbreviation": "RRLC",
+      "website": "http://www.rrlc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "SAILS",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "SCELC",
+      "abbreviation": "SCELC",
+      "website": "http://scelc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "SearchOhio",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "South Central Academic Medical Libraries",
+      "abbreviation": "SCAMeL",
+      "website": "http://www2.tulane.edu/~scamel/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "South Central Library System",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "South Central Regional Library Council",
+      "abbreviation": "SCRLC",
+      "website": "http://www.scrlc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Southeast Florida Library and Information Network",
+      "abbreviation": "SEFLIN",
+      "website": "http://SEFLIN.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Southwest Florida Library Network",
+      "abbreviation": "SWFLN",
+      "website": "https://swfln.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "SWAN Library Services",
+      "abbreviation": "SWAN",
+      "website": "http://www.swanlibraries.net",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "System Wide Automated Network (SWAN)",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Tampa Bay Library Consortium",
+      "abbreviation": "",
+      "website": "http://tblc.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Tenn-Share",
+      "abbreviation": "",
+      "website": "http://www.tenn-share.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Texas Digital Library",
+      "abbreviation": "TDL",
+      "website": "https://www.tdl.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "TexShare",
+      "abbreviation": "TSLAC",
+      "website": "http://www.tsl.texas.gov/texshare",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "The Consortium of MnPALS Libraries",
+      "abbreviation": "MnPALS",
+      "website": "https://www.mnpals.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "TRAILS",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Treasure State Academic Information &amp; Library Services",
+      "abbreviation": "TRAILS",
+      "website": "https://trailsmt.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Triangle Research Libraries Network",
+      "abbreviation": "TRLN",
+      "website": "http://trln.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "UAA/APU Consortium Library",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "University of Missouri E-Resources Cooperative Office (Formerly MERLIN)",
+      "abbreviation": "UMECO",
+      "website": "",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "University of Texas System Digital Library",
+      "abbreviation": "UTSDL",
+      "website": "http://www.utsdl.utsystem.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "University System of Maryland and Affiliated Institutions Library Consortium",
+      "abbreviation": "USMAI",
+      "website": "http://usmai.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Utah Academic Library Consortium",
+      "abbreviation": "UALC",
+      "website": "http://www.ualc.net/",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Vermont Organization of Koha Automated Libraries",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Virginia Community College System",
+      "abbreviation": "VCCS",
+      "website": "https://www.vccs.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Virginia Independent College and University Library Association",
+      "abbreviation": "VICULA",
+      "website": "https://vicula.wlu.edu/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Virtual Academic Library Environment of New Jersey",
+      "abbreviation": "VALE",
+      "website": "https://vale.njedge.net",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "VIVA: The Virtual Library of Virginia",
+      "abbreviation": "VIVA",
+      "website": "http://www.vivalib.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Washington Community and Technical College Library Consortium",
+      "abbreviation": "WACTCLC",
+      "website": "https://www.wactclc.org",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Washington Research Library Consortium",
+      "abbreviation": "WRLC",
+      "website": "https://www.wrlc.org",
+      "region": "United States",
+      "source": "ICOLC+Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Washington State Library Statewide Database Licensing",
+      "abbreviation": "WSL SDL",
+      "website": "http://sos.wa.gov/q/SDL",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Western North Carolina Library Network",
+      "abbreviation": "WNCLN",
+      "website": "http://wncln.lib.unca.edu",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Western Regional Storage Trust",
+      "abbreviation": "WEST",
+      "website": "http://www.cdlib.org/west",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Wisconsin Library Services",
+      "abbreviation": "WiLS",
+      "website": "http://www.wils.org/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Wisconsin Library Services (WiLS)",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Wisconsin Public Library Consortium",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Wisconsin Schools Digital Library",
+      "abbreviation": "",
+      "website": "",
+      "region": "US",
+      "source": "Wikipedia",
+      "member_count": ""
+    },
+    {
+      "consortium_name": "Yavapai Library Network",
+      "abbreviation": "YLN",
+      "website": "http://www.yln.info/",
+      "region": "United States",
+      "source": "ICOLC",
+      "member_count": ""
+    }
+  ]
 }

@@ -226,6 +226,14 @@
     else if (n === 0) cls = 'status-err';
     return '<span class="' + cls + '">' + label + '</span>';
   }
+  function fmtNum(s) {
+    var n = parseFloat(s);
+    if (isNaN(n)) return esc(s);
+    if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+    return n.toLocaleString();
+  }
   function section(title) {
     return '<tr class="detail-section"><td colspan="2">' + esc(title) + '</td></tr>';
   }
@@ -290,12 +298,16 @@
     }
 
     // ---- Demographics ----
-    if (r.pop || r.income || r.pov || r.age) {
+    if (r.pop || r.income || r.pov || r.age || r.edu || r.comp || r.inet || r.lang) {
       html += section('Community demographics');
       if (r.pop) html += row('Area population', esc(r.pop));
       if (r.income) html += row('Median household income', fmtMoney(r.income));
       if (r.pov) html += row('Poverty rate', esc(r.pov) + '%');
       if (r.age) html += row('Median age', esc(r.age) + ' years');
+      if (r.edu) html += row('Bachelor\'s degree or higher', esc(r.edu) + '%');
+      if (r.comp) html += row('Households with a computer', esc(r.comp) + '%');
+      if (r.inet) html += row('Households with internet', esc(r.inet) + '%');
+      if (r.lang) html += row('Non-English spoken at home', esc(r.lang) + '%');
     }
 
     // ---- Facility & funding ----
@@ -306,6 +318,36 @@
       if (r.psrv) html += row('Population served', esc(r.psrv));
       if (r.ft) html += row('Funding total', fmtMoney(r.ft));
       if (r.fsrc) html += row('Funding source', esc(r.fsrc));
+    }
+
+    // ---- Annual operations (PLS FY2024) ----
+    if (r.vis || r.cir || r.ecir || r.pcir || r.prog || r.patt || r.cprog || r.yprog || r.aprog ||
+        r.iterm || r.wifi || r.rbor || r.illto || r.illfm || r.staff || r.lstaff ||
+        r.salx || r.pmex || r.emex || r.capex || r.cbr || r.nbr || r.bkm) {
+      html += section('Annual operations (PLS FY2024)');
+      if (r.vis) html += row('Annual visits', fmtNum(r.vis));
+      if (r.cir) html += row('Total circulation', fmtNum(r.cir));
+      if (r.ecir) html += row('E-material circulation', fmtNum(r.ecir));
+      if (r.pcir) html += row('Physical circulation', fmtNum(r.pcir));
+      if (r.prog) html += row('Programs offered', fmtNum(r.prog));
+      if (r.patt) html += row('Program attendance', fmtNum(r.patt));
+      if (r.cprog) html += row('Children\'s programs', fmtNum(r.cprog));
+      if (r.yprog) html += row('Young adult programs', fmtNum(r.yprog));
+      if (r.aprog) html += row('Adult programs', fmtNum(r.aprog));
+      if (r.iterm) html += row('Internet terminal users', fmtNum(r.iterm));
+      if (r.wifi) html += row('WiFi sessions', fmtNum(r.wifi));
+      if (r.rbor) html += row('Registered borrowers', fmtNum(r.rbor));
+      if (r.illto) html += row('ILL — loaned to other systems', fmtNum(r.illto));
+      if (r.illfm) html += row('ILL — borrowed from other systems', fmtNum(r.illfm));
+      if (r.staff) html += row('Total staff (FTE)', esc(r.staff));
+      if (r.lstaff) html += row('Librarians with MLS (FTE)', esc(r.lstaff));
+      if (r.salx) html += row('Salary expenditures', fmtMoney(r.salx));
+      if (r.pmex) html += row('Print material expenditures', fmtMoney(r.pmex));
+      if (r.emex) html += row('Electronic material expenditures', fmtMoney(r.emex));
+      if (r.capex) html += row('Capital expenditures', fmtMoney(r.capex));
+      if (r.cbr) html += row('Central libraries', esc(r.cbr));
+      if (r.nbr) html += row('Branch libraries', esc(r.nbr));
+      if (r.bkm) html += row('Bookmobiles', esc(r.bkm));
     }
 
     // ---- Location ----

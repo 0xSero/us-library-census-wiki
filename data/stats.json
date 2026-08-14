@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:39 UTC",
+  "generated": "2026-08-14 20:42 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7581,6 +7581,167 @@
         "amount": "999771",
         "year": "2006",
         "title": "Spectrum Doctoral Fellowship Program"
+      }
+    ]
+  },
+  "imls_g2s": {
+    "total_amount": 1985331382,
+    "year_range": "2014\u20132025",
+    "trend_years": [
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "trend_amounts": [
+      154710700,
+      154732410,
+      155674618,
+      156326179,
+      160688677,
+      160689400,
+      166546087,
+      168546553,
+      168547117,
+      179622452,
+      179623206,
+      179623983
+    ],
+    "top_states": [
+      {
+        "state": "CA",
+        "amount": 186687776,
+        "per_capita": 0.4025
+      },
+      {
+        "state": "TX",
+        "amount": 139419776,
+        "per_capita": 0.4369
+      },
+      {
+        "state": "FL",
+        "amount": 104746038,
+        "per_capita": 0.4524
+      },
+      {
+        "state": "NY",
+        "amount": 97576520,
+        "per_capita": 0.4377
+      },
+      {
+        "state": "PA",
+        "amount": 67694702,
+        "per_capita": 0.4651
+      },
+      {
+        "state": "IL",
+        "amount": 65749991,
+        "per_capita": 0.4581
+      },
+      {
+        "state": "OH",
+        "amount": 62410120,
+        "per_capita": 0.4696
+      },
+      {
+        "state": "GA",
+        "amount": 57264778,
+        "per_capita": 0.4869
+      },
+      {
+        "state": "NC",
+        "amount": 56120088,
+        "per_capita": 0.4881
+      },
+      {
+        "state": "MI",
+        "amount": 54615237,
+        "per_capita": 0.4838
+      },
+      {
+        "state": "NJ",
+        "amount": 50504469,
+        "per_capita": 0.5115
+      },
+      {
+        "state": "VA",
+        "amount": 47828049,
+        "per_capita": 0.5057
+      },
+      {
+        "state": "WA",
+        "amount": 43330354,
+        "per_capita": 0.5218
+      },
+      {
+        "state": "AZ",
+        "amount": 41744164,
+        "per_capita": 0.5259
+      },
+      {
+        "state": "MA",
+        "amount": 40627319,
+        "per_capita": 0.5319
+      }
+    ],
+    "top_percapita": [
+      {
+        "state": "AS",
+        "amount": 1304290,
+        "per_capita": 2.5156
+      },
+      {
+        "state": "MP",
+        "amount": 1320209,
+        "per_capita": 2.4085
+      },
+      {
+        "state": "WY",
+        "amount": 12172773,
+        "per_capita": 2.1115
+      },
+      {
+        "state": "VT",
+        "amount": 12401336,
+        "per_capita": 1.9986
+      },
+      {
+        "state": "DC",
+        "amount": 12633611,
+        "per_capita": 1.788
+      },
+      {
+        "state": "AK",
+        "amount": 12869323,
+        "per_capita": 1.7499
+      },
+      {
+        "state": "ND",
+        "amount": 12743755,
+        "per_capita": 1.702
+      },
+      {
+        "state": "SD",
+        "amount": 13529529,
+        "per_capita": 1.5231
+      },
+      {
+        "state": "DE",
+        "amount": 13963658,
+        "per_capita": 1.4298
+      },
+      {
+        "state": "RI",
+        "amount": 14384671,
+        "per_capita": 1.3383
       }
     ]
   },

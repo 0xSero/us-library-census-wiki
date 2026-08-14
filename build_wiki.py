@@ -172,6 +172,8 @@ def panel(active=""):
     <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
     <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
+    <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
+    <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
     <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
     <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
     <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
@@ -408,6 +410,18 @@ def load_all():
             data['usda_grants'] = json.load(f)
     else:
         data['usda_grants'] = {}
+    neh_path = os.path.join(DATA, "neh_library_grants_summary.json")
+    if os.path.exists(neh_path):
+        with open(neh_path) as f:
+            data['neh_grants'] = json.load(f)
+    else:
+        data['neh_grants'] = {}
+    sf_path = os.path.join(DATA, "state_funding_summary.json")
+    if os.path.exists(sf_path):
+        with open(sf_path) as f:
+            data['state_funding'] = json.load(f)
+    else:
+        data['state_funding'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1481,6 +1495,12 @@ def compute_stats(data):
 
     # ---- USDA Rural Development library grants ----
     stats['usda_grants'] = data.get('usda_grants', {})
+
+    # ---- NEH grants to libraries ----
+    stats['neh_grants'] = data.get('neh_grants', {})
+
+    # ---- State library funding analysis ----
+    stats['state_funding'] = data.get('state_funding', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3497,6 +3517,117 @@ def build_index(data, stats):
 
         body += '<p class="rsrc">Source: EveryLibrary campaign history (everylibrary.org/campaign_history). Includes library bond measures, operating levy renewals, tax increases, library district formations, and anti-privatization measures. Amount figures are for measures where dollar amounts were specified; many operating levy renewals do not list a specific dollar amount.</p>'
 
+    # ---- State Library Funding Analysis ----
+    sf = stats.get('state_funding', {})
+    if sf and sf.get('national_totals'):
+        sf_nat = sf['national_totals']
+        sf_total = sf_nat.get('total_income', 0)
+        sf_local = sf_nat.get('local_government_income', 0)
+        sf_state = sf_nat.get('state_government_income', 0)
+        sf_fed = sf_nat.get('federal_government_income', 0)
+        sf_other = sf_nat.get('other_income', 0)
+        sf_local_pct = sf_nat.get('local_pct', 0)
+        sf_state_pct = sf_nat.get('state_pct', 0)
+        sf_fed_pct = sf_nat.get('federal_pct', 0)
+        sf_other_pct = sf_nat.get('other_pct', 0)
+        sf_pc = sf_nat.get('total_income_per_capita', 0)
+        sf_slaa = sf_nat.get('slaa_total_income', 0)
+        sf_slaa_aid = sf_nat.get('slaa_state_aid_to_libraries', 0)
+        sf_pop = sf_nat.get('population_served', 0)
+        sf_n_states = sf_nat.get('count_states', 51)
+        sf_n_terr = sf_nat.get('count_territories', 5)
+        sf_rankings = sf.get('rankings', {})
+        sf_fmd = sf.get('funding_mix_dependency', {})
+        sf_top10 = sf.get('top_10', {})
+        sf_bot10 = sf.get('bottom_10', {})
+
+        body += f"""
+
+<h2 id="state-funding">State Library Funding: Where the Money Comes From</h2>
+<p class="wiki-sub">America's {sf_n_states} state library systems (plus {sf_n_terr} territories) received ${sf_total/1e9:.1f}B in total income in FY2024 serving a population of {sf_pop/1e6:.0f}M - that's ${sf_pc:.2f} per person. But the funding model varies dramatically by state: most rely overwhelmingly on local property taxes, a handful depend on state government appropriations, and federal funding is a tiny fraction everywhere. Understanding this funding mix is essential to understanding why libraries in different states face very different political and budgetary pressures.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${sf_total/1e9:.1f}B</div><div class="label">Total library income (FY2024)</div></div>
+  <div class="stat-card"><div class="num">${sf_pc:.2f}</div><div class="label">Per capita (national avg)</div></div>
+  <div class="stat-card"><div class="num">{sf_local_pct:.1f}%</div><div class="label">From local government</div></div>
+  <div class="stat-card"><div class="num">{sf_state_pct:.1f}%</div><div class="label">From state government</div></div>
+  <div class="stat-card"><div class="num">{sf_fed_pct:.1f}%</div><div class="label">From federal government</div></div>
+  <div class="stat-card"><div class="num">${sf_slaa/1e6:.0f}M</div><div class="label">SLAA agency income (state libraries)</div></div>
+</div>"""
+
+        # Funding source breakdown bars
+        body += f"""
+<h3>National funding mix</h3>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">Local government</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{sf_local_pct:.1f}%"></span></span><span class="svc-val">${sf_local/1e9:.1f}B ({sf_local_pct:.1f}%)</span></div>
+  <div class="svc-row"><span class="svc-label">Other income</span><span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{sf_other_pct:.1f}%"></span></span><span class="svc-val">${sf_other/1e6:.0f}M ({sf_other_pct:.1f}%)</span></div>
+  <div class="svc-row"><span class="svc-label">State government</span><span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{sf_state_pct:.1f}%"></span></span><span class="svc-val">${sf_state/1e6:.0f}M ({sf_state_pct:.1f}%)</span></div>
+  <div class="svc-row"><span class="svc-label">Federal government</span><span class="svc-bar"><span class="svc-fill svc-fill-red" style="width:{sf_fed_pct*10:.1f}%"></span></span><span class="svc-val">${sf_fed/1e6:.0f}M ({sf_fed_pct:.1f}%)</span></div>
+</div>"""
+
+        # Top 10 by total funding
+        if sf_top10.get('total_funding'):
+            body += """
+<h3>Top 10 states by total library funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Total income</th><th>Per capita</th><th>Local %</th><th>State %</th><th>Federal %</th></tr>"""
+            for s in sf_top10['total_funding'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">${s["total_income"]/1e6:.0f}M</td><td>${s.get("total_income_per_capita",0):.2f}</td><td>{s.get("local_pct",0):.1f}%</td><td>{s.get("state_pct",0):.1f}%</td><td>{s.get("federal_pct",0):.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Top 10 by per capita funding
+        if sf_top10.get('total_per_capita'):
+            body += """
+<h3>Top 10 states by per-capita library funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Per capita</th><th>Total income</th><th>Population served</th></tr>"""
+            for s in sf_top10['total_per_capita'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">${s.get("total_income_per_capita",0):.2f}</td><td>${s["total_income"]/1e6:.0f}M</td><td>{s.get("population_served",0):,}</td></tr>'
+            body += '\n</table>'
+
+        # State government funding leaders
+        if sf_top10.get('state_government_income'):
+            body += """
+<h3>Top 10 states by state government funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>State gov't income</th><th>State % of total</th><th>Per capita (state)</th></tr>"""
+            for s in sf_top10['state_government_income'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">${s["state_government_income"]/1e6:.0f}M</td><td>{s.get("state_pct",0):.1f}%</td><td>${s.get("state_income_per_capita",0):.2f}</td></tr>'
+            body += '\n</table>'
+
+        # Funding mix dependency - most dependent on state funding
+        if sf_fmd.get('most_dependent_on_state_funding'):
+            body += """
+<h3>Most dependent on state government funding</h3>
+<p class="wiki-sub">These states rely on state government as the primary funder rather than local property taxes - the opposite of the national norm.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Total income</th><th>State %</th><th>Local %</th><th>Federal %</th></tr>"""
+            for s in sf_fmd['most_dependent_on_state_funding'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">${s["total_income"]/1e6:.1f}M</td><td>{s["state_pct"]:.1f}%</td><td>{s["local_pct"]:.1f}%</td><td>{s["federal_pct"]:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Least dependent on state funding
+        if sf_fmd.get('least_dependent_on_state_funding'):
+            body += """
+<h3>Least dependent on state funding (most locally self-reliant)</h3>
+<p class="wiki-sub">These states fund libraries almost entirely through local government - state aid is effectively zero.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>State %</th><th>Local %</th><th>Total income</th></tr>"""
+            for s in sf_fmd['least_dependent_on_state_funding'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">{s["state_pct"]:.1f}%</td><td>{s["local_pct"]:.1f}%</td><td>${s["total_income"]/1e6:.0f}M</td></tr>'
+            body += '\n</table>'
+
+        # Federal funding leaders
+        if sf_top10.get('federal_income'):
+            body += """
+<h3>Top 10 states by federal funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Federal income</th><th>Federal %</th><th>Per capita (federal)</th></tr>"""
+            for s in sf_top10['federal_income'][:10]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{esc(s["state_name"])}</a></td><td class="pct">${s["federal_government_income"]/1e6:.1f}M</td><td>{s.get("federal_pct",0):.1f}%</td><td>${s.get("federal_income_per_capita",0):.2f}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024 and State Library Agency Survey (SLAA) FY2024, compiled via ALA State of America\'s Libraries data. National totals: ${sf_total/1e9:.1f}B total income across {sf_n_states} states + DC and {sf_n_terr} territories, serving {sf_pop/1e6:.0f}M people (${sf_pc:.2f}/capita). The {sf_local_pct:.1f}% local / {sf_state_pct:.1f}% state / {sf_fed_pct:.1f}% federal split reveals that America\'s public libraries are overwhelmingly a local government function. Ohio is a striking outlier: its state government provides $482M (42.9% of library income) through the dedicated Library and Local Government Support Fund - more than all other states combined. Hawaii runs the opposite model with 93.5% state funding and no local library districts. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0 here.</p>'
+
     # ---- USDA Rural Development Library Grants ----
     usda = stats.get('usda_grants', {})
     if usda and usda.get('totals'):
@@ -3558,6 +3689,88 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += '<p class="rsrc">Source: USASpending.gov API, filtered to USDA Rural Housing Service / Community Programs awards under CFDA 10.766 (Community Facilities Loans and Grants) where the recipient name contains "library" or "libraries." USDA loan obligations report as $0 in USASpending (they are recorded as loan face value); loan subsidy cost and grant outlays are tracked separately. The program serves rural areas with populations under 20,000. Libraries represent approximately 1% of all Community Facilities awards but receive critical infrastructure funding for buildings, equipment, and technology.</p>'
+
+    # ---- NEH Grants to Libraries ----
+    neh = stats.get('neh_grants', {})
+    if neh and neh.get('total_grants'):
+        n_total = neh['total_grants']
+        n_dollars = neh['total_dollars']
+        n_avg = neh['avg_grant']
+        n_median = neh['median_grant']
+        n_largest = neh['largest_grant']
+        n_states = neh['states_reached']
+        n_top_states = neh.get('top_states', [])
+        n_top_recipients = neh.get('top_recipients', [])
+        n_years = neh.get('by_year', [])
+        n_largest_grants = neh.get('largest_grants', [])
+        n_newspaper = neh.get('newspaper_projects', {})
+        n_dates = neh.get('date_range', {})
+
+        body += f"""
+
+<h2 id="neh-grants">National Endowment for the Humanities: Library Grants</h2>
+<p class="wiki-sub">The National Endowment for the Humanities (NEH) is an independent federal agency that funds humanities research, education, preservation, and public programs. Libraries are major NEH recipients - from the American Library Association's national reading programs to state newspaper digitization projects. From {n_dates.get('earliest','')[:4]} to {n_dates.get('latest','')[:4]}, NEH awarded {n_total} grants totaling ${n_dollars/1e6:.1f}M to library recipients across {n_states} states, with an average grant of ${n_avg/1e3:.0f}K and a median of ${n_median/1e3:.0f}K.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${n_dollars/1e6:.1f}M</div><div class="label">Total NEH library grants</div></div>
+  <div class="stat-card"><div class="num">{n_total}</div><div class="label">Awards to libraries</div></div>
+  <div class="stat-card"><div class="num">${n_avg/1e3:.0f}K</div><div class="label">Average grant</div></div>
+  <div class="stat-card"><div class="num">${n_largest/1e6:.2f}M</div><div class="label">Largest single grant</div></div>
+  <div class="stat-card"><div class="num">{n_states}</div><div class="label">States reached</div></div>
+  <div class="stat-card"><div class="num">{n_newspaper.get('count', 0)}</div><div class="label">Newspaper digitization projects (${n_newspaper.get('total_dollars',0)/1e6:.1f}M)</div></div>
+</div>"""
+
+        # Top recipients bar chart
+        if n_top_recipients:
+            body += """
+<h3>Top NEH library recipients</h3>
+<div class="services-bars">"""
+            max_amt = n_top_recipients[0]['amount'] or 1
+            for r in n_top_recipients[:12]:
+                name = r['name'].title().replace('Llc', 'LLC')
+                amt = r['amount']
+                pct = (amt / max_amt) * 100 if max_amt else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(name)}</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.2f}M</span></div>'
+            body += '\n</div>'
+
+        # Top states
+        if n_top_states:
+            body += """
+<h3>NEH library grants by state</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Total awarded</th></tr>"""
+            for s in n_top_states[:15]:
+                body += f'\n  <tr><td>{s["state"]}</td><td class="pct">${s["amount"]/1e6:.2f}M</td></tr>'
+            body += '\n</table>'
+
+        # By year SVG
+        if n_years and len(n_years) >= 2:
+            labels = [y['year'] for y in n_years]
+            amounts = [y['amount'] for y in n_years]
+            max_amt = max(amounts) or 1
+            n = len(n_years)
+            bw = 38
+            chart_w = n * bw + 60
+            chart_h = 220
+            body += f'\n<h3>NEH library grants by year</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="NEH library grants by year">'
+            for i in range(n):
+                x = 40 + i * bw
+                h = (amounts[i] / max_amt) * (chart_h - 60) if max_amt else 0
+                body += f'<rect x="{x}" y="{chart_h - 40 - h:.1f}" width="{bw - 6}" height="{h:.1f}" fill="var(--accent-yellow)" rx="3"/>'
+                body += f'<text x="{x + (bw-6)/2:.0f}" y="{chart_h - 22}" text-anchor="middle" class="axis-text">{labels[i]}</text>'
+                body += f'<text x="{x + (bw-6)/2:.0f}" y="{chart_h - 45 - h:.1f}" text-anchor="middle" class="bar-label">${amounts[i]/1e6:.1f}M</text>'
+            body += '</svg>'
+
+        # Largest individual grants
+        if n_largest_grants:
+            body += """
+<h3>Largest individual NEH library grants</h3>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>State</th><th>Description</th><th>Amount</th><th>Year</th></tr>"""
+            for g in n_largest_grants[:15]:
+                body += f'\n  <tr><td>{esc(g["recipient"].title())}</td><td>{g.get("state","") or "&mdash;"}</td><td>{esc(g.get("description",""))}</td><td class="pct">${g["amount"]/1e6:.2f}M</td><td>{g.get("year","")}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the National Endowment for the Humanities (toptier agency) where the recipient name contains "library" and award type codes 02-05 (grants). The {n_total} awards span FY{n_dates.get("earliest","")[:4]}-FY{n_dates.get("latest","")[:4]} and total ${n_dollars/1e6:.1f}M. The American Library Association alone received ${n_top_recipients[0]["amount"]/1e6:.1f}M ({n_top_recipients[0]["amount"]/n_dollars*100:.0f}% of all NEH library funding) for national programs including the Great American Read, Big Read, and We the People bookshelf programs. The National Digital Newspaper Program (NDNP) accounts for {n_newspaper.get("count",0)} grants totaling ${n_newspaper.get("total_dollars",0)/1e6:.1f}M, supporting state-by-state newspaper digitization through Chronicling America.</p>'
 
     # ---- Library Usage Survey Data (Pew Research + Gallup) ----
     lu = stats.get('library_usage', {})
@@ -4172,30 +4385,35 @@ def build_index(data, stats):
 
     # ---- Digital Public Library of America (DPLA) ----
     dpla = stats.get('dpla', {})
-    if dpla and dpla.get('growth_timeline'):
-        dpla_items = dpla.get('estimated_items_current', 50000000)
-        dpla_timeline = dpla.get('growth_timeline', [])
-        dpla_programs = dpla.get('programs', [])
-        dpla_partner_types = dpla.get('partner_types', [])
+    if dpla and (dpla.get('collection_growth_over_time') or dpla.get('growth_timeline')):
+        dpla_items = dpla.get('total_items_sum_of_hubs', dpla.get('estimated_items_current', 50000000))
+        dpla_timeline = dpla.get('collection_growth_over_time', dpla.get('growth_timeline', []))
+        dpla_hubs = dpla.get('all_hubs', [])
+        dpla_top_hubs = dpla.get('top_hubs_by_item_count', [])
+        dpla_hubs_by_state = dpla.get('hubs_by_state', [])
+        dpla_svc = dpla.get('service_hub_count', 0)
+        dpla_content = dpla.get('content_hub_count', 0)
+        dpla_states = dpla.get('distinct_states_with_hub', dpla.get('states_represented', 40))
+        dpla_institutions = dpla.get('contributing_institutions', '8,700+')
+        growth_x = (dpla_items / dpla_timeline[0]['items']) if dpla_timeline and dpla_timeline[0].get('items') else 20
 
         body += f"""
 
 <h2 id="dpla">Digital Public Library of America (DPLA)</h2>
-<p class="wiki-sub">The Digital Public Library of America, founded in 2013 and headquartered in Boston, is the nation's aggregator of digital cultural heritage. Rather than holding its own collections, DPLA brings together metadata from thousands of libraries, archives, museums, and historical societies through a network of Service Hubs and Content Hubs. Since launching with 2.5 million items from 16 hubs, DPLA has grown to an estimated {dpla_items/1e6:.0f} million items from institutions across all 50 states - a 20x increase in a decade.</p>
+<p class="wiki-sub">The Digital Public Library of America, founded April 18, 2013 and headquartered in Boston, is the nation's aggregator of digital cultural heritage. Rather than holding its own collections, DPLA brings together metadata from thousands of libraries, archives, museums, and historical societies through a network of {dpla_svc} Service Hubs and {dpla_content} Content Hubs. Since launching with 2.4 million items, DPLA has grown to {dpla_items/1e6:.0f}M+ items from {dpla_institutions} contributing institutions - a {growth_x:.0f}x increase in just over a decade.</p>
 <div class="stats-grid">
-  <div class="stat-card"><div class="num">{dpla_items/1e6:.0f}M</div><div class="label">Estimated items (2023)</div></div>
-  <div class="stat-card"><div class="num">5,000+</div><div class="label">Partner institutions</div></div>
-  <div class="stat-card"><div class="num">50</div><div class="label">Hubs (Service + Content)</div></div>
-  <div class="stat-card"><div class="num">50</div><div class="label">States covered</div></div>
-  <div class="stat-card"><div class="num">2013</div><div class="label">Founded</div></div>
-  <div class="stat-card"><div class="num">20x</div><div class="label">Growth since launch</div></div>
+  <div class="stat-card"><div class="num">{dpla_items/1e6:.0f}M+</div><div class="label">Items aggregated</div></div>
+  <div class="stat-card"><div class="num">{dpla_institutions}</div><div class="label">Contributing institutions</div></div>
+  <div class="stat-card"><div class="num">{dpla_svc + dpla_content}</div><div class="label">Partner hubs ({dpla_svc} service + {dpla_content} content)</div></div>
+  <div class="stat-card"><div class="num">{dpla_states}</div><div class="label">States with hubs</div></div>
+  <div class="stat-card"><div class="num">2013</div><div class="label">Founded (Boston, MA)</div></div>
+  <div class="stat-card"><div class="num">{growth_x:.0f}x</div><div class="label">Growth since launch</div></div>
 </div>"""
 
         # Growth chart SVG
         if dpla_timeline and len(dpla_timeline) >= 2:
-            labels = [t["date"] for t in dpla_timeline]
+            labels = [t.get("date", t.get("label", "")) for t in dpla_timeline]
             items = [t["items"] for t in dpla_timeline]
-            hubs = [t.get("hubs", 0) for t in dpla_timeline]
             max_items = max(items) or 1
             n = len(dpla_timeline)
             bw = 55
@@ -4214,21 +4432,33 @@ def build_index(data, stats):
         body += """
 <h3>DPLA growth timeline</h3>
 <table class="wikitable">
-  <tr><th>Date</th><th>Items</th><th>Hubs</th><th>Institutions</th><th>Notes</th></tr>"""
+  <tr><th>Date</th><th>Items</th><th>Notes</th></tr>"""
         for t in dpla_timeline:
-            body += f'\n  <tr><td>{t["date"]}</td><td class="pct">{t["items"]:,}</td><td>{t.get("hubs", 0)}</td><td>{t.get("institutions", 0):,}</td><td>{esc(t.get("note", ""))}</td></tr>'
+            body += f'\n  <tr><td>{t.get("date", "")} {esc(t.get("label", ""))}</td><td class="pct">{t["items"]:,}</td><td>{esc(t.get("note", ""))}</td></tr>'
         body += '\n</table>'
 
-        # Programs
-        if dpla_programs:
+        # Top hubs by item count
+        if dpla_top_hubs:
             body += """
-<h3>DPLA programs</h3>
-<ul class="wiki-list">"""
-            for p in dpla_programs:
-                body += f'\n  <li>{esc(p)}</li>'
-            body += '\n</ul>'
+<h3>Top DPLA hubs by item count</h3>
+<table class="wikitable">
+  <tr><th>Hub</th><th>Type</th><th>States</th><th>Items</th></tr>"""
+            for h in dpla_top_hubs[:15]:
+                body += f'\n  <tr><td>{esc(h.get("name", ""))}</td><td>{esc(h.get("hub_type", "").title())}</td><td>{esc(h.get("states", ""))}</td><td class="pct">{h.get("item_count", 0):,}</td></tr>'
+            body += '\n</table>'
 
-        body += f'<p class="rsrc">Source: DPLA website (dp.la/about), Wayback Machine snapshots of DPLA news and reports, and DPLA annual reports. DPLA launched April 18, 2013 with 2.5 million records from 6 Service Hubs and 10 Content Hubs representing over 400 institutions. By late 2013 it had doubled to 5.3M items from 21 hubs and 1,100 institutions. Current item count is estimated at ~{dpla_items/1e6:.0f}M based on published growth reports. DPLA is a 501(c)(3) nonprofit (EIN 46-1160948) headquartered in Boston, MA. Its API at api.dp.la/v2 requires an API key for programmatic access.</p>'
+        # Hubs by state
+        if dpla_hubs_by_state:
+            body += """
+<h3>DPLA hubs by state</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Hubs</th><th>Items</th><th>Hub names</th></tr>"""
+            for s in dpla_hubs_by_state[:20]:
+                hub_names = ', '.join(s.get('hubs', []))
+                body += f'\n  <tr><td>{esc(s.get("state", ""))}</td><td>{s.get("hub_count", 0)}</td><td class="pct">{s.get("item_count", 0):,}</td><td>{esc(hub_names)}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: DPLA website (dp.la and pro.dp.la), DPLA WordPress REST API (dpla.wpengine.com/wp-json/wp/v2/), DPLA GitHub ingestion3 repository, and Wikipedia. DPLA launched April 18, 2013 with ~2.4M items from 6 Service Hubs and 10 Content Hubs representing over 400 institutions. Current item count of {dpla_items/1e6:.0f}M+ is the sum of individual hub counts; DPLA self-reports "{esc(dpla.get("total_items_reported", "53M+"))}". The DPLA API at api.dp.la/v2 requires a registered API key (request via apps@dp.la). DPLA is a 501(c)(3) nonprofit (EIN 46-1160948) headquartered in Boston, MA.</p>'
 
     # ---- School Libraries: State-Level Certified Librarian Access ----
     nces_full = stats.get('nces_school_full', {})

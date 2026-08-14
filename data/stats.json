@@ -1234,6 +1234,136 @@
       "count": 17595
     }
   },
+  "broadband": {
+    "broadband": {
+      "avg": 86.7,
+      "count": 17019
+    },
+    "fixed": {
+      "avg": 78.6,
+      "count": 17019
+    },
+    "cellular": {
+      "avg": 72.4,
+      "count": 17019
+    },
+    "no_internet": {
+      "avg": 6.5,
+      "count": 17019
+    },
+    "no_computer": {
+      "avg": 6.6,
+      "count": 17019
+    },
+    "dialup": {
+      "avg": 0.2,
+      "count": 17019
+    },
+    "li_no_internet": {
+      "avg": 26.7,
+      "count": 17017
+    }
+  },
+  "worst_digital_divide": [
+    {
+      "name": "GRANT COUNTY LIBRARY",
+      "city": "Ulysses",
+      "state": "KS",
+      "divide": 10.2,
+      "no_internet": 4.6,
+      "li_no_internet": 58.3
+    },
+    {
+      "name": "CRESCENT VALLEY BRANCH LIBRARY",
+      "city": "Crescent Valley",
+      "state": "NV",
+      "divide": 9.16,
+      "no_internet": 5.2,
+      "li_no_internet": 87.2
+    },
+    {
+      "name": "EUREKA BRANCH LIBRARY",
+      "city": "Eureka",
+      "state": "NV",
+      "divide": 9.16,
+      "no_internet": 5.2,
+      "li_no_internet": 87.2
+    },
+    {
+      "name": "LAKE COUNTY PUBLIC LIBRARY",
+      "city": "Leadville",
+      "state": "CO",
+      "divide": 8.29,
+      "no_internet": 7.4,
+      "li_no_internet": 83.5
+    },
+    {
+      "name": "CAMDEN COUNTY PUBLIC LIBRARY",
+      "city": "Camden",
+      "state": "NC",
+      "divide": 8.14,
+      "no_internet": 4.3,
+      "li_no_internet": 63.3
+    },
+    {
+      "name": "VALLEY OF THE TETONS DISTRICT",
+      "city": "Victor",
+      "state": "ID",
+      "divide": 7.84,
+      "no_internet": 4.1,
+      "li_no_internet": 46.5
+    },
+    {
+      "name": "VALLEY OF THE TETONS DISTRICT - DRIGGS BRANCH",
+      "city": "Driggs",
+      "state": "ID",
+      "divide": 7.84,
+      "no_internet": 4.1,
+      "li_no_internet": 46.5
+    },
+    {
+      "name": "VALLEY OF THE TETONS DISTRICT - MAKERSPACE",
+      "city": "Driggs",
+      "state": "ID",
+      "divide": 7.84,
+      "no_internet": 4.1,
+      "li_no_internet": 46.5
+    },
+    {
+      "name": "CASTLE PINES LIBRARY",
+      "city": "Castle Rock",
+      "state": "CO",
+      "divide": 7.54,
+      "no_internet": 1.5,
+      "li_no_internet": 17.3
+    },
+    {
+      "name": "HIGHLANDS RANCH LIBRARY",
+      "city": "Highlands Ranch",
+      "state": "CO",
+      "divide": 7.54,
+      "no_internet": 1.5,
+      "li_no_internet": 17.3
+    }
+  ],
+  "lowest_broadband": [
+    {
+      "name": "CLAIBORNE PARISH LIBRARY",
+      "city": "Homer",
+      "state": "LA",
+      "broadband": 49.4,
+      "no_internet": 33.1,
+      "no_computer": 17.5
+    },
+    {
+      "name": "JOE W. WEBB MEMORIAL",
+      "city": "Haynesville",
+      "state": "LA",
+      "broadband": 49.4,
+      "no_internet": 33.1,
+      "no_computer": 17.5
+    }
+  ],
   "most_visited": [
     {
       "name": "115TH STREET BRANCH",
@@ -1358,7 +1488,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 16:37 UTC",
+  "generated": "2026-08-14 16:48 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,

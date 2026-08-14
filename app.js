@@ -310,6 +310,19 @@
       if (r.lang) html += row('Non-English spoken at home', esc(r.lang) + '%');
     }
 
+    // ---- Broadband access ----
+    if (r.bbs || r.fixb || r.cellb || r.noint || r.nocomp || r.dlup || r.linoint || r.ddiv) {
+      html += section('Community broadband access');
+      if (r.bbs) html += row('Broadband subscription', esc(r.bbs) + '%');
+      if (r.fixb) html += row('Fixed broadband', esc(r.fixb) + '%');
+      if (r.cellb) html += row('Cellular data plan', esc(r.cellb) + '%');
+      if (r.dlup) html += row('Dial-up only', esc(r.dlup) + '%');
+      if (r.noint) html += row('No internet at home', esc(r.noint) + '%');
+      if (r.nocomp) html += row('No computer at home', esc(r.nocomp) + '%');
+      if (r.linoint) html += row('Low-income no internet', esc(r.linoint) + '%');
+      if (r.ddiv) html += row('Digital divide ratio', esc(r.ddiv) + '× (low-income vs overall)');
+    }
+
     // ---- Facility & funding ----
     if (r.sqft || r.coll || r.psrv || r.ft || r.fsrc) {
       html += section('Facility & funding');

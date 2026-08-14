@@ -59,7 +59,7 @@
   },
   "hours": 12737,
   "services": 10238,
-  "gov_services": 3799,
+  "gov_services": 2025,
   "states": {
     "AL": {
       "name": "Alabama",
@@ -1139,5 +1139,5 @@
       }
     ]
   },
-  "generated": "2026-08-14 12:51 UTC"
+  "generated": "2026-08-14 12:54 UTC"
 }

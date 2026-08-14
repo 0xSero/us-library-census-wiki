@@ -168,6 +168,7 @@ def panel(active=""):
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
     <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
+    <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -377,6 +378,12 @@ def load_all():
             data['library_demographics'] = json.load(f)
     else:
         data['library_demographics'] = {}
+    stcens_path = os.path.join(DATA, "state_censorship_summary.json")
+    if os.path.exists(stcens_path):
+        with open(stcens_path) as f:
+            data['state_censorship'] = json.load(f)
+    else:
+        data['state_censorship'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1420,6 +1427,9 @@ def compute_stats(data):
 
     # ---- Library user demographics and usage patterns ----
     stats['library_demographics'] = data.get('library_demographics', {})
+
+    # ---- State-level book censorship breakdown ----
+    stats['state_censorship'] = data.get('state_censorship', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -4037,6 +4047,58 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: American Library Association, <em>State of America\'s Libraries Report 2024</em> (covering 2023 data). The ALA tracks censorship attempts in partnership with the ALA Office for Intellectual Freedom. Challenge data may undercount actual incidents as reporting is voluntary. The {titles_23 - titles_22:,} additional titles challenged in 2023 vs 2022 represent the largest single-year increase ever recorded.</p>'
+
+    # ---- State-level book censorship breakdown ----
+    stcens = stats.get('state_censorship', {})
+    if stcens and stcens.get('states'):
+        sc_states = stcens['states']
+        sc_total = stcens.get('total_challenges', 0)
+        sc_banned = stcens.get('total_banned_removed', 0)
+        sc_school = stcens.get('total_school_challenges', 0)
+        sc_public = stcens.get('total_public_library_challenges', 0)
+        sc_n = stcens.get('total_states_with_challenges', 0)
+
+        body += f"""
+
+<h2 id="state-censorship">Book Bans by State: The Censorship Map</h2>
+<p class="wiki-sub">Book censorship is not evenly distributed across America. Of {sc_n} states with documented challenges, just five account for the vast majority of all book bans. Florida alone recorded {sc_states[0]['total_challenges']:,} challenges with {sc_states[0]['banned_removed']:,} books banned or removed. {sc_school:,} of all challenges occurred in school libraries versus {sc_public:,} in public libraries - making K-12 education the primary battleground for intellectual freedom in America.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{sc_total:,}</div><div class="label">Total challenges (all states)</div></div>
+  <div class="stat-card"><div class="num">{sc_banned:,}</div><div class="label">Books banned or removed</div></div>
+  <div class="stat-card"><div class="num">{sc_school:,}</div><div class="label">School library challenges</div></div>
+  <div class="stat-card"><div class="num">{sc_public:,}</div><div class="label">Public library challenges</div></div>
+  <div class="stat-card"><div class="num">{sc_n}</div><div class="label">States with challenges</div></div>
+  <div class="stat-card"><div class="num">{sc_school / max(sc_total, 1) * 100:.0f}%</div><div class="label">Challenges in schools</div></div>
+</div>"""
+
+        # Top 15 states table
+        body += """
+<h3>Top 15 states by total book challenges</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Challenges</th><th>Banned/Removed</th><th>Restricted</th><th>School</th><th>Public Lib</th><th>Unique Titles</th></tr>"""
+        for i, s in enumerate(sc_states[:15], 1):
+            body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(s["state"])}.html">{esc(s["state_name"])}</a></td><td class="pct">{s["total_challenges"]:,}</td><td>{s["banned_removed"]:,}</td><td>{s["restricted"]}</td><td>{s["school_challenges"]:,}</td><td>{s["public_library_challenges"]}</td><td>{s["unique_titles"]}</td></tr>'
+        body += '\n</table>'
+
+        # School vs public library challenges bar chart for top 10
+        body += """
+<h3>School vs public library challenges (top 10 states)</h3>
+<svg class="trend-chart" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="School vs public library challenges by state">
+  <text x="10" y="20" class="axis-text" fill="var(--accent-red)">School</text>
+  <text x="10" y="38" class="axis-text" fill="var(--accent-blue)">Public</text>"""
+        max_sc = max((s["school_challenges"] for s in sc_states[:10]), default=1) or 1
+        for i, s in enumerate(sc_states[:10]):
+            x = 50 + i * 47
+            # School bar
+            hs = (s["school_challenges"] / max_sc) * 180 if max_sc else 0
+            body += f'<rect x="{x}" y="{230 - hs:.1f}" width="20" height="{hs:.1f}" fill="var(--accent-red)" rx="2"/>'
+            # Public bar
+            hp = (s["public_library_challenges"] / max_sc) * 180 if max_sc else 0
+            body += f'<rect x="{x + 22}" y="{230 - hp:.1f}" width="20" height="{hp:.1f}" fill="var(--accent-blue)" rx="2"/>'
+            body += f'<text x="{x + 21}" y="245" text-anchor="middle" class="axis-text">{esc(s["state"])}</text>'
+        body += '</svg>'
+
+        body += '<p class="rsrc">Source: ALA Office for Intellectual Freedom and EveryLibrary Institute Magnusson database, compiled via ALA State of America\'s Libraries 2024 state-level data. "Challenges" include formal and informal attempts to remove or restrict books. "Banned/Removed" means the book was actually pulled from shelves. School library challenges overwhelmingly dominate the data, reflecting the concentration of censorship efforts in K-12 education. States with zero challenges may reflect lack of reporting rather than absence of censorship.</p>'
 
     # ---- Federal Depository Library Program (FDLP) ----
     fdlp = stats.get('fdlp_summary', {})

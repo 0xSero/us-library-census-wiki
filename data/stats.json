@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:15 UTC",
+  "generated": "2026-08-14 22:24 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -23170,6 +23170,1108 @@
         }
       }
     }
+  },
+  "state_censorship": {
+    "title": "Book Censorship by State",
+    "source": "ALA State of America's Libraries 2024 + EveryLibrary Institute Magnusson database",
+    "total_states_with_challenges": 50,
+    "total_challenges": 19342,
+    "total_banned_removed": 6875,
+    "total_restricted": 1332,
+    "total_school_challenges": 17421,
+    "total_public_library_challenges": 1533,
+    "states": [
+      {
+        "state": "FL",
+        "state_name": "Florida",
+        "total_challenges": 4332,
+        "banned_removed": 1139,
+        "restricted": 548,
+        "school_challenges": 4308,
+        "public_library_challenges": 24,
+        "unique_titles": 2308,
+        "years": {
+          "2024": 205,
+          "2023": 2391,
+          "2022": 1232,
+          "2223": 154,
+          "2021": 239
+        },
+        "challenge_types": {
+          "Formal": 1215,
+          "Unclear": 506,
+          "Internal/Administrative Review": 1775,
+          "vInternal/Administrative Review": 1,
+          "Targeted in Board Meeting": 36,
+          "Legal Compliance": 2,
+          "Response to Law": 2,
+          "Informal Challenge": 124,
+          "Targeted During Board Meeting": 19
+        }
+      },
+      {
+        "state": "IA",
+        "state_name": "Iowa",
+        "total_challenges": 3719,
+        "banned_removed": 2207,
+        "restricted": 20,
+        "school_challenges": 3713,
+        "public_library_challenges": 6,
+        "unique_titles": 1158,
+        "years": {
+          "2024": 2365,
+          "2023": 1321,
+          "2021": 12,
+          "2022": 18
+        },
+        "challenge_types": {
+          "Response to Legislation": 2478,
+          "Internal/Administrative Review": 1210,
+          "Formal": 18,
+          "Informal Challenge": 1,
+          "Unclear": 5
+        }
+      },
+      {
+        "state": "TX",
+        "state_name": "Texas",
+        "total_challenges": 2282,
+        "banned_removed": 512,
+        "restricted": 196,
+        "school_challenges": 2210,
+        "public_library_challenges": 72,
+        "unique_titles": 1056,
+        "years": {
+          "2025": 7,
+          "2024": 185,
+          "2023": 554,
+          "2022": 842,
+          "2324": 8,
+          "2021": 638
+        },
+        "challenge_types": {
+          "Formal": 701,
+          "Internal/Administrative Review": 826,
+          "Unclear": 160,
+          "Targeted in Board Meeting": 10,
+          "Administration": 5,
+          "Informal Challenge": 106,
+          "Response to Law": 336,
+          "Challenged": 2
+        }
+      },
+      {
+        "state": "TN",
+        "state_name": "Tennessee",
+        "total_challenges": 2208,
+        "banned_removed": 1641,
+        "restricted": 115,
+        "school_challenges": 2198,
+        "public_library_challenges": 7,
+        "unique_titles": 1746,
+        "years": {
+          "2025": 170,
+          "2024": 1561,
+          "2023": 81,
+          "2022": 378,
+          "2021": 13
+        },
+        "challenge_types": {
+          "Response to Legislation": 1570,
+          "Unclear": 40,
+          "Formal": 234,
+          "Internal/Administrative Review": 334,
+          "Response to Law": 9,
+          "Internal Review From Library": 6,
+          "Targeted During Board Meeting": 1,
+          "Informal Challenge": 4
+        }
+      },
+      {
+        "state": "PA",
+        "state_name": "Pennsylvania",
+        "total_challenges": 859,
+        "banned_removed": 42,
+        "restricted": 21,
+        "school_challenges": 859,
+        "public_library_challenges": 0,
+        "unique_titles": 656,
+        "years": {
+          "2025": 4,
+          "2024": 13,
+          "2023": 275,
+          "2022": 113,
+          "2021": 450
+        },
+        "challenge_types": {
+          "Formal": 164,
+          "Unclear": 12,
+          "Internal/Administrative Review": 451,
+          "Response to Law": 10,
+          "Informal Challenge": 50,
+          "Targeted During Board Meeting": 4
+        }
+      },
+      {
+        "state": "MO",
+        "state_name": "Missouri",
+        "total_challenges": 550,
+        "banned_removed": 115,
+        "restricted": 53,
+        "school_challenges": 525,
+        "public_library_challenges": 25,
+        "unique_titles": 363,
+        "years": {
+          "2024": 60,
+          "2023": 30,
+          "2022": 347,
+          "2021": 68
+        },
+        "challenge_types": {
+          "Formal": 109,
+          "Unclear": 73,
+          "Internal/Administrative Review": 2,
+          "Response to Law": 34,
+          "Challenged": 1,
+          "Informal Challenge": 2,
+          "Response to Legislation": 2
+        }
+      },
+      {
+        "state": "MD",
+        "state_name": "Maryland",
+        "total_challenges": 503,
+        "banned_removed": 410,
+        "restricted": 12,
+        "school_challenges": 122,
+        "public_library_challenges": 0,
+        "unique_titles": 457,
+        "years": {
+          "2025": 381,
+          "2024": 15,
+          "2023": 70,
+          "2022": 37
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 386,
+          "Formal": 9,
+          "Unclear": 66,
+          "Targeted in Board Meeting": 6,
+          "Informal Challenge": 1
+        }
+      },
+      {
+        "state": "UT",
+        "state_name": "Utah",
+        "total_challenges": 476,
+        "banned_removed": 220,
+        "restricted": 46,
+        "school_challenges": 476,
+        "public_library_challenges": 0,
+        "unique_titles": 263,
+        "years": {
+          "2025": 15,
+          "2024": 33,
+          "2023": 114,
+          "2022": 200,
+          "2021": 113
+        },
+        "challenge_types": {
+          "State Ban": 18,
+          "Formal": 240,
+          "Unclear": 16,
+          "Informal Challenge": 102
+        }
+      },
+      {
+        "state": "VA",
+        "state_name": "Virginia",
+        "total_challenges": 473,
+        "banned_removed": 184,
+        "restricted": 9,
+        "school_challenges": 470,
+        "public_library_challenges": 3,
+        "unique_titles": 241,
+        "years": {
+          "2024": 64,
+          "2025": 1,
+          "2023": 188,
+          "2022": 176,
+          "2021": 35
+        },
+        "challenge_types": {
+          "Formal": 167,
+          "Internal/Administrative Review": 102,
+          "Unclear": 36,
+          "Informal Challenge": 61,
+          "Targeted During Board Meeting": 46,
+          "Response to Law": 1
+        }
+      },
+      {
+        "state": "WI",
+        "state_name": "Wisconsin",
+        "total_challenges": 465,
+        "banned_removed": 53,
+        "restricted": 30,
+        "school_challenges": 429,
+        "public_library_challenges": 36,
+        "unique_titles": 415,
+        "years": {
+          "2024": 13,
+          "2023": 416,
+          "2022": 29,
+          "2021": 4
+        },
+        "challenge_types": {
+          "Formal": 381,
+          "Affiliation Unknown": 31,
+          "Unclear": 5,
+          "Internal/Administrative Review": 36
+        }
+      },
+      {
+        "state": "AL",
+        "state_name": "Alabama",
+        "total_challenges": 403,
+        "banned_removed": 1,
+        "restricted": 0,
+        "school_challenges": 15,
+        "public_library_challenges": 388,
+        "unique_titles": 326,
+        "years": {
+          "2025": 3,
+          "2024": 26,
+          "2023": 374
+        },
+        "challenge_types": {
+          "Unclear": 288,
+          "Internal/Administrative Review": 10,
+          "Formal": 104,
+          "Targeted in Board Meeting": 1
+        }
+      },
+      {
+        "state": "SC",
+        "state_name": "South Carolina",
+        "total_challenges": 361,
+        "banned_removed": 61,
+        "restricted": 33,
+        "school_challenges": 354,
+        "public_library_challenges": 7,
+        "unique_titles": 193,
+        "years": {
+          "2025": 8,
+          "2024": 26,
+          "2023": 131,
+          "2022": 187,
+          "2021": 9
+        },
+        "challenge_types": {
+          "Administrative": 1,
+          "Formal": 154,
+          "State Ban": 17,
+          "Unclear": 5,
+          "Internal/Administrative Review": 27,
+          "Targeted in Board Meeting": 4,
+          "Targeted During Board Meeting": 65,
+          "Informal Challenge": 1
+        }
+      },
+      {
+        "state": "KY",
+        "state_name": "Kentucky",
+        "total_challenges": 339,
+        "banned_removed": 3,
+        "restricted": 1,
+        "school_challenges": 106,
+        "public_library_challenges": 233,
+        "unique_titles": 329,
+        "years": {
+          "2024": 4,
+          "2023": 332,
+          "2022": 3
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 103,
+          "Formal": 233,
+          "Targeted During Board Meeting": 2
+        }
+      },
+      {
+        "state": "NC",
+        "state_name": "North Carolina",
+        "total_challenges": 336,
+        "banned_removed": 68,
+        "restricted": 39,
+        "school_challenges": 329,
+        "public_library_challenges": 7,
+        "unique_titles": 180,
+        "years": {
+          "2024": 39,
+          "2023": 104,
+          "2022": 161,
+          "2021": 25
+        },
+        "challenge_types": {
+          "Unclear": 38,
+          "Formal": 120,
+          "Internal/Administrative Review": 18,
+          "Targeted in Board Meeting": 2,
+          "Internal Review From Library": 81,
+          "Informal Challenge": 13,
+          "Response to Law": 1,
+          "Targeted During Board Meeting": 2
+        }
+      },
+      {
+        "state": "ID",
+        "state_name": "Idaho",
+        "total_challenges": 301,
+        "banned_removed": 38,
+        "restricted": 3,
+        "school_challenges": 98,
+        "public_library_challenges": 203,
+        "unique_titles": 253,
+        "years": {
+          "2025": 154,
+          "2024": 26,
+          "2023": 74,
+          "2022": 44,
+          "2021": 2
+        },
+        "challenge_types": {
+          "Formal": 53,
+          "Response to Legislation": 139,
+          "Unclear": 1,
+          "Internal/Administrative Review": 42,
+          "Internal Review From Library": 6,
+          "Informal Challenge": 24,
+          "Targeted During Board Meeting": 4,
+          "Challenged": 1
+        }
+      },
+      {
+        "state": "LA",
+        "state_name": "Louisiana",
+        "total_challenges": 228,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 5,
+        "public_library_challenges": 223,
+        "unique_titles": 191,
+        "years": {
+          "2023": 29,
+          "2022": 186,
+          "2021": 1
+        },
+        "challenge_types": {
+          "Unclear": 3,
+          "Formal": 207,
+          "Internal/Administrative Review": 12,
+          "Informal Challenge": 2
+        }
+      },
+      {
+        "state": "MI",
+        "state_name": "Michigan",
+        "total_challenges": 170,
+        "banned_removed": 18,
+        "restricted": 32,
+        "school_challenges": 108,
+        "public_library_challenges": 62,
+        "unique_titles": 126,
+        "years": {
+          "2023": 43,
+          "2025": 1,
+          "2024": 20,
+          "2022": 103,
+          "2021": 2
+        },
+        "challenge_types": {
+          "Formal": 92,
+          "Targeted in Board Meeting": 1,
+          "Internal/Administrative Review": 2,
+          "Unclear": 40,
+          "Informal Challenge": 8,
+          "Challenged": 1
+        }
+      },
+      {
+        "state": "GA",
+        "state_name": "Georgia",
+        "total_challenges": 139,
+        "banned_removed": 67,
+        "restricted": 16,
+        "school_challenges": 125,
+        "public_library_challenges": 14,
+        "unique_titles": 86,
+        "years": {
+          "2025": 12,
+          "2024": 36,
+          "2023": 34,
+          "2022": 40,
+          "2021": 1
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 72,
+          "Formal": 33,
+          "Targeted in Board Meeting": 5,
+          "Unclear": 4,
+          "Informal Challenge": 23,
+          "Targeted During Board Meeting": 1,
+          "Challenged": 1
+        }
+      },
+      {
+        "state": "WY",
+        "state_name": "Wyoming",
+        "total_challenges": 106,
+        "banned_removed": 0,
+        "restricted": 24,
+        "school_challenges": 65,
+        "public_library_challenges": 41,
+        "unique_titles": 83,
+        "years": {
+          "2024": 36,
+          "2023": 23,
+          "2022": 8,
+          "2021": 8
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 23,
+          "Formal": 41,
+          "Unclear": 26,
+          "Targeted During Board Meeting": 10
+        }
+      },
+      {
+        "state": "CO",
+        "state_name": "Colorado",
+        "total_challenges": 89,
+        "banned_removed": 20,
+        "restricted": 4,
+        "school_challenges": 63,
+        "public_library_challenges": 26,
+        "unique_titles": 61,
+        "years": {
+          "2024": 23,
+          "2023": 20,
+          "2022": 46
+        },
+        "challenge_types": {
+          "Formal": 35,
+          "Internal/Administrative Review": 19,
+          "Informal Challenge": 22,
+          "Internal Review From Library": 3,
+          "Targeted During Board Meeting": 2,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "OH",
+        "state_name": "Ohio",
+        "total_challenges": 82,
+        "banned_removed": 4,
+        "restricted": 2,
+        "school_challenges": 75,
+        "public_library_challenges": 7,
+        "unique_titles": 76,
+        "years": {
+          "2024": 2,
+          "2023": 45,
+          "2022": 34
+        },
+        "challenge_types": {
+          "Formal": 40,
+          "Targeted in Board Meeting": 5,
+          "Informal Challenge": 34,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "OR",
+        "state_name": "Oregon",
+        "total_challenges": 80,
+        "banned_removed": 6,
+        "restricted": 17,
+        "school_challenges": 78,
+        "public_library_challenges": 2,
+        "unique_titles": 66,
+        "years": {
+          "2025": 2,
+          "2024": 4,
+          "2023": 61,
+          "2022": 12,
+          "2021": 1
+        },
+        "challenge_types": {
+          "Formal": 71
+        }
+      },
+      {
+        "state": "AK",
+        "state_name": "Alaska",
+        "total_challenges": 78,
+        "banned_removed": 8,
+        "restricted": 1,
+        "school_challenges": 68,
+        "public_library_challenges": 10,
+        "unique_titles": 74,
+        "years": {
+          "2024": 4,
+          "2023": 57,
+          "2022": 6,
+          "2021": 1
+        },
+        "challenge_types": {
+          "Formal": 64,
+          "Informal Challenge": 3,
+          "Response to Law": 4,
+          "Internal/Administrative Review": 1,
+          "Unclear": 6
+        }
+      },
+      {
+        "state": "OK",
+        "state_name": "Oklahoma",
+        "total_challenges": 63,
+        "banned_removed": 2,
+        "restricted": 31,
+        "school_challenges": 59,
+        "public_library_challenges": 4,
+        "unique_titles": 53,
+        "years": {
+          "2025": 1,
+          "2024": 4,
+          "2023": 1,
+          "2021": 47,
+          "2022": 10
+        },
+        "challenge_types": {
+          "State": 1,
+          "Formal": 44,
+          "Unclear": 7,
+          "Informal Challenge": 7,
+          "Targeted in Board Meeting": 2
+        }
+      },
+      {
+        "state": "MN",
+        "state_name": "Minnesota",
+        "total_challenges": 62,
+        "banned_removed": 6,
+        "restricted": 2,
+        "school_challenges": 58,
+        "public_library_challenges": 4,
+        "unique_titles": 53,
+        "years": {
+          "2025": 16,
+          "2024": 2,
+          "2023": 36,
+          "2021": 1,
+          "2022": 5
+        },
+        "challenge_types": {
+          "Formal": 19,
+          "Informal": 9,
+          "Targeted in Board Meeting": 28,
+          "Internal/Administrative Review": 4,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "IN",
+        "state_name": "Indiana",
+        "total_challenges": 55,
+        "banned_removed": 4,
+        "restricted": 15,
+        "school_challenges": 54,
+        "public_library_challenges": 1,
+        "unique_titles": 47,
+        "years": {
+          "2025": 3,
+          "2024": 17,
+          "2023": 2,
+          "2021": 28,
+          "2022": 5
+        },
+        "challenge_types": {
+          "Formal": 22,
+          "Informal": 1,
+          "Unclear": 15,
+          "Informal Challenge": 11,
+          "Targeted During Board Meeting": 1,
+          "Internal/Administrative Review": 2,
+          "Response to Law": 1
+        }
+      },
+      {
+        "state": "KS",
+        "state_name": "Kansas",
+        "total_challenges": 55,
+        "banned_removed": 8,
+        "restricted": 1,
+        "school_challenges": 54,
+        "public_library_challenges": 1,
+        "unique_titles": 44,
+        "years": {
+          "2024": 1,
+          "2023": 11,
+          "2021": 31,
+          "2022": 11
+        },
+        "challenge_types": {
+          "Formal": 23,
+          "Informal Challenge": 30,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "ME",
+        "state_name": "Maine",
+        "total_challenges": 53,
+        "banned_removed": 5,
+        "restricted": 5,
+        "school_challenges": 53,
+        "public_library_challenges": 0,
+        "unique_titles": 23,
+        "years": {
+          "2023": 15,
+          "2024": 4,
+          "2022": 26,
+          "2021": 5
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 2,
+          "Formal": 26,
+          "Unclear": 1,
+          "Informal Challenge": 8,
+          "Response to Law": 5
+        }
+      },
+      {
+        "state": "AR",
+        "state_name": "Arkansas",
+        "total_challenges": 43,
+        "banned_removed": 2,
+        "restricted": 3,
+        "school_challenges": 13,
+        "public_library_challenges": 30,
+        "unique_titles": 38,
+        "years": {
+          "2023": 5,
+          "2022": 13
+        },
+        "challenge_types": {
+          "Formal": 6,
+          "Targeted During Board Meeting": 4
+        }
+      },
+      {
+        "state": "CA",
+        "state_name": "California",
+        "total_challenges": 40,
+        "banned_removed": 4,
+        "restricted": 1,
+        "school_challenges": 38,
+        "public_library_challenges": 2,
+        "unique_titles": 27,
+        "years": {
+          "2024": 15,
+          "2023": 20,
+          "2022": 5
+        },
+        "challenge_types": {
+          "Formal": 31,
+          "Targeted in Board Meeting": 3,
+          "Unclear": 1,
+          "Informal Challenge": 3
+        }
+      },
+      {
+        "state": "ND",
+        "state_name": "North Dakota",
+        "total_challenges": 37,
+        "banned_removed": 0,
+        "restricted": 14,
+        "school_challenges": 28,
+        "public_library_challenges": 9,
+        "unique_titles": 37,
+        "years": {
+          "2024": 2,
+          "2023": 7,
+          "2022": 28
+        },
+        "challenge_types": {
+          "Formal": 9
+        }
+      },
+      {
+        "state": "CT",
+        "state_name": "Connecticut",
+        "total_challenges": 35,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 28,
+        "public_library_challenges": 7,
+        "unique_titles": 26,
+        "years": {
+          "2024": 1,
+          "2023": 16,
+          "2022": 16,
+          "2021": 1
+        },
+        "challenge_types": {
+          "Formal": 19,
+          "Targeted in Board Meeting": 1,
+          "Unclear": 4,
+          "Informal Challenge": 2
+        }
+      },
+      {
+        "state": "NJ",
+        "state_name": "New Jersey",
+        "total_challenges": 33,
+        "banned_removed": 3,
+        "restricted": 6,
+        "school_challenges": 25,
+        "public_library_challenges": 8,
+        "unique_titles": 28,
+        "years": {
+          "2024": 1,
+          "2023": 4,
+          "2022": 13,
+          "2021": 15
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 2,
+          "Targeted in Board Meeting": 1,
+          "Unclear": 10,
+          "Informal Challenge": 7,
+          "Formal": 2,
+          "Targeted During Board Meeting": 2
+        }
+      },
+      {
+        "state": "NY",
+        "state_name": "New York",
+        "total_challenges": 33,
+        "banned_removed": 10,
+        "restricted": 1,
+        "school_challenges": 31,
+        "public_library_challenges": 2,
+        "unique_titles": 24,
+        "years": {
+          "2025": 1,
+          "2023": 12,
+          "2022": 20
+        },
+        "challenge_types": {
+          "Targeted in Board Meeting": 1,
+          "Formal": 23,
+          "Targeted During Board Meeting": 3,
+          "Internal/Administrative Review": 2,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "WA",
+        "state_name": "Washington",
+        "total_challenges": 33,
+        "banned_removed": 4,
+        "restricted": 0,
+        "school_challenges": 21,
+        "public_library_challenges": 12,
+        "unique_titles": 27,
+        "years": {
+          "2024": 6,
+          "2025": 1,
+          "2022": 18,
+          "2021": 8
+        },
+        "challenge_types": {
+          "Formal": 16,
+          "Unclear": 4,
+          "Informal Challenge": 1
+        }
+      },
+      {
+        "state": "IL",
+        "state_name": "Illinois",
+        "total_challenges": 24,
+        "banned_removed": 4,
+        "restricted": 2,
+        "school_challenges": 21,
+        "public_library_challenges": 3,
+        "unique_titles": 15,
+        "years": {
+          "2024": 2,
+          "2021": 15,
+          "2022": 5,
+          "2023": 1
+        },
+        "challenge_types": {
+          "Formal": 14,
+          "Unclear": 2,
+          "Response to Law": 3,
+          "Informal Challenge": 2,
+          "Internal/Administrative Review": 1
+        }
+      },
+      {
+        "state": "MS",
+        "state_name": "Mississippi",
+        "total_challenges": 24,
+        "banned_removed": 0,
+        "restricted": 22,
+        "school_challenges": 23,
+        "public_library_challenges": 1,
+        "unique_titles": 23,
+        "years": {
+          "2023": 1,
+          "2022": 22
+        },
+        "challenge_types": {
+          "Informal Challenge": 24
+        }
+      },
+      {
+        "state": "NV",
+        "state_name": "Nevada",
+        "total_challenges": 24,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 0,
+        "public_library_challenges": 24,
+        "unique_titles": 22,
+        "years": {
+          "2024": 21,
+          "2023": 3
+        },
+        "challenge_types": {
+          "Formal": 21,
+          "Targeted in Board Meeting": 3
+        }
+      },
+      {
+        "state": "AZ",
+        "state_name": "Arizona",
+        "total_challenges": 23,
+        "banned_removed": 0,
+        "restricted": 3,
+        "school_challenges": 22,
+        "public_library_challenges": 1,
+        "unique_titles": 23,
+        "years": {
+          "2024": 19,
+          "2022": 4
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 18,
+          "Unclear": 1,
+          "Informal Challenge": 2
+        }
+      },
+      {
+        "state": "NH",
+        "state_name": "New Hampshire",
+        "total_challenges": 22,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 14,
+        "public_library_challenges": 8,
+        "unique_titles": 13,
+        "years": {
+          "2024": 3,
+          "2023": 10,
+          "2022": 9
+        },
+        "challenge_types": {
+          "Targeted in Board Meeting": 3,
+          "Formal": 9,
+          "Informal Challenge": 4
+        }
+      },
+      {
+        "state": "NE",
+        "state_name": "Nebraska",
+        "total_challenges": 21,
+        "banned_removed": 0,
+        "restricted": 1,
+        "school_challenges": 8,
+        "public_library_challenges": 13,
+        "unique_titles": 20,
+        "years": {
+          "2023": 2,
+          "2022": 15,
+          "2021": 4
+        },
+        "challenge_types": {
+          "Formal": 5,
+          "Informal Challenge": 2,
+          "Unclear": 1
+        }
+      },
+      {
+        "state": "MA",
+        "state_name": "Massachusetts",
+        "total_challenges": 20,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 16,
+        "public_library_challenges": 0,
+        "unique_titles": 15,
+        "years": {
+          "2023": 4,
+          "2018": 1,
+          "2024": 1,
+          "2022": 14
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 1,
+          "Formal": 3
+        }
+      },
+      {
+        "state": "MT",
+        "state_name": "Montana",
+        "total_challenges": 17,
+        "banned_removed": 6,
+        "restricted": 1,
+        "school_challenges": 13,
+        "public_library_challenges": 4,
+        "unique_titles": 15,
+        "years": {
+          "2024": 10,
+          "2022": 3,
+          "2021": 2
+        },
+        "challenge_types": {
+          "Targeted in Board Meeting": 2,
+          "Formal": 6
+        }
+      },
+      {
+        "state": "RI",
+        "state_name": "Rhode Island",
+        "total_challenges": 12,
+        "banned_removed": 0,
+        "restricted": 1,
+        "school_challenges": 12,
+        "public_library_challenges": 0,
+        "unique_titles": 11,
+        "years": {
+          "2022": 9,
+          "2021": 3
+        },
+        "challenge_types": {
+          "Informal Challenge": 10,
+          "Response to Law": 1
+        }
+      },
+      {
+        "state": "US",
+        "state_name": "US",
+        "total_challenges": 12,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 12,
+        "public_library_challenges": 0,
+        "unique_titles": 12,
+        "years": {
+          "2025": 12
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 12
+        }
+      },
+      {
+        "state": "VT",
+        "state_name": "Vermont",
+        "total_challenges": 10,
+        "banned_removed": 0,
+        "restricted": 1,
+        "school_challenges": 10,
+        "public_library_challenges": 0,
+        "unique_titles": 10,
+        "years": {
+          "2024": 7,
+          "2022": 3
+        },
+        "challenge_types": {
+          "Formal": 10
+        }
+      },
+      {
+        "state": "SD",
+        "state_name": "South Dakota",
+        "total_challenges": 7,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 6,
+        "public_library_challenges": 1,
+        "unique_titles": 7,
+        "years": {
+          "2022": 7
+        },
+        "challenge_types": {
+          "Internal/Administrative Review": 5,
+          "Formal": 1,
+          "Targeted in Board Meeting": 1
+        }
+      },
+      {
+        "state": "NM",
+        "state_name": "New Mexico",
+        "total_challenges": 3,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 2,
+        "public_library_challenges": 1,
+        "unique_titles": 3,
+        "years": {
+          "2024": 1,
+          "2023": 2
+        },
+        "challenge_types": {
+          "Targeted in Board Meeting": 1,
+          "Formal": 2
+        }
+      },
+      {
+        "state": "HI",
+        "state_name": "Hawaii",
+        "total_challenges": 1,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 0,
+        "public_library_challenges": 1,
+        "unique_titles": 1,
+        "years": {
+          "2022": 1
+        },
+        "challenge_types": {
+          "Formal": 1
+        }
+      },
+      {
+        "state": "WV",
+        "state_name": "West Virginia",
+        "total_challenges": 1,
+        "banned_removed": 0,
+        "restricted": 0,
+        "school_challenges": 1,
+        "public_library_challenges": 0,
+        "unique_titles": 1,
+        "years": {
+          "2022": 1
+        },
+        "challenge_types": {
+          "Targeted During Board Meeting": 1
+        }
+      }
+    ]
   },
   "imls_grants": {
     "total_count": 21325,

@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:36 UTC",
+  "generated": "2026-08-14 20:39 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7181,9 +7181,9 @@
     "medical": 208
   },
   "imls_grants": {
-    "total_count": 13218,
-    "total_amount": 954348048,
-    "year_range": "1996\u20132013",
+    "total_count": 21325,
+    "total_amount": 4037587891,
+    "year_range": "1996\u20132025",
     "trend_years": [
       1996,
       1997,
@@ -7202,7 +7202,19 @@
       2010,
       2011,
       2012,
-      2013
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
     ],
     "trend_amounts": [
       19461798,
@@ -7222,7 +7234,19 @@
       77459372,
       63931564,
       59514235,
-      52203556
+      52203556,
+      211698710,
+      210678592,
+      214479025,
+      215842789,
+      225987558,
+      227735313,
+      284159199,
+      430316257,
+      265225259,
+      272777807,
+      275384135,
+      248955199
     ],
     "trend_counts": [
       623,
@@ -7242,113 +7266,110 @@
       661,
       628,
       619,
-      372
+      372,
+      667,
+      652,
+      676,
+      607,
+      623,
+      622,
+      767,
+      726,
+      997,
+      661,
+      659,
+      450
     ],
     "top_states": [
       {
-        "state": "NY",
-        "grants": "1010",
-        "total_awarded": "105860170",
-        "avg_award": "104812",
-        "institutions": "391"
-      },
-      {
         "state": "CA",
-        "grants": "1407",
-        "total_awarded": "74663752",
-        "avg_award": "53066",
-        "institutions": "403"
+        "grants": 2316,
+        "total_awarded": 366807516,
+        "institutions": 403
       },
       {
-        "state": "IL",
-        "grants": "443",
-        "total_awarded": "68112505",
-        "avg_award": "153753",
-        "institutions": "162"
-      },
-      {
-        "state": "PA",
-        "grants": "531",
-        "total_awarded": "59575053",
-        "avg_award": "112194",
-        "institutions": "225"
+        "state": "NY",
+        "grants": 1626,
+        "total_awarded": 313126089,
+        "institutions": 391
       },
       {
         "state": "TX",
-        "grants": "393",
-        "total_awarded": "48252344",
-        "avg_award": "122780",
-        "institutions": "190"
+        "grants": 572,
+        "total_awarded": 224733166,
+        "institutions": 190
       },
       {
-        "state": "MA",
-        "grants": "528",
-        "total_awarded": "45976945",
-        "avg_award": "87078",
-        "institutions": "213"
+        "state": "IL",
+        "grants": 708,
+        "total_awarded": 192341052,
+        "institutions": 162
       },
       {
-        "state": "DC",
-        "grants": "144",
-        "total_awarded": "31486435",
-        "avg_award": "218656",
-        "institutions": "48"
-      },
-      {
-        "state": "NC",
-        "grants": "267",
-        "total_awarded": "29992038",
-        "avg_award": "112330",
-        "institutions": "125"
-      },
-      {
-        "state": "MI",
-        "grants": "427",
-        "total_awarded": "28799226",
-        "avg_award": "67445",
-        "institutions": "119"
+        "state": "PA",
+        "grants": 764,
+        "total_awarded": 170908318,
+        "institutions": 225
       },
       {
         "state": "FL",
-        "grants": "324",
-        "total_awarded": "26600594",
-        "avg_award": "82101",
-        "institutions": "178"
+        "grants": 497,
+        "total_awarded": 160308272,
+        "institutions": 178
       },
       {
-        "state": "WA",
-        "grants": "506",
-        "total_awarded": "23476750",
-        "avg_award": "46397",
-        "institutions": "113"
-      },
-      {
-        "state": "CO",
-        "grants": "234",
-        "total_awarded": "22235728",
-        "avg_award": "95024",
-        "institutions": "109"
+        "state": "MA",
+        "grants": 773,
+        "total_awarded": 130172806,
+        "institutions": 213
       },
       {
         "state": "OH",
-        "grants": "260",
-        "total_awarded": "22015009",
-        "avg_award": "84673",
-        "institutions": "133"
+        "grants": 405,
+        "total_awarded": 117801910,
+        "institutions": 133
+      },
+      {
+        "state": "MI",
+        "grants": 695,
+        "total_awarded": 115630817,
+        "institutions": 119
+      },
+      {
+        "state": "NC",
+        "grants": 430,
+        "total_awarded": 112943669,
+        "institutions": 125
+      },
+      {
+        "state": "WA",
+        "grants": 875,
+        "total_awarded": 103663534,
+        "institutions": 113
+      },
+      {
+        "state": "VA",
+        "grants": 429,
+        "total_awarded": 103095903,
+        "institutions": 147
+      },
+      {
+        "state": "DC",
+        "grants": 255,
+        "total_awarded": 87064713,
+        "institutions": 48
+      },
+      {
+        "state": "GA",
+        "grants": 209,
+        "total_awarded": 83691858,
+        "institutions": 79
       },
       {
         "state": "MD",
-        "grants": "243",
-        "total_awarded": "21671260",
-        "avg_award": "89182",
-        "institutions": "107"
-      },
-      {
-        "state": "AZ",
-        "grants": "302",
-        "total_awarded": "19037687",
-        "avg_award": "63039",
-        "institutions": "78"
+        "grants": 387,
+        "total_awarded": 83642560,
+        "institutions": 107
       }
     ],
     "top_programs": [

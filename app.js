@@ -325,13 +325,23 @@
       if (r.ddiv) html += row('Digital divide ratio', esc(r.ddiv) + '× (low-income vs overall)');
     }
 
-    // ---- FCC broadband infrastructure ----
+    // ---- FCC broadband infrastructure (county-level) ----
     if (r.fccgig || r.fccfib || r.fccrur || r.fccloc) {
-      html += section('FCC broadband infrastructure');
+      html += section('FCC broadband infrastructure (county)');
       if (r.fccgig) html += row('Gigabit availability', esc(r.fccgig) + '% of locations');
       if (r.fccfib) html += row('Fiber availability', esc(r.fccfib) + '% of locations');
       if (r.fccloc) html += row('Total serviceable locations', esc(r.fccloc));
       if (r.fccrur) html += row('Rural locations', esc(r.fccrur) + '%');
+    }
+
+    // ---- FCC broadband infrastructure (town / Census Place level) ----
+    if (r.pgig || r.p10020 || r.p253 || r.pfib || r.ploc) {
+      html += section('FCC broadband infrastructure (town-level)');
+      if (r.pgig) html += row('Gigabit availability', esc(r.pgig) + '% of locations');
+      if (r.p10020) html += row('100/20 Mbps availability', esc(r.p10020) + '% of locations');
+      if (r.p253) html += row('25/3 Mbps availability', esc(r.p253) + '% of locations');
+      if (r.pfib) html += row('Fiber availability', esc(r.pfib) + '% of locations');
+      if (r.ploc) html += row('Serviceable locations in town', esc(r.ploc));
     }
 
     // ---- Facility & funding ----

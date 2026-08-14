@@ -1452,6 +1452,138 @@
       "rural": 100.0
     }
   ],
+  "fcc_place": {
+    "gigabit_avg": 71.7,
+    "bb100_avg": 100.0,
+    "bb25_avg": 100.0,
+    "fiber_avg": 62.1,
+    "count": 14934,
+    "under25_gigabit": 1966,
+    "under25_100": 0,
+    "no_fiber": 1279
+  },
+  "lowest_place_gigabit": [
+    {
+      "name": "NINILCHIK COMMUNITY LIBRARY",
+      "city": "Ninilchik",
+      "state": "AK",
+      "gigabit": 0.1,
+      "fiber": 0.4,
+      "locations": 1246
+    },
+    {
+      "name": "ATMORE PUBLIC LIBRARY",
+      "city": "Atmore",
+      "state": "AL",
+      "gigabit": 0.1,
+      "fiber": 5.0,
+      "locations": 3923
+    },
+    {
+      "name": "ESCAMBIA COUNTY COOPERATIVE LIBRARY SYSTEM",
+      "city": "Atmore",
+      "state": "AL",
+      "gigabit": 0.1,
+      "fiber": 5.0,
+      "locations": 3923
+    },
+    {
+      "name": "FOREST LAKES COMMUNITY LIBRARY",
+      "city": "Forest Lakes",
+      "state": "AZ",
+      "gigabit": 0.1,
+      "fiber": 0.0,
+      "locations": 898
+    },
+    {
+      "name": "RIO RICO LIBRARY",
+      "city": "Rio Rico",
+      "state": "AZ",
+      "gigabit": 0.1,
+      "fiber": 4.0,
+      "locations": 7983
+    },
+    {
+      "name": "DURHAM BRANCH",
+      "city": "Durham",
+      "state": "CA",
+      "gigabit": 0.1,
+      "fiber": 0.1,
+      "locations": 2785
+    },
+    {
+      "name": "CLEAR CREEK LOCAL HISTORY ARCHIVES",
+      "city": "Georgetown",
+      "state": "CO",
+      "gigabit": 0.1,
+      "fiber": 0.0,
+      "locations": 938
+    },
+    {
+      "name": "JOHN TOMAY MEMORIAL LIBRARY/GEORGETOWN LIBRARY",
+      "city": "Georgetown",
+      "state": "CO",
+      "gigabit": 0.1,
+      "fiber": 0.0,
+      "locations": 938
+    },
+    {
+      "name": "ARCHER BRANCH",
+      "city": "Archer",
+      "state": "FL",
+      "gigabit": 0.1,
+      "fiber": 58.7,
+      "locations": 901
+    },
+    {
+      "name": "AVON PARK PUBLIC LIBRARY",
+      "city": "Avon Park",
+      "state": "FL",
+      "gigabit": 0.1,
+      "fiber": 0.4,
+      "locations": 5585
+    },
+    {
+      "name": "CLARENCE E. ANTHONY BRANCH LIBRARY",
+      "city": "South Bay",
+      "state": "FL",
+      "gigabit": 0.1,
+      "fiber": 0.0,
+      "locations": 1424
+    },
+    {
+      "name": "ONAWA PUBLIC LIBRARY",
+      "city": "Onawa",
+      "state": "IA",
+      "gigabit": 0.1,
+      "fiber": 0.0,
+      "locations": 1532
+    },
+    {
+      "name": "STORM LAKE PUBLIC LIBRARY",
+      "city": "Storm Lake",
+      "state": "IA",
+      "gigabit": 0.1,
+      "fiber": 7.5,
+      "locations": 4481
+    },
+    {
+      "name": "WOODBURN BRANCH",
+      "city": "Woodburn",
+      "state": "IN",
+      "gigabit": 0.1,
+      "fiber": 0.1,
+      "locations": 781
+    },
+    {
+      "name": "GEORGE COON PUBLIC LIBRARY",
+      "city": "Princeton",
+      "state": "KY",
+      "gigabit": 0.1,
+      "fiber": 8.2,
+      "locations": 3251
+    }
+  ],
   "most_visited": [
     {
       "name": "115TH STREET BRANCH",
@@ -1576,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 19:31 UTC",
+  "generated": "2026-08-14 19:35 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,

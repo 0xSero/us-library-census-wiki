@@ -304,6 +304,8 @@ body.wiki-body {
 .dead  { color: #d33; white-space: nowrap; }
 .rating { color: #fc3; font-weight: 700; white-space: nowrap; }
 .rsrc  { font-size: 0.8em; color: var(--wiki-text-muted); font-style: italic; }
+.wiki-list { margin: 8px 0 12px 1.5em; padding: 0; }
+.wiki-list li { margin: 4px 0; line-height: 1.5; }
 .type-badge {
   display: inline-block; padding: 0.1em 0.4em; font-size: 0.78rem;
   border-radius: 2px; background: var(--wiki-table-hdr); white-space: nowrap;

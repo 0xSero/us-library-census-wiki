@@ -1,0 +1,4442 @@
+#!/usr/bin/env python3
+"""build_wiki.py — Build the US Library Census Wiki from CSV data.
+
+Reads all CSVs from data/, generates:
+  - Static HTML pages (index, gov, search, about, state pages)
+  - Condensed JSON data files for client-side search
+  - Copies the interactive map
+
+Usage:
+  python3 wiki/build_wiki.py
+"""
+import csv
+import json
+import os
+import html
+import urllib.request
+from datetime import datetime, timezone
+from collections import Counter, defaultdict
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data")
+WIKI = os.path.join(ROOT, "wiki")
+STATES_DIR = os.path.join(WIKI, "states")
+DATA_OUT = os.path.join(WIKI, "data")
+
+# US state names
+STATE_NAMES = {
+    'AL':'Alabama','AK':'Alaska','AZ':'Arizona','AR':'Arkansas','CA':'California',
+    'CO':'Colorado','CT':'Connecticut','DE':'Delaware','FL':'Florida','GA':'Georgia',
+    'HI':'Hawaii','ID':'Idaho','IL':'Illinois','IN':'Indiana','IA':'Iowa',
+    'KS':'Kansas','KY':'Kentucky','LA':'Louisiana','ME':'Maine','MD':'Maryland',
+    'MA':'Massachusetts','MI':'Michigan','MN':'Minnesota','MS':'Mississippi',
+    'MO':'Missouri','MT':'Montana','NE':'Nebraska','NV':'Nevada','NH':'New Hampshire',
+    'NJ':'New Jersey','NM':'New Mexico','NY':'New York','NC':'North Carolina',
+    'ND':'North Dakota','OH':'Ohio','OK':'Oklahoma','OR':'Oregon','PA':'Pennsylvania',
+    'RI':'Rhode Island','SC':'South Carolina','SD':'South Dakota','TN':'Tennessee',
+    'TX':'Texas','UT':'Utah','VT':'Vermont','VA':'Virginia','WA':'Washington',
+    'WV':'West Virginia','WI':'Wisconsin','WY':'Wyoming','DC':'District of Columbia',
+    'PR':'Puerto Rico','GU':'Guam','VI':'US Virgin Islands','AS':'American Samoa',
+    'MP':'Northern Mariana Islands',
+}
+
+def read_csv(path):
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8-sig') as f:
+        return list(csv.DictReader(f))
+
+def esc(s):
+    return html.escape(str(s or ''), quote=True)
+
+def now_str():
+    return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+
+# ---------------------------------------------------------------------------
+# Shell template — Bootstrap 5 + Wikipedia-style typography
+# ---------------------------------------------------------------------------
+def shell(title, body_html, panel_html="", active_tab="", extra_head="", body_class="", root=""):
+    """Generate a page using Bootstrap 5 for layout with Wikipedia-style typography."""
+    nav_items = [
+        ("index.html",  "Main page",   "index"),
+        ("search.html", "Search",      "search"),
+        ("map.html",    "Map",         "map"),
+        ("gov.html",    "Government",  "gov"),
+        ("about.html",   "About",       "about"),
+    ]
+    nav_html = ""
+    for href, label, tab_id in nav_items:
+        cls = "active" if active_tab == tab_id else ""
+        nav_html += f'      <li class="nav-item"><a class="nav-link {cls}" href="{root}{href}">{label}</a></li>\n'
+
+    bc = f" {body_class}" if body_class else ""
+    sidebar_div = f'<aside class="col-lg-2 d-none d-lg-block wiki-sidebar">{panel_html}</aside>' if panel_html else ""
+    main_col = "col-lg-10" if panel_html else "col-12"
+
+    return f"""<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{esc(title)} — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{root}wiki.css">
+{extra_head}
+<script>
+(function(){{var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);}})();
+</script>
+</head>
+<body class="wiki-body{bc}">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{root}index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+{nav_html.rstrip()}
+      </ul>
+      <form class="d-flex me-2" action="{root}search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+  </div>
+</nav>
+<div class="container-fluid wiki-container{bc}">
+  <div class="row g-0">
+{sidebar_div}
+    <main class="{main_col} wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">{esc(title)}</h1>
+      <div class="wiki-body-content" id="bodyContent">
+{body_html}
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AGI · EIN 42-4298008 ·
+    <a href="{root}about.html">About</a> · <a href="{root}search.html">Search</a> · <a href="{root}map.html">Map</a>
+    <br>Data updated {now_str()}
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){{var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){{try{{f.contentWindow.postMessage({{type:'wiki-theme',theme:n}},'*');}}catch(e){{}}}}}}
+</script>
+</body>
+</html>"""
+
+def panel(active=""):
+    """Left sidebar — Wikipedia-style portal sections using Bootstrap list groups."""
+    nav_items = [
+        ("index.html",  "Main page"),
+        ("search.html", "Search the census"),
+        ("map.html",    "Interactive map"),
+        ("gov.html",    "Government sites"),
+        ("about.html",   "About / methodology"),
+    ]
+    nav_html = "\n".join(f'    <a href="{href}" class="list-group-item list-group-item-action small py-1">{label}</a>' for href, label in nav_items)
+    return f"""<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+{nav_html}
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div>"""
+
+def panel_state(states, current_st):
+    """Sidebar for state pages — relative paths + other states list."""
+    nav_html = """    <a href="../index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="../search.html" class="list-group-item list-group-item-action small py-1">Search</a>
+    <a href="../map.html" class="list-group-item list-group-item-action small py-1">Map</a>
+    <a href="../gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="../about.html" class="list-group-item list-group-item-action small py-1">About</a>"""
+    other_html = "\n".join(f'    <a href="{st}.html" class="list-group-item list-group-item-action small py-1">{st}</a>' for st in sorted(states) if st != current_st)
+    return f"""<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+{nav_html}
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Other states</h6>
+  <div class="list-group list-group-flush">
+{other_html}
+  </div>
+</div>"""
+
+# ---------------------------------------------------------------------------
+# Load all data
+# ---------------------------------------------------------------------------
+def load_all():
+    print("[build] Loading CSVs...")
+    data = {}
+
+    # Public libraries: merge non-verified (has social media) with verified (has url_live, server, etc.)
+    pub_base = read_csv(os.path.join(DATA, "public_libraries.csv"))
+    pub_verified = read_csv(os.path.join(DATA, "public_libraries_verified.csv"))
+    if pub_verified:
+        _pv_map = {r.get('id', ''): r for r in pub_verified if r.get('id', '')}
+        for r in pub_base:
+            vid = r.get('id', '')
+            if vid in _pv_map:
+                for k, v in _pv_map[vid].items():
+                    if k not in r or not (r.get(k, '') or '').strip():
+                        r[k] = v
+    data['public'] = pub_base
+
+    # Private libraries: prefer verified (superset — has url_live, server, http_status, etc.)
+    priv_verified_path = os.path.join(DATA, "private_libraries_verified.csv")
+    if os.path.exists(priv_verified_path):
+        data['private'] = read_csv(priv_verified_path)
+    else:
+        data['private'] = read_csv(os.path.join(DATA, "private_libraries.csv"))
+
+    data['hours'] = read_csv(os.path.join(DATA, "library_hours.csv"))
+    data['services'] = read_csv(os.path.join(DATA, "library_services.csv"))
+    data['gov_services'] = read_csv(os.path.join(DATA, "gov_services.csv"))
+    # Library consortia (Wikipedia + ICOLC)
+    consortia_path = os.path.join(DATA, "library_consortia.csv")
+    data['consortia'] = read_csv(consortia_path) if os.path.exists(consortia_path) else []
+    # State Library Administrative Agencies (IMLS SLAA FY2024 — one row per state agency)
+    slaa_path = os.path.join(DATA, "state_library_agencies.csv")
+    data['slaa'] = read_csv(slaa_path) if os.path.exists(slaa_path) else []
+    # Academic Library Survey (NCES ALS 2012 — 4,261 institutions; historical vintages 2000-2012)
+    als_path = os.path.join(DATA, "academic_libraries.csv")
+    data['academic'] = read_csv(als_path) if os.path.exists(als_path) else []
+    # IPEDS Academic Libraries 2023 — latest available vintage (3,695 institutions)
+    als2023_path = os.path.join(DATA, "academic_libraries_2023.csv")
+    data['academic_2023'] = read_csv(als2023_path) if os.path.exists(als2023_path) else []
+    # ALS temporal trends (national + by-state aggregates across 8 vintages 2000-2023)
+    data['als_national'] = read_csv(os.path.join(DATA, "als_trends_national.csv")) if os.path.exists(os.path.join(DATA, "als_trends_national.csv")) else []
+    data['als_by_state'] = read_csv(os.path.join(DATA, "als_trends_by_state.csv")) if os.path.exists(os.path.join(DATA, "als_trends_by_state.csv")) else []
+    # PLS historical trends (national + by-state aggregates across 25 vintages 2000-2024)
+    data['pls_national'] = read_csv(os.path.join(DATA, "pls_trends_national.csv")) if os.path.exists(os.path.join(DATA, "pls_trends_national.csv")) else []
+    data['pls_by_state'] = read_csv(os.path.join(DATA, "pls_trends_by_state.csv")) if os.path.exists(os.path.join(DATA, "pls_trends_by_state.csv")) else []
+    # SLAA historical trends (national + by-state aggregates across 4 vintages FY2018-FY2024)
+    data['slaa_national'] = read_csv(os.path.join(DATA, "slaa_trends_national.csv")) if os.path.exists(os.path.join(DATA, "slaa_trends_national.csv")) else []
+    data['slaa_by_state'] = read_csv(os.path.join(DATA, "slaa_trends_by_state.csv")) if os.path.exists(os.path.join(DATA, "slaa_trends_by_state.csv")) else []
+    # Federal Depository Libraries (GPO FDLP — 672 libraries selecting Print Distribution Titles)
+    fdlp_path = os.path.join(DATA, "_cache", "fdlp", "federal_depository_libraries.csv")
+    data['fdlp'] = read_csv(fdlp_path) if os.path.exists(fdlp_path) else []
+    # California State Library — richer per-library stats than IMLS PLS (FY2023-24)
+    ca_summary_path = os.path.join(DATA, "ca_state_summary.json")
+    if os.path.exists(ca_summary_path):
+        with open(ca_summary_path) as f:
+            data['ca_summary'] = json.load(f)
+    else:
+        data['ca_summary'] = {}
+    # IMLS Grant Awards (1996-2025, 21,325 grants, $4.04B awarded)
+    data['imls_grants_year'] = read_csv(os.path.join(DATA, "imls_grants_by_year.csv")) if os.path.exists(os.path.join(DATA, "imls_grants_by_year.csv")) else []
+    data['imls_grants_state'] = read_csv(os.path.join(DATA, "imls_grants_by_state.csv")) if os.path.exists(os.path.join(DATA, "imls_grants_by_state.csv")) else []
+    data['imls_grants_recent_state'] = read_csv(os.path.join(DATA, "imls_grants_recent_by_state.csv")) if os.path.exists(os.path.join(DATA, "imls_grants_recent_by_state.csv")) else []
+    # IMLS Grants to States (G2S) — formula-based funding through state agencies (2014-2025)
+    data['imls_g2s_year'] = read_csv(os.path.join(DATA, "imls_g2s_by_year.csv")) if os.path.exists(os.path.join(DATA, "imls_g2s_by_year.csv")) else []
+    data['imls_g2s_state'] = read_csv(os.path.join(DATA, "imls_g2s_by_state.csv")) if os.path.exists(os.path.join(DATA, "imls_g2s_by_state.csv")) else []
+    data['imls_grants_program'] = read_csv(os.path.join(DATA, "imls_grants_by_program.csv")) if os.path.exists(os.path.join(DATA, "imls_grants_by_program.csv")) else []
+    data['imls_grants_largest'] = read_csv(os.path.join(DATA, "imls_grants_largest.csv")) if os.path.exists(os.path.join(DATA, "imls_grants_largest.csv")) else []
+    # IPEDS institutional characteristics (Carnegie class, control, enrollment, HBCU/tribal/land-grant)
+    carnegie_path = os.path.join(DATA, "academic_carnegie_summary.json")
+    if os.path.exists(carnegie_path):
+        with open(carnegie_path) as f:
+            data['carnegie_summary'] = json.load(f)
+    else:
+        data['carnegie_summary'] = {}
+    # PLS FY2024 digital services (e-circulation, programs by age/delivery, WiFi, capital revenue)
+    pls_dig_path = os.path.join(DATA, "pls_fy2024_digital.json")
+    if os.path.exists(pls_dig_path):
+        with open(pls_dig_path) as f:
+            data['pls_fy2024_digital'] = json.load(f)
+    else:
+        data['pls_fy2024_digital'] = {}
+    # SLAA state agency services (summer reading, literacy, digitization, accessibility, E-Rate)
+    slaa_svc_path = os.path.join(DATA, "slaa_services_summary.json")
+    if os.path.exists(slaa_svc_path):
+        with open(slaa_svc_path) as f:
+            data['slaa_services'] = json.load(f)
+    else:
+        data['slaa_services'] = {}
+    # Book censorship database (EveryLibrary Institute / Magnusson)
+    censor_path = os.path.join(DATA, "book_censorship_summary.json")
+    if os.path.exists(censor_path):
+        with open(censor_path) as f:
+            data['book_censorship'] = json.load(f)
+    else:
+        data['book_censorship'] = {}
+    # NTIA Tribal Broadband Connectivity Program (TBCP)
+    tribal_path = os.path.join(DATA, "tribal_broadband_summary.json")
+    if os.path.exists(tribal_path):
+        with open(tribal_path) as f:
+            data['tribal_broadband'] = json.load(f)
+    else:
+        data['tribal_broadband'] = {}
+    # USAC Emergency Connectivity Fund (ECF) Form 471
+    ecf_path = os.path.join(DATA, "ecf_summary.json")
+    if os.path.exists(ecf_path):
+        with open(ecf_path) as f:
+            data['ecf'] = json.load(f)
+    else:
+        data['ecf'] = {}
+    # BLS OES librarian salary data
+    bls_path = os.path.join(DATA, "bls_librarian_salaries.json")
+    if os.path.exists(bls_path):
+        with open(bls_path) as f:
+            data['bls_salaries'] = json.load(f)
+    else:
+        data['bls_salaries'] = {}
+    # FCC Affordable Connectivity Program (ACP)
+    acp_path = os.path.join(DATA, "acp_summary.json")
+    if os.path.exists(acp_path):
+        with open(acp_path) as f:
+            data['acp'] = json.load(f)
+    else:
+        data['acp'] = {}
+    # USAC E-Rate (library funding requests, FCC Form 471)
+    erate_path = os.path.join(DATA, "erate_summary.json")
+    if os.path.exists(erate_path):
+        with open(erate_path) as f:
+            data['erate'] = json.load(f)
+    else:
+        data['erate'] = {}
+    # NTIA BEAD (Broadband Equity Access & Deployment) allocations
+    bead_path = os.path.join(DATA, "bead_summary.json")
+    if os.path.exists(bead_path):
+        with open(bead_path) as f:
+            data['bead'] = json.load(f)
+    else:
+        data['bead'] = {}
+    # Library ballot measures (EveryLibrary)
+    ballot_path = os.path.join(DATA, "ballot_measures_summary.json")
+    if os.path.exists(ballot_path):
+        with open(ballot_path) as f:
+            data['ballot'] = json.load(f)
+    else:
+        data['ballot'] = {}
+    # Library usage survey data (Pew Research + Gallup)
+    usage_path = os.path.join(DATA, "library_usage_survey.json")
+    if os.path.exists(usage_path):
+        with open(usage_path) as f:
+            data['library_usage'] = json.load(f)
+    else:
+        data['library_usage'] = {}
+    ala_path = os.path.join(DATA, "ala_report_summary.json")
+    if os.path.exists(ala_path):
+        with open(ala_path) as f:
+            data['ala_report'] = json.load(f)
+    else:
+        data['ala_report'] = {}
+    # Deduplicate gov_services: keep one entry per (agency_name, level),
+    # preferring the row with the longest/best services_summary.
+    # Also drop boilerplate summaries that just restate the agency name.
+    _gs_best = {}
+    for r in data['gov_services']:
+        name = (r.get('agency_name','') or '').strip()
+        level = (r.get('level','') or '').strip()
+        if not name:
+            continue
+        key = (name, level)
+        summary = (r.get('services_summary','') or '').strip()
+        # Skip boilerplate: "Federal government entity: X." / "State of X government entity: Y."
+        if summary and f'{level} government entity:' in summary.lower():
+            summary = ''  # mark as no real summary
+            r['services_summary'] = ''
+        if key not in _gs_best:
+            _gs_best[key] = r
+        else:
+            # Keep the one with the longer summary
+            old_len = len((_gs_best[key].get('services_summary','') or '').strip())
+            new_len = len(summary)
+            if new_len > old_len:
+                _gs_best[key] = r
+    data['gov_services'] = list(_gs_best.values())
+    # Gov tiers (use verified versions if available)
+    data['gov'] = []
+    for tier in ['federal','state','county','city','tribal','special']:
+        for variant in [f'{tier}_gov_sites_verified.csv', f'{tier}_gov_sites.csv']:
+            path = os.path.join(DATA, variant)
+            if os.path.exists(path):
+                rows = read_csv(path)
+                for r in rows:
+                    r['_tier'] = tier
+                data['gov'].extend(rows)
+                break
+    print(f"  Public: {len(data['public'])}, Private: {len(data['private'])}, "
+          f"Gov: {len(data['gov'])}, Hours: {len(data['hours'])}, "
+          f"Services: {len(data['services'])}, GovServices: {len(data['gov_services'])}, "
+          f"Consortia: {len(data['consortia'])}, SLAA: {len(data['slaa'])}, "
+          f"Academic: {len(data['academic'])}, Academic2023: {len(data['academic_2023'])}, "
+          f"ALS-trends: {len(data['als_national'])}, FDLP: {len(data['fdlp'])}, "
+          f"IMLS-grants: {len(data['imls_grants_year'])}")
+    return data
+
+# ---------------------------------------------------------------------------
+# Build condensed JSON
+# ---------------------------------------------------------------------------
+def _compact(d):
+    """Return a dict with only non-empty string values (keeps JSON lean)."""
+    return {k: v for k, v in d.items() if v and str(v).strip()}
+
+def build_json(data):
+    print("[build] Generating JSON data files...")
+    os.makedirs(DATA_OUT, exist_ok=True)
+
+    # Column → short-key mapping shared by libraries (public & private share the same schema)
+    LIB_MAP = [
+        ('id','id'),('name','name'),('type','type'),
+        ('address','address'),('city','city'),('state','state'),('zip','zip'),
+        ('latitude','lat'),('longitude','lng'),
+        ('phone','phone'),('website','website'),('map_url','mapu'),
+        ('reviews_rating','rating'),('reviews_count','rcount'),('review_source','rsrc'),
+        ('email','email'),('facebook','fb'),('twitter','tw'),
+        ('instagram','ig'),('youtube','yt'),
+        ('funding_total','ft'),('funding_source','fsrc'),
+        ('size_sqft','sqft'),('collection_size','coll'),('population_served','psrv'),
+        ('median_household_income','income'),('area_population','pop'),
+        ('pct_below_poverty','pov'),('area_median_age','age'),
+        ('notes','nt'),
+        ('url_live','ulive'),('http_status','hstat'),('final_url','furl'),
+        ('last_modified','lmod'),('content_type','ctype'),('content_length','clen'),
+        ('server','srv'),('title','ttl'),('redirects','redir'),
+        ('check_error','cerr'),('checked_at','cat'),
+        # Extended ACS demographics (county-level: education, computer, internet; state-level: language)
+        ('pct_bachelors_plus','edu'),('pct_computer_household','comp'),
+        ('pct_internet_household','inet'),('pct_non_english_home','lang'),
+        # PLS operational data (public libraries only — AE/system level)
+        ('annual_visits','vis'),('total_circulation','cir'),('ecirculation','ecir'),
+        ('pcirculation','pcir'),('total_programs','prog'),('program_attendance','patt'),
+        ('children_programs','cprog'),('ya_programs','yprog'),('adult_programs','aprog'),
+        ('internet_terminals','iterm'),('wifi_sessions','wifi'),('registered_borrowers','rbor'),
+        ('ill_to','illto'),('ill_from','illfm'),('total_staff','staff'),
+        ('librarian_staff','lstaff'),('salary_expenses','salx'),
+        ('print_material_expenses','pmex'),('electronic_material_expenses','emex'),
+        ('capital_expenses','capex'),('central_branches','cbr'),
+        ('branch_count','nbr'),('bookmobiles','bkm'),
+        # Broadband access (ACS B28003/B28004/B28008, county-level)
+        ('pct_broadband_subscriber','bbs'),('pct_dialup_only','dlup'),
+        ('pct_no_internet','noint'),('pct_no_computer','nocomp'),
+        ('pct_cellular_broadband','cellb'),('pct_fixed_broadband','fixb'),
+        ('pct_low_income_no_internet','linoint'),('broadband_digital_divide','ddiv'),
+        # FCC National Broadband Map deployment data (county-level infrastructure availability)
+        ('fcc_broadband_avail','fccbb'),('fcc_gigabit_avail','fccgig'),
+        ('fcc_fiber_avail','fccfib'),('fcc_total_locations','fccloc'),
+        ('fcc_rural_pct','fccrur'),
+        # FCC Census Place (town-level) broadband availability — most precise per-library figure
+        ('fcc_place_gigabit','pgig'),('fcc_place_100_20','p10020'),
+        ('fcc_place_25_3','p253'),('fcc_place_fiber','pfib'),
+        ('fcc_place_locations','ploc'),
+    ]
+
+    # Public libraries — every data-bearing column, compact (empties omitted)
+    pub = []
+    for r in data['public']:
+        rec = {'type': 'public'}
+        for col, key in LIB_MAP:
+            val = (r.get(col, '') or '').strip()
+            if val:
+                rec[key] = val
+        pub.append(rec)
+    with open(os.path.join(DATA_OUT, 'public_libraries.json'), 'w') as f:
+        json.dump(pub, f, separators=(',',':'))
+    print(f"  public_libraries.json: {len(pub)} records")
+
+    # Private libraries — same full schema (verified CSV is a superset)
+    priv = []
+    for r in data['private']:
+        rec = {'type': 'private'}
+        for col, key in LIB_MAP:
+            val = (r.get(col, '') or '').strip()
+            if val:
+                rec[key] = val
+        priv.append(rec)
+    with open(os.path.join(DATA_OUT, 'private_libraries.json'), 'w') as f:
+        json.dump(priv, f, separators=(',',':'))
+    print(f"  private_libraries.json: {len(priv)} records")
+
+    # Gov sites — every data-bearing column
+    GOV_MAP = [
+        ('id','id'),('name','name'),('type','type'),('_tier','tier'),
+        ('state','state'),('city','city'),('website','website'),('map_url','mapu'),
+        ('latitude','lat'),('longitude','lng'),
+        ('url_live','ulive'),('http_status','hstat'),('final_url','furl'),
+        ('last_modified','lmod'),('content_type','ctype'),('content_length','clen'),
+        ('server','srv'),('title','ttl'),('redirects','redir'),
+        ('check_error','cerr'),('checked_at','cat'),
+    ]
+    gov = []
+    for r in data['gov']:
+        rec = {}
+        for col, key in GOV_MAP:
+            val = (r.get(col, '') or '').strip()
+            if val:
+                rec[key] = val
+        if 'type' not in rec:
+            rec['type'] = 'gov'
+        gov.append(rec)
+    with open(os.path.join(DATA_OUT, 'gov_sites.json'), 'w') as f:
+        json.dump(gov, f, separators=(',',':'))
+    print(f"  gov_sites.json: {len(gov)} records")
+
+    # Hours
+    hours = {}
+    for r in data['hours']:
+        lid = r.get('id','')
+        if lid:
+            hours[lid] = {
+                'raw': r.get('hours_raw',''),
+                'structured': r.get('hours_structured',''),
+            }
+    with open(os.path.join(DATA_OUT, 'library_hours.json'), 'w') as f:
+        json.dump(hours, f, separators=(',',':'))
+    print(f"  library_hours.json: {len(hours)} records")
+
+    # Services
+    services = {}
+    for r in data['services']:
+        lid = r.get('id','')
+        if lid:
+            services[lid] = r.get('services','')
+    with open(os.path.join(DATA_OUT, 'library_services.json'), 'w') as f:
+        json.dump(services, f, separators=(',',':'))
+    print(f"  library_services.json: {len(services)} records")
+
+    # Academic libraries — merge ALS 2012 + IPEDS 2023 data
+    # Build a map of 2023 records by UNITID for enrichment
+    acad_2023_map = {}
+    for r in data.get('academic_2023', []):
+        uid = (r.get('unitid') or '').strip()
+        if uid:
+            acad_2023_map[uid] = r
+
+    acad = []
+    # First, emit all 2012 records, enriching with 2023 data where the same UNITID exists
+    seen_unitids = set()
+    for r in data.get('academic', []):
+        rec = {'type': 'academic'}
+        for col, key in [('unitid','unitid'),('name','name'),('city','city'),('state','state'),
+                         ('fips','fips'),('zip','zip'),('website','website'),('year','year'),
+                         ('control','control'),('sector','sector'),('locale','locale'),
+                         ('carnegie','carnegie'),('student_fte','sfte'),
+                         ('stlibs','slf'),('sttot','stf'),('swlibpro','slsal'),('swtot','stsal'),
+                         ('exbks','xbks'),('extot','xtot'),('colbksa','coll'),('presen','pres')]:
+            val = (r.get(col, '') or '').strip()
+            if val:
+                rec[key] = val
+        # Enrich with 2023 data if available (newer collection/expenditure/staff figures)
+        uid = rec.get('unitid', '')
+        a23 = acad_2023_map.get(uid)
+        if a23:
+            rec['y23'] = '2023'
+            for col, key in [('extot','xtot23'),('colbksa','coll23'),('sttot','stf23'),
+                            ('swlibpro','slsal23'),('exbks','xbks23'),
+                            ('pbooks','pbks'),('ebooks','ebks'),('pmedia','pmed'),('emedia','emed'),
+                            ('pserials','pser'),('eserials','eser'),('edatabase','edb'),
+                            ('tcirc','tcirc'),('ill_provided','illp'),('ill_received','illr'),
+                            ('branches','brch')]:
+                val = (a23.get(col, '') or '').strip()
+                if val:
+                    rec[key] = val
+            seen_unitids.add(uid)
+        acad.append(rec)
+
+    # Add 2023-only institutions (not in 2012 data — new or reclassified)
+    for r in data.get('academic_2023', []):
+        uid = (r.get('unitid') or '').strip()
+        if uid in seen_unitids:
+            continue
+        rec = {'type': 'academic'}
+        for col, key in [('unitid','unitid'),('name','name'),('city','city'),('state','state'),
+                         ('fips','fips'),('zip','zip'),('website','website'),
+                         ('control','control'),('sector','sector'),('locale','locale'),
+                         ('stlibs','slf'),('sttot','stf'),('swlibpro','slsal'),('swtot','stsal'),
+                         ('exbks','xbks'),('extot','xtot'),('colbksa','coll'),
+                         ('pbooks','pbks'),('ebooks','ebks'),('pmedia','pmed'),('emedia','emed'),
+                         ('pserials','pser'),('eserials','eser'),('edatabase','edb'),
+                         ('tcirc','tcirc'),('ill_provided','illp'),('ill_received','illr'),
+                         ('branches','brch')]:
+            val = (r.get(col, '') or '').strip()
+            if val:
+                rec[key] = val
+        rec['year'] = '2023'
+        rec['y23'] = '2023'
+        acad.append(rec)
+
+    with open(os.path.join(DATA_OUT, 'academic_libraries.json'), 'w') as f:
+        json.dump(acad, f, separators=(',',':'))
+    print(f"  academic_libraries.json: {len(acad)} records (ALS 2012 + IPEDS 2023 merged)")
+
+    # Stats
+    stats = compute_stats(data)
+    with open(os.path.join(DATA_OUT, 'stats.json'), 'w') as f:
+        json.dump(stats, f, indent=2)
+    print(f"  stats.json generated")
+    return stats
+
+def compute_stats(data):
+    pub = data['public']
+    priv = data['private']
+    gov = data['gov']
+
+    def pct(n, d):
+        return f"{100*n/d:.1f}%" if d else "0%"
+
+    pub_rated = sum(1 for r in pub if (r.get('reviews_rating') or '').strip())
+    pub_web = sum(1 for r in pub if (r.get('website') or '').strip())
+    pub_email = sum(1 for r in pub if (r.get('email') or '').strip())
+    pub_social = sum(1 for r in pub if any((r.get(c) or '').strip() for c in ['facebook','twitter','instagram','youtube']))
+    pub_demo = sum(1 for r in pub if (r.get('area_population') or '').strip())
+
+    priv_rated = sum(1 for r in priv if (r.get('reviews_rating') or '').strip())
+    priv_web = sum(1 for r in priv if (r.get('website') or '').strip())
+
+    gov_live = sum(1 for r in gov if (r.get('url_live','') or '').strip().lower() in ('true','1','yes'))
+
+    # By tier
+    tier_stats = {}
+    for tier in ['federal','state','county','city','tribal','special']:
+        tier_rows = [r for r in gov if r.get('_tier') == tier]
+        tier_live = sum(1 for r in tier_rows if (r.get('url_live','') or '').strip().lower() in ('true','1','yes'))
+        tier_stats[tier] = {'total': len(tier_rows), 'live': tier_live, 'pct': pct(tier_live, len(tier_rows))}
+
+    # By state
+    state_stats = {}
+    for st in STATE_NAMES:
+        st_pub = sum(1 for r in pub if r.get('state','') == st)
+        st_priv = sum(1 for r in priv if r.get('state','') == st)
+        st_gov = sum(1 for r in gov if r.get('state','') == st)
+        if st_pub or st_priv or st_gov:
+            state_stats[st] = {'name': STATE_NAMES[st], 'pub': st_pub, 'priv': st_priv, 'gov': st_gov}
+
+    # Top rated libraries (min 5 reviews)
+    top_rated = []
+    for r in pub:
+        rating_s = (r.get('reviews_rating') or '').strip()
+        rcount_s = (r.get('reviews_count') or '').strip()
+        if not rating_s:
+            continue
+        try:
+            rating = float(rating_s)
+            rcount = int(rcount_s) if rcount_s else 0
+        except (ValueError, TypeError):
+            continue
+        if rcount >= 5:
+            top_rated.append({
+                'name': r.get('name', ''), 'city': r.get('city', ''),
+                'state': r.get('state', ''), 'rating': rating,
+                'rcount': rcount, 'website': r.get('website', ''),
+            })
+    top_rated.sort(key=lambda x: (-x['rating'], -x['rcount']))
+    top_rated = top_rated[:15]
+
+    # Services breakdown (individual service counts)
+    svc_counter = Counter()
+    for r in data['services']:
+        svcs = (r.get('services') or '').strip()
+        if svcs:
+            for s in svcs.split('|'):
+                s = s.strip()
+                if s:
+                    svc_counter[s] += 1
+    services_breakdown = [{'name': k, 'count': v} for k, v in svc_counter.most_common(20)]
+
+    # State rankings (top 10 by total nodes)
+    state_ranking = sorted(state_stats.items(), key=lambda x: x[1]['pub'] + x[1]['priv'] + x[1]['gov'], reverse=True)[:10]
+    state_ranking = [{'code': st, **info} for st, info in state_ranking]
+
+    # Funding stats
+    funding_vals = []
+    for r in pub:
+        ft = (r.get('funding_total') or '').strip()
+        if ft:
+            try:
+                funding_vals.append(float(ft))
+            except (ValueError, TypeError):
+                pass
+    funding_stats = {
+        'total': sum(funding_vals) if funding_vals else 0,
+        'avg': sum(funding_vals) / len(funding_vals) if funding_vals else 0,
+        'count': len(funding_vals),
+    }
+
+    # Demographics
+    incomes = []
+    for r in pub:
+        inc = (r.get('median_household_income') or '').strip()
+        if inc:
+            try:
+                incomes.append(float(inc))
+            except (ValueError, TypeError):
+                pass
+    demo_stats = {
+        'avg_income': sum(incomes) / len(incomes) if incomes else 0,
+        'income_count': len(incomes),
+    }
+
+    # ---- Infrastructure (sqft + collection_size) ----
+    sqft_vals = []
+    coll_vals = []
+    for r in pub:
+        sf = (r.get('size_sqft') or '').strip()
+        cs = (r.get('collection_size') or '').strip()
+        if sf:
+            try: sqft_vals.append(float(sf))
+            except (ValueError, TypeError): pass
+        if cs:
+            try: coll_vals.append(float(cs))
+            except (ValueError, TypeError): pass
+    infra_stats = {
+        'total_sqft': int(sum(sqft_vals)) if sqft_vals else 0,
+        'total_collection': int(sum(coll_vals)) if coll_vals else 0,
+        'avg_sqft': int(sum(sqft_vals) / len(sqft_vals)) if sqft_vals else 0,
+        'avg_collection': int(sum(coll_vals) / len(coll_vals)) if coll_vals else 0,
+        'sqft_count': len(sqft_vals),
+        'coll_count': len(coll_vals),
+    }
+
+    # ---- Biggest libraries by sqft ----
+    biggest = []
+    for r in pub:
+        sf = (r.get('size_sqft') or '').strip()
+        if not sf: continue
+        try: sf_val = float(sf)
+        except (ValueError, TypeError): continue
+        biggest.append({
+            'name': r.get('name', ''), 'city': r.get('city', ''),
+            'state': r.get('state', ''), 'sqft': int(sf_val),
+            'collection': (r.get('collection_size') or '').strip(),
+        })
+    biggest.sort(key=lambda x: -x['sqft'])
+    biggest_libraries = biggest[:10]
+
+    # ---- Books per capita (collection / population_served) ----
+    bpc = []
+    for r in pub:
+        cs = (r.get('collection_size') or '').strip()
+        ps = (r.get('population_served') or '').strip()
+        if not cs or not ps: continue
+        try:
+            coll = int(cs); pop = int(ps)
+        except (ValueError, TypeError): continue
+        if pop >= 1000 and coll > 0:
+            bpc.append({
+                'name': r.get('name', ''), 'city': r.get('city', ''),
+                'state': r.get('state', ''), 'collection': coll,
+                'population': pop, 'ratio': coll / pop,
+            })
+    bpc.sort(key=lambda x: -x['ratio'])
+    books_per_capita = bpc[:10]
+
+    # ---- Funding source breakdown (parse "local $X; state $Y; federal $Z") ----
+    import re
+    src_totals = {'local': 0, 'state': 0, 'federal': 0, 'county': 0, 'other': 0}
+    src_counts = {'local': 0, 'state': 0, 'federal': 0, 'county': 0, 'other': 0}
+    for r in pub:
+        fs = (r.get('funding_source') or '').strip()
+        if not fs: continue
+        for part in fs.split(';'):
+            part = part.strip()
+            if not part: continue
+            # Extract dollar amount
+            m = re.search(r'\$?([\d,]+)', part)
+            amt = 0
+            if m:
+                try: amt = float(m.group(1).replace(',', ''))
+                except (ValueError, TypeError): pass
+            pl = part.lower()
+            matched = False
+            for key in ['local', 'state', 'federal', 'county', 'other']:
+                if key in pl or (key == 'other' and not matched):
+                    src_totals[key] += amt
+                    src_counts[key] += 1
+                    matched = True
+                    if key != 'other': break
+    src_grand = sum(src_totals.values()) or 1
+    funding_sources = [
+        {'source': k.title(), 'total': src_totals[k], 'count': src_counts[k],
+         'pct': f"{100 * src_totals[k] / src_grand:.1f}%"}
+        for k in ['local', 'state', 'federal', 'county', 'other']
+        if src_totals[k] > 0 or src_counts[k] > 0
+    ]
+
+    # ---- Poverty stats ----
+    poverty_vals = []
+    for r in pub:
+        pv = (r.get('pct_below_poverty') or '').strip()
+        if pv:
+            try: poverty_vals.append(float(pv))
+            except (ValueError, TypeError): pass
+    poverty_stats = {
+        'avg': sum(poverty_vals) / len(poverty_vals) if poverty_vals else 0,
+        'min': min(poverty_vals) if poverty_vals else 0,
+        'max': max(poverty_vals) if poverty_vals else 0,
+        'count': len(poverty_vals),
+        'high_poverty': sum(1 for v in poverty_vals if v > 30),
+    }
+
+    # ---- Government web tech stack ----
+    from collections import Counter as C2
+    server_counter = C2()
+    status_counter = C2()
+    for r in gov:
+        srv = (r.get('server') or '').strip()
+        if srv:
+            # Normalize: keep first word / main product name
+            srv_clean = srv.split('/')[0].split(' ')[0].strip()
+            if srv_clean:
+                server_counter[srv_clean] += 1
+        st = (r.get('http_status') or '').strip()
+        if st:
+            status_counter[st] += 1
+    gov_tech = {
+        'servers': [{'name': k, 'count': v} for k, v in server_counter.most_common(10)],
+        'statuses': [{'code': k, 'count': v} for k, v in sorted(status_counter.items())],
+        'total_checked': len(gov),
+    }
+
+    # ---- Agency timeline (established_year) ----
+    agencies_with_year = []
+    seen_names = set()
+    for r in data['gov_services']:
+        yr = (r.get('established_year') or '').strip()
+        name = (r.get('agency_name') or '').strip()
+        if yr and yr.isdigit() and name not in seen_names:
+            seen_names.add(name)
+            agencies_with_year.append({
+                'name': name, 'level': r.get('level', ''),
+                'state': r.get('state', ''), 'year': int(yr),
+            })
+    agencies_with_year.sort(key=lambda x: x['year'])
+    agency_timeline = {
+        'oldest': agencies_with_year[:10],
+        'newest': list(reversed(agencies_with_year[-5:])),
+    }
+
+    stats = {
+        'total_nodes': len(pub) + len(priv) + len(gov),
+        'public': {
+            'total': len(pub), 'rated': pub_rated, 'rated_pct': pct(pub_rated, len(pub)),
+            'websites': pub_web, 'web_pct': pct(pub_web, len(pub)),
+            'emails': pub_email, 'email_pct': pct(pub_email, len(pub)),
+            'social': pub_social, 'social_pct': pct(pub_social, len(pub)),
+            'demographics': pub_demo, 'demo_pct': pct(pub_demo, len(pub)),
+        },
+        'private': {
+            'total': len(priv), 'rated': priv_rated, 'rated_pct': pct(priv_rated, len(priv)),
+            'websites': priv_web, 'web_pct': pct(priv_web, len(priv)),
+        },
+        'gov': {
+            'total': len(gov), 'live': gov_live, 'live_pct': pct(gov_live, len(gov)),
+            'tiers': tier_stats,
+        },
+        'hours': len(data['hours']),
+        'services': len(data['services']),
+        'gov_services': len(data['gov_services']),
+        'states': state_stats,
+        'top_rated': top_rated,
+        'services_breakdown': services_breakdown,
+        'state_ranking': state_ranking,
+        'funding': funding_stats,
+        'demographics': demo_stats,
+        'infrastructure': infra_stats,
+        'biggest_libraries': biggest_libraries,
+        'books_per_capita': books_per_capita,
+        'funding_sources': funding_sources,
+        'poverty_stats': poverty_stats,
+        'gov_tech': gov_tech,
+        'agency_timeline': agency_timeline,
+    }
+
+    # ---- PLS operational aggregates ----
+    def _agg(col):
+        vals = []
+        for r in pub:
+            v = (r.get(col) or '').strip()
+            if v:
+                try:
+                    vals.append(float(v))
+                except (ValueError, TypeError):
+                    pass
+        return {'total': int(sum(vals)) if vals else 0,
+                'avg': round(sum(vals) / len(vals)) if vals else 0,
+                'count': len(vals)} if vals else None
+
+    pls_ops = {}
+    for col, label in [('annual_visits','visits'), ('total_circulation','circulation'),
+                       ('ecirculation','ecirc'), ('pcirculation','pcir'),
+                       ('total_programs','programs'), ('program_attendance','attendance'),
+                       ('wifi_sessions','wifi'), ('internet_terminals','terminals'),
+                       ('registered_borrowers','borrowers'),
+                       ('ill_to','ill_to'), ('ill_from','ill_from'),
+                       ('total_staff','staff'), ('librarian_staff','librarians'),
+                       ('branch_count','branches'), ('bookmobiles','bookmobiles')]:
+        a = _agg(col)
+        if a:
+            pls_ops[label] = a
+    stats['pls_operations'] = pls_ops
+
+    # ---- Extended ACS demographics aggregates ----
+    acs_ext = {}
+    for col, label in [('pct_bachelors_plus','bachelors'), ('pct_computer_household','computer'),
+                       ('pct_internet_household','internet'), ('pct_non_english_home','non_english')]:
+        a = _agg(col)
+        if a:
+            acs_ext[label] = {'avg': round(a['avg'], 1), 'count': a['count']}
+    stats['acs_extended'] = acs_ext
+
+    # ---- Broadband access aggregates ----
+    def _avg_pct(col):
+        vals = []
+        for r in pub:
+            v = (r.get(col) or '').strip()
+            if v:
+                try: vals.append(float(v))
+                except (ValueError, TypeError): pass
+        return {'avg': round(sum(vals)/len(vals), 1) if vals else 0,
+                'count': len(vals)} if vals else None
+
+    broadband_stats = {}
+    for col, label in [('pct_broadband_subscriber','broadband'),
+                       ('pct_fixed_broadband','fixed'),
+                       ('pct_cellular_broadband','cellular'),
+                       ('pct_no_internet','no_internet'),
+                       ('pct_no_computer','no_computer'),
+                       ('pct_dialup_only','dialup'),
+                       ('pct_low_income_no_internet','li_no_internet')]:
+        a = _avg_pct(col)
+        if a:
+            broadband_stats[label] = a
+    stats['broadband'] = broadband_stats
+
+    # ---- Worst digital divide (low-income / overall no-internet ratio) ----
+    by_divide = []
+    for r in pub:
+        d = (r.get('broadband_digital_divide') or '').strip()
+        if d:
+            try:
+                ratio = float(d)
+                ni = (r.get('pct_no_internet') or '').strip()
+                li = (r.get('pct_low_income_no_internet') or '').strip()
+                if ratio > 0:
+                    by_divide.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                      'state': r.get('state',''), 'divide': ratio,
+                                      'no_internet': float(ni) if ni else 0,
+                                      'li_no_internet': float(li) if li else 0})
+            except (ValueError, TypeError):
+                pass
+    by_divide.sort(key=lambda x: -x['divide'])
+    stats['worst_digital_divide'] = by_divide[:10]
+
+    # ---- Lowest broadband access communities ----
+    by_low_bb = []
+    for r in pub:
+        bb = (r.get('pct_broadband_subscriber') or '').strip()
+        if bb:
+            try:
+                val = float(bb)
+                if val < 50:  # Under 50% broadband — genuinely underserved
+                    by_low_bb.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                      'state': r.get('state',''), 'broadband': val,
+                                      'no_internet': float((r.get('pct_no_internet') or '0').strip() or 0),
+                                      'no_computer': float((r.get('pct_no_computer') or '0').strip() or 0)})
+            except (ValueError, TypeError):
+                pass
+    by_low_bb.sort(key=lambda x: x['broadband'])
+    stats['lowest_broadband'] = by_low_bb[:10]
+
+    # ---- FCC broadband infrastructure availability ----
+    fcc_gig_vals = []
+    fcc_fiber_vals = []
+    fcc_rural_vals = []
+    for r in pub:
+        for col, bucket in [('fcc_gigabit_avail', fcc_gig_vals),
+                           ('fcc_fiber_avail', fcc_fiber_vals),
+                           ('fcc_rural_pct', fcc_rural_vals)]:
+            v = (r.get(col) or '').strip()
+            if v:
+                try: bucket.append(float(v))
+                except (ValueError, TypeError): pass
+    stats['fcc_broadband'] = {
+        'gigabit_avg': round(sum(fcc_gig_vals)/len(fcc_gig_vals), 1) if fcc_gig_vals else 0,
+        'fiber_avg': round(sum(fcc_fiber_vals)/len(fcc_fiber_vals), 1) if fcc_fiber_vals else 0,
+        'rural_avg': round(sum(fcc_rural_vals)/len(fcc_rural_vals), 1) if fcc_rural_vals else 0,
+        'count': len(fcc_gig_vals),
+    }
+
+    # ---- Communities with worst gigabit infrastructure ----
+    by_low_gig = []
+    for r in pub:
+        g = (r.get('fcc_gigabit_avail') or '').strip()
+        if g:
+            try:
+                val = float(g)
+                if val < 25:  # Under 25% gigabit availability
+                    fiber = (r.get('fcc_fiber_avail') or '0').strip()
+                    rural = (r.get('fcc_rural_pct') or '').strip()
+                    by_low_gig.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                       'state': r.get('state',''), 'gigabit': val,
+                                       'fiber': float(fiber) if fiber else 0,
+                                       'rural': float(rural) if rural else 0})
+            except (ValueError, TypeError):
+                pass
+    by_low_gig.sort(key=lambda x: x['gigabit'])
+    stats['lowest_gigabit'] = by_low_gig[:10]
+
+    # ---- FCC Census Place (town-level) broadband availability ----
+    # This is the most precise per-library broadband figure — matched by city+state to
+    # the FCC National Broadband Map's Census Place granularity.
+    pgig_vals, p100_vals, p25_vals, pfib_vals = [], [], [], []
+    for r in pub:
+        for col, bucket in [('fcc_place_gigabit', pgig_vals),
+                           ('fcc_place_100_20', p100_vals),
+                           ('fcc_place_25_3', p25_vals),
+                           ('fcc_place_fiber', pfib_vals)]:
+            v = (r.get(col) or '').strip()
+            if v:
+                try: bucket.append(float(v))
+                except (ValueError, TypeError): pass
+    stats['fcc_place'] = {
+        'gigabit_avg': round(sum(pgig_vals)/len(pgig_vals), 1) if pgig_vals else 0,
+        'bb100_avg': round(sum(p100_vals)/len(p100_vals), 1) if p100_vals else 0,
+        'bb25_avg': round(sum(p25_vals)/len(p25_vals), 1) if p25_vals else 0,
+        'fiber_avg': round(sum(pfib_vals)/len(pfib_vals), 1) if pfib_vals else 0,
+        'count': len(pgig_vals),
+        'under25_gigabit': sum(1 for v in pgig_vals if v < 25),
+        'under25_100': sum(1 for v in p100_vals if v < 25),
+        'no_fiber': sum(1 for v in pfib_vals if v < 5),
+    }
+
+    # ---- Library towns with worst gigabit availability (Census Place level) ----
+    # Town-level is more accurate than county for identifying underserved library communities.
+    place_low_gig = []
+    for r in pub:
+        g = (r.get('fcc_place_gigabit') or '').strip()
+        if g:
+            try:
+                val = float(g)
+                if val < 25:
+                    fiber = (r.get('fcc_place_fiber') or '0').strip()
+                    locs = (r.get('fcc_place_locations') or '').strip()
+                    place_low_gig.append({
+                        'name': r.get('name',''), 'city': r.get('city',''),
+                        'state': r.get('state',''), 'gigabit': val,
+                        'fiber': float(fiber) if fiber else 0,
+                        'locations': int(float(locs)) if locs else 0,
+                    })
+            except (ValueError, TypeError):
+                pass
+    place_low_gig.sort(key=lambda x: x['gigabit'])
+    stats['lowest_place_gigabit'] = place_low_gig[:15]
+
+    # ---- Top libraries by annual visits ----
+    by_visits = []
+    for r in pub:
+        v = (r.get('annual_visits') or '').strip()
+        if v:
+            try:
+                by_visits.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                  'state': r.get('state',''), 'visits': int(float(v))})
+            except (ValueError, TypeError):
+                pass
+    by_visits.sort(key=lambda x: -x['visits'])
+    stats['most_visited'] = by_visits[:10]
+
+    # ---- Top libraries by circulation ----
+    by_circ = []
+    for r in pub:
+        v = (r.get('total_circulation') or '').strip()
+        if v:
+            try:
+                by_circ.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                'state': r.get('state',''), 'circulation': int(float(v))})
+            except (ValueError, TypeError):
+                pass
+    by_circ.sort(key=lambda x: -x['circulation'])
+    stats['most_circulated'] = by_circ[:10]
+
+    stats['generated'] = now_str()
+
+    # ---- State Library Agencies (SLAA FY2024) ----
+    slaa = data.get('slaa', [])
+    slaa_by_state = {}
+    slaa_budget_vals = []
+    slaa_staff_vals = []
+    slaa_lsta_vals = []
+    slaa_exp_vals = []
+    slaa_aid_vals = []
+    for r in slaa:
+        st = (r.get('state') or '').strip().upper()
+        if st:
+            slaa_by_state[st] = r
+        for col, bucket in [('budget_total', slaa_budget_vals), ('staff_total', slaa_staff_vals),
+                           ('budget_federal_lsta', slaa_lsta_vals),
+                           ('expenditures_total', slaa_exp_vals),
+                           ('expenditures_aid_to_libraries', slaa_aid_vals)]:
+            v = (r.get(col) or '').strip()
+            if v:
+                try: bucket.append(float(v))
+                except (ValueError, TypeError): pass
+    # Total population served by all SLAA agencies
+    slaa_pop_vals = []
+    for r in slaa:
+        v = (r.get('population_served') or '').strip()
+        if v:
+            try: slaa_pop_vals.append(float(v))
+            except (ValueError, TypeError): pass
+    total_pop = sum(slaa_pop_vals) if slaa_pop_vals else 1
+    total_budget = sum(slaa_budget_vals) if slaa_budget_vals else 0
+    stats['slaa'] = {
+        'agencies': len(slaa),
+        'total_budget': int(total_budget),
+        'total_lsta': int(sum(slaa_lsta_vals)) if slaa_lsta_vals else 0,
+        'total_staff': round(sum(slaa_staff_vals)) if slaa_staff_vals else 0,
+        'total_expenditures': int(sum(slaa_exp_vals)) if slaa_exp_vals else 0,
+        'total_aid': int(sum(slaa_aid_vals)) if slaa_aid_vals else 0,
+        'avg_budget': int(total_budget / len(slaa_budget_vals)) if slaa_budget_vals else 0,
+        'per_capita': round(total_budget / total_pop, 2) if total_pop > 1 else 0,
+        'with_website': sum(1 for r in slaa if (r.get('website') or '').strip()),
+        'with_archive': sum(1 for r in slaa if (r.get('has_state_archive') or '') == 'yes'),
+        'with_museum': sum(1 for r in slaa if (r.get('has_state_museum') or '') == 'yes'),
+        'independent': sum(1 for r in slaa if (r.get('is_independent_agency') or '') == 'yes'),
+        'population_served': int(total_pop),
+    }
+    stats['slaa_by_state'] = slaa_by_state
+
+    # ---- SLAA Historical Trends (FY2018-FY2024) ----
+    slaa_nat = data.get('slaa_national', [])
+    if slaa_nat:
+        slaa_trend_years = sorted([int(r.get('year', 0) or 0) for r in slaa_nat if r.get('year')])
+        slaa_trend_budget = [(r.get('year',''), r.get('income_total','')) for r in sorted(slaa_nat, key=lambda x: int(x.get('year',0) or 0))]
+        slaa_trend_staff = [(r.get('year',''), r.get('staff_fte','')) for r in sorted(slaa_nat, key=lambda x: int(x.get('year',0) or 0))]
+        slaa_trend_expenditures = [(r.get('year',''), r.get('expenditures_total','')) for r in sorted(slaa_nat, key=lambda x: int(x.get('year',0) or 0))]
+        slaa_trend_aid = [(r.get('year',''), r.get('aid_to_libraries','')) for r in sorted(slaa_nat, key=lambda x: int(x.get('year',0) or 0))]
+        slaa_trend_lsta = [(r.get('year',''), r.get('lsta_income','')) for r in sorted(slaa_nat, key=lambda x: int(x.get('year',0) or 0))]
+        stats['slaa_trends'] = {
+            'trend_years': slaa_trend_years,
+            'trend_budget': slaa_trend_budget,
+            'trend_staff': slaa_trend_staff,
+            'trend_expenditures': slaa_trend_expenditures,
+            'trend_aid': slaa_trend_aid,
+            'trend_lsta': slaa_trend_lsta,
+        }
+
+    # ---- Federal Depository Libraries (GPO FDLP) ----
+    fdlp = data.get('fdlp', [])
+    fdlp_by_state = {}
+    fdlp_regional = []
+    for r in fdlp:
+        st = (r.get('state', '') or '').strip().upper()
+        if st:
+            fdlp_by_state[st] = fdlp_by_state.get(st, 0) + 1
+        dtype = (r.get('depository_type', '') or '').strip()
+        if dtype == 'Regional':
+            fdlp_regional.append({
+                'name': r.get('library_name', ''),
+                'state': st, 'parent': r.get('parent_institution', ''),
+                'type': r.get('library_type', ''),
+            })
+    fdlp_regional.sort(key=lambda r: (r['state'], r['name']))
+    # Largest depository libraries by number of titles selected
+    fdlp_largest = []
+    for r in fdlp:
+        tc = (r.get('pdt_titles_count', '') or '').strip()
+        if tc:
+            try:
+                fdlp_largest.append({
+                    'name': r.get('library_name', ''),
+                    'state': (r.get('state', '') or '').strip().upper(),
+                    'parent': r.get('parent_institution', ''),
+                    'dtype': r.get('depository_type', ''),
+                    'titles': int(tc),
+                })
+            except (ValueError, TypeError):
+                pass
+    fdlp_largest.sort(key=lambda x: -x['titles'])
+    stats['fdlp'] = {
+        'total': len(fdlp),
+        'regional': sum(1 for r in fdlp if (r.get('depository_type', '') or '').strip() == 'Regional'),
+        'selective': sum(1 for r in fdlp if (r.get('depository_type', '') or '').strip() == 'Selective'),
+        'preservation_stewards': sum(1 for r in fdlp if (r.get('preservation_steward', '') or '').strip().lower() == 'yes'),
+        'by_state': fdlp_by_state,
+        'regional_list': fdlp_regional,
+        'largest': fdlp_largest[:15],
+    }
+
+    # ---- Academic Library Survey (NCES ALS 2000-2012 + IPEDS 2023) ----
+    acad = data.get('academic', [])
+    acad_2023 = data.get('academic_2023', [])
+    als_nat = data.get('als_national', [])
+    als_st = data.get('als_by_state', [])
+
+    # 2023 national aggregates (e-books, e-serials, ILL — new in IPEDS)
+    ebooks_total = 0; eserials_total = 0; edatabase_total = 0
+    ill_provided_total = 0; ill_received_total = 0; tcirc_total = 0
+    pbooks_total = 0; coll23_total = 0; exp23_total = 0; staff23_total = 0
+    for r in acad_2023:
+        def _safe_int(col):
+            v = (r.get(col) or '').strip()
+            try: return int(float(v)) if v else 0
+            except (ValueError, TypeError): return 0
+        ebooks_total += _safe_int('ebooks')
+        eserials_total += _safe_int('eserials')
+        edatabase_total += _safe_int('edatabase')
+        ill_provided_total += _safe_int('ill_provided')
+        ill_received_total += _safe_int('ill_received')
+        tcirc_total += _safe_int('tcirc')
+        pbooks_total += _safe_int('pbooks')
+        coll23_total += _safe_int('colbksa')
+        exp23_total += _safe_int('extot')
+        staff23_total += _safe_int('sttot')
+
+    stats['academic'] = {
+        'institutions_2012': len(acad),
+        'institutions_2023': len(acad_2023),
+        'trend_years': [int(r.get('year', 0)) for r in als_nat if r.get('year')],
+        'trend_institutions': [int(r.get('institutions', 0) or 0) for r in als_nat],
+        'trend_staff_fte': [int(r.get('staff_total_fte_total', 0) or 0) for r in als_nat],
+        'trend_expenditures': [int(r.get('expend_total', 0) or 0) for r in als_nat],
+        'trend_collections': [int(r.get('collection_books_total', 0) or 0) for r in als_nat],
+        'trend_presentations': [int(r.get('presentations_total', 0) or 0) for r in als_nat],
+        'trend_salaries': [int(r.get('salaries_total', 0) or 0) for r in als_nat],
+        'trend_student_fte': [int(r.get('student_fte_total', 0) or 0) for r in als_nat],
+        # 2023 IPEDS-only metrics
+        'ebooks_2023': ebooks_total,
+        'eserials_2023': eserials_total,
+        'edatabase_2023': edatabase_total,
+        'ill_provided_2023': ill_provided_total,
+        'ill_received_2023': ill_received_total,
+        'tcirc_2023': tcirc_total,
+        'pbooks_2023': pbooks_total,
+        'collection_2023': coll23_total,
+        'expenditures_2023': exp23_total,
+        'staff_2023': staff23_total,
+    }
+    # Largest academic libraries by collection — use 2023 data if available, else 2012
+    by_coll = []
+    # Prefer 2023 collection data (includes e-resources)
+    for r in acad_2023:
+        v = (r.get('colbksa') or '').strip()
+        if v:
+            try:
+                extot_v = (r.get('extot') or '').strip()
+                sttot_v = (r.get('sttot') or '').strip()
+                by_coll.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                'state': r.get('state',''), 'collection': int(float(v)),
+                                'expenditure': int(float(extot_v)) if extot_v else 0,
+                                'staff_fte': int(float(sttot_v)) if sttot_v else 0,
+                                'year': 2023})
+            except (ValueError, TypeError):
+                pass
+    # Fall back to 2012 for institutions not in 2023
+    unitids_2023 = set((r.get('unitid') or '').strip() for r in acad_2023)
+    for r in acad:
+        uid = (r.get('unitid') or '').strip()
+        if uid in unitids_2023:
+            continue
+        v = (r.get('colbksa') or '').strip()
+        if v:
+            try:
+                by_coll.append({'name': r.get('name',''), 'city': r.get('city',''),
+                                'state': r.get('state',''), 'collection': int(float(v)),
+                                'expenditure': int(float(r.get('extot', 0) or 0)) if r.get('extot') else 0,
+                                'staff_fte': int(float(r.get('sttot', 0) or 0)) if r.get('sttot') else 0,
+                                'year': 2012})
+            except (ValueError, TypeError):
+                pass
+    by_coll.sort(key=lambda x: -x['collection'])
+    stats['academic_largest'] = by_coll[:15]
+    # Largest by expenditure
+    by_exp = sorted([x for x in by_coll if x['expenditure']], key=lambda x: -x['expenditure'])
+    stats['academic_largest_exp'] = by_exp[:15]
+    # State-level aggregates — use 2023 where available, fall back to 2012
+    als_by_state_latest = {}
+    for r in als_st:
+        if (r.get('year', '') or '').strip() == '2023':
+            st = (r.get('state', '') or '').strip()
+            if st:
+                als_by_state_latest[st] = {
+                    'institutions': int(r.get('institutions', 0) or 0),
+                    'staff_fte': int(r.get('staff_total_fte_total', 0) or 0),
+                    'expenditures': int(r.get('expend_total', 0) or 0),
+                    'collections': int(r.get('collection_books_total', 0) or 0),
+                    'presentations': int(r.get('presentations_total', 0) or 0),
+                    'salaries': int(r.get('salaries_total', 0) or 0),
+                    'student_fte': int(r.get('student_fte_total', 0) or 0),
+                    'year': 2023,
+                }
+    # Fill in states that don't have 2023 data with 2012
+    for r in als_st:
+        if (r.get('year', '') or '').strip() == '2012':
+            st = (r.get('state', '') or '').strip()
+            if st and st not in als_by_state_latest:
+                als_by_state_latest[st] = {
+                    'institutions': int(r.get('institutions', 0) or 0),
+                    'staff_fte': int(r.get('staff_total_fte_total', 0) or 0),
+                    'expenditures': int(r.get('expend_total', 0) or 0),
+                    'collections': int(r.get('collection_books_total', 0) or 0),
+                    'presentations': int(r.get('presentations_total', 0) or 0),
+                    'salaries': int(r.get('salaries_total', 0) or 0),
+                    'student_fte': int(r.get('student_fte_total', 0) or 0),
+                    'year': 2012,
+                }
+    stats['academic_by_state_2012'] = als_by_state_latest
+
+    # ---- Public Library Historical Trends (IMLS PLS 2000-2024) ----
+    pls_nat = data.get('pls_national', [])
+    pls_st = data.get('pls_by_state', [])
+    stats['pls_trends'] = {
+        'trend_years': [int(r.get('year', 0)) for r in pls_nat if r.get('year')],
+        'trend_systems': [int(r.get('systems', 0) or 0) for r in pls_nat],
+        'trend_population': [int(r.get('popu_lsa_total', 0) or 0) for r in pls_nat],
+        'trend_staff_fte': [int(r.get('totstaff_total', 0) or 0) for r in pls_nat],
+        'trend_visits': [int(r.get('visits_total', 0) or 0) for r in pls_nat],
+        'trend_circulation': [int(r.get('totcir_total', 0) or 0) for r in pls_nat],
+        'trend_expenditures': [int(r.get('totexpco_total', 0) or 0) for r in pls_nat],
+        'trend_book_volumes': [int(r.get('bkvol_total', 0) or 0) for r in pls_nat],
+        'trend_capital_exp': [int(r.get('capital_total', 0) or 0) for r in pls_nat],
+        'trend_elmat_exp': [int(r.get('elmatexp_total', 0) or 0) for r in pls_nat],
+        'trend_outlets': [int(r.get('centlib_total', 0) or 0) + int(r.get('branlib_total', 0) or 0) + int(r.get('bkmob_total', 0) or 0) for r in pls_nat],
+        'trend_librarian_fte': [int(r.get('libraria_total', 0) or 0) for r in pls_nat],
+        'trend_children_attendance': [int(r.get('kidatten_total', 0) or 0) for r in pls_nat],
+        'trend_children_circ': [int(r.get('kidcircl_total', 0) or 0) for r in pls_nat],
+        'trend_reference': [int(r.get('referenc_total', 0) or 0) for r in pls_nat],
+        'trend_ill_to': [int(r.get('loanto_total', 0) or 0) for r in pls_nat],
+        'trend_ill_from': [int(r.get('loanfm_total', 0) or 0) for r in pls_nat],
+    }
+    # PLS state-level latest (FY2024) for state pages
+    pls_latest_by_state = {}
+    for r in pls_st:
+        if (r.get('year', '') or '').strip() == '2024':
+            st = (r.get('state', '') or '').strip()
+            if st:
+                pls_latest_by_state[st] = {
+                    'systems': int(r.get('systems', 0) or 0),
+                    'population': int(r.get('popu_lsa_total', 0) or 0),
+                    'staff_fte': int(r.get('totstaff_total', 0) or 0),
+                    'visits': int(r.get('visits_total', 0) or 0),
+                    'circulation': int(r.get('totcir_total', 0) or 0),
+                    'expenditures': int(r.get('totexpco_total', 0) or 0),
+                }
+    stats['pls_by_state_latest'] = pls_latest_by_state
+
+    # ---- IPEDS institutional characteristics (Carnegie, control, HBCU, tribal, etc.) ----
+    cs = data.get('carnegie_summary', {})
+    stats['institution_characteristics'] = cs if cs else {}
+
+    # ---- PLS FY2024 Digital Services & Programs ----
+    stats['pls_digital'] = data.get('pls_fy2024_digital', {})
+
+    # ---- SLAA State Agency Services (summer reading, literacy, digitization, accessibility) ----
+    stats['slaa_services'] = data.get('slaa_services', {})
+
+    # ---- Book Censorship Database (EveryLibrary Institute / Magnusson) ----
+    stats['book_censorship'] = data.get('book_censorship', {})
+
+    # ---- NTIA Tribal Broadband Connectivity Program (TBCP) ----
+    stats['tribal_broadband'] = data.get('tribal_broadband', {})
+
+    # ---- USAC Emergency Connectivity Fund (ECF) ----
+    stats['ecf'] = data.get('ecf', {})
+
+    # ---- BLS Librarian Salaries (OES May 2024) ----
+    stats['bls_salaries'] = data.get('bls_salaries', {})
+
+    # ---- FCC Affordable Connectivity Program (ACP) ----
+    stats['acp'] = data.get('acp', {})
+
+    # ---- USAC E-Rate (library funding, FCC Form 471) ----
+    stats['erate'] = data.get('erate', {})
+
+    # ---- NTIA BEAD broadband allocations ----
+    stats['bead'] = data.get('bead', {})
+
+    # ---- Library ballot measures (EveryLibrary) ----
+    stats['ballot'] = data.get('ballot', {})
+
+    # ---- Library usage survey data (Pew Research + Gallup + NEA 2022) ----
+    stats['library_usage'] = data.get('library_usage', {})
+
+    # ---- ALA State of America's Libraries Report 2024 ----
+    stats['ala_report'] = data.get('ala_report', {})
+
+    # ---- IMLS Grant Awards (1996-2025) ----
+    gy = data.get('imls_grants_year', [])
+    gs = data.get('imls_grants_state', [])
+    gs_recent = data.get('imls_grants_recent_state', [])
+    gp = data.get('imls_grants_program', [])
+    gl = data.get('imls_grants_largest', [])
+    grants_total = sum(int(r.get('total_awarded', 0) or 0) for r in gy) if gy else 0
+    grants_count = sum(int(r.get('grants', 0) or 0) for r in gy) if gy else 0
+    grants_years = [int(r.get('year', 0)) for r in gy if r.get('year')] if gy else []
+    grants_trend_amounts = [int(r.get('total_awarded', 0) or 0) for r in gy] if gy else []
+    grants_trend_counts = [int(r.get('grants', 0) or 0) for r in gy] if gy else []
+    # Merge old (1996-2013) + recent (2014-2025) state data for combined totals
+    state_totals = {}
+    for r in gs:
+        st = (r.get('state') or '').strip()
+        if st:
+            state_totals[st] = {'state': st, 'grants': int(r.get('grants', 0) or 0),
+                                'total_awarded': int(r.get('total_awarded', 0) or 0),
+                                'institutions': int(r.get('institutions', 0) or 0)}
+    for r in gs_recent:
+        st = (r.get('state') or '').strip()
+        if st:
+            if st not in state_totals:
+                state_totals[st] = {'state': st, 'grants': 0, 'total_awarded': 0, 'institutions': 0}
+            state_totals[st]['grants'] += int(r.get('count', 0) or 0)
+            state_totals[st]['total_awarded'] += int(float(r.get('amount', 0) or 0))
+    grants_top_states = sorted(state_totals.values(), key=lambda x: -x['total_awarded'])[:15] if state_totals else []
+    # Top 10 programs by grant count
+    grants_top_programs = sorted(gp, key=lambda r: -int(r.get('grants', 0) or 0))[:12] if gp else []
+    stats['imls_grants'] = {
+        'total_count': grants_count,
+        'total_amount': grants_total,
+        'year_range': f"{min(grants_years)}–{max(grants_years)}" if grants_years else '',
+        'trend_years': grants_years,
+        'trend_amounts': grants_trend_amounts,
+        'trend_counts': grants_trend_counts,
+        'top_states': grants_top_states,
+        'top_programs': grants_top_programs,
+        'largest': gl[:15] if gl else [],
+    }
+    # G2S (Grants to States) — formula funding
+    g2s_yr = data.get('imls_g2s_year', [])
+    g2s_st = data.get('imls_g2s_state', [])
+    g2s_total = sum(int(float(r.get('amount', 0) or 0)) for r in g2s_yr) if g2s_yr else 0
+    g2s_years = [int(r.get('year', 0)) for r in g2s_yr if r.get('year')] if g2s_yr else []
+    g2s_amounts = [int(float(r.get('amount', 0) or 0)) for r in g2s_yr] if g2s_yr else []
+    # Top states by total G2S amount + per-capita
+    g2s_state_totals = {}
+    for r in g2s_st:
+        st = (r.get('state') or '').strip()
+        if not st:
+            continue
+        if st not in g2s_state_totals:
+            g2s_state_totals[st] = {'state': st, 'amount': 0, 'per_capita': 0}
+        g2s_state_totals[st]['amount'] += int(float(r.get('amount', 0) or 0))
+        pc = float(r.get('per_capita', 0) or 0)
+        if pc > g2s_state_totals[st]['per_capita']:
+            g2s_state_totals[st]['per_capita'] = pc
+    g2s_top_states = sorted(g2s_state_totals.values(), key=lambda x: -x['amount'])[:15] if g2s_state_totals else []
+    g2s_top_percapita = sorted([s for s in g2s_state_totals.values() if s['per_capita'] > 0], key=lambda x: -x['per_capita'])[:10] if g2s_state_totals else []
+    stats['imls_g2s'] = {
+        'total_amount': g2s_total,
+        'year_range': f"{min(g2s_years)}–{max(g2s_years)}" if g2s_years else '',
+        'trend_years': g2s_years,
+        'trend_amounts': g2s_amounts,
+        'top_states': g2s_top_states,
+        'top_percapita': g2s_top_percapita,
+    }
+
+    # ---- Library consortia ----
+    consortia = data.get('consortia', [])
+    us_consortia = [c for c in consortia if 'United States' in (c.get('region','') or '') or (c.get('region','') or '').strip() == 'US']
+    stats['consortia'] = {
+        'total': len(consortia),
+        'us_total': len(us_consortia),
+        'with_website': sum(1 for c in consortia if (c.get('website','') or '').strip()),
+        'sources': sorted(set((c.get('source','') or '').strip() for c in consortia)),
+    }
+    stats['consortia_list'] = sorted(us_consortia, key=lambda c: (c.get('consortium_name','') or '').lower())
+
+    return stats
+
+# ---------------------------------------------------------------------------
+# Build pages
+# ---------------------------------------------------------------------------
+def build_index(data, stats):
+    print("[build] Building index.html...")
+    pub = stats['public']
+    priv = stats['private']
+    gov = stats['gov']
+
+    body = f"""
+<p class="contentSub">From the US Library Census Wiki</p>
+<div class="wiki-sub">A living dataset of every public and private library, and every government website, in the United States.</div>
+
+<div class="hosted-strip">
+  <b>{stats['total_nodes']:,}</b> nodes mapped · {pub['total']:,} public libraries · {priv['total']:,} private libraries · {gov['total']:,} government websites · updated {stats['generated']}
+</div>
+
+<div class="mw-welcome">
+  <h2>Welcome to the US Library Census</h2>
+  <p>This wiki presents an automated, continuously-enriched dataset covering every known
+  public library, academic/special library, and federal/state/county/city government
+  website in the United States. Each record carries address, geocoordinates, website,
+  funding, contact details, review ratings, hours, services, and area demographics.</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{stats['total_nodes']:,}</div><div class="label">Total nodes</div></div>
+  <div class="stat-card"><div class="num">{pub['total']:,}</div><div class="label">Public libraries</div></div>
+  <div class="stat-card"><div class="num">{priv['total']:,}</div><div class="label">Private libraries</div></div>
+  <div class="stat-card"><div class="num">{gov['total']:,}</div><div class="label">Gov websites</div></div>
+  <div class="stat-card"><div class="num">{gov['live']:,}</div><div class="label">Gov sites live</div></div>
+  <div class="stat-card"><div class="num">{pub['rated']:,}</div><div class="label">Libraries rated</div></div>
+</div>
+
+<h2 id="map">Interactive Map</h2>
+<div class="map-embed">
+  <iframe src="map.html" title="US Library Census Map"></iframe>
+</div>
+<p style="text-align:center"><a href="map.html">Open full-page map →</a></p>
+
+<h2 id="gov">Government Website Tiers</h2>
+<div class="gov-cards">"""
+
+    tier_labels = {
+        'federal':'Federal','state':'State','county':'County',
+        'city':'City','tribal':'Tribal','special':'Special/Interstate'
+    }
+    for tier in ['federal','state','county','city','tribal','special']:
+        ts = gov['tiers'].get(tier, {'total':0,'live':0,'pct':'0%'})
+        body += f"""
+    <div class="gov-card">
+      <h3>{tier_labels[tier]}</h3>
+      <div class="gov-num">{ts['total']:,}</div>
+      <div class="gov-live">{ts['live']:,} live</div>
+      <div class="gov-pct">{ts['pct']} verified</div>
+    </div>"""
+
+    body += f"""
+</div>
+<p><a href="gov.html">Government sites overview →</a></p>
+
+<h2 id="coverage">Data Coverage</h2>
+<table class="coverage-table">
+  <tr><th>Dataset</th><th>Rows</th><th>Websites</th><th>Ratings</th><th>Emails</th><th>Social</th><th>Demographics</th></tr>
+  <tr>
+    <td><a href="search.html?type=public">Public libraries</a></td>
+    <td>{pub['total']:,}</td>
+    <td class="pct">{pub['web_pct']}</td>
+    <td class="pct">{pub['rated_pct']}</td>
+    <td class="pct">{pub['email_pct']}</td>
+    <td class="pct">{pub['social_pct']}</td>
+    <td class="pct">{pub['demo_pct']}</td>
+  </tr>
+  <tr>
+    <td><a href="search.html?type=private">Private/academic</a></td>
+    <td>{priv['total']:,}</td>
+    <td class="pct">{priv['web_pct']}</td>
+    <td class="pct">{priv['rated_pct']}</td>
+    <td>—</td><td>—</td><td>—</td>
+  </tr>
+  <tr>
+    <td><a href="search.html?type=gov">Government sites</a></td>
+    <td>{gov['total']:,}</td>
+    <td>100%</td>
+    <td>—</td><td>—</td><td>—</td><td>—</td>
+  </tr>
+  <tr>
+    <td>Library hours</td>
+    <td>{stats['hours']:,}</td>
+    <td colspan="5">3,909 sites with structured hours extracted</td>
+  </tr>
+  <tr>
+    <td>Library services</td>
+    <td>{stats['services']:,}</td>
+    <td colspan="5">ebooks, printing, meeting rooms, storytime, and 16 more service keywords</td>
+  </tr>
+  <tr>
+    <td>Gov services</td>
+    <td>{stats['gov_services']:,}</td>
+    <td colspan="5">680 federal/state agencies with detailed service summaries</td>
+  </tr>
+</table>"""
+
+    # ---- Funding & Demographics cards ----
+    fund = stats['funding']
+    demo = stats['demographics']
+    fund_total_str = f"${fund['total']/1e9:,.1f}B" if fund['total'] >= 1e9 else f"${fund['total']/1e6:,.0f}M"
+    fund_avg_str = f"${fund['avg']/1e6:,.1f}M" if fund['avg'] >= 1e6 else f"${fund['avg']:,.0f}"
+    income_str = f"${demo['avg_income']:,.0f}"
+
+    body += f"""
+
+<h2 id="funding">Funding &amp; Demographics</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fund_total_str}</div><div class="label">Total public-library funding</div></div>
+  <div class="stat-card"><div class="num">{fund_avg_str}</div><div class="label">Average funding per library</div></div>
+  <div class="stat-card"><div class="num">{fund['count']:,}</div><div class="label">Libraries with funding data</div></div>
+  <div class="stat-card"><div class="num">{income_str}</div><div class="label">Avg. median household income</div></div>
+  <div class="stat-card"><div class="num">{demo['income_count']:,}</div><div class="label">Areas with income data</div></div>
+</div>
+<p class="rsrc">Funding totals from the IMLS Public Libraries Survey (funding_total column). Demographics from Census ACS area-level estimates.</p>"""
+
+    # ---- Library Infrastructure ----
+    infra = stats['infrastructure']
+    total_sqft_str = f"{infra['total_sqft']/1e6:,.0f}M" if infra['total_sqft'] >= 1e6 else f"{infra['total_sqft']:,}"
+    total_coll_str = f"{infra['total_collection']/1e6:,.1f}M" if infra['total_collection'] >= 1e6 else f"{infra['total_collection']:,}"
+
+    body += f"""
+
+<h2 id="infrastructure">Library Infrastructure</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_sqft_str}</div><div class="label">Total square footage</div></div>
+  <div class="stat-card"><div class="num">{total_coll_str}</div><div class="label">Total collection items</div></div>
+  <div class="stat-card"><div class="num">{infra['avg_sqft']:,}</div><div class="label">Avg building size (sqft)</div></div>
+  <div class="stat-card"><div class="num">{infra['avg_collection']:,}</div><div class="label">Avg collection size</div></div>
+</div>
+<p class="rsrc">Building sizes and collection sizes from the IMLS Public Libraries Survey. Covers {infra['sqft_count']:,} libraries with sqft data and {infra['coll_count']:,} with collection data.</p>
+
+<h2 id="biggest">Biggest Libraries by Building Size</h2>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Sqft</th><th>Collection</th></tr>"""
+
+    for i, lib in enumerate(stats['biggest_libraries'], 1):
+        coll_str = f"{int(lib['collection']):,}" if lib['collection'] else '—'
+        body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td class="pct">{lib["sqft"]:,}</td>
+    <td>{coll_str}</td>
+  </tr>"""
+
+    body += f"""
+</table>
+
+<h2 id="bpc">Books Per Capita — Most Books Per Person</h2>
+<p class="wiki-sub">Communities where the public library has the most books relative to population served. A novel metric: collection size ÷ population served (minimum 1,000 population).</p>
+<table class="wikitable bpc-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Collection</th><th>Population</th><th>Books/Capita</th></tr>"""
+
+    for i, lib in enumerate(stats['books_per_capita'], 1):
+        body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td>{lib["collection"]:,}</td>
+    <td>{lib["population"]:,}</td>
+    <td class="pct">{lib["ratio"]:.1f}</td>
+  </tr>"""
+
+    body += f"""
+</table>
+
+<h2 id="funding-sources">Funding Sources</h2>
+<p class="wiki-sub">Where public library funding comes from: local, state, and federal dollars.</p>
+<div class="funding-bars">"""
+
+    max_fund = max((s['total'] for s in stats['funding_sources']), default=1) or 1
+    for src in stats['funding_sources']:
+        fund_str = f"${src['total']/1e9:,.1f}B" if src['total'] >= 1e9 else f"${src['total']/1e6:,.0f}M"
+        pct_w = (src['total'] / max_fund) * 100
+        body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(src["source"])}</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{fund_str} ({src["pct"]})</span>
+  </div>"""
+
+    # Poverty stats
+    pov = stats['poverty_stats']
+    body += f"""
+</div>
+
+<h2 id="poverty">Poverty & Age Demographics</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pov["avg"]:.1f}%</div><div class="label">Avg poverty rate</div></div>
+  <div class="stat-card"><div class="num">{pov["min"]:.1f}%</div><div class="label">Lowest poverty rate</div></div>
+  <div class="stat-card"><div class="num">{pov["max"]:.1f}%</div><div class="label">Highest poverty rate</div></div>
+  <div class="stat-card"><div class="num">{pov["high_poverty"]:,}</div><div class="label">Libraries in high-poverty areas (>30%)</div></div>
+  <div class="stat-card"><div class="num">{pov["count"]:,}</div><div class="label">Areas with poverty data</div></div>
+</div>
+<p class="rsrc">Poverty rates from Census ACS (pct_below_poverty column). {pov["high_poverty"]:,} libraries serve communities where over 30% of residents live below the poverty line.</p>
+
+<h2 id="operations">Library Operations — National Scale</h2>"""
+
+    ops = stats.get('pls_operations', {})
+    if ops:
+        def _fmt_total(key, suffix=''):
+            d = ops.get(key)
+            if not d: return '—'
+            v = d['total']
+            if v >= 1e9: return f"{v/1e9:.1f}B{suffix}"
+            if v >= 1e6: return f"{v/1e6:.1f}M{suffix}"
+            if v >= 1e3: return f"{v/1e3:.1f}K{suffix}"
+            return f"{v:,}{suffix}"
+
+        body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{_fmt_total('visits')}</div><div class="label">Annual visits</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('circulation')}</div><div class="label">Items circulated/yr</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('ecirc')}</div><div class="label">E-material circulation</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('pcir')}</div><div class="label">Physical circulation</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('attendance')}</div><div class="label">Program attendance</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('programs')}</div><div class="label">Programs offered</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('wifi')}</div><div class="label">WiFi sessions</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('borrowers')}</div><div class="label">Registered borrowers</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('ill_to')}</div><div class="label">ILL — loaned out</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('ill_from')}</div><div class="label">ILL — borrowed in</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('branches')}</div><div class="label">Branch libraries</div></div>
+  <div class="stat-card"><div class="num">{_fmt_total('bookmobiles')}</div><div class="label">Bookmobiles</div></div>
+</div>
+<p class="rsrc">Operational data from IMLS Public Libraries Survey FY2024 (AE/system level). Averages are per library system. Totals are national sums across {ops.get('visits',{}).get('count','—'):,} reporting systems.</p>"""
+
+    # Most visited libraries
+    most_vis = stats.get('most_visited', [])
+    if most_vis:
+        body += """
+<h2 id="most-visited">Most-Visited Libraries</h2>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Annual Visits</th></tr>"""
+        for i, lib in enumerate(most_vis, 1):
+            body += f"""
+  <tr><td>{i}</td><td>{esc(lib['name'])}</td><td>{esc(lib['city']) or '—'}</td><td>{esc(lib['state'])}</td><td>{lib['visits']:,}</td></tr>"""
+        body += "</table>"
+
+    # Most circulated
+    most_circ = stats.get('most_circulated', [])
+    if most_circ:
+        body += """
+<h2 id="most-circulated">Most-Active Libraries by Circulation</h2>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Annual Circulation</th></tr>"""
+        for i, lib in enumerate(most_circ, 1):
+            body += f"""
+  <tr><td>{i}</td><td>{esc(lib['name'])}</td><td>{esc(lib['city']) or '—'}</td><td>{esc(lib['state'])}</td><td>{lib['circulation']:,}</td></tr>"""
+        body += "</table>"
+
+    # Extended ACS demographics
+    acs_ext = stats.get('acs_extended', {})
+    if acs_ext:
+        body += f"""
+<h2 id="community-context">Community Context — Education, Technology & Language</h2>
+<div class="stats-grid">"""
+        if 'bachelors' in acs_ext:
+            body += f'<div class="stat-card"><div class="num">{acs_ext["bachelors"]["avg"]:.1f}%</div><div class="label">Avg bachelor\'s+ (25+)</div></div>'
+        if 'computer' in acs_ext:
+            body += f'<div class="stat-card"><div class="num">{acs_ext["computer"]["avg"]:.1f}%</div><div class="label">Homes with a computer</div></div>'
+        if 'internet' in acs_ext:
+            body += f'<div class="stat-card"><div class="num">{acs_ext["internet"]["avg"]:.1f}%</div><div class="label">Homes with internet</div></div>'
+        if 'non_english' in acs_ext:
+            body += f'<div class="stat-card"><div class="num">{acs_ext["non_english"]["avg"]:.1f}%</div><div class="label">Non-English at home</div></div>'
+        body += """</div>
+<p class="rsrc">Extended demographics from Census ACS 2023 5-year estimates (county-level for education/computer/internet, state-level for language).</p>"""
+
+    # ---- Community Broadband Access ----
+    bb = stats.get('broadband', {})
+    if bb:
+        body += f"""
+<h2 id="broadband">Community Broadband Access</h2>
+<p class="wiki-sub">How connected are the communities that libraries serve? Broadband subscription rates, digital divide metrics, and the communities most in need of library internet access — from Census ACS 2023 5-year estimates (B28003, B28004, B28008).</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bb.get('broadband',{}).get('avg',0):.1f}%</div><div class="label">Avg broadband subscription</div></div>
+  <div class="stat-card"><div class="num">{bb.get('fixed',{}).get('avg',0):.1f}%</div><div class="label">Avg fixed broadband</div></div>
+  <div class="stat-card"><div class="num">{bb.get('cellular',{}).get('avg',0):.1f}%</div><div class="label">Avg cellular data plan</div></div>
+  <div class="stat-card"><div class="num">{bb.get('no_internet',{}).get('avg',0):.1f}%</div><div class="label">Avg no internet at home</div></div>
+  <div class="stat-card"><div class="num">{bb.get('no_computer',{}).get('avg',0):.1f}%</div><div class="label">Avg no computer at home</div></div>
+  <div class="stat-card"><div class="num">{bb.get('dialup',{}).get('avg',0):.1f}%</div><div class="label">Avg dial-up only</div></div>
+  <div class="stat-card"><div class="num">{bb.get('li_no_internet',{}).get('avg',0):.1f}%</div><div class="label">Low-income no internet</div></div>
+  <div class="stat-card"><div class="num">{bb.get('broadband',{}).get('count',0):,}</div><div class="label">Communities with data</div></div>
+</div>
+<p class="rsrc">The digital divide: low-income households (under $10K/yr) are far less likely to have internet. Across reporting communities, {bb.get('li_no_internet',{}).get('avg',0):.1f}% of low-income households lack internet vs {bb.get('no_internet',{}).get('avg',0):.1f}% overall. Libraries bridge this gap with public WiFi and computer terminals.</p>"""
+
+        # Worst digital divide table
+        worst_div = stats.get('worst_digital_divide', [])
+        if worst_div:
+            body += """
+<h3>Worst Digital Divide — Communities Where Libraries Are Most Critical</h3>
+<p class="wiki-sub">Communities where the gap between low-income and overall internet access is largest. A divide ratio of 5.0× means low-income households are 5 times more likely to lack internet than the general population.</p>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Divide Ratio</th><th>No Internet (overall)</th><th>No Internet (low-income)</th></tr>"""
+            for i, lib in enumerate(worst_div, 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td class="pct">{lib["divide"]:.1f}×</td>
+    <td>{lib["no_internet"]:.1f}%</td>
+    <td>{lib["li_no_internet"]:.1f}%</td>
+  </tr>"""
+            body += "</table>"
+
+        # Lowest broadband access table
+        low_bb = stats.get('lowest_broadband', [])
+        if low_bb:
+            body += """
+<h3>Lowest Broadband Access — America's Least-Connected Communities</h3>
+<p class="wiki-sub">Public libraries serving communities where fewer than half of households have broadband internet. These libraries are often the only source of free internet access.</p>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Broadband %</th><th>No Internet</th><th>No Computer</th></tr>"""
+            for i, lib in enumerate(low_bb, 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td class="pct">{lib["broadband"]:.1f}%</td>
+    <td>{lib["no_internet"]:.1f}%</td>
+    <td>{lib["no_computer"]:.1f}%</td>
+  </tr>"""
+            body += "</table>"
+
+    # ---- FCC Broadband Infrastructure Availability ----
+    fcc = stats.get('fcc_broadband', {})
+    if fcc and fcc.get('count'):
+        body += f"""
+
+<h2 id="fcc-broadband">FCC Broadband Infrastructure Availability</h2>
+<p class="wiki-sub">The supply side: what broadband infrastructure ISPs have actually deployed in each community, from the FCC National Broadband Map (Dec 2025, BDC data). While the ACS data above shows what households <em>subscribe to</em>, this shows what's <em>available</em> — fiber, gigabit, and rural coverage rates.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fcc['gigabit_avg']:.1f}%</div><div class="label">Avg gigabit availability</div></div>
+  <div class="stat-card"><div class="num">{fcc['fiber_avg']:.1f}%</div><div class="label">Avg fiber availability</div></div>
+  <div class="stat-card"><div class="num">{fcc['rural_avg']:.1f}%</div><div class="label">Avg rural locations</div></div>
+  <div class="stat-card"><div class="num">{fcc['count']:,}</div><div class="label">Counties with FCC data</div></div>
+</div>
+<p class="rsrc">FCC BDC deployment data (Dec 31, 2025 filing). Gigabit = 1000/100 Mbps available; Fiber = any-speed fiber to the premises. "Any Technology" broadband (25/3 Mbps, including satellite) is available to ~100% of locations nationwide — the real infrastructure gap is in gigabit and fiber deployment.</p>"""
+
+        low_gig = stats.get('lowest_gigabit', [])
+        if low_gig:
+            body += """
+<h3>Communities Without Gigabit Infrastructure — The Infrastructure Gap</h3>
+<p class="wiki-sub">Public libraries serving communities where fewer than 25% of locations have gigabit broadband available. These are places where the library may be the fastest internet connection available.</p>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Gigabit Avail</th><th>Fiber Avail</th><th>Rural %</th></tr>"""
+            for i, lib in enumerate(low_gig, 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td class="pct">{lib["gigabit"]:.1f}%</td>
+    <td>{lib["fiber"]:.1f}%</td>
+    <td>{lib["rural"]:.1f}%</td>
+  </tr>"""
+            body += "</table>"
+
+    # ---- FCC Census Place (town-level) Broadband ----
+    fccp = stats.get('fcc_place', {})
+    if fccp and fccp.get('count'):
+        body += f"""
+
+<h2 id="fcc-place-broadband">Town-Level Broadband Availability (FCC Census Place)</h2>
+<p class="wiki-sub">The most precise broadband picture available — measured at the <strong>town/city level</strong> (Census Place), not county. Matched to each library by city + state using the FCC National Broadband Map's per-state Census Place files (Dec 2025 BDC deployment data). This reveals the true infrastructure gap libraries face, since broadband can vary dramatically between towns within a single county.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fccp['gigabit_avg']:.1f}%</div><div class="label">Avg town gigabit availability</div></div>
+  <div class="stat-card"><div class="num">{fccp['bb100_avg']:.1f}%</div><div class="label">Avg town 100/20 Mbps</div></div>
+  <div class="stat-card"><div class="num">{fccp['fiber_avg']:.1f}%</div><div class="label">Avg town fiber availability</div></div>
+  <div class="stat-card"><div class="num">{fccp['count']:,}</div><div class="label">Library towns with data</div></div>
+  <div class="stat-card"><div class="num">{fccp['under25_gigabit']:,}</div><div class="label">Towns &lt;25% gigabit</div></div>
+  <div class="stat-card"><div class="num">{fccp['no_fiber']:,}</div><div class="label">Towns with &lt;5% fiber</div></div>
+</div>
+<p class="rsrc">FCC BDC deployment data at Census Place (incorporated town/city) granularity, Dec 31 2025 filing. "Gigabit" = 1000/100 Mbps available to serviceable locations; "100/20" = the FCC's current broadband definition; "Fiber" = fiber-to-the-premises at any speed. These figures are independent of the county-level FCC data above — they reflect the specific town each library sits in.</p>"""
+
+        place_low = stats.get('lowest_place_gigabit', [])
+        if place_low:
+            body += """
+<h3>Library Towns Without Gigabit Infrastructure — Town-Level View</h3>
+<p class="wiki-sub">Public libraries in towns where fewer than 25% of serviceable locations have gigabit broadband available. Because this is town-level, it catches underserved communities that county averages hide — a single well-connected city can mask a dozen rural towns in the same county.</p>
+<table class="wikitable biggest-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Gigabit Avail</th><th>Fiber Avail</th><th>Serviceable Locations</th></tr>"""
+            for i, lib in enumerate(place_low, 1):
+                locs_str = f"{lib['locations']:,}" if lib['locations'] else '—'
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a></td>
+    <td>{esc(lib["city"]) or "—"}</td>
+    <td>{esc(lib["state"]) or "—"}</td>
+    <td class="pct">{lib["gigabit"]:.1f}%</td>
+    <td>{lib["fiber"]:.1f}%</td>
+    <td>{locs_str}</td>
+  </tr>"""
+            body += "</table>"
+
+    body += f"""
+<h2 id="top-rated">Top-Rated Libraries</h2>
+<table class="wikitable top-rated-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Rating</th><th>Reviews</th></tr>"""
+
+    for i, lib in enumerate(stats['top_rated'], 1):
+        city = esc(lib['city']) or '—'
+        state = esc(lib['state']) or '—'
+        name_html = f'<a href="search.html?q={esc(lib["name"])}">{esc(lib["name"])}</a>'
+        if lib.get('website'):
+            name_html += f' <a href="{esc(lib["website"])}" target="_blank" rel="noopener" class="ext-link" title="Website"></a>'
+        body += f"""
+  <tr>
+    <td>{i}</td>
+    <td>{name_html}</td>
+    <td>{city}</td>
+    <td>{state}</td>
+    <td class="rating">&#9733; {lib['rating']:.1f}</td>
+    <td>{lib['rcount']:,}</td>
+  </tr>"""
+
+    body += f"""
+</table>
+<p class="rsrc">Libraries with a 5.0 average rating and at least 5 reviews, ranked by review count.</p>
+
+<h2 id="services">Most Common Library Services</h2>
+<div class="services-bars">"""
+
+    max_svc = stats['services_breakdown'][0]['count'] if stats['services_breakdown'] else 1
+    for svc in stats['services_breakdown']:
+        pct_w = (svc['count'] / max_svc) * 100
+        body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(svc['name'])}</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{svc['count']:,}</span>
+  </div>"""
+
+    body += f"""
+</div>
+<p class="rsrc">Service keywords extracted from {stats['services']:,} library service descriptions. Longer bars = more libraries offer this service.</p>
+
+<h2 id="consortia">Library Consortia</h2>"""
+
+    cons = stats.get('consortia', {})
+    cons_list = stats.get('consortia_list', [])
+    if cons_list:
+        body += f"""
+<p>{cons['us_total']:,} US library consortia — cooperative networks that share catalogs, interlibrary loan, and joint purchasing. Data from Wikipedia + ICOLC.</p>
+<table class="wikitable consortia-table">
+  <tr><th>Consortium</th><th>Abbreviation</th><th>Website</th><th>Region</th><th>Source</th></tr>"""
+        for c in cons_list:
+            name = esc(c.get('consortium_name',''))
+            abbr = esc(c.get('abbreviation','')) or '—'
+            web = (c.get('website','') or '').strip()
+            web_html = f'<a href="{esc(web)}" target="_blank" rel="noopener">{esc(web)}</a>' if web else '—'
+            region = esc(c.get('region','') or 'US')
+            source = esc(c.get('source','') or '')
+            body += f'\n  <tr><td>{name}</td><td>{abbr}</td><td>{web_html}</td><td>{region}</td><td>{source}</td></tr>'
+        body += f"""
+</table>
+<p class="rsrc">{cons['total']:,} total consortia ({cons['us_total']:,} US-based, {cons['with_website']:,} with websites). Sources: {", ".join(cons['sources'])}.</p>"""
+    else:
+        body += "\n<p>No consortia data available.</p>"
+
+    # ---- State Library Agencies (SLAA FY2024) ----
+    sl = stats.get('slaa', {})
+    if sl and sl.get('agencies'):
+        sb = sl['total_budget']
+        sl_budget_str = f"${sb/1e9:,.2f}B" if sb >= 1e9 else f"${sb/1e6:,.0f}M"
+        sl_lsta_str = f"${sl['total_lsta']/1e6:,.0f}M" if sl['total_lsta'] >= 1e6 else f"${sl['total_lsta']:,}"
+        sl_exp_str = f"${sl['total_expenditures']/1e9:,.2f}B" if sl['total_expenditures'] >= 1e9 else f"${sl['total_expenditures']/1e6:,.0f}M"
+        sl_aid_str = f"${sl['total_aid']/1e6:,.0f}M" if sl['total_aid'] >= 1e6 else f"${sl['total_aid']:,}"
+        sl_avg_str = f"${sl['avg_budget']/1e6:,.1f}M" if sl['avg_budget'] >= 1e6 else f"${sl['avg_budget']:,}"
+
+        body += f"""
+
+<h2 id="slaa">State Library Agencies (SLAA FY2024)</h2>
+<p class="wiki-sub">The 50 state library agencies + DC — the bodies that administer federal LSTA funds, set statewide standards, and run aid programs. From the IMLS State Library Administrative Agency Survey, FY2024.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{sl_budget_str}</div><div class="label">Total agency income</div></div>
+  <div class="stat-card"><div class="num">{sl_lsta_str}</div><div class="label">Federal LSTA funds</div></div>
+  <div class="stat-card"><div class="num">{sl['total_staff']:,}</div><div class="label">Total agency staff (FTE)</div></div>
+  <div class="stat-card"><div class="num">${sl['per_capita']:.2f}</div><div class="label">Per-capita spending</div></div>
+  <div class="stat-card"><div class="num">{sl['agencies']}</div><div class="label">State agencies</div></div>
+  <div class="stat-card"><div class="num">{sl['population_served']:,}</div><div class="label">Population served</div></div>
+  <div class="stat-card"><div class="num">{sl['independent']}</div><div class="label">Independent agencies</div></div>
+  <div class="stat-card"><div class="num">{sl['with_archive']}</div><div class="label">With state archive</div></div>
+  <div class="stat-card"><div class="num">{sl['with_museum']}</div><div class="label">With state museum</div></div>
+  <div class="stat-card"><div class="num">{sl['with_website']}</div><div class="label">With website</div></div>
+</div>
+<p class="rsrc">SLAA income = state + federal (LSTA) + other sources. Expenditures: {sl_exp_str} total ({sl_aid_str} as aid to libraries). Average agency budget: {sl_avg_str}. Data: IMLS SLAA FY2024.</p>
+<table class="wikitable slaa-table">
+  <tr><th>State</th><th>Agency</th><th>Budget</th><th>LSTA</th><th>Staff</th><th>Services</th><th>Website</th></tr>"""
+
+        slaa_rows = sorted(data.get('slaa', []), key=lambda r: float(r.get('budget_total') or 0), reverse=True)
+        for r in slaa_rows:
+            st_code = esc((r.get('state') or '').upper())
+            name = esc(r.get('agency_name') or '')
+            bt = (r.get('budget_total') or '').strip()
+            bt_str = f"${int(float(bt)):,}" if bt else '—'
+            lt = (r.get('budget_federal_lsta') or '').strip()
+            lt_str = f"${int(float(lt)):,}" if lt else '—'
+            st_val = (r.get('staff_total') or '').strip()
+            st_str = f"{float(st_val):.0f}" if st_val else '—'
+            sc = (r.get('services_count') or '').strip()
+            sc_str = f"{sc} programs" if sc else '—'
+            web = (r.get('website') or '').strip()
+            web_html = f'<a href="{esc(web)}" target="_blank" rel="noopener">site</a>' if web else '—'
+            body += f'\n  <tr><td><a href="states/{st_code}.html">{st_code}</a></td><td>{name}</td><td class="pct">{bt_str}</td><td>{lt_str}</td><td>{st_str}</td><td>{sc_str}</td><td>{web_html}</td></tr>'
+
+        body += '\n</table>'
+
+    # ---- SLAA State Agency Services (summer reading, literacy, digitization, accessibility) ----
+    slaa_svc = stats.get('slaa_services', {})
+    if slaa_svc and slaa_svc.get('services'):
+        body += f"""
+
+<h3>What state library agencies actually do — services offered (FY2024)</h3>
+<p class="wiki-sub">Beyond funding, state library agencies provide direct services: summer reading coordination, literacy programs, digitization, continuing education, and accessibility. This shows what percentage of the 51 state agencies offer each service.</p>
+<div class="services-bars">"""
+        max_svc = max(s.get('states', 0) for s in slaa_svc['services']) or 51
+        for s in slaa_svc['services']:
+            cnt = s.get('states', 0)
+            pct_w = (cnt / max_svc) * 100
+            body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(s["service"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt} states ({s.get("pct", 0)}%)</span>
+  </div>"""
+        body += '\n</div>'
+
+        # Summer reading by age group
+        sra = slaa_svc.get('summer_reading_by_age', {})
+        if sra:
+            age_labels = {'early_childhood': 'Early Childhood', 'middle_childhood': 'Middle Childhood',
+                          'young_adult': 'Young Adult', 'adult': 'Adult', 'older_adult': 'Older Adult'}
+            body += """
+<h4>Summer reading programs by age group</h4>
+<div class="services-bars">"""
+            max_sra = max(sra.values()) or 51
+            for age, cnt in sorted(sra.items(), key=lambda x: -x[1]):
+                pct_w = (cnt / max_sra) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{age_labels.get(age, age)}</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt} states</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Numeric metrics
+        nm = slaa_svc.get('numeric', {})
+        if nm:
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nm.get('circulation',{}).get('total',0):,}</div><div class="label">Agency circulation</div></div>
+  <div class="stat-card"><div class="num">{nm.get('library_visits',{}).get('total',0):,}</div><div class="label">Agency library visits</div></div>
+  <div class="stat-card"><div class="num">{nm.get('events',{}).get('total',0):,}</div><div class="label">Events held</div></div>
+  <div class="stat-card"><div class="num">{nm.get('event_attendance',{}).get('total',0):,}</div><div class="label">Event attendance</div></div>
+</div>"""
+
+        body += '<p class="rsrc">Data: IMLS State Library Administrative Agency Survey (SLAA) FY2024. Service fields indicate whether the state agency provides or supports each service type. A-E suffixes denote library types: A=Public, B=Academic, C=School, D=Special, E=Other.</p>'
+
+    # ---- SLAA Historical Trends (FY2018-FY2024) ----
+    slaa_tr = stats.get('slaa_trends', {})
+    if slaa_tr and slaa_tr.get('trend_years'):
+        sty = slaa_tr['trend_years']
+        sty_n = len(sty)
+        slaa_first_yr = sty[0]
+        slaa_last_yr = sty[-1]
+        def _val(trend_list, idx):
+            v = trend_list[idx][1] if idx < len(trend_list) else ''
+            try: return float(v) if v else 0
+            except: return 0
+        slaa_budget_first = _val(slaa_tr['trend_budget'], 0)
+        slaa_budget_last = _val(slaa_tr['trend_budget'], -1)
+        slaa_staff_first = _val(slaa_tr['trend_staff'], 0)
+        slaa_staff_last = _val(slaa_tr['trend_staff'], -1)
+        slaa_exp_last = _val(slaa_tr['trend_expenditures'], -1)
+        slaa_aid_last = _val(slaa_tr['trend_aid'], -1)
+        slaa_lsta_last = _val(slaa_tr['trend_lsta'], -1)
+        def _chg(f, l):
+            return ((l - f) / f * 100) if f else 0
+        budget_chg = _chg(slaa_budget_first, slaa_budget_last)
+        staff_chg = _chg(slaa_staff_first, slaa_staff_last)
+
+        body += f"""
+
+<h2 id="slaa-trends">State Agency Trends (SLAA FY{slaa_first_yr}–FY{slaa_last_yr})</h2>
+<p class="wiki-sub">How state library agencies' funding and staffing have changed over {sty_n} vintages. State agencies are the conduit for federal LSTA dollars — their budgets reveal whether state-level library investment is keeping pace with inflation and growing responsibilities.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${slaa_budget_last/1e9:,.2f}B</div><div class="label">Latest total income (FY{slaa_last_yr})</div></div>
+  <div class="stat-card"><div class="num">{'+' if budget_chg >= 0 else ''}{budget_chg:.1f}%</div><div class="label">Income change FY{slaa_first_yr}→{slaa_last_yr}</div></div>
+  <div class="stat-card"><div class="num">{slaa_staff_last:,.0f}</div><div class="label">Staff FTE (FY{slaa_last_yr})</div></div>
+  <div class="stat-card"><div class="num">{'+' if staff_chg >= 0 else ''}{staff_chg:.1f}%</div><div class="label">Staff change FY{slaa_first_yr}→{slaa_last_yr}</div></div>
+  <div class="stat-card"><div class="num">${slaa_lsta_last/1e6:,.0f}M</div><div class="label">Federal LSTA (FY{slaa_last_yr})</div></div>
+  <div class="stat-card"><div class="num">${slaa_aid_last/1e6:,.0f}M</div><div class="label">Aid to libraries (FY{slaa_last_yr})</div></div>
+</div>"""
+        # Trend table
+        body += """
+<table class="wikitable trend-table">
+  <tr><th>Fiscal Year</th><th>Total Income</th><th>LSTA Income</th><th>Expenditures</th><th>Aid to Libraries</th><th>Staff FTE</th></tr>"""
+        for i in range(sty_n):
+            yr = sty[i]
+            b = _val(slaa_tr['trend_budget'], i)
+            l = _val(slaa_tr['trend_lsta'], i)
+            e = _val(slaa_tr['trend_expenditures'], i)
+            a = _val(slaa_tr['trend_aid'], i)
+            s = _val(slaa_tr['trend_staff'], i)
+            body += f'\n  <tr><td>FY{yr}</td><td class="pct">${b/1e6:,.0f}M</td><td>${l/1e6:,.0f}M</td><td>${e/1e6:,.0f}M</td><td>${a/1e6:,.0f}M</td><td>{s:,.0f}</td></tr>'
+        body += "\n</table>"
+        body += f'\n<p class="rsrc">Data: IMLS SLAA vintages FY{slaa_first_yr}, FY{sty[1] if sty_n > 2 else ""}, FY{sty[-2] if sty_n > 2 else ""}, FY{slaa_last_yr}. Income grew {budget_chg:+.1f}% while staffing grew only {staff_chg:+.1f}% — a widening gap between resources and capacity.</p>'
+
+    # ---- Federal Depository Libraries (GPO FDLP) ----
+    fdlp_s = stats.get('fdlp', {})
+    if fdlp_s and fdlp_s.get('total'):
+        body += f"""
+
+<h2 id="fdlp">Federal Depository Libraries (GPO FDLP)</h2>
+<p class="wiki-sub">The Federal Depository Library Program — {fdlp_s['total']} libraries that receive and provide public access to U.S. government documents. Of these, <strong>{fdlp_s['regional']} are Regional depositories</strong> (comprehensive collections, one or more per state) and {fdlp_s['selective']} are Selective (choosing specific titles). {fdlp_s['preservation_stewards']} are designated Preservation Stewards, committing to retain government publications long-term.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fdlp_s['total']}</div><div class="label">Depository libraries</div></div>
+  <div class="stat-card"><div class="num">{fdlp_s['regional']}</div><div class="label">Regional depositories</div></div>
+  <div class="stat-card"><div class="num">{fdlp_s['selective']}</div><div class="label">Selective depositories</div></div>
+  <div class="stat-card"><div class="num">{fdlp_s['preservation_stewards']}</div><div class="label">Preservation Stewards</div></div>
+</div>"""
+
+        # Regional depositories table
+        if fdlp_s.get('regional_list'):
+            body += """
+<h3>Regional Depository Libraries</h3>
+<p class="wiki-sub">Regional depositories receive and retain ALL government publications distributed through the FDLP — the comprehensive government-document collections, one or more per state.</p>
+<table class="wikitable">
+  <tr><th>Library</th><th>State</th><th>Parent Institution</th><th>Library Type</th></tr>"""
+            for r in fdlp_s['regional_list']:
+                body += f'\n  <tr><td>{esc(r["name"])}</td><td><a href="states/{r["state"]}.html">{r["state"]}</a></td><td>{esc(r["parent"]) or "—"}</td><td>{esc(r["type"]) or "—"}</td></tr>'
+            body += "\n</table>"
+
+        # Largest by titles selected
+        if fdlp_s.get('largest'):
+            body += """
+<h3>Largest Selective Depositories by Titles Selected</h3>
+<p class="wiki-sub">Selective depositories that receive the most individual government-document titles — the most comprehensive selective collections.</p>
+<table class="wikitable">
+  <tr><th>#</th><th>Library</th><th>State</th><th>Parent Institution</th><th>Type</th><th>Titles Selected</th></tr>"""
+            for i, r in enumerate(fdlp_s['largest'], 1):
+                body += f'\n  <tr><td>{i}</td><td>{esc(r["name"])}</td><td><a href="states/{r["state"]}.html">{r["state"]}</a></td><td>{esc(r["parent"]) or "—"}</td><td>{esc(r["dtype"]) or "—"}</td><td class="pct">{r["titles"]:,}</td></tr>'
+            body += "\n</table>"
+        body += f'\n<p class="rsrc">Data: U.S. Government Publishing Office (GPO) Federal Depository Library Program. Retrieved from GPO\'s FDLP Print Distribution Dashboard ArcGIS Feature Service (Dec 2025). Note: the FDLP comprises ~1,093 libraries total; this dataset covers the {fdlp_s["total"]} that select Print Distribution Titles. The full directory is maintained in GPO\'s FDLD application.</p>'
+
+    # ---- IMLS Grant Awards (1996-2025) ----
+    ig = stats.get('imls_grants', {})
+    if ig and ig.get('total_count'):
+        ig_n = ig['total_count']
+        ig_amt = ig['total_amount']
+        ig_yr = ig['year_range']
+        # Find the ARPA/COVID spike year
+        spike_year = ''
+        spike_amt = 0
+        if ig.get('trend_amounts') and ig.get('trend_years'):
+            for i, yr in enumerate(ig['trend_years']):
+                amt = ig['trend_amounts'][i] if i < len(ig['trend_amounts']) else 0
+                if amt > spike_amt:
+                    spike_amt = amt
+                    spike_year = yr
+        body += f"""
+
+<h2 id="imls-grants">IMLS Grant Awards ({ig_yr})</h2>
+<p class="wiki-sub">The Institute of Museum and Library Services is the primary federal funder of the nation's libraries and museums. Over {ig_yr}, IMLS awarded <strong>{ig_n:,} grants</strong> totaling <strong>${ig_amt/1e9:.2f} billion</strong> to libraries, museums, and Native American organizations across all 50 states and territories.{' FY' + str(spike_year) + ' saw a surge to $' + f'{spike_amt/1e6:.0f}' + 'M — the American Rescue Plan Act (ARPA) pandemic relief.' if spike_amt > 300e6 else ''}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ig_n:,}</div><div class="label">Total grants awarded</div></div>
+  <div class="stat-card"><div class="num">${ig_amt/1e9:.2f}B</div><div class="label">Total federal investment</div></div>
+  <div class="stat-card"><div class="num">${ig_amt/ig_n:,.0f}</div><div class="label">Average award</div></div>
+  <div class="stat-card"><div class="num">{len(ig.get('top_programs', []))}</div><div class="label">Program types (pre-2014)</div></div>
+  <div class="stat-card"><div class="num">{len(ig.get('top_states', []))}</div><div class="label">States & territories</div></div>
+</div>"""
+
+        # Grants by program type — bar chart
+        if ig.get('top_programs'):
+            body += """
+<h3>Grant programs — where the money went</h3>
+<div class="services-bars">"""
+            max_prog = max(int(p.get('grants', 0) or 0) for p in ig['top_programs']) or 1
+            for p in ig['top_programs']:
+                cnt = int(p.get('grants', 0) or 0)
+                amt = int(p.get('total_awarded', 0) or 0)
+                pct_w = (cnt / max_prog) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(p["program"])}</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,} (${amt/1e6:.0f}M)</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states by total awarded
+        if ig.get('top_states'):
+            body += """
+<h3>Top states by total IMLS funding</h3>
+<table class="wikitable">
+  <tr><th>#</th><th>State</th><th>Grants</th><th>Total Awarded</th><th>Avg Award</th><th>Institutions</th></tr>"""
+            for i, r in enumerate(ig['top_states'], 1):
+                st_code = esc((r.get('state') or '').upper())
+                st_grants = int(r.get('grants', 0) or 0)
+                st_total = int(r.get('total_awarded', 0) or 0)
+                st_avg = int(r.get('avg_award', 0) or 0)
+                st_inst = int(r.get('institutions', 0) or 0)
+                body += f'\n  <tr><td>{i}</td><td><a href="states/{st_code}.html">{st_code}</a></td><td>{st_grants:,}</td><td class="pct">${st_total/1e6:.1f}M</td><td>${st_avg:,}</td><td>{st_inst:,}</td></tr>'
+            body += '\n</table>'
+
+        # Largest individual awards
+        if ig.get('largest'):
+            body += """
+<h3>Largest single IMLS awards</h3>
+<table class="wikitable">
+  <tr><th>#</th><th>Institution</th><th>City</th><th>State</th><th>Program</th><th>Award</th><th>Year</th></tr>"""
+            for i, r in enumerate(ig['largest'], 1):
+                amt = int(r.get('amount', 0) or 0)
+                body += f'\n  <tr><td>{i}</td><td>{esc(r["institution"])}</td><td>{esc(r["city"]) or "—"}</td><td><a href="states/{esc((r["state"] or "").upper())}.html">{esc(r["state"])}</a></td><td>{esc(r["program"])}</td><td class="pct">${amt/1e6:.1f}M</td><td>{r.get("year", "—")}</td></tr>'
+            body += '\n</table>'
+
+        # Annual awards trend chart
+        if ig.get('trend_years') and len(ig['trend_years']) >= 2:
+            yrs = ig['trend_years']
+            amts = ig['trend_amounts']
+            n_yrs = len(yrs)
+            chart_w = 700
+            chart_h = 180
+            bar_w = (chart_w - 60) / n_yrs
+            max_amt = max(amts) if amts else 1
+            g_bars = []
+            for i, yr in enumerate(yrs):
+                v = amts[i] if i < len(amts) else 0
+                h = (v / max_amt) * (chart_h - 40) if v else 0
+                x = 40 + i * bar_w
+                y = chart_h - 30 - h
+                g_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(bar_w*0.7,1):.1f}" height="{h:.1f}" fill="#8b5cf6" rx="2"/>')
+                if i % 3 == 0 or i == n_yrs - 1:
+                    g_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+                    if v:
+                        g_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 3:.1f}" text-anchor="middle" font-size="8" fill="#333">${v/1e6:.0f}M</text>')
+            body += f"""
+<h3>Annual IMLS award funding</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 20}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(g_bars)}
+</svg>"""
+
+        body += f'<p class="rsrc">Data: IMLS Discretionary Grant Awards, FY{ig_yr}. Individual grant records (FY1996–FY2013) from IMLS Administrative Discretionary Grant Data; aggregate state totals (FY2014–FY2025) from the IMLS Grants to States API. Award amounts include matching funds where applicable. IMLS is an independent federal agency and the primary source of federal support for the nation\'s libraries and museums.</p>'
+
+    # ---- IMLS Grants to States (G2S) — formula funding ----
+    g2s = stats.get('imls_g2s', {})
+    if g2s and g2s.get('total_amount'):
+        g2s_amt = g2s['total_amount']
+        g2s_yr = g2s['year_range']
+        g2s_latest = g2s['trend_amounts'][-1] if g2s.get('trend_amounts') else 0
+        g2s_first = g2s['trend_amounts'][0] if g2s.get('trend_amounts') else 0
+        g2s_chg = ((g2s_latest - g2s_first) / g2s_first * 100) if g2s_first else 0
+        body += f"""
+
+<h2 id="imls-g2s">IMLS Grants to States (G2S) — Formula Funding ({g2s_yr})</h2>
+<p class="wiki-sub">While discretionary grants are awarded competitively, Grants to States (G2S) are <strong>formula-based funding</strong> distributed annually to every state library agency under the Library Services and Technology Act (LSTA). This is the backbone of federal library funding — it flows through the state agencies tracked in the SLAA section above to support local library services, technology, and outreach.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${g2s_amt/1e6:.0f}M</div><div class="label">Total G2S funding ({g2s_yr})</div></div>
+  <div class="stat-card"><div class="num">${g2s_latest/1e6:.1f}M</div><div class="label">Latest year award</div></div>
+  <div class="stat-card"><div class="num">{g2s_chg:+.1f}%</div><div class="label">Funding change over period</div></div>
+  <div class="stat-card"><div class="num">{len(g2s.get('top_states', []))}</div><div class="label">States & territories</div></div>
+</div>"""
+
+        # G2S trend chart
+        if g2s.get('trend_years') and len(g2s['trend_years']) >= 2:
+            yrs = g2s['trend_years']
+            amts = g2s['trend_amounts']
+            n_yrs = len(yrs)
+            chart_w = 600
+            chart_h = 160
+            bar_w = (chart_w - 60) / n_yrs
+            max_amt = max(amts) if amts else 1
+            g_bars = []
+            for i, yr in enumerate(yrs):
+                v = amts[i] if i < len(amts) else 0
+                h = (v / max_amt) * (chart_h - 40) if v else 0
+                x = 40 + i * bar_w
+                y = chart_h - 30 - h
+                g_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(bar_w*0.7,1):.1f}" height="{h:.1f}" fill="#10b981" rx="2"/>')
+                g_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+                if v:
+                    g_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 3:.1f}" text-anchor="middle" font-size="8" fill="#333">${v/1e6:.0f}M</text>')
+            body += f"""
+<h3>Annual Grants to States funding</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 20}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(g_bars)}
+</svg>"""
+
+        # Top states by G2S amount
+        if g2s.get('top_states'):
+            body += """
+<h3>Top states by total G2S funding</h3>
+<table class="wikitable">
+  <tr><th>#</th><th>State</th><th>Total G2S Awarded</th><th>Latest Per-Capita</th></tr>"""
+            for i, r in enumerate(g2s['top_states'], 1):
+                st_code = esc((r.get('state') or '').upper())
+                amt = int(r.get('amount', 0) or 0)
+                pc = float(r.get('per_capita', 0) or 0)
+                pc_str = f"${pc:.2f}" if pc else '—'
+                body += f'\n  <tr><td>{i}</td><td><a href="states/{st_code}.html">{st_code}</a></td><td class="pct">${amt/1e6:.1f}M</td><td>{pc_str}</td></tr>'
+            body += '\n</table>'
+
+        # Top states by per-capita funding
+        if g2s.get('top_percapita'):
+            body += """
+<h3>Highest per-capita G2S funding — small states & territories get more per resident</h3>
+<table class="wikitable">
+  <tr><th>#</th><th>State</th><th>Per-Capita Funding</th><th>Total G2S</th></tr>"""
+            for i, r in enumerate(g2s['top_percapita'], 1):
+                st_code = esc((r.get('state') or '').upper())
+                pc = float(r.get('per_capita', 0) or 0)
+                amt = int(r.get('amount', 0) or 0)
+                body += f'\n  <tr><td>{i}</td><td><a href="states/{st_code}.html">{st_code}</a></td><td class="pct">${pc:.2f}</td><td>${amt/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Data: IMLS Grants to States (G2S) program, FY{g2s_yr}. G2S awards are formula-based under the Library Services and Technology Act (LSTA), distributed through state library administrative agencies. Per-capita figures show which states receive the most federal library funding per resident — small population states and territories consistently rank highest due to minimum-funding provisions in the LSTA formula.</p>'
+
+    # ---- Public Library Historical Trends (IMLS PLS 2000-2024) ----
+    pls = stats.get('pls_trends', {})
+    if pls and pls.get('trend_years'):
+        pls_years = pls['trend_years']
+        pls_n = len(pls_years)
+        pls_yr_labels = f"{pls_years[0]}–{pls_years[-1]}"
+        # Pre-COVID peak vs COVID trough vs latest
+        pre_covid_peak_visits = max(pls['trend_visits'][:pls_n-5]) if pls_n > 5 else max(pls['trend_visits'])
+        covid_trough_visits = min(pls['trend_visits'][-5:]) if pls_n >= 5 else min(pls['trend_visits'])
+        latest_visits = pls['trend_visits'][-1]
+        latest_circ = pls['trend_circulation'][-1]
+        latest_staff = pls['trend_staff_fte'][-1]
+        latest_exp = pls['trend_expenditures'][-1]
+        latest_pop = pls['trend_population'][-1]
+        latest_sys = pls['trend_systems'][-1]
+        latest_outlets = pls['trend_outlets'][-1]
+        latest_lib_fte = pls['trend_librarian_fte'][-1]
+
+        # % changes
+        def _pchg(first, last):
+            if first and last:
+                return ((last - first) / first) * 100
+            return 0
+        visits_chg = _pchg(pls['trend_visits'][0], latest_visits)
+        circ_chg = _pchg(pls['trend_circulation'][0], latest_circ)
+        staff_chg = _pchg(pls['trend_staff_fte'][0], latest_staff)
+        exp_chg = _pchg(pls['trend_expenditures'][0], latest_exp)
+        covid_drop = ((covid_trough_visits - pre_covid_peak_visits) / pre_covid_peak_visits) * 100 if pre_covid_peak_visits else 0
+
+        body += f"""
+
+<h2 id="pls-trends">Public Library Historical Trends (IMLS PLS {pls_yr_labels})</h2>
+<p class="wiki-sub">The IMLS Public Libraries Survey has been conducted every year since 1988, making it the longest-running national library dataset. Here we present {pls_n} consecutive vintages ({pls_yr_labels}) showing how America's ~9,200 public library systems have evolved across a quarter century — through the Great Recession, the COVID-19 pandemic, and the digital transition.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{latest_sys:,}</div><div class="label">Library systems ({pls_years[-1]})</div></div>
+  <div class="stat-card"><div class="num">{latest_outlets:,}</div><div class="label">Total outlets</div></div>
+  <div class="stat-card"><div class="num">{latest_pop/1e6:.0f}M</div><div class="label">Population served</div></div>
+  <div class="stat-card"><div class="num">{latest_staff:,}</div><div class="label">Total staff (FTE)</div></div>
+  <div class="stat-card"><div class="num">{latest_visits/1e6:.0f}M</div><div class="label">Annual visits</div></div>
+  <div class="stat-card"><div class="num">{latest_circ/1e6:.0f}M</div><div class="label">Items circulated</div></div>
+  <div class="stat-card"><div class="num">${latest_exp/1e9:.2f}B</div><div class="label">Operating expenditures</div></div>
+  <div class="stat-card"><div class="num">{covid_drop:+.0f}%</div><div class="label">COVID visits drop (peak→trough)</div></div>
+</div>"""
+
+        # Trend table — every 3rd year to keep it compact
+        body += """
+<h3>Temporal trend data (selected years)</h3>
+<table class="wikitable trend-table">
+  <tr><th>Fiscal Year</th><th>Systems</th><th>Outlets</th><th>Pop. served</th><th>Staff FTE</th><th>Visits</th><th>Circulation</th><th>Expenditures</th></tr>"""
+        step = max(1, pls_n // 10)  # ~10 rows max
+        for i in range(0, pls_n, step):
+            yr = pls_years[i]
+            body += f"""
+  <tr>
+    <td class="yr">{yr}</td>
+    <td>{pls['trend_systems'][i]:,}</td>
+    <td>{pls['trend_outlets'][i]:,}</td>
+    <td>{pls['trend_population'][i]/1e6:.0f}M</td>
+    <td>{pls['trend_staff_fte'][i]:,}</td>
+    <td>{pls['trend_visits'][i]/1e6:.0f}M</td>
+    <td>{pls['trend_circulation'][i]/1e6:.0f}M</td>
+    <td class="pct">${pls['trend_expenditures'][i]/1e9:.2f}B</td>
+  </tr>"""
+        # Always include the latest year
+        if (pls_n - 1) % step != 0:
+            i = pls_n - 1
+            body += f"""
+  <tr>
+    <td class="yr">{pls_years[i]}</td>
+    <td>{pls['trend_systems'][i]:,}</td>
+    <td>{pls['trend_outlets'][i]:,}</td>
+    <td>{pls['trend_population'][i]/1e6:.0f}M</td>
+    <td>{pls['trend_staff_fte'][i]:,}</td>
+    <td>{pls['trend_visits'][i]/1e6:.0f}M</td>
+    <td>{pls['trend_circulation'][i]/1e6:.0f}M</td>
+    <td class="pct">${pls['trend_expenditures'][i]/1e9:.2f}B</td>
+  </tr>"""
+        body += '\n</table>'
+
+        # SVG chart: visits over time — the COVID cliff is the story
+        chart_w = 750
+        chart_h = 220
+        bar_w = (chart_w - 60) / pls_n
+        max_visits = max(pls['trend_visits']) if pls['trend_visits'] else 1
+        v_bars = []
+        for i, yr in enumerate(pls_years):
+            v = pls['trend_visits'][i]
+            h = (v / max_visits) * (chart_h - 40) if v else 0
+            x = 40 + i * bar_w
+            y = chart_h - 30 - h
+            # Color: blue pre-COVID, red for 2020-2021 (trough), green for recovery
+            if yr >= 2020 and yr <= 2021:
+                fill = '#ef4444'
+            elif yr >= 2022:
+                fill = '#10b981'
+            else:
+                fill = '#3b82f6'
+            v_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(bar_w*0.7,1):.1f}" height="{h:.1f}" fill="{fill}" rx="1"/>')
+            if i % 3 == 0 or i == pls_n - 1:
+                v_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+                if v:
+                    v_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 3:.1f}" text-anchor="middle" font-size="8" fill="#333">{v/1e6:.0f}M</text>')
+        svg = f'''<h3>Annual library visits — the COVID-19 cliff and partial recovery</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 10}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(v_bars)}
+  <text x="{chart_w - 10}" y="15" text-anchor="end" font-size="10" fill="#999">🔴 COVID trough 🟢 Recovery</text>
+</svg>'''
+        body += svg
+
+        # Circulation chart
+        max_circ = max(pls['trend_circulation']) if pls['trend_circulation'] else 1
+        c_bars = []
+        for i, yr in enumerate(pls_years):
+            v = pls['trend_circulation'][i]
+            h = (v / max_circ) * (chart_h - 40) if v else 0
+            x = 40 + i * bar_w
+            y = chart_h - 30 - h
+            if yr >= 2020 and yr <= 2021:
+                fill = '#ef4444'
+            elif yr >= 2022:
+                fill = '#10b981'
+            else:
+                fill = '#8b5cf6'
+            c_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(bar_w*0.7,1):.1f}" height="{h:.1f}" fill="{fill}" rx="1"/>')
+            if i % 3 == 0 or i == pls_n - 1:
+                c_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+                if v:
+                    c_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 3:.1f}" text-anchor="middle" font-size="8" fill="#333">{v/1e6:.0f}M</text>')
+        svg2 = f'''<h3>Total circulation — peak in 2010, decline through digital transition + COVID</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 10}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(c_bars)}
+</svg>'''
+        body += svg2
+
+        # ---- Extended PLS trend metrics: digital transition, children's services, ILL ----
+        latest_capex = pls['trend_capital_exp'][-1] if pls.get('trend_capital_exp') else 0
+        latest_elmat = pls['trend_elmat_exp'][-1] if pls.get('trend_elmat_exp') else 0
+        latest_bkvol = pls['trend_book_volumes'][-1] if pls.get('trend_book_volumes') else 0
+        latest_kid_att = pls['trend_children_attendance'][-1] if pls.get('trend_children_attendance') else 0
+        latest_kid_cir = pls['trend_children_circ'][-1] if pls.get('trend_children_circ') else 0
+        latest_ref = pls['trend_reference'][-1] if pls.get('trend_reference') else 0
+        latest_ill_to = pls['trend_ill_to'][-1] if pls.get('trend_ill_to') else 0
+        latest_ill_from = pls['trend_ill_from'][-1] if pls.get('trend_ill_from') else 0
+        first_elmat = pls['trend_elmat_exp'][0] if pls.get('trend_elmat_exp') else 0
+        elmat_chg = _pchg(first_elmat, latest_elmat) if first_elmat else 0
+
+        body += f"""
+<h3>The digital transition — beyond visits & circulation</h3>
+<p class="wiki-sub">The PLS captures more than foot traffic. These metrics reveal how libraries have shifted spending toward electronic materials, how capital investment fluctuates, and how interlibrary loan has changed in the age of e-books.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${latest_elmat/1e6:.0f}M</div><div class="label">E-material expenditures ({pls_years[-1]})</div></div>
+  <div class="stat-card"><div class="num">{elmat_chg:+.0f}%</div><div class="label">E-material spend change {pls_years[0]}→{pls_years[-1]}</div></div>
+  <div class="stat-card"><div class="num">${latest_capex/1e6:.0f}M</div><div class="label">Capital expenditures</div></div>
+  <div class="stat-card"><div class="num">{latest_bkvol/1e6:.0f}M</div><div class="label">Book volumes held</div></div>
+  <div class="stat-card"><div class="num">{latest_kid_att/1e6:.0f}M</div><div class="label">Children's program attendance</div></div>
+  <div class="stat-card"><div class="num">{latest_kid_cir/1e6:.0f}M</div><div class="label">Children's materials circulated</div></div>
+  <div class="stat-card"><div class="num">{latest_ref/1e6:.0f}M</div><div class="label">Reference transactions</div></div>
+  <div class="stat-card"><div class="num">{latest_ill_to/1e6:.1f}M</div><div class="label">ILL lent to other libraries</div></div>
+  <div class="stat-card"><div class="num">{latest_ill_from/1e6:.1f}M</div><div class="label">ILL borrowed from others</div></div>
+</div>"""
+
+        # E-material expenditure chart — the digital spending surge
+        if pls.get('trend_elmat_exp') and any(v > 0 for v in pls['trend_elmat_exp']):
+            max_elmat = max(pls['trend_elmat_exp']) if pls['trend_elmat_exp'] else 1
+            e_bars = []
+            for i, yr in enumerate(pls_years):
+                v = pls['trend_elmat_exp'][i]
+                h = (v / max_elmat) * (chart_h - 40) if v else 0
+                x = 40 + i * bar_w
+                y = chart_h - 30 - h
+                e_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{max(bar_w*0.7,1):.1f}" height="{h:.1f}" fill="#f59e0b" rx="1"/>')
+                if i % 3 == 0 or i == pls_n - 1:
+                    e_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+                    if v:
+                        e_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 3:.1f}" text-anchor="middle" font-size="8" fill="#333">${v/1e6:.0f}M</text>')
+            svg3 = f'''<h3>Electronic material expenditures — the shift to digital spending</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 10}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(e_bars)}
+</svg>'''
+            body += svg3
+
+        # ILL chart — interlibrary loan trends (lending vs borrowing)
+        if pls.get('trend_ill_to') and pls.get('trend_ill_from'):
+            max_ill = max(max(pls['trend_ill_to']), max(pls['trend_ill_from'])) or 1
+            ill_bars = []
+            for i, yr in enumerate(pls_years):
+                vt = pls['trend_ill_to'][i]
+                vf = pls['trend_ill_from'][i]
+                ht = (vt / max_ill) * (chart_h - 40) if vt else 0
+                hf = (vf / max_ill) * (chart_h - 40) if vf else 0
+                x = 40 + i * bar_w
+                ill_bars.append(f'<rect x="{x:.1f}" y="{chart_h - 30 - ht:.1f}" width="{max(bar_w*0.35,1):.1f}" height="{ht:.1f}" fill="#3b82f6" rx="1"/>')
+                ill_bars.append(f'<rect x="{x + bar_w*0.35:.1f}" y="{chart_h - 30 - hf:.1f}" width="{max(bar_w*0.35,1):.1f}" height="{hf:.1f}" fill="#ec4899" rx="1"/>')
+                if i % 3 == 0 or i == pls_n - 1:
+                    ill_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 12:.1f}" text-anchor="middle" font-size="9" fill="#666">{yr}</text>')
+            svg4 = f'''<h3>Interlibrary loan — lending (blue) vs borrowing (pink), in millions</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 10}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(ill_bars)}
+  <text x="{chart_w - 10}" y="15" text-anchor="end" font-size="10" fill="#999">Lending=blue, Borrowing=pink</text>
+</svg>'''
+            body += svg4
+
+        # Extended trend data table
+        body += """
+<h3>Detailed trend data — digital spending, collections & interlibrary loan</h3>
+<table class="wikitable trend-table">
+  <tr><th>Year</th><th>Book volumes</th><th>E-material $</th><th>Capital $</th><th>Children's attend.</th><th>Children's circ.</th><th>Reference</th><th>ILL lent</th><th>ILL borrowed</th></tr>"""
+        for i in range(0, pls_n, step):
+            yr = pls_years[i]
+            bkvol_v = pls['trend_book_volumes'][i] if pls.get('trend_book_volumes') else 0
+            elmat_v = pls['trend_elmat_exp'][i] if pls.get('trend_elmat_exp') else 0
+            capex_v = pls['trend_capital_exp'][i] if pls.get('trend_capital_exp') else 0
+            kid_att_v = pls['trend_children_attendance'][i] if pls.get('trend_children_attendance') else 0
+            kid_cir_v = pls['trend_children_circ'][i] if pls.get('trend_children_circ') else 0
+            ref_v = pls['trend_reference'][i] if pls.get('trend_reference') else 0
+            ill_to_v = pls['trend_ill_to'][i] if pls.get('trend_ill_to') else 0
+            ill_from_v = pls['trend_ill_from'][i] if pls.get('trend_ill_from') else 0
+            body += f"""
+  <tr>
+    <td class="yr">{yr}</td>
+    <td>{bkvol_v/1e6:.0f}M</td>
+    <td class="pct">${elmat_v/1e6:.0f}M</td>
+    <td>${capex_v/1e6:.0f}M</td>
+    <td>{kid_att_v/1e6:.0f}M</td>
+    <td>{kid_cir_v/1e6:.0f}M</td>
+    <td>{ref_v/1e6:.0f}M</td>
+    <td>{ill_to_v/1e6:.1f}M</td>
+    <td>{ill_from_v/1e6:.1f}M</td>
+  </tr>"""
+        # Always include latest year
+        if (pls_n - 1) % step != 0:
+            i = pls_n - 1
+            yr = pls_years[i]
+            bkvol_v = pls['trend_book_volumes'][i] if pls.get('trend_book_volumes') else 0
+            elmat_v = pls['trend_elmat_exp'][i] if pls.get('trend_elmat_exp') else 0
+            capex_v = pls['trend_capital_exp'][i] if pls.get('trend_capital_exp') else 0
+            kid_att_v = pls['trend_children_attendance'][i] if pls.get('trend_children_attendance') else 0
+            kid_cir_v = pls['trend_children_circ'][i] if pls.get('trend_children_circ') else 0
+            ref_v = pls['trend_reference'][i] if pls.get('trend_reference') else 0
+            ill_to_v = pls['trend_ill_to'][i] if pls.get('trend_ill_to') else 0
+            ill_from_v = pls['trend_ill_from'][i] if pls.get('trend_ill_from') else 0
+            body += f"""
+  <tr>
+    <td class="yr">{yr}</td>
+    <td>{bkvol_v/1e6:.0f}M</td>
+    <td class="pct">${elmat_v/1e6:.0f}M</td>
+    <td>${capex_v/1e6:.0f}M</td>
+    <td>{kid_att_v/1e6:.0f}M</td>
+    <td>{kid_cir_v/1e6:.0f}M</td>
+    <td>{ref_v/1e6:.0f}M</td>
+    <td>{ill_to_v/1e6:.1f}M</td>
+    <td>{ill_from_v/1e6:.1f}M</td>
+  </tr>"""
+        body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS), FY{pls_years[0]}–FY{pls_years[-1]} ({pls_n} vintages). Visits peaked at {max(pls["trend_visits"])/1e6:.0f}M in {pls_years[pls["trend_visits"].index(max(pls["trend_visits"]))]}, then fell {covid_drop:.0f}% during COVID-19. E-material expenditures include e-books, e-serials, and electronic databases. Capital expenditures cover building construction/renovation. Expenditure figures are nominal (not inflation-adjusted). Per-system detail is available on state pages.</p>'
+
+    # ---- PLS FY2024 Digital Services & Programs ----
+    pd = stats.get('pls_digital', {})
+    if pd and pd.get('total_systems'):
+        ec = pd.get('elmat_circ_total', {})
+        eb = pd.get('ebook_circ', {})
+        ea = pd.get('eaudio_circ', {})
+        ev = pd.get('evideo_circ', {})
+        wifi = pd.get('wifi_sessions', {})
+        pitu = pd.get('public_internet_users', {})
+        gpt = pd.get('public_internet_terminals', {})
+        protot = pd.get('programs_total', {})
+        proon = pd.get('programs_online', {})
+        provir = pd.get('programs_virtual', {})
+        atttot = pd.get('attendance_total', {})
+        att05 = pd.get('attendance_0_5', {})
+        att611 = pd.get('attendance_6_11', {})
+        attya = pd.get('attendance_young_adult', {})
+        attad = pd.get('attendance_adult', {})
+        capex = pd.get('capital_expenditures', {})
+        caploc = pd.get('cap_rev_local', {})
+        capst = pd.get('cap_rev_state', {})
+        capfed = pd.get('cap_rev_federal', {})
+        capoth = pd.get('cap_rev_other', {})
+        caprev = pd.get('cap_rev_total', {})
+        bkvol = pd.get('book_volumes', {})
+
+        body += f"""
+
+<h2 id="pls-digital">Digital Services & Programs — FY2024 Snapshot</h2>
+<p class="wiki-sub">The FY2024 Public Libraries Survey captures the modern library's digital footprint with unprecedented detail: e-circulation by format, programs by age group and delivery mode, WiFi usage, public internet access, and capital revenue broken out by source. This is the most current picture of how America's 9,249 public library systems serve their communities in the post-pandemic era.</p>
+
+<h3>E-circulation — the digital collection in action</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ec.get('total',0)/1e6:.0f}M</div><div class="label">Total e-material circulations</div></div>
+  <div class="stat-card"><div class="num">{eb.get('total',0)/1e6:.0f}M</div><div class="label">E-book circulations</div></div>
+  <div class="stat-card"><div class="num">{ea.get('total',0)/1e6:.0f}M</div><div class="label">E-audio circulations</div></div>
+  <div class="stat-card"><div class="num">{ev.get('total',0)/1e6:.0f}M</div><div class="label">E-video circulations</div></div>
+  <div class="stat-card"><div class="num">{bkvol.get('total',0)/1e6:.0f}M</div><div class="label">Physical book volumes held</div></div>
+</div>"""
+
+        # E-circulation vs physical pie/bar
+        body += f"""
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-name">E-book circulation</span><span class="svc-bar"><span class="svc-fill" style="width:{eb.get('total',0)/ec.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{eb.get('total',0)/1e6:.0f}M</span></div>
+  <div class="svc-row"><span class="svc-name">E-audio circulation</span><span class="svc-bar"><span class="svc-fill" style="width:{ea.get('total',0)/ec.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{ea.get('total',0)/1e6:.0f}M</span></div>
+  <div class="svc-row"><span class="svc-name">E-video circulation</span><span class="svc-bar"><span class="svc-fill" style="width:{ev.get('total',0)/ec.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{ev.get('total',0)/1e6:.0f}M</span></div>
+</div>"""
+
+        body += f"""
+
+<h3>Programs & attendance — by age group</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{protot.get('total',0)/1e6:.1f}M</div><div class="label">Total programs offered</div></div>
+  <div class="stat-card"><div class="num">{atttot.get('total',0)/1e6:.0f}M</div><div class="label">Total program attendance</div></div>
+  <div class="stat-card"><div class="num">{att05.get('total',0)/1e6:.0f}M</div><div class="label">Ages 0–5 attendance</div></div>
+  <div class="stat-card"><div class="num">{att611.get('total',0)/1e6:.0f}M</div><div class="label">Ages 6–11 attendance</div></div>
+  <div class="stat-card"><div class="num">{attya.get('total',0)/1e6:.0f}M</div><div class="label">Young adult attendance</div></div>
+  <div class="stat-card"><div class="num">{attad.get('total',0)/1e6:.0f}M</div><div class="label">Adult attendance</div></div>
+</div>"""
+
+        # Programs by delivery mode
+        body += f"""
+<h3>Program delivery — online vs offsite vs virtual</h3>
+<p class="wiki-sub">The pandemic permanently changed library programming. In FY2024, <strong>{proon.get('total',0)/1e6:.1f}M programs were delivered online</strong> — a fundamental shift from the pre-COVID in-person model.</p>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-name">Online programs</span><span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{proon.get('total',0)/protot.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{proon.get('total',0)/1e6:.1f}M</span></div>
+  <div class="svc-row"><span class="svc-name">Offsite programs</span><span class="svc-bar"><span class="svc-fill" style="width:{pd.get('programs_offsite',{}).get('total',0)/protot.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{pd.get('programs_offsite',{}).get('total',0)/1e3:.0f}K</span></div>
+  <div class="svc-row"><span class="svc-name">Virtual programs</span><span class="svc-bar"><span class="svc-fill" style="width:{provir.get('total',0)/protot.get('total',1)*100:.1f}%"></span></span><span class="svc-count">{provir.get('total',0)/1e3:.0f}K</span></div>
+</div>"""
+
+        body += f"""
+
+<h3>Internet access — libraries as connectivity hubs</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{wifi.get('total',0)/1e6:.0f}M</div><div class="label">WiFi sessions</div></div>
+  <div class="stat-card"><div class="num">{pitu.get('total',0)/1e6:.0f}M</div><div class="label">Public internet users</div></div>
+  <div class="stat-card"><div class="num">{gpt.get('total',0)/1e3:.0f}K</div><div class="label">Public internet terminals</div></div>
+  <div class="stat-card"><div class="num">{pd.get('views',{}).get('total',0)/1e6:.0f}M</div><div class="label">Virtual program views</div></div>
+</div>"""
+
+        # Capital funding by source
+        cap_total = caprev.get('total', 0) or 1
+        body += f"""
+
+<h3>Capital funding — where the money comes from</h3>
+<p class="wiki-sub">Capital revenue funds building construction, renovation, and major equipment. {capex.get('total',0)/1e9:.1f}B in capital expenditures in FY2024, funded by local, state, federal, and other sources.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${caploc.get('total',0)/1e6:.0f}M</div><div class="label">Local capital revenue</div></div>
+  <div class="stat-card"><div class="num">${capst.get('total',0)/1e6:.0f}M</div><div class="label">State capital revenue</div></div>
+  <div class="stat-card"><div class="num">${capfed.get('total',0)/1e6:.0f}M</div><div class="label">Federal capital revenue</div></div>
+  <div class="stat-card"><div class="num">${capoth.get('total',0)/1e6:.0f}M</div><div class="label">Other capital revenue</div></div>
+  <div class="stat-card"><div class="num">${capex.get('total',0)/1e9:.1f}B</div><div class="label">Total capital expenditures</div></div>
+</div>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-name">Local</span><span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{caploc.get('total',0)/cap_total*100:.1f}%"></span></span><span class="svc-count">${caploc.get('total',0)/1e6:.0f}M</span></div>
+  <div class="svc-row"><span class="svc-name">State</span><span class="svc-bar"><span class="svc-fill" style="width:{capst.get('total',0)/cap_total*100:.1f}%"></span></span><span class="svc-count">${capst.get('total',0)/1e6:.0f}M</span></div>
+  <div class="svc-row"><span class="svc-name">Federal</span><span class="svc-bar"><span class="svc-fill" style="width:{capfed.get('total',0)/cap_total*100:.1f}%"></span></span><span class="svc-count">${capfed.get('total',0)/1e6:.0f}M</span></div>
+  <div class="svc-row"><span class="svc-name">Other</span><span class="svc-bar"><span class="svc-fill" style="width:{capoth.get('total',0)/cap_total*100:.1f}%"></span></span><span class="svc-count">${capoth.get('total',0)/1e6:.0f}M</span></div>
+</div>
+
+<p class="rsrc">Data: IMLS Public Libraries Survey FY2024 (PLS_FY24_AE_pud24i), 9,249 library systems. E-circulation counts e-book, e-audio, and e-video checkouts separately. Program delivery modes: "online" = live-streamed/scheduled online, "virtual" = on-demand/recorded, "offsite" = at external locations. Capital revenue sources: local, state, federal, and other (donations, grants from non-government sources).</p>"""
+
+    # ---- Historical Academic Library Trends (NCES ALS 2000-2012 + IPEDS 2023) ----
+    als = stats.get('academic', {})
+    if als and als.get('trend_years'):
+        years = als['trend_years']
+        n_yrs = len(years)
+        yr_labels = ', '.join(str(y) for y in years)
+        last_inst = als['trend_institutions'][-1] if n_yrs else 0
+        last_exp = als['trend_expenditures'][-1] if n_yrs else 0
+        last_coll = als['trend_collections'][-1] if n_yrs else 0
+        last_staff = als['trend_staff_fte'][-1] if n_yrs else 0
+        last_pres = als['trend_presentations'][-1] if n_yrs else 0
+        last_sal = als['trend_salaries'][-1] if n_yrs else 0
+        last_sfte = als['trend_student_fte'][-1] if n_yrs else 0
+        latest_year = years[-1] if n_yrs else 0
+
+        # Compute percentage changes from first available to last
+        def _pct_change(first, last):
+            if first and last:
+                return ((last - first) / first) * 100
+            return None
+
+        inst_chg = _pct_change(als['trend_institutions'][0], last_inst)
+        exp_chg = _pct_change(als['trend_expenditures'][0], last_exp)
+        # Staff FTE: first valid value (2000 was 0) to last
+        first_staff = next((v for v in als['trend_staff_fte'] if v > 0), 0)
+        staff_chg = _pct_change(first_staff, last_staff)
+        pres_chg = _pct_change(als['trend_presentations'][0], last_pres)
+
+        # Format collection number (2023 counts include e-resources — much larger)
+        coll_display = f"{last_coll/1e6:.1f}M" if last_coll < 1e9 else f"{last_coll/1e9:.2f}B"
+
+        body += f"""
+
+<h2 id="als-trends">Academic Library Trends (NCES ALS/IPEDS 2000–2023)</h2>
+<p class="wiki-sub">The NCES Academic Library Survey collected data from degree-granting postsecondary institutions across {n_yrs} survey vintages ({yr_labels}). After 2012 the standalone ALS was discontinued and data collection was folded into IPEDS as the Academic Libraries component, continuing annually from 2014 onward (staffing was not collected 2014–2019). This is the only national census of college &amp; university libraries, capturing staffing, collections, expenditures, and services over a 23-year span.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{last_inst:,}</div><div class="label">Institutions ({latest_year})</div></div>
+  <div class="stat-card"><div class="num">${last_exp/1e9:.2f}B</div><div class="label">Total expenditures</div></div>
+  <div class="stat-card"><div class="num">{coll_display}</div><div class="label">Total collection items</div></div>
+  <div class="stat-card"><div class="num">{last_staff:,}</div><div class="label">Total staff (FTE)</div></div>
+  <div class="stat-card"><div class="num">${last_sal/1e9:.2f}B</div><div class="label">Total salaries</div></div>
+  <div class="stat-card"><div class="num">{last_pres:,}</div><div class="label">Presentations (2012)</div></div>
+  <div class="stat-card"><div class="num">{last_sfte/1e6:.1f}M</div><div class="label">Student FTE</div></div>
+  <div class="stat-card"><div class="num">{inst_chg:+.1f}%</div><div class="label">Institution growth 2000→{latest_year}</div></div>
+</div>"""
+
+        # 2023-specific digital resource stats (only available in IPEDS 2023)
+        if als.get('ebooks_2023'):
+            eb = als['ebooks_2023']
+            es = als['eserials_2023']
+            ed = als['edatabase_2023']
+            illp = als['ill_provided_2023']
+            illr = als['ill_received_2023']
+            tcirc = als['tcirc_2023']
+            body += f"""
+<h3>Digital resources & interlibrary loan (IPEDS 2023 only)</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{eb/1e6:.1f}M</div><div class="label">E-books</div></div>
+  <div class="stat-card"><div class="num">{es/1e6:.1f}M</div><div class="label">E-serials</div></div>
+  <div class="stat-card"><div class="num">{ed/1e3:.0f}K</div><div class="label">E-databases</div></div>
+  <div class="stat-card"><div class="num">{tcirc/1e6:.1f}M</div><div class="label">Total circulation</div></div>
+  <div class="stat-card"><div class="num">{illp/1e6:.1f}M</div><div class="label">ILL provided</div></div>
+  <div class="stat-card"><div class="num">{illr/1e3:.0f}K</div><div class="label">ILL received</div></div>
+</div>"""
+
+        # Build trend data table (year × metric)
+        body += """
+<h3>Temporal trend data</h3>
+<table class="wikitable trend-table">
+  <tr><th>Year</th><th>Institutions</th><th>Staff FTE</th><th>Expenditures</th><th>Collections</th><th>Salaries</th><th>Presentations</th><th>Student FTE</th></tr>"""
+        for i, yr in enumerate(years):
+            exp_v = als['trend_expenditures'][i]
+            sal_v = als['trend_salaries'][i]
+            sfte_v = als['trend_student_fte'][i]
+            coll_v = als['trend_collections'][i]
+            # Format collection: millions for old ALS, billions for 2023
+            coll_str = f"{coll_v/1e6:.1f}M" if coll_v < 1e9 else f"{coll_v/1e9:.2f}B"
+            body += f"""
+  <tr>
+    <td class="yr">{yr}</td>
+    <td>{als['trend_institutions'][i]:,}</td>
+    <td>{als['trend_staff_fte'][i]:,}</td>
+    <td class="pct">${exp_v/1e6:,.0f}M</td>
+    <td>{coll_str}</td>
+    <td>${sal_v/1e6:,.0f}M</td>
+    <td>{als['trend_presentations'][i]:,}</td>
+    <td>{sfte_v:,}</td>
+  </tr>"""
+        body += '\n</table>'
+        body += '<p class="rsrc">Note: From 2014 onward (IPEDS), collection counts include e-books, e-serials, and e-databases, which the pre-2012 ALS counted only as physical items — this explains the apparent discontinuity in collection totals after 2012. Staffing (FTE) was not collected in 2014–2019. Expenditure figures are nominal (not inflation-adjusted).</p>'
+
+        # Inline SVG bar chart for expenditures over time
+        if n_yrs >= 2:
+            exp_vals = als['trend_expenditures']
+            max_exp = max(exp_vals) if max(exp_vals) > 0 else 1
+            bars = []
+            chart_w = 700
+            chart_h = 200
+            bar_w = (chart_w - 60) / n_yrs
+            for i, yr in enumerate(years):
+                h = (exp_vals[i] / max_exp) * (chart_h - 40) if exp_vals[i] else 0
+                x = 40 + i * bar_w
+                y = chart_h - 30 - h
+                fill = '#3b82f6' if yr <= 2012 else '#ef4444'  # red for IPEDS years (2014+)
+                bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_w*0.7:.1f}" height="{h:.1f}" fill="{fill}" rx="2"/>')
+                bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 15:.1f}" text-anchor="middle" font-size="11" fill="#666">{yr}</text>')
+                if exp_vals[i]:
+                    bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 5:.1f}" text-anchor="middle" font-size="10" fill="#333">${exp_vals[i]/1e9:.1f}B</text>')
+            svg = f'''<h3>Total expenditures by year</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 20}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(bars)}
+  <text x="{chart_w - 20}" y="15" text-anchor="end" font-size="10" fill="#999">🔴 = IPEDS (2014+, post-survey transfer)</text>
+</svg>'''
+            body += svg
+
+        # Staff FTE decline chart
+        staff_vals = als['trend_staff_fte']
+        if any(v > 0 for v in staff_vals):
+            max_staff = max(v for v in staff_vals if v > 0)
+            s_bars = []
+            for i, yr in enumerate(years):
+                sv = staff_vals[i]
+                h = (sv / max_staff) * (chart_h - 40) if sv > 0 else 0
+                x = 40 + i * bar_w
+                y = chart_h - 30 - h
+                fill = '#10b981' if yr <= 2012 else '#ef4444'  # red for IPEDS years
+                s_bars.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bar_w*0.7:.1f}" height="{h:.1f}" fill="{fill}" rx="2"/>')
+                s_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{chart_h - 15:.1f}" text-anchor="middle" font-size="11" fill="#666">{yr}</text>')
+                if sv > 0:
+                    s_bars.append(f'<text x="{x + bar_w*0.35:.1f}" y="{y - 5:.1f}" text-anchor="middle" font-size="10" fill="#333">{sv:,}</text>')
+            svg2 = f'''<h3>Total staff FTE by year — the long decline</h3>
+<svg viewBox="0 0 {chart_w} {chart_h + 20}" class="trend-chart" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="{chart_h - 30}" x2="{chart_w - 20}" y2="{chart_h - 30}" stroke="#ccc" stroke-width="1"/>
+  {''.join(s_bars)}
+</svg>'''
+            body += svg2
+
+        # Largest academic libraries table
+        if stats.get('academic_largest'):
+            body += f"""
+<h3>Largest academic library collections ({latest_year})</h3>
+<table class="wikitable als-largest-table">
+  <tr><th>#</th><th>Institution</th><th>City</th><th>State</th><th>Collection</th><th>Expenditures</th><th>Staff FTE</th><th>Year</th></tr>"""
+            for i, lib in enumerate(stats['academic_largest'], 1):
+                exp_str = f"${lib['expenditure']:,}" if lib['expenditure'] else '—'
+                staff_str = f"{lib['staff_fte']:.0f}" if lib['staff_fte'] else '—'
+                yr_label = lib.get('year', '2012')
+                coll_str = f"{lib['collection']:,}" if lib['collection'] < 1e9 else f"{lib['collection']/1e9:.2f}B"
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="search.html?q={esc(lib['name'])}">{esc(lib['name'])}</a></td>
+    <td>{esc(lib['city']) or '—'}</td>
+    <td>{esc(lib['state']) or '—'}</td>
+    <td class="pct">{coll_str}</td>
+    <td>{exp_str}</td>
+    <td>{staff_str}</td>
+    <td>{yr_label}</td>
+  </tr>"""
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: NCES Academic Library Survey (ALS) 2000–2012 (biennial) + IPEDS Academic Libraries 2014–2023 (annual). {als.get("institutions_2023", 0):,} institutions in 2023, {als.get("institutions_2012", 0):,} in 2012. Academic libraries are browsable via search (filter by type "academic").</p>'
+
+    # ---- Institutional Characteristics (IPEDS HD2023 + EF2023A) ----
+    ic = stats.get('institution_characteristics', {})
+    if ic and ic.get('total_institutions'):
+        ic_n = ic['total_institutions']
+        ic_enr = ic.get('total_enrollment', 0)
+        ic_hbcu = ic.get('hbcu', 0)
+        ic_tribal = ic.get('tribal', 0)
+        ic_land = ic.get('land_grant', 0)
+        ic_med = ic.get('medical', 0)
+
+        body += f"""
+
+<h2 id="institution-profiles">Institutional Landscape — Who Has a Library?</h2>
+<p class="wiki-sub">Not all colleges are alike. The IPEDS institutional characteristics survey classifies every degree-granting institution by Carnegie Classification, governance (public/private), and locale — providing context for the {ic_n:,} institutions whose libraries are tracked above. Understanding the institutional landscape reveals which types of colleges invest most in their libraries.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ic_n:,}</div><div class="label">Total institutions</div></div>
+  <div class="stat-card"><div class="num">{ic_enr/1e6:.1f}M</div><div class="label">Total enrollment</div></div>
+  <div class="stat-card"><div class="num">{ic_hbcu}</div><div class="label">HBCUs</div></div>
+  <div class="stat-card"><div class="num">{ic_tribal}</div><div class="label">Tribal colleges</div></div>
+  <div class="stat-card"><div class="num">{ic_land}</div><div class="label">Land-grant institutions</div></div>
+  <div class="stat-card"><div class="num">{ic_med}</div><div class="label">Medical schools</div></div>
+</div>"""
+
+        # Carnegie classification breakdown
+        if ic.get('by_carnegie_broad'):
+            body += """
+<h3>By Carnegie Classification — institutional type</h3>
+<div class="services-bars">"""
+            max_cc = max(c.get('count', 0) for c in ic['by_carnegie_broad']) or 1
+            for c in ic['by_carnegie_broad']:
+                cnt = c.get('count', 0)
+                pct_w = (cnt / max_cc) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(c["category"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Control breakdown table
+        if ic.get('by_control'):
+            body += """
+<h3>By governance — public vs private</h3>
+<table class="wikitable">
+  <tr><th>Type</th><th>Institutions</th><th>Share</th></tr>"""
+            ic_total = ic_n or 1
+            for c in ic['by_control']:
+                cnt = c.get('count', 0)
+                body += f'\n  <tr><td>{esc(c["type"])}</td><td>{cnt:,}</td><td class="pct">{100*cnt/ic_total:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Locale breakdown
+        if ic.get('by_locale'):
+            body += """
+<h3>By locale — where institutions are located</h3>
+<table class="wikitable">
+  <tr><th>Locale</th><th>Institutions</th><th>Share</th></tr>"""
+            for c in ic['by_locale']:
+                cnt = c.get('count', 0)
+                body += f'\n  <tr><td>{esc(c["locale"])}</td><td>{cnt:,}</td><td class="pct">{100*cnt/ic_n:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Data: NCES IPEDS Institutional Characteristics (HD2023) and Fall Enrollment (EF2023A). Carnegie Classification uses the 2021 update. HBCU = Historically Black College or University. Land-grant institutions are designated under the Morrill Act. Enrollment figures are fall 2023 12-month total.</p>'
+
+    # ---- Book Censorship Database (EveryLibrary Institute / Magnusson) ----
+    bc = stats.get('book_censorship', {})
+    if bc and bc.get('total_challenges'):
+        bc_n = bc['total_challenges']
+        bc_banned = bc.get('banned_removed', 0)
+        bc_dr = bc.get('date_range', '')
+        bc_top_state = bc.get('by_state', [{}])[0] if bc.get('by_state') else {}
+
+        body += f"""
+
+<h2 id="book-censorship">Book Challenges & Bans ({bc_dr})</h2>
+<p class="wiki-sub">The EveryLibrary Institute's <a href="https://bookcensorship.net/" target="_blank" rel="noopener">Book Censorship Database</a>, maintained by Dr. Tasslyn Magnusson, tracks every reported attempt to restrict, remove, or ban books in U.S. schools and libraries. {bc_n:,} challenges documented across {len(bc.get('by_state',[]))} states — {bc_banned:,} resulting in removals or bans. This is the most comprehensive crowdsourced record of the wave of book censorship that accelerated in 2021.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bc_n:,}</div><div class="label">Total challenges</div></div>
+  <div class="stat-card"><div class="num">{bc_banned:,}</div><div class="label">Banned / removed</div></div>
+  <div class="stat-card"><div class="num">{bc_top_state.get('count', 0):,}</div><div class="label">Most challenges ({esc(bc_top_state.get('state', ''))})</div></div>
+  <div class="stat-card"><div class="num">{len(bc.get('by_year', []))}</div><div class="label">Years tracked</div></div>
+</div>"""
+
+        # Challenges by year SVG bar chart
+        if bc.get('by_year'):
+            by_yr = bc['by_year']
+            max_yr = max(r.get('count', 0) for r in by_yr) or 1
+            yr_n = len(by_yr)
+            bw = 32
+            chart_w = yr_n * bw + 60
+            chart_h = 220
+            body += f'\n<h3>Challenges per year</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Book challenges by year">'
+            for i, r in enumerate(by_yr):
+                yr = r.get('year', '')
+                cnt = r.get('count', 0)
+                h = (cnt / max_yr) * (chart_h - 50) if max_yr else 0
+                x = 40 + i * bw
+                body += f'<rect x="{x}" y="{chart_h - 30 - h:.1f}" width="{bw - 6}" height="{h:.1f}" fill="var(--accent-red)" rx="3"/>'
+                body += f'<text x="{x + (bw - 6)/2:.0f}" y="{chart_h - 12}" text-anchor="middle" class="axis-text">{yr}</text>'
+                body += f'<text x="{x + (bw - 6)/2:.0f}" y="{chart_h - 35 - h:.1f}" text-anchor="middle" class="bar-label">{cnt:,}</text>'
+            body += '</svg>'
+
+        # Top states table
+        if bc.get('by_state'):
+            body += """
+<h3>Top states by number of challenges</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Challenges</th><th>Share</th></tr>"""
+            for r in bc['by_state'][:15]:
+                cnt = r.get('count', 0)
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td>{cnt:,}</td><td class="pct">{100*cnt/bc_n:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Most challenged books
+        if bc.get('top_books'):
+            body += """
+<h3>Most challenged books</h3>
+<table class="wikitable">
+  <tr><th>Book</th><th>Challenges</th></tr>"""
+            for r in bc['top_books'][:15]:
+                body += f'\n  <tr><td>{esc(r["title"])}</td><td>{r.get("count", 0):,}</td></tr>'
+            body += '\n</table>'
+
+        # Outcomes table
+        if bc.get('by_decision'):
+            body += """
+<h3>Outcomes — what happened to the challenges</h3>
+<table class="wikitable">
+  <tr><th>Decision</th><th>Count</th><th>Share</th></tr>"""
+            for r in bc['by_decision'][:8]:
+                cnt = r.get('count', 0)
+                body += f'\n  <tr><td>{esc(r["decision"])}</td><td>{cnt:,}</td><td class="pct">{100*cnt/bc_n:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Library type breakdown
+        if bc.get('by_library_type'):
+            body += """
+<h3>By library type</h3>
+<div class="services-bars">"""
+            max_lt = max(r.get('count', 0) for r in bc['by_library_type']) or 1
+            for r in bc['by_library_type']:
+                cnt = r.get('count', 0)
+                pct_w = (cnt / max_lt) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(r["type"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        body += '<p class="rsrc">Source: EveryLibrary Institute Book Censorship Database (bookcensorship.net), maintained by Dr. Tasslyn Magnusson. Data is crowdsourced from public reports, news articles, and FOIA requests. "Banned/Removed" includes decisions where the book was removed from shelves or access was restricted. Challenge counts include repeated challenges of the same title in different jurisdictions.</p>'
+
+    # ---- NTIA Tribal Broadband Connectivity Program (TBCP) ----
+    tb = stats.get('tribal_broadband', {})
+    if tb and tb.get('total_awards'):
+        tb_n = tb['total_awards']
+        tb_fund = tb.get('total_funding', 0)
+        tb_avg = tb.get('avg_award', 0)
+        tb_states = tb.get('states_covered', 0)
+
+        body += f"""
+
+<h2 id="tribal-broadband">Tribal Broadband Connectivity Program (TBCP)</h2>
+<p class="wiki-sub">The NTIA's Tribal Broadband Connectivity Program, funded by the Infrastructure Investment and Jobs Act (IIJA), awarded <strong>${tb_fund/1e9:.2f} billion</strong> across {tb_n} Tribal projects. Awards support broadband infrastructure deployment, digital adoption, and planning on Tribal lands — directly serving libraries and communities that have historically lacked adequate internet access. States are derived from award ZIP codes.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${tb_fund/1e9:.2f}B</div><div class="label">Total awarded</div></div>
+  <div class="stat-card"><div class="num">{tb_n}</div><div class="label">Tribal awards</div></div>
+  <div class="stat-card"><div class="num">${tb_avg/1e6:.1f}M</div><div class="label">Average award</div></div>
+  <div class="stat-card"><div class="num">{tb_states}</div><div class="label">States covered</div></div>
+</div>"""
+
+        # BIA Region breakdown
+        if tb.get('by_bia_region'):
+            body += """
+<h3>Funding by BIA Region</h3>
+<div class="services-bars">"""
+            max_r = max(r.get('total', 0) for r in tb['by_bia_region']) or 1
+            for r in tb['by_bia_region']:
+                amt = r.get('total', 0)
+                pct_w = (amt / max_r) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(r["region"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">${amt/1e6:,.0f}M</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Largest awards table
+        if tb.get('top_awards'):
+            body += """
+<h3>Largest awards</h3>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>State</th><th>BIA Region</th><th>Amount</th><th>Project Type</th></tr>"""
+            for r in tb['top_awards'][:15]:
+                body += f'\n  <tr><td>{esc(r["recipient"])}</td><td>{esc(r["state"]) or "—"}</td><td>{esc(r.get("bia_region",""))}</td><td class="pct">${r["amount"]/1e6:,.1f}M</td><td>{esc(r.get("project_type",""))}</td></tr>'
+            body += '\n</table>'
+
+        # Award size distribution
+        if tb.get('size_distribution'):
+            body += """
+<h3>Award size distribution</h3>
+<div class="services-bars">"""
+            max_s = max(r.get('count', 0) for r in tb['size_distribution']) or 1
+            for r in tb['size_distribution']:
+                cnt = r.get('count', 0)
+                pct_w = (cnt / max_s) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(r["bucket"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # By project type
+        if tb.get('by_project_type'):
+            body += """
+<h3>By project type</h3>
+<table class="wikitable">
+  <tr><th>Project Type</th><th>Awards</th><th>Total Funding</th></tr>"""
+            for r in tb['by_project_type']:
+                body += f'\n  <tr><td>{esc(r["type"])}</td><td>{r.get("count", 0)}</td><td class="pct">${r.get("total", 0)/1e6:,.1f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: NTIA Tribal Broadband Connectivity Program (TBCP) award data via ArcGIS REST API. Funded by the Infrastructure Investment and Jobs Act (IIJA). BIA = Bureau of Indian Affairs regional offices. States are derived from award ZIP codes (3-digit prefix mapping).</p>'
+
+    # ---- USAC Emergency Connectivity Fund (ECF) ----
+    ecf = stats.get('ecf', {})
+    if ecf and ecf.get('total_records'):
+        ecf_n = ecf['total_records']
+        ecf_fund = ecf.get('total_funding', 0)
+        ecf_dr = ecf.get('date_range', '')
+        ecf_lib = ecf.get('library', {})
+        ecf_lib_n = ecf_lib.get('total_records', 0)
+        ecf_lib_fund = ecf_lib.get('total_funding', 0)
+
+        body += f"""
+
+<h2 id="ecf">Emergency Connectivity Fund (ECF) — Device Distribution</h2>
+<p class="wiki-sub">The FCC's Emergency Connectivity Fund, a pandemic-era program ({ecf_dr}), distributed <strong>${ecf_fund/1e9:.2f} billion</strong> to help schools and libraries provide laptops, tablets, Wi-Fi hotspots, and broadband connections to students and patrons. Libraries received ${ecf_lib_fund/1e6:,.0f}M across {ecf_lib_n:,} funding requests — a massive one-time federal investment in digital access equipment that directly addressed the homework gap.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ecf_fund/1e9:.2f}B</div><div class="label">Total ECF funding</div></div>
+  <div class="stat-card"><div class="num">{ecf_n:,}</div><div class="label">Funding requests</div></div>
+  <div class="stat-card"><div class="num">${ecf_lib_fund/1e6:,.0f}M</div><div class="label">Library funding</div></div>
+  <div class="stat-card"><div class="num">{ecf_lib_n:,}</div><div class="label">Library requests</div></div>
+</div>"""
+
+        # Product type breakdown
+        if ecf.get('by_product_type'):
+            body += """
+<h3>What was purchased — by product type</h3>
+<div class="services-bars">"""
+            max_p = max(r.get('funding', 0) for r in ecf['by_product_type']) or 1
+            for r in ecf['by_product_type'][:10]:
+                amt = r.get('funding', 0)
+                pct_w = (amt / max_p) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(r["type"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">${amt/1e6:,.0f}M</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Applicant type table
+        if ecf.get('by_applicant_type'):
+            body += """
+<h3>By applicant type</h3>
+<table class="wikitable">
+  <tr><th>Applicant Type</th><th>Records</th><th>Funding</th><th>Share</th></tr>"""
+            for r in ecf['by_applicant_type']:
+                cnt = r.get('count', 0)
+                fund = r.get('funding', 0)
+                body += f'\n  <tr><td>{esc(r["type"])}</td><td>{cnt:,}</td><td class="pct">${fund/1e6:,.0f}M</td><td>{100*fund/ecf_fund:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Library-specific section
+        if ecf_lib and ecf_lib.get('by_state'):
+            body += f"""
+<h3>Library ECF funding by state</h3>
+<p class="wiki-sub">Of the ${ecf_fund/1e9:.2f}B total, libraries received ${ecf_lib_fund/1e6:,.0f}M ({100*ecf_lib_fund/ecf_fund:.1f}%) across {ecf_lib.get('unique_libraries', 0):,} unique library applicants.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Library requests</th><th>Library funding</th></tr>"""
+            for r in ecf_lib['by_state'][:15]:
+                cnt = r.get('count', 0)
+                fund = r.get('funding', 0)
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td>{cnt:,}</td><td class="pct">${fund/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        # Library product breakdown
+        if ecf_lib and ecf_lib.get('by_product_type'):
+            body += """
+<h3>What libraries purchased</h3>
+<table class="wikitable">
+  <tr><th>Product Type</th><th>Records</th><th>Funding</th></tr>"""
+            for r in ecf_lib['by_product_type']:
+                cnt = r.get('count', 0)
+                fund = r.get('funding', 0)
+                body += f'\n  <tr><td>{esc(r["type"])}</td><td>{cnt:,}</td><td class="pct">${fund/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: USAC Emergency Connectivity Fund (ECF) FCC Form 471 data via Socrata API (opendata.usac.org). ECF was funded by the American Rescue Plan Act (2021) and operated 2021–2024. Funding amounts are approved (committed) values. "Blank/services" rows represent broadband connection FRNs rather than device purchases.</p>'
+
+    # ---- BLS Librarian Salaries (OES May 2024) ----
+    bls = stats.get('bls_salaries', {})
+    if bls and bls.get('occupations'):
+        body += f"""
+
+<h2 id="librarian-salaries">Library Worker Salaries (BLS OES 2024)</h2>
+<p class="wiki-sub">The Bureau of Labor Statistics' Occupational Employment and Wage Statistics survey tracks employment and wages for every occupation by state — including library workers. These figures reveal how much the people who run libraries actually earn, and the wide geographic variation in library worker compensation.</p>"""
+
+        for soc, occ in bls['occupations'].items():
+            title = occ.get('title', soc)
+            emp = occ.get('total_employment', 0)
+            avg_wage = occ.get('avg_mean_wage', 0)
+            high_wage = occ.get('highest_mean_wage', 0)
+            low_wage = occ.get('lowest_mean_wage', 0)
+            states_n = occ.get('states_with_data', 0)
+
+            body += f"""
+<h3>{esc(title)} <span class="soc-code">({esc(soc)})</span></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{emp:,.0f}</div><div class="label">Total employed</div></div>
+  <div class="stat-card"><div class="num">${avg_wage:,.0f}</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">${high_wage:,.0f}</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">${low_wage:,.0f}</div><div class="label">Lowest (any state)</div></div>
+</div>"""
+
+            # Top states by wage
+            if occ.get('top_by_wage'):
+                body += """
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Annual Wage</th><th>Median Annual Wage</th><th>Employment</th></tr>"""
+                for r in occ['top_by_wage'][:10]:
+                    body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td class="pct">${r["mean_wage"]:,.0f}</td><td>${r["median_wage"]:,.0f}</td><td>{r["employment"]:,.0f}</td></tr>'
+                body += '\n</table>'
+
+            # Lowest-paying states
+            if occ.get('lowest_by_wage'):
+                body += """
+<h4>Lowest-paying states</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Annual Wage</th><th>Employment</th></tr>"""
+                for r in occ['lowest_by_wage'][:5]:
+                    body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td class="pct">${r["mean_wage"]:,.0f}</td><td>{r["employment"]:,.0f}</td></tr>'
+                body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: BLS Occupational Employment and Wage Statistics (OES), May 2024 survey. SOC = Standard Occupational Classification code. Wages are annual, before taxes. Employment counts include full-time and part-time workers. Library occupations include Librarians and Media Collections Specialists (25-4022), Library Technicians (25-4031), Library Assistants (43-4111), and Library Science Teachers (25-1082).</p>'
+
+    # ---- FCC Affordable Connectivity Program (ACP) ----
+    acp = stats.get('acp', {})
+    if acp and acp.get('total_national_claims'):
+        acp_total = acp['total_national_claims']
+        acp_enrolled = acp.get('total_national_enrolled', 0)
+        acp_dr = acp.get('date_range', '')
+        acp_months = acp.get('months_active', 0)
+        acp_top = acp.get('top_by_enrollment', [{}])[0] if acp.get('top_by_enrollment') else {}
+
+        body += f"""
+
+<h2 id="acp">Affordable Connectivity Program (ACP)</h2>
+<p class="wiki-sub">The Affordable Connectivity Program was a $14.2 billion federal broadband subsidy that helped low-income households pay for internet service. Before the program ended in June 2024, <strong>{acp_enrolled/1e6:.1f} million households</strong> had enrolled. This data reveals the enormous unmet demand for affordable internet - the very demand that libraries help address through free WiFi, public computers, and hotspot lending. Over {acp_months} months, ${acp_total/1e9:.1f}B in claims were processed.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{acp_enrolled/1e6:.1f}M</div><div class="label">Households enrolled</div></div>
+  <div class="stat-card"><div class="num">${acp_total/1e9:.1f}B</div><div class="label">Total claims paid</div></div>
+  <div class="stat-card"><div class="num">{acp_months}</div><div class="label">Months active</div></div>
+  <div class="stat-card"><div class="num">{acp_top.get('state', '')}</div><div class="label">Top state by enrollment</div></div>
+</div>"""
+
+        # Monthly claims trend SVG chart
+        if acp.get('monthly_trend'):
+            mt = acp['monthly_trend']
+            max_amt = max(m.get('amount', 0) for m in mt) or 1
+            n = len(mt)
+            bw = 18
+            chart_w = n * bw + 60
+            chart_h = 220
+            body += f'\n<h3>Monthly claims trend ({acp_months} months)</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="ACP monthly claims trend">'
+            for i, m in enumerate(mt):
+                amt = m.get('amount', 0)
+                h = (amt / max_amt) * (chart_h - 50) if max_amt else 0
+                x = 40 + i * bw
+                body += f'<rect x="{x}" y="{chart_h - 30 - h:.1f}" width="{bw - 3}" height="{h:.1f}" fill="var(--accent-blue)" rx="2"/>'
+                if i % 3 == 0:
+                    label = m['month'][:3]
+                    body += f'<text x="{x + (bw - 3)/2:.0f}" y="{chart_h - 12}" text-anchor="middle" class="axis-text">{label}</text>'
+                if i == n - 1 or i % 6 == 0:
+                    body += f'<text x="{x + (bw - 3)/2:.0f}" y="{chart_h - 35 - h:.1f}" text-anchor="middle" class="bar-label">${amt/1e6:.0f}M</text>'
+            body += '</svg>'
+
+        # Top states by enrollment
+        if acp.get('top_by_enrollment'):
+            body += """
+<h3>Top states by household enrollment</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Households enrolled</th><th>Total claims</th></tr>"""
+            for r in acp['top_by_enrollment'][:15]:
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td class="pct">{r["households_enrolled"]:,}</td><td>${r["total_claims"]/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: FCC Affordable Connectivity Program data via USAC ACP Enrollment & Claims Tracker. Enrollment figures are unique households as of the Feb 8, 2024 enrollment freeze. Claims figures are cumulative gross claim amounts certified across 29 monthly data months (Jan 2022 - May 2024). The ACP was created by the Infrastructure Investment and Jobs Act (IIJA) and succeeded the Emergency Broadband Benefit (EBB) program. The program ended June 1, 2024 when funding was exhausted.</p>'
+
+    # ---- USAC E-Rate (library telecommunications funding) ----
+    er = stats.get('erate', {})
+    if er and er.get('total_records'):
+        er_n = er['total_records']
+        er_cost = er.get('total_cost', 0)
+        er_yr = er.get('year_range', '')
+        er_apps = er.get('unique_applicants', 0)
+        er_bens = er.get('unique_bens', 0)
+
+        body += f"""
+
+<h2 id="erate">E-Rate: Library Telecommunications Funding ({er_yr})</h2>
+<p class="wiki-sub">The Universal Service E-Rate program is the largest ongoing federal program funding library and school telecommunications and internet access. Libraries apply for discounts on broadband, fiber, and internal connections via FCC Form 471. <strong>{er_apps:,} library applicants</strong> submitted {er_n:,} funding requests totaling ${er_cost/1e6:,.0f}M in pre-discount eligible costs across {er_yr}. This is the quiet, steady infrastructure funding that keeps libraries connected year after year.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${er_cost/1e6:,.0f}M</div><div class="label">Total eligible costs</div></div>
+  <div class="stat-card"><div class="num">{er_n:,}</div><div class="label">Funding requests</div></div>
+  <div class="stat-card"><div class="num">{er_apps:,}</div><div class="label">Unique library applicants</div></div>
+  <div class="stat-card"><div class="num">{er_bens:,}</div><div class="label">Unique billed entities</div></div>
+</div>"""
+
+        # Top states by library E-Rate funding
+        if er.get('by_state'):
+            body += """
+<h3>Top states by library E-Rate funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Records</th><th>Eligible Costs</th></tr>"""
+            for r in er['by_state'][:15]:
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td>{r["count"]:,}</td><td class="pct">${r["cost"]/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        # By funding year
+        if er.get('by_year'):
+            body += """
+<h3>Annual library E-Rate funding</h3>
+<table class="wikitable">
+  <tr><th>Funding Year</th><th>Records</th><th>Eligible Costs</th></tr>"""
+            for r in er['by_year']:
+                body += f'\n  <tr><td>FY{esc(r["year"])}</td><td>{r["count"]:,}</td><td class="pct">${r["cost"]/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        # By service type
+        if er.get('by_function_type'):
+            body += """
+<h3>What E-Rate funds in libraries — by service type</h3>
+<div class="services-bars">"""
+            max_f = max(r.get('cost', 0) for r in er['by_function_type']) or 1
+            for r in er['by_function_type'][:12]:
+                amt = r.get('cost', 0)
+                pct_w = (amt / max_f) * 100
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(r["type"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">${amt/1e6:,.0f}M</span>
+  </div>"""
+            body += '\n</div>'
+
+        body += '<p class="rsrc">Source: USAC E-Rate FCC Form 471 FRN line-item data via Socrata API (opendata.usac.org, dataset hbj5-2bpj). Library subset filtered on applicant_type IN ("Library", "Library System"). Figures are pre-discount extended eligible costs (the basis for funding), not post-discount disbursements. Funding Year (FY) runs July 1 to June 30. E-Rate discounts range from 20% to 90% based on poverty level and urban/rural status.</p>'
+
+    # ---- NTIA BEAD Broadband Allocations ----
+    bead = stats.get('bead', {})
+    if bead and bead.get('total_distributed'):
+        bead_total = bead['total_distributed']
+        bead_approp = bead.get('total_appropriated', 0)
+        bead_admin = bead.get('admin_reserve', 0)
+        bead_states = bead.get('states_count', 0)
+        bead_top = bead.get('largest', [{}])[0] if bead.get('largest') else {}
+
+        body += f"""
+
+<h2 id="bead">Broadband Equity Access & Deployment (BEAD)</h2>
+<p class="wiki-sub">The BEAD program is the largest broadband investment in U.S. history: <strong>${bead_total/1e9:.2f} billion</strong> allocated across {bead_states} states and territories from the Infrastructure Investment and Jobs Act. Each state received a minimum of $100M (territories $25M) plus additional funding based on their share of unserved locations. While BEAD primarily funds broadband infrastructure deployment, libraries benefit as community anchor institutions that provide public internet access in newly connected areas.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${bead_total/1e9:.2f}B</div><div class="label">Distributed to states</div></div>
+  <div class="stat-card"><div class="num">${bead_approp/1e9:.2f}B</div><div class="label">Total appropriated</div></div>
+  <div class="stat-card"><div class="num">${bead_admin/1e6:.0f}M</div><div class="label">NTIA admin reserve (2%)</div></div>
+  <div class="stat-card"><div class="num">{bead_states}</div><div class="label">States & territories</div></div>
+</div>"""
+
+        # Top states by allocation
+        if bead.get('largest'):
+            body += """
+<h3>Top states by BEAD allocation</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Allocation</th><th>Minimum</th><th>Above Minimum</th></tr>"""
+            for r in bead['largest'][:15]:
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td class="pct">${r["allocation"]/1e9:,.2f}B</td><td>${r["minimum"]/1e6:,.0f}M</td><td>${r["above_minimum"]/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        # Smallest allocations
+        if bead.get('smallest'):
+            body += """
+<h3>Smallest allocations (territories & small states)</h3>
+<table class="wikitable">
+  <tr><th>State / Territory</th><th>Allocation</th></tr>"""
+            for r in bead['smallest'][:10]:
+                body += f'\n  <tr><td>{esc(r["state"])}</td><td class="pct">${r["allocation"]/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: NTIA Broadband Equity Access and Deployment (BEAD) Program. Allocations announced June 2023. Formula: Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Unserved locations identified from FCC Broadband DATA Maps. 2% ($849M) reserved for NTIA administration.</p>'
+
+    # ---- Library Ballot Measures (EveryLibrary) ----
+    ballot = stats.get('ballot', {})
+    if ballot and ballot.get('total_measures'):
+        bm_n = ballot['total_measures']
+        bm_pass = ballot.get('total_pass', 0)
+        bm_fail = ballot.get('total_fail', 0)
+        bm_rate = ballot.get('pass_rate', 0)
+        bm_amount = ballot.get('total_amount_requested', 0)
+        bm_yr = ballot.get('year_range', '')
+
+        body += f"""
+
+<h2 id="ballot-measures">Library Ballot Measures ({bm_yr})</h2>
+<p class="wiki-sub">When libraries need new buildings, expanded operations, or renewed tax levies, they often must ask voters directly through ballot measures. EveryLibrary tracks these elections across the country. Of {bm_n} library ballot measures recorded, <strong>{bm_pass} passed ({bm_rate:.0f}%)</strong> and {bm_fail} failed, with ${bm_amount/1e6:,.0f}M in funding requested. This is democracy at its most local - communities voting directly on whether to fund their libraries.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bm_n}</div><div class="label">Ballot measures</div></div>
+  <div class="stat-card"><div class="num">{bm_pass}</div><div class="label">Passed</div></div>
+  <div class="stat-card"><div class="num">{bm_fail}</div><div class="label">Failed</div></div>
+  <div class="stat-card"><div class="num">{bm_rate:.0f}%</div><div class="label">Pass rate</div></div>
+  <div class="stat-card"><div class="num">${bm_amount/1e6:,.0f}M</div><div class="label">Funding requested</div></div>
+</div>"""
+
+        # By year chart
+        if ballot.get('by_year'):
+            by_yr = ballot['by_year']
+            max_y = max(r.get('count', 0) for r in by_yr) or 1
+            n_yrs = len(by_yr)
+            bw = 36
+            chart_w = n_yrs * bw + 60
+            chart_h = 200
+            body += f'\n<h3>Library ballot measures per year</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Library ballot measures per year">'
+            for i, r in enumerate(by_yr):
+                cnt = r.get('count', 0)
+                h = (cnt / max_y) * (chart_h - 50) if max_y else 0
+                x = 40 + i * bw
+                body += f'<rect x="{x}" y="{chart_h - 30 - h:.1f}" width="{bw - 6}" height="{h:.1f}" fill="var(--accent-green)" rx="3"/>'
+                body += f'<text x="{x + (bw - 6)/2:.0f}" y="{chart_h - 12}" text-anchor="middle" class="axis-text">{r["year"]}</text>'
+                body += f'<text x="{x + (bw - 6)/2:.0f}" y="{chart_h - 35 - h:.1f}" text-anchor="middle" class="bar-label">{cnt}</text>'
+            body += '</svg>'
+
+        # Top states table
+        if ballot.get('by_state'):
+            body += """
+<h3>States with most library ballot measures</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th><th>Amount Requested</th></tr>"""
+            for r in ballot['by_state'][:15]:
+                pr = (r['pass'] / r['total'] * 100) if r['total'] else 0
+                amt = r.get('amount', 0)
+                body += f'\n  <tr><td><a href="states/{esc(r["state"])}.html">{esc(r["state"])}</a></td><td>{r["total"]}</td><td>{r["pass"]}</td><td>{r["fail"]}</td><td class="pct">{pr:.0f}%</td><td>${amt/1e6:,.0f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: EveryLibrary campaign history (everylibrary.org/campaign_history). Includes library bond measures, operating levy renewals, tax increases, library district formations, and anti-privatization measures. Amount figures are for measures where dollar amounts were specified; many operating levy renewals do not list a specific dollar amount.</p>'
+
+    # ---- Library Usage Survey Data (Pew Research + Gallup) ----
+    lu = stats.get('library_usage', {})
+    if lu and lu.get('overall_usage'):
+        ou = lu['overall_usage']
+        cv = lu.get('community_value', {})
+        si = lu.get('service_importance', {})
+        dem = lu.get('demographic_usage', {})
+        survey_yr = lu.get('survey_year', '')
+
+        nea = lu.get('nea_sppa_2022', {})
+        nea_pct = nea.get('adults_visited_public_library_pct', 23)
+        nea_n = nea.get('sample_size', 19100)
+
+        body += f"""
+
+<h2 id="library-usage">How Americans Use Libraries (Survey Data)</h2>
+<p class="wiki-sub">Beyond the administrative data, public opinion surveys reveal how Americans actually interact with libraries and what they value. The Pew Research Center surveyed {lu.get('sample_size', 6224):,} Americans in {survey_yr}, finding that {ou.get('used_library_past_year', 54)}% had used a library in the past year. Gallup's 2019 poll found Americans visit libraries an average of {dem.get('gallup_2019_visits_per_year_avg', 10.5)} times per year - more frequent than any other cultural activity measured. In 2022, the NEA added a library-visit question to its Survey of Public Participation in the Arts for the first time: {nea_pct}% of adults reported visiting a public library.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ou.get('used_library_past_year', 54)}%</div><div class="label">Used a library (past year, Pew)</div></div>
+  <div class="stat-card"><div class="num">{ou.get('library_household', 72)}%</div><div class="label">Live in a "library household"</div></div>
+  <div class="stat-card"><div class="num">{ou.get('website_visit', 30)}%</div><div class="label">Visited library website</div></div>
+  <div class="stat-card"><div class="num">{cv.get('libraries_improve_quality_of_life', 94)}%</div><div class="label">Say libraries improve community</div></div>
+  <div class="stat-card"><div class="num">{cv.get('closure_would_impact_community', 90)}%</div><div class="label">Closure would impact community</div></div>
+  <div class="stat-card"><div class="num">{dem.get('gallup_2019_visits_per_year_avg', 10.5)}</div><div class="label">Avg visits per year (Gallup)</div></div>
+  <div class="stat-card"><div class="num">{nea_pct}%</div><div class="label">Adults visited public library (NEA 2022)</div></div>
+</div>"""
+
+        # Community value bars
+        if cv:
+            body += """
+<h3>How Americans value libraries in their communities</h3>
+<div class="services-bars">"""
+            max_v = max(cv.values()) if cv else 1
+            for label, val in cv.items():
+                pct_w = (val / max_v) * 100 if isinstance(val, (int, float)) and max_v else 0
+                display = label.replace("_", " ").title()
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(display)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Service importance bars
+        if si:
+            body += """
+<h3>Who depends on library services most</h3>
+<div class="services-bars">"""
+            max_s = max(si.values()) if si else 1
+            for label, val in si.items():
+                if isinstance(val, (int, float)):
+                    pct_w = (val / max_s) * 100 if max_s else 0
+                    display = label.replace("_", " ").title()
+                    body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(display)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Usage trend
+        if ou:
+            body += f"""
+<h3>Usage trends</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>2012</th><th>{survey_yr}</th><th>Change</th></tr>"""
+            metrics = [
+                ("Overall library usage", ou.get('used_library_2012', 59), ou.get('used_library_past_year', 54)),
+                ("In-person visit", ou.get('in_person_visit_2012', 53), ou.get('in_person_visit', 48)),
+                ("Website visit", ou.get('website_visit_2012', 25), ou.get('website_visit', 30)),
+            ]
+            for label, v1, v2 in metrics:
+                chg = v2 - v1
+                body += f'\n  <tr><td>{label}</td><td class="pct">{v1}%</td><td class="pct">{v2}%</td><td>{"+" if chg >= 0 else ""}{chg}pp</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: Pew Research Center Internet & American Life Project ({survey_yr} survey, n={lu.get("sample_size", 6224):,}), Gallup ({dem.get("survey_year", 2019)} poll), and NEA Survey of Public Participation in the Arts (2022, n={nea_n:,}). Pew surveyed Americans aged 16+ on library use and attitudes. In-person visits declined {ou.get("in_person_visit_2012", 53) - ou.get("in_person_visit", 48)}pp from 2012 to {survey_yr} while website visits increased {ou.get("website_visit", 30) - ou.get("website_visit_2012", 25)}pp - a shift toward digital access that the PLS data confirms. The NEA SPPA 2022 library-visit question is not directly comparable to Pew due to different wording (in-person public library visits by adults 18+) and methodology.</p>'
+
+    # ---- ALA State of America's Libraries Report 2024 ----
+    ala = stats.get('ala_report', {})
+    if ala and ala.get('key_statistics'):
+        ks = ala['key_statistics']
+        top_books = ala.get('top_10_challenged_books', [])
+        state_leg = ala.get('state_legislation', [])
+        fed_leg = ala.get('federal_legislation', [])
+        titles_23 = ks.get('unique_titles_challenged_2023', 4240)
+        titles_22 = ks.get('unique_titles_challenged_2022', 2571)
+        pct_inc = ks.get('percent_increase_challenged_titles', 65)
+        attempts = ks.get('censorship_attempts_documented_2023', 1247)
+        bills = ks.get('state_censorship_bills_introduced_2023', 151)
+        avg_pre = ks.get('average_unique_titles_challenged_2001_2020', 273)
+        pub_pct_22 = ks.get('public_library_challenges_percent_2022', 16)
+        pub_pct_23 = ks.get('public_library_challenges_percent_2023', 32)
+
+        body += f"""
+
+<h2 id="ala-report">State of America's Libraries (ALA 2024)</h2>
+<p class="wiki-sub">The American Library Association's annual State of America's Libraries Report is the field's most authoritative year-in-review. The 2024 edition (covering 2023 data) documents a censorship crisis: {titles_23:,} unique titles were challenged in {attempts:,} documented censorship attempts - a {pct_inc:.0f}% increase from {titles_22:,} in 2022. For context, the average year from 2001-2020 saw only {avg_pre} unique titles challenged. Meanwhile, {bills} state censorship bills were introduced across the country, and public library challenges doubled from {pub_pct_22}% to {pub_pct_23}% of all challenges.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{titles_23:,}</div><div class="label">Unique titles challenged (2023)</div></div>
+  <div class="stat-card"><div class="num">+{pct_inc:.0f}%</div><div class="label">Increase from 2022</div></div>
+  <div class="stat-card"><div class="num">{attempts:,}</div><div class="label">Censorship attempts documented</div></div>
+  <div class="stat-card"><div class="num">{bills}</div><div class="label">State censorship bills introduced</div></div>
+  <div class="stat-card"><div class="num">{avg_pre}</div><div class="label">Avg titles/year (2001-2020)</div></div>
+  <div class="stat-card"><div class="num">{pub_pct_23}%</div><div class="label">Public library share of challenges</div></div>
+</div>"""
+
+        # Pre-2023 vs 2023 comparison bar chart
+        body += f"""
+<h3>The censorship surge: 2023 in historical context</h3>
+<svg class="trend-chart" viewBox="0 0 480 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Challenged titles historical comparison">
+  <rect x="40" y="120" width="80" height="70" fill="var(--accent-blue)" rx="4"/>
+  <text x="80" y="205" text-anchor="middle" class="axis-text">2001-2020 avg</text>
+  <text x="80" y="112" text-anchor="middle" class="bar-label">{avg_pre}</text>
+  <rect x="180" y="92" width="80" height="98" fill="var(--accent-yellow)" rx="4"/>
+  <text x="220" y="205" text-anchor="middle" class="axis-text">2022</text>
+  <text x="220" y="84" text-anchor="middle" class="bar-label">{titles_22:,}</text>
+  <rect x="320" y="20" width="80" height="170" fill="var(--accent-red)" rx="4"/>
+  <text x="360" y="205" text-anchor="middle" class="axis-text">2023</text>
+  <text x="360" y="12" text-anchor="middle" class="bar-label">{titles_23:,}</text>
+</svg>"""
+
+        # Top 10 most challenged books
+        if top_books:
+            body += """
+<h3>Top 10 most challenged books of 2023</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>Title</th><th>Author</th><th>Reasons cited</th></tr>"""
+            for b in top_books:
+                body += f'\n  <tr><td class="pct">{b.get("rank", "")}</td><td><em>{esc(b.get("title", ""))}</em></td><td>{esc(b.get("author", ""))}</td><td>{esc(b.get("reasons", ""))}</td></tr>'
+            body += '\n</table>'
+
+        # State legislation highlights
+        if state_leg:
+            body += """
+<h3>State legislation highlights</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Development</th></tr>"""
+            for s in state_leg:
+                body += f'\n  <tr><td><a href="states/{esc(s["state"])}.html">{esc(s["state"])}</a></td><td>{esc(s["description"])}</td></tr>'
+            body += '\n</table>'
+
+        # Federal legislation highlights
+        if fed_leg:
+            body += """
+<h3>Federal legislation & policy highlights</h3>
+<ul class="wiki-list">"""
+            for f in fed_leg:
+                body += f'\n  <li>{esc(f["description"])}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: American Library Association, <em>State of America\'s Libraries Report 2024</em> (covering 2023 data). The ALA tracks censorship attempts in partnership with the ALA Office for Intellectual Freedom. Challenge data may undercount actual incidents as reporting is voluntary. The {titles_23 - titles_22:,} additional titles challenged in 2023 vs 2022 represent the largest single-year increase ever recorded.</p>'
+
+    body += f"""
+<h2 id="leaderboard">State Leaderboard</h2>
+<table class="wikitable leaderboard-table">
+  <tr><th>Rank</th><th>State</th><th>Public</th><th>Private</th><th>Gov</th><th>Total</th></tr>"""
+
+    for i, st in enumerate(stats['state_ranking'], 1):
+        total = st['pub'] + st['priv'] + st['gov']
+        body += f"""
+  <tr>
+    <td>{i}</td>
+    <td><a href="states/{st['code']}.html">{esc(st['name'])}</a></td>
+    <td>{st['pub']:,}</td>
+    <td>{st['priv']:,}</td>
+    <td>{st['gov']:,}</td>
+    <td class="pct">{total:,}</td>
+  </tr>"""
+
+    body += f"""
+</table>
+
+<h2 id="states">Browse by State</h2>
+<div class="state-grid">"""
+
+    for st in sorted(STATE_NAMES.keys()):
+        st_data = stats['states'].get(st)
+        if st_data:
+            body += f'<a href="states/{st}.html">{st}</a>'
+
+    body += f"""
+</div>
+
+<h2>Map Legend</h2>
+<div class="rules-box">
+  <ul>
+    <li><span style="color:#2b7fff;font-weight:700">● Blue</span> — Public libraries ({pub['total']:,})</li>
+    <li><span style="color:#e23b3b;font-weight:700">● Red</span> — Private/academic libraries ({priv['total']:,})</li>
+    <li><span style="color:#8e44ff;font-weight:700">● Purple</span> — Government websites linked to locations ({gov['total']:,})</li>
+  </ul>
+</div>
+
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a></div>
+<div class="relatedbox">
+  <h3>Keep exploring</h3>
+  <ul>
+    <li><a href="search.html">Search all records →</a></li>
+    <li><a href="map.html">Full-page interactive map →</a></li>
+    <li><a href="gov.html">Government sites overview →</a></li>
+    <li><a href="about.html">Methodology & data sources →</a></li>
+  </ul>
+</div>
+<p class="edit-note">Generated from CSV data by wiki/build_wiki.py on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'index.html'), 'w') as f:
+        f.write(shell("US Library Census", body, panel("index"), active_tab="index"))
+
+def build_gov(data, stats):
+    print("[build] Building gov.html...")
+    body = f"""
+<p class="contentSub">Government websites</p>
+<div class="wiki-sub">{stats['gov']['total']:,} federal, state, county, city, tribal, and special-district websites — {stats['gov']['live']:,} verified live ({stats['gov']['live_pct']}).</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{stats['gov']['total']:,}</div><div class="label">Total gov sites</div></div>
+  <div class="stat-card"><div class="num">{stats['gov']['live']:,}</div><div class="label">Verified live</div></div>
+  <div class="stat-card"><div class="num">{stats['gov_services']:,}</div><div class="label">Service summaries</div></div>
+</div>
+
+<h2>Verification by Tier</h2>
+<table class="data-table">
+  <tr><th>Tier</th><th>Total</th><th>Live</th><th>Rate</th></tr>"""
+
+    tier_labels = {
+        'federal':'Federal','state':'State','county':'County',
+        'city':'City','tribal':'Tribal','special':'Special/Interstate'
+    }
+    for tier in ['federal','state','county','city','tribal','special']:
+        ts = stats['gov']['tiers'].get(tier, {'total':0,'live':0,'pct':'0%'})
+        body += f'<tr><td><a href="search.html?type=gov&tier={tier}">{tier_labels[tier]}</a></td><td>{ts["total"]:,}</td><td class="live">{ts["live"]:,}</td><td class="pct">{ts["pct"]}</td></tr>'
+
+    body += '</table>'
+
+    # ---- What powers America's gov websites (server tech) ----
+    gt = stats['gov_tech']
+    body += f"""
+<h2 id="tech">What Powers America's Government Websites</h2>
+<p class="wiki-sub">Server software detected across {gt['total_checked']:,} verified government websites — a tech-stack census of .gov.</p>
+<div class="tech-bars">"""
+
+    max_tech = gt['servers'][0]['count'] if gt['servers'] else 1
+    for srv in gt['servers']:
+        pct_w = (srv['count'] / max_tech) * 100
+        body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(srv["name"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{srv["count"]:,}</span>
+  </div>"""
+
+    body += f"""
+</div>
+
+<h2 id="health">Site Health — HTTP Status Breakdown</h2>
+<table class="data-table health-table">
+  <tr><th>HTTP Status</th><th>Meaning</th><th>Count</th><th>Share</th></tr>"""
+
+    status_meanings = {
+        '200': 'OK', '202': 'Accepted', '206': 'Partial Content',
+        '301': 'Moved Permanently', '307': 'Temporary Redirect',
+        '400': 'Bad Request', '401': 'Unauthorized', '402': 'Payment Required',
+        '403': 'Forbidden', '404': 'Not Found', '409': 'Conflict',
+        '410': 'Gone', '421': 'Misdirected Request', '429': 'Too Many Requests',
+        '444': 'No Response (nginx)', '500': 'Internal Server Error',
+        '502': 'Bad Gateway', '503': 'Service Unavailable',
+        '504': 'Gateway Timeout', '508': 'Loop Detected',
+        '520': 'Cloudflare Error', '521': 'Web Server Down',
+        '523': 'Origin Unreachable', '525': 'SSL Handshake Failed',
+        '526': 'Invalid SSL Cert', '530': 'Cloudflare',
+        '999': 'Blocked/Error', '0': 'Connection Failed',
+    }
+    total_checked = gt['total_checked'] or 1
+    for st in gt['statuses']:
+        meaning = status_meanings.get(st['code'], 'Unknown')
+        code_int = 0
+        try: code_int = int(st['code'])
+        except (ValueError, TypeError): pass
+        if code_int == 0:
+            cls = 'dead'
+        elif code_int < 300:
+            cls = 'live'
+        elif code_int < 400:
+            cls = 'rating'
+        else:
+            cls = 'dead'
+        body += f'<tr><td><span class="{cls}">{esc(st["code"])}</span></td><td>{meaning}</td><td>{st["count"]:,}</td><td class="pct">{100*st["count"]/total_checked:.1f}%</td></tr>'
+
+    body += '</table>'
+
+    # ---- Oldest & newest agencies ----
+    tl = stats['agency_timeline']
+    body += """
+<h2 id="timeline">Agency Timeline — Oldest & Newest</h2>
+<table class="data-table">
+  <tr><th>Year</th><th>Agency</th><th>Level</th><th>State</th></tr>"""
+
+    for a in tl['oldest']:
+        body += f'<tr><td class="pct">{a["year"]}</td><td><strong>{esc(a["name"])}</strong></td><td>{esc(a["level"])}</td><td>{esc(a["state"]) or "—"}</td></tr>'
+
+    if tl['oldest'] and tl['newest']:
+        body += '<tr><td colspan="4" style="text-align:center;font-style:italic;color:var(--wiki-text-muted)">— Newest agencies —</td></tr>'
+        for a in tl['newest']:
+            body += f'<tr><td class="pct">{a["year"]}</td><td><strong>{esc(a["name"])}</strong></td><td>{esc(a["level"])}</td><td>{esc(a["state"]) or "—"}</td></tr>'
+
+    body += '</table>\n'
+
+    # Gov services table — top agencies with summaries
+    gs = data['gov_services']
+    summarized = [r for r in gs if (r.get('services_summary') or '').strip()]
+    body += f"""
+<h2 id="services">Government Services — What Each Agency Does</h2>
+<p>{len(summarized)} agencies with detailed service summaries out of {len(gs):,} total records.</p>
+<table class="data-table">
+  <tr><th>Agency</th><th>Level</th><th>State</th><th>Established</th><th>Services</th></tr>"""
+
+    for r in summarized[:50]:
+        agency = esc(r.get('agency_name',''))
+        level = esc(r.get('level',''))
+        state = esc(r.get('state',''))
+        est = esc(r.get('established_year',''))
+        summary = esc(r.get('services_summary','')[:120])
+        body += f'<tr><td><strong>{agency}</strong></td><td>{level}</td><td>{state}</td><td>{est}</td><td>{summary}</td></tr>'
+
+    body += f'</table>\n<p>Showing 50 of {len(summarized)} summarized agencies. <a href="search.html?type=govservices">Search all →</a></p>'
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=gov&tier=federal">Federal</a> | <a href="search.html?type=gov&tier=state">State</a> | <a href="search.html?type=gov&tier=county">County</a> | <a href="search.html?type=gov&tier=city">City</a> | <a href="search.html?type=gov&tier=tribal">Tribal</a> | <a href="search.html?type=gov&tier=special">Special</a></div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'gov.html'), 'w') as f:
+        f.write(shell("Government Websites", body, panel("gov"), active_tab="gov"))
+
+def build_about(data, stats):
+    print("[build] Building about.html...")
+    body = f"""
+<p class="contentSub">About this wiki</p>
+<div class="wiki-sub">How this dataset was built, where the data comes from, and what's still missing.</div>
+
+<h2>Overview</h2>
+<p>This is a living, automated-crawl dataset of every public and private library in the
+United States, plus every federal, state, county, city, tribal, and special-district
+government website. Each record carries address, geocoordinates, website URL, funding
+information, contact details, review ratings, hours of operation, services offered, and
+area demographics. Every link is verified live, and the dataset is continuously enriched
+via a scheduled pipeline.</p>
+
+<h2>Primary Data Sources</h2>
+<table class="data-table">
+  <tr><th>Source</th><th>What it provides</th><th>Records</th></tr>
+  <tr><td><strong>IMLS PLS FY2024</strong></td><td>Public library outlets (outlet-level, includes address, funding, size, population served)</td><td>{stats['public']['total']:,}</td></tr>
+  <tr><td><strong>NCES IPEDS AL 2023 + HD2023</strong></td><td>Academic libraries (degree-granting institutions)</td><td>{stats['private']['total']:,}</td></tr>
+  <tr><td><strong>CISA dotgov-data + GSA govt-urls</strong></td><td>Federal/state/county/city/tribal/special .gov domain registry</td><td>{stats['gov']['total']:,}</td></tr>
+  <tr><td><strong>Census ACS 2023 5-Year</strong></td><td>Demographics (median income, population, age, poverty rate)</td><td>{stats['public']['demographics']:,}</td></tr>
+  <tr><td><strong>Google Places API v1</strong></td><td>Real review ratings (free daily quota, no billing needed)</td><td>{stats['public']['rated']:,}+{stats['private']['rated']:,}</td></tr>
+  <tr><td><strong>Gemini LLM (gemini-flash-lite-latest)</strong></td><td>Estimated ratings for well-known libraries where Places API quota exhausted</td><td>~6,100</td></tr>
+  <tr><td><strong>LibraryTechnology.org state directories</strong></td><td>Library website discovery (3,366 additional websites found)</td><td>7,912 systems</td></tr>
+  <tr><td><strong>Library website scraping</strong></td><td>Emails, social media links, hours, services extracted from library homepages</td><td>{stats['hours']:,} hours, {stats['services']:,} services</td></tr>
+</table>
+
+<h2>Data Coverage</h2>
+<table class="coverage-table">
+  <tr><th>Field</th><th>Public libraries</th><th>Private libraries</th><th>Gov sites</th></tr>
+  <tr><td>Total records</td><td>{stats['public']['total']:,}</td><td>{stats['private']['total']:,}</td><td>{stats['gov']['total']:,}</td></tr>
+  <tr><td>Geocoded</td><td>100%</td><td>99.9%</td><td>Partial</td></tr>
+  <tr><td>Websites</td><td>{stats['public']['web_pct']}</td><td>{stats['private']['web_pct']}</td><td>100%</td></tr>
+  <tr><td>Ratings</td><td>{stats['public']['rated_pct']}</td><td>{stats['private']['rated_pct']}</td><td>—</td></tr>
+  <tr><td>Emails</td><td>{stats['public']['email_pct']}</td><td>—</td><td>—</td></tr>
+  <tr><td>Social media</td><td>{stats['public']['social_pct']}</td><td>—</td><td>—</td></tr>
+  <tr><td>Demographics</td><td>{stats['public']['demo_pct']}</td><td>—</td><td>—</td></tr>
+  <tr><td>Verified live</td><td>—</td><td>—</td><td>{stats['gov']['live_pct']}</td></tr>
+</table>
+
+<h2>Known Gaps (honest accounting)</h2>
+<div class="rules-box">
+  <ul>
+    <li><strong>14.5% of public library systems</strong> (1,339) have no website — almost all are tiny rural/bookmobile libraries with no online presence.</li>
+    <li><strong>54.1% of public libraries</strong> remain unrated — Google Places API daily quota limits accumulation; Gemini LLM fills in well-known libraries but correctly omits obscure branches.</li>
+    <li><strong>25.6% of gov sites</strong> are not live — many are genuinely expired/dead .gov domains (DNS won't resolve).</li>
+    <li><strong>Special libraries</strong> (law, medical, theological, corporate) are underrepresented — only 75 added beyond the 3,695 academic libraries.</li>
+    <li><strong>Cron automation</strong> is set up but not yet active — run <code>bash automation/setup_cron.sh</code> to enable continuous enrichment.</li>
+  </ul>
+</div>
+
+<h2>Scripts (21 Python scripts)</h2>
+<table class="data-table">
+  <tr><th>Script</th><th>Purpose</th></tr>
+  <tr><td><code>fetch_imls.py</code></td><td>Download IMLS Public Libraries Survey FY2024</td></tr>
+  <tr><td><code>fetch_academic.py</code></td><td>Download NCES IPEDS Academic Libraries 2023</td></tr>
+  <tr><td><code>fetch_gov.py</code></td><td>Build gov-site spreadsheets from CISA/GSA registries</td></tr>
+  <tr><td><code>fetch_special_libraries.py</code></td><td>Expand private libraries (law/medical/theological/corporate)</td></tr>
+  <tr><td><code>find_library_websites.py</code></td><td>Heuristic website discovery for public libraries</td></tr>
+  <tr><td><code>fetch_state_directories.py</code></td><td>Scrape LibraryTechnology.org state directories</td></tr>
+  <tr><td><code>scrape_library_pages.py</code></td><td>Scrape library websites for emails, socials, ratings</td></tr>
+  <tr><td><code>merge_enrichment.py</code></td><td>Merge scraped enrichment into public_libraries.csv</td></tr>
+  <tr><td><code>fetch_reviews.py</code></td><td>Google Places API + Gemini LLM ratings</td></tr>
+  <tr><td><code>fetch_library_hours.py</code></td><td>Scrape library websites for hours of operation</td></tr>
+  <tr><td><code>fetch_library_services.py</code></td><td>Scrape library websites for services offered</td></tr>
+  <tr><td><code>fetch_gov_services.py</code></td><td>Document what each federal/state agency does</td></tr>
+  <tr><td><code>verify_links.py</code></td><td>Batched HTTP link checker for all URLs</td></tr>
+  <tr><td><code>enrich_geocode.py</code></td><td>Fill lat/lng via Census Gazetteer</td></tr>
+  <tr><td><code>enrich_demographics.py</code></td><td>Overlay Census ACS demographics</td></tr>
+  <tr><td><code>build_map.py</code></td><td>Generate the interactive 2D map</td></tr>
+  <tr><td><code>dns_bypass.py</code></td><td>Bypass macOS mDNS hangs (utility module)</td></tr>
+</table>
+
+<h2>Update Frequency</h2>
+<p>The pipeline is designed to run every 30 minutes via cron (<code>automation/run_pipeline.sh</code>).
+Each run is idempotent and resumable — it picks up where the last run left off, using
+caches in <code>data/_cache/</code>. Google Places API quota resets daily at midnight PT,
+so ratings accumulate across runs. The wiki can be rebuilt at any time by re-running
+<code>python3 wiki/build_wiki.py</code>.</p>
+
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a></div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'about.html'), 'w') as f:
+        f.write(shell("About / Methodology", body, panel("about"), active_tab="about"))
+
+def build_search():
+    print("[build] Building search.html...")
+    body = """
+<p class="contentSub">Search the census</p>
+<div class="wiki-sub">Search across all 46,000+ records — libraries, government sites, hours, and services.</div>
+
+<div class="search-controls">
+  <input type="text" id="searchInput" placeholder="Search by name, city, or address…" oninput="doSearch()">
+  <select id="stateFilter" onchange="doSearch()">
+    <option value="">All states</option>
+  </select>
+  <select id="typeFilter" onchange="doSearch()">
+    <option value="">All types</option>
+    <option value="public">Public libraries</option>
+    <option value="private">Private libraries</option>
+    <option value="academic">Academic libraries</option>
+    <option value="gov">Government sites</option>
+  </select>
+  <select id="sortFilter" onchange="doSearch()">
+    <option value="name">Sort: Name</option>
+    <option value="state">Sort: State</option>
+    <option value="rating">Sort: Rating</option>
+    <option value="city">Sort: City</option>
+  </select>
+  <label><input type="checkbox" id="hasWebsite" onchange="doSearch()"> Has website</label>
+  <label><input type="checkbox" id="hasRating" onchange="doSearch()"> Has rating</label>
+</div>
+
+<div class="search-info" id="searchInfo">Loading data…</div>
+<div class="search-results" id="searchResults"></div>
+<div class="pagination" id="pagination"></div>
+
+<div class="detail-overlay" id="detailPanel">
+  <button class="close" onclick="closeDetail()">×</button>
+  <div id="detailContent"></div>
+</div>
+
+<script src="app.js"></script>
+"""
+
+    # Search page — no sidebar, content spans full width (Bootstrap col-12)
+    page = shell("Search & Filter", body, panel_html="", active_tab="search")
+    with open(os.path.join(WIKI, 'search.html'), 'w') as f:
+        f.write(page)
+
+def build_state_pages(data, stats):
+    print("[build] Building state pages...")
+    os.makedirs(STATES_DIR, exist_ok=True)
+
+    for st, st_info in stats['states'].items():
+        st_name = st_info['name']
+        st_pub = [r for r in data['public'] if r.get('state','') == st]
+        st_priv = [r for r in data['private'] if r.get('state','') == st]
+        st_gov = [r for r in data['gov'] if r.get('state','') == st]
+
+        # Build hours lookup
+        hours_map = {r.get('id',''): r for r in data['hours'] if r.get('id','')}
+
+        st_rated = sum(1 for r in st_pub if (r.get('reviews_rating') or '').strip())
+        st_web = sum(1 for r in st_pub if (r.get('website') or '').strip())
+        st_gov_live = sum(1 for r in st_gov if (r.get('url_live','') or '').strip().lower() in ('true','1','yes'))
+
+        body = f"""
+<p class="contentSub">State: {esc(st_name)}</p>
+<div class="wiki-sub">{st_info['pub']:,} public libraries · {st_info['priv']:,} private libraries · {st_info['gov']:,} government websites</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{st_info['pub']:,}</div><div class="label">Public libraries</div></div>
+  <div class="stat-card"><div class="num">{st_info['priv']:,}</div><div class="label">Private libraries</div></div>
+  <div class="stat-card"><div class="num">{st_info['gov']:,}</div><div class="label">Gov sites</div></div>
+  <div class="stat-card"><div class="num">{st_rated:,}</div><div class="label">Rated</div></div>
+  <div class="stat-card"><div class="num">{st_gov_live:,}</div><div class="label">Gov live</div></div>
+  <div class="stat-card"><div class="num">{st_web:,}</div><div class="label">With websites</div></div>
+</div>"""
+
+        # ---- State Library Agency info box (SLAA FY2024) ----
+        st_slaa = stats.get('slaa_by_state', {}).get(st)
+        if st_slaa:
+            ag_name = esc(st_slaa.get('agency_name','') or '')
+            ag_type = esc(st_slaa.get('agency_type','') or '')
+            ag_web = (st_slaa.get('website','') or '').strip()
+            ag_web_html = f'<a href="{esc(ag_web)}" target="_blank" rel="noopener">{esc(ag_web)}</a>' if ag_web else '—'
+            bt = (st_slaa.get('budget_total','') or '').strip()
+            bt_str = f"${int(float(bt)):,}" if bt else '—'
+            lt = (st_slaa.get('budget_federal_lsta','') or '').strip()
+            lt_str = f"${int(float(lt)):,}" if lt else '—'
+            si = (st_slaa.get('budget_state','') or '').strip()
+            si_str = f"${int(float(si)):,}" if si else '—'
+            stf = (st_slaa.get('staff_total','') or '').strip()
+            stf_str = f"{float(stf):.0f}" if stf else '—'
+            mls = (st_slaa.get('staff_mls_librarians','') or '').strip()
+            mls_str = f"{float(mls):.0f}" if mls else '—'
+            pop_s = (st_slaa.get('population_served','') or '').strip()
+            pop_str = f"{int(float(pop_s)):,}" if pop_s else '—'
+            fy = esc(st_slaa.get('fiscal_year','') or '')
+            svcs = esc(st_slaa.get('services_offered','') or '')
+            arch = esc(st_slaa.get('has_state_archive','') or '')
+            mus = esc(st_slaa.get('has_state_museum','') or '')
+            body += f"""
+
+<div class="slaa-box">
+  <h2>State Library Agency — {esc(st_name)}</h2>
+  <table class="data-table">
+    <tr><th>Agency</th><td>{ag_name}</td><th>Type</th><td>{ag_type}</td></tr>
+    <tr><th>Fiscal year</th><td>{fy}</td><th>Website</th><td>{ag_web_html}</td></tr>
+    <tr><th>Total income</th><td>{bt_str}</td><th>Federal LSTA</th><td>{lt_str}</td></tr>
+    <tr><th>State income</th><td>{si_str}</td><th>Staff (FTE)</th><td>{stf_str} ({mls_str} MLS librarians)</td></tr>
+    <tr><th>Population served</th><td>{pop_str}</td><th>Archive / Museum</th><td>{arch} / {mus}</td></tr>"""
+            if svcs:
+                body += f'\n    <tr><th>Services offered</th><td colspan="3">{svcs}</td></tr>'
+            body += '\n  </table>\n  <p class="rsrc">Data: IMLS State Library Administrative Agency Survey, FY2024.</p>\n</div>'
+
+        # ---- Academic libraries in this state (NCES ALS 2012 / IPEDS 2023) ----
+        st_acad = [r for r in data.get('academic', []) if (r.get('state', '') or '').strip() == st]
+        st_acad_2023 = [r for r in data.get('academic_2023', []) if (r.get('state', '') or '').strip() == st]
+        st_acad_agg = stats.get('academic_by_state_2012', {}).get(st, {})
+        if st_acad or st_acad_agg or st_acad_2023:
+            n_acad = st_acad_agg.get('institutions', len(st_acad_2023) or len(st_acad))
+            exp_a = st_acad_agg.get('expenditures', 0)
+            coll_a = st_acad_agg.get('collections', 0)
+            staff_a = st_acad_agg.get('staff_fte', 0)
+            pres_a = st_acad_agg.get('presentations', 0)
+            sal_a = st_acad_agg.get('salaries', 0)
+            sfte_a = st_acad_agg.get('student_fte', 0)
+            als_year = st_acad_agg.get('year', 2012)
+            coll_display = f"{coll_a/1e6:.1f}M" if coll_a < 1e9 else f"{coll_a/1e9:.2f}B"
+            body += f"""
+
+<div class="slaa-box academic-box">
+  <h2>Academic Libraries — {esc(st_name)} (NCES {als_year})</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">{n_acad}</div><div class="label">Institutions</div></div>
+    <div class="stat-card"><div class="num">{staff_a:,}</div><div class="label">Staff FTE</div></div>
+    <div class="stat-card"><div class="num">${exp_a/1e6:,.0f}M</div><div class="label">Expenditures</div></div>
+    <div class="stat-card"><div class="num">{coll_display}</div><div class="label">Collections</div></div>
+    <div class="stat-card"><div class="num">${sal_a/1e6:,.0f}M</div><div class="label">Salaries</div></div>
+    <div class="stat-card"><div class="num">{sfte_a:,}</div><div class="label">Student FTE</div></div>"""
+            if pres_a:
+                body += f'\n    <div class="stat-card"><div class="num">{pres_a:,}</div><div class="label">Presentations</div></div>'
+            body += '\n  </div>'
+            # Prefer 2023 institutions for the table (richer data), fall back to 2012
+            st_acad_display = st_acad_2023 if st_acad_2023 else st_acad
+            if st_acad_display:
+                # Show top institutions by collection
+                st_acad_sorted = sorted(st_acad_display, key=lambda r: -float(r.get('colbksa') or 0))
+                body += """
+  <table class="data-table">
+    <tr><th>Institution</th><th>City</th><th>Collection</th><th>Expenditures</th><th>Staff FTE</th><th>Website</th></tr>"""
+                for r in st_acad_sorted[:30]:
+                    name = esc(r.get('name', '') or '')
+                    city = esc(r.get('city', '') or '—')
+                    coll_v = (r.get('colbksa') or '').strip()
+                    coll_str = f"{int(float(coll_v)):,}" if coll_v else '—'
+                    exp_v = (r.get('extot') or '').strip()
+                    exp_str = f"${int(float(exp_v)):,}" if exp_v else '—'
+                    stf_v = (r.get('sttot') or '').strip()
+                    stf_str = f"{float(stf_v):.0f}" if stf_v else '—'
+                    web = (r.get('website') or '').strip()
+                    web_html = f'<a href="{esc(web)}" target="_blank" rel="noopener">site</a>' if web else '—'
+                    body += f'\n    <tr><td>{name}</td><td>{city}</td><td class="pct">{coll_str}</td><td>{exp_str}</td><td>{stf_str}</td><td>{web_html}</td></tr>'
+                body += '\n  </table>'
+            body += f'\n  <p class="rsrc">Data: NCES {"IPEDS Academic Libraries 2023" if als_year == 2023 else "Academic Library Survey (ALS) 2012"}. Historical trends (2000–2023) available on the <a href="../index.html#als-trends">main page</a>.</p>\n</div>'
+
+        # ---- Federal Depository Libraries in this state ----
+        st_fdlp = [r for r in data.get('fdlp', []) if (r.get('state', '') or '').strip().upper() == st]
+        if st_fdlp:
+            st_regional = sum(1 for r in st_fdlp if (r.get('depository_type', '') or '').strip() == 'Regional')
+            body += f"""
+
+<div class="slaa-box">
+  <h2>Federal Depository Libraries — {esc(st_name)} (GPO FDLP)</h2>
+  <p class="wiki-sub">{len(st_fdlp)} federal depository librar{'y' if len(st_fdlp)==1 else 'ies'} in {esc(st_name)} ({st_regional} Regional, {len(st_fdlp)-st_regional} Selective) that receive U.S. government documents through the FDLP.</p>
+  <table class="data-table">
+    <tr><th>Library</th><th>Depository Type</th><th>Parent Institution</th><th>Library Type</th><th>Titles Selected</th><th>Preservation Steward</th></tr>"""
+            for r in sorted(st_fdlp, key=lambda r: (r.get('depository_type','') != 'Regional', r.get('library_name',''))):
+                name = esc(r.get('library_name', '') or '')
+                dtype = esc(r.get('depository_type', '') or '—')
+                parent = esc(r.get('parent_institution', '') or '—')
+                ltype = esc(r.get('library_type', '') or '—')
+                tc = (r.get('pdt_titles_count', '') or '').strip()
+                tc_str = f"{int(tc):,}" if tc else '—'
+                ps = esc(r.get('preservation_steward', '') or '—')
+                body += f'\n    <tr><td>{name}</td><td>{dtype}</td><td>{parent}</td><td>{ltype}</td><td>{tc_str}</td><td>{ps}</td></tr>'
+            body += '\n  </table>'
+            body += '\n  <p class="rsrc">Data: U.S. Government Publishing Office (GPO) FDLP Print Distribution Dashboard. National overview on the <a href="../index.html#fdlp">main page</a>.</p>\n</div>'
+
+        body += f"""
+
+<h2>Public Libraries</h2>
+<table class="data-table">
+  <tr><th>Name</th><th>City</th><th>Website</th><th>Rating</th><th>Hours</th></tr>"""
+
+        for r in st_pub[:200]:
+            name = esc(r.get('name',''))
+            city = esc(r.get('city',''))
+            web = r.get('website','').strip()
+            web_html = f'<a href="{esc(web)}" target="_blank">{esc(web[:40])}</a>' if web else ''
+            rating = r.get('reviews_rating','').strip()
+            rating_html = f'<span class="rating">★ {esc(rating)}</span>' if rating else ''
+            lid = r.get('id','')
+            hrs = hours_map.get(lid, {}).get('hours_raw', '').strip()
+            hrs_html = esc(hrs[:50]) if hrs else ''
+            body += f'<tr><td>{name}</td><td>{city}</td><td>{web_html}</td><td>{rating_html}</td><td>{hrs_html}</td></tr>'
+
+        if len(st_pub) > 200:
+            body += f'<tr><td colspan="5" style="text-align:center"><a href="search.html?state={st}&type=public">View all {len(st_pub)} →</a></td></tr>'
+
+        body += '</table>'
+
+        if st_priv:
+            body += f"""
+<h2>Private/Academic Libraries ({len(st_priv)})</h2>
+<table class="data-table">
+  <tr><th>Name</th><th>City</th><th>Website</th><th>Rating</th></tr>"""
+            for r in st_priv[:50]:
+                name = esc(r.get('name',''))
+                city = esc(r.get('city',''))
+                web = r.get('website','').strip()
+                web_html = f'<a href="{esc(web)}" target="_blank">{esc(web[:40])}</a>' if web else ''
+                rating = r.get('reviews_rating','').strip()
+                rating_html = f'<span class="rating">★ {esc(rating)}</span>' if rating else ''
+                body += f'<tr><td>{name}</td><td>{city}</td><td>{web_html}</td><td>{rating_html}</td></tr>'
+            if len(st_priv) > 50:
+                body += f'<tr><td colspan="4" style="text-align:center"><a href="search.html?state={st}&type=private">View all {len(st_priv)} →</a></td></tr>'
+            body += '</table>'
+
+        if st_gov:
+            body += f"""
+<h2>Government Websites ({len(st_gov)})</h2>
+<table class="data-table">
+  <tr><th>Name</th><th>Tier</th><th>Website</th><th>Status</th></tr>"""
+            for r in st_gov[:100]:
+                name = esc(r.get('name',''))
+                tier = esc(r.get('_tier',''))
+                web = r.get('website','').strip()
+                web_html = f'<a href="{esc(web)}" target="_blank">{esc(web[:40])}</a>' if web else ''
+                live = (r.get('url_live','') or '').strip().lower() in ('true','1','yes')
+                status = '<span class="live">● Live</span>' if live else '<span class="dead">○ Down</span>'
+                body += f'<tr><td>{name}</td><td>{tier}</td><td>{web_html}</td><td>{status}</td></tr>'
+            if len(st_gov) > 100:
+                body += f'<tr><td colspan="4" style="text-align:center"><a href="search.html?state={st}&type=gov">View all {len(st_gov)} →</a></td></tr>'
+            body += '</table>'
+
+        # ---- Town-level broadband availability for this state ----
+        st_pgig, st_pfib, st_p100 = [], [], []
+        st_low_gig = []
+        for r in st_pub:
+            g = (r.get('fcc_place_gigabit') or '').strip()
+            if g:
+                try:
+                    gv = float(g)
+                    st_pgig.append(gv)
+                    fv = (r.get('fcc_place_fiber') or '0').strip()
+                    ov = (r.get('fcc_place_100_20') or '0').strip()
+                    st_pfib.append(float(fv) if fv else 0)
+                    st_p100.append(float(ov) if ov else 0)
+                    if gv < 25:
+                        locs = (r.get('fcc_place_locations') or '').strip()
+                        st_low_gig.append({
+                            'name': r.get('name',''), 'city': r.get('city',''),
+                            'gigabit': gv, 'fiber': float(fv) if fv else 0,
+                            'locations': int(float(locs)) if locs else 0,
+                        })
+                except (ValueError, TypeError):
+                    pass
+        if st_pgig:
+            avg_g = sum(st_pgig) / len(st_pgig)
+            avg_f = sum(st_pfib) / len(st_pfib) if st_pfib else 0
+            avg_o = sum(st_p100) / len(st_p100) if st_p100 else 0
+            under25 = sum(1 for v in st_pgig if v < 25)
+            body += f"""
+
+<div class="slaa-box">
+  <h2>Town-Level Broadband — {esc(st_name)} (FCC Census Place)</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">{avg_g:.1f}%</div><div class="label">Avg town gigabit</div></div>
+    <div class="stat-card"><div class="num">{avg_o:.1f}%</div><div class="label">Avg town 100/20 Mbps</div></div>
+    <div class="stat-card"><div class="num">{avg_f:.1f}%</div><div class="label">Avg town fiber</div></div>
+    <div class="stat-card"><div class="num">{len(st_pgig):,}</div><div class="label">Library towns</div></div>
+    <div class="stat-card"><div class="num">{under25:,}</div><div class="label">Towns &lt;25% gigabit</div></div>
+  </div>"""
+            st_low_gig.sort(key=lambda x: x['gigabit'])
+            if st_low_gig:
+                body += f"""
+  <h3>Underserved Library Towns in {esc(st_name)}</h3>
+  <p class="wiki-sub">Library communities in {esc(st_name)} where fewer than 25% of locations have gigabit broadband available.</p>
+  <table class="data-table">
+    <tr><th>Library</th><th>City</th><th>Gigabit Avail</th><th>Fiber Avail</th><th>Serviceable Locations</th></tr>"""
+                for lib in st_low_gig[:20]:
+                    locs_str = f"{lib['locations']:,}" if lib['locations'] else '—'
+                    body += f'\n    <tr><td>{esc(lib["name"])}</td><td>{esc(lib["city"]) or "—"}</td><td class="pct">{lib["gigabit"]:.1f}%</td><td>{lib["fiber"]:.1f}%</td><td>{locs_str}</td></tr>'
+                body += '\n  </table>'
+            body += f'\n  <p class="rsrc">Data: FCC National Broadband Map, Census Place (town) granularity, Dec 2025 BDC deployment filing.</p>\n</div>'
+
+        # ---- California-specific enriched stats (CA State Library FY2023-24) ----
+        if st == 'CA':
+            ca = data.get('ca_summary', {})
+            if ca and ca.get('libraries'):
+                body += f"""
+
+<div class="slaa-box">
+  <h2>California Public Libraries — Detailed State Statistics (FY2023-24)</h2>
+  <p class="wiki-sub">The California State Library publishes richer per-library statistics than the national IMLS PLS survey, with unique breakouts for e-resources by format, programs by age group and delivery format, and capital revenue by source. Data covers {ca['libraries']} public library systems serving {ca['population_served']:,} Californians.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">${ca['income_total']/1e9:,.2f}B</div><div class="label">Total income</div></div>
+    <div class="stat-card"><div class="num">${ca['income_local']/1e9:,.2f}B</div><div class="label">Local government funding</div></div>
+    <div class="stat-card"><div class="num">${ca['expenditures_salaries']/1e6:,.0f}M</div><div class="label">Salaries</div></div>
+    <div class="stat-card"><div class="num">${ca['expenditures_benefits']/1e6:,.0f}M</div><div class="label">Benefits</div></div>
+    <div class="stat-card"><div class="num">{ca['total_staff']:,.0f}</div><div class="label">Staff FTE</div></div>
+    <div class="stat-card"><div class="num">{ca['librarians']:,.0f}</div><div class="label">Librarians (MLS)</div></div>
+    <div class="stat-card"><div class="num">{ca['visits']:,}</div><div class="label">Annual visits</div></div>
+    <div class="stat-card"><div class="num">{ca['book_volumes']:,}</div><div class="label">Book volumes</div></div>
+  </div>"""
+
+                # E-resources breakdown (uniquely detailed in CA data)
+                body += f"""
+  <h3>Digital Collections &amp; E-Resource Usage</h3>
+  <p class="wiki-sub">California uniquely reports e-resource circulation by format — a level of detail not available in the national IMLS PLS survey.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">{ca.get('ebook_circulation',0):,}</div><div class="label">E-book circulation</div></div>
+    <div class="stat-card"><div class="num">{ca.get('eaudio_circulation',0):,}</div><div class="label">E-audio circulation</div></div>
+    <div class="stat-card"><div class="num">{ca.get('evideo_circulation',0):,}</div><div class="label">E-video circulation</div></div>
+    <div class="stat-card"><div class="num">{ca.get('eserial_circulation',0):,}</div><div class="label">E-serial circulation</div></div>
+    <div class="stat-card"><div class="num">${ca.get('expenditures_electronic_materials',0)/1e6:,.0f}M</div><div class="label">E-materials spending</div></div>
+    <div class="stat-card"><div class="num">${ca.get('expenditures_print_materials',0)/1e6:,.0f}M</div><div class="label">Print materials spending</div></div>
+  </div>"""
+
+                # Programs by age + format (uniquely detailed in CA data)
+                body += f"""
+  <h3>Programs by Age Group &amp; Delivery Format</h3>
+  <p class="wiki-sub">California breaks out library programs by both age group and delivery format (on-site, off-site, virtual) — revealing the post-COVID shift to virtual programming.</p>
+  <table class="data-table">
+    <tr><th>Age Group</th><th>Programs</th><th>Attendance</th></tr>
+    <tr><td>Ages 0–5</td><td>{ca.get('programs_0_5',0):,}</td><td>{ca.get('attendance_0_5',0):,}</td></tr>
+    <tr><td>Ages 6–11</td><td>{ca.get('programs_6_11',0):,}</td><td>{ca.get('attendance_6_11',0):,}</td></tr>
+    <tr><td>Young Adult</td><td>{ca.get('programs_ya',0):,}</td><td>{ca.get('attendance_ya',0):,}</td></tr>
+    <tr><td>Adult</td><td>{ca.get('programs_adult',0):,}</td><td>{ca.get('attendance_adult',0):,}</td></tr>
+    <tr><th>Total</th><th>{ca.get('programs_total',0):,}</th><th>{ca.get('attendance_total',0):,}</th></tr>
+  </table>
+  <table class="data-table">
+    <tr><th>Delivery Format</th><th>Programs</th><th>Attendance</th></tr>
+    <tr><td>On-site</td><td>{ca.get('programs_onsite',0):,}</td><td>—</td></tr>
+    <tr><td>Off-site</td><td>{ca.get('programs_offsite',0):,}</td><td>—</td></tr>
+    <tr><td>Virtual</td><td>{ca.get('programs_virtual',0):,}</td><td>{ca.get('attendance_virtual',0):,}</td></tr>
+  </table>"""
+
+                # Capital + technology
+                body += f"""
+  <h3>Capital Funding &amp; Technology Access</h3>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">${ca.get('capital',0)/1e6:,.0f}M</div><div class="label">Capital expenditures</div></div>
+    <div class="stat-card"><div class="num">${ca.get('capital_revenue_state',0)/1e6:,.0f}M</div><div class="label">State capital revenue</div></div>
+    <div class="stat-card"><div class="num">${ca.get('capital_revenue_federal',0)/1e6:,.0f}M</div><div class="label">Federal capital revenue</div></div>
+    <div class="stat-card"><div class="num">{ca.get('public_internet_terminals',0):,}</div><div class="label">Public internet terminals</div></div>
+    <div class="stat-card"><div class="num">{ca.get('wifi_sessions',0):,}</div><div class="label">WiFi sessions</div></div>
+    <div class="stat-card"><div class="num">{ca.get('pit_users',0):,}</div><div class="label">PIT users</div></div>
+  </div>
+  <p class="rsrc">Data: California State Library, Public Libraries Survey FY2023-24. Richer than the national IMLS PLS — includes e-resource breakouts by format, programs by age group and delivery format, and capital revenue by source. Source files: <a href="https://www.library.ca.gov/services/to-libraries/statistics/">California State Library Statistics</a>.</p>"""
+
+                # LIPC broadband program tiers
+                if ca.get('lipc_total'):
+                    body += f"""
+  <h3>Broadband Program Tiers (LIPC)</h3>
+  <p class="wiki-sub">California's Library Improvement &amp; Construction Program (LIPC) classifies public libraries into three tiers by Local Income Per Capita (LIPC) to prioritize broadband infrastructure funding. <strong>Tier 1</strong> libraries have the lowest local funding per resident and receive priority for state broadband grants.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">{ca.get('lipc_tier1_count',0)}</div><div class="label">Tier 1 (lowest income/capita)</div></div>
+    <div class="stat-card"><div class="num">{ca.get('lipc_tier2_count',0)}</div><div class="label">Tier 2 (moderate)</div></div>
+    <div class="stat-card"><div class="num">{ca.get('lipc_tier3_count',0)}</div><div class="label">Tier 3 (highest income/capita)</div></div>
+    <div class="stat-card"><div class="num">{ca.get('lipc_total',0)}</div><div class="label">Libraries classified</div></div>
+  </div>"""
+                    tier1_lowest = ca.get('lipc_tier1_lowest', [])
+                    if tier1_lowest:
+                        body += """
+  <h4>Most Underserved Tier 1 Libraries (Lowest Income Per Capita)</h4>
+  <table class="data-table">
+    <tr><th>Library</th><th>Population Served</th><th>Local Income/Capita</th></tr>"""
+                        for lib in tier1_lowest:
+                            body += f'\n    <tr><td>{esc(lib["name"])}</td><td>{lib["population"]:,}</td><td class="pct">${lib["income_per_capita"]:.2f}</td></tr>'
+                        body += '\n  </table>'
+                    body += '\n  <p class="rsrc">Data: California State Library LIPC Broadband Program tiers, FY2022-23. Tier 1 = local operating income per capita under ~$50; Tier 2 = $50–$100; Tier 3 = $100+.</p>'
+
+                body += '\n</div>'
+
+        body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?state={st}&type=public">Public in {st}</a> | <a href="search.html?state={st}&type=private">Private in {st}</a> | <a href="search.html?state={st}&type=gov">Gov in {st}</a></div>
+<div class="relatedbox">
+  <h3>Navigate</h3>
+  <ul>
+    <li><a href="../index.html">← Back to main page</a></li>
+    <li><a href="../search.html?state={st}">Search {st} →</a></li>
+    <li><a href="../map.html">View on map →</a></li>
+  </ul>
+</div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+        with open(os.path.join(STATES_DIR, f'{st}.html'), 'w') as f:
+            st_panel = panel_state(stats['states'].keys(), st)
+            page = shell(f"{st_name}", body, st_panel, root="../")
+            f.write(page)
+
+    print(f"  Built {len(stats['states'])} state pages")
+
+def build_map_geojson(data):
+    """Generate compact GeoJSON for MapLibre — only coordinates + essential properties."""
+    print("[build] Generating map_points.geojson...")
+    features = []
+    for source, type_key in [(data['public'], 'public'), (data['private'], 'private'), (data['gov'], 'gov')]:
+        for r in source:
+            try:
+                lat = float(r.get('latitude', ''))
+                lng = float(r.get('longitude', ''))
+                if not (-90 <= lat <= 90 and -180 <= lng <= 180):
+                    continue
+            except (ValueError, TypeError):
+                continue
+            props = {
+                't': type_key,
+                'n': r.get('name', '')[:100],
+                'c': r.get('city', '')[:50],
+                's': r.get('state', ''),
+            }
+            rating = (r.get('reviews_rating') or '').strip()
+            if rating:
+                props['r'] = rating
+            web = (r.get('website') or '').strip()
+            if web:
+                props['w'] = web[:120]
+            if type_key == 'gov':
+                props['tier'] = r.get('_tier', '')
+            features.append({
+                'type': 'Feature',
+                'geometry': {'type': 'Point', 'coordinates': [lng, lat]},
+                'properties': props,
+            })
+    geojson = {'type': 'FeatureCollection', 'features': features}
+    path = os.path.join(DATA_OUT, 'map_points.geojson')
+    with open(path, 'w') as f:
+        json.dump(geojson, f, separators=(',', ':'))
+    size_mb = os.path.getsize(path) / 1024 / 1024
+    print(f"  map_points.geojson: {len(features)} features ({size_mb:.1f} MB)")
+
+
+# ---------------------------------------------------------------------------
+# US state boundaries + 2024 election results for choropleth overlay
+# ---------------------------------------------------------------------------
+
+# 2024 presidential election results (Trump vs Harris)
+# party: 'R' (Republican/Trump won) or 'D' (Democratic/Harris won)
+# margin: approximate vote margin percentage
+STATE_VOTES_2024 = {
+    'AL': {'party': 'R', 'margin': 30.6}, 'AK': {'party': 'R', 'margin': 15.0},
+    'AZ': {'party': 'R', 'margin': 5.5},  'AR': {'party': 'R', 'margin': 27.6},
+    'CA': {'party': 'D', 'margin': 20.0}, 'CO': {'party': 'D', 'margin': 11.0},
+    'CT': {'party': 'D', 'margin': 13.0}, 'DE': {'party': 'D', 'margin': 8.0},
+    'FL': {'party': 'R', 'margin': 13.1}, 'GA': {'party': 'R', 'margin': 2.2},
+    'HI': {'party': 'D', 'margin': 25.0}, 'ID': {'party': 'R', 'margin': 37.0},
+    'IL': {'party': 'D', 'margin': 10.0}, 'IN': {'party': 'R', 'margin': 19.0},
+    'IA': {'party': 'R', 'margin': 13.2}, 'KS': {'party': 'R', 'margin': 20.0},
+    'KY': {'party': 'R', 'margin': 25.5}, 'LA': {'party': 'R', 'margin': 18.0},
+    'ME': {'party': 'D', 'margin': 7.0},  'MD': {'party': 'D', 'margin': 20.0},
+    'MA': {'party': 'D', 'margin': 25.0}, 'MI': {'party': 'R', 'margin': 1.4},
+    'MN': {'party': 'D', 'margin': 4.0},  'MS': {'party': 'R', 'margin': 12.0},
+    'MO': {'party': 'R', 'margin': 18.4}, 'MT': {'party': 'R', 'margin': 20.0},
+    'NE': {'party': 'R', 'margin': 22.0}, 'NV': {'party': 'R', 'margin': 3.1},
+    'NH': {'party': 'D', 'margin': 5.0},  'NJ': {'party': 'D', 'margin': 12.0},
+    'NM': {'party': 'D', 'margin': 6.0},  'NY': {'party': 'D', 'margin': 13.0},
+    'NC': {'party': 'R', 'margin': 3.3},  'ND': {'party': 'R', 'margin': 30.0},
+    'OH': {'party': 'R', 'margin': 11.0}, 'OK': {'party': 'R', 'margin': 32.0},
+    'OR': {'party': 'D', 'margin': 13.0}, 'PA': {'party': 'R', 'margin': 2.0},
+    'RI': {'party': 'D', 'margin': 20.0}, 'SC': {'party': 'R', 'margin': 18.0},
+    'SD': {'party': 'R', 'margin': 25.0},  'TN': {'party': 'R', 'margin': 26.0},
+    'TX': {'party': 'R', 'margin': 14.0}, 'UT': {'party': 'R', 'margin': 30.0},
+    'VT': {'party': 'D', 'margin': 20.0}, 'VA': {'party': 'D', 'margin': 5.0},
+    'WA': {'party': 'D', 'margin': 15.0}, 'WV': {'party': 'R', 'margin': 30.0},
+    'WI': {'party': 'R', 'margin': 0.9},  'WY': {'party': 'R', 'margin': 40.0},
+    'DC': {'party': 'D', 'margin': 80.0},
+}
+
+STATES_GEOJSON_URL = (
+    "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/"
+    "geojson/ne_110m_admin_1_states_provinces_lakes.geojson"
+)
+
+
+def build_states_geojson():
+    """Fetch US state boundaries from Natural Earth, compact to code+name,
+    and write a voting data JSON for the map choropleth overlay."""
+    print("[build] Building state boundaries + voting data...")
+    path = os.path.join(DATA_OUT, 'us_states.geojson')
+    votes_path = os.path.join(DATA_OUT, 'state_votes.json')
+
+    # Try fetching fresh; fall back to existing file if offline
+    raw = None
+    try:
+        print(f"  Fetching from Natural Earth...")
+        req = urllib.request.Request(STATES_GEOJSON_URL, headers={'User-Agent': 'wiki-build/1.0'})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"  Warning: could not fetch ({e}), using existing file if available")
+        if os.path.exists(path):
+            print(f"  Using cached {path}")
+            return
+        print(f"  ERROR: No cached states geojson and fetch failed")
+        return
+
+    # Filter to US states, compact properties
+    us_features = []
+    for f in raw.get('features', []):
+        props = f.get('properties', {})
+        if props.get('admin', '') in ('United States of America', 'United States'):
+            code = props.get('postal', '')
+            if code:
+                us_features.append({
+                    'type': 'Feature',
+                    'properties': {'code': code, 'name': props.get('name', '')},
+                    'geometry': f['geometry'],
+                })
+
+    geojson = {'type': 'FeatureCollection', 'features': us_features}
+    with open(path, 'w') as f:
+        json.dump(geojson, f, separators=(',', ':'))
+    print(f"  us_states.geojson: {len(us_features)} states ({os.path.getsize(path)/1024:.0f} KB)")
+
+    # Write voting data
+    with open(votes_path, 'w') as f:
+        json.dump(STATE_VOTES_2024, f, separators=(',', ':'))
+    print(f"  state_votes.json: {len(STATE_VOTES_2024)} states")
+
+
+def build_map_page():
+    print("[build] Building map.html (MapLibre GL JS)...")
+    # Map page is standalone — NOT wrapped in the Bootstrap grid shell.
+    # The map container is position:fixed to fill the viewport below the navbar.
+    nav_items = [
+        ("index.html",  "Main page"),
+        ("search.html", "Search"),
+        ("map.html",    "Map"),
+        ("gov.html",    "Government"),
+        ("about.html",   "About"),
+    ]
+    nav_html = "\n".join(
+        f'      <li class="nav-item"><a class="nav-link {"active" if label=="Map" else ""}" href="{href}">{label}</a></li>'
+        for href, label in nav_items
+    )
+    page = f"""<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interactive Map — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+<script>
+(function(){{var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);}})();
+</script>
+</head>
+<body class="wiki-body map-page">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+{nav_html}
+      </ul>
+      <form class="d-flex me-2" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+  </div>
+</nav>
+<div id="map-container">
+  <div id="map"></div>
+  <div class="map-search-bar">
+    <input type="text" id="mapSearchInput" class="form-control form-control-sm" placeholder="Search by name or city…" onkeydown="if(event.key==='Enter')mapSearch()">
+    <select id="mapStateFilter" class="form-select form-select-sm" onchange="zoomToState(this)">
+      <option value="">All states</option>
+    </select>
+  </div>
+  <div class="map-overlay-card" id="mapControls">
+    <div class="d-flex align-items-center mb-1"><input type="checkbox" class="form-check-input me-1" id="chkPublic" checked onchange="toggleLayer('public')"> <span class="legend-dot" style="background:#2b7fff"></span> <label class="form-check-label small ms-1" for="chkPublic">Public</label></div>
+    <div class="d-flex align-items-center mb-1"><input type="checkbox" class="form-check-input me-1" id="chkPrivate" checked onchange="toggleLayer('private')"> <span class="legend-dot" style="background:#e23b3b"></span> <label class="form-check-label small ms-1" for="chkPrivate">Private</label></div>
+    <div class="d-flex align-items-center"><input type="checkbox" class="form-check-input me-1" id="chkGov" checked onchange="toggleLayer('gov')"> <span class="legend-dot" style="background:#8e44ff"></span> <label class="form-check-label small ms-1" for="chkGov">Government</label></div>
+  </div>
+  <div class="map-overlay-card map-voting-card" id="mapVoting">
+    <div class="voting-title">🗳️ Voting Blocks (2024)</div>
+    <div class="d-flex align-items-center mb-2">
+      <button class="btn btn-sm btn-outline-secondary voting-toggle-btn" onclick="toggleVotingOverlay()" id="votingBtn">Show overlay <span class="voting-state" id="votingLabel">OFF</span></button>
+    </div>
+    <div class="voting-legend">
+      <span class="legend-dot" style="background:rgba(226,59,59,0.5)"></span> Republican
+      <span class="legend-dot ms-2" style="background:rgba(51,102,204,0.5)"></span> Democratic
+    </div>
+  </div>
+  <div class="map-overlay-card map-stats-card" id="mapStats">Loading…</div>
+  <div class="map-loading" id="mapLoading"><div class="spinner-border text-primary"></div><p class="mt-2 mb-0">Loading 46k points…</p></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>function toggleTheme(){{var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);if(typeof applyTheme==='function'){{applyTheme(n);}}}}</script>
+<script src="map.js"></script>
+</body>
+</html>"""
+    with open(os.path.join(WIKI, 'map.html'), 'w') as f:
+        f.write(page)
+    print("  map.html generated (MapLibre GL JS, standalone)")
+
+def main():
+    print(f"=== US Library Census Wiki build — {now_str()} ===")
+    data = load_all()
+    stats = build_json(data)
+    build_map_geojson(data)
+    build_states_geojson()
+    build_index(data, stats)
+    build_gov(data, stats)
+    build_about(data, stats)
+    build_search()
+    build_state_pages(data, stats)
+    build_map_page()
+    print(f"\n=== Build complete — {now_str()} ===")
+    print(f"  Output: {WIKI}")
+    print(f"  Pages: index.html, search.html, gov.html, about.html, map.html, states/*.html")
+    print(f"  Data: data/*.json")
+    print(f"\n  To serve: cd wiki && python3 -m http.server 8124")
+    print(f"  Then open: http://localhost:8124")
+
+if __name__ == "__main__":
+    main()

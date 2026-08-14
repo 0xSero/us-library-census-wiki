@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 21:37 UTC",
+  "generated": "2026-08-14 21:43 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -13015,11 +13015,11 @@
     "methodology": "Each entity's allocation = Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Based on FCC Broadband DATA Maps."
   },
   "ballot": {
-    "total_measures": 168,
-    "total_pass": 116,
-    "total_fail": 52,
-    "pass_rate": 69.04761904761905,
-    "total_amount_requested": 711699078.0,
+    "total_measures": 176,
+    "total_pass": 123,
+    "total_fail": 53,
+    "pass_rate": 69.88636363636364,
+    "total_amount_requested": 757573474.0,
     "year_range": "2013-2026",
     "by_year": [
       {
@@ -13032,7 +13032,7 @@
       },
       {
         "year": "2015",
-        "count": 9
+        "count": 10
       },
       {
         "year": "2016",
@@ -13040,7 +13040,7 @@
       },
       {
         "year": "2017",
-        "count": 14
+        "count": 16
       },
       {
         "year": "2018",
@@ -13052,15 +13052,15 @@
       },
       {
         "year": "2020",
-        "count": 8
+        "count": 9
       },
       {
         "year": "2021",
-        "count": 8
+        "count": 9
       },
       {
         "year": "2022",
-        "count": 8
+        "count": 9
       },
       {
         "year": "2023",
@@ -13072,21 +13072,21 @@
       },
       {
         "year": "2025",
-        "count": 9
+        "count": 10
       },
       {
         "year": "2026",
-        "count": 11
+        "count": 12
       }
     ],
     "by_result": [
       {
         "result": "Pass",
-        "count": 116
+        "count": 123
       },
       {
         "result": "Fail",
-        "count": 52
+        "count": 53
       }
     ],
     "by_state": [
@@ -13099,24 +13099,17 @@
       },
       {
         "state": "MI",
-        "total": 17,
-        "pass": 14,
-        "fail": 3,
-        "amount": 39714000.0
+        "total": 18,
+        "pass": 13,
+        "fail": 5,
+        "amount": 40168185.0
       },
       {
         "state": "CA",
-        "total": 16,
-        "pass": 11,
+        "total": 17,
+        "pass": 12,
         "fail": 5,
         "amount": 104605000.0
-      },
-      {
-        "state": "CO",
-        "total": 14,
-        "pass": 9,
-        "fail": 5,
-        "amount": 39500185.0
       },
       {
         "state": "MO",
@@ -13126,18 +13119,32 @@
         "amount": 14396000.0
       },
       {
-        "state": "WA",
-        "total": 11,
+        "state": "CO",
+        "total": 13,
         "pass": 8,
-        "fail": 3,
-        "amount": 20482000.0
+        "fail": 5,
+        "amount": 39046000.0
       },
       {
         "state": "OH",
+        "total": 11,
+        "pass": 9,
+        "fail": 2,
+        "amount": 15590000.0
+      },
+      {
+        "state": "NY",
+        "total": 10,
+        "pass": 9,
+        "fail": 1,
+        "amount": 43824396.0
+      },
+      {
+        "state": "WA",
         "total": 10,
         "pass": 8,
         "fail": 2,
-        "amount": 3340000.0
+        "amount": 30052000.0
       },
       {
         "state": "OR",
@@ -13147,18 +13154,32 @@
         "amount": 22890000.0
       },
       {
-        "state": "NY",
-        "total": 8,
-        "pass": 7,
+        "state": "LA",
+        "total": 6,
+        "pass": 5,
         "fail": 1,
-        "amount": 41750000.0
+        "amount": 36700000.0
       },
       {
-        "state": "LA",
+        "state": "PA",
         "total": 5,
-        "pass": 4,
+        "pass": 3,
+        "fail": 2,
+        "amount": 14512893.0
+      },
+      {
+        "state": "MA",
+        "total": 4,
+        "pass": 3,
         "fail": 1,
-        "amount": 19700000.0
+        "amount": 50700000.0
+      },
+      {
+        "state": "MT",
+        "total": 4,
+        "pass": 4,
+        "fail": 0,
+        "amount": 30280000.0
       },
       {
         "state": "ID",
@@ -13166,20 +13187,6 @@
         "pass": 1,
         "fail": 3,
         "amount": 16200000.0
-      },
-      {
-        "state": "PA",
-        "total": 4,
-        "pass": 2,
-        "fail": 2,
-        "amount": 11062893.0
-      },
-      {
-        "state": "MA",
-        "total": 3,
-        "pass": 2,
-        "fail": 1,
-        "amount": 49200000.0
       },
       {
         "state": "FL",
@@ -13196,18 +13203,18 @@
         "amount": 1600000.0
       },
       {
-        "state": "MT",
-        "total": 3,
-        "pass": 3,
-        "fail": 0,
-        "amount": 30250000.0
-      },
-      {
         "state": "CT",
         "total": 3,
         "pass": 2,
         "fail": 1,
         "amount": 22300000.0
+      },
+      {
+        "state": "NJ",
+        "total": 3,
+        "pass": 2,
+        "fail": 1,
+        "amount": 320000.0
       },
       {
         "state": "WV",
@@ -13222,13 +13229,6 @@
         "pass": 1,
         "fail": 1,
         "amount": 0
-      },
-      {
-        "state": "NJ",
-        "total": 2,
-        "pass": 1,
-        "fail": 1,
-        "amount": 320000.0
       },
       {
         "state": "KA",
@@ -13324,9 +13324,18 @@
     ]
   },
   "library_usage": {
-    "source": "Pew Research Center (2013 survey of 6,224 Americans aged 16+) + Gallup (2019)",
+    "source": "Pew Research Center (2013 survey of 6,224 Americans aged 16+) + Gallup (2019) + NEA SPPA 2022",
     "survey_year": 2013,
     "sample_size": 6224,
+    "nea_sppa_2022": {
+      "survey_name": "Survey of Public Participation in the Arts",
+      "agency": "National Endowment for the Arts",
+      "year": 2022,
+      "sample_size": 19100,
+      "adults_visited_public_library_pct": 23,
+      "context": "In 2022, for the first time, the NEA SPPA asked adults whether they had visited a public library in the prior 12 months. 23% reported having done so. This question replaced prior arts-attendance questions and captures a broader definition of cultural participation.",
+      "comparison_note": "The 23% figure (NEA 2022, all adults) is not directly comparable to the Pew 54% figure (2013, ages 16+, any library use) due to different survey methodologies and question wording. The NEA figure specifically measured in-person public library visits by adults 18+."
+    },
     "overall_usage": {
       "used_library_past_year": 54,
       "used_library_2012": 59,
@@ -13365,6 +13374,131 @@
       "gov_services_help_veryimportant_disabled": 40,
       "gov_services_help_veryimportant_nondisabled": 27
     }
+  },
+  "ala_report": {
+    "report_year": 2024,
+    "report_title": "State of America's Libraries 2024",
+    "key_statistics": {
+      "unique_titles_challenged_2023": 4240,
+      "unique_titles_challenged_2022": 2571,
+      "percent_increase_challenged_titles": 65.0,
+      "censorship_attempts_documented_2023": 1247,
+      "cases_with_known_locations": 954,
+      "average_unique_titles_challenged_2001_2020": 273,
+      "highest_single_year_pre_2023": 390,
+      "total_unique_titles_challenged_2001_2020": 3637,
+      "percent_multi_title_challenges": 93.4,
+      "public_library_challenges_percent_2022": 16,
+      "public_library_challenges_percent_2023": 32,
+      "state_censorship_bills_introduced_2023": 151
+    },
+    "top_10_challenged_books": [
+      {
+        "rank": 1,
+        "title": "Gender Queer",
+        "author": "Maia Kobabe",
+        "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+      },
+      {
+        "rank": 2,
+        "title": "All Boys Aren't Blue",
+        "author": "George M. Johnson",
+        "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+      },
+      {
+        "rank": 3,
+        "title": "This Book is Gay",
+        "author": "Juno Dawson",
+        "reasons": "LGBTQIA+ content, sex education, claimed to be sexually explicit"
+      },
+      {
+        "rank": 4,
+        "title": "The Perks of Being a Wallflower",
+        "author": "Stephen Chbosky",
+        "reasons": "claimed to be sexually explicit, LGBTQIA+ content, rape, drugs, profanity"
+      },
+      {
+        "rank": 5,
+        "title": "Flamer",
+        "author": "Mike Curato",
+        "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+      },
+      {
+        "rank": 6,
+        "title": "The Bluest Eye",
+        "author": "Toni Morrison",
+        "reasons": "rape, incest, claimed to be sexually explicit, EDI content"
+      },
+      {
+        "rank": "7/8",
+        "title": "Me and Earl and the Dying Girl",
+        "author": "Jesse Andrews",
+        "reasons": "claimed to be sexually explicit, profanity"
+      },
+      {
+        "rank": "7/8",
+        "title": "Tricks",
+        "author": "Ellen Hopkins",
+        "reasons": "claimed to be sexually explicit, drugs, rape, LGBTQIA+ content"
+      },
+      {
+        "rank": 9,
+        "title": "Let's Talk About It",
+        "author": "Erika Moen and Matthew Nolan",
+        "reasons": "claimed to be sexually explicit, sex education, LGBTQIA+ content"
+      },
+      {
+        "rank": 10,
+        "title": "Patricia McCormick",
+        "author": "Patricia McCormick",
+        "reasons": ""
+      }
+    ],
+    "state_legislation": [
+      {
+        "state": "Illinois",
+        "description": "Passed first anti-book ban law for public libraries"
+      },
+      {
+        "state": "California",
+        "description": "Passed first law protecting books and library collections in school libraries"
+      },
+      {
+        "state": "Arkansas",
+        "description": "Act 372 challenged in court - would restrict minors' access to books; enjoined by federal judge"
+      },
+      {
+        "state": "Florida",
+        "description": "Lawsuit pending challenging book removal policies"
+      },
+      {
+        "state": "Iowa",
+        "description": "Lawsuit pending challenging book removal policies"
+      },
+      {
+        "state": "Texas",
+        "description": "Llano County case - preliminary injunction ordering return of ~60 banned books"
+      }
+    ],
+    "federal_legislation": [
+      {
+        "description": "FCC Learn Without Limits initiative - E-rate funds for Wi-Fi hotspots off-premises"
+      },
+      {
+        "description": "Prison Libraries Act introduced by Reps. Cleaver, Jackson Lee, and Himes"
+      },
+      {
+        "description": "FY2024 IMLS appropriations delayed by continuing resolutions; potential cuts"
+      },
+      {
+        "description": "Advancing Research in Education Act would improve library data collection"
+      },
+      {
+        "description": "FCC improved E-rate rules for Tribal libraries broadband access"
+      }
+    ],
+    "nea_2022_library_visit_rate": 23,
+    "nea_2022_context": "In 2022, for the first time, the NEA Survey of Public Participation in the Arts asked adults whether they had visited a public library: 23% reported having done so. This is a new metric tracked by the NEA."
   },
   "imls_grants": {
     "total_count": 21325,

@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 21:28 UTC",
+  "generated": "2026-08-14 21:32 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -13013,6 +13013,315 @@
     ],
     "date_announced": "2023-06-26",
     "methodology": "Each entity's allocation = Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Based on FCC Broadband DATA Maps."
+  },
+  "ballot": {
+    "total_measures": 168,
+    "total_pass": 116,
+    "total_fail": 52,
+    "pass_rate": 69.04761904761905,
+    "total_amount_requested": 711699078.0,
+    "year_range": "2013-2026",
+    "by_year": [
+      {
+        "year": "2013",
+        "count": 7
+      },
+      {
+        "year": "2014",
+        "count": 17
+      },
+      {
+        "year": "2015",
+        "count": 9
+      },
+      {
+        "year": "2016",
+        "count": 28
+      },
+      {
+        "year": "2017",
+        "count": 14
+      },
+      {
+        "year": "2018",
+        "count": 16
+      },
+      {
+        "year": "2019",
+        "count": 14
+      },
+      {
+        "year": "2020",
+        "count": 8
+      },
+      {
+        "year": "2021",
+        "count": 8
+      },
+      {
+        "year": "2022",
+        "count": 8
+      },
+      {
+        "year": "2023",
+        "count": 9
+      },
+      {
+        "year": "2024",
+        "count": 10
+      },
+      {
+        "year": "2025",
+        "count": 9
+      },
+      {
+        "year": "2026",
+        "count": 11
+      }
+    ],
+    "by_result": [
+      {
+        "result": "Pass",
+        "count": 116
+      },
+      {
+        "result": "Fail",
+        "count": 52
+      }
+    ],
+    "by_state": [
+      {
+        "state": "IL",
+        "total": 23,
+        "pass": 13,
+        "fail": 10,
+        "amount": 166539000.0
+      },
+      {
+        "state": "MI",
+        "total": 17,
+        "pass": 14,
+        "fail": 3,
+        "amount": 39714000.0
+      },
+      {
+        "state": "CA",
+        "total": 16,
+        "pass": 11,
+        "fail": 5,
+        "amount": 104605000.0
+      },
+      {
+        "state": "CO",
+        "total": 14,
+        "pass": 9,
+        "fail": 5,
+        "amount": 39500185.0
+      },
+      {
+        "state": "MO",
+        "total": 13,
+        "pass": 12,
+        "fail": 1,
+        "amount": 14396000.0
+      },
+      {
+        "state": "WA",
+        "total": 11,
+        "pass": 8,
+        "fail": 3,
+        "amount": 20482000.0
+      },
+      {
+        "state": "OH",
+        "total": 10,
+        "pass": 8,
+        "fail": 2,
+        "amount": 3340000.0
+      },
+      {
+        "state": "OR",
+        "total": 9,
+        "pass": 4,
+        "fail": 5,
+        "amount": 22890000.0
+      },
+      {
+        "state": "NY",
+        "total": 8,
+        "pass": 7,
+        "fail": 1,
+        "amount": 41750000.0
+      },
+      {
+        "state": "LA",
+        "total": 5,
+        "pass": 4,
+        "fail": 1,
+        "amount": 19700000.0
+      },
+      {
+        "state": "ID",
+        "total": 4,
+        "pass": 1,
+        "fail": 3,
+        "amount": 16200000.0
+      },
+      {
+        "state": "PA",
+        "total": 4,
+        "pass": 2,
+        "fail": 2,
+        "amount": 11062893.0
+      },
+      {
+        "state": "MA",
+        "total": 3,
+        "pass": 2,
+        "fail": 1,
+        "amount": 49200000.0
+      },
+      {
+        "state": "FL",
+        "total": 3,
+        "pass": 2,
+        "fail": 1,
+        "amount": 22000000.0
+      },
+      {
+        "state": "IA",
+        "total": 3,
+        "pass": 1,
+        "fail": 2,
+        "amount": 1600000.0
+      },
+      {
+        "state": "MT",
+        "total": 3,
+        "pass": 3,
+        "fail": 0,
+        "amount": 30250000.0
+      },
+      {
+        "state": "CT",
+        "total": 3,
+        "pass": 2,
+        "fail": 1,
+        "amount": 22300000.0
+      },
+      {
+        "state": "WV",
+        "total": 2,
+        "pass": 2,
+        "fail": 0,
+        "amount": 500000.0
+      },
+      {
+        "state": "AR",
+        "total": 2,
+        "pass": 1,
+        "fail": 1,
+        "amount": 0
+      },
+      {
+        "state": "NJ",
+        "total": 2,
+        "pass": 1,
+        "fail": 1,
+        "amount": 320000.0
+      },
+      {
+        "state": "KA",
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "amount": 8750000.0
+      },
+      {
+        "state": "NV",
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "amount": 0
+      },
+      {
+        "state": "WI",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 4300000.0
+      },
+      {
+        "state": "ME",
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "amount": 0
+      },
+      {
+        "state": "NM",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 19200000.0
+      },
+      {
+        "state": "AZ",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 0
+      },
+      {
+        "state": "VT",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 700000.0
+      },
+      {
+        "state": "KS",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 0
+      },
+      {
+        "state": "TX",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 11500000.0
+      },
+      {
+        "state": "IN",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 6200000.0
+      },
+      {
+        "state": "SC",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 30000000.0
+      },
+      {
+        "state": "RI",
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "amount": 1200000.0
+      },
+      {
+        "state": "VA",
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "amount": 3500000.0
+      }
+    ]
   },
   "imls_grants": {
     "total_count": 21325,

@@ -481,6 +481,27 @@ body.map-page { overflow: hidden; }
 
 .legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
 
+/* Voting overlay card */
+.map-voting-card {
+  top: 145px;
+  left: 10px;
+  width: 200px;
+}
+.map-voting-card .voting-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-bottom: 0.4em;
+}
+.voting-toggle-btn { width: 100%; font-size: 0.78rem; }
+.voting-state { font-weight: 700; margin-left: 0.3em; }
+.voting-legend {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.2em;
+}
+
 /* MapLibre popup Wikipedia-style */
 .maplibregl-popup-content {
   border-radius: 4px !important;
@@ -689,3 +710,7 @@ body.map-page { overflow: hidden; }
 /* MapLibre controls */
 [data-theme="dark"] .maplibregl-ctrl-attrib { background: rgba(34,38,44,0.8) !important; }
 [data-theme="dark"] .maplibregl-ctrl-attrib a { color: var(--wiki-link) !important; }
+
+/* Voting overlay card in dark mode */
+[data-theme="dark"] .voting-toggle-btn { color: var(--wiki-text); border-color: var(--wiki-border-strong); }
+[data-theme="dark"] .voting-legend { color: var(--wiki-text); }

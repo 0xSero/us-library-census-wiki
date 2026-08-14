@@ -46,6 +46,16 @@
     <div class="d-flex align-items-center mb-1"><input type="checkbox" class="form-check-input me-1" id="chkPrivate" checked onchange="toggleLayer('private')"> <span class="legend-dot" style="background:#e23b3b"></span> <label class="form-check-label small ms-1" for="chkPrivate">Private</label></div>
     <div class="d-flex align-items-center"><input type="checkbox" class="form-check-input me-1" id="chkGov" checked onchange="toggleLayer('gov')"> <span class="legend-dot" style="background:#8e44ff"></span> <label class="form-check-label small ms-1" for="chkGov">Government</label></div>
   </div>
+  <div class="map-overlay-card map-voting-card" id="mapVoting">
+    <div class="voting-title">🗳️ Voting Blocks (2024)</div>
+    <div class="d-flex align-items-center mb-2">
+      <button class="btn btn-sm btn-outline-secondary voting-toggle-btn" onclick="toggleVotingOverlay()" id="votingBtn">Show overlay <span class="voting-state" id="votingLabel">OFF</span></button>
+    </div>
+    <div class="voting-legend">
+      <span class="legend-dot" style="background:rgba(226,59,59,0.5)"></span> Republican
+      <span class="legend-dot ms-2" style="background:rgba(51,102,204,0.5)"></span> Democratic
+    </div>
+  </div>
   <div class="map-overlay-card map-stats-card" id="mapStats">Loading…</div>
   <div class="map-loading" id="mapLoading"><div class="spinner-border text-primary"></div><p class="mt-2 mb-0">Loading 46k points…</p></div>
 </div>

@@ -27,6 +27,8 @@
   var featuresByType = { public: [], private: [], gov: [] };
   var loaded = false;
   var layersVisible = { public: true, private: true, gov: true };
+  var votingOverlayVisible = false;
+  var stateVotes = {};
 
   var STATE_CENTERS = {
     AL:[32.8,-86.8],AK:[64.2,-149.5],AZ:[34.2,-111.6],AR:[34.8,-92.4],CA:[36.8,-119.4],
@@ -127,9 +129,16 @@
   }
 
   function loadData() {
-    fetch('data/map_points.geojson')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
+    // Load map points, state boundaries, and voting data in parallel
+    Promise.all([
+      fetch('data/map_points.geojson').then(function (r) { return r.json(); }),
+      fetch('data/us_states.geojson').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('data/state_votes.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+    ]).then(function (results) {
+        var data = results[0];
+        var statesGeo = results[1];
+        stateVotes = results[2] || {};
+
         allFeatures = data.features || [];
 
         // Split features by type for per-type sources
@@ -140,6 +149,7 @@
         }
 
         addSourcesAndLayers();
+        if (statesGeo) addStatesLayer(statesGeo);
         populateStateFilter();
         updateStats();
         hideLoading();
@@ -150,6 +160,75 @@
         if (el) el.innerHTML = '<p class="text-danger">Error: ' + esc(err.message) + '</p>';
       });
   }
+
+  /* Add US state boundary fill + outline layers for the voting choropleth.
+   * Uses a match expression on the state code to color by party.
+   * The fill layer is hidden by default; toggle via window.toggleVotingOverlay(). */
+  function addStatesLayer(statesGeo) {
+    if (map.getSource('states-src')) return;  // already added
+    map.addSource('states-src', { type: 'geojson', data: statesGeo });
+
+    // Build match expression: [match, ['get','code'], 'AL', color, ..., fallback]
+    // Stronger color = bigger margin; weaker = closer swing state
+    var matchExpr = ['match', ['get', 'code']];
+    var redStates = [];
+    var blueStates = [];
+    for (var code in stateVotes) {
+      if (stateVotes[code].party === 'R') redStates.push(code);
+      else blueStates.push(code);
+    }
+    for (var i = 0; i < redStates.length; i++) matchExpr.push(redStates[i]);
+    matchExpr.push('rgba(226,59,59,0.18)');   // red, semi-transparent
+    for (var j = 0; j < blueStates.length; j++) matchExpr.push(blueStates[j]);
+    matchExpr.push('rgba(51,102,204,0.18)');   // blue, semi-transparent
+    matchExpr.push('rgba(128,128,128,0.10)');   // fallback (no data)
+
+    // State fill — colored by voting block (hidden by default)
+    map.addLayer({
+      id: 'states-fill',
+      type: 'fill',
+      source: 'states-src',
+      layout: { visibility: 'none' },
+      paint: {
+        'fill-color': matchExpr,
+        'fill-opacity': 1,
+      }
+    }, 'clusters-public');  // insert below point layers
+
+    // State outlines — always visible for cleaner geography
+    map.addLayer({
+      id: 'states-outline',
+      type: 'line',
+      source: 'states-src',
+      paint: {
+        'line-color': '#ffffff',
+        'line-width': 0.6,
+        'line-opacity': 0.7
+      }
+    }, 'clusters-public');
+
+    // Hover effect on states — show name + party
+    map.on('mousemove', 'states-fill', function (e) {
+      if (!e.features.length) return;
+      var p = e.features[0].properties;
+      var code = p.code;
+      var v = stateVotes[code];
+      var partyText = v ? (v.party === 'R' ? 'Republican' : 'Democratic') : 'Unknown';
+      var marginText = v ? ' (+' + v.margin + '%)' : '';
+      map.getCanvas().style.cursor = 'pointer';
+      var popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 5 })
+        .setLngLat(e.lngLat)
+        .setHTML('<strong>' + esc(p.name) + '</strong><br>' + partyText + marginText)
+        .addTo(map);
+      statesPopup = popup;
+    });
+    map.on('mouseleave', 'states-fill', function () {
+      map.getCanvas().style.cursor = '';
+      if (statesPopup) { statesPopup.remove(); statesPopup = null; }
+    });
+  }
+
+  var statesPopup = null;
 
   function addSourcesAndLayers() {
     for (var i = 0; i < TYPES.length; i++) {
@@ -297,6 +376,15 @@
   // ---- Public API (called from HTML) ----
   window.getMapStyle = getMapStyle;
   window.applyTheme = applyTheme;
+
+  window.toggleVotingOverlay = function () {
+    if (!loaded || !map.getLayer('states-fill')) return;
+    votingOverlayVisible = !votingOverlayVisible;
+    map.setLayoutProperty('states-fill', 'visibility', votingOverlayVisible ? 'visible' : 'none');
+    var label = document.getElementById('votingLabel');
+    if (label) label.textContent = votingOverlayVisible ? 'ON' : 'OFF';
+  };
+
   window.toggleLayer = function (type) {
     var chk = type === 'public' ? 'chkPublic' : type === 'private' ? 'chkPrivate' : 'chkGov';
     var cb = document.getElementById(chk);

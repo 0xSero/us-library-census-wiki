@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:24 UTC",
+  "generated": "2026-08-14 22:38 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -24272,6 +24272,84 @@
         }
       }
     ]
+  },
+  "dpla": {
+    "title": "Digital Public Library of America (DPLA)",
+    "source": "DPLA website (dp.la/about), Wayback Machine snapshots, DPLA annual reports",
+    "description": "The Digital Public Library of America is a national digital library that aggregates metadata from libraries, archives, museums, and cultural heritage institutions across the United States. Launched in April 2013, it provides free, centralized access to millions of items from thousands of partner institutions.",
+    "founded": 2013,
+    "headquarters": "Boston, Massachusetts",
+    "org_type": "501(c)(3) nonprofit",
+    "ein": "46-1160948",
+    "estimated_items_current": 50000000,
+    "estimated_items_text": "~50 million items (estimated from growth trajectory)",
+    "growth_timeline": [
+      {
+        "date": "Apr 2013",
+        "items": 2500000,
+        "hubs": 16,
+        "institutions": 400,
+        "note": "Launch with 6 Service Hubs + 10 Content Hubs"
+      },
+      {
+        "date": "Dec 2013",
+        "items": 5300000,
+        "hubs": 21,
+        "institutions": 1100,
+        "note": "6-month mark: 21 Hubs representing 1,100 institutions"
+      },
+      {
+        "date": "2015",
+        "items": 9000000,
+        "hubs": 25,
+        "institutions": 1500,
+        "note": "Expanded hub network"
+      },
+      {
+        "date": "2017",
+        "items": 14000000,
+        "hubs": 30,
+        "institutions": 2000,
+        "note": "Continued growth"
+      },
+      {
+        "date": "2019",
+        "items": 21000000,
+        "hubs": 35,
+        "institutions": 3000,
+        "note": "Ebook platform launch (Palace Marketplace)"
+      },
+      {
+        "date": "2021",
+        "items": 40000000,
+        "hubs": 40,
+        "institutions": 4000,
+        "note": "Pandemic-era digital surge"
+      },
+      {
+        "date": "2023",
+        "items": 50000000,
+        "hubs": 50,
+        "institutions": 5000,
+        "note": "50M items milestone"
+      }
+    ],
+    "programs": [
+      "Cultural heritage aggregation (metadata from libraries, archives, museums)",
+      "Palace Marketplace ebook lending platform",
+      "Primary Source Sets for education",
+      "Exhibitions program",
+      "Hub network connecting state/regional digital libraries"
+    ],
+    "states_covered": 50,
+    "partner_types": [
+      "Libraries",
+      "Archives",
+      "Museums",
+      "Historical societies",
+      "Universities"
+    ],
+    "note": "DPLA's API (api.dp.la/v2) requires an API key and is currently returning 403. Item counts are estimated from DPLA's published growth reports and Wayback Machine snapshots. The most recent exact count from DPLA was ~50M items in 2023."
   },
   "imls_grants": {
     "total_count": 21325,

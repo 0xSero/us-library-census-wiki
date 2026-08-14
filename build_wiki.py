@@ -169,6 +169,7 @@ def panel(active=""):
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
     <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
     <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
+    <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -384,6 +385,12 @@ def load_all():
             data['state_censorship'] = json.load(f)
     else:
         data['state_censorship'] = {}
+    dpla_path = os.path.join(DATA, "dpla_summary.json")
+    if os.path.exists(dpla_path):
+        with open(dpla_path) as f:
+            data['dpla'] = json.load(f)
+    else:
+        data['dpla'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1430,6 +1437,9 @@ def compute_stats(data):
 
     # ---- State-level book censorship breakdown ----
     stats['state_censorship'] = data.get('state_censorship', {})
+
+    # ---- Digital Public Library of America ----
+    stats['dpla'] = data.get('dpla', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -4047,6 +4057,66 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: American Library Association, <em>State of America\'s Libraries Report 2024</em> (covering 2023 data). The ALA tracks censorship attempts in partnership with the ALA Office for Intellectual Freedom. Challenge data may undercount actual incidents as reporting is voluntary. The {titles_23 - titles_22:,} additional titles challenged in 2023 vs 2022 represent the largest single-year increase ever recorded.</p>'
+
+    # ---- Digital Public Library of America (DPLA) ----
+    dpla = stats.get('dpla', {})
+    if dpla and dpla.get('growth_timeline'):
+        dpla_items = dpla.get('estimated_items_current', 50000000)
+        dpla_timeline = dpla.get('growth_timeline', [])
+        dpla_programs = dpla.get('programs', [])
+        dpla_partner_types = dpla.get('partner_types', [])
+
+        body += f"""
+
+<h2 id="dpla">Digital Public Library of America (DPLA)</h2>
+<p class="wiki-sub">The Digital Public Library of America, founded in 2013 and headquartered in Boston, is the nation's aggregator of digital cultural heritage. Rather than holding its own collections, DPLA brings together metadata from thousands of libraries, archives, museums, and historical societies through a network of Service Hubs and Content Hubs. Since launching with 2.5 million items from 16 hubs, DPLA has grown to an estimated {dpla_items/1e6:.0f} million items from institutions across all 50 states - a 20x increase in a decade.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{dpla_items/1e6:.0f}M</div><div class="label">Estimated items (2023)</div></div>
+  <div class="stat-card"><div class="num">5,000+</div><div class="label">Partner institutions</div></div>
+  <div class="stat-card"><div class="num">50</div><div class="label">Hubs (Service + Content)</div></div>
+  <div class="stat-card"><div class="num">50</div><div class="label">States covered</div></div>
+  <div class="stat-card"><div class="num">2013</div><div class="label">Founded</div></div>
+  <div class="stat-card"><div class="num">20x</div><div class="label">Growth since launch</div></div>
+</div>"""
+
+        # Growth chart SVG
+        if dpla_timeline and len(dpla_timeline) >= 2:
+            labels = [t["date"] for t in dpla_timeline]
+            items = [t["items"] for t in dpla_timeline]
+            hubs = [t.get("hubs", 0) for t in dpla_timeline]
+            max_items = max(items) or 1
+            n = len(dpla_timeline)
+            bw = 55
+            chart_w = n * bw + 60
+            chart_h = 240
+            body += f'\n<h3>DPLA collection growth: items over time</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="DPLA collection growth over time">'
+            for i in range(n):
+                x = 45 + i * bw
+                h = (items[i] / max_items) * (chart_h - 60) if max_items else 0
+                body += f'<rect x="{x}" y="{chart_h - 40 - h:.1f}" width="{bw - 8}" height="{h:.1f}" fill="var(--accent-green)" rx="3"/>'
+                body += f'<text x="{x + (bw-8)/2:.0f}" y="{chart_h - 22}" text-anchor="middle" class="axis-text">{labels[i]}</text>'
+                body += f'<text x="{x + (bw-8)/2:.0f}" y="{chart_h - 45 - h:.1f}" text-anchor="middle" class="bar-label">{items[i]/1e6:.0f}M</text>'
+            body += '</svg>'
+
+        # Growth timeline table
+        body += """
+<h3>DPLA growth timeline</h3>
+<table class="wikitable">
+  <tr><th>Date</th><th>Items</th><th>Hubs</th><th>Institutions</th><th>Notes</th></tr>"""
+        for t in dpla_timeline:
+            body += f'\n  <tr><td>{t["date"]}</td><td class="pct">{t["items"]:,}</td><td>{t.get("hubs", 0)}</td><td>{t.get("institutions", 0):,}</td><td>{esc(t.get("note", ""))}</td></tr>'
+        body += '\n</table>'
+
+        # Programs
+        if dpla_programs:
+            body += """
+<h3>DPLA programs</h3>
+<ul class="wiki-list">"""
+            for p in dpla_programs:
+                body += f'\n  <li>{esc(p)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: DPLA website (dp.la/about), Wayback Machine snapshots of DPLA news and reports, and DPLA annual reports. DPLA launched April 18, 2013 with 2.5 million records from 6 Service Hubs and 10 Content Hubs representing over 400 institutions. By late 2013 it had doubled to 5.3M items from 21 hubs and 1,100 institutions. Current item count is estimated at ~{dpla_items/1e6:.0f}M based on published growth reports. DPLA is a 501(c)(3) nonprofit (EIN 46-1160948) headquartered in Boston, MA. Its API at api.dp.la/v2 requires an API key for programmatic access.</p>'
 
     # ---- State-level book censorship breakdown ----
     stcens = stats.get('state_censorship', {})

@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:31 UTC",
+  "generated": "2026-08-14 20:36 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7007,6 +7007,178 @@
       "circulation": 4029806,
       "expenditures": 2523675
     }
+  },
+  "institution_characteristics": {
+    "total_institutions": 6163,
+    "total_enrollment": 19703000,
+    "by_control": [
+      {
+        "type": "Private for-profit",
+        "count": 2299
+      },
+      {
+        "type": "Public",
+        "count": 1999
+      },
+      {
+        "type": "Private nonprofit",
+        "count": 1836
+      },
+      {
+        "type": "Unknown",
+        "count": 29
+      }
+    ],
+    "by_carnegie_broad": [
+      {
+        "category": "Other/Unclassified",
+        "count": 2726
+      },
+      {
+        "category": "Associate's Colleges",
+        "count": 944
+      },
+      {
+        "category": "Special Focus Institutions",
+        "count": 886
+      },
+      {
+        "category": "Baccalaureate Colleges",
+        "count": 652
+      },
+      {
+        "category": "Master's Colleges & Universities",
+        "count": 633
+      },
+      {
+        "category": "Doctoral Universities",
+        "count": 289
+      },
+      {
+        "category": "Tribal Colleges",
+        "count": 33
+      }
+    ],
+    "by_carnegie_detail": [
+      {
+        "classification": "Code -2",
+        "count": 2726
+      },
+      {
+        "classification": "Master's Colleges & Universities: Larger Programs",
+        "count": 371
+      },
+      {
+        "classification": "Baccalaureate Colleges: Diverse Fields",
+        "count": 322
+      },
+      {
+        "classification": "Associate's Colleges: High Transfer-Mixed Traditional/Nontraditional",
+        "count": 284
+      },
+      {
+        "classification": "Baccalaureate Colleges: Arts & Sciences",
+        "count": 248
+      },
+      {
+        "classification": "Special Focus Two-Year: Health Professions",
+        "count": 238
+      },
+      {
+        "classification": "Special Focus Four-Year: Faith-Related Institutions",
+        "count": 236
+      },
+      {
+        "classification": "Master's Colleges & Universities: Medium Programs",
+        "count": 160
+      },
+      {
+        "classification": "Associate's Colleges: High Transfer-High Nontraditional",
+        "count": 128
+      },
+      {
+        "classification": "Special Focus Four-Year: Other Health Professions Schools",
+        "count": 125
+      },
+      {
+        "classification": "Associate's Colleges: High Vocational & Technical-High Traditional",
+        "count": 118
+      },
+      {
+        "classification": "Doctoral Universities: Very High Research Activity",
+        "count": 108
+      },
+      {
+        "classification": "Associate's Colleges: High Transfer-High Traditional",
+        "count": 107
+      },
+      {
+        "classification": "Associate's Colleges: Mixed Transfer/Vocational & Technical-High Traditional",
+        "count": 107
+      },
+      {
+        "classification": "Master's Colleges & Universities: Small Programs",
+        "count": 102
+      }
+    ],
+    "by_locale": [
+      {
+        "locale": "Suburb: Large",
+        "count": 1501
+      },
+      {
+        "locale": "City: Large",
+        "count": 1470
+      },
+      {
+        "locale": "City: Small",
+        "count": 803
+      },
+      {
+        "locale": "City: Midsize",
+        "count": 748
+      },
+      {
+        "locale": "Town: Distant",
+        "count": 404
+      },
+      {
+        "locale": "Rural: Fringe",
+        "count": 308
+      },
+      {
+        "locale": "Town: Remote",
+        "count": 291
+      },
+      {
+        "locale": "Suburb: Midsize",
+        "count": 166
+      },
+      {
+        "locale": "Rural: Distant",
+        "count": 149
+      },
+      {
+        "locale": "Town: Fringe",
+        "count": 113
+      },
+      {
+        "locale": "Rural: Remote",
+        "count": 104
+      },
+      {
+        "locale": "Suburb: Small",
+        "count": 102
+      },
+      {
+        "locale": "Unknown",
+        "count": 4
+      }
+    ],
+    "hbcu": 102,
+    "tribal": 35,
+    "land_grant": 121,
+    "medical": 208
   },
   "imls_grants": {
     "total_count": 13218,

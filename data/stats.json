@@ -1576,7 +1576,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 19:21 UTC",
+  "generated": "2026-08-14 19:31 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -4480,7 +4480,7 @@
       14143026,
       15298344,
       15343609,
-      0
+      10248167
     ],
     "ebooks_2023": 1628692243,
     "eserials_2023": 1550673704,
@@ -4775,7 +4775,7 @@
       "collections": 4721859,
       "presentations": 0,
       "salaries": 9144203,
-      "student_fte": 0,
+      "student_fte": 12088,
       "year": 2023
     },
     "AL": {
@@ -4785,7 +4785,7 @@
       "collections": 57388657,
       "presentations": 0,
       "salaries": 53206591,
-      "student_fte": 0,
+      "student_fte": 187622,
       "year": 2023
     },
     "AR": {
@@ -4795,7 +4795,7 @@
       "collections": 38198201,
       "presentations": 0,
       "salaries": 25059965,
-      "student_fte": 0,
+      "student_fte": 90770,
       "year": 2023
     },
     "AS": {
@@ -4815,7 +4815,7 @@
       "collections": 32390696,
       "presentations": 0,
       "salaries": 55214184,
-      "student_fte": 0,
+      "student_fte": 342179,
       "year": 2023
     },
     "CA": {
@@ -4825,7 +4825,7 @@
       "collections": 451966185,
       "presentations": 0,
       "salaries": 588033351,
-      "student_fte": 0,
+      "student_fte": 1008871,
       "year": 2023
     },
     "CO": {
@@ -4835,7 +4835,7 @@
       "collections": 48901237,
       "presentations": 0,
       "salaries": 56965577,
-      "student_fte": 0,
+      "student_fte": 190808,
       "year": 2023
     },
     "CT": {
@@ -4845,7 +4845,7 @@
       "collections": 44798800,
       "presentations": 0,
       "salaries": 88235343,
-      "student_fte": 0,
+      "student_fte": 131917,
       "year": 2023
     },
     "DC": {
@@ -4855,7 +4855,7 @@
       "collections": 26537916,
       "presentations": 0,
       "salaries": 52802937,
-      "student_fte": 0,
+      "student_fte": 67331,
       "year": 2023
     },
     "DE": {
@@ -4865,7 +4865,7 @@
       "collections": 14007151,
       "presentations": 0,
       "salaries": 16606379,
-      "student_fte": 0,
+      "student_fte": 39788,
       "year": 2023
     },
     "FL": {
@@ -4875,7 +4875,7 @@
       "collections": 100329884,
       "presentations": 0,
       "salaries": 164254417,
-      "student_fte": 0,
+      "student_fte": 510973,
       "year": 2023
     },
     "FM": {
@@ -4895,7 +4895,7 @@
       "collections": 101169313,
       "presentations": 0,
       "salaries": 113446158,
-      "student_fte": 0,
+      "student_fte": 321608,
       "year": 2023
     },
     "GU": {
@@ -4905,7 +4905,7 @@
       "collections": 4738620,
       "presentations": 0,
       "salaries": 1740551,
-      "student_fte": 0,
+      "student_fte": 2391,
       "year": 2023
     },
     "HI": {
@@ -4915,7 +4915,7 @@
       "collections": 18593379,
       "presentations": 0,
       "salaries": 17394895,
-      "student_fte": 0,
+      "student_fte": 22999,
       "year": 2023
     },
     "IA": {
@@ -4925,7 +4925,7 @@
       "collections": 41311488,
       "presentations": 0,
       "salaries": 52330530,
-      "student_fte": 0,
+      "student_fte": 98172,
       "year": 2023
     },
     "ID": {
@@ -4935,7 +4935,7 @@
       "collections": 12318406,
       "presentations": 0,
       "salaries": 14467602,
-      "student_fte": 0,
+      "student_fte": 43014,
       "year": 2023
     },
     "IL": {
@@ -4945,7 +4945,7 @@
       "collections": 113542543,
       "presentations": 0,
       "salaries": 155542463,
-      "student_fte": 0,
+      "student_fte": 366637,
       "year": 2023
     },
     "IN": {
@@ -4955,7 +4955,7 @@
       "collections": 99254271,
       "presentations": 0,
       "salaries": 106066077,
-      "student_fte": 0,
+      "student_fte": 290628,
       "year": 2023
     },
     "KS": {
@@ -4965,7 +4965,7 @@
       "collections": 43420584,
       "presentations": 0,
       "salaries": 35048533,
-      "student_fte": 0,
+      "student_fte": 86632,
       "year": 2023
     },
     "KY": {
@@ -4975,7 +4975,7 @@
       "collections": 41170137,
       "presentations": 0,
       "salaries": 44162693,
-      "student_fte": 0,
+      "student_fte": 141687,
       "year": 2023
     },
     "LA": {
@@ -4985,7 +4985,7 @@
       "collections": 41086498,
       "presentations": 0,
       "salaries": 43521060,
-      "student_fte": 0,
+      "student_fte": 137316,
       "year": 2023
     },
     "MA": {
@@ -4995,7 +4995,7 @@
       "collections": 118613284,
       "presentations": 0,
       "salaries": 245208361,
-      "student_fte": 0,
+      "student_fte": 348466,
       "year": 2023
     },
     "MD": {
@@ -5005,7 +5005,7 @@
       "collections": 37206592,
       "presentations": 0,
       "salaries": 84839966,
-      "student_fte": 0,
+      "student_fte": 179795,
       "year": 2023
     },
     "ME": {
@@ -5015,7 +5015,7 @@
       "collections": 24128766,
       "presentations": 0,
       "salaries": 21010303,
-      "student_fte": 0,
+      "student_fte": 37568,
       "year": 2023
     },
     "MH": {
@@ -5035,7 +5035,7 @@
       "collections": 95179574,
       "presentations": 0,
       "salaries": 140462750,
-      "student_fte": 0,
+      "student_fte": 260497,
       "year": 2023
     },
     "MN": {
@@ -5045,7 +5045,7 @@
       "collections": 64983452,
       "presentations": 0,
       "salaries": 80030350,
-      "student_fte": 0,
+      "student_fte": 209247,
       "year": 2023
     },
     "MO": {
@@ -5055,7 +5055,7 @@
       "collections": 791079865,
       "presentations": 0,
       "salaries": 68788635,
-      "student_fte": 0,
+      "student_fte": 174190,
       "year": 2023
     },
     "MP": {
@@ -5075,7 +5075,7 @@
       "collections": 27640580,
       "presentations": 0,
       "salaries": 28163141,
-      "student_fte": 0,
+      "student_fte": 76098,
       "year": 2023
     },
     "MT": {
@@ -5085,7 +5085,7 @@
       "collections": 16053750,
       "presentations": 0,
       "salaries": 9367299,
-      "student_fte": 0,
+      "student_fte": 31167,
       "year": 2023
     },
     "NC": {
@@ -5095,7 +5095,7 @@
       "collections": 162241648,
       "presentations": 0,
       "salaries": 165246514,
-      "student_fte": 0,
+      "student_fte": 282222,
       "year": 2023
     },
     "ND": {
@@ -5105,7 +5105,7 @@
       "collections": 8102589,
       "presentations": 0,
       "salaries": 10646049,
-      "student_fte": 0,
+      "student_fte": 31516,
       "year": 2023
     },
     "NE": {
@@ -5115,7 +5115,7 @@
       "collections": 18440124,
       "presentations": 0,
       "salaries": 23476859,
-      "student_fte": 0,
+      "student_fte": 75202,
       "year": 2023
     },
     "NH": {
@@ -5125,7 +5125,7 @@
       "collections": 19777057,
       "presentations": 0,
       "salaries": 27192882,
-      "student_fte": 0,
+      "student_fte": 162787,
       "year": 2023
     },
     "NJ": {
@@ -5135,7 +5135,7 @@
       "collections": 56802620,
       "presentations": 0,
       "salaries": 121331242,
-      "student_fte": 0,
+      "student_fte": 220026,
       "year": 2023
     },
     "NM": {
@@ -5145,7 +5145,7 @@
       "collections": 23886295,
       "presentations": 0,
       "salaries": 25523961,
-      "student_fte": 0,
+      "student_fte": 42180,
       "year": 2023
     },
     "NV": {
@@ -5155,7 +5155,7 @@
       "collections": 12751729,
       "presentations": 0,
       "salaries": 23740315,
-      "student_fte": 0,
+      "student_fte": 48730,
       "year": 2023
     },
     "NY": {
@@ -5165,7 +5165,7 @@
       "collections": 218560515,
       "presentations": 0,
       "salaries": 367776624,
-      "student_fte": 0,
+      "student_fte": 705731,
       "year": 2023
     },
     "OH": {
@@ -5175,7 +5175,7 @@
       "collections": 161500198,
       "presentations": 0,
       "salaries": 121674308,
-      "student_fte": 0,
+      "student_fte": 336576,
       "year": 2023
     },
     "OK": {
@@ -5185,7 +5185,7 @@
       "collections": 504165734,
       "presentations": 0,
       "salaries": 38511448,
-      "student_fte": 0,
+      "student_fte": 101562,
       "year": 2023
     },
     "OR": {
@@ -5195,7 +5195,7 @@
       "collections": 35580802,
       "presentations": 0,
       "salaries": 66506659,
-      "student_fte": 0,
+      "student_fte": 100351,
       "year": 2023
     },
     "PA": {
@@ -5205,7 +5205,7 @@
       "collections": 159936275,
       "presentations": 0,
       "salaries": 220245060,
-      "student_fte": 0,
+      "student_fte": 417534,
       "year": 2023
     },
     "PR": {
@@ -5215,7 +5215,7 @@
       "collections": 48906825,
       "presentations": 0,
       "salaries": 24359154,
-      "student_fte": 0,
+      "student_fte": 107509,
       "year": 2023
     },
     "PW": {
@@ -5235,7 +5235,7 @@
       "collections": 21329987,
       "presentations": 0,
       "salaries": 32983025,
-      "student_fte": 0,
+      "student_fte": 56058,
       "year": 2023
     },
     "SC": {
@@ -5245,7 +5245,7 @@
       "collections": 161650661,
       "presentations": 0,
       "salaries": 62327817,
-      "student_fte": 0,
+      "student_fte": 140460,
       "year": 2023
     },
     "SD": {
@@ -5255,7 +5255,7 @@
       "collections": 9345028,
       "presentations": 0,
       "salaries": 8124868,
-      "student_fte": 0,
+      "student_fte": 32040,
       "year": 2023
     },
     "TN": {
@@ -5265,7 +5265,7 @@
       "collections": 80593638,
       "presentations": 0,
       "salaries": 73807283,
-      "student_fte": 0,
+      "student_fte": 191647,
       "year": 2023
     },
     "TX": {
@@ -5275,7 +5275,7 @@
       "collections": 485775615,
       "presentations": 0,
       "salaries": 264547108,
-      "student_fte": 0,
+      "student_fte": 699048,
       "year": 2023
     },
     "UT": {
@@ -5285,7 +5285,7 @@
       "collections": 37361737,
       "presentations": 0,
       "salaries": 56667806,
-      "student_fte": 0,
+      "student_fte": 299470,
       "year": 2023
     },
     "VA": {
@@ -5295,7 +5295,7 @@
       "collections": 92830918,
       "presentations": 0,
       "salaries": 139693726,
-      "student_fte": 0,
+      "student_fte": 330785,
       "year": 2023
     },
     "VI": {
@@ -5305,7 +5305,7 @@
       "collections": 640941,
       "presentations": 0,
       "salaries": 506646,
-      "student_fte": 0,
+      "student_fte": 1290,
       "year": 2023
     },
     "VT": {
@@ -5315,7 +5315,7 @@
       "collections": 12746008,
       "presentations": 0,
       "salaries": 15260152,
-      "student_fte": 0,
+      "student_fte": 30679,
       "year": 2023
     },
     "WA": {
@@ -5325,7 +5325,7 @@
       "collections": 63195055,
       "presentations": 0,
       "salaries": 90535701,
-      "student_fte": 0,
+      "student_fte": 146151,
       "year": 2023
     },
     "WI": {
@@ -5335,7 +5335,7 @@
       "collections": 59977857,
       "presentations": 0,
       "salaries": 56640679,
-      "student_fte": 0,
+      "student_fte": 180452,
       "year": 2023
     },
     "WV": {
@@ -5345,7 +5345,7 @@
       "collections": 16808863,
       "presentations": 0,
       "salaries": 14236763,
-      "student_fte": 0,
+      "student_fte": 88635,
       "year": 2023
     },
     "WY": {
@@ -5355,8 +5355,784 @@
       "collections": 15137768,
       "presentations": 0,
       "salaries": 6731010,
-      "student_fte": 0,
+      "student_fte": 9067,
       "year": 2023
+    }
+  },
+  "pls_trends": {
+    "trend_years": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "trend_systems": [
+      9078,
+      9133,
+      9141,
+      9214,
+      9210,
+      9201,
+      9211,
+      9217,
+      9284,
+      9299,
+      9308,
+      9315,
+      9305,
+      9309,
+      9305,
+      9251,
+      9252,
+      9245,
+      9261,
+      9260,
+      9245,
+      9215,
+      9248,
+      9252,
+      9249
+    ],
+    "trend_population": [
+      271241829,
+      279093011,
+      280485619,
+      283831151,
+      286730444,
+      290189751,
+      292562033,
+      295539042,
+      301126075,
+      308687184,
+      307776794,
+      309337993,
+      311951813,
+      317701723,
+      319584878,
+      317373863,
+      319736907,
+      322029859,
+      324567488,
+      325947118,
+      328255808,
+      328578563,
+      334210711,
+      336172360,
+      343095245
+    ],
+    "trend_staff_fte": [
+      130154,
+      133518,
+      136249,
+      136234,
+      136014,
+      137855,
+      140442,
+      144655,
+      145576,
+      144573,
+      139965,
+      137830,
+      137424,
+      137614,
+      138819,
+      139422,
+      140320,
+      142379,
+      143555,
+      144682,
+      140672,
+      138827,
+      141455,
+      143579,
+      147368
+    ],
+    "trend_visits": [
+      1146539851,
+      1187817799,
+      1244373008,
+      1284352169,
+      1322396009,
+      1359858026,
+      1384372084,
+      1433734410,
+      1505359253,
+      1591799201,
+      1574572653,
+      1528916789,
+      1499562509,
+      1460882005,
+      1425930900,
+      1396597793,
+      1355648987,
+      1319803999,
+      1292348697,
+      1254323453,
+      732462202,
+      417494680,
+      670948551,
+      803361379,
+      869277559
+    ],
+    "trend_circulation": [
+      1714108577,
+      1789971452,
+      1897893494,
+      1965115778,
+      2010777017,
+      2062960991,
+      2101533003,
+      2166787450,
+      2277699579,
+      2414480505,
+      2465999355,
+      2444210162,
+      2422647454,
+      2374487586,
+      2314312117,
+      2270978960,
+      2228512392,
+      2163935857,
+      2178270740,
+      2186226082,
+      1640419769,
+      1555289972,
+      1829150325,
+      1963131254,
+      1705468867
+    ],
+    "trend_expenditures": [
+      1070168373,
+      1148531452,
+      1158752244,
+      1154075943,
+      1143743151,
+      1197062468,
+      1262231935,
+      1340646782,
+      1377778753,
+      1311557303,
+      1259262018,
+      1230343001,
+      1222291530,
+      1241920942,
+      1275519215,
+      1311988270,
+      1348053470,
+      1375808840,
+      1416754560,
+      1447263242,
+      1390567333,
+      1437246389,
+      1517080541,
+      1593676061,
+      1619594772
+    ],
+    "trend_book_volumes": [
+      760918295,
+      767454132,
+      785266928,
+      802416193,
+      804942523,
+      815605066,
+      807246252,
+      812483473,
+      816583495,
+      816380345,
+      812499273,
+      795312995,
+      786526655,
+      777241412,
+      768377123,
+      752753602,
+      733739814,
+      716283673,
+      711826505,
+      693558394,
+      673239090,
+      661919615,
+      655063675,
+      651090779,
+      639057433
+    ],
+    "trend_capital_exp": [
+      887451271,
+      955418647,
+      1138779515,
+      1293264863,
+      1240939591,
+      1243924154,
+      1143602789,
+      1231618639,
+      1255381000,
+      1362993384,
+      1245481532,
+      1184500635,
+      1119216219,
+      1203066321,
+      1155879220,
+      1281652089,
+      1396159701,
+      1246878570,
+      1281582290,
+      1433098235,
+      1414950764,
+      1448685688,
+      1453328619,
+      1779024268,
+      2103392307
+    ],
+    "trend_elmat_exp": [
+      59628828,
+      67873449,
+      66594027,
+      86612451,
+      100052889,
+      110119271,
+      124549579,
+      143553436,
+      155575665,
+      157887522,
+      156037661,
+      175325174,
+      204098233,
+      239524519,
+      273283802,
+      301291187,
+      341473369,
+      374049326,
+      419123118,
+      449240581,
+      543799540,
+      594978989,
+      619234085,
+      672569664,
+      723728186
+    ],
+    "trend_outlets": [
+      17198,
+      17313,
+      17365,
+      17420,
+      17393,
+      17368,
+      17411,
+      17412,
+      17519,
+      17538,
+      17559,
+      17522,
+      17509,
+      17503,
+      17534,
+      17376,
+      17413,
+      17408,
+      17469,
+      17488,
+      17474,
+      17425,
+      17502,
+      17588,
+      17625
+    ],
+    "trend_librarian_fte": [
+      43127,
+      44435,
+      44927,
+      45124,
+      45037,
+      45354,
+      46185,
+      47151,
+      48010,
+      48072,
+      47064,
+      46905,
+      46997,
+      47566,
+      47370,
+      48049,
+      48775,
+      49682,
+      50665,
+      51205,
+      50530,
+      50906,
+      51321,
+      52163,
+      53138
+    ]
+  },
+  "pls_by_state_latest": {
+    "AK": {
+      "systems": 69,
+      "population": 645144,
+      "staff_fte": 318,
+      "visits": 2032603,
+      "circulation": 3947652,
+      "expenditures": 2782519
+    },
+    "AL": {
+      "systems": 221,
+      "population": 4947295,
+      "staff_fte": 1530,
+      "visits": 10671056,
+      "circulation": 15449669,
+      "expenditures": 13133277
+    },
+    "AR": {
+      "systems": 59,
+      "population": 2963570,
+      "staff_fte": 1146,
+      "visits": 7010195,
+      "circulation": 9784529,
+      "expenditures": 9768431
+    },
+    "AS": {
+      "systems": 1,
+      "population": 53331,
+      "staff_fte": 10,
+      "visits": 18465,
+      "circulation": 0,
+      "expenditures": 28400
+    },
+    "AZ": {
+      "systems": 89,
+      "population": 12034479,
+      "staff_fte": 2228,
+      "visits": 14801108,
+      "circulation": 29843121,
+      "expenditures": 35317605
+    },
+    "CA": {
+      "systems": 221,
+      "population": 39111178,
+      "staff_fte": 12359,
+      "visits": 87336371,
+      "circulation": 218162056,
+      "expenditures": 189931585
+    },
+    "CO": {
+      "systems": 112,
+      "population": 5844413,
+      "staff_fte": 4008,
+      "visits": 21647139,
+      "circulation": 60166836,
+      "expenditures": 55159986
+    },
+    "CT": {
+      "systems": 190,
+      "population": 4133902,
+      "staff_fte": 2210,
+      "visits": 14742206,
+      "circulation": 21651054,
+      "expenditures": 20564566
+    },
+    "DC": {
+      "systems": 1,
+      "population": 702250,
+      "staff_fte": 619,
+      "visits": 3374454,
+      "circulation": 6636827,
+      "expenditures": 5095759
+    },
+    "DE": {
+      "systems": 21,
+      "population": 989948,
+      "staff_fte": 343,
+      "visits": 2801681,
+      "circulation": 4923739,
+      "expenditures": 2606541
+    },
+    "FL": {
+      "systems": 79,
+      "population": 23058296,
+      "staff_fte": 6869,
+      "visits": 45626257,
+      "circulation": 0,
+      "expenditures": 85568627
+    },
+    "GA": {
+      "systems": 60,
+      "population": 11151364,
+      "staff_fte": 2846,
+      "visits": 18204458,
+      "circulation": 34883958,
+      "expenditures": 23189356
+    },
+    "GU": {
+      "systems": 1,
+      "population": 174114,
+      "staff_fte": 17,
+      "visits": 26483,
+      "circulation": 0,
+      "expenditures": 0
+    },
+    "HI": {
+      "systems": 1,
+      "population": 1446146,
+      "staff_fte": 566,
+      "visits": 2002235,
+      "circulation": 5229093,
+      "expenditures": 3620444
+    },
+    "IA": {
+      "systems": 544,
+      "population": 3207347,
+      "staff_fte": 1815,
+      "visits": 12790569,
+      "circulation": 0,
+      "expenditures": 17096848
+    },
+    "ID": {
+      "systems": 105,
+      "population": 1768444,
+      "staff_fte": 962,
+      "visits": 6022466,
+      "circulation": 15635585,
+      "expenditures": 8543002
+    },
+    "IL": {
+      "systems": 623,
+      "population": 11725127,
+      "staff_fte": 8774,
+      "visits": 40495352,
+      "circulation": 6350164,
+      "expenditures": 90984571
+    },
+    "IN": {
+      "systems": 236,
+      "population": 6626294,
+      "staff_fte": 4545,
+      "visits": 22235717,
+      "circulation": 54571039,
+      "expenditures": 54878396
+    },
+    "KS": {
+      "systems": 323,
+      "population": 2549041,
+      "staff_fte": 1819,
+      "visits": 9701988,
+      "circulation": 21701106,
+      "expenditures": 17106739
+    },
+    "KY": {
+      "systems": 120,
+      "population": 4534010,
+      "staff_fte": 2431,
+      "visits": 11143361,
+      "circulation": 28564261,
+      "expenditures": 22059330
+    },
+    "LA": {
+      "systems": 68,
+      "population": 4546477,
+      "staff_fte": 2765,
+      "visits": 11344210,
+      "circulation": 20088366,
+      "expenditures": 28689333
+    },
+    "MA": {
+      "systems": 367,
+      "population": 6981725,
+      "staff_fte": 3983,
+      "visits": 28349367,
+      "circulation": 0,
+      "expenditures": 50886636
+    },
+    "MD": {
+      "systems": 26,
+      "population": 12347722,
+      "staff_fte": 3427,
+      "visits": 17290101,
+      "circulation": 51929570,
+      "expenditures": 38514485
+    },
+    "ME": {
+      "systems": 257,
+      "population": 1383619,
+      "staff_fte": 766,
+      "visits": 5061986,
+      "circulation": 4658564,
+      "expenditures": 5161215
+    },
+    "MI": {
+      "systems": 396,
+      "population": 10049893,
+      "staff_fte": 4961,
+      "visits": 29535727,
+      "circulation": 68944340,
+      "expenditures": 54800224
+    },
+    "MN": {
+      "systems": 140,
+      "population": 6158331,
+      "staff_fte": 2167,
+      "visits": 17492835,
+      "circulation": 53033308,
+      "expenditures": 25916438
+    },
+    "MO": {
+      "systems": 152,
+      "population": 5688137,
+      "staff_fte": 3263,
+      "visits": 17577654,
+      "circulation": 48832178,
+      "expenditures": 41699179
+    },
+    "MP": {
+      "systems": 1,
+      "population": 51118,
+      "staff_fte": 15,
+      "visits": 110688,
+      "circulation": 22279,
+      "expenditures": 4423
+    },
+    "MS": {
+      "systems": 53,
+      "population": 2960166,
+      "staff_fte": 810,
+      "visits": 4316928,
+      "circulation": 5322501,
+      "expenditures": 3841618
+    },
+    "MT": {
+      "systems": 84,
+      "population": 1092127,
+      "staff_fte": 446,
+      "visits": 3248834,
+      "circulation": 4861508,
+      "expenditures": 3241050
+    },
+    "NC": {
+      "systems": 84,
+      "population": 10846274,
+      "staff_fte": 3404,
+      "visits": 21396149,
+      "circulation": 54384652,
+      "expenditures": 31545585
+    },
+    "ND": {
+      "systems": 78,
+      "population": 708725,
+      "staff_fte": 292,
+      "visits": 1780927,
+      "circulation": 4154201,
+      "expenditures": 2985244
+    },
+    "NE": {
+      "systems": 245,
+      "population": 1643417,
+      "staff_fte": 824,
+      "visits": 5450906,
+      "circulation": 13339297,
+      "expenditures": 8649603
+    },
+    "NH": {
+      "systems": 222,
+      "population": 1517456,
+      "staff_fte": 878,
+      "visits": 4916230,
+      "circulation": 8994878,
+      "expenditures": 6504002
+    },
+    "NJ": {
+      "systems": 295,
+      "population": 9893089,
+      "staff_fte": 4560,
+      "visits": 28262239,
+      "circulation": 46006712,
+      "expenditures": 48138379
+    },
+    "NM": {
+      "systems": 101,
+      "population": 1587605,
+      "staff_fte": 723,
+      "visits": 4731500,
+      "circulation": 9913560,
+      "expenditures": 7420313
+    },
+    "NV": {
+      "systems": 21,
+      "population": 3229973,
+      "staff_fte": 1005,
+      "visits": 6257549,
+      "circulation": 17526256,
+      "expenditures": 15460326
+    },
+    "NY": {
+      "systems": 759,
+      "population": 20444087,
+      "staff_fte": 12810,
+      "visits": 66945374,
+      "circulation": 97557974,
+      "expenditures": 108566295
+    },
+    "OH": {
+      "systems": 251,
+      "population": 11681554,
+      "staff_fte": 9252,
+      "visits": 48066584,
+      "circulation": 154090105,
+      "expenditures": 115746689
+    },
+    "OK": {
+      "systems": 122,
+      "population": 3311462,
+      "staff_fte": 1745,
+      "visits": 8691892,
+      "circulation": 26594408,
+      "expenditures": 20831457
+    },
+    "OR": {
+      "systems": 136,
+      "population": 3842087,
+      "staff_fte": 1969,
+      "visits": 12656584,
+      "circulation": 0,
+      "expenditures": 22685892
+    },
+    "PA": {
+      "systems": 443,
+      "population": 12708807,
+      "staff_fte": 5154,
+      "visits": 27111339,
+      "circulation": 60794304,
+      "expenditures": 47211367
+    },
+    "PR": {
+      "systems": 40,
+      "population": 2888360,
+      "staff_fte": 0,
+      "visits": 0,
+      "circulation": 0,
+      "expenditures": 0
+    },
+    "RI": {
+      "systems": 48,
+      "population": 1097379,
+      "staff_fte": 627,
+      "visits": 3623286,
+      "circulation": 6410034,
+      "expenditures": 4282594
+    },
+    "SC": {
+      "systems": 42,
+      "population": 5154107,
+      "staff_fte": 2229,
+      "visits": 10268950,
+      "circulation": 21377074,
+      "expenditures": 24705077
+    },
+    "SD": {
+      "systems": 106,
+      "population": 826827,
+      "staff_fte": 369,
+      "visits": 2750895,
+      "circulation": 6013523,
+      "expenditures": 3798345
+    },
+    "TN": {
+      "systems": 185,
+      "population": 6948158,
+      "staff_fte": 2112,
+      "visits": 12488094,
+      "circulation": 31827263,
+      "expenditures": 18056514
+    },
+    "TX": {
+      "systems": 545,
+      "population": 26843474,
+      "staff_fte": 7206,
+      "visits": 46547964,
+      "circulation": 116260258,
+      "expenditures": 76421458
+    },
+    "UT": {
+      "systems": 69,
+      "population": 3334131,
+      "staff_fte": 1449,
+      "visits": 11758420,
+      "circulation": 35830454,
+      "expenditures": 17280224
+    },
+    "VA": {
+      "systems": 93,
+      "population": 8646973,
+      "staff_fte": 4199,
+      "visits": 23774825,
+      "circulation": 59510781,
+      "expenditures": 37445038
+    },
+    "VI": {
+      "systems": 1,
+      "population": 87146,
+      "staff_fte": 25,
+      "visits": 0,
+      "circulation": 0,
+      "expenditures": 30874
+    },
+    "VT": {
+      "systems": 183,
+      "population": 642404,
+      "staff_fte": 415,
+      "visits": 2799661,
+      "circulation": 2088528,
+      "expenditures": 3000183
+    },
+    "WA": {
+      "systems": 60,
+      "population": 7919713,
+      "staff_fte": 3934,
+      "visits": 23823067,
+      "circulation": 80266766,
+      "expenditures": 56830785
+    },
+    "WI": {
+      "systems": 381,
+      "population": 5989256,
+      "staff_fte": 3115,
+      "visits": 22932635,
+      "circulation": 47057007,
+      "expenditures": 24170052
+    },
+    "WV": {
+      "systems": 96,
+      "population": 1793716,
+      "staff_fte": 641,
+      "visits": 2799978,
+      "circulation": 6247723,
+      "expenditures": 5114218
+    },
+    "WY": {
+      "systems": 23,
+      "population": 584057,
+      "staff_fte": 410,
+      "visits": 2430017,
+      "circulation": 4029806,
+      "expenditures": 2523675
     }
   },
   "consortia": {

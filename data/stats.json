@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:50 UTC",
+  "generated": "2026-08-14 22:52 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -26638,6 +26638,2470 @@
       {
         "key": "pell_grant_reinstatement",
         "name": "Ithaka S+R (2024) and ALA"
+      }
+    ]
+  },
+  "lis_programs": {
+    "source": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory",
+    "source_description": "ALA Office for Accreditation - Directory of ALA-Accredited and Candidate Programs in Library and Information Studies",
+    "retrieved_note": "Scraped from the ALA Drupal Views directory.",
+    "scope": "ALA-accredited master's programs in Library and Information Studies. The ALA directory includes programs in the United States, Canada, and Puerto Rico; this summary reports US totals separately.",
+    "totals": {
+      "total_accredited_programs_all_countries": 65,
+      "total_us_accredited_programs": 56,
+      "us_states_and_territories_with_programs": 35,
+      "canada_programs": 8,
+      "united_kingdom_programs": 1
+    },
+    "accreditation_status_counts_all": {
+      "Continued accreditation": 57,
+      "": 1,
+      "Initial accreditation": 4,
+      "Conditional accreditation": 3
+    },
+    "accreditation_status_by_country": {
+      "Canada": {
+        "Continued accreditation": 7,
+        "": 1
+      },
+      "United Kingdom": {
+        "Initial accreditation": 1
+      },
+      "United States": {
+        "Continued accreditation": 50,
+        "Conditional accreditation": 3,
+        "Initial accreditation": 3
+      }
+    },
+    "programs_by_state": {
+      "AL": {
+        "state_name": "Alabama",
+        "state_code": "AL",
+        "count": 1,
+        "institutions": [
+          "University of Alabama"
+        ]
+      },
+      "AZ": {
+        "state_name": "Arizona",
+        "state_code": "AZ",
+        "count": 1,
+        "institutions": [
+          "University of Arizona"
+        ]
+      },
+      "CA": {
+        "state_name": "California",
+        "state_code": "CA",
+        "count": 3,
+        "institutions": [
+          "San Jose State University",
+          "University of California, Los Angeles",
+          "University of Southern California"
+        ]
+      },
+      "CO": {
+        "state_name": "Colorado",
+        "state_code": "CO",
+        "count": 1,
+        "institutions": [
+          "University of Denver"
+        ]
+      },
+      "CT": {
+        "state_name": "Connecticut",
+        "state_code": "CT",
+        "count": 1,
+        "institutions": [
+          "Southern Connecticut State University"
+        ]
+      },
+      "DC": {
+        "state_name": "District of Columbia",
+        "state_code": "DC",
+        "count": 1,
+        "institutions": [
+          "The Catholic University of America"
+        ]
+      },
+      "FL": {
+        "state_name": "Florida",
+        "state_code": "FL",
+        "count": 2,
+        "institutions": [
+          "Florida State University",
+          "University of South Florida"
+        ]
+      },
+      "GA": {
+        "state_name": "Georgia",
+        "state_code": "GA",
+        "count": 1,
+        "institutions": [
+          "Valdosta State University"
+        ]
+      },
+      "HI": {
+        "state_name": "Hawaii",
+        "state_code": "HI",
+        "count": 1,
+        "institutions": [
+          "University of Hawaii"
+        ]
+      },
+      "IA": {
+        "state_name": "Iowa",
+        "state_code": "IA",
+        "count": 1,
+        "institutions": [
+          "University of Iowa"
+        ]
+      },
+      "IL": {
+        "state_name": "Illinois",
+        "state_code": "IL",
+        "count": 3,
+        "institutions": [
+          "Chicago State University",
+          "Dominican University",
+          "University of Illinois at Urbana-Champaign"
+        ]
+      },
+      "IN": {
+        "state_name": "Indiana",
+        "state_code": "IN",
+        "count": 2,
+        "institutions": [
+          "Indiana University - Bloomington",
+          "Indiana University Indianapolis (IUI)"
+        ]
+      },
+      "KS": {
+        "state_name": "Kansas",
+        "state_code": "KS",
+        "count": 1,
+        "institutions": [
+          "Emporia State University"
+        ]
+      },
+      "KY": {
+        "state_name": "Kentucky",
+        "state_code": "KY",
+        "count": 1,
+        "institutions": [
+          "University of Kentucky"
+        ]
+      },
+      "LA": {
+        "state_name": "Louisiana",
+        "state_code": "LA",
+        "count": 1,
+        "institutions": [
+          "Louisiana State University"
+        ]
+      },
+      "MA": {
+        "state_name": "Massachusetts",
+        "state_code": "MA",
+        "count": 1,
+        "institutions": [
+          "Simmons University"
+        ]
+      },
+      "MD": {
+        "state_name": "Maryland",
+        "state_code": "MD",
+        "count": 1,
+        "institutions": [
+          "University of Maryland"
+        ]
+      },
+      "MI": {
+        "state_name": "Michigan",
+        "state_code": "MI",
+        "count": 2,
+        "institutions": [
+          "University of Michigan",
+          "Wayne State University"
+        ]
+      },
+      "MN": {
+        "state_name": "Minnesota",
+        "state_code": "MN",
+        "count": 1,
+        "institutions": [
+          "St. Catherine University"
+        ]
+      },
+      "MO": {
+        "state_name": "Missouri",
+        "state_code": "MO",
+        "count": 1,
+        "institutions": [
+          "University of Missouri"
+        ]
+      },
+      "MS": {
+        "state_name": "Mississippi",
+        "state_code": "MS",
+        "count": 1,
+        "institutions": [
+          "The University of Southern Mississippi"
+        ]
+      },
+      "NC": {
+        "state_name": "North Carolina",
+        "state_code": "NC",
+        "count": 4,
+        "institutions": [
+          "East Carolina University",
+          "North Carolina Central University",
+          "University of North Carolina at Chapel Hill",
+          "University of North Carolina at Greensboro"
+        ]
+      },
+      "NJ": {
+        "state_name": "New Jersey",
+        "state_code": "NJ",
+        "count": 1,
+        "institutions": [
+          "Rutgers, The State University of New Jersey"
+        ]
+      },
+      "NY": {
+        "state_name": "New York",
+        "state_code": "NY",
+        "count": 7,
+        "institutions": [
+          "Long Island University",
+          "Pratt Institute",
+          "Queens College, CUNY",
+          "St. John's University",
+          "Syracuse University",
+          "University at Albany, SUNY",
+          "University at Buffalo, SUNY"
+        ]
+      },
+      "OH": {
+        "state_name": "Ohio",
+        "state_code": "OH",
+        "count": 1,
+        "institutions": [
+          "Kent State University"
+        ]
+      },
+      "OK": {
+        "state_name": "Oklahoma",
+        "state_code": "OK",
+        "count": 1,
+        "institutions": [
+          "University of Oklahoma"
+        ]
+      },
+      "PA": {
+        "state_name": "Pennsylvania",
+        "state_code": "PA",
+        "count": 3,
+        "institutions": [
+          "Drexel University",
+          "Pennsylvania Western University - Clarion",
+          "University of Pittsburgh"
+        ]
+      },
+      "PR": {
+        "state_name": "Puerto Rico",
+        "state_code": "PR",
+        "count": 1,
+        "institutions": [
+          "University of Puerto Rico"
+        ]
+      },
+      "RI": {
+        "state_name": "Rhode Island",
+        "state_code": "RI",
+        "count": 1,
+        "institutions": [
+          "University of Rhode Island"
+        ]
+      },
+      "SC": {
+        "state_name": "South Carolina",
+        "state_code": "SC",
+        "count": 1,
+        "institutions": [
+          "University of South Carolina"
+        ]
+      },
+      "TN": {
+        "state_name": "Tennessee",
+        "state_code": "TN",
+        "count": 1,
+        "institutions": [
+          "University of Tennessee"
+        ]
+      },
+      "TX": {
+        "state_name": "Texas",
+        "state_code": "TX",
+        "count": 3,
+        "institutions": [
+          "Texas Woman's University",
+          "University of North Texas",
+          "University of Texas at Austin"
+        ]
+      },
+      "VA": {
+        "state_name": "Virginia",
+        "state_code": "VA",
+        "count": 1,
+        "institutions": [
+          "Old Dominion University"
+        ]
+      },
+      "WA": {
+        "state_name": "Washington",
+        "state_code": "WA",
+        "count": 1,
+        "institutions": [
+          "University of Washington"
+        ]
+      },
+      "WI": {
+        "state_name": "Wisconsin",
+        "state_code": "WI",
+        "count": 2,
+        "institutions": [
+          "University of Wisconsin-Madison",
+          "University of Wisconsin-Milwaukee"
+        ]
+      }
+    },
+    "programs_by_institution_type": {
+      "public": {
+        "count": 45,
+        "institutions": [
+          "University of Alabama",
+          "University of Arizona",
+          "San Jose State University",
+          "University of California, Los Angeles",
+          "Southern Connecticut State University",
+          "Florida State University",
+          "University of South Florida",
+          "Valdosta State University",
+          "University of Hawaii",
+          "Chicago State University",
+          "University of Illinois at Urbana-Champaign",
+          "Indiana University - Bloomington",
+          "Indiana University Indianapolis (IUI)",
+          "University of Iowa",
+          "Emporia State University",
+          "University of Kentucky",
+          "Louisiana State University",
+          "University of Maryland",
+          "University of Michigan",
+          "Wayne State University",
+          "The University of Southern Mississippi",
+          "University of Missouri",
+          "Rutgers, The State University of New Jersey",
+          "Queens College, CUNY",
+          "University at Albany, SUNY",
+          "University at Buffalo, SUNY",
+          "East Carolina University",
+          "North Carolina Central University",
+          "University of North Carolina at Chapel Hill",
+          "University of North Carolina at Greensboro",
+          "Kent State University",
+          "University of Oklahoma",
+          "Pennsylvania Western University - Clarion",
+          "University of Pittsburgh",
+          "University of Puerto Rico",
+          "University of Rhode Island",
+          "University of South Carolina",
+          "University of Tennessee",
+          "Texas Woman's University",
+          "University of North Texas",
+          "University of Texas at Austin",
+          "Old Dominion University",
+          "University of Washington",
+          "University of Wisconsin-Madison",
+          "University of Wisconsin-Milwaukee"
+        ]
+      },
+      "private": {
+        "count": 11,
+        "institutions": [
+          "University of Southern California",
+          "University of Denver",
+          "The Catholic University of America",
+          "Dominican University",
+          "Simmons University",
+          "St. Catherine University",
+          "Long Island University",
+          "Pratt Institute",
+          "St. John's University",
+          "Syracuse University",
+          "Drexel University"
+        ]
+      }
+    },
+    "delivery_options": {
+      "us_programs_with_online_option": 48,
+      "us_programs_with_hybrid_only": 4,
+      "us_programs_fully_online_only": 32,
+      "us_programs_with_no_distance_education": 4,
+      "us_online_institutions": [
+        "University of Alabama",
+        "University of Arizona",
+        "San Jose State University",
+        "University of Southern California",
+        "University of Denver",
+        "Southern Connecticut State University",
+        "The Catholic University of America",
+        "Florida State University",
+        "University of South Florida",
+        "Valdosta State University",
+        "Chicago State University",
+        "Dominican University",
+        "University of Illinois at Urbana-Champaign",
+        "Indiana University Indianapolis (IUI)",
+        "University of Iowa",
+        "Emporia State University",
+        "University of Kentucky",
+        "Louisiana State University",
+        "University of Maryland",
+        "Simmons University",
+        "Wayne State University",
+        "St. Catherine University",
+        "The University of Southern Mississippi",
+        "University of Missouri",
+        "Rutgers, The State University of New Jersey",
+        "Long Island University",
+        "St. John's University",
+        "Syracuse University",
+        "University at Albany, SUNY",
+        "University at Buffalo, SUNY",
+        "East Carolina University",
+        "North Carolina Central University",
+        "University of North Carolina at Greensboro",
+        "Kent State University",
+        "University of Oklahoma",
+        "Drexel University",
+        "Pennsylvania Western University - Clarion",
+        "University of Pittsburgh",
+        "University of Puerto Rico",
+        "University of Rhode Island",
+        "University of South Carolina",
+        "University of Tennessee",
+        "Texas Woman's University",
+        "University of North Texas",
+        "Old Dominion University",
+        "University of Washington",
+        "University of Wisconsin-Madison",
+        "University of Wisconsin-Milwaukee"
+      ],
+      "us_no_distance_education_institutions": [
+        "University of California, Los Angeles",
+        "University of Michigan",
+        "Pratt Institute",
+        "University of Texas at Austin"
+      ]
+    },
+    "notable_institutions": [
+      {
+        "institution_name": "University College London",
+        "state_code": "UK",
+        "country": "United Kingdom",
+        "flags": [
+          "initial_accreditation"
+        ]
+      },
+      {
+        "institution_name": "San Jose State University",
+        "state_code": "CA",
+        "country": "United States",
+        "flags": [
+          "largest_fully_online_mlis"
+        ]
+      },
+      {
+        "institution_name": "University of California, Los Angeles",
+        "state_code": "CA",
+        "country": "United States",
+        "flags": [
+          "conditional_accreditation",
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "University of Southern California",
+        "state_code": "CA",
+        "country": "United States",
+        "flags": [
+          "conditional_accreditation"
+        ]
+      },
+      {
+        "institution_name": "Southern Connecticut State University",
+        "state_code": "CT",
+        "country": "United States",
+        "flags": [
+          "initial_accreditation"
+        ]
+      },
+      {
+        "institution_name": "Chicago State University",
+        "state_code": "IL",
+        "country": "United States",
+        "flags": [
+          "initial_accreditation"
+        ]
+      },
+      {
+        "institution_name": "University of Illinois at Urbana-Champaign",
+        "state_code": "IL",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "Indiana University - Bloomington",
+        "state_code": "IN",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "Simmons University",
+        "state_code": "MA",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "University of Michigan",
+        "state_code": "MI",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "St. Catherine University",
+        "state_code": "MN",
+        "country": "United States",
+        "flags": [
+          "conditional_accreditation"
+        ]
+      },
+      {
+        "institution_name": "Rutgers, The State University of New Jersey",
+        "state_code": "NJ",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "Syracuse University",
+        "state_code": "NY",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "University of North Carolina at Chapel Hill",
+        "state_code": "NC",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "Drexel University",
+        "state_code": "PA",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "University of Pittsburgh",
+        "state_code": "PA",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "University of Texas at Austin",
+        "state_code": "TX",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      },
+      {
+        "institution_name": "Old Dominion University",
+        "state_code": "VA",
+        "country": "United States",
+        "flags": [
+          "initial_accreditation"
+        ]
+      },
+      {
+        "institution_name": "University of Washington",
+        "state_code": "WA",
+        "country": "United States",
+        "flags": [
+          "historically_prominent_lis_school"
+        ]
+      }
+    ],
+    "programs": [
+      {
+        "institution_name": "University of Alberta",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 30, 2020. Follow-up reporting due in February 2026 (2023 Standards): Evaluation of program assessments (Standard II.V); The involvement of constituent groups in systematic planning (Standard I.2); The parent institution provides both administrative support and the resources needed for the attainment of mission and goals (Standards I - V).",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "Canada",
+        "state": "AB",
+        "state_code": "CA-AB",
+        "city": "Edmonton",
+        "program_website": "http://www.ualberta.ca/school-of-library-and-information-studies/programs",
+        "program_director": "Kenneth Gariepy, Director",
+        "college_school": "School of Library and Information Studies Faculty of Education",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Digital Libraries Information Systems Design/Analysis Knowledge Management Management and Administration Organization of Information Public Librarianship Reference and User Services Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Doctoral Program Master's Program",
+        "notes": "Joint degrees offered: MA/MLIS in Digital Humanities and MBA/MLIS.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-alberta",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University of British Columbia",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2025. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "Canada",
+        "state": "BC",
+        "state_code": "CA-BC",
+        "city": "Vancouver",
+        "program_website": "https://slais.ubc.ca/",
+        "program_director": "Luanne Sinnamon, Director",
+        "college_school": "School of Information Suite 470 - 1961 East Mall, Irving K. Barber Learning Centre",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Organization of Information Public Librarianship Records Management Reference and User Services Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Master's Program Post-Master's Certificate Doctoral Program",
+        "notes": "Other concentrations: Human-Computer Interaction and First Nations Curriculum. One core and some elective courses are offered online.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-british-columbia",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University of Western Ontario (Western University)",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 24, 2018. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "Canada",
+        "state": "Canada, Ontario",
+        "state_code": "CA-ON",
+        "city": "",
+        "program_website": "https://www.fims.uwo.ca",
+        "program_director": "Melissa Adler, Chair, MLIS Program",
+        "college_school": "Faculty of Information and Media Studies FIMS & Nursing Building Room 4136 London, Ontario, Canada N6A 5B7 Phone: 519 661-2111 x81034 Email: mlisinfo@uwo.ca Admissions Contact: Shelley Long Email: mlisinfo@uwo.ca Phone: (519) 661-4017 Financial Aid Contact: Student Financial Services Email: finaid@uwo.ca Phone: (519) 661-2100",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Doctoral Program",
+        "notes": "Other concentrations: Community Development, Developing Collections, Information Officer (Specialist)",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-western-ontario",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "Dalhousie University",
+        "degree_name": "Master of Information",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 25, 2020. Follow-up reporting due in February 2026 (2013 Standards): The parent institution provides both administrative support and the resources needed for the attainment of mission and goals (Standard V.2).",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "Canada",
+        "state": "NS",
+        "state_code": "CA-NS",
+        "city": "Halifax",
+        "program_website": "https://www.dal.ca/study/program-sites/mi.html",
+        "program_director": "Alison Brown, Director",
+        "college_school": "Master of Information (MI) Program Kenneth C. Rowe Management Building",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Archival Studies",
+        "other_degrees_raw": "Master's Program Dual/Joint Degree",
+        "notes": "Other concentrations: Librarianship, User-Centered Design, Information Management and Policy, Data Management. Offers MLIS/JD, MLIS/MPA, MLIS/MREM and an Interdisciplinary PhD.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/dalhousie-university",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University of Ottawa",
+        "degree_name": "Master of Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 21, 2022. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "Canada",
+        "state": "ON",
+        "state_code": "CA-ON",
+        "city": "Ottawa",
+        "program_website": "https://arts.uottawa.ca/sis/",
+        "program_director": "Helene Carrier, Director",
+        "college_school": "School of Information Studies Desmarais Building",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Knowledge Management Management and Administration Organization of Information Records Management Thesis Option",
+        "other_degrees_raw": "None available",
+        "notes": "Other Concentration: Information Policy Bilingual program (English/French)",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-ottawa",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University of Toronto",
+        "degree_name": "Master of Information",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2025. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "Canada",
+        "state": "ON",
+        "state_code": "CA-ON",
+        "city": "Toronto",
+        "program_website": "https://www.ischool.utoronto.ca/",
+        "program_director": "Javed Mostafa, Dean",
+        "college_school": "Faculty of Information",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily online with some face-to-face courses required"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Master's Program Bachelor's Program Dual/Joint Degree Post-Master's Certificate Doctoral Program",
+        "notes": "Offers dual degree: MI/JD. Offers concurrent degree: MI/MMSt.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-toronto",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "McGill University",
+        "degree_name": "Master of Information Studies (Non-thesis and Non-thesis project)",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2025. Follow-up reporting due in February 2026 (2023 Standards). The program's systematic plan involves the constituents the program seeks to serve and identifies needs and resources for achieving its mission and goals to ensure sustainability of the program (Standards I.2 and I.3).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "Canada",
+        "state": "QC",
+        "state_code": "CA-QC",
+        "city": "Montreal",
+        "program_website": "https://www.mcgill.ca/sis/",
+        "program_director": "Joan Bartlett, Director",
+        "college_school": "School of Information Studies",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Archival Studies Knowledge Management",
+        "other_degrees_raw": "Post-Master's Certificate Doctoral Program",
+        "notes": "Other concentration: Librarianship.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/mcgill-university",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "Universit\u00e9 de Montr\u00e9al",
+        "degree_name": "",
+        "accreditation_status": "",
+        "accreditation_note": "Accreditation granted January 20, 2023. Follow-up reporting due in February 2026 (2023 Standards): Explain the degree to which the research and professional degrees are one program (Standard I.2).",
+        "next_review_year": null,
+        "next_review_text": "",
+        "country": "Canada",
+        "state": "QC",
+        "state_code": "CA-QC",
+        "city": "Montreal",
+        "program_website": "https://www.ebsi.umontreal.ca/",
+        "program_director": "Lyne Da Sylva, Professor and Director",
+        "college_school": "Ecole de bibliotheconomie et des sc. de l'info.",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Digital Libraries Information Systems Design/Analysis Knowledge Management Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Thesis Option",
+        "other_degrees_raw": "Doctoral Program 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/universite-de-montreal",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University College London",
+        "degree_name": "Master of Arts in Library and Information Studies",
+        "accreditation_status": "Initial accreditation",
+        "accreditation_note": "Accreditation granted June 29, 2024. Follow-up reporting due in February 2026: Assessment of attainment of program goals and objectives (2023 Standard I.2.2); show documented efforts to use resources and services in ways that reflect equity, diversity, and inclusion (2023 Standard V.1).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United Kingdom",
+        "state": "United Kingdom",
+        "state_code": "UK",
+        "city": "London",
+        "program_website": "https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/library-and-information-studies-ma",
+        "program_director": "Dr. Deborah Lee",
+        "college_school": "Faculty of Arts and Humanities Information Studies Gower Street",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Academic Librarianship Archival Studies Cultural Heritage Information Management Health Sciences Librarianship/Health Informatics Organization of Information Reference and User Services Special Collections Thesis Option",
+        "other_degrees_raw": "Bachelor's Program Continuing Education (non-degree) Master's Program Doctoral Program",
+        "notes": "Other concentration: Systems Librarianship. The program is 100% in-person.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-college-london",
+        "institution_type": ""
+      },
+      {
+        "institution_name": "University of Alabama",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2025. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Alabama",
+        "state_code": "AL",
+        "city": "Tuscaloosa",
+        "program_website": "https://cis.ua.edu/departments/slis/",
+        "program_director": "Miriam Sweeney, Director",
+        "college_school": "College of Communication and Information Sciences School of Library and Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Book Arts Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Doctoral Program",
+        "notes": "School Library Media is a formal concentration; all others are career pathways.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-alabama",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Arizona",
+        "degree_name": "Master of Arts in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 25, 2020. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Arizona",
+        "state_code": "AZ",
+        "city": "Tucson",
+        "program_website": "https://ischool.arizona.edu/master-arts-library-and-information-science",
+        "program_director": "Nicole Kontak,",
+        "college_school": "Assistant Dean, Curricular & Academic Affairs College of Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Continuing Education Doctoral Program Dual/Joint Degree",
+        "notes": "Other concentrations: Dual degree with Middle Eastern Studies or Journalism. Our certificates include: Archival Studies, Medical and Community Health Information, Instruction and Teaching for Librarians and Information Professionals, Digital Information Management, Law Librarianship and Legal Information and Scholarly Communication.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-arizona",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "San Jose State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 29, 2022. Follow-up reporting, due February 2027 (2023 Standards): Student advising (Standard IV.4). Faculty professional development and mentoring (Standard III.5).",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "California",
+        "state_code": "CA",
+        "city": "San Jose",
+        "program_website": "https://ischool.sjsu.edu/master-library-and-information-science",
+        "program_director": "Kristen Radsliff, Director",
+        "college_school": "School of Information One Washington Square San Jose, CA 95192-0029 Phone: 760-579-1537 Email: iSchool@sjsu.edu Admissions Contact: Linda Main Email: linda.main@sjsu.edu Phone: (408) 924-2494 Financial Aid Contact: Carolyn Guel Email: Carolyn.Guel@sjsu.edu Phone: (408) 924-6081",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Continuing Education Master's Program Doctoral Program",
+        "notes": "Other Concentrations: Emerging Technologies, Web Programming, Digital Curation",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/san-jose-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of California, Los Angeles",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Conditional accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2023. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "California",
+        "state_code": "CA",
+        "city": "Los Angeles",
+        "program_website": "https://seis.ucla.edu/academics/department-of-information-studies/master-of-library-information-science-mlis/",
+        "program_director": "Rob Montoya, Chair",
+        "college_school": "Department of Information Studies School of Education and Information Studies USC Bovard College Davidson Conference Center (DCC)",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Academic Librarianship Archival Studies Book Arts Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Master's Program Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-california-los",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Southern California",
+        "degree_name": "Master of Management in Library and Information Science",
+        "accreditation_status": "Conditional accreditation",
+        "accreditation_note": "Accreditation granted February 7, 2025. Follow-up reporting due in February 2026 (2015 Standards): Program provides a variety of educational experiences (Standard II.1 and II.3). Curriculum takes into account statements of knowledge and competencies developed by relevant professional organizations (Standard II.4). Faculty members sufficient in number and diversity of specialties (Standards III.1). Faculty appointments and promotions (Standard III.2 and III.8). Program resources equitable compared to other units (Standard V.2). Qualifications of program administrative head (Standard V.3). Decision-making processes (Standard V.5). Faculty compensation equitable compared to other units (Standard V.7). Support for faculty research, professional development, travel, and leave (Standard V.8).",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "California",
+        "state_code": "CA",
+        "city": "Los Angeles",
+        "program_website": "https://bovardcollege.usc.edu/mmlis",
+        "program_director": "Jenna Kammer, Program Director",
+        "college_school": "USC Bovard College Davidson Conference Center (DCC)",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Management and Administration",
+        "other_degrees_raw": "None available 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-southern",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "University of Denver",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 24, 2018. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Colorado",
+        "state_code": "CO",
+        "city": "Denver",
+        "program_website": "https://morgridge.du.edu/academics-advising/programs-gr/mlis-library-and-information-science",
+        "program_director": "Peter Organisciak, Associate Professor and Department Chair",
+        "college_school": "Morgridge College of Education Research Methods and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Law Librarianship/Legal Information Services Public Librarianship Reference and User Services School Librarianship Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Still offers a face-to-face program.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-denver",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Southern Connecticut State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Initial accreditation",
+        "accreditation_note": "Accreditation granted June 26, 2020. Follow-up reporting due in February 2026 (2023 Standards): Program has administrative infrastructure, financial support, and resources to ensure that its goals and objectives can be accomplished (Standards V.2).",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Connecticut",
+        "state_code": "CT",
+        "city": "New Haven",
+        "program_website": "https://inside.southernct.edu/information-and-library-science",
+        "program_director": "Dr. Hak Joon Kim",
+        "college_school": "College of Education Department of Information and Library Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Knowledge Management Organization of Information Public Librarianship Reference and User Services School Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "None available",
+        "notes": "Other concentration: Digital Information Management",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/southern-connecticut-state",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "The Catholic University of America",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 27, 2025. Follow-up reporting due in May 2026 (2023 Standards): Updates on transition to a different unit, leadership changes, and strategic planning (Standards I and V.2); faculty sufficiency and qualifications (Standards III.2 and II.4); enhancement of student mentoring and research opportunities (IV.4 and IV.5); administrative and support staff (Standard V.4); financial support and revenue (Standard V.2).",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "District of Columbia",
+        "state_code": "DC",
+        "city": "Washington",
+        "program_website": "https://lis.cua.edu",
+        "program_director": "Sue Yeon Syn",
+        "college_school": "College of Arts and Sciences Department of Information Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Cultural Heritage Information Management Digital Libraries Law Librarianship/Legal Information Services Organization of Information School Librarianship",
+        "other_degrees_raw": "Continuing Education (non-degree) Dual/Joint Degree Master's Program Post-Master's Certificate",
+        "notes": "Other concentrations: Community Services Librarianship, Data Science, Generalist, Information Architecture.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/catholic-university-america",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Florida State University",
+        "degree_name": "Master of Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 25, 2020. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Florida",
+        "state_code": "FL",
+        "city": "Tallahassee",
+        "program_website": "https://ischool.cci.fsu.edu",
+        "program_director": "Chris Hinnant, Director",
+        "college_school": "College of Communication & Information School of Information PO",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Management and Administration Organization of Information Public Librarianship Reference and User Services School Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Master's Program Doctoral Program Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Other concentration: Specialized Study in Museum Theory and Practice (on campus). Offers graduate certificates and specialist degree.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/florida-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of South Florida",
+        "degree_name": "Master of Arts in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2024. Follow-up reporting due in February 2027 (2023 Standards): Program has administrative infrastructure, financial support, and resources to ensure that its goals and objectives can be accomplished (Standards V.2).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "Florida",
+        "state_code": "FL",
+        "city": "Tampa",
+        "program_website": "https://www.usf.edu/arts-sciences/departments/information/graduate/ma-library-information-science/",
+        "program_director": "Natalie Taylor, Director",
+        "college_school": "College of Arts and Sciences School of Information",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Law Librarianship/Legal Information Services Organization of Information Public Librarianship Reference and User Services School Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Master's Program",
+        "notes": "MS in Intelligence Studies available. Virginia, West Virginia and Delaware residents are treated as in-state students.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-south-florida",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Valdosta State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 21, 2022. Follow-up reporting due in March 2026 and February 2027 (2023 Standards): Ongoing systematic planning process (Standard I.2 and II.5). Identify needs and resources for achieving program mission and goals (Standard I.3). Curriculum evaluation and continuous improvement (Standard (II.5).",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Georgia",
+        "state_code": "GA",
+        "city": "Valdosta",
+        "program_website": "https://www.valdosta.edu/mlis/",
+        "program_director": "Lenese Colson, Department Head",
+        "college_school": "College of Education and Human Services Department of Library and Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services",
+        "other_degrees_raw": "Dual/Joint Degree 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/valdosta-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Hawaii",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2024. Follow-up reporting due in February 2027 (2023 Standards): Update on strategic planning at the program level (Standard I).",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "Hawaii",
+        "state_code": "HI",
+        "city": "Honolulu",
+        "program_website": "https://www.hawaii.edu/lis/",
+        "program_director": "Andrew Wertheimer, Director",
+        "college_school": "Library and Information Science Program School of Communication and Information College of Social Sciences University of Hawai&#699;i at M&#257;noa",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Management and Administration Organization of Information Public Librarianship Reference and User Services School Librarianship Science Librarianship Special Collections Thesis Option Young Adult Services",
+        "other_degrees_raw": "Doctoral Program Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Other concentration: Asian and Pacific Materials Specialization. PhD Info: http://www.hawaii.edu/cis/ .",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-hawaii",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Chicago State University",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Initial accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Illinois",
+        "state_code": "IL",
+        "city": "Chicago",
+        "program_website": "https://www.csu.edu/cimst/infostudies/lib_info_science_ms.htm",
+        "program_director": "Mohammad Abdus Salam, Chair",
+        "college_school": "College of Arts and Sciences Computing, Information, Mathematical Science & Technologies",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Public Librarianship School Librarianship",
+        "other_degrees_raw": "None available",
+        "notes": "Non-school library concentrations are 100% online. School library concentration is primarily online, with some face-to-face courses.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/chicago-state-unviersity",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Dominican University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 20, 2023. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "Illinois",
+        "state_code": "IL",
+        "city": "River Forest",
+        "program_website": "https://www.dom.edu/academics/majors-programs/master-library-and-information-science",
+        "program_director": "Don Hamerly, Professor & Associate Dean for the School of Information Studies",
+        "college_school": "College of Business, Information Studies, and Technology",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required",
+          "Face-to-face courses at other locations",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Book Arts Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Doctoral Program Post-Master's Certificate Dual/Joint Degree Continuing Education (non-degree)",
+        "notes": "Other concentration: Informatics",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/dominican-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "University of Illinois at Urbana-Champaign",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 27, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Illinois",
+        "state_code": "IL",
+        "city": "Champaign",
+        "program_website": "https://ischool.illinois.edu/degrees-programs/ms-library-and-information-science",
+        "program_director": "Maria Bonn, Director MS LIS and CAS program",
+        "college_school": "School of Information Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Continuing Education (non-degree) Dual/Joint Degree Master's Program Doctoral Program Post-Master's Certificate",
+        "notes": "Other concentrations: Data Curation, Data Analytics, Community Informatics, Information Consulting",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-illinois-urbana",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Indiana University - Bloomington",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Indiana",
+        "state_code": "IN",
+        "city": "Bloomington",
+        "program_website": "https://ils.indiana.edu/about/accreditation.html",
+        "program_director": "Anita Say Chan, Department Chair",
+        "college_school": "School of Informatics, Computing, and Engineering Information and Library Science Luddy Hall, Suite 2999C",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Master's Program Doctoral Program Post-Master's Certificate",
+        "notes": "Other concentrations: African Studies Librarianship, Chemical Information Specialist, Information Architecture, Library Technology Management, Rare Books and Manuscripts",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/indiana-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Indiana University Indianapolis (IUI)",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Indiana",
+        "state_code": "IN",
+        "city": "Indianapolis",
+        "program_website": "https://luddy.indianapolis.iu.edu/degrees/masters/mlis/index.html",
+        "program_director": "Andrea Copeland, Chair and Associate Professor, Department of Library and Information Science",
+        "college_school": "School of Informatics, Computing and Engineering Department of Library and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "Doctoral Program Dual/Joint Degree 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/indiana-university-0",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Iowa",
+        "degree_name": "Master of Arts in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 29, 2024. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "Iowa",
+        "state_code": "IA",
+        "city": "Iowa City",
+        "program_website": "https://slis.uiowa.edu/",
+        "program_director": "Lucy Santos Green, Director",
+        "college_school": "Graduate College School of Library and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Book Arts Children's Services Public Librarianship School Librarianship Special Collections Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree",
+        "notes": "Certificates: Special Collections, Book Studies. Certifications: MA and School Library Media Certification. Joint Degrees: MA/MFA Book Studies, MA/Juris Doctor. MA/PhD English.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-iowa",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Emporia State University",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 7, 2024. Follow-up reporting required in February 2026 (2023 Standards): Curriculum revisions (Standard II.3); Curriculum concentrations (Standard II.3); Evaluation of the curriculum, with an update in particular on how employers and alumni have been engaged in the process (Standard II.5); update on faculty compensation, taking into account both equitability and the ability to attract, support and retain personnel (Standard III.5).",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "Kansas",
+        "state_code": "KS",
+        "city": "Emporia",
+        "program_website": "https://www.emporia.edu/school-library-and-information-management/programs-certificates-licensures/master-library-science/",
+        "program_director": "Wooseob Jeong, Dean",
+        "college_school": "School of Library and Information Management Campus",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily online with some face-to-face courses required",
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Archival Studies Children's Services Management and Administration School Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Continuing Education (non-degree) Dual/Joint Degree Master's Program Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/emporia-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Kentucky",
+        "degree_name": "Master of Science in Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 25, 2018. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Kentucky",
+        "state_code": "KY",
+        "city": "Lexington",
+        "program_website": "https://ci.uky.edu/sis/libsci",
+        "program_director": "Youngok Choi, Director, School of Information Science",
+        "college_school": "College of Communication and Information School of Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-kentucky",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Louisiana State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 2022. Follow-up reporting, due February 2027 (2023 Standards): Use of financial support to accomplish program goals and objectives (Standard V.2).",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "Louisiana",
+        "state_code": "LA",
+        "city": "Baton Rouge",
+        "program_website": "https://www.lsu.edu/chse/sis/",
+        "program_director": "Edward Benoit, III, Interim Director",
+        "college_school": "College of Human Sciences & Education School of Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Cultural Heritage Information Management Knowledge Management Public Librarianship Records Management School Librarianship Young Adult Services",
+        "other_degrees_raw": "6th Year Certificate",
+        "notes": "Other concentrations: Adult Services in Public Libraries, Digital Content Management, Librarianship Joint degree: LIS/History. Graduate Certificates in Archival Studies, Records and Information Management, and School Librarianship.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/louisiana-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Maryland",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2020. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Maryland",
+        "state_code": "MD",
+        "city": "College Park",
+        "program_website": "https://ischool.umd.edu/academics/masters-programs/master-of-library-and-information-science/",
+        "program_director": "Amelia Gibson and Ryan O'Grady, Co-Directors",
+        "college_school": "College of Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Health Sciences Librarianship/Health Informatics Knowledge Management Public Librarianship Records Management School Librarianship Special Collections Thesis Option Young Adult Services",
+        "other_degrees_raw": "Doctoral Program Master's Program",
+        "notes": "Other concentrations: E-Government, Information and Diverse Populations, Lifelong Access",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-maryland",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Simmons University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 13, 2032. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Massachusetts",
+        "state_code": "MA",
+        "city": "Boston",
+        "program_website": "https://simmons.edu/slis",
+        "program_director": "Sanda Erdelez, Dean",
+        "college_school": "School of Library and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Knowledge Management Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Master's Program Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/simmons-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "University of Michigan",
+        "degree_name": "Master of Science in Information",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2025. Follow-up reporting due in February 2026 (2023 Standards): Alignment of goals and objectives with needs of the LIS profession (Standard I.1); use of assessment data for program improvement (Standards I.2.3 and II.5); philosophy, principles, and ethics of librarianship incorporated into program learning outcomes (PLOs) and evaluation of PLOs (Standards II.1 and II.2); course offerings, scheduling, and delivery methods are communicated to students (Standard II.4); program information easily accessible by prospective and current students and other program constituents (Standard IV.2).",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Michigan",
+        "state_code": "MI",
+        "city": "Ann Arbor",
+        "program_website": "https://si.umich.edu/",
+        "program_director": "Cliff Lampe, Associate Dean for Academic Affairs and Professor",
+        "college_school": "School of Information",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Dual/Joint Degree Doctoral Program",
+        "notes": "Other concentrations: Information Analysis and Retrieval, Social Computing, Information Economics. Also offers a Masters of Health Informatics and 7 dual degrees.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-michigan",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Wayne State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 7, 2025. Follow-up reporting due in February 2026 (2023 Standards): Faculty retention, mentoring, and support (Standards III.1 and III.6). Faculty recruitment (Standard III.2). Student engagement and communication (Standards IV.4 and IV.5). Administrative Infrastructure (Standard V.2).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "Michigan",
+        "state_code": "MI",
+        "city": "Detroit",
+        "program_website": "https://sis.wayne.edu/mlis/index.php",
+        "program_director": "Paul Bracke, Dean",
+        "college_school": "School of Information Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Other concentration: Urban Librarianship. Online Graduate Certificates available.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/wayne-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "St. Catherine University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Conditional accreditation",
+        "accreditation_note": "Accreditation granted April 20, 2023. Follow-up reporting, due August 2026 (2015 Standards): Sufficient faculty to cover teaching duties (Standard III.1). Administrative and staff support (Standard V.3).",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Minnesota",
+        "state_code": "MN",
+        "city": "St. Paul",
+        "program_website": "https://www.stkate.edu/academics/academic-programs/gc-library-and-information-science",
+        "program_director": "Dr. Shimelis Assefa, Program Director",
+        "college_school": "School of Liberal Arts, Business, and Leadership MLIS Program/Information Management Department",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Public Librarianship Digital Libraries Reference and User Services School Librarianship Special Collections Young Adult Services",
+        "other_degrees_raw": "Continuing Education (non-degree)",
+        "notes": "Offers a 15-credit post-master's certificate of advanced study.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/st-catherine-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "The University of Southern Mississippi",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Mississippi",
+        "state_code": "MS",
+        "city": "Hattiesburg",
+        "program_website": "https://www.usm.edu/slis",
+        "program_director": "Stacy Creel, Director",
+        "college_school": "College of Education and Health Sciences School of Library and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Organization of Information Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Continuing Education (non-degree) Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Other concentrations: Dual MA/MS with History, Anthropology or Political Science - only SLIS portion is online. Real-time chats required for each online course.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-southern-0",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Missouri",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 7, 2024. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "Missouri",
+        "state_code": "MO",
+        "city": "Columbia",
+        "program_website": "https://lis.missouri.edu",
+        "program_director": "Cynthia Dudenhoffer, Associate Teaching Professor and LIS Program Coordinator",
+        "college_school": "College of Education Information Science and Learning Technologies",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Digital Libraries Health Sciences Librarianship/Health Informatics Management and Administration Organization of Information Public Librarianship Reference and User Services School Librarianship",
+        "other_degrees_raw": "Dual/Joint Degree Master's Program Doctoral Program Post-Master's Certificate",
+        "notes": "Joint Degree with MU School of Law",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-missouri",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Rutgers, The State University of New Jersey",
+        "degree_name": "Master of Information",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 27, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "New Jersey",
+        "state_code": "NJ",
+        "city": "New Brunswick",
+        "program_website": "https://sci.rutgers.edu/academics/graduate-programs/master-information",
+        "program_director": "Rebecca Reynolds, Department Chair",
+        "college_school": "School of Communication and Information Department of Library and Information Science New Brunswick, NJ 08901-1071 Phone: (848) 932-7602 Email: mi@comminfo.rutgers.edu Admissions Contact: Lilia Pavlovsky, Director, MI Program Email: mi@comminfo.rutgers.edu Phone: (848) 932-7576 Financial Aid Contact: Kevin Ewell, Associate Director of Student Services Email: mi@comminfo.rutgers.edu Phone: (848) 932-8936",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Archival Studies",
+        "other_degrees_raw": "Bachelor's Program Doctoral Program",
+        "notes": "Other concentrations: Library and Information Science, Data Science, Health Information, Human Computer Interaction, Technology, Information and Management. Both campus and online delivery options available.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/rutgers-state-university-new",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Long Island University",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2024. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Brookville",
+        "program_website": "https://www.liu.edu/palmer/",
+        "program_director": "Bea Baaden, Director of the Palmer School of Library and Information Science",
+        "college_school": "College of Education, Information and Technology Palmer School of Library and Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Public Librarianship Records Management School Librarianship Special Collections Young Adult Services",
+        "other_degrees_raw": "Post-Master's Certificate Doctoral Program Dual/Joint Degree",
+        "notes": "Other concentration: Rare Books",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/long-island-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Pratt Institute",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 7, 2025. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "New York",
+        "program_website": "https://www.pratt.edu/information/library-and-information-science/",
+        "program_director": "Anthony Cocciolo, Dean",
+        "college_school": "School of Information",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Knowledge Management Management and Administration Organization of Information Public Librarianship Reference and User Services Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Post-Master's Certificate Dual/Joint Degree",
+        "notes": "MSLIS and MA History of Art and Design",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/pratt-institute",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Queens College, CUNY",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2023. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Flushing",
+        "program_website": "https://sites.google.com/view/qcgslis/home",
+        "program_director": "Emily Drabinski, Associate Professor and Chair",
+        "college_school": "Graduate School of Library and Information Studies",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Information Systems Design/Analysis Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/queens-college-cuny",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "St. John's University",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 27, 2019. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Queens",
+        "program_website": "https://www.stjohns.edu/academics/programs/library-and-information-science-master-science",
+        "program_director": "James Vorbach, Chair",
+        "college_school": "Department of Library and Information Science St. John's College of Liberal Arts and Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Law Librarianship/Legal Information Services Management and Administration Public Librarianship Special Collections Young Adult Services",
+        "other_degrees_raw": "Post-Master's Certificate Dual/Joint Degree",
+        "notes": "Dual degree option: MA Public History/MSLIS; MA Government/MSLIS",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/st-johns-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Syracuse University",
+        "degree_name": "Master of Science in Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2024. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Syracuse",
+        "program_website": "https://ischool.syracuse.edu/",
+        "program_director": "Beth J. H. Patin",
+        "college_school": "School of Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "School Librarianship",
+        "other_degrees_raw": "Bachelor's Program Master's Program Post-Master's Certificate Doctoral Program",
+        "notes": "Other concentration: Data Science",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/syracuse-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "University at Albany, SUNY",
+        "degree_name": "Master of Science in Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 25, 2020. Follow-up reporting due in February 2026 (2023 Standards): Update on governance and policies (Standard I); Update on development of joint degrees (Standard II); impact of student enrollment increase on resources and student support (Standards I-V).",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Albany",
+        "program_website": "https://www.albany.edu/cehc/programs/ms-information-science",
+        "program_director": "Dr. Matt Roche, Assistant Dean for Strategic Planning and Accreditation",
+        "college_school": "College of Emergency Preparedness, Homeland Security, and Cybersecurity Department of Information Sciences and Technology",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Information Systems Design/Analysis Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Post-Master's Certificate Doctoral Program Dual/Joint Degree",
+        "notes": "Other concentrations: Information Policy, Intelligence Analysis, Data Analytics. Dual degree available with MA in English or History. Offers combined Bachelor's/Master's Program.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-albany-suny",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University at Buffalo, SUNY",
+        "degree_name": "Master of Science in Information and Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 23, 2023. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2030,
+        "next_review_text": "2030",
+        "country": "United States",
+        "state": "New York",
+        "state_code": "NY",
+        "city": "Buffalo",
+        "program_website": "https://ed.buffalo.edu/information.html",
+        "program_director": "Dan Albertson, Chair and Professor",
+        "college_school": "Department of Information Science Graduate School of Education University at Buffalo, SUNY",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Digital Libraries Law Librarianship/Legal Information Services Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special/Corporate Librarianship Thesis Option",
+        "other_degrees_raw": "Dual/Joint Degree Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-buffalo-suny",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "East Carolina University",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 13, 2026. Follow-up reporting due in February 2028 (2023 Standards): Faculty orientation and integration (Standard III.5).",
+        "next_review_year": 2032,
+        "next_review_text": "Fall 2032",
+        "country": "United States",
+        "state": "North Carolina",
+        "state_code": "NC",
+        "city": "Greenville",
+        "program_website": "https://education.ecu.edu/library-science-masters/",
+        "program_director": "Vanessa Irvin, Associate Professor and MLS Program Director",
+        "college_school": "Master of Library Science Program Department of Interdisciplinary Professions College of Education | East Carolina University",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Cultural Heritage Information Management Public Librarianship School Librarianship",
+        "other_degrees_raw": "Continuing Education (non-degree)",
+        "notes": "Program offers an Archives & Cultural Heritage Informatics concentration",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/east-carolina-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "North Carolina Central University",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 6, 2025. Follow-up reporting due in February 2026 (2023 Standards): Faculty evaluations used for program improvement (Standard III.6). Evaluation of student support systems (2023 Standard IV.6). Administrative and staff support (Standards V.2).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "North Carolina",
+        "state_code": "NC",
+        "city": "Durham",
+        "program_website": "https://www.nccu.edu/slis",
+        "program_director": "Phone:",
+        "college_school": "(919) 530-7585 Fax: (919) 530-6402 Admissions Contact: Nina Clayton Email: slisadmissions@nccu.edu Phone: (919) 530-5184 Financial Aid Contact: Sharon Oliver Email: None provided. Phone: (919) 530-5313",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Information Systems Design/Analysis Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Post-Master's Certificate Dual/Joint Degree 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/north-carolina-central",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of North Carolina at Chapel Hill",
+        "degree_name": "Master of Science in Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 25, 2022. Follow-up reporting due in February 2026 (2023 Standards): Update on the increase in enrollment and how the program plans to ensure sufficient student support (Standards I-V).",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "North Carolina",
+        "state_code": "NC",
+        "city": "Chapel Hill",
+        "program_website": "https://sils.unc.edu/programs/graduate/msls",
+        "program_director": "Diane Kelly, Interim Dean",
+        "college_school": "School of Information and Library Science",
+        "has_online_option": false,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily face-to-face with select online courses offered"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special Collections Special/Corporate Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Master's Program Post-Master's Certificate Doctoral Program Dual/Joint Degree",
+        "notes": "Other concentrations: Data Management/Curation and Social Studies of Information.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-north-carolina",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of North Carolina at Greensboro",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 27, 2026. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "North Carolina",
+        "state_code": "NC",
+        "city": "Greensboro",
+        "program_website": "https://soe.uncg.edu/academics/departments/lis/",
+        "program_director": "Lisa O'Connor, Department Chair",
+        "college_school": "School of Education Department of Information, Library and Research Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "School Librarianship",
+        "other_degrees_raw": "None available",
+        "notes": "General program with the option to work with an advisor to develop a specialization.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-north-carolina-0",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Kent State University",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 27, 2019. Follow-up reporting due in October 2026 (2023 Standards): Program has the administrative infrastructure, financial support, and resources to ensure that its goals and objectives can be accomplished. (Standard V.2); Resources and services are sufficient and appropriate to meet the needs of the program (Standard V.6).",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Ohio",
+        "state_code": "OH",
+        "city": "Kent",
+        "program_website": "https://catalog.kent.edu/colleges/ci/info/library-information-science-mlis/#text",
+        "program_director": "Meghan Harper, Director",
+        "college_school": "School of Information PO",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Knowledge Management Organization of Information Public Librarianship Reference and User Services School Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Continuing Education (non-degree) Master's Program Post-Master's Certificate Doctoral Program Dual/Joint Degree",
+        "notes": "Other concentration: Museum Studies",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/kent-state-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Oklahoma",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 29, 2022. Meets all Standards. No follow-up reporting.",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "Oklahoma",
+        "state_code": "OK",
+        "city": "Norman",
+        "program_website": "https://slis.ou.edu",
+        "program_director": "Dr. June Abbas, Director",
+        "college_school": "College of Arts and Sciences School of Library and Information Studies",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Information Systems Design/Analysis Public Librarianship School Librarianship Thesis Option Young Adult Services",
+        "other_degrees_raw": "Continuing Education (non-degree) Bachelor's Program Doctoral Program Dual/Joint Degree Post-Master's Certificate",
+        "notes": "Offers an accelerated BA/MLIS.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-oklahoma",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Drexel University",
+        "degree_name": "Master of Science (Library and Information Science)",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 13, 2026. Follow-up reporting due October 1, 2026 (2023 Standards): Documenting input on the planning process from all constituents (Standard I.2.3). Formal strategic planning at the program level (Standard I.3). Use of knowledge and competency statements from professional organizations (Standard II.2). How non-LIS electives prepare graduates for LIS careers (Standard II.2). Mapping of course-level learning objectives to program learning outcomes for both program- and student-level evaluation (Standard II.3). Transition from quarter-based to semester-based academic year (Standard II.4). Plans for assessing achievement of learning outcomes at the student level (Standard II.5). Hiring of full-time LIS faculty members (Standard III.2). Proportion of full-time MS-LIS faculty members' teaching devoted to LIS courses (Standard III.2). Update on the transition to new college (Standard V.2).",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Pennsylvania",
+        "state_code": "PA",
+        "city": "Philadelphia",
+        "program_website": "https://drexel.edu/cci/academics/graduate-programs/ms-in-information/",
+        "program_director": "Helena Mentis, Department Head",
+        "college_school": "College of Computing and Informatics Department of Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Archival Studies Digital Libraries Health Sciences Librarianship/Health Informatics Knowledge Management School Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Bachelor's Program Continuing Education Doctoral Program 6th Year Certificate",
+        "notes": "Other concentration: Library and Information Services. Six optional MS concentrations available.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/drexel-university",
+        "institution_type": "private"
+      },
+      {
+        "institution_name": "Pennsylvania Western University - Clarion",
+        "degree_name": "Master of Science in Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 24, 2018. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Pennsylvania",
+        "state_code": "PA",
+        "city": "Clarion",
+        "program_website": "https://online.pennwest.edu/programs/library-science/index.php",
+        "program_director": "Linda L. Lillard, Chair",
+        "college_school": "College of Education and Human Services School of Information Sciences Department of Information and Library Science",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Management and Administration Public Librarianship Reference and User Services School Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Continuing Education (non-degree) Dual/Joint Degree Post-Master's Certificate",
+        "notes": "No longer offers classes in Harrisburg",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/pennsylvania-western",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Pittsburgh",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 25, 2021. Follow-up reporting due in February 2026 (2023 Standards): Update on MLIS Evolution committee (Standard I.1); Update on the search for Chair and senior LIS faculty member positions(Standard III.1); Faculty workload and advising (Standard III.7 and IV.5.3).",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Pennsylvania",
+        "state_code": "PA",
+        "city": "Pittsburgh",
+        "program_website": "https://www.sci.pitt.edu/academics/masters/mlis/",
+        "program_director": "Mary K. Biagini, Chair, Information Culture and Data Stewardship",
+        "college_school": "School of Computing and Information Information Culture and Data Stewardship",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Health Sciences Librarianship/Health Informatics Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Doctoral Program",
+        "notes": "Other concentration: Data Stewardship.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-pittsburgh-0",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Puerto Rico",
+        "degree_name": "Master of Information Sciences",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 28, 2024. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "Puerto Rico",
+        "state_code": "PR",
+        "city": "San Juan",
+        "program_website": "https://faci.uprrp.edu/",
+        "program_director": "Noraida Dominguez-Flores, Acting Director",
+        "college_school": "Information Sciences and Technologies College of Communication and Information University of Puerto Rico, Rio Piedras Campus",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Knowledge Management School Librarianship",
+        "other_degrees_raw": "Post-Master's Certificate",
+        "notes": "School Library Media Certificate Program is 100% online.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-puerto-rico",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Rhode Island",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 24, 2018. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2026,
+        "next_review_text": "2026",
+        "country": "United States",
+        "state": "Rhode Island",
+        "state_code": "RI",
+        "city": "Kingston",
+        "program_website": "https://web.uri.edu/online/programs/graduate/master-of-library-and-information-studies/",
+        "program_director": "Lauren Mandel, Director",
+        "college_school": "Arts and Sciences Graduate School of Library and Information Studies Rodman Hall",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Children's Services Reference and User Services School Librarianship Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-rhode-island",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of South Carolina",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 27, 2025. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "South Carolina",
+        "state_code": "SC",
+        "city": "Columbia",
+        "program_website": "https://sc.edu/study/colleges_schools/cic/academic_programs/masters/master_of_library_and_information_science/",
+        "program_director": "Lyda Fontes McCartin, Director",
+        "college_school": "College of Information and Communications School of Information Science",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Primarily online with some face-to-face courses required",
+          "Face-to-face courses at other locations",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Knowledge Management Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Special Collections Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Doctoral Program Continuing Education (non-degree) Dual/Joint Degree Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-south-carolina",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Tennessee",
+        "degree_name": "Master of Science in Information Sciences",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 29, 2024. Follow-up reporting due in February 2026 (2023 Standards): Update on Strategic Goals and Tactics (Standard I.2); Update on revision of program learning outcomes (Standard I.2); Update on composition of full-time faculty and advisory board members (Standard I.2, Standard II.5, Standard III.2).",
+        "next_review_year": 2031,
+        "next_review_text": "2031",
+        "country": "United States",
+        "state": "Tennessee",
+        "state_code": "TN",
+        "city": "Knoxville",
+        "program_website": "https://www.sis.utk.edu",
+        "program_director": "Abebe Rorissa, Professor and Director",
+        "college_school": "College of Communication and Information School of Information Sciences",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Information Systems Design/Analysis Knowledge Management Management and Administration Organization of Information Public Librarianship Reference and User Services School Librarianship Science Librarianship Special Collections Thesis Option Young Adult Services",
+        "other_degrees_raw": "Doctoral Program",
+        "notes": "Other Concentrations: Data Curation, Social and Community Informatics, Information Technology, Human-Computer Interaction. Offers an interdisciplinary minor Computational Sciences.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-tennessee",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Texas Woman's University",
+        "degree_name": "Master of Library Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 27, 2025. Meets all standards. No follow-up reporting is required.",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Texas",
+        "state_code": "TX",
+        "city": "Denton",
+        "program_website": "https://www.twu.edu/slis/",
+        "program_director": "Gretchen Hoffman, Director",
+        "college_school": "School of Library and Information Studies Stoddard Hall, 1317 N. Bell Avenue, Room 404",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": true,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available",
+          "Satellite or other broadcast methods"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Health Sciences Librarianship/Health Informatics Management and Administration Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/texas-womans-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of North Texas",
+        "degree_name": "Master of Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 26, 2020. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Texas",
+        "state_code": "TX",
+        "city": "Denton",
+        "program_website": "https://informationscience.unt.edu/index.html",
+        "program_director": "Mark Albert, Department Chair",
+        "college_school": "Department of Information Science College of Information",
+        "has_online_option": true,
+        "has_hybrid_option": true,
+        "has_face_to_face_other_locations": true,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "Primarily online with some face-to-face courses required",
+          "Primarily face-to-face with select online courses offered",
+          "Face-to-face courses at other locations"
+        ],
+        "concentrations_raw": "Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Knowledge Management Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Doctoral Program Post-Master's Certificate",
+        "notes": "Other Concentration: Distributed Learning Librarianship. Face-to-face, blended, and online courses available.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-north-texas",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Texas at Austin",
+        "degree_name": "Master of Science in Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted June 25, 2022. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "Texas",
+        "state_code": "TX",
+        "city": "Austin",
+        "program_website": "https://www.ischool.utexas.edu",
+        "program_director": "Kenneth R. Fleischmann, Chair Designate and Interim Dean",
+        "college_school": "School of Information",
+        "has_online_option": false,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": true,
+        "distance_education_options": [],
+        "concentrations_raw": "Archival Studies Children's Services Cultural Heritage Information Management Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Law Librarianship/Legal Information Services Organization of Information Records Management School Librarianship Special Collections Thesis Option Young Adult Services",
+        "other_degrees_raw": "Dual/Joint Degree Doctoral Program Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-texas-austin",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "Old Dominion University",
+        "degree_name": "Master of Library and Information Studies",
+        "accreditation_status": "Initial accreditation",
+        "accreditation_note": "Accreditation granted January 20, 2022. Follow-up reporting due in February 2026 (2023 Standards): Update on internship program and its effect on Program Learning Outcomes and student assessment (Standard II).",
+        "next_review_year": 2028,
+        "next_review_text": "2028",
+        "country": "United States",
+        "state": "Virginia",
+        "state_code": "VA",
+        "city": "Norfolk",
+        "program_website": "https://www.odu.edu/stemps/academics/library-science",
+        "program_director": "Dr. Elizabeth A. Burns, Program Director",
+        "college_school": "Darden College of Education and Professional Studies Library and Information Studies Program STEM Education and Professional Studies",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Public Librarianship School Librarianship Young Adult Services",
+        "other_degrees_raw": "None available",
+        "notes": "Other concentration: Assessment and Evaluation.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/old-dominion-university",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Washington",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 22, 2021. Meets all standards. No follow-up reporting required.",
+        "next_review_year": 2027,
+        "next_review_text": "2027",
+        "country": "United States",
+        "state": "Washington",
+        "state_code": "WA",
+        "city": "Seattle",
+        "program_website": "https://ischool.uw.edu/programs/mlis",
+        "program_director": "Dr. Karen Fisher, MLIS Program Chair and Professor",
+        "college_school": "The Information School",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Children's Services Digital Libraries Information Systems Design/Analysis Law Librarianship/Legal Information Services Management and Administration Organization of Information Public Librarianship Reference and User Services School Librarianship Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Bachelor's Program Master's Program Doctoral Program Dual/Joint Degree Post-Master's Certificate 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-washington",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Wisconsin-Madison",
+        "degree_name": "Master of Arts in Library and Information Studies",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted January 20, 2023. Follow-up reporting due in February 2026 (2023 Standards): Update om implementation of the Strategic Priorities and Goals and update on new assessment platform (Standard I); Update on move to new building (Standard V).",
+        "next_review_year": 2029,
+        "next_review_text": "2029",
+        "country": "United States",
+        "state": "Wisconsin",
+        "state_code": "WI",
+        "city": "Madison",
+        "program_website": "https://ischool.wisc.edu/",
+        "program_director": "Dr. Greg Downey, Professor and Director",
+        "college_school": "College of Letters & Science Information School",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Academic Librarianship Archival Studies Children's Services Digital Libraries Health Sciences Librarianship/Health Informatics Information Systems Design/Analysis Law Librarianship/Legal Information Services Management and Administration Music Librarianship Organization of Information Public Librarianship Records Management Reference and User Services School Librarianship Science Librarianship Special/Corporate Librarianship Young Adult Services",
+        "other_degrees_raw": "Master's Program Dual/Joint Degree Continuing Education (non-degree) 225 N Michigan Ave., Ste 1300 Chicago, IL 60601 1.800.545.2433 Offices News & Press Divisions Work at ALA Round Tables Shop Committees facebook instagram linkedin youtube threads bluesky tiktok Donate Footer Utility facebook instagram linkedin youtube threads bluesky tiktok ALA Websites Accessibility Privacy Policy Manage Cookies User Guidelines Site Index Feedback Work at ALA &copy; 1996\u20132026 American Library Association",
+        "notes": "",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-wisconsin-madison",
+        "institution_type": "public"
+      },
+      {
+        "institution_name": "University of Wisconsin-Milwaukee",
+        "degree_name": "Master of Library and Information Science",
+        "accreditation_status": "Continued accreditation",
+        "accreditation_note": "Accreditation granted February 13, 2026. Follow-up reporting due February 15, 2027 (2023 Standards): Direct assessment methods align to the program learning outcomes (Standard II.2). Use of professional organizations' knowledge and competency statements (Standard II.2). Use of data for curriculum improvement (Standard II.5). Faculty advising processes, responsibilities, and assessment (Standard IV.4).",
+        "next_review_year": 2032,
+        "next_review_text": "2032",
+        "country": "United States",
+        "state": "Wisconsin",
+        "state_code": "WI",
+        "city": "Milwaukee",
+        "program_website": "https://uwm.edu/informationstudies/",
+        "program_director": "Nadine Kozak, Associate Dean and Head of SOIS",
+        "college_school": "School of Information Studies P.O.",
+        "has_online_option": true,
+        "has_hybrid_option": false,
+        "has_face_to_face_other_locations": false,
+        "has_satellite": false,
+        "has_no_distance_education": false,
+        "distance_education_options": [
+          "100% online program available"
+        ],
+        "concentrations_raw": "Archival Studies Organization of Information Public Librarianship School Librarianship",
+        "other_degrees_raw": "Bachelor's Program Continuing Education (non-degree) Dual/Joint Degree Doctoral Program Post-Master's Certificate",
+        "notes": "Other concentrations: Public Library Leadership, Archives & Records Management, Information Technology. Transcript Designations available.",
+        "detail_url": "https://www.ala.org/educationcareers/accreditedprograms/ALA-accredited-programs-directory/university-wisconsin",
+        "institution_type": "public"
       }
     ]
   },

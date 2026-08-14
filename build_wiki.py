@@ -174,6 +174,7 @@ def panel(active=""):
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
     <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
     <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
+    <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -419,6 +420,12 @@ def load_all():
             data['prison_libraries'] = json.load(f)
     else:
         data['prison_libraries'] = {}
+    lis_path = os.path.join(DATA, "lis_programs_summary.json")
+    if os.path.exists(lis_path):
+        with open(lis_path) as f:
+            data['lis_programs'] = json.load(f)
+    else:
+        data['lis_programs'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1480,6 +1487,9 @@ def compute_stats(data):
 
     # ---- Prison Libraries ----
     stats['prison_libraries'] = data.get('prison_libraries', {})
+
+    # ---- ALA-Accredited LIS Degree Programs ----
+    stats['lis_programs'] = data.get('lis_programs', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -4315,6 +4325,88 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += '<p class="rsrc">Source: NCES Schools and Staffing Survey (SASS), Table Library. Data from 2011-12 is the most recent available because the SASS was replaced by the National Teacher and Principal Survey (NTPS) in 2015-16, which does not include a school library component. The 72.4 percentage-point spread between Tennessee (97.6%) and California (25.2%) represents one of the largest state-level disparities in any educational metric. Charter schools have dramatically lower staffing: 32.8% full-time certified vs 67.4% for traditional public schools. Data currency note: this data is over a decade old; current school librarian access rates are likely lower due to budget cuts and the SASS/NTPS discontinuation has created a data gap.</p>'
+
+    # ---- ALA-Accredited LIS Degree Programs ----
+    lis = stats.get('lis_programs', {})
+    if lis and lis.get('totals'):
+        lt = lis['totals']
+        l_us = lt.get('total_us_accredited_programs', 56)
+        l_all = lt.get('total_accredited_programs_all_countries', 65)
+        l_states = lt.get('us_states_and_territories_with_programs', 35)
+        l_canada = lt.get('canada_programs', 8)
+        l_by_state = lis.get('programs_by_state', {})
+        l_by_type = lis.get('programs_by_institution_type', {})
+        l_delivery = lis.get('delivery_options', {})
+        l_programs = lis.get('programs', [])
+
+        pub_count = l_by_type.get('public', {}).get('count', 0) if isinstance(l_by_type.get('public'), dict) else 0
+        priv_count = l_by_type.get('private', {}).get('count', 0) if isinstance(l_by_type.get('private'), dict) else 0
+        online_count = l_delivery.get('us_programs_with_online_option', 0)
+        fully_online = l_delivery.get('us_programs_fully_online_only', 0)
+        no_distance = l_delivery.get('us_programs_with_no_distance_education', 0)
+
+        body += f"""
+
+<h2 id="lis-programs">Library Science Degree Programs (ALA-Accredited)</h2>
+<p class="wiki-sub">To become a professional librarian, most positions require a Master's degree from an ALA-accredited Library and Information Studies program. There are currently {l_us} such programs in the United States (plus {l_canada} in Canada), spread across only {l_states} states and territories. This means 15 states have NO ALA-accredited library school within their borders. The profession is increasingly accessible online: {fully_online} programs are fully online-only, and {online_count} of {l_us} offer some distance education option.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{l_us}</div><div class="label">US ALA-accredited programs</div></div>
+  <div class="stat-card"><div class="num">{l_all}</div><div class="label">Total (all countries)</div></div>
+  <div class="stat-card"><div class="num">{l_states}</div><div class="label">States with a program</div></div>
+  <div class="stat-card"><div class="num">{pub_count}</div><div class="label">Public institutions</div></div>
+  <div class="stat-card"><div class="num">{priv_count}</div><div class="label">Private institutions</div></div>
+  <div class="stat-card"><div class="num">{fully_online}</div><div class="label">Fully online programs</div></div>
+</div>"""
+
+        # Programs by state
+        if l_by_state:
+            body += """
+<h3>ALA-accredited LIS programs by state</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Programs</th><th>Institution(s)</th></tr>"""
+            for code, s in sorted(l_by_state.items(), key=lambda x: -x[1].get('count', 0)):
+                insts = ", ".join(s.get('institutions', []))
+                body += f'\n  <tr><td><a href="states/{esc(code)}.html">{esc(s.get("state_name", code))}</a></td><td class="pct">{s.get("count", 0)}</td><td>{esc(insts)}</td></tr>'
+            body += '\n</table>'
+
+        # Public vs private
+        body += f"""
+<h3>Public vs private institutions</h3>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-name">Public institutions</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pub_count/max(l_us,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{pub_count}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">Private institutions</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{priv_count/max(l_us,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{priv_count}</span>
+  </div>
+</div>"""
+
+        # Delivery options
+        body += f"""
+<h3>Distance education options</h3>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-name">Fully online only</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{fully_online/max(l_us,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{fully_online}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">Any online/hybrid option</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{online_count/max(l_us,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{online_count}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">No distance education</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-red" style="width:{no_distance/max(l_us,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{no_distance}</span>
+  </div>
+</div>"""
+
+        body += f'<p class="rsrc">Source: ALA Office for Accreditation, Directory of ALA-Accredited and Candidate Programs in Library and Information Studies (ala.org/educationcareers/accreditedprograms). The directory includes {l_all} programs total: {l_us} in the US, {l_canada} in Canada, and 1 in the UK. Only {l_states} US states/territories have an accredited program, leaving 15 states without one. Programs are reviewed every 7 years under the 2014 Standards for Accreditation of Master\'s Programs in Library and Information Studies. The shift toward online education is striking: {fully_online} programs are fully online-only, making library science one of the most accessible professional degrees.</p>'
 
     # ---- State-level book censorship breakdown ----
     stcens = stats.get('state_censorship', {})

@@ -162,7 +162,9 @@ def panel(active=""):
     <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
     <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
     <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
     <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
+    <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
@@ -355,6 +357,18 @@ def load_all():
             data['state_per_capita'] = json.load(f)
     else:
         data['state_per_capita'] = {}
+    covid_path = os.path.join(DATA, "covid_recovery_summary.json")
+    if os.path.exists(covid_path):
+        with open(covid_path) as f:
+            data['covid_recovery'] = json.load(f)
+    else:
+        data['covid_recovery'] = {}
+    fdlp_summary_path = os.path.join(DATA, "fdlp_summary.json")
+    if os.path.exists(fdlp_summary_path):
+        with open(fdlp_summary_path) as f:
+            data['fdlp_summary'] = json.load(f)
+    else:
+        data['fdlp_summary'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1389,6 +1403,12 @@ def compute_stats(data):
 
     # ---- State per-capita library rankings (PLS FY2024) ----
     stats['state_per_capita'] = data.get('state_per_capita', {})
+
+    # ---- COVID-19 impact and recovery ----
+    stats['covid_recovery'] = data.get('covid_recovery', {})
+
+    # ---- Federal Depository Library Program (FDLP) ----
+    stats['fdlp_summary'] = data.get('fdlp_summary', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -3476,6 +3496,74 @@ def build_index(data, stats):
 
         body += f'<p class="rsrc">Source: Pew Research Center Internet & American Life Project ({survey_yr} survey, n={lu.get("sample_size", 6224):,}), Gallup ({dem.get("survey_year", 2019)} poll), and NEA Survey of Public Participation in the Arts (2022, n={nea_n:,}). Pew surveyed Americans aged 16+ on library use and attitudes. In-person visits declined {ou.get("in_person_visit_2012", 53) - ou.get("in_person_visit", 48)}pp from 2012 to {survey_yr} while website visits increased {ou.get("website_visit", 30) - ou.get("website_visit_2012", 25)}pp - a shift toward digital access that the PLS data confirms. The NEA SPPA 2022 library-visit question is not directly comparable to Pew due to different wording (in-person public library visits by adults 18+) and methodology.</p>'
 
+    # ---- COVID-19 Impact and Recovery ----
+    cov = stats.get('covid_recovery', {})
+    if cov and cov.get('recovery'):
+        rec = cov['recovery']
+        trends = cov.get('year_trends', [])
+        bl_yr = rec.get('baseline_year', 'FY2019')
+        tr_yr = rec.get('trough_year', 'FY2020')
+        lt_yr = rec.get('latest_year', 'FY2024')
+        v_decline = rec.get('visits_decline_pct', 0)
+        v_recovery = rec.get('visits_recovery_pct', 0)
+        c_decline = rec.get('circ_decline_pct', 0)
+        c_recovery = rec.get('circ_recovery_pct', 0)
+        p_decline = rec.get('programs_decline_pct', 0)
+        p_recovery = rec.get('programs_recovery_pct', 0)
+        inc_chg = rec.get('income_change_pct', 0)
+        stf_chg = rec.get('staff_change_pct', 0)
+
+        body += f"""
+
+<h2 id="covid-recovery">COVID-19 Impact and Recovery</h2>
+<p class="wiki-sub">The COVID-19 pandemic was the most disruptive event in the history of American public libraries. Using multi-year IMLS Public Libraries Survey data, we can trace the full arc: in {bl_yr}, American libraries recorded {rec.get('visits_baseline', 0)/1e6:.0f}M visits. By {tr_yr}, that had collapsed to {rec.get('visits_trough', 0)/1e6:.0f}M - a {v_decline:.0f}% decline. As of {lt_yr}, visits have recovered to {rec.get('visits_latest', 0)/1e6:.0f}M, still only {v_recovery:.0f}% of pre-pandemic levels. Yet funding actually grew {inc_chg:+.0f}%, suggesting libraries pivoted to digital services rather than closing for good.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">-{v_decline:.0f}%</div><div class="label">Visits lost in COVID trough</div></div>
+  <div class="stat-card"><div class="num">{v_recovery:.0f}%</div><div class="label">Visits recovered (vs {bl_yr})</div></div>
+  <div class="stat-card"><div class="num">{c_recovery:.0f}%</div><div class="label">Circulation recovered</div></div>
+  <div class="stat-card"><div class="num">{p_recovery:.0f}%</div><div class="label">Programs recovered</div></div>
+  <div class="stat-card"><div class="num">{inc_chg:+.0f}%</div><div class="label">Income change</div></div>
+  <div class="stat-card"><div class="num">{stf_chg:+.1f}%</div><div class="label">Staff change</div></div>
+</div>"""
+
+        # Multi-year trend SVG chart
+        if trends and len(trends) >= 2:
+            yrs = [t["year"].replace("FY", "") for t in trends]
+            visits = [t.get("visits", 0) for t in trends]
+            circ = [t.get("circulation", 0) for t in trends]
+            max_v = max(max(visits), max(circ)) or 1
+            n = len(trends)
+            bw = 50
+            chart_w = n * bw * 2 + 70
+            chart_h = 260
+            body += f'\n<h3>Visits vs circulation: {bl_yr} to {lt_yr}</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Library visits and circulation trend FY2019-FY2024">'
+            for i in range(n):
+                x = 50 + i * bw * 2
+                # Visits bar
+                hv = (visits[i] / max_v) * (chart_h - 60) if max_v else 0
+                body += f'<rect x="{x}" y="{chart_h - 40 - hv:.1f}" width="{bw - 5}" height="{hv:.1f}" fill="var(--accent-blue)" rx="3"/>'
+                body += f'<text x="{x + (bw-5)/2:.0f}" y="{chart_h - 25}" text-anchor="middle" class="axis-text">{yrs[i]}</text>'
+                body += f'<text x="{x + (bw-5)/2:.0f}" y="{chart_h - 45 - hv:.1f}" text-anchor="middle" class="bar-label">{visits[i]/1e6:.0f}M</text>'
+                # Circulation bar
+                hc = (circ[i] / max_v) * (chart_h - 60) if max_v else 0
+                body += f'<rect x="{x + bw}" y="{chart_h - 40 - hc:.1f}" width="{bw - 5}" height="{hc:.1f}" fill="var(--accent-green)" rx="3"/>'
+                body += f'<text x="{x + bw + (bw-5)/2:.0f}" y="{chart_h - 45 - hc:.1f}" text-anchor="middle" class="bar-label">{circ[i]/1e6:.0f}M</text>'
+            body += f'\n<text x="10" y="20" class="axis-text" fill="var(--accent-blue)">Visits</text>'
+            body += f'\n<text x="10" y="38" class="axis-text" fill="var(--accent-green)">Circulation</text>'
+            body += '</svg>'
+
+        # Year-by-year table
+        if trends:
+            body += f"""
+<h3>Year-by-year national library statistics</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>States</th><th>Visits</th><th>Visits/capita</th><th>Circulation</th><th>Programs</th><th>Income</th><th>Staff</th><th>Visits YoY</th></tr>"""
+            for t in trends:
+                body += f'\n  <tr><td>{t["year"]}</td><td>{t.get("states_reporting",0)}</td><td>{t.get("visits",0):,}</td><td class="pct">{t.get("visits_per_capita",0):.2f}</td><td>{t.get("circulation",0):,}</td><td>{t.get("programs",0):,}</td><td>${t.get("income",0)/1e9:.1f}B</td><td>{t.get("staff",0):,}</td><td class="pct">{"+" if t.get("visits_yoy",0) >= 0 else ""}{t.get("visits_yoy",0):.1f}%</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) multi-year data compiled via ALA State of America\'s Libraries. The baseline year is {bl_yr} (pre-pandemic), the trough is {tr_yr} (pandemic low), and latest is {lt_yr}. Note: FY2021 data is missing from this compilation as many states received reporting waivers during the pandemic. Visits have not fully recovered - as of {lt_yr}, they remain {100 - v_recovery:.0f}% below {bl_yr} levels - but circulation and programs have recovered more quickly, and income actually increased, reflecting expanded digital services and federal pandemic relief funding.</p>'
+
     # ---- State Per-Capita Library Rankings (PLS FY2024) ----
     pc = stats.get('state_per_capita', {})
     if pc and pc.get('rankings'):
@@ -3686,6 +3774,93 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: American Library Association, <em>State of America\'s Libraries Report 2024</em> (covering 2023 data). The ALA tracks censorship attempts in partnership with the ALA Office for Intellectual Freedom. Challenge data may undercount actual incidents as reporting is voluntary. The {titles_23 - titles_22:,} additional titles challenged in 2023 vs 2022 represent the largest single-year increase ever recorded.</p>'
+
+    # ---- Federal Depository Library Program (FDLP) ----
+    fdlp = stats.get('fdlp_summary', {})
+    if fdlp and fdlp.get('total_libraries'):
+        ftot = fdlp['total_libraries']
+        freg = fdlp.get('regional_count', 0)
+        fsel = fdlp.get('selective_count', 0)
+        fstates = fdlp.get('states_covered', 0)
+        foldest = fdlp.get('oldest_designation_year', 0)
+        fnewest = fdlp.get('newest_designation_year', 0)
+        ftypes = fdlp.get('library_types', {})
+        fregions = fdlp.get('regions', {})
+        fera = fdlp.get('era_buckets', {})
+        fby_state = fdlp.get('by_state', [])
+
+        body += f"""
+
+<h2 id="fdlp-directory">Federal Depository Library Program: Full Directory</h2>
+<p class="wiki-sub">The Federal Depository Library Program, established by Congress in 1813, ensures that the American public has free access to government information. Today, {ftot:,} libraries across {fstates} states and territories participate - {freg} regional depositories (which retain all publications) and {fsel:,} selective depositories (which choose materials relevant to their communities). The oldest participating library was designated in {foldest}, making this one of the oldest federal information programs still in operation.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ftot:,}</div><div class="label">Total depository libraries</div></div>
+  <div class="stat-card"><div class="num">{freg}</div><div class="label">Regional depositories</div></div>
+  <div class="stat-card"><div class="num">{fsel:,}</div><div class="label">Selective depositories</div></div>
+  <div class="stat-card"><div class="num">{fstates}</div><div class="label">States/territories</div></div>
+  <div class="stat-card"><div class="num">{foldest}</div><div class="label">Oldest designation</div></div>
+  <div class="stat-card"><div class="num">{fnewest}</div><div class="label">Newest designation</div></div>
+</div>"""
+
+        # Library type bars
+        if ftypes:
+            body += """
+<h3>Depository libraries by type</h3>
+<div class="services-bars">"""
+            max_t = max(ftypes.values()) if ftypes else 1
+            for label, cnt in sorted(ftypes.items(), key=lambda x: -x[1]):
+                pct_w = (cnt / max_t) * 100 if max_t else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(label)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Region distribution bars
+        if fregions:
+            body += """
+<h3>Distribution by National Collection Service Area</h3>
+<div class="services-bars">"""
+            max_r = max(fregions.values()) if fregions else 1
+            for label, cnt in sorted(fregions.items(), key=lambda x: -x[1]):
+                pct_w = (cnt / max_r) * 100 if max_r else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(label)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Era buckets bars
+        if fera:
+            body += """
+<h3>When libraries joined the FDLP (by era)</h3>
+<div class="services-bars">"""
+            max_e = max(fera.values()) if fera else 1
+            for label, cnt in fera.items():
+                pct_w = (cnt / max_e) * 100 if max_e else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(label)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states table
+        if fby_state:
+            body += """
+<h3>Top 15 states by number of depository libraries</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Total</th><th>Regional</th><th>Selective</th><th>Academic</th><th>Public</th><th>Law</th><th>Oldest</th></tr>"""
+            for i, s in enumerate(fby_state[:15], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(s["state"])}.html">{esc(s["state_name"])}</a></td><td class="pct">{s["count"]}</td><td>{s["regional"]}</td><td>{s["selective"]}</td><td>{s["academic"]}</td><td>{s["public"]}</td><td>{s["law"]}</td><td>{s["oldest_year"] or ""}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: U.S. Government Publishing Office (GPO) Federal Depository Library Program Directory, via ask.gpo.gov/s/FDLD. Academic libraries make up the largest share of FDLP participants, followed by public libraries. Regional depositories (one or two per state) serve as permanent repositories for all federal publications, while selective depositories tailor their collections to community needs. The program traces back to the Act of December 27, 1813, which authorized the distribution of one copy of every House and Senate journal to universities and historical societies.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

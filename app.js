@@ -374,9 +374,13 @@
       if (r.bkm) html += row('Bookmobiles', esc(r.bkm));
     }
 
-    // ---- Academic library operations (NCES ALS 2012) ----
-    if (r.type === 'academic' && (r.sfte || r.slf || r.stf || r.slsal || r.stsal || r.xbks || r.xtot || r.coll || r.pres)) {
-      html += section('Academic library operations (ALS 2012)');
+    // ---- Academic library operations (NCES ALS 2012 / IPEDS 2023) ----
+    if (r.type === 'academic' && (r.sfte || r.slf || r.stf || r.slsal || r.stsal || r.xbks || r.xtot || r.coll || r.pres ||
+        r.pbks || r.ebks || r.pmed || r.emed || r.pser || r.eser || r.edb || r.tcirc || r.illp || r.illr || r.brch ||
+        r.xtot23 || r.coll23 || r.stf23 || r.slsal23 || r.xbks23)) {
+      html += section('Academic library operations');
+      if (r.y23) html += row('Latest survey year', '2023 (IPEDS)');
+      else if (r.year) html += row('Survey year', esc(r.year) + ' (ALS)');
       if (r.sfte) html += row('Student FTE', fmtNum(r.sfte));
       if (r.slf) html += row('Librarian staff (FTE)', esc(r.slf));
       if (r.stf) html += row('Total staff (FTE)', esc(r.stf));
@@ -384,9 +388,24 @@
       if (r.stsal) html += row('Total salaries', fmtMoney(r.stsal));
       if (r.xbks) html += row('Book/material expenditures', fmtMoney(r.xbks));
       if (r.xtot) html += row('Total expenditures', fmtMoney(r.xtot));
-      if (r.coll) html += row('Book collection', fmtNum(r.coll));
+      if (r.coll) html += row('Total collection', fmtNum(r.coll));
       if (r.pres) html += row('Presentations', fmtNum(r.pres));
-      if (r.year) html += row('Survey year', esc(r.year));
+      // 2023 IPEDS digital resource breakdown
+      if (r.pbks) html += row('Physical books', fmtNum(r.pbks));
+      if (r.ebks) html += row('E-books', fmtNum(r.ebks));
+      if (r.pmed) html += row('Physical media', fmtNum(r.pmed));
+      if (r.emed) html += row('Electronic media', fmtNum(r.emed));
+      if (r.pser) html += row('Physical serials', fmtNum(r.pser));
+      if (r.eser) html += row('E-serials', fmtNum(r.eser));
+      if (r.edb) html += row('E-databases', fmtNum(r.edb));
+      if (r.tcirc) html += row('Total circulation', fmtNum(r.tcirc));
+      if (r.illp) html += row('ILL provided to others', fmtNum(r.illp));
+      if (r.illr) html += row('ILL received from others', fmtNum(r.illr));
+      if (r.brch !== undefined) html += row('Branch libraries', esc(r.brch));
+      // Show 2023 comparison if available alongside 2012
+      if (r.xtot23 && r.xtot) html += row('2023 expenditures', fmtMoney(r.xtot23) + ' <span class="rsrc">(vs ' + fmtMoney(r.xtot) + ' in 2012)</span>');
+      if (r.coll23 && r.coll) html += row('2023 collection', fmtNum(r.coll23) + ' <span class="rsrc">(incl. e-resources)</span>');
+      if (r.stf23 && r.stf) html += row('2023 staff FTE', esc(r.stf23) + ' <span class="rsrc">(vs ' + esc(r.stf) + ' in 2012)</span>');
     }
 
     // ---- Location ----

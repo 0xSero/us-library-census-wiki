@@ -1576,7 +1576,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 17:15 UTC",
+  "generated": "2026-08-14 19:21 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -4401,6 +4401,7 @@
   },
   "academic": {
     "institutions_2012": 4261,
+    "institutions_2023": 3695,
     "trend_years": [
       2000,
       2002,
@@ -4408,7 +4409,8 @@
       2006,
       2008,
       2010,
-      2012
+      2012,
+      2023
     ],
     "trend_institutions": [
       3683,
@@ -4417,7 +4419,8 @@
       3925,
       4166,
       4076,
-      4261
+      4261,
+      3695
     ],
     "trend_staff_fte": [
       0,
@@ -4426,7 +4429,8 @@
       94735,
       94851,
       84887,
-      80836
+      80836,
+      73819
     ],
     "trend_expenditures": [
       4938697357,
@@ -4435,7 +4439,8 @@
       6241015681,
       6800653229,
       6252188211,
-      6141581130
+      6141581130,
+      8552420417
     ],
     "trend_collections": [
       24346968,
@@ -4444,7 +4449,8 @@
       22241816,
       23818643,
       25984467,
-      25910907
+      25910907,
+      4999441792
     ],
     "trend_presentations": [
       429904,
@@ -4453,7 +4459,8 @@
       473275,
       502554,
       518105,
-      530108
+      530108,
+      0
     ],
     "trend_salaries": [
       0,
@@ -4462,7 +4469,8 @@
       2727690926,
       2787922775,
       2748454201,
-      2720395804
+      2720395804,
+      4430636542
     ],
     "trend_student_fte": [
       0,
@@ -4471,784 +4479,884 @@
       14203705,
       14143026,
       15298344,
-      15343609
-    ]
+      15343609,
+      0
+    ],
+    "ebooks_2023": 1628692243,
+    "eserials_2023": 1550673704,
+    "edatabase_2023": 1534189,
+    "ill_provided_2023": 5342178,
+    "ill_received_2023": 4937064,
+    "tcirc_2023": 1124576009,
+    "pbooks_2023": 700081111,
+    "collection_2023": 4999441792,
+    "expenditures_2023": 8552420417,
+    "staff_2023": 73819
   },
   "academic_largest": [
     {
-      "name": "University of Colorado Boulder",
-      "city": "Boulder",
-      "state": "CO",
-      "collection": 1037226,
-      "expenditure": 24263059,
-      "staff_fte": 232
-    },
-    {
-      "name": "University of Michigan-Ann Arbor",
-      "city": "Ann Arbor",
-      "state": "MI",
-      "collection": 914578,
-      "expenditure": 63828341,
-      "staff_fte": 690
-    },
-    {
-      "name": "Duke University",
-      "city": "Durham",
-      "state": "NC",
-      "collection": 801885,
-      "expenditure": 41042565,
-      "staff_fte": 320
-    },
-    {
-      "name": "Yale University",
-      "city": "New Haven",
-      "state": "CT",
-      "collection": 715600,
-      "expenditure": 81220739,
-      "staff_fte": 600
-    },
-    {
-      "name": "Tarrant County College District",
-      "city": "Fort Worth",
-      "state": "TX",
-      "collection": 675730,
-      "expenditure": 3878463,
-      "staff_fte": 72
-    },
-    {
-      "name": "University of Chicago",
-      "city": "Chicago",
-      "state": "IL",
-      "collection": 668360,
-      "expenditure": 36112413,
-      "staff_fte": 309
-    },
-    {
-      "name": "Indiana University-Bloomington",
-      "city": "Bloomington",
-      "state": "IN",
-      "collection": 597954,
-      "expenditure": 33370911,
-      "staff_fte": 395
-    },
-    {
-      "name": "Colorado State University-Fort Collins",
-      "city": "Fort Collins",
-      "state": "CO",
-      "collection": 544797,
+      "name": "Bolivar Technical College",
+      "city": "Bolivar",
+      "state": "MO",
+      "collection": 718261018,
       "expenditure": 0,
-      "staff_fte": 192
+      "staff_fte": 5,
+      "year": 2023
     },
     {
-      "name": "University of North Carolina at Chapel Hill",
-      "city": "Chapel Hill",
-      "state": "NC",
-      "collection": 442890,
-      "expenditure": 38135416,
-      "staff_fte": 409
+      "name": "Family of Faith Christian University",
+      "city": "Shawnee",
+      "state": "OK",
+      "collection": 450633687,
+      "expenditure": 0,
+      "staff_fte": 1,
+      "year": 2023
     },
     {
-      "name": "University of Houston",
-      "city": "Houston",
+      "name": "Starr King School for the Ministry",
+      "city": "Oakland",
+      "state": "CA",
+      "collection": 107406635,
+      "expenditure": 0,
+      "staff_fte": 0,
+      "year": 2023
+    },
+    {
+      "name": "Bob Jones University",
+      "city": "Greenville",
+      "state": "SC",
+      "collection": 101470505,
+      "expenditure": 710384,
+      "staff_fte": 11,
+      "year": 2023
+    },
+    {
+      "name": "Institute of Technology",
+      "city": "Clovis",
+      "state": "CA",
+      "collection": 33648853,
+      "expenditure": 297501,
+      "staff_fte": 15,
+      "year": 2023
+    },
+    {
+      "name": "Texas State Technical College",
+      "city": "Waco",
       "state": "TX",
-      "collection": 422130,
-      "expenditure": 19877224,
-      "staff_fte": 204
+      "collection": 30625285,
+      "expenditure": 588605,
+      "staff_fte": 9,
+      "year": 2023
     },
     {
-      "name": "Emory University",
-      "city": "Atlanta",
-      "state": "GA",
-      "collection": 381899,
-      "expenditure": 37737236,
-      "staff_fte": 287
+      "name": "El Paso Community College",
+      "city": "El Paso",
+      "state": "TX",
+      "collection": 30241887,
+      "expenditure": 3199833,
+      "staff_fte": 43,
+      "year": 2023
     },
     {
-      "name": "The University of Alabama",
-      "city": "Tuscaloosa",
-      "state": "AL",
-      "collection": 336877,
-      "expenditure": 19416557,
-      "staff_fte": 200
+      "name": "Austin College",
+      "city": "Sherman",
+      "state": "TX",
+      "collection": 30019346,
+      "expenditure": 838870,
+      "staff_fte": 16,
+      "year": 2023
     },
     {
-      "name": "Kansas State University",
-      "city": "Manhattan",
-      "state": "KS",
-      "collection": 332675,
-      "expenditure": 14676605,
-      "staff_fte": 128
+      "name": "Coastal Bend College",
+      "city": "Beeville",
+      "state": "TX",
+      "collection": 29912728,
+      "expenditure": 273454,
+      "staff_fte": 5,
+      "year": 2023
     },
     {
-      "name": "Purdue University-Main Campus",
-      "city": "West Lafayette",
-      "state": "IN",
-      "collection": 324055,
-      "expenditure": 23229530,
-      "staff_fte": 202
+      "name": "Paris Junior College",
+      "city": "Paris",
+      "state": "TX",
+      "collection": 29806185,
+      "expenditure": 276509,
+      "staff_fte": 5,
+      "year": 2023
     },
     {
-      "name": "University of Pittsburgh-Pittsburgh Campus",
-      "city": "Pittsburgh",
-      "state": "PA",
-      "collection": 305309,
-      "expenditure": 31799957,
-      "staff_fte": 319
-    }
-  ],
-  "academic_largest_exp": [
-    {
-      "name": "Yale University",
-      "city": "New Haven",
-      "state": "CT",
-      "collection": 715600,
-      "expenditure": 81220739,
-      "staff_fte": 600
-    },
-    {
-      "name": "University of Michigan-Ann Arbor",
-      "city": "Ann Arbor",
-      "state": "MI",
-      "collection": 914578,
-      "expenditure": 63828341,
-      "staff_fte": 690
-    },
-    {
-      "name": "Pennsylvania State University-Main Campus",
-      "city": "University Park",
-      "state": "PA",
-      "collection": 117973,
-      "expenditure": 50972467,
-      "staff_fte": 539
-    },
-    {
-      "name": "Princeton University",
-      "city": "Princeton",
-      "state": "NJ",
-      "collection": 152535,
-      "expenditure": 50222271,
-      "staff_fte": 382
+      "name": "Jacksonville College-Main Campus",
+      "city": "Jacksonville",
+      "state": "TX",
+      "collection": 29747845,
+      "expenditure": 0,
+      "staff_fte": 3,
+      "year": 2023
     },
     {
       "name": "University of California-Los Angeles",
       "city": "Los Angeles",
       "state": "CA",
-      "collection": 221371,
-      "expenditure": 50171357,
-      "staff_fte": 527
+      "collection": 29327189,
+      "expenditure": 69727175,
+      "staff_fte": 416,
+      "year": 2023
     },
     {
-      "name": "Cornell University",
-      "city": "Ithaca",
-      "state": "NY",
-      "collection": 94650,
-      "expenditure": 45471050,
-      "staff_fte": 468
+      "name": "University of California-Berkeley",
+      "city": "Berkeley",
+      "state": "CA",
+      "collection": 28406939,
+      "expenditure": 71892725,
+      "staff_fte": 444,
+      "year": 2023
     },
     {
-      "name": "The University of Texas at Austin",
-      "city": "Austin",
-      "state": "TX",
-      "collection": 91363,
-      "expenditure": 43967825,
-      "staff_fte": 489
+      "name": "Belmont University",
+      "city": "Nashville",
+      "state": "TN",
+      "collection": 24154899,
+      "expenditure": 3005728,
+      "staff_fte": 26,
+      "year": 2023
     },
     {
-      "name": "University of Illinois at Urbana-Champaign",
-      "city": "Champaign",
-      "state": "IL",
-      "collection": 145953,
-      "expenditure": 43702807,
-      "staff_fte": 437
+      "name": "Earlham College",
+      "city": "Richmond",
+      "state": "IN",
+      "collection": 22320657,
+      "expenditure": 1247248,
+      "staff_fte": 16,
+      "year": 2023
+    }
+  ],
+  "academic_largest_exp": [
+    {
+      "name": "Harvard University",
+      "city": "Cambridge",
+      "state": "MA",
+      "collection": 20478777,
+      "expenditure": 172745409,
+      "staff_fte": 901,
+      "year": 2023
     },
     {
-      "name": "Ohio State University-Main Campus",
-      "city": "Columbus",
-      "state": "OH",
-      "collection": 54666,
-      "expenditure": 43185254,
-      "staff_fte": 449
+      "name": "Yale University",
+      "city": "New Haven",
+      "state": "CT",
+      "collection": 12430132,
+      "expenditure": 109402485,
+      "staff_fte": 532,
+      "year": 2023
+    },
+    {
+      "name": "University of Michigan-Ann Arbor",
+      "city": "Ann Arbor",
+      "state": "MI",
+      "collection": 12402962,
+      "expenditure": 92648047,
+      "staff_fte": 574,
+      "year": 2023
+    },
+    {
+      "name": "Stanford University",
+      "city": "Stanford",
+      "state": "CA",
+      "collection": 11248422,
+      "expenditure": 84921218,
+      "staff_fte": 577,
+      "year": 2023
     },
     {
       "name": "University of Pennsylvania",
       "city": "Philadelphia",
       "state": "PA",
-      "collection": 97586,
-      "expenditure": 41534952,
-      "staff_fte": 416
+      "collection": 19965995,
+      "expenditure": 81069747,
+      "staff_fte": 384,
+      "year": 2023
+    },
+    {
+      "name": "Princeton University",
+      "city": "Princeton",
+      "state": "NJ",
+      "collection": 11441672,
+      "expenditure": 78258941,
+      "staff_fte": 437,
+      "year": 2023
+    },
+    {
+      "name": "Columbia University in the City of New York",
+      "city": "New York",
+      "state": "NY",
+      "collection": 16310705,
+      "expenditure": 76234542,
+      "staff_fte": 372,
+      "year": 2023
+    },
+    {
+      "name": "University of California-Berkeley",
+      "city": "Berkeley",
+      "state": "CA",
+      "collection": 28406939,
+      "expenditure": 71892725,
+      "staff_fte": 444,
+      "year": 2023
+    },
+    {
+      "name": "New York University",
+      "city": "New York",
+      "state": "NY",
+      "collection": 6446797,
+      "expenditure": 70264668,
+      "staff_fte": 327,
+      "year": 2023
+    },
+    {
+      "name": "University of California-Los Angeles",
+      "city": "Los Angeles",
+      "state": "CA",
+      "collection": 29327189,
+      "expenditure": 69727175,
+      "staff_fte": 416,
+      "year": 2023
+    },
+    {
+      "name": "Pennsylvania State University-Main Campus",
+      "city": "University Park",
+      "state": "PA",
+      "collection": 9806583,
+      "expenditure": 68124478,
+      "staff_fte": 530,
+      "year": 2023
+    },
+    {
+      "name": "Ohio State University-Main Campus",
+      "city": "Columbus",
+      "state": "OH",
+      "collection": 7762416,
+      "expenditure": 62697212,
+      "staff_fte": 336,
+      "year": 2023
+    },
+    {
+      "name": "The University of Texas at Austin",
+      "city": "Austin",
+      "state": "TX",
+      "collection": 8813124,
+      "expenditure": 60708478,
+      "staff_fte": 409,
+      "year": 2023
+    },
+    {
+      "name": "Cornell University",
+      "city": "Ithaca",
+      "state": "NY",
+      "collection": 9171644,
+      "expenditure": 59812231,
+      "staff_fte": 325,
+      "year": 2023
     },
     {
       "name": "Duke University",
       "city": "Durham",
       "state": "NC",
-      "collection": 801885,
-      "expenditure": 41042565,
-      "staff_fte": 320
-    },
-    {
-      "name": "University of Minnesota-Twin Cities",
-      "city": "Minneapolis",
-      "state": "MN",
-      "collection": 135727,
-      "expenditure": 39526067,
-      "staff_fte": 355
-    },
-    {
-      "name": "University of North Carolina at Chapel Hill",
-      "city": "Chapel Hill",
-      "state": "NC",
-      "collection": 442890,
-      "expenditure": 38135416,
-      "staff_fte": 409
-    },
-    {
-      "name": "University of Wisconsin-Madison",
-      "city": "Madison",
-      "state": "WI",
-      "collection": 81607,
-      "expenditure": 38017536,
-      "staff_fte": 533
-    },
-    {
-      "name": "Emory University",
-      "city": "Atlanta",
-      "state": "GA",
-      "collection": 381899,
-      "expenditure": 37737236,
-      "staff_fte": 287
+      "collection": 10116901,
+      "expenditure": 54394392,
+      "staff_fte": 307,
+      "year": 2023
     }
   ],
   "academic_by_state_2012": {
     "AK": {
-      "institutions": 7,
-      "staff_fte": 170,
-      "expenditures": 15870721,
-      "collections": 26859,
-      "presentations": 945,
-      "salaries": 7856427,
-      "student_fte": 11063
+      "institutions": 8,
+      "staff_fte": 136,
+      "expenditures": 13030290,
+      "collections": 4721859,
+      "presentations": 0,
+      "salaries": 9144203,
+      "student_fte": 0,
+      "year": 2023
     },
     "AL": {
-      "institutions": 72,
-      "staff_fte": 1239,
-      "expenditures": 85613733,
-      "collections": 560091,
-      "presentations": 7719,
-      "salaries": 36316371,
-      "student_fte": 252721
+      "institutions": 57,
+      "staff_fte": 1111,
+      "expenditures": 119155229,
+      "collections": 57388657,
+      "presentations": 0,
+      "salaries": 53206591,
+      "student_fte": 0,
+      "year": 2023
     },
     "AR": {
-      "institutions": 49,
-      "staff_fte": 637,
-      "expenditures": 43852825,
-      "collections": 145228,
-      "presentations": 3854,
-      "salaries": 15825595,
-      "student_fte": 138064
+      "institutions": 52,
+      "staff_fte": 592,
+      "expenditures": 49660007,
+      "collections": 38198201,
+      "presentations": 0,
+      "salaries": 25059965,
+      "student_fte": 0,
+      "year": 2023
     },
     "AS": {
       "institutions": 1,
-      "staff_fte": 8,
-      "expenditures": 182573,
-      "collections": 0,
-      "presentations": 20,
-      "salaries": 147573,
-      "student_fte": 1382
+      "staff_fte": 9,
+      "expenditures": 518416,
+      "collections": 35313,
+      "presentations": 0,
+      "salaries": 454912,
+      "student_fte": 0,
+      "year": 2023
     },
     "AZ": {
-      "institutions": 70,
-      "staff_fte": 1012,
-      "expenditures": 61745133,
-      "collections": 168678,
-      "presentations": 8083,
-      "salaries": 33575845,
-      "student_fte": 619127
+      "institutions": 56,
+      "staff_fte": 877,
+      "expenditures": 111560864,
+      "collections": 32390696,
+      "presentations": 0,
+      "salaries": 55214184,
+      "student_fte": 0,
+      "year": 2023
     },
     "CA": {
-      "institutions": 405,
-      "staff_fte": 6705,
-      "expenditures": 463855120,
-      "collections": 1753309,
-      "presentations": 45528,
-      "salaries": 265392412,
-      "student_fte": 1819617
+      "institutions": 392,
+      "staff_fte": 7066,
+      "expenditures": 944460509,
+      "collections": 451966185,
+      "presentations": 0,
+      "salaries": 588033351,
+      "student_fte": 0,
+      "year": 2023
     },
     "CO": {
-      "institutions": 71,
-      "staff_fte": 1141,
-      "expenditures": 79321272,
-      "collections": 1734161,
-      "presentations": 8105,
-      "salaries": 38638894,
-      "student_fte": 246511
+      "institutions": 55,
+      "staff_fte": 1013,
+      "expenditures": 124622734,
+      "collections": 48901237,
+      "presentations": 0,
+      "salaries": 56965577,
+      "student_fte": 0,
+      "year": 2023
     },
     "CT": {
-      "institutions": 45,
-      "staff_fte": 1320,
-      "expenditures": 148866264,
-      "collections": 935026,
-      "presentations": 7242,
-      "salaries": 59661996,
-      "student_fte": 130834
+      "institutions": 26,
+      "staff_fte": 1224,
+      "expenditures": 187232204,
+      "collections": 44798800,
+      "presentations": 0,
+      "salaries": 88235343,
+      "student_fte": 0,
+      "year": 2023
     },
     "DC": {
-      "institutions": 18,
-      "staff_fte": 927,
-      "expenditures": 87494039,
-      "collections": 200305,
-      "presentations": 5279,
-      "salaries": 39976776,
-      "student_fte": 73135
+      "institutions": 16,
+      "staff_fte": 692,
+      "expenditures": 101393060,
+      "collections": 26537916,
+      "presentations": 0,
+      "salaries": 52802937,
+      "student_fte": 0,
+      "year": 2023
     },
     "DE": {
-      "institutions": 12,
-      "staff_fte": 238,
-      "expenditures": 21886205,
-      "collections": 44927,
-      "presentations": 1735,
-      "salaries": 8287142,
-      "student_fte": 44250
+      "institutions": 6,
+      "staff_fte": 184,
+      "expenditures": 31535696,
+      "collections": 14007151,
+      "presentations": 0,
+      "salaries": 16606379,
+      "student_fte": 0,
+      "year": 2023
     },
     "FL": {
-      "institutions": 188,
-      "staff_fte": 3451,
-      "expenditures": 230880651,
-      "collections": 898823,
-      "presentations": 28807,
-      "salaries": 100470710,
-      "student_fte": 786846
+      "institutions": 161,
+      "staff_fte": 3126,
+      "expenditures": 303051691,
+      "collections": 100329884,
+      "presentations": 0,
+      "salaries": 164254417,
+      "student_fte": 0,
+      "year": 2023
     },
     "FM": {
       "institutions": 1,
-      "staff_fte": 16,
-      "expenditures": 338987,
-      "collections": 2547,
-      "presentations": 25,
-      "salaries": 197447,
-      "student_fte": 2320
+      "staff_fte": 25,
+      "expenditures": 393427,
+      "collections": 88433,
+      "presentations": 0,
+      "salaries": 213536,
+      "student_fte": 0,
+      "year": 2023
     },
     "GA": {
-      "institutions": 129,
-      "staff_fte": 2219,
-      "expenditures": 163987002,
-      "collections": 836660,
-      "presentations": 14478,
-      "salaries": 63102275,
-      "student_fte": 413032
+      "institutions": 99,
+      "staff_fte": 2108,
+      "expenditures": 222233042,
+      "collections": 101169313,
+      "presentations": 0,
+      "salaries": 113446158,
+      "student_fte": 0,
+      "year": 2023
     },
     "GU": {
       "institutions": 3,
-      "staff_fte": 19,
-      "expenditures": 249594,
-      "collections": 400,
-      "presentations": 56,
-      "salaries": 237894,
-      "student_fte": 4606
+      "staff_fte": 45,
+      "expenditures": 2131508,
+      "collections": 4738620,
+      "presentations": 0,
+      "salaries": 1740551,
+      "student_fte": 0,
+      "year": 2023
     },
     "HI": {
-      "institutions": 18,
-      "staff_fte": 369,
-      "expenditures": 23943429,
-      "collections": 37268,
-      "presentations": 2064,
-      "salaries": 10783583,
-      "student_fte": 52871
+      "institutions": 15,
+      "staff_fte": 329,
+      "expenditures": 40658690,
+      "collections": 18593379,
+      "presentations": 0,
+      "salaries": 17394895,
+      "student_fte": 0,
+      "year": 2023
     },
     "IA": {
-      "institutions": 65,
-      "staff_fte": 913,
-      "expenditures": 54972084,
-      "collections": 204886,
-      "presentations": 6420,
-      "salaries": 31381802,
-      "student_fte": 292479
+      "institutions": 54,
+      "staff_fte": 863,
+      "expenditures": 104981423,
+      "collections": 41311488,
+      "presentations": 0,
+      "salaries": 52330530,
+      "student_fte": 0,
+      "year": 2023
     },
     "ID": {
-      "institutions": 17,
-      "staff_fte": 301,
-      "expenditures": 23853508,
-      "collections": 51113,
-      "presentations": 2194,
-      "salaries": 9099705,
-      "student_fte": 72196
+      "institutions": 16,
+      "staff_fte": 291,
+      "expenditures": 29368488,
+      "collections": 12318406,
+      "presentations": 0,
+      "salaries": 14467602,
+      "student_fte": 0,
+      "year": 2023
     },
     "IL": {
-      "institutions": 167,
-      "staff_fte": 3850,
-      "expenditures": 309752232,
-      "collections": 1355618,
-      "presentations": 24781,
-      "salaries": 134764743,
-      "student_fte": 624694
+      "institutions": 147,
+      "staff_fte": 2889,
+      "expenditures": 315705733,
+      "collections": 113542543,
+      "presentations": 0,
+      "salaries": 155542463,
+      "student_fte": 0,
+      "year": 2023
     },
     "IN": {
-      "institutions": 99,
-      "staff_fte": 1977,
-      "expenditures": 155525549,
-      "collections": 1272086,
-      "presentations": 13865,
-      "salaries": 67291784,
-      "student_fte": 355661
+      "institutions": 62,
+      "staff_fte": 1599,
+      "expenditures": 202922686,
+      "collections": 99254271,
+      "presentations": 0,
+      "salaries": 106066077,
+      "student_fte": 0,
+      "year": 2023
     },
     "KS": {
-      "institutions": 60,
-      "staff_fte": 790,
-      "expenditures": 55802319,
-      "collections": 574299,
-      "presentations": 6082,
-      "salaries": 25453062,
-      "student_fte": 158623
+      "institutions": 58,
+      "staff_fte": 774,
+      "expenditures": 66343535,
+      "collections": 43420584,
+      "presentations": 0,
+      "salaries": 35048533,
+      "student_fte": 0,
+      "year": 2023
     },
     "KY": {
-      "institutions": 69,
-      "staff_fte": 1242,
-      "expenditures": 81142988,
-      "collections": 398822,
-      "presentations": 7892,
-      "salaries": 33184440,
-      "student_fte": 217678
+      "institutions": 58,
+      "staff_fte": 1035,
+      "expenditures": 90678462,
+      "collections": 41170137,
+      "presentations": 0,
+      "salaries": 44162693,
+      "student_fte": 0,
+      "year": 2023
     },
     "LA": {
-      "institutions": 59,
-      "staff_fte": 977,
-      "expenditures": 72928478,
-      "collections": 538555,
-      "presentations": 5378,
-      "salaries": 26434160,
-      "student_fte": 197042
+      "institutions": 51,
+      "staff_fte": 1041,
+      "expenditures": 88168116,
+      "collections": 41086498,
+      "presentations": 0,
+      "salaries": 43521060,
+      "student_fte": 0,
+      "year": 2023
     },
     "MA": {
-      "institutions": 120,
-      "staff_fte": 2692,
-      "expenditures": 245672933,
-      "collections": 412287,
-      "presentations": 18883,
-      "salaries": 103864129,
-      "student_fte": 388219
+      "institutions": 101,
+      "staff_fte": 3334,
+      "expenditures": 496586559,
+      "collections": 118613284,
+      "presentations": 0,
+      "salaries": 245208361,
+      "student_fte": 0,
+      "year": 2023
     },
     "MD": {
-      "institutions": 58,
-      "staff_fte": 1452,
-      "expenditures": 139714634,
-      "collections": 254153,
-      "presentations": 10440,
-      "salaries": 56575120,
-      "student_fte": 264764
+      "institutions": 49,
+      "staff_fte": 1225,
+      "expenditures": 172689124,
+      "collections": 37206592,
+      "presentations": 0,
+      "salaries": 84839966,
+      "student_fte": 0,
+      "year": 2023
     },
     "ME": {
       "institutions": 29,
-      "staff_fte": 384,
-      "expenditures": 32431411,
-      "collections": 72677,
-      "presentations": 2535,
-      "salaries": 12331103,
-      "student_fte": 52801
+      "staff_fte": 414,
+      "expenditures": 41626483,
+      "collections": 24128766,
+      "presentations": 0,
+      "salaries": 21010303,
+      "student_fte": 0,
+      "year": 2023
     },
     "MH": {
       "institutions": 1,
-      "staff_fte": 0,
-      "expenditures": 0,
-      "collections": 0,
+      "staff_fte": 12,
+      "expenditures": 185244,
+      "collections": 70948,
       "presentations": 0,
-      "salaries": 0,
-      "student_fte": 877
+      "salaries": 155547,
+      "student_fte": 0,
+      "year": 2023
     },
     "MI": {
-      "institutions": 101,
-      "staff_fte": 2693,
-      "expenditures": 226602787,
-      "collections": 1272661,
-      "presentations": 13522,
-      "salaries": 98396020,
-      "student_fte": 485425
+      "institutions": 86,
+      "staff_fte": 2039,
+      "expenditures": 281718677,
+      "collections": 95179574,
+      "presentations": 0,
+      "salaries": 140462750,
+      "student_fte": 0,
+      "year": 2023
     },
     "MN": {
-      "institutions": 106,
-      "staff_fte": 1512,
-      "expenditures": 117375551,
-      "collections": 344592,
-      "presentations": 11588,
-      "salaries": 52427980,
-      "student_fte": 321769
+      "institutions": 79,
+      "staff_fte": 1136,
+      "expenditures": 154864737,
+      "collections": 64983452,
+      "presentations": 0,
+      "salaries": 80030350,
+      "student_fte": 0,
+      "year": 2023
     },
     "MO": {
-      "institutions": 116,
-      "staff_fte": 1640,
-      "expenditures": 122811195,
-      "collections": 311379,
-      "presentations": 10138,
-      "salaries": 48178539,
-      "student_fte": 327066
+      "institutions": 86,
+      "staff_fte": 1304,
+      "expenditures": 148505510,
+      "collections": 791079865,
+      "presentations": 0,
+      "salaries": 68788635,
+      "student_fte": 0,
+      "year": 2023
     },
     "MP": {
       "institutions": 1,
-      "staff_fte": 6,
-      "expenditures": 305500,
-      "collections": 0,
-      "presentations": 80,
-      "salaries": 0,
-      "student_fte": 971
+      "staff_fte": 5,
+      "expenditures": 305621,
+      "collections": 422451,
+      "presentations": 0,
+      "salaries": 257185,
+      "student_fte": 0,
+      "year": 2023
     },
     "MS": {
-      "institutions": 39,
-      "staff_fte": 773,
-      "expenditures": 51618041,
-      "collections": 190874,
-      "presentations": 5844,
-      "salaries": 16909650,
-      "student_fte": 151633
+      "institutions": 33,
+      "staff_fte": 718,
+      "expenditures": 54405713,
+      "collections": 27640580,
+      "presentations": 0,
+      "salaries": 28163141,
+      "student_fte": 0,
+      "year": 2023
     },
     "MT": {
       "institutions": 22,
-      "staff_fte": 249,
-      "expenditures": 20376602,
-      "collections": 56937,
-      "presentations": 1631,
-      "salaries": 6590287,
-      "student_fte": 45029
+      "staff_fte": 217,
+      "expenditures": 20671752,
+      "collections": 16053750,
+      "presentations": 0,
+      "salaries": 9367299,
+      "student_fte": 0,
+      "year": 2023
     },
     "NC": {
-      "institutions": 145,
-      "staff_fte": 3023,
-      "expenditures": 236406718,
-      "collections": 1757449,
-      "presentations": 20300,
-      "salaries": 99231386,
-      "student_fte": 447419
+      "institutions": 132,
+      "staff_fte": 2856,
+      "expenditures": 314259340,
+      "collections": 162241648,
+      "presentations": 0,
+      "salaries": 165246514,
+      "student_fte": 0,
+      "year": 2023
     },
     "ND": {
-      "institutions": 21,
-      "staff_fte": 228,
-      "expenditures": 16618437,
-      "collections": 58668,
-      "presentations": 1582,
-      "salaries": 6835744,
-      "student_fte": 45325
+      "institutions": 19,
+      "staff_fte": 209,
+      "expenditures": 21375955,
+      "collections": 8102589,
+      "presentations": 0,
+      "salaries": 10646049,
+      "student_fte": 0,
+      "year": 2023
     },
     "NE": {
-      "institutions": 36,
-      "staff_fte": 540,
-      "expenditures": 41771805,
-      "collections": 102104,
-      "presentations": 3456,
-      "salaries": 14602376,
-      "student_fte": 109689
+      "institutions": 33,
+      "staff_fte": 483,
+      "expenditures": 50223378,
+      "collections": 18440124,
+      "presentations": 0,
+      "salaries": 23476859,
+      "student_fte": 0,
+      "year": 2023
     },
     "NH": {
-      "institutions": 26,
-      "staff_fte": 526,
-      "expenditures": 43244313,
-      "collections": 114591,
-      "presentations": 2979,
-      "salaries": 19293879,
-      "student_fte": 47472
+      "institutions": 23,
+      "staff_fte": 410,
+      "expenditures": 60004437,
+      "collections": 19777057,
+      "presentations": 0,
+      "salaries": 27192882,
+      "student_fte": 0,
+      "year": 2023
     },
     "NJ": {
-      "institutions": 62,
-      "staff_fte": 1807,
-      "expenditures": 154345712,
-      "collections": 534286,
-      "presentations": 10935,
-      "salaries": 70360215,
-      "student_fte": 329639
+      "institutions": 83,
+      "staff_fte": 1592,
+      "expenditures": 214524594,
+      "collections": 56802620,
+      "presentations": 0,
+      "salaries": 121331242,
+      "student_fte": 0,
+      "year": 2023
     },
     "NM": {
-      "institutions": 42,
-      "staff_fte": 603,
-      "expenditures": 44252752,
-      "collections": 170524,
-      "presentations": 3944,
-      "salaries": 19971071,
-      "student_fte": 108439
+      "institutions": 32,
+      "staff_fte": 491,
+      "expenditures": 47598141,
+      "collections": 23886295,
+      "presentations": 0,
+      "salaries": 25523961,
+      "student_fte": 0,
+      "year": 2023
     },
     "NV": {
-      "institutions": 21,
-      "staff_fte": 381,
-      "expenditures": 34690075,
-      "collections": 57020,
-      "presentations": 2178,
-      "salaries": 15301011,
-      "student_fte": 80496
+      "institutions": 14,
+      "staff_fte": 390,
+      "expenditures": 47538201,
+      "collections": 12751729,
+      "presentations": 0,
+      "salaries": 23740315,
+      "student_fte": 0,
+      "year": 2023
     },
     "NY": {
-      "institutions": 282,
-      "staff_fte": 7122,
-      "expenditures": 516064382,
-      "collections": 1255471,
-      "presentations": 43224,
-      "salaries": 261730325,
-      "student_fte": 1038990
+      "institutions": 293,
+      "staff_fte": 5599,
+      "expenditures": 699257661,
+      "collections": 218560515,
+      "presentations": 0,
+      "salaries": 367776624,
+      "student_fte": 0,
+      "year": 2023
     },
     "OH": {
-      "institutions": 190,
-      "staff_fte": 2821,
-      "expenditures": 226432295,
-      "collections": 986507,
-      "presentations": 19058,
-      "salaries": 97257190,
-      "student_fte": 531446
+      "institutions": 149,
+      "staff_fte": 2360,
+      "expenditures": 252292177,
+      "collections": 161500198,
+      "presentations": 0,
+      "salaries": 121674308,
+      "student_fte": 0,
+      "year": 2023
     },
     "OK": {
-      "institutions": 58,
-      "staff_fte": 978,
-      "expenditures": 64810219,
-      "collections": 284868,
-      "presentations": 5540,
-      "salaries": 24020210,
-      "student_fte": 175383
+      "institutions": 51,
+      "staff_fte": 879,
+      "expenditures": 79869483,
+      "collections": 504165734,
+      "presentations": 0,
+      "salaries": 38511448,
+      "student_fte": 0,
+      "year": 2023
     },
     "OR": {
-      "institutions": 59,
-      "staff_fte": 1023,
-      "expenditures": 79145768,
-      "collections": 228487,
-      "presentations": 7277,
-      "salaries": 36143413,
-      "student_fte": 169362
+      "institutions": 46,
+      "staff_fte": 846,
+      "expenditures": 110500960,
+      "collections": 35580802,
+      "presentations": 0,
+      "salaries": 66506659,
+      "student_fte": 0,
+      "year": 2023
     },
     "PA": {
-      "institutions": 228,
-      "staff_fte": 4070,
-      "expenditures": 339063084,
-      "collections": 1149867,
-      "presentations": 24530,
-      "salaries": 142049708,
-      "student_fte": 557718
+      "institutions": 175,
+      "staff_fte": 3690,
+      "expenditures": 459553791,
+      "collections": 159936275,
+      "presentations": 0,
+      "salaries": 220245060,
+      "student_fte": 0,
+      "year": 2023
     },
     "PR": {
-      "institutions": 76,
-      "staff_fte": 896,
-      "expenditures": 24765169,
-      "collections": 199463,
-      "presentations": 5504,
-      "salaries": 9062912,
-      "student_fte": 217609
+      "institutions": 75,
+      "staff_fte": 1110,
+      "expenditures": 38874509,
+      "collections": 48906825,
+      "presentations": 0,
+      "salaries": 24359154,
+      "student_fte": 0,
+      "year": 2023
     },
     "PW": {
       "institutions": 1,
-      "staff_fte": 9,
-      "expenditures": 172786,
-      "collections": 4390,
-      "presentations": 10,
-      "salaries": 102487,
-      "student_fte": 587
+      "staff_fte": 15,
+      "expenditures": 191415,
+      "collections": 46472,
+      "presentations": 0,
+      "salaries": 147389,
+      "student_fte": 0,
+      "year": 2023
     },
     "RI": {
       "institutions": 13,
-      "staff_fte": 519,
-      "expenditures": 46715672,
-      "collections": 99779,
-      "presentations": 2804,
-      "salaries": 21069470,
-      "student_fte": 70650
+      "staff_fte": 444,
+      "expenditures": 67285218,
+      "collections": 21329987,
+      "presentations": 0,
+      "salaries": 32983025,
+      "student_fte": 0,
+      "year": 2023
     },
     "SC": {
-      "institutions": 72,
-      "staff_fte": 1058,
-      "expenditures": 80414335,
-      "collections": 221134,
-      "presentations": 7567,
-      "salaries": 26370818,
-      "student_fte": 205370
+      "institutions": 64,
+      "staff_fte": 1064,
+      "expenditures": 116465747,
+      "collections": 161650661,
+      "presentations": 0,
+      "salaries": 62327817,
+      "student_fte": 0,
+      "year": 2023
     },
     "SD": {
-      "institutions": 22,
-      "staff_fte": 184,
-      "expenditures": 12117200,
-      "collections": 32590,
-      "presentations": 1382,
-      "salaries": 4908386,
-      "student_fte": 42710
+      "institutions": 19,
+      "staff_fte": 169,
+      "expenditures": 16102301,
+      "collections": 9345028,
+      "presentations": 0,
+      "salaries": 8124868,
+      "student_fte": 0,
+      "year": 2023
     },
     "TN": {
-      "institutions": 92,
-      "staff_fte": 1452,
-      "expenditures": 113100181,
-      "collections": 413489,
-      "presentations": 8881,
-      "salaries": 42840399,
-      "student_fte": 272703
+      "institutions": 74,
+      "staff_fte": 1543,
+      "expenditures": 160870109,
+      "collections": 80593638,
+      "presentations": 0,
+      "salaries": 73807283,
+      "student_fte": 0,
+      "year": 2023
     },
     "TX": {
-      "institutions": 222,
-      "staff_fte": 5515,
-      "expenditures": 428351889,
-      "collections": 2111638,
-      "presentations": 35704,
-      "salaries": 167610956,
-      "student_fte": 1005485
+      "institutions": 207,
+      "staff_fte": 5728,
+      "expenditures": 567456093,
+      "collections": 485775615,
+      "presentations": 0,
+      "salaries": 264547108,
+      "student_fte": 0,
+      "year": 2023
     },
     "UT": {
-      "institutions": 32,
-      "staff_fte": 984,
-      "expenditures": 73190764,
-      "collections": 147370,
-      "presentations": 7016,
-      "salaries": 34597598,
-      "student_fte": 170648
+      "institutions": 23,
+      "staff_fte": 996,
+      "expenditures": 100348258,
+      "collections": 37361737,
+      "presentations": 0,
+      "salaries": 56667806,
+      "student_fte": 0,
+      "year": 2023
     },
     "VA": {
-      "institutions": 112,
-      "staff_fte": 2298,
-      "expenditures": 187838856,
-      "collections": 444710,
-      "presentations": 14376,
-      "salaries": 74664787,
-      "student_fte": 430520
+      "institutions": 98,
+      "staff_fte": 2265,
+      "expenditures": 270986626,
+      "collections": 92830918,
+      "presentations": 0,
+      "salaries": 139693726,
+      "student_fte": 0,
+      "year": 2023
     },
     "VI": {
       "institutions": 1,
-      "staff_fte": 16,
-      "expenditures": 798166,
-      "collections": 4327,
-      "presentations": 180,
-      "salaries": 499511,
-      "student_fte": 1951
+      "staff_fte": 8,
+      "expenditures": 695837,
+      "collections": 640941,
+      "presentations": 0,
+      "salaries": 506646,
+      "student_fte": 0,
+      "year": 2023
     },
     "VT": {
-      "institutions": 21,
-      "staff_fte": 332,
-      "expenditures": 28052635,
-      "collections": 66126,
-      "presentations": 1894,
-      "salaries": 12497332,
-      "student_fte": 32925
+      "institutions": 13,
+      "staff_fte": 294,
+      "expenditures": 28923461,
+      "collections": 12746008,
+      "presentations": 0,
+      "salaries": 15260152,
+      "student_fte": 0,
+      "year": 2023
     },
     "WA": {
-      "institutions": 82,
-      "staff_fte": 1496,
-      "expenditures": 74613914,
-      "collections": 433292,
-      "presentations": 11296,
-      "salaries": 51542308,
-      "student_fte": 286253
+      "institutions": 67,
+      "staff_fte": 1333,
+      "expenditures": 151704534,
+      "collections": 63195055,
+      "presentations": 0,
+      "salaries": 90535701,
+      "student_fte": 0,
+      "year": 2023
     },
     "WI": {
-      "institutions": 83,
-      "staff_fte": 1528,
-      "expenditures": 108867897,
-      "collections": 301411,
-      "presentations": 9606,
-      "salaries": 49541228,
-      "student_fte": 284517
+      "institutions": 61,
+      "staff_fte": 1109,
+      "expenditures": 108763135,
+      "collections": 59977857,
+      "presentations": 0,
+      "salaries": 56640679,
+      "student_fte": 0,
+      "year": 2023
     },
     "WV": {
-      "institutions": 33,
-      "staff_fte": 359,
-      "expenditures": 10162009,
-      "collections": 32521,
-      "presentations": 2492,
-      "salaries": 10188282,
-      "student_fte": 99831
+      "institutions": 39,
+      "staff_fte": 365,
+      "expenditures": 28162168,
+      "collections": 16808863,
+      "presentations": 0,
+      "salaries": 14236763,
+      "student_fte": 0,
+      "year": 2023
     },
     "WY": {
-      "institutions": 11,
-      "staff_fte": 149,
-      "expenditures": 16600737,
-      "collections": 43604,
-      "presentations": 1180,
-      "salaries": 4749338,
-      "student_fte": 27166
+      "institutions": 9,
+      "staff_fte": 138,
+      "expenditures": 17227658,
+      "collections": 15137768,
+      "presentations": 0,
+      "salaries": 6731010,
+      "student_fte": 0,
+      "year": 2023
     }
   },
   "consortia": {

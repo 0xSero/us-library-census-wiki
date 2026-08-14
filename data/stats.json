@@ -1,0 +1,402 @@
+{
+  "total_nodes": 46410,
+  "public": {
+    "total": 17615,
+    "rated": 8086,
+    "rated_pct": "45.9%",
+    "websites": 12737,
+    "web_pct": "72.3%",
+    "emails": 2505,
+    "email_pct": "14.2%",
+    "social": 4904,
+    "social_pct": "27.8%",
+    "demographics": 17615,
+    "demo_pct": "100.0%"
+  },
+  "private": {
+    "total": 3770,
+    "rated": 1048,
+    "rated_pct": "27.8%",
+    "websites": 3763,
+    "web_pct": "99.8%"
+  },
+  "gov": {
+    "total": 25025,
+    "live": 18612,
+    "live_pct": "74.4%",
+    "tiers": {
+      "federal": {
+        "total": 1603,
+        "live": 917,
+        "pct": "57.2%"
+      },
+      "state": {
+        "total": 2196,
+        "live": 1333,
+        "pct": "60.7%"
+      },
+      "county": {
+        "total": 4289,
+        "live": 2990,
+        "pct": "69.7%"
+      },
+      "city": {
+        "total": 15360,
+        "live": 12339,
+        "pct": "80.3%"
+      },
+      "tribal": {
+        "total": 338,
+        "live": 203,
+        "pct": "60.1%"
+      },
+      "special": {
+        "total": 1239,
+        "live": 830,
+        "pct": "67.0%"
+      }
+    }
+  },
+  "hours": 12737,
+  "services": 10238,
+  "gov_services": 3799,
+  "states": {
+    "AL": {
+      "name": "Alabama",
+      "pub": 304,
+      "priv": 57,
+      "gov": 262
+    },
+    "AK": {
+      "name": "Alaska",
+      "pub": 85,
+      "priv": 8,
+      "gov": 63
+    },
+    "AZ": {
+      "name": "Arizona",
+      "pub": 231,
+      "priv": 57,
+      "gov": 292
+    },
+    "AR": {
+      "name": "Arkansas",
+      "pub": 232,
+      "priv": 52,
+      "gov": 373
+    },
+    "CA": {
+      "name": "California",
+      "pub": 1236,
+      "priv": 398,
+      "gov": 860
+    },
+    "CO": {
+      "name": "Colorado",
+      "pub": 284,
+      "priv": 56,
+      "gov": 287
+    },
+    "CT": {
+      "name": "Connecticut",
+      "pub": 241,
+      "priv": 27,
+      "gov": 183
+    },
+    "DE": {
+      "name": "Delaware",
+      "pub": 35,
+      "priv": 6,
+      "gov": 24
+    },
+    "FL": {
+      "name": "Florida",
+      "pub": 558,
+      "priv": 162,
+      "gov": 542
+    },
+    "GA": {
+      "name": "Georgia",
+      "pub": 407,
+      "priv": 102,
+      "gov": 365
+    },
+    "HI": {
+      "name": "Hawaii",
+      "pub": 53,
+      "priv": 15,
+      "gov": 16
+    },
+    "ID": {
+      "name": "Idaho",
+      "pub": 173,
+      "priv": 16,
+      "gov": 114
+    },
+    "IL": {
+      "name": "Illinois",
+      "pub": 794,
+      "priv": 151,
+      "gov": 460
+    },
+    "IN": {
+      "name": "Indiana",
+      "pub": 453,
+      "priv": 62,
+      "gov": 155
+    },
+    "IA": {
+      "name": "Iowa",
+      "pub": 574,
+      "priv": 54,
+      "gov": 231
+    },
+    "KS": {
+      "name": "Kansas",
+      "pub": 380,
+      "priv": 58,
+      "gov": 246
+    },
+    "KY": {
+      "name": "Kentucky",
+      "pub": 273,
+      "priv": 59,
+      "gov": 232
+    },
+    "LA": {
+      "name": "Louisiana",
+      "pub": 360,
+      "priv": 51,
+      "gov": 126
+    },
+    "ME": {
+      "name": "Maine",
+      "pub": 265,
+      "priv": 29,
+      "gov": 147
+    },
+    "MD": {
+      "name": "Maryland",
+      "pub": 218,
+      "priv": 52,
+      "gov": 277
+    },
+    "MA": {
+      "name": "Massachusetts",
+      "pub": 463,
+      "priv": 105,
+      "gov": 372
+    },
+    "MI": {
+      "name": "Michigan",
+      "pub": 666,
+      "priv": 87,
+      "gov": 635
+    },
+    "MN": {
+      "name": "Minnesota",
+      "pub": 367,
+      "priv": 80,
+      "gov": 605
+    },
+    "MS": {
+      "name": "Mississippi",
+      "pub": 233,
+      "priv": 33,
+      "gov": 129
+    },
+    "MO": {
+      "name": "Missouri",
+      "pub": 396,
+      "priv": 87,
+      "gov": 364
+    },
+    "MT": {
+      "name": "Montana",
+      "pub": 121,
+      "priv": 22,
+      "gov": 138
+    },
+    "NE": {
+      "name": "Nebraska",
+      "pub": 273,
+      "priv": 33,
+      "gov": 158
+    },
+    "NV": {
+      "name": "Nevada",
+      "pub": 88,
+      "priv": 14,
+      "gov": 57
+    },
+    "NH": {
+      "name": "New Hampshire",
+      "pub": 229,
+      "priv": 23,
+      "gov": 227
+    },
+    "NJ": {
+      "name": "New Jersey",
+      "pub": 454,
+      "priv": 85,
+      "gov": 332
+    },
+    "NM": {
+      "name": "New Mexico",
+      "pub": 131,
+      "priv": 32,
+      "gov": 110
+    },
+    "NY": {
+      "name": "New York",
+      "pub": 1071,
+      "priv": 299,
+      "gov": 1422
+    },
+    "NC": {
+      "name": "North Carolina",
+      "pub": 425,
+      "priv": 134,
+      "gov": 408
+    },
+    "ND": {
+      "name": "North Dakota",
+      "pub": 98,
+      "priv": 19,
+      "gov": 77
+    },
+    "OH": {
+      "name": "Ohio",
+      "pub": 784,
+      "priv": 151,
+      "gov": 670
+    },
+    "OK": {
+      "name": "Oklahoma",
+      "pub": 223,
+      "priv": 51,
+      "gov": 277
+    },
+    "OR": {
+      "name": "Oregon",
+      "pub": 225,
+      "priv": 48,
+      "gov": 292
+    },
+    "PA": {
+      "name": "Pennsylvania",
+      "pub": 631,
+      "priv": 176,
+      "gov": 387
+    },
+    "RI": {
+      "name": "Rhode Island",
+      "pub": 72,
+      "priv": 13,
+      "gov": 64
+    },
+    "SC": {
+      "name": "South Carolina",
+      "pub": 242,
+      "priv": 64,
+      "gov": 154
+    },
+    "SD": {
+      "name": "South Dakota",
+      "pub": 129,
+      "priv": 19,
+      "gov": 67
+    },
+    "TN": {
+      "name": "Tennessee",
+      "pub": 292,
+      "priv": 74,
+      "gov": 363
+    },
+    "TX": {
+      "name": "Texas",
+      "pub": 893,
+      "priv": 208,
+      "gov": 746
+    },
+    "UT": {
+      "name": "Utah",
+      "pub": 133,
+      "priv": 24,
+      "gov": 402
+    },
+    "VT": {
+      "name": "Vermont",
+      "pub": 190,
+      "priv": 13,
+      "gov": 96
+    },
+    "VA": {
+      "name": "Virginia",
+      "pub": 390,
+      "priv": 101,
+      "gov": 337
+    },
+    "WA": {
+      "name": "Washington",
+      "pub": 362,
+      "priv": 70,
+      "gov": 257
+    },
+    "WV": {
+      "name": "West Virginia",
+      "pub": 181,
+      "priv": 39,
+      "gov": 158
+    },
+    "WI": {
+      "name": "Wisconsin",
+      "pub": 466,
+      "priv": 62,
+      "gov": 830
+    },
+    "WY": {
+      "name": "Wyoming",
+      "pub": 77,
+      "priv": 9,
+      "gov": 80
+    },
+    "DC": {
+      "name": "District of Columbia",
+      "pub": 27,
+      "priv": 37,
+      "gov": 988
+    },
+    "PR": {
+      "name": "Puerto Rico",
+      "pub": 107,
+      "priv": 75,
+      "gov": 8
+    },
+    "GU": {
+      "name": "Guam",
+      "pub": 6,
+      "priv": 3,
+      "gov": 3
+    },
+    "VI": {
+      "name": "US Virgin Islands",
+      "pub": 8,
+      "priv": 1,
+      "gov": 6
+    },
+    "AS": {
+      "name": "American Samoa",
+      "pub": 2,
+      "priv": 1,
+      "gov": 6
+    },
+    "MP": {
+      "name": "Northern Mariana Islands",
+      "pub": 4,
+      "priv": 1,
+      "gov": 3
+    }
+  },
+  "generated": "2026-08-14 10:51 UTC"
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>US Library Census — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+
+</head>
+<body class="wiki-body">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census Wiki</b> <small class="text-muted fw-normal">AI Groundwork Institute</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link active" href="index.html">Main page</a></li>
+      <li class="nav-item"><a class="nav-link " href="search.html">Search</a></li>
+      <li class="nav-item"><a class="nav-link " href="map.html">Map</a></li>
+      <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
+      <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
+      </ul>
+      <form class="d-flex" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid wiki-container">
+  <div class="row g-0">
+<aside class="col-lg-2 d-none d-lg-block wiki-sidebar"><div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="search.html" class="list-group-item list-group-item-action small py-1">Search the census</a>
+    <a href="map.html" class="list-group-item list-group-item-action small py-1">Interactive map</a>
+    <a href="gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="about.html" class="list-group-item list-group-item-action small py-1">About / methodology</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div></aside>
+    <main class="col-lg-10 wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">US Library Census</h1>
+      <div class="wiki-body-content" id="bodyContent">
+
+<p class="contentSub">From the US Library Census Wiki</p>
+<div class="wiki-sub">A living dataset of every public and private library, and every government website, in the United States.</div>
+
+<div class="hosted-strip">
+  <b>46,410</b> nodes mapped · 17,615 public libraries · 3,770 private libraries · 25,025 government websites · updated 2026-08-14 10:51 UTC
+</div>
+
+<div class="mw-welcome">
+  <h2>Welcome to the US Library Census</h2>
+  <p>This wiki presents an automated, continuously-enriched dataset covering every known
+  public library, academic/special library, and federal/state/county/city government
+  website in the United States. Each record carries address, geocoordinates, website,
+  funding, contact details, review ratings, hours, services, and area demographics.</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">46,410</div><div class="label">Total nodes</div></div>
+  <div class="stat-card"><div class="num">17,615</div><div class="label">Public libraries</div></div>
+  <div class="stat-card"><div class="num">3,770</div><div class="label">Private libraries</div></div>
+  <div class="stat-card"><div class="num">25,025</div><div class="label">Gov websites</div></div>
+  <div class="stat-card"><div class="num">18,612</div><div class="label">Gov sites live</div></div>
+  <div class="stat-card"><div class="num">8,086</div><div class="label">Libraries rated</div></div>
+</div>
+
+<h2 id="map">Interactive Map</h2>
+<div class="map-embed">
+  <iframe src="map.html" title="US Library Census Map"></iframe>
+</div>
+<p style="text-align:center"><a href="map.html">Open full-page map →</a></p>
+
+<h2 id="gov">Government Website Tiers</h2>
+<div class="gov-cards">
+    <div class="gov-card">
+      <h3>Federal</h3>
+      <div class="gov-num">1,603</div>
+      <div class="gov-live">917 live</div>
+      <div class="gov-pct">57.2% verified</div>
+    </div>
+    <div class="gov-card">
+      <h3>State</h3>
+      <div class="gov-num">2,196</div>
+      <div class="gov-live">1,333 live</div>
+      <div class="gov-pct">60.7% verified</div>
+    </div>
+    <div class="gov-card">
+      <h3>County</h3>
+      <div class="gov-num">4,289</div>
+      <div class="gov-live">2,990 live</div>
+      <div class="gov-pct">69.7% verified</div>
+    </div>
+    <div class="gov-card">
+      <h3>City</h3>
+      <div class="gov-num">15,360</div>
+      <div class="gov-live">12,339 live</div>
+      <div class="gov-pct">80.3% verified</div>
+    </div>
+    <div class="gov-card">
+      <h3>Tribal</h3>
+      <div class="gov-num">338</div>
+      <div class="gov-live">203 live</div>
+      <div class="gov-pct">60.1% verified</div>
+    </div>
+    <div class="gov-card">
+      <h3>Special/Interstate</h3>
+      <div class="gov-num">1,239</div>
+      <div class="gov-live">830 live</div>
+      <div class="gov-pct">67.0% verified</div>
+    </div>
+</div>
+<p><a href="gov.html">Government sites overview →</a></p>
+
+<h2 id="coverage">Data Coverage</h2>
+<table class="coverage-table">
+  <tr><th>Dataset</th><th>Rows</th><th>Websites</th><th>Ratings</th><th>Emails</th><th>Social</th><th>Demographics</th></tr>
+  <tr>
+    <td><a href="search.html?type=public">Public libraries</a></td>
+    <td>17,615</td>
+    <td class="pct">72.3%</td>
+    <td class="pct">45.9%</td>
+    <td class="pct">14.2%</td>
+    <td class="pct">27.8%</td>
+    <td class="pct">100.0%</td>
+  </tr>
+  <tr>
+    <td><a href="search.html?type=private">Private/academic</a></td>
+    <td>3,770</td>
+    <td class="pct">99.8%</td>
+    <td class="pct">27.8%</td>
+    <td>—</td><td>—</td><td>—</td>
+  </tr>
+  <tr>
+    <td><a href="search.html?type=gov">Government sites</a></td>
+    <td>25,025</td>
+    <td>100%</td>
+    <td>—</td><td>—</td><td>—</td><td>—</td>
+  </tr>
+  <tr>
+    <td>Library hours</td>
+    <td>12,737</td>
+    <td colspan="5">3,909 sites with structured hours extracted</td>
+  </tr>
+  <tr>
+    <td>Library services</td>
+    <td>10,238</td>
+    <td colspan="5">ebooks, printing, meeting rooms, storytime, and 16 more service keywords</td>
+  </tr>
+  <tr>
+    <td>Gov services</td>
+    <td>3,799</td>
+    <td colspan="5">680 federal/state agencies with detailed service summaries</td>
+  </tr>
+</table>
+
+<h2 id="states">Browse by State</h2>
+<div class="state-grid"><a href="states/AK.html">AK</a><a href="states/AL.html">AL</a><a href="states/AR.html">AR</a><a href="states/AS.html">AS</a><a href="states/AZ.html">AZ</a><a href="states/CA.html">CA</a><a href="states/CO.html">CO</a><a href="states/CT.html">CT</a><a href="states/DC.html">DC</a><a href="states/DE.html">DE</a><a href="states/FL.html">FL</a><a href="states/GA.html">GA</a><a href="states/GU.html">GU</a><a href="states/HI.html">HI</a><a href="states/IA.html">IA</a><a href="states/ID.html">ID</a><a href="states/IL.html">IL</a><a href="states/IN.html">IN</a><a href="states/KS.html">KS</a><a href="states/KY.html">KY</a><a href="states/LA.html">LA</a><a href="states/MA.html">MA</a><a href="states/MD.html">MD</a><a href="states/ME.html">ME</a><a href="states/MI.html">MI</a><a href="states/MN.html">MN</a><a href="states/MO.html">MO</a><a href="states/MP.html">MP</a><a href="states/MS.html">MS</a><a href="states/MT.html">MT</a><a href="states/NC.html">NC</a><a href="states/ND.html">ND</a><a href="states/NE.html">NE</a><a href="states/NH.html">NH</a><a href="states/NJ.html">NJ</a><a href="states/NM.html">NM</a><a href="states/NV.html">NV</a><a href="states/NY.html">NY</a><a href="states/OH.html">OH</a><a href="states/OK.html">OK</a><a href="states/OR.html">OR</a><a href="states/PA.html">PA</a><a href="states/PR.html">PR</a><a href="states/RI.html">RI</a><a href="states/SC.html">SC</a><a href="states/SD.html">SD</a><a href="states/TN.html">TN</a><a href="states/TX.html">TX</a><a href="states/UT.html">UT</a><a href="states/VA.html">VA</a><a href="states/VI.html">VI</a><a href="states/VT.html">VT</a><a href="states/WA.html">WA</a><a href="states/WI.html">WI</a><a href="states/WV.html">WV</a><a href="states/WY.html">WY</a>
+</div>
+
+<h2>Map Legend</h2>
+<div class="rules-box">
+  <ul>
+    <li><span style="color:#2b7fff;font-weight:700">● Blue</span> — Public libraries (17,615)</li>
+    <li><span style="color:#e23b3b;font-weight:700">● Red</span> — Private/academic libraries (3,770)</li>
+    <li><span style="color:#8e44ff;font-weight:700">● Purple</span> — Government websites linked to locations (25,025)</li>
+  </ul>
+</div>
+
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a></div>
+<div class="relatedbox">
+  <h3>Keep exploring</h3>
+  <ul>
+    <li><a href="search.html">Search all records →</a></li>
+    <li><a href="map.html">Full-page interactive map →</a></li>
+    <li><a href="gov.html">Government sites overview →</a></li>
+    <li><a href="about.html">Methodology & data sources →</a></li>
+  </ul>
+</div>
+<p class="edit-note">Generated from CSV data by wiki/build_wiki.py on 2026-08-14 10:51 UTC.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AI Groundwork Institute · EIN 42-4298008 ·
+    <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
+    <br>Data updated 2026-08-14 10:51 UTC
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

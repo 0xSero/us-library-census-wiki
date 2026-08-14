@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About / Methodology — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+
+</head>
+<body class="wiki-body">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census Wiki</b> <small class="text-muted fw-normal">AI Groundwork Institute</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link " href="index.html">Main page</a></li>
+      <li class="nav-item"><a class="nav-link " href="search.html">Search</a></li>
+      <li class="nav-item"><a class="nav-link " href="map.html">Map</a></li>
+      <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
+      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+      </ul>
+      <form class="d-flex" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid wiki-container">
+  <div class="row g-0">
+<aside class="col-lg-2 d-none d-lg-block wiki-sidebar"><div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="search.html" class="list-group-item list-group-item-action small py-1">Search the census</a>
+    <a href="map.html" class="list-group-item list-group-item-action small py-1">Interactive map</a>
+    <a href="gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="about.html" class="list-group-item list-group-item-action small py-1">About / methodology</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div></aside>
+    <main class="col-lg-10 wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">About / Methodology</h1>
+      <div class="wiki-body-content" id="bodyContent">
+
+<p class="contentSub">About this wiki</p>
+<div class="wiki-sub">How this dataset was built, where the data comes from, and what's still missing.</div>
+
+<h2>Overview</h2>
+<p>This is a living, automated-crawl dataset of every public and private library in the
+United States, plus every federal, state, county, city, tribal, and special-district
+government website. Each record carries address, geocoordinates, website URL, funding
+information, contact details, review ratings, hours of operation, services offered, and
+area demographics. Every link is verified live, and the dataset is continuously enriched
+via a scheduled pipeline.</p>
+
+<h2>Primary Data Sources</h2>
+<table class="data-table">
+  <tr><th>Source</th><th>What it provides</th><th>Records</th></tr>
+  <tr><td><strong>IMLS PLS FY2024</strong></td><td>Public library outlets (outlet-level, includes address, funding, size, population served)</td><td>17,615</td></tr>
+  <tr><td><strong>NCES IPEDS AL 2023 + HD2023</strong></td><td>Academic libraries (degree-granting institutions)</td><td>3,770</td></tr>
+  <tr><td><strong>CISA dotgov-data + GSA govt-urls</strong></td><td>Federal/state/county/city/tribal/special .gov domain registry</td><td>25,025</td></tr>
+  <tr><td><strong>Census ACS 2023 5-Year</strong></td><td>Demographics (median income, population, age, poverty rate)</td><td>17,615</td></tr>
+  <tr><td><strong>Google Places API v1</strong></td><td>Real review ratings (free daily quota, no billing needed)</td><td>8,086+1,048</td></tr>
+  <tr><td><strong>Gemini LLM (gemini-flash-lite-latest)</strong></td><td>Estimated ratings for well-known libraries where Places API quota exhausted</td><td>~6,100</td></tr>
+  <tr><td><strong>LibraryTechnology.org state directories</strong></td><td>Library website discovery (3,366 additional websites found)</td><td>7,912 systems</td></tr>
+  <tr><td><strong>Library website scraping</strong></td><td>Emails, social media links, hours, services extracted from library homepages</td><td>12,737 hours, 10,238 services</td></tr>
+</table>
+
+<h2>Data Coverage</h2>
+<table class="coverage-table">
+  <tr><th>Field</th><th>Public libraries</th><th>Private libraries</th><th>Gov sites</th></tr>
+  <tr><td>Total records</td><td>17,615</td><td>3,770</td><td>25,025</td></tr>
+  <tr><td>Geocoded</td><td>100%</td><td>99.9%</td><td>Partial</td></tr>
+  <tr><td>Websites</td><td>72.3%</td><td>99.8%</td><td>100%</td></tr>
+  <tr><td>Ratings</td><td>45.9%</td><td>27.8%</td><td>—</td></tr>
+  <tr><td>Emails</td><td>14.2%</td><td>—</td><td>—</td></tr>
+  <tr><td>Social media</td><td>27.8%</td><td>—</td><td>—</td></tr>
+  <tr><td>Demographics</td><td>100.0%</td><td>—</td><td>—</td></tr>
+  <tr><td>Verified live</td><td>—</td><td>—</td><td>74.4%</td></tr>
+</table>
+
+<h2>Known Gaps (honest accounting)</h2>
+<div class="rules-box">
+  <ul>
+    <li><strong>14.5% of public library systems</strong> (1,339) have no website — almost all are tiny rural/bookmobile libraries with no online presence.</li>
+    <li><strong>54.1% of public libraries</strong> remain unrated — Google Places API daily quota limits accumulation; Gemini LLM fills in well-known libraries but correctly omits obscure branches.</li>
+    <li><strong>25.6% of gov sites</strong> are not live — many are genuinely expired/dead .gov domains (DNS won't resolve).</li>
+    <li><strong>Special libraries</strong> (law, medical, theological, corporate) are underrepresented — only 75 added beyond the 3,695 academic libraries.</li>
+    <li><strong>Cron automation</strong> is set up but not yet active — run <code>bash automation/setup_cron.sh</code> to enable continuous enrichment.</li>
+  </ul>
+</div>
+
+<h2>Scripts (21 Python scripts)</h2>
+<table class="data-table">
+  <tr><th>Script</th><th>Purpose</th></tr>
+  <tr><td><code>fetch_imls.py</code></td><td>Download IMLS Public Libraries Survey FY2024</td></tr>
+  <tr><td><code>fetch_academic.py</code></td><td>Download NCES IPEDS Academic Libraries 2023</td></tr>
+  <tr><td><code>fetch_gov.py</code></td><td>Build gov-site spreadsheets from CISA/GSA registries</td></tr>
+  <tr><td><code>fetch_special_libraries.py</code></td><td>Expand private libraries (law/medical/theological/corporate)</td></tr>
+  <tr><td><code>find_library_websites.py</code></td><td>Heuristic website discovery for public libraries</td></tr>
+  <tr><td><code>fetch_state_directories.py</code></td><td>Scrape LibraryTechnology.org state directories</td></tr>
+  <tr><td><code>scrape_library_pages.py</code></td><td>Scrape library websites for emails, socials, ratings</td></tr>
+  <tr><td><code>merge_enrichment.py</code></td><td>Merge scraped enrichment into public_libraries.csv</td></tr>
+  <tr><td><code>fetch_reviews.py</code></td><td>Google Places API + Gemini LLM ratings</td></tr>
+  <tr><td><code>fetch_library_hours.py</code></td><td>Scrape library websites for hours of operation</td></tr>
+  <tr><td><code>fetch_library_services.py</code></td><td>Scrape library websites for services offered</td></tr>
+  <tr><td><code>fetch_gov_services.py</code></td><td>Document what each federal/state agency does</td></tr>
+  <tr><td><code>verify_links.py</code></td><td>Batched HTTP link checker for all URLs</td></tr>
+  <tr><td><code>enrich_geocode.py</code></td><td>Fill lat/lng via Census Gazetteer</td></tr>
+  <tr><td><code>enrich_demographics.py</code></td><td>Overlay Census ACS demographics</td></tr>
+  <tr><td><code>build_map.py</code></td><td>Generate the interactive 2D map</td></tr>
+  <tr><td><code>dns_bypass.py</code></td><td>Bypass macOS mDNS hangs (utility module)</td></tr>
+</table>
+
+<h2>Update Frequency</h2>
+<p>The pipeline is designed to run every 30 minutes via cron (<code>automation/run_pipeline.sh</code>).
+Each run is idempotent and resumable — it picks up where the last run left off, using
+caches in <code>data/_cache/</code>. Google Places API quota resets daily at midnight PT,
+so ratings accumulate across runs. The wiki can be rebuilt at any time by re-running
+<code>python3 wiki/build_wiki.py</code>.</p>
+
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a></div>
+<p class="edit-note">Generated on 2026-08-14 10:51 UTC.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AI Groundwork Institute · EIN 42-4298008 ·
+    <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
+    <br>Data updated 2026-08-14 10:51 UTC
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -11,6 +11,17 @@
   var LABELS = { public: 'Public', private: 'Private', gov: 'Gov' };
   var TYPES = ['public', 'private', 'gov'];
 
+  var LIGHT_TILES = [
+    'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+    'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+    'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+  ];
+  var DARK_TILES = [
+    'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+    'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+    'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
+  ];
+
   var map;
   var allFeatures = [];
   var featuresByType = { public: [], private: [], gov: [] };
@@ -55,31 +66,52 @@
     return h;
   }
 
+  function getMapStyle(theme) {
+    var tiles = (theme === 'dark') ? DARK_TILES : LIGHT_TILES;
+    return {
+      version: 8,
+      sources: {
+        'raster-tiles': {
+          type: 'raster',
+          tiles: tiles,
+          tileSize: 256,
+          attribution: '&copy; OpenStreetMap &copy; CARTO'
+        }
+      },
+      layers: [{
+        id: 'background-tiles',
+        type: 'raster',
+        source: 'raster-tiles',
+        minzoom: 0,
+        maxzoom: 20
+      }]
+    };
+  }
+
+  /* Swap the raster tile source for light/dark without touching the data
+   * sources/layers — keeps clustering, popups and toggles intact. */
+  function applyTheme(theme) {
+    if (!map) return;
+    var tiles = (theme === 'dark') ? DARK_TILES : LIGHT_TILES;
+    if (map.getLayer('background-tiles')) map.removeLayer('background-tiles');
+    if (map.getSource('raster-tiles')) map.removeSource('raster-tiles');
+    map.addSource('raster-tiles', {
+      type: 'raster',
+      tiles: tiles,
+      tileSize: 256,
+      attribution: '&copy; OpenStreetMap &copy; CARTO'
+    });
+    var layerDef = { id: 'background-tiles', type: 'raster', source: 'raster-tiles', minzoom: 0, maxzoom: 20 };
+    // Re-insert at the bottom (before the first data layer) so points render on top
+    if (map.getLayer('clusters-public')) map.addLayer(layerDef, 'clusters-public');
+    else map.addLayer(layerDef);
+  }
+
   function initMap() {
+    var initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
     map = new maplibregl.Map({
       container: 'map',
-      style: {
-        version: 8,
-        sources: {
-          'raster-tiles': {
-            type: 'raster',
-            tiles: [
-              'https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-              'https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-              'https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
-            ],
-            tileSize: 256,
-            attribution: '&copy; OpenStreetMap &copy; CARTO'
-          }
-        },
-        layers: [{
-          id: 'background-tiles',
-          type: 'raster',
-          source: 'raster-tiles',
-          minzoom: 0,
-          maxzoom: 20
-        }]
-      },
+      style: getMapStyle(initialTheme),
       center: [-97.0, 39.0],
       zoom: 4,
       minZoom: 3,
@@ -263,6 +295,8 @@
   }
 
   // ---- Public API (called from HTML) ----
+  window.getMapStyle = getMapStyle;
+  window.applyTheme = applyTheme;
   window.toggleLayer = function (type) {
     var chk = type === 'public' ? 'chkPublic' : type === 'private' ? 'chkPrivate' : 'chkGov';
     var cb = document.getElementById(chk);
@@ -318,5 +352,13 @@
       return;
     }
     initMap();
+  });
+
+  // Listen for theme changes from the parent page (when embedded as an iframe)
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.type === 'wiki-theme' && e.data.theme) {
+      document.documentElement.setAttribute('data-theme', e.data.theme);
+      if (loaded) applyTheme(e.data.theme);
+    }
   });
 })();

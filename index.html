@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,11 +7,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="wiki.css">
 
+<script>
+(function(){var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
 </head>
 <body class="wiki-body">
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.html"><b>US Library Census Wiki</b> <small class="text-muted fw-normal">AI Groundwork Institute</small></a>
+    <a class="navbar-brand" href="index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,10 +26,11 @@
       <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
       <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
       </ul>
-      <form class="d-flex" action="search.html" method="get">
+      <form class="d-flex me-2" action="search.html" method="get">
         <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
       </form>
     </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
   </div>
 </nav>
 <div class="container-fluid wiki-container">
@@ -68,7 +72,7 @@
 <div class="wiki-sub">A living dataset of every public and private library, and every government website, in the United States.</div>
 
 <div class="hosted-strip">
-  <b>46,410</b> nodes mapped · 17,615 public libraries · 3,770 private libraries · 25,025 government websites · updated 2026-08-14 10:51 UTC
+  <b>46,410</b> nodes mapped · 17,615 public libraries · 3,770 private libraries · 25,025 government websites · updated 2026-08-14 11:31 UTC
 </div>
 
 <div class="mw-welcome">
@@ -177,6 +181,332 @@
   </tr>
 </table>
 
+<h2 id="funding">Funding &amp; Demographics</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">$288.9B</div><div class="label">Total public-library funding</div></div>
+  <div class="stat-card"><div class="num">$16.6M</div><div class="label">Average funding per library</div></div>
+  <div class="stat-card"><div class="num">17,448</div><div class="label">Libraries with funding data</div></div>
+  <div class="stat-card"><div class="num">$75,740</div><div class="label">Avg. median household income</div></div>
+  <div class="stat-card"><div class="num">17,063</div><div class="label">Areas with income data</div></div>
+</div>
+<p class="rsrc">Funding totals from the IMLS Public Libraries Survey (funding_total column). Demographics from Census ACS area-level estimates.</p>
+
+<h2 id="top-rated">Top-Rated Libraries</h2>
+<table class="wikitable top-rated-table">
+  <tr><th>#</th><th>Library</th><th>City</th><th>State</th><th>Rating</th><th>Reviews</th></tr>
+  <tr>
+    <td>1</td>
+    <td><a href="search.html?q=DR. GUS T. RIDGEL BRANCH LIBRARY">DR. GUS T. RIDGEL BRANCH LIBRARY</a> <a href="https://www.poplarbluff.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Poplar Bluff</td>
+    <td>MO</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>45,387</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><a href="search.html?q=NORTHUMBERLAND PUBLIC LIBRARY">NORTHUMBERLAND PUBLIC LIBRARY</a> <a href="https://northumberlandlibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Groveton</td>
+    <td>NH</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>8,080</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><a href="search.html?q=PRIESTLEY FORSYTH MEMORIAL LIBRARY">PRIESTLEY FORSYTH MEMORIAL LIBRARY</a> <a href="https://northumberlandlibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Northumberland</td>
+    <td>PA</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>8,080</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><a href="search.html?q=ORANGE BEACH PUBLIC LIBRARY">ORANGE BEACH PUBLIC LIBRARY</a> <a href="https://orangebeachlibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Orange Beach</td>
+    <td>AL</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>55</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td><a href="search.html?q=HOMER PUBLIC LIBRARY">HOMER PUBLIC LIBRARY</a> <a href="https://www.homerlibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Homer</td>
+    <td>AK</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>45</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td><a href="search.html?q=PRAIRIE GROVE PUBLIC LIBRARY">PRAIRIE GROVE PUBLIC LIBRARY</a> <a href="https://elkinspubliclibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Prairie Grove</td>
+    <td>AR</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>43</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td><a href="search.html?q=VASHON LIBRARY">VASHON LIBRARY</a></td>
+    <td>Vashon Island</td>
+    <td>WA</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>41</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td><a href="search.html?q=SUTTON PUBLIC LIBRARY">SUTTON PUBLIC LIBRARY</a> <a href="https://suttonpubliclibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Sutton</td>
+    <td>AK</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>35</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td><a href="search.html?q=WEST FORK PUBLIC LIBRARY">WEST FORK PUBLIC LIBRARY</a> <a href="https://elkinspubliclibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>West Fork</td>
+    <td>AR</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>35</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td><a href="search.html?q=WALDPORT PUBLIC LIBRARY">WALDPORT PUBLIC LIBRARY</a> <a href="https://www.waldportlibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Waldport</td>
+    <td>OR</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>31</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td><a href="search.html?q=NORTH PLAINS PUBLIC LIBRARY">NORTH PLAINS PUBLIC LIBRARY</a> <a href="https://www.wccls.org/using-library/member-libraries/north-plains-public-library" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>North Plains</td>
+    <td>OR</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td><a href="search.html?q=TALLASSEE COMMUNITY PUBLIC LIBRARY">TALLASSEE COMMUNITY PUBLIC LIBRARY</a> <a href="http://www.tallasseecitylibrary.com/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Tallassee</td>
+    <td>AL</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>29</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td><a href="search.html?q=DARRINGTON LIBRARY">DARRINGTON LIBRARY</a> <a href="https://arlingtonlibrary.org/home" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Darrington</td>
+    <td>WA</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>29</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td><a href="search.html?q=GRAYSVILLE PUBLIC LIBRARY">GRAYSVILLE PUBLIC LIBRARY</a> <a href="https://graysville.lib.al.us/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Graysville</td>
+    <td>AL</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>27</td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td><a href="search.html?q=LINCOLN PUBLIC LIBRARY">LINCOLN PUBLIC LIBRARY</a> <a href="https://elkinspubliclibrary.org/" target="_blank" rel="noopener" class="ext-link" title="Website"></a></td>
+    <td>Lincoln</td>
+    <td>AR</td>
+    <td class="rating">&#9733; 5.0</td>
+    <td>27</td>
+  </tr>
+</table>
+<p class="rsrc">Libraries with a 5.0 average rating and at least 5 reviews, ranked by review count.</p>
+
+<h2 id="services">Most Common Library Services</h2>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-name">ebooks</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:100.0%"></span></span>
+    <span class="svc-count">8,217</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">printing</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:61.6%"></span></span>
+    <span class="svc-count">5,059</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">meeting rooms</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:50.1%"></span></span>
+    <span class="svc-count">4,114</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">storytime</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:40.6%"></span></span>
+    <span class="svc-count">3,332</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">genealogy</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:32.7%"></span></span>
+    <span class="svc-count">2,686</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">wifi</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:28.9%"></span></span>
+    <span class="svc-count">2,371</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">library of things</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:28.2%"></span></span>
+    <span class="svc-count">2,315</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">interlibrary loan</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:24.2%"></span></span>
+    <span class="svc-count">1,987</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">computer access</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:20.6%"></span></span>
+    <span class="svc-count">1,695</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">museum passes</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:19.2%"></span></span>
+    <span class="svc-count">1,578</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">homework help</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:18.9%"></span></span>
+    <span class="svc-count">1,552</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">outreach</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:18.1%"></span></span>
+    <span class="svc-count">1,484</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">notary</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:15.4%"></span></span>
+    <span class="svc-count">1,267</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">book sales</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:12.4%"></span></span>
+    <span class="svc-count">1,017</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">job help</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:11.6%"></span></span>
+    <span class="svc-count">957</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">maker space</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:10.9%"></span></span>
+    <span class="svc-count">899</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">passport</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:10.2%"></span></span>
+    <span class="svc-count">836</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">esl classes</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:8.7%"></span></span>
+    <span class="svc-count">717</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">3d printing</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:7.4%"></span></span>
+    <span class="svc-count">610</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">tax forms</span>
+    <span class="svc-bar"><span class="svc-fill" style="width:6.9%"></span></span>
+    <span class="svc-count">569</span>
+  </div>
+</div>
+<p class="rsrc">Service keywords extracted from 10,238 library service descriptions. Longer bars = more libraries offer this service.</p>
+
+<h2 id="leaderboard">State Leaderboard</h2>
+<table class="wikitable leaderboard-table">
+  <tr><th>Rank</th><th>State</th><th>Public</th><th>Private</th><th>Gov</th><th>Total</th></tr>
+  <tr>
+    <td>1</td>
+    <td><a href="states/NY.html">New York</a></td>
+    <td>1,071</td>
+    <td>299</td>
+    <td>1,422</td>
+    <td class="pct">2,792</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><a href="states/CA.html">California</a></td>
+    <td>1,236</td>
+    <td>398</td>
+    <td>860</td>
+    <td class="pct">2,494</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><a href="states/TX.html">Texas</a></td>
+    <td>893</td>
+    <td>208</td>
+    <td>746</td>
+    <td class="pct">1,847</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><a href="states/OH.html">Ohio</a></td>
+    <td>784</td>
+    <td>151</td>
+    <td>670</td>
+    <td class="pct">1,605</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td><a href="states/IL.html">Illinois</a></td>
+    <td>794</td>
+    <td>151</td>
+    <td>460</td>
+    <td class="pct">1,405</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td><a href="states/MI.html">Michigan</a></td>
+    <td>666</td>
+    <td>87</td>
+    <td>635</td>
+    <td class="pct">1,388</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td><a href="states/WI.html">Wisconsin</a></td>
+    <td>466</td>
+    <td>62</td>
+    <td>830</td>
+    <td class="pct">1,358</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td><a href="states/FL.html">Florida</a></td>
+    <td>558</td>
+    <td>162</td>
+    <td>542</td>
+    <td class="pct">1,262</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td><a href="states/PA.html">Pennsylvania</a></td>
+    <td>631</td>
+    <td>176</td>
+    <td>387</td>
+    <td class="pct">1,194</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td><a href="states/MN.html">Minnesota</a></td>
+    <td>367</td>
+    <td>80</td>
+    <td>605</td>
+    <td class="pct">1,052</td>
+  </tr>
+</table>
+
 <h2 id="states">Browse by State</h2>
 <div class="state-grid"><a href="states/AK.html">AK</a><a href="states/AL.html">AL</a><a href="states/AR.html">AR</a><a href="states/AS.html">AS</a><a href="states/AZ.html">AZ</a><a href="states/CA.html">CA</a><a href="states/CO.html">CO</a><a href="states/CT.html">CT</a><a href="states/DC.html">DC</a><a href="states/DE.html">DE</a><a href="states/FL.html">FL</a><a href="states/GA.html">GA</a><a href="states/GU.html">GU</a><a href="states/HI.html">HI</a><a href="states/IA.html">IA</a><a href="states/ID.html">ID</a><a href="states/IL.html">IL</a><a href="states/IN.html">IN</a><a href="states/KS.html">KS</a><a href="states/KY.html">KY</a><a href="states/LA.html">LA</a><a href="states/MA.html">MA</a><a href="states/MD.html">MD</a><a href="states/ME.html">ME</a><a href="states/MI.html">MI</a><a href="states/MN.html">MN</a><a href="states/MO.html">MO</a><a href="states/MP.html">MP</a><a href="states/MS.html">MS</a><a href="states/MT.html">MT</a><a href="states/NC.html">NC</a><a href="states/ND.html">ND</a><a href="states/NE.html">NE</a><a href="states/NH.html">NH</a><a href="states/NJ.html">NJ</a><a href="states/NM.html">NM</a><a href="states/NV.html">NV</a><a href="states/NY.html">NY</a><a href="states/OH.html">OH</a><a href="states/OK.html">OK</a><a href="states/OR.html">OR</a><a href="states/PA.html">PA</a><a href="states/PR.html">PR</a><a href="states/RI.html">RI</a><a href="states/SC.html">SC</a><a href="states/SD.html">SD</a><a href="states/TN.html">TN</a><a href="states/TX.html">TX</a><a href="states/UT.html">UT</a><a href="states/VA.html">VA</a><a href="states/VI.html">VI</a><a href="states/VT.html">VT</a><a href="states/WA.html">WA</a><a href="states/WI.html">WI</a><a href="states/WV.html">WV</a><a href="states/WY.html">WY</a>
 </div>
@@ -200,18 +530,21 @@
     <li><a href="about.html">Methodology & data sources →</a></li>
   </ul>
 </div>
-<p class="edit-note">Generated from CSV data by wiki/build_wiki.py on 2026-08-14 10:51 UTC.</p>
+<p class="edit-note">Generated from CSV data by wiki/build_wiki.py on 2026-08-14 11:31 UTC.</p>
       </div>
     </main>
   </div>
 </div>
 <footer class="wiki-footer py-3 px-4 border-top mt-auto">
   <small class="text-muted">
-    AI Groundwork Institute · EIN 42-4298008 ·
+    AGI · EIN 42-4298008 ·
     <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
-    <br>Data updated 2026-08-14 10:51 UTC
+    <br>Data updated 2026-08-14 11:31 UTC
   </small>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){try{f.contentWindow.postMessage({type:'wiki-theme',theme:n},'*');}catch(e){}}}
+</script>
 </body>
 </html>

@@ -398,5 +398,290 @@
       "gov": 3
     }
   },
-  "generated": "2026-08-14 10:51 UTC"
+  "top_rated": [
+    {
+      "name": "DR. GUS T. RIDGEL BRANCH LIBRARY",
+      "city": "Poplar Bluff",
+      "state": "MO",
+      "rating": 5.0,
+      "rcount": 45387,
+      "website": "https://www.poplarbluff.org/"
+    },
+    {
+      "name": "NORTHUMBERLAND PUBLIC LIBRARY",
+      "city": "Groveton",
+      "state": "NH",
+      "rating": 5.0,
+      "rcount": 8080,
+      "website": "https://northumberlandlibrary.org/"
+    },
+    {
+      "name": "PRIESTLEY FORSYTH MEMORIAL LIBRARY",
+      "city": "Northumberland",
+      "state": "PA",
+      "rating": 5.0,
+      "rcount": 8080,
+      "website": "https://northumberlandlibrary.org/"
+    },
+    {
+      "name": "ORANGE BEACH PUBLIC LIBRARY",
+      "city": "Orange Beach",
+      "state": "AL",
+      "rating": 5.0,
+      "rcount": 55,
+      "website": "https://orangebeachlibrary.org/"
+    },
+    {
+      "name": "HOMER PUBLIC LIBRARY",
+      "city": "Homer",
+      "state": "AK",
+      "rating": 5.0,
+      "rcount": 45,
+      "website": "https://www.homerlibrary.org/"
+    },
+    {
+      "name": "PRAIRIE GROVE PUBLIC LIBRARY",
+      "city": "Prairie Grove",
+      "state": "AR",
+      "rating": 5.0,
+      "rcount": 43,
+      "website": "https://elkinspubliclibrary.org/"
+    },
+    {
+      "name": "VASHON LIBRARY",
+      "city": "Vashon Island",
+      "state": "WA",
+      "rating": 5.0,
+      "rcount": 41,
+      "website": ""
+    },
+    {
+      "name": "SUTTON PUBLIC LIBRARY",
+      "city": "Sutton",
+      "state": "AK",
+      "rating": 5.0,
+      "rcount": 35,
+      "website": "https://suttonpubliclibrary.org/"
+    },
+    {
+      "name": "WEST FORK PUBLIC LIBRARY",
+      "city": "West Fork",
+      "state": "AR",
+      "rating": 5.0,
+      "rcount": 35,
+      "website": "https://elkinspubliclibrary.org/"
+    },
+    {
+      "name": "WALDPORT PUBLIC LIBRARY",
+      "city": "Waldport",
+      "state": "OR",
+      "rating": 5.0,
+      "rcount": 31,
+      "website": "https://www.waldportlibrary.org/"
+    },
+    {
+      "name": "NORTH PLAINS PUBLIC LIBRARY",
+      "city": "North Plains",
+      "state": "OR",
+      "rating": 5.0,
+      "rcount": 30,
+      "website": "https://www.wccls.org/using-library/member-libraries/north-plains-public-library"
+    },
+    {
+      "name": "TALLASSEE COMMUNITY PUBLIC LIBRARY",
+      "city": "Tallassee",
+      "state": "AL",
+      "rating": 5.0,
+      "rcount": 29,
+      "website": "http://www.tallasseecitylibrary.com/"
+    },
+    {
+      "name": "DARRINGTON LIBRARY",
+      "city": "Darrington",
+      "state": "WA",
+      "rating": 5.0,
+      "rcount": 29,
+      "website": "https://arlingtonlibrary.org/home"
+    },
+    {
+      "name": "GRAYSVILLE PUBLIC LIBRARY",
+      "city": "Graysville",
+      "state": "AL",
+      "rating": 5.0,
+      "rcount": 27,
+      "website": "https://graysville.lib.al.us/"
+    },
+    {
+      "name": "LINCOLN PUBLIC LIBRARY",
+      "city": "Lincoln",
+      "state": "AR",
+      "rating": 5.0,
+      "rcount": 27,
+      "website": "https://elkinspubliclibrary.org/"
+    }
+  ],
+  "services_breakdown": [
+    {
+      "name": "ebooks",
+      "count": 8217
+    },
+    {
+      "name": "printing",
+      "count": 5059
+    },
+    {
+      "name": "meeting rooms",
+      "count": 4114
+    },
+    {
+      "name": "storytime",
+      "count": 3332
+    },
+    {
+      "name": "genealogy",
+      "count": 2686
+    },
+    {
+      "name": "wifi",
+      "count": 2371
+    },
+    {
+      "name": "library of things",
+      "count": 2315
+    },
+    {
+      "name": "interlibrary loan",
+      "count": 1987
+    },
+    {
+      "name": "computer access",
+      "count": 1695
+    },
+    {
+      "name": "museum passes",
+      "count": 1578
+    },
+    {
+      "name": "homework help",
+      "count": 1552
+    },
+    {
+      "name": "outreach",
+      "count": 1484
+    },
+    {
+      "name": "notary",
+      "count": 1267
+    },
+    {
+      "name": "book sales",
+      "count": 1017
+    },
+    {
+      "name": "job help",
+      "count": 957
+    },
+    {
+      "name": "maker space",
+      "count": 899
+    },
+    {
+      "name": "passport",
+      "count": 836
+    },
+    {
+      "name": "esl classes",
+      "count": 717
+    },
+    {
+      "name": "3d printing",
+      "count": 610
+    },
+    {
+      "name": "tax forms",
+      "count": 569
+    }
+  ],
+  "state_ranking": [
+    {
+      "code": "NY",
+      "name": "New York",
+      "pub": 1071,
+      "priv": 299,
+      "gov": 1422
+    },
+    {
+      "code": "CA",
+      "name": "California",
+      "pub": 1236,
+      "priv": 398,
+      "gov": 860
+    },
+    {
+      "code": "TX",
+      "name": "Texas",
+      "pub": 893,
+      "priv": 208,
+      "gov": 746
+    },
+    {
+      "code": "OH",
+      "name": "Ohio",
+      "pub": 784,
+      "priv": 151,
+      "gov": 670
+    },
+    {
+      "code": "IL",
+      "name": "Illinois",
+      "pub": 794,
+      "priv": 151,
+      "gov": 460
+    },
+    {
+      "code": "MI",
+      "name": "Michigan",
+      "pub": 666,
+      "priv": 87,
+      "gov": 635
+    },
+    {
+      "code": "WI",
+      "name": "Wisconsin",
+      "pub": 466,
+      "priv": 62,
+      "gov": 830
+    },
+    {
+      "code": "FL",
+      "name": "Florida",
+      "pub": 558,
+      "priv": 162,
+      "gov": 542
+    },
+    {
+      "code": "PA",
+      "name": "Pennsylvania",
+      "pub": 631,
+      "priv": 176,
+      "gov": 387
+    },
+    {
+      "code": "MN",
+      "name": "Minnesota",
+      "pub": 367,
+      "priv": 80,
+      "gov": 605
+    }
+  ],
+  "funding": {
+    "total": 288885288222.0,
+    "avg": 16556928.485900963,
+    "count": 17448
+  },
+  "demographics": {
+    "avg_income": 75739.5302115689,
+    "income_count": 17063
+  },
+  "generated": "2026-08-14 11:31 UTC"
 }

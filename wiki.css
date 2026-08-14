@@ -380,6 +380,55 @@ body.wiki-body {
 }
 .detail-table td { padding: 0.3em 0.5em; border: 1px solid var(--wiki-border-soft); font-size: 0.82rem; }
 
+/* ---- Homepage enrichment: services bars, top-rated, leaderboard ---- */
+.wiki-body-content .services-bars {
+  margin: 1em 0;
+  display: grid;
+  gap: 0.25em;
+}
+.wiki-body-content .svc-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 56px;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.83rem;
+}
+.wiki-body-content .svc-name {
+  text-align: right;
+  color: var(--wiki-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wiki-body-content .svc-bar {
+  background: var(--wiki-table-alt);
+  border: 1px solid var(--wiki-border-soft);
+  border-radius: 2px;
+  height: 1.15em;
+  overflow: hidden;
+}
+.wiki-body-content .svc-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--wiki-accent), #5b9bd5);
+  border-radius: 2px;
+}
+.wiki-body-content .svc-count {
+  font-weight: 700;
+  color: var(--wiki-text-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.wiki-body-content .top-rated-table,
+.wiki-body-content .leaderboard-table {
+  font-size: 0.85rem;
+}
+.wiki-body-content .top-rated-table td.rating,
+.wiki-body-content .top-rated-table th:nth-child(5) { white-space: nowrap; }
+.wiki-body-content .ext-link { font-size: 0.8em; opacity: 0.6; }
+.wiki-body-content .ext-link:hover { opacity: 1; }
+
 /* ---- Map page (standalone, not in Bootstrap grid) ---- */
 body.map-page { overflow: hidden; }
 
@@ -461,4 +510,176 @@ body.map-page { overflow: hidden; }
   .wiki-body-content .state-grid { grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); }
   .wiki-body-content .map-embed iframe { height: 350px; }
   .map-search-bar input { width: 160px; }
+  .wiki-body-content .svc-row { grid-template-columns: 90px 1fr 40px; }
+  .wiki-body-content .svc-name { font-size: 0.75rem; }
 }
+
+/* ===================================================================
+   DARK MODE — [data-theme="dark"] overrides
+   Bootstrap navbar, cards, tables, forms get dark backgrounds via
+   the CSS variables below. Map tiles switch via map.js getMapStyle().
+   =================================================================== */
+[data-theme="dark"] {
+  --wiki-link:        #6da3ff;
+  --wiki-link-visited:#9a8cff;
+  --wiki-link-ext:    #82a8e0;
+  --wiki-text:        #d6d9dd;
+  --wiki-text-muted:  #9099a3;
+  --wiki-border:      #2c4a6b;
+  --wiki-border-soft: #3a4048;
+  --wiki-border-strong:#4a525c;
+  --wiki-table-hdr:   #2d3138;
+  --wiki-table-alt:   #252a31;
+  --wiki-accent:      #4a8fe7;
+  --wiki-accent-light:#1a2a42;
+  --wiki-bg:          #1a1d22;
+  --wiki-content-bg:  #22262c;
+}
+
+[data-theme="dark"] body.wiki-body {
+  background: var(--wiki-bg);
+  color: var(--wiki-text);
+}
+
+/* Navbar — Bootstrap uses its own vars; override directly */
+[data-theme="dark"] .wiki-body .navbar {
+  background: #1a1d22 !important;
+  border-color: #3a4048 !important;
+}
+[data-theme="dark"] .wiki-body .navbar-brand { color: #d6d9dd !important; }
+[data-theme="dark"] .wiki-body .navbar-brand small { color: #9099a3 !important; }
+[data-theme="dark"] .wiki-body .navbar .nav-link { color: #6da3ff !important; }
+[data-theme="dark"] .wiki-body .navbar .nav-link.active { color: #d6d9dd !important; border-color: #4a8fe7; }
+[data-theme="dark"] .wiki-body .navbar-toggler { border-color: #4a525c; }
+[data-theme="dark"] .wiki-body .navbar-toggler-icon {
+  filter: invert(1) brightness(0.85);
+}
+[data-theme="dark"] .theme-toggle { color: #d6d9dd; border-color: #4a525c; }
+
+/* Layout */
+[data-theme="dark"] .wiki-sidebar { background: var(--wiki-bg); border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .wiki-main { background: var(--wiki-content-bg); border-color: var(--wiki-border); }
+
+/* Sidebar items */
+[data-theme="dark"] .wiki-portlet .list-group-item { color: var(--wiki-link); }
+[data-theme="dark"] .wiki-portlet .list-group-item:hover { background: var(--wiki-accent-light); }
+[data-theme="dark"] .wiki-portlet .sidebar-heading { color: var(--wiki-text-muted); border-color: var(--wiki-border-soft); }
+
+/* Headings — keep the border but darker */
+[data-theme="dark"] .wiki-title,
+[data-theme="dark"] .wiki-body-content h1,
+[data-theme="dark"] .wiki-body-content h2,
+[data-theme="dark"] .wiki-body-content h3,
+[data-theme="dark"] .wiki-body-content h4 { color: var(--wiki-text); }
+[data-theme="dark"] .wiki-title,
+[data-theme="dark"] .wiki-body-content h1,
+[data-theme="dark"] .wiki-body-content h2 { border-color: var(--wiki-border-strong); }
+
+/* Code */
+[data-theme="dark"] .wiki-body-content code,
+[data-theme="dark"] .wiki-body-content pre {
+  background: #1a1d22;
+  border-color: var(--wiki-border-soft);
+}
+
+/* Tables */
+[data-theme="dark"] .wiki-body-content .data-table th,
+[data-theme="dark"] .wiki-body-content .wikitable th,
+[data-theme="dark"] .wiki-body-content .coverage-table th {
+  background: var(--wiki-table-hdr);
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .wiki-body-content .data-table td,
+[data-theme="dark"] .wiki-body-content .wikitable td,
+[data-theme="dark"] .wiki-body-content .coverage-table td {
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .wiki-body-content .data-table tr:nth-child(even),
+[data-theme="dark"] .wiki-body-content .wikitable tr:nth-child(even),
+[data-theme="dark"] .wiki-body-content .coverage-table tr:nth-child(even) {
+  background: var(--wiki-table-alt);
+}
+
+/* Cards & boxes */
+[data-theme="dark"] .wiki-body-content .stat-card,
+[data-theme="dark"] .wiki-body-content .gov-card,
+[data-theme="dark"] .wiki-body-content .mw-welcome,
+[data-theme="dark"] .wiki-body-content .rules-box,
+[data-theme="dark"] .wiki-body-content .relatedbox,
+[data-theme="dark"] .wiki-body-content .catlinks,
+[data-theme="dark"] .wiki-body-content .search-controls {
+  background: var(--wiki-table-alt);
+  border-color: var(--wiki-border-soft);
+}
+[data-theme="dark"] .wiki-body-content .hosted-strip {
+  background: var(--wiki-accent-light);
+  border-color: var(--wiki-border);
+}
+[data-theme="dark"] .wiki-body-content .state-grid a { background: var(--wiki-table-alt); border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .wiki-body-content .state-grid a:hover { background: var(--wiki-accent-light); border-color: var(--wiki-accent); }
+
+/* Badges */
+[data-theme="dark"] .type-badge { background: var(--wiki-table-hdr); }
+[data-theme="dark"] .type-public  { background: #163355; color: #6da3ff; }
+[data-theme="dark"] .type-private { background: #3a1818; color: #ff7878; }
+[data-theme="dark"] .type-gov     { background: #2a1840; color: #b785ff; }
+[data-theme="dark"] .live  { color: #4dd6a8; }
+[data-theme="dark"] .dead  { color: #ff6b6b; }
+[data-theme="dark"] .rsrc  { color: var(--wiki-text-muted); }
+
+/* Services bars */
+[data-theme="dark"] .wiki-body-content .svc-bar { background: #1a1d22; border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .wiki-body-content .svc-fill {
+  background: linear-gradient(90deg, #4a8fe7, #2c6db8);
+}
+[data-theme="dark"] .wiki-body-content .svc-name { color: var(--wiki-text); }
+[data-theme="dark"] .wiki-body-content .svc-count { color: var(--wiki-text-muted); }
+
+/* Search inputs / selects */
+[data-theme="dark"] .wiki-body-content .search-controls input[type="text"],
+[data-theme="dark"] .wiki-body-content .search-controls select {
+  background: #1a1d22;
+  color: var(--wiki-text);
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .wiki-body-content .search-controls input[type="text"]:focus { border-color: var(--wiki-accent); }
+[data-theme="dark"] .wiki-body-content .result-row:hover td { background: var(--wiki-accent-light) !important; }
+[data-theme="dark"] .wiki-body-content .pagination a { background: var(--wiki-table-alt); border-color: var(--wiki-border-strong); color: var(--wiki-link); }
+[data-theme="dark"] .wiki-body-content .pagination a:hover { background: var(--wiki-accent-light); }
+
+/* Detail modal */
+[data-theme="dark"] #detailContent {
+  background: var(--wiki-content-bg);
+  color: var(--wiki-text);
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .detail-table th { background: var(--wiki-table-hdr); border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .detail-table td { border-color: var(--wiki-border-soft); }
+[data-theme="dark"] .detail-meta { color: var(--wiki-text-muted); }
+
+/* Footer */
+[data-theme="dark"] .wiki-footer { background: var(--wiki-bg); border-color: var(--wiki-border-strong); }
+
+/* Map page overlays */
+[data-theme="dark"] #map { background: #0f1115; }
+[data-theme="dark"] .map-overlay-card {
+  background: rgba(34,38,44,0.95);
+  border-color: var(--wiki-border);
+  color: var(--wiki-text);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+[data-theme="dark"] .map-loading {
+  background: rgba(34,38,44,0.97);
+  border-color: var(--wiki-border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .maplibregl-popup-content {
+  background: var(--wiki-content-bg) !important;
+  color: var(--wiki-text) !important;
+  border-color: var(--wiki-border-strong) !important;
+}
+[data-theme="dark"] .maplibregl-popup-content a { color: var(--wiki-link) !important; }
+
+/* MapLibre controls */
+[data-theme="dark"] .maplibregl-ctrl-attrib { background: rgba(34,38,44,0.8) !important; }
+[data-theme="dark"] .maplibregl-ctrl-attrib a { color: var(--wiki-link) !important; }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -7,11 +7,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../wiki.css">
 
+<script>
+(function(){var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
 </head>
 <body class="wiki-body">
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
   <div class="container-fluid">
-    <a class="navbar-brand" href="../index.html"><b>US Library Census Wiki</b> <small class="text-muted fw-normal">AI Groundwork Institute</small></a>
+    <a class="navbar-brand" href="../index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,10 +26,11 @@
       <li class="nav-item"><a class="nav-link " href="../gov.html">Government</a></li>
       <li class="nav-item"><a class="nav-link " href="../about.html">About</a></li>
       </ul>
-      <form class="d-flex" action="../search.html" method="get">
+      <form class="d-flex me-2" action="../search.html" method="get">
         <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
       </form>
     </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
   </div>
 </nav>
 <div class="container-fluid wiki-container">
@@ -135,18 +139,21 @@
     <li><a href="../map.html">View on map →</a></li>
   </ul>
 </div>
-<p class="edit-note">Generated on 2026-08-14 10:51 UTC.</p>
+<p class="edit-note">Generated on 2026-08-14 11:31 UTC.</p>
       </div>
     </main>
   </div>
 </div>
 <footer class="wiki-footer py-3 px-4 border-top mt-auto">
   <small class="text-muted">
-    AI Groundwork Institute · EIN 42-4298008 ·
+    AGI · EIN 42-4298008 ·
     <a href="../about.html">About</a> · <a href="../search.html">Search</a> · <a href="../map.html">Map</a>
-    <br>Data updated 2026-08-14 10:51 UTC
+    <br>Data updated 2026-08-14 11:31 UTC
   </small>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){try{f.contentWindow.postMessage({type:'wiki-theme',theme:n},'*');}catch(e){}}}
+</script>
 </body>
 </html>

@@ -735,3 +735,41 @@ body.map-page { overflow: hidden; }
 /* Voting overlay card in dark mode */
 [data-theme="dark"] .voting-toggle-btn { color: var(--wiki-text); border-color: var(--wiki-border-strong); }
 [data-theme="dark"] .voting-legend { color: var(--wiki-text); }
+
+/* ---- State Library Agency (SLAA) components ---- */
+.slaa-box {
+  background: var(--wiki-accent-light);
+  border: 1px solid var(--wiki-border);
+  border-radius: 4px;
+  padding: 0 16px 12px;
+  margin: 16px 0 24px;
+}
+.slaa-box > h2 {
+  border-bottom: 2px solid var(--wiki-accent);
+  padding-bottom: 4px;
+  margin-top: 12px;
+}
+.slaa-box .data-table { margin-top: 8px; width: 100%; }
+.slaa-box .data-table th {
+  background: var(--wiki-table-hdr);
+  text-align: left;
+  white-space: nowrap;
+  width: 18%;
+  padding: 6px 10px;
+  font-weight: 600;
+  color: var(--wiki-text);
+}
+.slaa-box .data-table td { padding: 6px 10px; }
+.slaa-box .rsrc { font-size: 0.85em; color: var(--wiki-text-muted); margin: 8px 0 0; }
+
+/* SLAA homepage table — compact, zebra-striped via .wikitable base */
+.slaa-table { font-size: 0.9em; }
+.slaa-table td:nth-child(3),
+.slaa-table td:nth-child(4) { white-space: nowrap; }
+
+[data-theme="dark"] .slaa-box {
+  background: rgba(51,102,204,0.08);
+  border-color: var(--wiki-border-strong);
+}
+[data-theme="dark"] .slaa-box .data-table th { background: var(--wiki-table-hdr); color: var(--wiki-text); }
+

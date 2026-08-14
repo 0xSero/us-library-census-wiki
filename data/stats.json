@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:54 UTC",
+  "generated": "2026-08-14 21:00 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7570,6 +7570,1631 @@
       "young_adult": 35,
       "adult": 28,
       "older_adult": 24
+    }
+  },
+  "book_censorship": {
+    "total_challenges": 20890,
+    "banned_removed": 6875,
+    "date_range": "2018\u20132025",
+    "by_state": [
+      {
+        "state": "FL",
+        "count": 5798
+      },
+      {
+        "state": "IA",
+        "count": 3719
+      },
+      {
+        "state": "TX",
+        "count": 2282
+      },
+      {
+        "state": "TN",
+        "count": 2208
+      },
+      {
+        "state": "PA",
+        "count": 859
+      },
+      {
+        "state": "MO",
+        "count": 550
+      },
+      {
+        "state": "MD",
+        "count": 503
+      },
+      {
+        "state": "UT",
+        "count": 476
+      },
+      {
+        "state": "VA",
+        "count": 473
+      },
+      {
+        "state": "WI",
+        "count": 465
+      },
+      {
+        "state": "AL",
+        "count": 403
+      },
+      {
+        "state": "SC",
+        "count": 361
+      },
+      {
+        "state": "KY",
+        "count": 339
+      },
+      {
+        "state": "NC",
+        "count": 336
+      },
+      {
+        "state": "ID",
+        "count": 301
+      },
+      {
+        "state": "LA",
+        "count": 228
+      },
+      {
+        "state": "MI",
+        "count": 170
+      },
+      {
+        "state": "GA",
+        "count": 139
+      },
+      {
+        "state": "WY",
+        "count": 106
+      },
+      {
+        "state": "CO",
+        "count": 89
+      }
+    ],
+    "by_year": [
+      {
+        "year": 2018,
+        "count": 1
+      },
+      {
+        "year": 2021,
+        "count": 1782
+      },
+      {
+        "year": 2022,
+        "count": 4465
+      },
+      {
+        "year": 2023,
+        "count": 8539
+      },
+      {
+        "year": 2024,
+        "count": 4885
+      },
+      {
+        "year": 2025,
+        "count": 792
+      }
+    ],
+    "by_library_type": [
+      {
+        "type": "School",
+        "count": 18904
+      },
+      {
+        "type": "Public",
+        "count": 1533
+      },
+      {
+        "type": "College/University",
+        "count": 381
+      },
+      {
+        "type": "",
+        "count": 71
+      },
+      {
+        "type": "v",
+        "count": 1
+      }
+    ],
+    "by_challenge_type": [
+      {
+        "type": "Internal/Administrative Review",
+        "count": 7041
+      },
+      {
+        "type": "Formal",
+        "count": 4797
+      },
+      {
+        "type": "Response to Legislation",
+        "count": 4189
+      },
+      {
+        "type": "Unclear",
+        "count": 1381
+      },
+      {
+        "type": "Informal Challenge",
+        "count": 694
+      },
+      {
+        "type": "Response to Law",
+        "count": 407
+      },
+      {
+        "type": "Targeted During Board Meeting",
+        "count": 167
+      },
+      {
+        "type": "Targeted in Board Meeting",
+        "count": 116
+      },
+      {
+        "type": "Internal Review From Library",
+        "count": 96
+      },
+      {
+        "type": "State Ban",
+        "count": 35
+      }
+    ],
+    "by_decision": [
+      {
+        "decision": "Banned/Removed",
+        "count": 6749
+      },
+      {
+        "decision": "Still in Process",
+        "count": 4664
+      },
+      {
+        "decision": "Unknown",
+        "count": 2570
+      },
+      {
+        "decision": "Reshelved",
+        "count": 1367
+      },
+      {
+        "decision": "Retained",
+        "count": 1320
+      },
+      {
+        "decision": "Retained/Restricted",
+        "count": 1010
+      },
+      {
+        "decision": "Returned",
+        "count": 738
+      },
+      {
+        "decision": "Retained Restricted",
+        "count": 491
+      },
+      {
+        "decision": "No Action",
+        "count": 227
+      },
+      {
+        "decision": "Weeded/Deselected",
+        "count": 218
+      }
+    ],
+    "by_initiator": [
+      {
+        "initiator": "Administration",
+        "count": 11663
+      },
+      {
+        "initiator": "Affiliation Unknown",
+        "count": 6077
+      },
+      {
+        "initiator": "Group",
+        "count": 1219
+      },
+      {
+        "initiator": "Parent",
+        "count": 794
+      },
+      {
+        "initiator": "Community Member",
+        "count": 699
+      },
+      {
+        "initiator": "School/Library Board Member",
+        "count": 235
+      },
+      {
+        "initiator": "Unclear",
+        "count": 47
+      },
+      {
+        "initiator": "Elected Representative",
+        "count": 33
+      },
+      {
+        "initiator": "Board of Education",
+        "count": 18
+      },
+      {
+        "initiator": "State Department of Education",
+        "count": 15
+      }
+    ],
+    "top_books": [
+      {
+        "title": "Gender Queer: A Memoir",
+        "count": 190
+      },
+      {
+        "title": "All Boys Aren't Blue",
+        "count": 179
+      },
+      {
+        "title": "Looking for Alaska",
+        "count": 175
+      },
+      {
+        "title": "The Perks of Being a Wallflower",
+        "count": 156
+      },
+      {
+        "title": "The Bluest Eye",
+        "count": 153
+      },
+      {
+        "title": "Sold",
+        "count": 147
+      },
+      {
+        "title": "Crank",
+        "count": 146
+      },
+      {
+        "title": "Nineteen Minutes",
+        "count": 140
+      },
+      {
+        "title": "Tricks",
+        "count": 139
+      },
+      {
+        "title": "The Kite Runner",
+        "count": 134
+      },
+      {
+        "title": "Thirteen Reasons Why",
+        "count": 134
+      },
+      {
+        "title": "Out of Darkness",
+        "count": 130
+      },
+      {
+        "title": "The Absolutely True Diary of a Part-Time Indian",
+        "count": 127
+      },
+      {
+        "title": "Me and Earl and the Dying Girl",
+        "count": 125
+      },
+      {
+        "title": "A Court of Mist and Fury",
+        "count": 118
+      }
+    ],
+    "top_authors": [
+      {
+        "author": "Hopkins, Ellen",
+        "count": 976
+      },
+      {
+        "author": "Maas, Sarah J.",
+        "count": 772
+      },
+      {
+        "author": "Morrison, Toni",
+        "count": 270
+      },
+      {
+        "author": "Green, John",
+        "count": 247
+      },
+      {
+        "author": "Myracle, Lauren",
+        "count": 221
+      },
+      {
+        "author": "Andrews, Jesse",
+        "count": 219
+      },
+      {
+        "author": "Arnold, Elana K.",
+        "count": 213
+      },
+      {
+        "author": "Atwood, Margaret",
+        "count": 209
+      },
+      {
+        "author": "Picoult, Jodi",
+        "count": 208
+      },
+      {
+        "author": "Hoover, Colleen",
+        "count": 192
+      }
+    ]
+  },
+  "tribal_broadband": {
+    "total_awards": 271,
+    "total_funding": 2160840410.49,
+    "avg_award": 7973580.850516604,
+    "states_covered": 33,
+    "states_list": [
+      "AK",
+      "AZ",
+      "CA",
+      "CO",
+      "CT",
+      "FL",
+      "HI",
+      "IA",
+      "ID",
+      "KS",
+      "LA",
+      "MA",
+      "ME",
+      "MI",
+      "MN",
+      "MS",
+      "MT",
+      "NC",
+      "ND",
+      "NE",
+      "NM",
+      "NV",
+      "NY",
+      "OK",
+      "OR",
+      "RI",
+      "SC",
+      "SD",
+      "TX",
+      "UT",
+      "VA",
+      "WA",
+      "WI"
+    ],
+    "categories": {
+      "adoption": 90,
+      "infrastructure": 150,
+      "planning": 48
+    },
+    "by_bia_region": [
+      {
+        "region": "Alaska",
+        "count": 47,
+        "total": 457505954.08
+      },
+      {
+        "region": "Southwest",
+        "count": 20,
+        "total": 274281852.4
+      },
+      {
+        "region": "Northwest",
+        "count": 34,
+        "total": 233507475.87
+      },
+      {
+        "region": "Eastern Oklahoma",
+        "count": 9,
+        "total": 230722611.72
+      },
+      {
+        "region": "Pacific",
+        "count": 43,
+        "total": 206425934.64
+      },
+      {
+        "region": "Western",
+        "count": 28,
+        "total": 140477549.8
+      },
+      {
+        "region": "Great Plains",
+        "count": 15,
+        "total": 132907242.80999999
+      },
+      {
+        "region": "Rocky Mountain",
+        "count": 4,
+        "total": 124248673.5
+      },
+      {
+        "region": "Midwest",
+        "count": 24,
+        "total": 100800529.96
+      },
+      {
+        "region": "Hawaii",
+        "count": 2,
+        "total": 89993473.85
+      },
+      {
+        "region": "Southern Plains",
+        "count": 16,
+        "total": 64804898.330000006
+      },
+      {
+        "region": "Eastern",
+        "count": 26,
+        "total": 51335611.660000004
+      },
+      {
+        "region": "Navajo",
+        "count": 1,
+        "total": 50830943.87
+      },
+      {
+        "region": "OK",
+        "count": 1,
+        "total": 2500000.0
+      },
+      {
+        "region": "Southern Plaines",
+        "count": 1,
+        "total": 497658.0
+      }
+    ],
+    "by_state": [
+      {
+        "state": "AK",
+        "count": 34,
+        "total": 413385910.08
+      },
+      {
+        "state": "OK",
+        "count": 18,
+        "total": 200176067.05
+      },
+      {
+        "state": "NM",
+        "count": 16,
+        "total": 186765077.28999996
+      },
+      {
+        "state": "CA",
+        "count": 36,
+        "total": 167526228.64
+      },
+      {
+        "state": "MT",
+        "count": 4,
+        "total": 142978583.05
+      },
+      {
+        "state": "AZ",
+        "count": 11,
+        "total": 126696013.17000002
+      },
+      {
+        "state": "WA",
+        "count": 18,
+        "total": 97328567.44
+      },
+      {
+        "state": "SD",
+        "count": 6,
+        "total": 77341952.02
+      },
+      {
+        "state": "CO",
+        "count": 2,
+        "total": 66432054.11
+      },
+      {
+        "state": "MN",
+        "count": 5,
+        "total": 52501528.0
+      },
+      {
+        "state": "NE",
+        "count": 5,
+        "total": 41248827.19
+      },
+      {
+        "state": "WI",
+        "count": 10,
+        "total": 37027117.93
+      },
+      {
+        "state": "NV",
+        "count": 11,
+        "total": 35459554.97
+      },
+      {
+        "state": "OR",
+        "count": 7,
+        "total": 24974861.17
+      },
+      {
+        "state": "ID",
+        "count": 2,
+        "total": 22985260.71
+      },
+      {
+        "state": "HI",
+        "count": 1,
+        "total": 17284762.85
+      },
+      {
+        "state": "UT",
+        "count": 2,
+        "total": 16354541.53
+      },
+      {
+        "state": "NY",
+        "count": 4,
+        "total": 10697448.58
+      },
+      {
+        "state": "ND",
+        "count": 2,
+        "total": 9137951.6
+      },
+      {
+        "state": "MA",
+        "count": 1,
+        "total": 9130691.63
+      },
+      {
+        "state": "MS",
+        "count": 1,
+        "total": 8433633.26
+      },
+      {
+        "state": "KS",
+        "count": 3,
+        "total": 4708317.0
+      },
+      {
+        "state": "MI",
+        "count": 7,
+        "total": 4205613.74
+      },
+      {
+        "state": "TX",
+        "count": 2,
+        "total": 3123357.0
+      },
+      {
+        "state": "LA",
+        "count": 2,
+        "total": 2865691.11
+      },
+      {
+        "state": "RI",
+        "count": 1,
+        "total": 2498250.0
+      },
+      {
+        "state": "VA",
+        "count": 3,
+        "total": 1473349.8
+      },
+      {
+        "state": "ME",
+        "count": 2,
+        "total": 1000000.0
+      },
+      {
+        "state": "SC",
+        "count": 1,
+        "total": 900578.0
+      },
+      {
+        "state": "NC",
+        "count": 1,
+        "total": 500000.0
+      },
+      {
+        "state": "FL",
+        "count": 1,
+        "total": 499920.28
+      },
+      {
+        "state": "CT",
+        "count": 1,
+        "total": 493008.0
+      },
+      {
+        "state": "IA",
+        "count": 1,
+        "total": 424652.29
+      }
+    ],
+    "by_project_type": [
+      {
+        "type": "Broadband Infrastructure Deployment",
+        "count": 143,
+        "total": 1869820677.5799992
+      },
+      {
+        "type": "Use and Adoption",
+        "count": 44,
+        "total": 91093437.93999998
+      },
+      {
+        "type": "Broadband Infrastructure Deployment & Use and Adoption",
+        "count": 2,
+        "total": 77208711.0
+      },
+      {
+        "type": "Broadband Use and Adoption",
+        "count": 34,
+        "total": 68433444.0
+      },
+      {
+        "type": "Planning, Feasibility, and Sustainability",
+        "count": 33,
+        "total": 24324687.99
+      },
+      {
+        "type": "Use and Adoption & Planning, Feasibility, and Sustainability",
+        "count": 7,
+        "total": 22866651.68
+      },
+      {
+        "type": "Broadband Infrastructure Deployment & Planning, Feasibility, and Sustainability",
+        "count": 5,
+        "total": 4493400.48
+      },
+      {
+        "type": "Use and Adoption & Planning, Feasibility and Sustainability",
+        "count": 3,
+        "total": 2599399.8200000003
+      }
+    ],
+    "by_nofo": [
+      {
+        "nofo": "NOFO 1",
+        "count": 222,
+        "total": 1800117360.4899995
+      },
+      {
+        "nofo": "NOFO 2",
+        "count": 49,
+        "total": 360723050.0
+      }
+    ],
+    "by_status": [
+      {
+        "status": "Ongoing",
+        "count": 236
+      },
+      {
+        "status": "Completed",
+        "count": 35
+      }
+    ],
+    "top_awards": [
+      {
+        "recipient": "Hawaii Department of Hawaiian Home Lands",
+        "state": "",
+        "bia_region": "Hawaii",
+        "amount": 72708711.0,
+        "project_type": "Broadband Infrastructure Deployment & Use and Adoption"
+      },
+      {
+        "recipient": "NANA Regional Corp., Inc.",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 65168000.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Hoopa Valley Tribal Council",
+        "state": "CA",
+        "bia_region": "Pacific",
+        "amount": 65140407.72,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Yurok Telecommunications Corp.",
+        "state": "CA",
+        "bia_region": "Pacific",
+        "amount": 61661365.5,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Santa Fe Indian School",
+        "state": "NM",
+        "bia_region": "Southwest",
+        "amount": 57298683.09,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Northern Cheyenne Tribe",
+        "state": "MT",
+        "bia_region": "Rocky Mountain",
+        "amount": 52870390.74,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Calista Corporation",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 52559385.14,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Navajo Tribal Utility Authority",
+        "state": "AZ",
+        "bia_region": "Navajo",
+        "amount": 50830943.87,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Doyon, Limited",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 50651548.43,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Chickasaw Nation",
+        "state": "OK",
+        "bia_region": "Eastern Oklahoma",
+        "amount": 50000000.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Central Council Tlingit & Haida Indian Tribes of Alaska",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 49899103.51,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Confederated Tribes of the Colville Reservation",
+        "state": "WA",
+        "bia_region": "Northwest",
+        "amount": 48405830.78,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Rosebud Sioux Tribe",
+        "state": "SD",
+        "bia_region": "Great Plains",
+        "amount": 48352973.57,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Choctaw Nation of Oklahoma",
+        "state": "",
+        "bia_region": "Eastern Oklahoma",
+        "amount": 46303150.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Mescalero Apache Telecom, Inc.",
+        "state": "NM",
+        "bia_region": "Southwest",
+        "amount": 43943116.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Southern Ute Indian Tribe",
+        "state": "CO",
+        "bia_region": "Southwest",
+        "amount": 43704180.59,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Bethel Native Corporation",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 42383221.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Confederated Salish and Kootenai Tribes",
+        "state": "MT",
+        "bia_region": "Northwest",
+        "amount": 41572831.55,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Muscogee (Creek) Nation",
+        "state": "",
+        "bia_region": "Eastern Oklahoma",
+        "amount": 41216619.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Osage Nation",
+        "state": "OK",
+        "bia_region": "Eastern Oklahoma",
+        "amount": 40679250.0,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Sac and Fox Nation",
+        "state": "OK",
+        "bia_region": "Southern Plains",
+        "amount": 35807104.13,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Winnebago Tribe of Nebraska",
+        "state": "NE",
+        "bia_region": "Great Plains",
+        "amount": 35252376.44,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Alaska Federation of Natives (AFN)",
+        "state": "AK",
+        "bia_region": "Alaska",
+        "amount": 35102141.0,
+        "project_type": "Use and Adoption"
+      },
+      {
+        "recipient": "Cherokee Nation",
+        "state": "OK",
+        "bia_region": "Eastern Oklahoma",
+        "amount": 33947876.75,
+        "project_type": "Broadband Infrastructure Deployment"
+      },
+      {
+        "recipient": "Blackfeet Tribe of the Blackfeet Indian Reservation",
+        "state": "MT",
+        "bia_region": "Rocky Mountain",
+        "amount": 33235003.92,
+        "project_type": "Broadband Infrastructure Deployment"
+      }
+    ],
+    "size_distribution": [
+      {
+        "bucket": "Under $500K",
+        "count": 46
+      },
+      {
+        "bucket": "$500K\u2013$1M",
+        "count": 85
+      },
+      {
+        "bucket": "$1M\u2013$5M",
+        "count": 58
+      },
+      {
+        "bucket": "$5M\u2013$10M",
+        "count": 27
+      },
+      {
+        "bucket": "$10M\u2013$50M",
+        "count": 45
+      },
+      {
+        "bucket": "$50M+",
+        "count": 10
+      }
+    ]
+  },
+  "ecf": {
+    "total_records": 121068,
+    "total_funding": 10026195493.44,
+    "date_range": "2021-06-29 to 2024-10-17",
+    "unique_applicants": 13025,
+    "by_applicant_type": [
+      {
+        "type": "School District",
+        "count": 77493,
+        "funding": 8416935331.789958
+      },
+      {
+        "type": "Library System",
+        "count": 6068,
+        "funding": 966485472.2300016
+      },
+      {
+        "type": "School",
+        "count": 30322,
+        "funding": 461372453.1900008
+      },
+      {
+        "type": "Consortium",
+        "count": 2282,
+        "funding": 121066069.41000006
+      },
+      {
+        "type": "Library",
+        "count": 4903,
+        "funding": 60336166.82000016
+      }
+    ],
+    "by_product_type": [
+      {
+        "type": "Laptops",
+        "count": 42863,
+        "funding": 5110035938.739997
+      },
+      {
+        "type": "(blank/services)",
+        "count": 36458,
+        "funding": 1934822969.2400053
+      },
+      {
+        "type": "Taxes and Reasonable Charges",
+        "count": 10088,
+        "funding": 1382721806.2600024
+      },
+      {
+        "type": "Tablets",
+        "count": 12957,
+        "funding": 845521684.4799998
+      },
+      {
+        "type": "Reasonable Charges",
+        "count": 2773,
+        "funding": 266264055.14999983
+      },
+      {
+        "type": "Taxes",
+        "count": 1855,
+        "funding": 217890573.05000004
+      },
+      {
+        "type": "Wi-Fi hotspots",
+        "count": 9274,
+        "funding": 131137012.81000014
+      },
+      {
+        "type": "Modem/Router combined",
+        "count": 1735,
+        "funding": 71144631.44999996
+      },
+      {
+        "type": "Routers",
+        "count": 2570,
+        "funding": 54138194.32999993
+      },
+      {
+        "type": "Modems",
+        "count": 495,
+        "funding": 12518627.930000003
+      }
+    ],
+    "by_service_type": [
+      {
+        "type": "Equipment",
+        "count": 84610,
+        "funding": 8091372524.199919
+      },
+      {
+        "type": "Services",
+        "count": 36458,
+        "funding": 1934822969.2400053
+      }
+    ],
+    "by_state": [
+      {
+        "state": "CA",
+        "count": 14009,
+        "funding": 2089909465.4100127
+      },
+      {
+        "state": "NC",
+        "count": 3920,
+        "funding": 1074633274.0299995
+      },
+      {
+        "state": "TX",
+        "count": 6997,
+        "funding": 886380044.4299998
+      },
+      {
+        "state": "AK",
+        "count": 554,
+        "funding": 628109103.0600004
+      },
+      {
+        "state": "IL",
+        "count": 6062,
+        "funding": 419297410.54999954
+      },
+      {
+        "state": "FL",
+        "count": 3564,
+        "funding": 413975742.5499999
+      },
+      {
+        "state": "AZ",
+        "count": 4758,
+        "funding": 339134716.1900015
+      },
+      {
+        "state": "NY",
+        "count": 7549,
+        "funding": 336413330.0800001
+      },
+      {
+        "state": "WA",
+        "count": 3760,
+        "funding": 260218774.7799996
+      },
+      {
+        "state": "GA",
+        "count": 1945,
+        "funding": 217245378.01999995
+      },
+      {
+        "state": "MI",
+        "count": 3828,
+        "funding": 183642426.67999992
+      },
+      {
+        "state": "PA",
+        "count": 3539,
+        "funding": 178052047.7400001
+      },
+      {
+        "state": "OH",
+        "count": 4593,
+        "funding": 177393174.40000013
+      },
+      {
+        "state": "NJ",
+        "count": 3571,
+        "funding": 175084703.5900001
+      },
+      {
+        "state": "MO",
+        "count": 3099,
+        "funding": 158635111.48999998
+      },
+      {
+        "state": "MD",
+        "count": 986,
+        "funding": 151909370.7700001
+      },
+      {
+        "state": "VA",
+        "count": 1596,
+        "funding": 151427798.36000007
+      },
+      {
+        "state": "OK",
+        "count": 3072,
+        "funding": 142330082.32000002
+      },
+      {
+        "state": "PR",
+        "count": 3330,
+        "funding": 136026178.66000003
+      },
+      {
+        "state": "OR",
+        "count": 1509,
+        "funding": 116582980.39000008
+      },
+      {
+        "state": "MA",
+        "count": 2191,
+        "funding": 112888652.19999994
+      },
+      {
+        "state": "IN",
+        "count": 2132,
+        "funding": 111405377.99
+      },
+      {
+        "state": "KY",
+        "count": 1563,
+        "funding": 108600025.86999996
+      },
+      {
+        "state": "LA",
+        "count": 1550,
+        "funding": 108273807.15999994
+      },
+      {
+        "state": "AL",
+        "count": 928,
+        "funding": 107048060.35999997
+      },
+      {
+        "state": "MN",
+        "count": 4056,
+        "funding": 106550877.10999998
+      },
+      {
+        "state": "WI",
+        "count": 4435,
+        "funding": 101383801.04000002
+      },
+      {
+        "state": "CO",
+        "count": 1651,
+        "funding": 99430255.71999992
+      },
+      {
+        "state": "TN",
+        "count": 959,
+        "funding": 94701325.22000003
+      },
+      {
+        "state": "NM",
+        "count": 1909,
+        "funding": 91594646.89000002
+      },
+      {
+        "state": "SC",
+        "count": 830,
+        "funding": 84739686.72999999
+      },
+      {
+        "state": "CT",
+        "count": 1270,
+        "funding": 74764623.44999997
+      },
+      {
+        "state": "AR",
+        "count": 1663,
+        "funding": 73165589.68000007
+      },
+      {
+        "state": "ID",
+        "count": 717,
+        "funding": 63436436.40000003
+      },
+      {
+        "state": "NE",
+        "count": 1569,
+        "funding": 55718923.180000015
+      },
+      {
+        "state": "IA",
+        "count": 1596,
+        "funding": 47387139.849999994
+      },
+      {
+        "state": "UT",
+        "count": 335,
+        "funding": 41826594.91999999
+      },
+      {
+        "state": "KS",
+        "count": 1785,
+        "funding": 38045070.34999999
+      },
+      {
+        "state": "DC",
+        "count": 556,
+        "funding": 35093307.93000002
+      },
+      {
+        "state": "MS",
+        "count": 1634,
+        "funding": 32629301.28000001
+      },
+      {
+        "state": "WV",
+        "count": 657,
+        "funding": 32558641.439999983
+      },
+      {
+        "state": "RI",
+        "count": 598,
+        "funding": 31490171.100000005
+      },
+      {
+        "state": "DE",
+        "count": 143,
+        "funding": 21731314.36
+      },
+      {
+        "state": "NV",
+        "count": 495,
+        "funding": 20211114.209999997
+      },
+      {
+        "state": "VI",
+        "count": 54,
+        "funding": 17796000.0
+      },
+      {
+        "state": "NH",
+        "count": 376,
+        "funding": 10156992.15
+      },
+      {
+        "state": "AS",
+        "count": 16,
+        "funding": 9586765.290000001
+      },
+      {
+        "state": "WY",
+        "count": 179,
+        "funding": 8806939.500000006
+      },
+      {
+        "state": "ME",
+        "count": 702,
+        "funding": 8568273.450000003
+      },
+      {
+        "state": "VT",
+        "count": 532,
+        "funding": 8283544.039999999
+      },
+      {
+        "state": "ND",
+        "count": 410,
+        "funding": 7979555.2700000005
+      },
+      {
+        "state": "MT",
+        "count": 576,
+        "funding": 7829069.480000001
+      },
+      {
+        "state": "SD",
+        "count": 415,
+        "funding": 7647742.9799999995
+      },
+      {
+        "state": "HI",
+        "count": 328,
+        "funding": 7129417.339999998
+      },
+      {
+        "state": "MP",
+        "count": 10,
+        "funding": 1335336.0
+      },
+      {
+        "state": "GU",
+        "count": 6,
+        "funding": 0.0
+      }
+    ],
+    "library": {
+      "total_records": 10971,
+      "total_funding": 1026821639.05,
+      "unique_libraries": 1121,
+      "by_state": [
+        {
+          "state": "NC",
+          "count": 456,
+          "funding": 697361444.4400002
+        },
+        {
+          "state": "CA",
+          "count": 541,
+          "funding": 81462370.22000003
+        },
+        {
+          "state": "TX",
+          "count": 535,
+          "funding": 53939484.99999999
+        },
+        {
+          "state": "MD",
+          "count": 150,
+          "funding": 53313395.57999999
+        },
+        {
+          "state": "PR",
+          "count": 1524,
+          "funding": 27731644.39999998
+        },
+        {
+          "state": "PA",
+          "count": 427,
+          "funding": 20416823.789999984
+        },
+        {
+          "state": "MO",
+          "count": 134,
+          "funding": 15292436.83
+        },
+        {
+          "state": "OH",
+          "count": 687,
+          "funding": 11032867.419999992
+        },
+        {
+          "state": "FL",
+          "count": 229,
+          "funding": 7846460.529999999
+        },
+        {
+          "state": "NY",
+          "count": 384,
+          "funding": 7505359.88
+        },
+        {
+          "state": "DC",
+          "count": 12,
+          "funding": 7015011.68
+        },
+        {
+          "state": "NJ",
+          "count": 190,
+          "funding": 5236359.589999999
+        },
+        {
+          "state": "NV",
+          "count": 92,
+          "funding": 4274729.61
+        },
+        {
+          "state": "MS",
+          "count": 176,
+          "funding": 3177018.08
+        },
+        {
+          "state": "IA",
+          "count": 291,
+          "funding": 2645684.389999999
+        },
+        {
+          "state": "GA",
+          "count": 371,
+          "funding": 2455038.0000000014
+        },
+        {
+          "state": "AZ",
+          "count": 287,
+          "funding": 2250080.540000001
+        },
+        {
+          "state": "IL",
+          "count": 503,
+          "funding": 2065425.8199999994
+        },
+        {
+          "state": "MI",
+          "count": 535,
+          "funding": 2024276.7699999998
+        },
+        {
+          "state": "AK",
+          "count": 29,
+          "funding": 1945240.8800000004
+        },
+        {
+          "state": "KY",
+          "count": 334,
+          "funding": 1940460.21
+        },
+        {
+          "state": "MN",
+          "count": 96,
+          "funding": 1707608.2199999995
+        },
+        {
+          "state": "VA",
+          "count": 245,
+          "funding": 1544504.18
+        },
+        {
+          "state": "WA",
+          "count": 163,
+          "funding": 1527997.2600000002
+        },
+        {
+          "state": "LA",
+          "count": 267,
+          "funding": 1254179.28
+        },
+        {
+          "state": "AL",
+          "count": 194,
+          "funding": 1175636.68
+        },
+        {
+          "state": "CT",
+          "count": 200,
+          "funding": 969222.1599999999
+        },
+        {
+          "state": "OR",
+          "count": 123,
+          "funding": 928265.9499999997
+        },
+        {
+          "state": "NE",
+          "count": 185,
+          "funding": 918497.3399999999
+        },
+        {
+          "state": "KS",
+          "count": 155,
+          "funding": 899773.0199999996
+        },
+        {
+          "state": "IN",
+          "count": 223,
+          "funding": 805405.9800000002
+        },
+        {
+          "state": "CO",
+          "count": 121,
+          "funding": 802560.8200000002
+        },
+        {
+          "state": "UT",
+          "count": 14,
+          "funding": 607951.1699999999
+        },
+        {
+          "state": "RI",
+          "count": 95,
+          "funding": 537952.17
+        },
+        {
+          "state": "WI",
+          "count": 193,
+          "funding": 443260.05000000005
+        },
+        {
+          "state": "TN",
+          "count": 149,
+          "funding": 327848.59
+        },
+        {
+          "state": "AR",
+          "count": 147,
+          "funding": 300674.75
+        },
+        {
+          "state": "WV",
+          "count": 51,
+          "funding": 245049.53
+        },
+        {
+          "state": "HI",
+          "count": 4,
+          "funding": 237571.6
+        },
+        {
+          "state": "MA",
+          "count": 60,
+          "funding": 148101.99
+        },
+        {
+          "state": "OK",
+          "count": 88,
+          "funding": 141931.78
+        },
+        {
+          "state": "NM",
+          "count": 102,
+          "funding": 115974.15000000002
+        },
+        {
+          "state": "SC",
+          "count": 48,
+          "funding": 92505.86
+        },
+        {
+          "state": "ID",
+          "count": 35,
+          "funding": 56632.20999999999
+        },
+        {
+          "state": "VT",
+          "count": 17,
+          "funding": 29619.55
+        },
+        {
+          "state": "MP",
+          "count": 4,
+          "funding": 21750.0
+        },
+        {
+          "state": "WY",
+          "count": 10,
+          "funding": 18087.52
+        },
+        {
+          "state": "ME",
+          "count": 39,
+          "funding": 12829.66
+        },
+        {
+          "state": "ND",
+          "count": 15,
+          "funding": 11434.08
+        },
+        {
+          "state": "MT",
+          "count": 17,
+          "funding": 7199.84
+        },
+        {
+          "state": "SD",
+          "count": 12,
+          "funding": 0.0
+        },
+        {
+          "state": "NH",
+          "count": 6,
+          "funding": 0.0
+        },
+        {
+          "state": "AS",
+          "count": 6,
+          "funding": 0.0
+        }
+      ],
+      "by_product_type": [
+        {
+          "type": "Laptops",
+          "count": 1835,
+          "funding": 784152385.7200003
+        },
+        {
+          "type": "(blank/services)",
+          "count": 4952,
+          "funding": 146545551.39000037
+        },
+        {
+          "type": "Taxes and Reasonable Charges",
+          "count": 735,
+          "funding": 38849350.41
+        },
+        {
+          "type": "Wi-Fi hotspots",
+          "count": 1713,
+          "funding": 30867532.06
+        },
+        {
+          "type": "Tablets",
+          "count": 1030,
+          "funding": 18325205.109999996
+        },
+        {
+          "type": "Taxes",
+          "count": 75,
+          "funding": 4342875.909999999
+        },
+        {
+          "type": "Reasonable Charges",
+          "count": 236,
+          "funding": 2306629.6
+        },
+        {
+          "type": "Modem/Router combined",
+          "count": 134,
+          "funding": 780930.2399999998
+        },
+        {
+          "type": "Routers",
+          "count": 225,
+          "funding": 632036.7099999998
+        },
+        {
+          "type": "Modems",
+          "count": 36,
+          "funding": 19141.9
+        }
+      ]
     }
   },
   "imls_grants": {

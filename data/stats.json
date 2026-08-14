@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:43 UTC",
+  "generated": "2026-08-14 22:48 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -24724,6 +24724,1654 @@
       "Charter schools have markedly lower librarian staffing than traditional public schools (32.8% full-time certified vs 67.4%).",
       "Figures are for public schools only; private school library data were not collected in the SASS library media center component."
     ]
+  },
+  "usda_grants": {
+    "source": {
+      "program": "USDA Rural Development Community Facilities",
+      "assistance_listing": "10.766 - Community Facilities Loans and Grants",
+      "data_origin": "USASpending.gov API (federal spending transparency)",
+      "cache_file": "data/_cache/usda_community_facilities.csv",
+      "notes": "USDA rd.usda.gov and data.gov CKAN API block automated access from this environment; USASpending.gov is the authoritative award-level mirror and is bot-friendly. Libraries are an eligible CF facility type; awards to libraries are identified by recipient name containing 'library'/'libraries'."
+    },
+    "totals": {
+      "total_cf_awards_in_dataset": 27410,
+      "library_awards": 262,
+      "library_grants": 212,
+      "library_loans": 50,
+      "total_dollars": 64218642,
+      "grant_dollars_obligated": 19361808,
+      "loan_face_value": 44856834,
+      "loan_subsidy_cost": 2834413,
+      "grant_outlayed_amount": 4903886,
+      "distinct_recipients": 172,
+      "states_covered": 41,
+      "fiscal_year_range": {
+        "start": 2007,
+        "end": 2025
+      }
+    },
+    "top_states": [
+      {
+        "state": "KY",
+        "awards": 9,
+        "grants": 1,
+        "loans": 8,
+        "total_dollars": 14363000,
+        "recipients": 8
+      },
+      {
+        "state": "MI",
+        "awards": 13,
+        "grants": 5,
+        "loans": 8,
+        "total_dollars": 12263200,
+        "recipients": 10
+      },
+      {
+        "state": "ME",
+        "awards": 22,
+        "grants": 21,
+        "loans": 1,
+        "total_dollars": 8151335,
+        "recipients": 13
+      },
+      {
+        "state": "NY",
+        "awards": 13,
+        "grants": 7,
+        "loans": 6,
+        "total_dollars": 7341966,
+        "recipients": 7
+      },
+      {
+        "state": "PA",
+        "awards": 27,
+        "grants": 22,
+        "loans": 5,
+        "total_dollars": 4472010,
+        "recipients": 19
+      },
+      {
+        "state": "NE",
+        "awards": 4,
+        "grants": 2,
+        "loans": 2,
+        "total_dollars": 2953690,
+        "recipients": 3
+      },
+      {
+        "state": "DE",
+        "awards": 7,
+        "grants": 5,
+        "loans": 2,
+        "total_dollars": 2846400,
+        "recipients": 4
+      },
+      {
+        "state": "IN",
+        "awards": 10,
+        "grants": 6,
+        "loans": 4,
+        "total_dollars": 2354590,
+        "recipients": 9
+      },
+      {
+        "state": "TX",
+        "awards": 8,
+        "grants": 6,
+        "loans": 2,
+        "total_dollars": 1424725,
+        "recipients": 6
+      },
+      {
+        "state": "WA",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "total_dollars": 1300000,
+        "recipients": 2
+      },
+      {
+        "state": "WI",
+        "awards": 4,
+        "grants": 4,
+        "loans": 0,
+        "total_dollars": 1273000,
+        "recipients": 4
+      },
+      {
+        "state": "VT",
+        "awards": 8,
+        "grants": 8,
+        "loans": 0,
+        "total_dollars": 1076379,
+        "recipients": 7
+      },
+      {
+        "state": "RI",
+        "awards": 3,
+        "grants": 3,
+        "loans": 0,
+        "total_dollars": 720748,
+        "recipients": 1
+      },
+      {
+        "state": "IL",
+        "awards": 14,
+        "grants": 11,
+        "loans": 3,
+        "total_dollars": 648460,
+        "recipients": 9
+      },
+      {
+        "state": "GA",
+        "awards": 20,
+        "grants": 20,
+        "loans": 0,
+        "total_dollars": 451784,
+        "recipients": 5
+      }
+    ],
+    "top_recipients": [
+      {
+        "recipient": "ALLEGAN DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Allegan",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 6500000
+      },
+      {
+        "recipient": "GRAYSON COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Leitchfield",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 4600000
+      },
+      {
+        "recipient": "ONEIDA PUBLIC LIBRARY",
+        "state": "NY",
+        "city": "Oneida",
+        "awards": 2,
+        "grants": 1,
+        "loans": 1,
+        "total_dollars": 4159321
+      },
+      {
+        "recipient": "FRIENDS OF VETERANS MEMORIAL LIBRARY",
+        "state": "ME",
+        "city": "Patten",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "total_dollars": 3900000
+      },
+      {
+        "recipient": "ORONO PUBLIC LIBRARY FOUNDATION",
+        "state": "ME",
+        "city": "Orono",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "total_dollars": 3600000
+      },
+      {
+        "recipient": "BLAIR PUBLIC LIBRARY FOUNDATION",
+        "state": "NE",
+        "city": "Blair",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 2775100
+      },
+      {
+        "recipient": "DELMAR PUBLIC LIBRARY",
+        "state": "DE",
+        "city": "Delmar",
+        "awards": 3,
+        "grants": 1,
+        "loans": 2,
+        "total_dollars": 2715000
+      },
+      {
+        "recipient": "HANCOCK COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Hawesville",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 2300000
+      },
+      {
+        "recipient": "NORTH POCONO PUBLIC LIBRARY",
+        "state": "PA",
+        "city": "Moscow",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 2300000
+      },
+      {
+        "recipient": "BRECKINRIDGE COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Hardinsburg",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 2250000
+      },
+      {
+        "recipient": "OWEN COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Owenton",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 2163000
+      },
+      {
+        "recipient": "ROSCOMMON AREA DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Roscommon",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 1800000
+      },
+      {
+        "recipient": "SWAN LIBRARY",
+        "state": "NY",
+        "city": "Albion",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 1650000
+      },
+      {
+        "recipient": "TRIMBLE CO PUBLIC  LIBRARY DISTRICT",
+        "state": "KY",
+        "city": "Bedford",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 1500000
+      },
+      {
+        "recipient": "GLADWIN COUNTY DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Gladwin",
+        "awards": 3,
+        "grants": 2,
+        "loans": 1,
+        "total_dollars": 1272500
+      },
+      {
+        "recipient": "LOOGOOTEE PUBLIC LIBRARY",
+        "state": "IN",
+        "city": "Loogootee",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 1134800
+      },
+      {
+        "recipient": "EAST BERLIN COMMUNITY LIBRARY",
+        "state": "PA",
+        "city": "East Berlin",
+        "awards": 2,
+        "grants": 0,
+        "loans": 2,
+        "total_dollars": 1000000
+      },
+      {
+        "recipient": "BRANDON FREE PUBLIC LIBRARY INC",
+        "state": "VT",
+        "city": "Brandon",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "total_dollars": 1000000
+      },
+      {
+        "recipient": "UNION GAP LIBRARY AND COMMUNITY CENTER,",
+        "state": "WA",
+        "city": "Yakima",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "total_dollars": 1000000
+      },
+      {
+        "recipient": "HARBOR BEACH AREA DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Harbor Beach",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 750000
+      },
+      {
+        "recipient": "TOWN OF TIVERTON PUBLIC LIBRARY",
+        "state": "RI",
+        "city": "Tiverton",
+        "awards": 3,
+        "grants": 3,
+        "loans": 0,
+        "total_dollars": 720748
+      },
+      {
+        "recipient": "NICHOLAS COUNTY LIBRARY",
+        "state": "KY",
+        "city": "Carlisle",
+        "awards": 2,
+        "grants": 0,
+        "loans": 2,
+        "total_dollars": 700000
+      },
+      {
+        "recipient": "BROWNWOOD COMMUNITY LIBRARY ASSOCIATION",
+        "state": "TX",
+        "city": "Brownwood",
+        "awards": 2,
+        "grants": 1,
+        "loans": 1,
+        "total_dollars": 700000
+      },
+      {
+        "recipient": "SHOALS PUBLIC LIBRARY",
+        "state": "IN",
+        "city": "Shoals",
+        "awards": 2,
+        "grants": 0,
+        "loans": 2,
+        "total_dollars": 660000
+      },
+      {
+        "recipient": "LAKE ODESSA COMMUNITY LIBRARY DISTRICT",
+        "state": "MI",
+        "city": "Lake Odessa",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "total_dollars": 625000
+      }
+    ],
+    "largest_single_awards": [
+      {
+        "recipient": "ALLEGAN DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Allegan",
+        "amount": 6500000,
+        "award_type": "loan",
+        "fiscal_year": 2017,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CPAP000000196165"
+      },
+      {
+        "recipient": "GRAYSON COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Leitchfield",
+        "amount": 4600000,
+        "award_type": "loan",
+        "fiscal_year": 2015,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "0000009118901CFL"
+      },
+      {
+        "recipient": "ONEIDA PUBLIC LIBRARY",
+        "state": "NY",
+        "city": "Oneida",
+        "amount": 4159321,
+        "award_type": "loan",
+        "fiscal_year": 2014,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "0000008794101CFL"
+      },
+      {
+        "recipient": "FRIENDS OF VETERANS MEMORIAL LIBRARY",
+        "state": "ME",
+        "city": "Patten",
+        "amount": 3900000,
+        "award_type": "grant",
+        "fiscal_year": 2024,
+        "description": "CF CONGRESSIONALLY DIRECTED GRANTS",
+        "award_id_fain": "CLSS00000084441"
+      },
+      {
+        "recipient": "ORONO PUBLIC LIBRARY FOUNDATION",
+        "state": "ME",
+        "city": "Orono",
+        "amount": 3600000,
+        "award_type": "grant",
+        "fiscal_year": 2025,
+        "description": "COMMUNITY PROJECT GRANTS CONGRESSIONALLY DELEGATED",
+        "award_id_fain": "CLSS00000092845"
+      },
+      {
+        "recipient": "BLAIR PUBLIC LIBRARY FOUNDATION",
+        "state": "NE",
+        "city": "Blair",
+        "amount": 2775100,
+        "award_type": "loan",
+        "fiscal_year": 2015,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "0000009135001CFL"
+      },
+      {
+        "recipient": "HANCOCK COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Hawesville",
+        "amount": 2300000,
+        "award_type": "loan",
+        "fiscal_year": 2010,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF85023707"
+      },
+      {
+        "recipient": "NORTH POCONO PUBLIC LIBRARY",
+        "state": "PA",
+        "city": "Moscow",
+        "amount": 2300000,
+        "award_type": "loan",
+        "fiscal_year": 2012,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF42069L106393"
+      },
+      {
+        "recipient": "BRECKINRIDGE COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Hardinsburg",
+        "amount": 2250000,
+        "award_type": "loan",
+        "fiscal_year": 2010,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF86945507"
+      },
+      {
+        "recipient": "OWEN COUNTY PUBLIC LIBRARY",
+        "state": "KY",
+        "city": "Owenton",
+        "amount": 2163000,
+        "award_type": "loan",
+        "fiscal_year": 2011,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF93966807"
+      },
+      {
+        "recipient": "DELMAR PUBLIC LIBRARY",
+        "state": "DE",
+        "city": "Delmar",
+        "amount": 2000000,
+        "award_type": "loan",
+        "fiscal_year": 2016,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "0000009157601CFL"
+      },
+      {
+        "recipient": "ROSCOMMON AREA DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Roscommon",
+        "amount": 1800000,
+        "award_type": "loan",
+        "fiscal_year": 2012,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF26143L136045"
+      },
+      {
+        "recipient": "SWAN LIBRARY",
+        "state": "NY",
+        "city": "Albion",
+        "amount": 1650000,
+        "award_type": "loan",
+        "fiscal_year": 2012,
+        "description": "GUARANTEED COMMUNITY FACILITY LOAN",
+        "award_id_fain": "CF108723908"
+      },
+      {
+        "recipient": "TRIMBLE CO PUBLIC  LIBRARY DISTRICT",
+        "state": "KY",
+        "city": "Bedford",
+        "amount": 1500000,
+        "award_type": "loan",
+        "fiscal_year": 2010,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CF84550007"
+      },
+      {
+        "recipient": "GLADWIN COUNTY DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Gladwin",
+        "amount": 1200000,
+        "award_type": "loan",
+        "fiscal_year": 2015,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "0000009199501CFL"
+      },
+      {
+        "recipient": "LOOGOOTEE PUBLIC LIBRARY",
+        "state": "IN",
+        "city": "Loogootee",
+        "amount": 1134800,
+        "award_type": "loan",
+        "fiscal_year": 2018,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CPAP000000381652"
+      },
+      {
+        "recipient": "BRANDON FREE PUBLIC LIBRARY INC",
+        "state": "VT",
+        "city": "Brandon",
+        "amount": 1000000,
+        "award_type": "grant",
+        "fiscal_year": 2025,
+        "description": "COMMUNITY PROJECT GRANTS CONGRESSIONALLY DELEGATED",
+        "award_id_fain": "CLSS00000091347"
+      },
+      {
+        "recipient": "UNION GAP LIBRARY AND COMMUNITY CENTER,",
+        "state": "WA",
+        "city": "Yakima",
+        "amount": 1000000,
+        "award_type": "grant",
+        "fiscal_year": 2025,
+        "description": "CF CONGRESSIONALLY DIRECTED GRANTS",
+        "award_id_fain": "CLSS00000088604"
+      },
+      {
+        "recipient": "HARBOR BEACH AREA DISTRICT LIBRARY",
+        "state": "MI",
+        "city": "Harbor Beach",
+        "amount": 750000,
+        "award_type": "loan",
+        "fiscal_year": 2008,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "7973342616139481"
+      },
+      {
+        "recipient": "DELMAR PUBLIC LIBRARY",
+        "state": "DE",
+        "city": "Delmar",
+        "amount": 665000,
+        "award_type": "loan",
+        "fiscal_year": 2020,
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "award_id_fain": "CPAP000000850684"
+      }
+    ],
+    "by_year": [
+      {
+        "fiscal_year": 2007,
+        "grants": 2,
+        "loans": 1,
+        "grant_dollars": 78179,
+        "loan_dollars": 0,
+        "total_dollars": 78179
+      },
+      {
+        "fiscal_year": 2008,
+        "grants": 5,
+        "loans": 4,
+        "grant_dollars": 117912,
+        "loan_dollars": 1460000,
+        "total_dollars": 1577912
+      },
+      {
+        "fiscal_year": 2009,
+        "grants": 8,
+        "loans": 1,
+        "grant_dollars": 611775,
+        "loan_dollars": 199000,
+        "total_dollars": 810775
+      },
+      {
+        "fiscal_year": 2010,
+        "grants": 24,
+        "loans": 6,
+        "grant_dollars": 1501670,
+        "loan_dollars": 6478013,
+        "total_dollars": 7979683
+      },
+      {
+        "fiscal_year": 2011,
+        "grants": 39,
+        "loans": 7,
+        "grant_dollars": 969711,
+        "loan_dollars": 3200000,
+        "total_dollars": 4169711
+      },
+      {
+        "fiscal_year": 2012,
+        "grants": 11,
+        "loans": 5,
+        "grant_dollars": 160255,
+        "loan_dollars": 5850000,
+        "total_dollars": 6010255
+      },
+      {
+        "fiscal_year": 2013,
+        "grants": 12,
+        "loans": 2,
+        "grant_dollars": 226135,
+        "loan_dollars": 625000,
+        "total_dollars": 851135
+      },
+      {
+        "fiscal_year": 2014,
+        "grants": 6,
+        "loans": 4,
+        "grant_dollars": 129200,
+        "loan_dollars": 5205821,
+        "total_dollars": 5335021
+      },
+      {
+        "fiscal_year": 2015,
+        "grants": 11,
+        "loans": 5,
+        "grant_dollars": 227025,
+        "loan_dollars": 9135100,
+        "total_dollars": 9362125
+      },
+      {
+        "fiscal_year": 2016,
+        "grants": 14,
+        "loans": 2,
+        "grant_dollars": 322700,
+        "loan_dollars": 2140000,
+        "total_dollars": 2462700
+      },
+      {
+        "fiscal_year": 2017,
+        "grants": 12,
+        "loans": 1,
+        "grant_dollars": 336430,
+        "loan_dollars": 6500000,
+        "total_dollars": 6836430
+      },
+      {
+        "fiscal_year": 2018,
+        "grants": 10,
+        "loans": 1,
+        "grant_dollars": 217282,
+        "loan_dollars": 1134800,
+        "total_dollars": 1352082
+      },
+      {
+        "fiscal_year": 2019,
+        "grants": 8,
+        "loans": 0,
+        "grant_dollars": 149750,
+        "loan_dollars": 0,
+        "total_dollars": 149750
+      },
+      {
+        "fiscal_year": 2020,
+        "grants": 9,
+        "loans": 1,
+        "grant_dollars": 225899,
+        "loan_dollars": 665000,
+        "total_dollars": 890899
+      },
+      {
+        "fiscal_year": 2021,
+        "grants": 14,
+        "loans": 3,
+        "grant_dollars": 450307,
+        "loan_dollars": 422100,
+        "total_dollars": 872407
+      },
+      {
+        "fiscal_year": 2022,
+        "grants": 8,
+        "loans": 3,
+        "grant_dollars": 671430,
+        "loan_dollars": 994000,
+        "total_dollars": 1665430
+      },
+      {
+        "fiscal_year": 2023,
+        "grants": 6,
+        "loans": 2,
+        "grant_dollars": 1133148,
+        "loan_dollars": 490000,
+        "total_dollars": 1623148
+      },
+      {
+        "fiscal_year": 2024,
+        "grants": 7,
+        "loans": 1,
+        "grant_dollars": 5324000,
+        "loan_dollars": 188000,
+        "total_dollars": 5512000
+      },
+      {
+        "fiscal_year": 2025,
+        "grants": 6,
+        "loans": 1,
+        "grant_dollars": 6509000,
+        "loan_dollars": 170000,
+        "total_dollars": 6679000
+      }
+    ],
+    "by_state": [
+      {
+        "state": "AL",
+        "awards": 3,
+        "grants": 2,
+        "loans": 1,
+        "grant_dollars": 53600,
+        "loan_dollars": 0,
+        "total_dollars": 53600,
+        "recipients": 3
+      },
+      {
+        "state": "AZ",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "grant_dollars": 6262,
+        "loan_dollars": 0,
+        "total_dollars": 6262,
+        "recipients": 1
+      },
+      {
+        "state": "CA",
+        "awards": 3,
+        "grants": 3,
+        "loans": 0,
+        "grant_dollars": 50997,
+        "loan_dollars": 0,
+        "total_dollars": 50997,
+        "recipients": 2
+      },
+      {
+        "state": "CO",
+        "awards": 16,
+        "grants": 16,
+        "loans": 0,
+        "grant_dollars": 360800,
+        "loan_dollars": 0,
+        "total_dollars": 360800,
+        "recipients": 11
+      },
+      {
+        "state": "DE",
+        "awards": 7,
+        "grants": 5,
+        "loans": 2,
+        "grant_dollars": 181400,
+        "loan_dollars": 2665000,
+        "total_dollars": 2846400,
+        "recipients": 4
+      },
+      {
+        "state": "GA",
+        "awards": 20,
+        "grants": 20,
+        "loans": 0,
+        "grant_dollars": 451784,
+        "loan_dollars": 0,
+        "total_dollars": 451784,
+        "recipients": 5
+      },
+      {
+        "state": "GU",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 120567,
+        "loan_dollars": 0,
+        "total_dollars": 120567,
+        "recipients": 1
+      },
+      {
+        "state": "HI",
+        "awards": 6,
+        "grants": 6,
+        "loans": 0,
+        "grant_dollars": 140740,
+        "loan_dollars": 0,
+        "total_dollars": 140740,
+        "recipients": 1
+      },
+      {
+        "state": "IA",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "grant_dollars": 109000,
+        "loan_dollars": 0,
+        "total_dollars": 109000,
+        "recipients": 1
+      },
+      {
+        "state": "ID",
+        "awards": 4,
+        "grants": 2,
+        "loans": 2,
+        "grant_dollars": 42700,
+        "loan_dollars": 310000,
+        "total_dollars": 352700,
+        "recipients": 3
+      },
+      {
+        "state": "IL",
+        "awards": 14,
+        "grants": 11,
+        "loans": 3,
+        "grant_dollars": 417460,
+        "loan_dollars": 231000,
+        "total_dollars": 648460,
+        "recipients": 9
+      },
+      {
+        "state": "IN",
+        "awards": 10,
+        "grants": 6,
+        "loans": 4,
+        "grant_dollars": 159790,
+        "loan_dollars": 2194800,
+        "total_dollars": 2354590,
+        "recipients": 9
+      },
+      {
+        "state": "KS",
+        "awards": 4,
+        "grants": 4,
+        "loans": 0,
+        "grant_dollars": 49000,
+        "loan_dollars": 0,
+        "total_dollars": 49000,
+        "recipients": 3
+      },
+      {
+        "state": "KY",
+        "awards": 9,
+        "grants": 1,
+        "loans": 8,
+        "grant_dollars": 500000,
+        "loan_dollars": 13863000,
+        "total_dollars": 14363000,
+        "recipients": 8
+      },
+      {
+        "state": "LA",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "grant_dollars": 27500,
+        "loan_dollars": 0,
+        "total_dollars": 27500,
+        "recipients": 1
+      },
+      {
+        "state": "MA",
+        "awards": 6,
+        "grants": 6,
+        "loans": 0,
+        "grant_dollars": 25935,
+        "loan_dollars": 0,
+        "total_dollars": 25935,
+        "recipients": 2
+      },
+      {
+        "state": "MD",
+        "awards": 3,
+        "grants": 3,
+        "loans": 0,
+        "grant_dollars": 139500,
+        "loan_dollars": 0,
+        "total_dollars": 139500,
+        "recipients": 2
+      },
+      {
+        "state": "ME",
+        "awards": 22,
+        "grants": 21,
+        "loans": 1,
+        "grant_dollars": 8104835,
+        "loan_dollars": 46500,
+        "total_dollars": 8151335,
+        "recipients": 13
+      },
+      {
+        "state": "MI",
+        "awards": 13,
+        "grants": 5,
+        "loans": 8,
+        "grant_dollars": 781200,
+        "loan_dollars": 11482000,
+        "total_dollars": 12263200,
+        "recipients": 10
+      },
+      {
+        "state": "MO",
+        "awards": 9,
+        "grants": 8,
+        "loans": 1,
+        "grant_dollars": 157708,
+        "loan_dollars": 6147,
+        "total_dollars": 163855,
+        "recipients": 7
+      },
+      {
+        "state": "MP",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 24999,
+        "loan_dollars": 0,
+        "total_dollars": 24999,
+        "recipients": 1
+      },
+      {
+        "state": "MS",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 18750,
+        "loan_dollars": 0,
+        "total_dollars": 18750,
+        "recipients": 2
+      },
+      {
+        "state": "NC",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "grant_dollars": 9200,
+        "loan_dollars": 0,
+        "total_dollars": 9200,
+        "recipients": 1
+      },
+      {
+        "state": "ND",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 111255,
+        "loan_dollars": 0,
+        "total_dollars": 111255,
+        "recipients": 1
+      },
+      {
+        "state": "NE",
+        "awards": 4,
+        "grants": 2,
+        "loans": 2,
+        "grant_dollars": 78590,
+        "loan_dollars": 2875100,
+        "total_dollars": 2953690,
+        "recipients": 3
+      },
+      {
+        "state": "NH",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 20400,
+        "loan_dollars": 0,
+        "total_dollars": 20400,
+        "recipients": 2
+      },
+      {
+        "state": "NM",
+        "awards": 3,
+        "grants": 2,
+        "loans": 1,
+        "grant_dollars": 136000,
+        "loan_dollars": 49866,
+        "total_dollars": 185866,
+        "recipients": 2
+      },
+      {
+        "state": "NY",
+        "awards": 13,
+        "grants": 7,
+        "loans": 6,
+        "grant_dollars": 394645,
+        "loan_dollars": 6947321,
+        "total_dollars": 7341966,
+        "recipients": 7
+      },
+      {
+        "state": "OH",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "grant_dollars": 0,
+        "loan_dollars": 0,
+        "total_dollars": 0,
+        "recipients": 1
+      },
+      {
+        "state": "OK",
+        "awards": 1,
+        "grants": 1,
+        "loans": 0,
+        "grant_dollars": 4700,
+        "loan_dollars": 0,
+        "total_dollars": 4700,
+        "recipients": 1
+      },
+      {
+        "state": "OR",
+        "awards": 3,
+        "grants": 2,
+        "loans": 1,
+        "grant_dollars": 145672,
+        "loan_dollars": 0,
+        "total_dollars": 145672,
+        "recipients": 2
+      },
+      {
+        "state": "PA",
+        "awards": 27,
+        "grants": 22,
+        "loans": 5,
+        "grant_dollars": 1085910,
+        "loan_dollars": 3386100,
+        "total_dollars": 4472010,
+        "recipients": 19
+      },
+      {
+        "state": "RI",
+        "awards": 3,
+        "grants": 3,
+        "loans": 0,
+        "grant_dollars": 720748,
+        "loan_dollars": 0,
+        "total_dollars": 720748,
+        "recipients": 1
+      },
+      {
+        "state": "TN",
+        "awards": 4,
+        "grants": 4,
+        "loans": 0,
+        "grant_dollars": 46700,
+        "loan_dollars": 0,
+        "total_dollars": 46700,
+        "recipients": 2
+      },
+      {
+        "state": "TX",
+        "awards": 8,
+        "grants": 6,
+        "loans": 2,
+        "grant_dollars": 769725,
+        "loan_dollars": 655000,
+        "total_dollars": 1424725,
+        "recipients": 6
+      },
+      {
+        "state": "VA",
+        "awards": 8,
+        "grants": 8,
+        "loans": 0,
+        "grant_dollars": 145000,
+        "loan_dollars": 0,
+        "total_dollars": 145000,
+        "recipients": 4
+      },
+      {
+        "state": "VT",
+        "awards": 8,
+        "grants": 8,
+        "loans": 0,
+        "grant_dollars": 1076379,
+        "loan_dollars": 0,
+        "total_dollars": 1076379,
+        "recipients": 7
+      },
+      {
+        "state": "WA",
+        "awards": 2,
+        "grants": 2,
+        "loans": 0,
+        "grant_dollars": 1300000,
+        "loan_dollars": 0,
+        "total_dollars": 1300000,
+        "recipients": 2
+      },
+      {
+        "state": "WI",
+        "awards": 4,
+        "grants": 4,
+        "loans": 0,
+        "grant_dollars": 1273000,
+        "loan_dollars": 0,
+        "total_dollars": 1273000,
+        "recipients": 4
+      },
+      {
+        "state": "WV",
+        "awards": 9,
+        "grants": 8,
+        "loans": 1,
+        "grant_dollars": 119357,
+        "loan_dollars": 0,
+        "total_dollars": 119357,
+        "recipients": 7
+      },
+      {
+        "state": "WY",
+        "awards": 1,
+        "grants": 0,
+        "loans": 1,
+        "grant_dollars": 0,
+        "loan_dollars": 145000,
+        "total_dollars": 145000,
+        "recipients": 1
+      }
+    ],
+    "award_size_distribution": [
+      {
+        "bucket": "under_25k",
+        "count": 117,
+        "dollars": 1104604
+      },
+      {
+        "bucket": "25k_to_100k",
+        "count": 87,
+        "dollars": 3864039
+      },
+      {
+        "bucket": "100k_to_500k",
+        "count": 29,
+        "dollars": 7206830
+      },
+      {
+        "bucket": "500k_to_1m",
+        "count": 11,
+        "dollars": 6210948
+      },
+      {
+        "bucket": "1m_to_5m",
+        "count": 17,
+        "dollars": 39332221
+      },
+      {
+        "bucket": "over_5m",
+        "count": 1,
+        "dollars": 6500000
+      }
+    ],
+    "by_description": [
+      {
+        "description": "DIRECT COMMUNITY FACILITY LOANS",
+        "count": 46,
+        "dollars": 42317479
+      },
+      {
+        "description": "CF CONGRESSIONALLY DIRECTED GRANTS",
+        "count": 7,
+        "dollars": 6493000
+      },
+      {
+        "description": "COMMUNITY PROJECT GRANTS CONGRESSIONALLY DELEGATED",
+        "count": 5,
+        "dollars": 5807000
+      },
+      {
+        "description": "COMMUNITY FACILITY GRANTS",
+        "count": 140,
+        "dollars": 4132390
+      },
+      {
+        "description": "GUARANTEED COMMUNITY FACILITY LOAN",
+        "count": 4,
+        "dollars": 2360000
+      },
+      {
+        "description": "COMMUNITY FACILITIES - ECONOMIC IMPACT INITIATIVE GRANTS",
+        "count": 37,
+        "dollars": 944512
+      },
+      {
+        "description": "ARP ECONOMIC DEVELOPMENT GRANT FOR RURAL HEALTH CARE FACILITIES",
+        "count": 1,
+        "dollars": 505948
+      },
+      {
+        "description": "COMMUNITY FACILITIES - NATURAL DISASTER GRANTS",
+        "count": 3,
+        "dollars": 503608
+      },
+      {
+        "description": "COMMUNITY FACILITY NATURAL DISASTER GRANTS",
+        "count": 1,
+        "dollars": 390200
+      },
+      {
+        "description": "COMMUNITY FACILITY 2019 DISASTER GRANTS - TORNADOES FLOODS OTHER",
+        "count": 9,
+        "dollars": 371226
+      },
+      {
+        "description": "DIRECT COMMUNITY FACILITY NATURAL DISASTER LOAN",
+        "count": 1,
+        "dollars": 199000
+      },
+      {
+        "description": "COMMUNITY FACILITY GRANTS - COMMUNITY FACILITY",
+        "count": 3,
+        "dollars": 127200
+      },
+      {
+        "description": "COMMUNITY FACILITY 2019 DISASTER GRANTS - HURRICANE MICHAEL",
+        "count": 1,
+        "dollars": 24000
+      },
+      {
+        "description": "COMMUNITY FACILITY EZ/EC GRANTS",
+        "count": 2,
+        "dollars": 21679
+      },
+      {
+        "description": "COMMUNITY FACILITY 09/10 STIMULUS GRANTS",
+        "count": 2,
+        "dollars": 21400
+      }
+    ]
+  },
+  "museums": {
+    "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",
+    "source_url": "https://www.imls.gov/research-evaluation/data/museum-data-files",
+    "data_year": "2018 (June release; final vintage - IMLS has no plans to update)",
+    "description": "Final vintage of the IMLS museum universe. Compiled from IMLS administrative data, IRS nonprofit (990) data, private foundation grantee lists, museum associations, and third-party vendors. Coverage: 50 U.S. states and the District of Columbia.",
+    "total_museums": 30175,
+    "documented_total_museums": 30171,
+    "documentation_note": "Documentation lists 7,429 (File 1) + 7,959 (File 2) + 14,783 (File 3) = 30,171 entries. The CSVs contain a few extra/duplicate rows; counts here are deduplicated by museum ID (MID).",
+    "museums_by_type": [
+      {
+        "type": "Historical Societies / Historic Preservation",
+        "code": "HSC",
+        "count": 14785
+      },
+      {
+        "type": "General / Uncategorized Museums",
+        "code": "GMU",
+        "count": 7961
+      },
+      {
+        "type": "Art Museums",
+        "code": "ART",
+        "count": 2620
+      },
+      {
+        "type": "History Museums",
+        "code": "HST",
+        "count": 1776
+      },
+      {
+        "type": "Arboretums, Botanical Gardens & Nature Centers",
+        "code": "BOT",
+        "count": 1028
+      },
+      {
+        "type": "Science & Technology Museums & Planetariums",
+        "code": "SCI",
+        "count": 833
+      },
+      {
+        "type": "Zoos, Aquariums & Wildlife Conservation",
+        "code": "ZAW",
+        "count": 465
+      },
+      {
+        "type": "Children's Museums",
+        "code": "CMU",
+        "count": 438
+      },
+      {
+        "type": "Natural History & Natural Science Museums",
+        "code": "NAT",
+        "count": 269
+      }
+    ],
+    "museums_by_state": [
+      {
+        "state": "CA",
+        "count": 2409
+      },
+      {
+        "state": "NY",
+        "count": 2020
+      },
+      {
+        "state": "TX",
+        "count": 1682
+      },
+      {
+        "state": "PA",
+        "count": 1495
+      },
+      {
+        "state": "OH",
+        "count": 1243
+      },
+      {
+        "state": "IL",
+        "count": 1198
+      },
+      {
+        "state": "FL",
+        "count": 1045
+      },
+      {
+        "state": "MI",
+        "count": 950
+      },
+      {
+        "state": "MA",
+        "count": 947
+      },
+      {
+        "state": "VA",
+        "count": 852
+      },
+      {
+        "state": "WI",
+        "count": 820
+      },
+      {
+        "state": "NC",
+        "count": 721
+      },
+      {
+        "state": "NJ",
+        "count": 708
+      },
+      {
+        "state": "MO",
+        "count": 697
+      },
+      {
+        "state": "IN",
+        "count": 637
+      },
+      {
+        "state": "MN",
+        "count": 633
+      },
+      {
+        "state": "WA",
+        "count": 630
+      },
+      {
+        "state": "GA",
+        "count": 625
+      },
+      {
+        "state": "IA",
+        "count": 609
+      },
+      {
+        "state": "CO",
+        "count": 588
+      },
+      {
+        "state": "MD",
+        "count": 580
+      },
+      {
+        "state": "TN",
+        "count": 509
+      },
+      {
+        "state": "ME",
+        "count": 502
+      },
+      {
+        "state": "KS",
+        "count": 498
+      },
+      {
+        "state": "OR",
+        "count": 498
+      },
+      {
+        "state": "CT",
+        "count": 493
+      },
+      {
+        "state": "OK",
+        "count": 456
+      },
+      {
+        "state": "KY",
+        "count": 431
+      },
+      {
+        "state": "AL",
+        "count": 423
+      },
+      {
+        "state": "AZ",
+        "count": 406
+      },
+      {
+        "state": "SC",
+        "count": 363
+      },
+      {
+        "state": "LA",
+        "count": 361
+      },
+      {
+        "state": "NH",
+        "count": 344
+      },
+      {
+        "state": "NE",
+        "count": 329
+      },
+      {
+        "state": "AR",
+        "count": 287
+      },
+      {
+        "state": "NM",
+        "count": 275
+      },
+      {
+        "state": "VT",
+        "count": 269
+      },
+      {
+        "state": "ND",
+        "count": 254
+      },
+      {
+        "state": "MT",
+        "count": 248
+      },
+      {
+        "state": "WV",
+        "count": 237
+      },
+      {
+        "state": "MS",
+        "count": 234
+      },
+      {
+        "state": "SD",
+        "count": 215
+      },
+      {
+        "state": "ID",
+        "count": 201
+      },
+      {
+        "state": "DC",
+        "count": 171
+      },
+      {
+        "state": "WY",
+        "count": 169
+      },
+      {
+        "state": "RI",
+        "count": 168
+      },
+      {
+        "state": "HI",
+        "count": 162
+      },
+      {
+        "state": "NV",
+        "count": 158
+      },
+      {
+        "state": "UT",
+        "count": 155
+      },
+      {
+        "state": "AK",
+        "count": 152
+      },
+      {
+        "state": "DE",
+        "count": 118
+      }
+    ],
+    "top_10_states": [
+      {
+        "state": "CA",
+        "count": 2409
+      },
+      {
+        "state": "NY",
+        "count": 2020
+      },
+      {
+        "state": "TX",
+        "count": 1682
+      },
+      {
+        "state": "PA",
+        "count": 1495
+      },
+      {
+        "state": "OH",
+        "count": 1243
+      },
+      {
+        "state": "IL",
+        "count": 1198
+      },
+      {
+        "state": "FL",
+        "count": 1045
+      },
+      {
+        "state": "MI",
+        "count": 950
+      },
+      {
+        "state": "MA",
+        "count": 947
+      },
+      {
+        "state": "VA",
+        "count": 852
+      }
+    ],
+    "museums_by_revenue_size": [
+      {
+        "budget_tier": "$0",
+        "count": 10518
+      },
+      {
+        "budget_tier": "$1 to $9,999",
+        "count": 735
+      },
+      {
+        "budget_tier": "$10,000 to $24,999",
+        "count": 735
+      },
+      {
+        "budget_tier": "$25,000 to $99,999",
+        "count": 2745
+      },
+      {
+        "budget_tier": "$100,000 to $499,999",
+        "count": 3140
+      },
+      {
+        "budget_tier": "$500,000 to $999,999",
+        "count": 922
+      },
+      {
+        "budget_tier": "$1,000,000 to $4,999,999",
+        "count": 1141
+      },
+      {
+        "budget_tier": "$5,000,000 to $9,999,999",
+        "count": 277
+      },
+      {
+        "budget_tier": "$10,000,000 to $49,999,999",
+        "count": 436
+      },
+      {
+        "budget_tier": "$50,000,000 or greater",
+        "count": 852
+      },
+      {
+        "budget_tier": "Not reported / not a 990 filer",
+        "count": 8674
+      }
+    ],
+    "revenue_reported_count": 21501,
+    "urban_vs_rural": {
+      "urban": 15460,
+      "rural": 14639,
+      "by_locale": {
+        "City": 8453,
+        "Rural": 9766,
+        "Town": 4873,
+        "Suburb": 7007,
+        "Not reported": 76
+      },
+      "geocoded_count": 30099,
+      "note": "Urban = City + Suburb (LOCALE4 1-2); Rural = Town + Rural (LOCALE4 3-4), per NCES urban-centric locale codes."
+    },
+    "museum_library_relationship": {
+      "description": "Two signals link museums to libraries: (1) CO_LOC_RES flags a LIBRARY co-located on the museum site; (2) IPEDS id means the museum is affiliated with a postsecondary institution, whose campus hosts an academic library.",
+      "co_located_with_library": 4,
+      "academic_affiliated_with_ipeds": 2566,
+      "co_located_examples": [
+        {
+          "name": "NATIONAL MUSEUM OF CATHOLIC ART AND LIBRARY",
+          "state": "DC",
+          "co_loc_res": "LIBRARY"
+        },
+        {
+          "name": "FRICK FINE ARTS BUILDING",
+          "state": "PA",
+          "co_loc_res": "MULTIPLE GALLERIES, FINE ARTS LIBRARY"
+        },
+        {
+          "name": "CABLE CENTER",
+          "state": "CO",
+          "co_loc_res": "LIBRARY"
+        },
+        {
+          "name": "HESPERIAN HISTORIAL SOCIETY",
+          "state": "KS",
+          "co_loc_res": "LIBRARY (BUILT 1884)"
+        }
+      ]
+    },
+    "raw_file_counts": {
+      "MuseumFile2018_File1_Nulls.csv": 7431,
+      "MuseumFile2018_File2_Nulls.csv": 7961,
+      "MuseumFile2018_File3_Nulls.csv": 14785
+    }
   },
   "imls_grants": {
     "total_count": 21325,

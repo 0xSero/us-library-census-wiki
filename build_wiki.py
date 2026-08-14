@@ -171,6 +171,8 @@ def panel(active=""):
     <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
     <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
     <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
+    <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
+    <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -398,6 +400,18 @@ def load_all():
             data['nces_school_full'] = json.load(f)
     else:
         data['nces_school_full'] = {}
+    usda_path = os.path.join(DATA, "usda_library_grants_summary.json")
+    if os.path.exists(usda_path):
+        with open(usda_path) as f:
+            data['usda_grants'] = json.load(f)
+    else:
+        data['usda_grants'] = {}
+    museums_path = os.path.join(DATA, "museums_summary.json")
+    if os.path.exists(museums_path):
+        with open(museums_path) as f:
+            data['museums'] = json.load(f)
+    else:
+        data['museums'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1450,6 +1464,12 @@ def compute_stats(data):
 
     # ---- NCES School Libraries (full state-level data) ----
     stats['nces_school_full'] = data.get('nces_school_full', {})
+
+    # ---- USDA Rural Development library grants ----
+    stats['usda_grants'] = data.get('usda_grants', {})
+
+    # ---- IMLS Museum Data File ----
+    stats['museums'] = data.get('museums', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -3457,6 +3477,68 @@ def build_index(data, stats):
 
         body += '<p class="rsrc">Source: EveryLibrary campaign history (everylibrary.org/campaign_history). Includes library bond measures, operating levy renewals, tax increases, library district formations, and anti-privatization measures. Amount figures are for measures where dollar amounts were specified; many operating levy renewals do not list a specific dollar amount.</p>'
 
+    # ---- USDA Rural Development Library Grants ----
+    usda = stats.get('usda_grants', {})
+    if usda and usda.get('totals'):
+        ut = usda['totals']
+        u_total = ut.get('total_dollars', 0)
+        u_awards = ut.get('library_awards', 0)
+        u_grants = ut.get('library_grants', 0)
+        u_loans = ut.get('library_loans', 0)
+        u_recip = ut.get('distinct_recipients', 0)
+        u_states = ut.get('states_covered', 0)
+        u_top = usda.get('top_states', [])
+        u_recip_top = usda.get('top_recipients', [])
+        u_years = usda.get('by_year', [])
+        u_sizes = usda.get('award_size_distribution', [])
+        yr_range = ut.get('fiscal_year_range', {})
+
+        body += f"""
+
+<h2 id="usda-grants">USDA Rural Development Library Grants &amp; Loans</h2>
+<p class="wiki-sub">The USDA Rural Development Community Facilities program (CFDA 10.766) provides grants and loans to rural areas under 20,000 population for essential community facilities - and public libraries are explicitly eligible. From FY{yr_range.get('start', 2007)} to FY{yr_range.get('end', 2025)}, the program awarded {u_awards} grants and loans totaling ${u_total/1e6:.1f}M to {u_recip} library recipients across {u_states} states. While modest compared to IMLS or E-Rate funding, these USDA awards are often transformative for small rural communities that lack other capital sources.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${u_total/1e6:.1f}M</div><div class="label">Total awards to libraries</div></div>
+  <div class="stat-card"><div class="num">{u_awards}</div><div class="label">Total awards (grants + loans)</div></div>
+  <div class="stat-card"><div class="num">{u_grants}</div><div class="label">Grants</div></div>
+  <div class="stat-card"><div class="num">{u_loans}</div><div class="label">Loans</div></div>
+  <div class="stat-card"><div class="num">{u_recip}</div><div class="label">Distinct recipients</div></div>
+  <div class="stat-card"><div class="num">{u_states}</div><div class="label">States</div></div>
+</div>"""
+
+        # Top states table
+        if u_top:
+            body += """
+<h3>Top states by USDA library funding</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Awards</th><th>Grants</th><th>Loans</th><th>Total $</th></tr>"""
+            for s in u_top[:10]:
+                body += f'\n  <tr><td><a href="states/{esc(s["state"])}.html">{esc(s["state"])}</a></td><td class="pct">{s.get("awards",0)}</td><td>{s.get("grants",0)}</td><td>{s.get("loans",0)}</td><td>${s.get("total_dollars",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        # Top recipients
+        if u_recip_top:
+            body += """
+<h3>Largest USDA library awards</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>State</th><th>City</th><th>Type</th><th>Amount</th></tr>"""
+            for r in u_recip_top[:10]:
+                atype = "Loan" if r.get('loans', 0) > 0 and r.get('grants', 0) == 0 else ("Grant" if r.get('grants', 0) > 0 and r.get('loans', 0) == 0 else "Grant+Loan")
+                body += f'\n  <tr><td>{esc(r.get("recipient","").title())}</td><td>{esc(r.get("state",""))}</td><td>{esc(r.get("city",""))}</td><td>{atype}</td><td>${r.get("total_dollars",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        # By year trend
+        if u_years:
+            body += """
+<h3>USDA library awards by fiscal year</h3>
+<table class="wikitable">
+  <tr><th>FY</th><th>Grants</th><th>Loans</th><th>Grant $</th><th>Loan $</th><th>Total $</th></tr>"""
+            for y in u_years:
+                body += f'\n  <tr><td>FY{y.get("fiscal_year","")}</td><td>{y.get("grants",0)}</td><td>{y.get("loans",0)}</td><td>${y.get("grant_dollars",0)/1e3:.0f}K</td><td>${y.get("loan_dollars",0)/1e6:.1f}M</td><td>${y.get("total_dollars",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        body += '<p class="rsrc">Source: USASpending.gov API, filtered to USDA Rural Housing Service / Community Programs awards under CFDA 10.766 (Community Facilities Loans and Grants) where the recipient name contains "library" or "libraries." USDA loan obligations report as $0 in USASpending (they are recorded as loan face value); loan subsidy cost and grant outlays are tracked separately. The program serves rural areas with populations under 20,000. Libraries represent approximately 1% of all Community Facilities awards but receive critical infrastructure funding for buildings, equipment, and technology.</p>'
+
     # ---- Library Usage Survey Data (Pew Research + Gallup) ----
     lu = stats.get('library_usage', {})
     if lu and lu.get('overall_usage'):
@@ -4362,6 +4444,77 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: U.S. Government Publishing Office (GPO) Federal Depository Library Program Directory, via ask.gpo.gov/s/FDLD. Academic libraries make up the largest share of FDLP participants, followed by public libraries. Regional depositories (one or two per state) serve as permanent repositories for all federal publications, while selective depositories tailor their collections to community needs. The program traces back to the Act of December 27, 1813, which authorized the distribution of one copy of every House and Senate journal to universities and historical societies.</p>'
+
+    # ---- IMLS Museum Data File ----
+    museums = stats.get('museums', {})
+    if museums and museums.get('total_museums'):
+        m_total = museums['total_museums']
+        m_types = museums.get('museums_by_type', [])
+        m_top = museums.get('top_10_states', [])
+        m_locale = museums.get('urban_vs_rural', {})
+        m_lib = museums.get('museum_library_relationship', {})
+        m_rev = museums.get('museums_by_revenue_size', [])
+
+        body += f"""
+
+<h2 id="museums">America's Museums (IMLS Museum Data File 2018)</h2>
+<p class="wiki-sub">The IMLS oversees both libraries and museums, making it the only federal agency with this dual mandate. Its 2018 Museum Data File - the final edition, as IMLS has retired this dataset - identified {m_total:,} museums across all 50 states and DC. Nearly half ({m_types[0]['count']/m_total*100:.0f}%) are historical societies or historic preservation organizations, reflecting America's grassroots approach to local history. The IMLS funds museums and libraries through parallel grant programs, and {m_lib.get('academic_affiliated_with_ipeds', 2566):,} museums are affiliated with academic institutions that also host libraries.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{m_total:,}</div><div class="label">Total museums</div></div>
+  <div class="stat-card"><div class="num">{m_locale.get('urban', 0):,}</div><div class="label">Urban museums</div></div>
+  <div class="stat-card"><div class="num">{m_locale.get('rural', 0):,}</div><div class="label">Rural museums</div></div>
+  <div class="stat-card"><div class="num">51</div><div class="label">States + DC</div></div>
+  <div class="stat-card"><div class="num">{m_lib.get('academic_affiliated_with_ipeds', 0):,}</div><div class="label">Academic-affiliated (IPEDS)</div></div>
+  <div class="stat-card"><div class="num">{m_lib.get('co_located_with_library', 0)}</div><div class="label">Co-located with a library</div></div>
+</div>"""
+
+        # Museum types bars
+        if m_types:
+            body += """
+<h3>Museums by type</h3>
+<div class="services-bars">"""
+            max_t = max(t.get('count', 0) for t in m_types) or 1
+            for t in m_types:
+                cnt = t.get('count', 0)
+                pct_w = (cnt / max_t) * 100 if max_t else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(t.get('type', ''))}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states
+        if m_top:
+            body += """
+<h3>Top 10 states by number of museums</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Museums</th></tr>"""
+            for i, s in enumerate(m_top[:10], 1):
+                body += f'\n  <tr><td class="pct">{i}</td><td><a href="states/{esc(s["state"])}.html">{esc(s["state"])}</a></td><td class="pct">{s.get("count", 0):,}</td></tr>'
+            body += '\n</table>'
+
+        # Urban vs rural
+        if m_locale:
+            urban = m_locale.get('urban', 0)
+            rural = m_locale.get('rural', 0)
+            body += f"""
+<h3>Urban vs rural distribution</h3>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-name">Urban (City + Suburb)</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{urban/max(urban+rural,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{urban:,}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-name">Rural (Town + Rural)</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{rural/max(urban+rural,1)*100:.1f}%"></span></span>
+    <span class="svc-count">{rural:,}</span>
+  </div>
+</div>"""
+
+        body += f'<p class="rsrc">Source: IMLS Museum Data File (MDF) 2018, the final edition of this dataset. IMLS has stated it has no plans to update the files. The MDF covers museums in all 50 states plus DC. Museum types follow IMLS discipline codes (ART, HST, HSC, GMU, SCI, NAT, CMU, ZAW, BOT). Urban/rural classification uses NCES locale codes. The museum-library relationship data shows {m_lib.get("academic_affiliated_with_ipeds", 0):,} museums are affiliated with postsecondary institutions (which host academic libraries) and {m_lib.get("co_located_with_library", 0)} museums are explicitly co-located with a named library.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

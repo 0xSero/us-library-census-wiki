@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:42 UTC",
+  "generated": "2026-08-14 20:45 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7179,6 +7179,248 @@
     "tribal": 35,
     "land_grant": 121,
     "medical": 208
+  },
+  "pls_digital": {
+    "total_systems": 9249,
+    "fiscal_year": 2024,
+    "ebook_circ": {
+      "total": 316063843,
+      "count": 7105,
+      "avg": 44485,
+      "max": 7068132,
+      "pct": 76.8
+    },
+    "eaudio_circ": {
+      "total": 244723490,
+      "count": 6554,
+      "avg": 37340,
+      "max": 7278515,
+      "pct": 70.9
+    },
+    "evideo_circ": {
+      "total": 20702457,
+      "count": 3167,
+      "avg": 6537,
+      "max": 981222,
+      "pct": 34.2
+    },
+    "elmat_circ_total": {
+      "total": 554830894,
+      "count": 6024,
+      "avg": 92103,
+      "max": 17911689,
+      "pct": 65.1
+    },
+    "book_volumes": {
+      "total": 639057351,
+      "count": 9173,
+      "avg": 69667,
+      "max": 25319115,
+      "pct": 99.2
+    },
+    "audio_physical": {
+      "total": 31259344,
+      "count": 8728,
+      "avg": 3582,
+      "max": 800427,
+      "pct": 94.4
+    },
+    "video_physical": {
+      "total": 61507755,
+      "count": 8931,
+      "avg": 6887,
+      "max": 488122,
+      "pct": 96.6
+    },
+    "programs_age_0_5": {
+      "total": 1424932,
+      "count": 8151,
+      "avg": 175,
+      "max": 16250,
+      "pct": 88.1
+    },
+    "programs_age_6_11": {
+      "total": 1024339,
+      "count": 8296,
+      "avg": 123,
+      "max": 18100,
+      "pct": 89.7
+    },
+    "programs_young_adult": {
+      "total": 509946,
+      "count": 6893,
+      "avg": 74,
+      "max": 13250,
+      "pct": 74.5
+    },
+    "programs_adult": {
+      "total": 1656434,
+      "count": 8019,
+      "avg": 207,
+      "max": 42800,
+      "pct": 86.7
+    },
+    "programs_total": {
+      "total": 5085068,
+      "count": 8752,
+      "avg": 581,
+      "max": 90400,
+      "pct": 94.6
+    },
+    "programs_online": {
+      "total": 4315079,
+      "count": 8571,
+      "avg": 503,
+      "max": 69300,
+      "pct": 92.7
+    },
+    "programs_offsite": {
+      "total": 535102,
+      "count": 6339,
+      "avg": 84,
+      "max": 13000,
+      "pct": 68.5
+    },
+    "programs_virtual": {
+      "total": 151821,
+      "count": 2503,
+      "avg": 61,
+      "max": 8100,
+      "pct": 27.1
+    },
+    "attendance_0_5": {
+      "total": 34191321,
+      "count": 8119,
+      "avg": 4211,
+      "max": 362600,
+      "pct": 87.8
+    },
+    "attendance_6_11": {
+      "total": 25504616,
+      "count": 8265,
+      "avg": 3086,
+      "max": 299350,
+      "pct": 89.4
+    },
+    "attendance_young_adult": {
+      "total": 6449793,
+      "count": 6850,
+      "avg": 942,
+      "max": 127850,
+      "pct": 74.1
+    },
+    "attendance_adult": {
+      "total": 21080183,
+      "count": 7995,
+      "avg": 2637,
+      "max": 597100,
+      "pct": 86.4
+    },
+    "attendance_total": {
+      "total": 105321602,
+      "count": 8699,
+      "avg": 12107,
+      "max": 1386900,
+      "pct": 94.1
+    },
+    "attendance_online": {
+      "total": 80275998,
+      "count": 8526,
+      "avg": 9415,
+      "max": 910200,
+      "pct": 92.2
+    },
+    "attendance_offsite": {
+      "total": 20644463,
+      "count": 6270,
+      "avg": 3293,
+      "max": 325200,
+      "pct": 67.8
+    },
+    "attendance_virtual": {
+      "total": 3037619,
+      "count": 2503,
+      "avg": 1214,
+      "max": 151500,
+      "pct": 27.1
+    },
+    "presentations": {
+      "total": 76459,
+      "count": 1602,
+      "avg": 48,
+      "max": 2896,
+      "pct": 17.3
+    },
+    "views": {
+      "total": 13986709,
+      "count": 1551,
+      "avg": 9018,
+      "max": 3929983,
+      "pct": 16.8
+    },
+    "public_internet_terminals": {
+      "total": 260456,
+      "count": 9138,
+      "avg": 29,
+      "max": 4927,
+      "pct": 98.8
+    },
+    "public_internet_users": {
+      "total": 100854933,
+      "count": 9094,
+      "avg": 11090,
+      "max": 2102606,
+      "pct": 98.3
+    },
+    "wifi_sessions": {
+      "total": 418415077,
+      "count": 7044,
+      "avg": 59400,
+      "max": 12961924,
+      "pct": 76.2
+    },
+    "cap_rev_local": {
+      "total": 898111903,
+      "count": 1247,
+      "avg": 720218,
+      "max": 37038117,
+      "pct": 13.5
+    },
+    "cap_rev_state": {
+      "total": 304609271,
+      "count": 533,
+      "avg": 571500,
+      "max": 36000000,
+      "pct": 5.8
+    },
+    "cap_rev_federal": {
+      "total": 104073536,
+      "count": 152,
+      "avg": 684694,
+      "max": 37338810,
+      "pct": 1.6
+    },
+    "cap_rev_other": {
+      "total": 307135720,
+      "count": 1214,
+      "avg": 252995,
+      "max": 14132792,
+      "pct": 13.1
+    },
+    "cap_rev_total": {
+      "total": 1613930670,
+      "count": 2460,
+      "avg": 656069,
+      "max": 74376927,
+      "pct": 26.6
+    },
+    "capital_expenditures": {
+      "total": 2103392226,
+      "count": 3823,
+      "avg": 550194,
+      "max": 130871855,
+      "pct": 41.3
+    }
   },
   "imls_grants": {
     "total_count": 21325,

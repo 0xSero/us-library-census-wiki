@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:45 UTC",
+  "generated": "2026-08-14 20:54 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7420,6 +7420,156 @@
       "avg": 550194,
       "max": 130871855,
       "pct": 41.3
+    }
+  },
+  "slaa_services": {
+    "total_agencies": 51,
+    "fiscal_year": 2024,
+    "services": [
+      {
+        "service": "Continuing education",
+        "states": 51,
+        "pct": 100
+      },
+      {
+        "service": "Summer reading \u2014 Public libraries",
+        "states": 49,
+        "pct": 96
+      },
+      {
+        "service": "Remote access to services",
+        "states": 48,
+        "pct": 94
+      },
+      {
+        "service": "Accessible web catalog",
+        "states": 44,
+        "pct": 86
+      },
+      {
+        "service": "Literacy programs \u2014 Public",
+        "states": 43,
+        "pct": 84
+      },
+      {
+        "service": "Statewide database licensing",
+        "states": 40,
+        "pct": 78
+      },
+      {
+        "service": "Statewide digital programs",
+        "states": 34,
+        "pct": 67
+      },
+      {
+        "service": "Digitization \u2014 Public",
+        "states": 28,
+        "pct": 55
+      },
+      {
+        "service": "Digital object creation \u2014 Public",
+        "states": 22,
+        "pct": 43
+      },
+      {
+        "service": "Digitization \u2014 Special",
+        "states": 16,
+        "pct": 31
+      },
+      {
+        "service": "E-Rate application",
+        "states": 16,
+        "pct": 31
+      },
+      {
+        "service": "Digitization \u2014 Academic",
+        "states": 15,
+        "pct": 29
+      },
+      {
+        "service": "Other accessibility services",
+        "states": 15,
+        "pct": 29
+      },
+      {
+        "service": "Summer reading \u2014 School libraries",
+        "states": 12,
+        "pct": 24
+      },
+      {
+        "service": "Summer reading \u2014 Other",
+        "states": 12,
+        "pct": 24
+      },
+      {
+        "service": "Literacy programs \u2014 School",
+        "states": 11,
+        "pct": 22
+      },
+      {
+        "service": "Literacy programs \u2014 Other",
+        "states": 10,
+        "pct": 20
+      },
+      {
+        "service": "Digitization \u2014 School",
+        "states": 10,
+        "pct": 20
+      },
+      {
+        "service": "Literacy programs \u2014 Special",
+        "states": 9,
+        "pct": 18
+      },
+      {
+        "service": "Digitization \u2014 Other",
+        "states": 8,
+        "pct": 16
+      },
+      {
+        "service": "Summer reading \u2014 Special libraries",
+        "states": 7,
+        "pct": 14
+      },
+      {
+        "service": "Literacy programs \u2014 Academic",
+        "states": 7,
+        "pct": 14
+      },
+      {
+        "service": "Summer reading \u2014 Academic libraries",
+        "states": 2,
+        "pct": 4
+      }
+    ],
+    "numeric": {
+      "circulation": {
+        "total": 1900848,
+        "count": 44,
+        "max": 785985
+      },
+      "library_visits": {
+        "total": 502829,
+        "count": 38,
+        "max": 95646
+      },
+      "events": {
+        "total": 11016,
+        "count": 51,
+        "max": 3007
+      },
+      "event_attendance": {
+        "total": 271086,
+        "count": 51,
+        "max": 71990
+      }
+    },
+    "summer_reading_by_age": {
+      "early_childhood": 37,
+      "middle_childhood": 36,
+      "young_adult": 35,
+      "adult": 28,
+      "older_adult": 24
     }
   },
   "imls_grants": {

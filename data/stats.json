@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 19:37 UTC",
+  "generated": "2026-08-14 20:00 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -4530,6 +4530,540 @@
       "response_status": "respondent, no imputed data",
       "source": "https://www.imls.gov/sites/default/files/2026-04/slaa2024.csv"
     }
+  },
+  "slaa_trends": {
+    "trend_years": [
+      2018,
+      2020,
+      2022,
+      2024
+    ],
+    "trend_budget": [
+      [
+        "2018",
+        "1105681396"
+      ],
+      [
+        "2020",
+        "1271919423"
+      ],
+      [
+        "2022",
+        "2014309048"
+      ],
+      [
+        "2024",
+        "1484082994"
+      ]
+    ],
+    "trend_staff": [
+      [
+        "2018",
+        "2524"
+      ],
+      [
+        "2020",
+        "2531"
+      ],
+      [
+        "2022",
+        "2593"
+      ],
+      [
+        "2024",
+        "2650"
+      ]
+    ],
+    "trend_expenditures": [
+      [
+        "2018",
+        "1087567901"
+      ],
+      [
+        "2020",
+        "1180780794"
+      ],
+      [
+        "2022",
+        "1467820302"
+      ],
+      [
+        "2024",
+        "1477418078"
+      ]
+    ],
+    "trend_aid": [
+      [
+        "2018",
+        "723355858"
+      ],
+      [
+        "2020",
+        "791755611"
+      ],
+      [
+        "2022",
+        "1033768374"
+      ],
+      [
+        "2024",
+        "957721633"
+      ]
+    ],
+    "trend_lsta": [
+      [
+        "2018",
+        "155034473"
+      ],
+      [
+        "2020",
+        "154776314"
+      ],
+      [
+        "2022",
+        "180619837"
+      ],
+      [
+        "2024",
+        "177873236"
+      ]
+    ]
+  },
+  "fdlp": {
+    "total": 672,
+    "regional": 44,
+    "selective": 627,
+    "preservation_stewards": 1,
+    "by_state": {
+      "AL": 10,
+      "AK": 6,
+      "AZ": 7,
+      "AR": 9,
+      "CA": 34,
+      "CO": 15,
+      "CT": 9,
+      "DE": 3,
+      "DC": 22,
+      "FL": 14,
+      "GA": 11,
+      "HI": 7,
+      "GU": 2,
+      "ID": 5,
+      "IL": 32,
+      "IN": 15,
+      "IA": 8,
+      "KS": 13,
+      "KY": 11,
+      "LA": 17,
+      "ME": 7,
+      "MD": 11,
+      "MA": 19,
+      "MI": 21,
+      "FM": 1,
+      "MN": 13,
+      "MS": 7,
+      "MO": 20,
+      "MT": 6,
+      "NE": 8,
+      "NV": 6,
+      "NH": 5,
+      "NJ": 12,
+      "NM": 8,
+      "NY": 38,
+      "NC": 21,
+      "ND": 7,
+      "OH": 25,
+      "OK": 7,
+      "OR": 14,
+      "PA": 24,
+      "PR": 5,
+      "RI": 5,
+      "SC": 14,
+      "SD": 4,
+      "TN": 13,
+      "TX": 28,
+      "UT": 5,
+      "VT": 3,
+      "VI": 1,
+      "VA": 22,
+      "WA": 9,
+      "WV": 12,
+      "WI": 14,
+      "WY": 6
+    },
+    "regional_list": [
+      {
+        "name": "Amelia Gayle Gorgas Library",
+        "state": "AL",
+        "parent": "University of Alabama",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Arkansas State Library",
+        "state": "AR",
+        "parent": "N/A",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "State Library of Arizona",
+        "state": "AZ",
+        "parent": "Arizona State Library, Archives & Public Records",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Government Publications Section",
+        "state": "CA",
+        "parent": "California State Library",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Norlin Library",
+        "state": "CO",
+        "parent": "University of Colorado, Boulder",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Connecticut State Library",
+        "state": "CT",
+        "parent": "Connecticut State Library",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "George A. Smathers Libraries",
+        "state": "FL",
+        "parent": "University of Florida",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Map and Government Information Library",
+        "state": "GA",
+        "parent": "University of Georgia",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Hamilton Library",
+        "state": "HI",
+        "parent": "University of Hawai\u02bbi at M\u0101noa",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "University of Iowa Main Library",
+        "state": "IA",
+        "parent": "University of Iowa",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "University of Idaho Library",
+        "state": "ID",
+        "parent": "University of Idaho",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Illinois State Library",
+        "state": "IL",
+        "parent": "Illinois State Library",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Indiana State Library",
+        "state": "IN",
+        "parent": "N/A",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "University of Kansas Libraries",
+        "state": "KS",
+        "parent": "University of Kansas",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "William T. Young Library",
+        "state": "KY",
+        "parent": "University of Kentucky",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "LSU Library",
+        "state": "LA",
+        "parent": "Louisiana State University, Baton Rouge",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Prescott Memorial Library",
+        "state": "LA",
+        "parent": "Louisiana Tech University",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Boston Public Library",
+        "state": "MA",
+        "parent": "N/A",
+        "type": "Public Library (PU)"
+      },
+      {
+        "name": "McKeldin Library",
+        "state": "MD",
+        "parent": "University of Maryland, College Park",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Raymond H. Fogler Library",
+        "state": "ME",
+        "parent": "University of Maine, Orono",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Government Publications Library",
+        "state": "MN",
+        "parent": "University of Minnesota",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "University of Missouri Libraries",
+        "state": "MO",
+        "parent": "University of Missouri, Columbia",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "J.D. Williams Library",
+        "state": "MS",
+        "parent": "University of Mississippi",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Mansfield Library",
+        "state": "MT",
+        "parent": "University of Montana",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Davis Library",
+        "state": "NC",
+        "parent": "University of North Carolina at Chapel Hill",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Chester Fritz Library",
+        "state": "ND",
+        "parent": "University of North Dakota",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "The Libraries",
+        "state": "ND",
+        "parent": "North Dakota State University",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Don L. Love Memorial Library",
+        "state": "NE",
+        "parent": "University of Nebraska, Lincoln",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Newark Public Library",
+        "state": "NJ",
+        "parent": "N/A",
+        "type": "Public Library (PU)"
+      },
+      {
+        "name": "Zimmerman Library",
+        "state": "NM",
+        "parent": "University of New Mexico",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Cultural Education Center",
+        "state": "NY",
+        "parent": "New York State Library",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Government Information Services",
+        "state": "OH",
+        "parent": "State Library of Ohio",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Edmon Low Library",
+        "state": "OK",
+        "parent": "Oklahoma State University",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "State Library of Oregon",
+        "state": "OR",
+        "parent": "N/A",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "State Library of Pennsylvania",
+        "state": "PA",
+        "parent": "Pennsylvania Department of Education",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Thomas Cooper Library",
+        "state": "SC",
+        "parent": "University of South Carolina, Columbia",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Ned R. McWherter Library",
+        "state": "TN",
+        "parent": "University of Memphis",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Texas State Library & Archives Commission",
+        "state": "TX",
+        "parent": "N/A",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Merrill Cazier Library",
+        "state": "UT",
+        "parent": "Utah State University",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Shannon Library",
+        "state": "VA",
+        "parent": "University of Virginia",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Washington State Library",
+        "state": "WA",
+        "parent": "WA Office of the Secretary of State",
+        "type": "State Library (SL)"
+      },
+      {
+        "name": "Memorial Library",
+        "state": "WI",
+        "parent": "University of Wisconsin, Madison",
+        "type": "Academic General (AG)"
+      },
+      {
+        "name": "Milwaukee Public Library",
+        "state": "WI",
+        "parent": "N/A",
+        "type": "Public Library (PU)"
+      },
+      {
+        "name": "Downtown Campus Library",
+        "state": "WV",
+        "parent": "West Virginia University",
+        "type": "Academic General (AG)"
+      }
+    ],
+    "largest": [
+      {
+        "name": "Mansfield Library",
+        "state": "MT",
+        "parent": "University of Montana",
+        "dtype": "Regional",
+        "titles": 39
+      },
+      {
+        "name": "Suzzallo Library",
+        "state": "WA",
+        "parent": "University of Washington",
+        "dtype": "Selective",
+        "titles": 38
+      },
+      {
+        "name": "Cultural Education Center",
+        "state": "NY",
+        "parent": "New York State Library",
+        "dtype": "Regional",
+        "titles": 37
+      },
+      {
+        "name": "Government Publications Library",
+        "state": "MN",
+        "parent": "University of Minnesota",
+        "dtype": "Regional",
+        "titles": 36
+      },
+      {
+        "name": "George A. Smathers Libraries",
+        "state": "FL",
+        "parent": "University of Florida",
+        "dtype": "Regional",
+        "titles": 33
+      },
+      {
+        "name": "Illinois State Library",
+        "state": "IL",
+        "parent": "Illinois State Library",
+        "dtype": "Regional",
+        "titles": 33
+      },
+      {
+        "name": "Merrill Cazier Library",
+        "state": "UT",
+        "parent": "Utah State University",
+        "dtype": "Regional",
+        "titles": 33
+      },
+      {
+        "name": "Eli M. Oboler Library",
+        "state": "ID",
+        "parent": "Idaho State University",
+        "dtype": "Selective",
+        "titles": 31
+      },
+      {
+        "name": "J.D. Williams Library",
+        "state": "MS",
+        "parent": "University of Mississippi",
+        "dtype": "Regional",
+        "titles": 30
+      },
+      {
+        "name": "Government Publications Section",
+        "state": "CA",
+        "parent": "California State Library",
+        "dtype": "Regional",
+        "titles": 29
+      },
+      {
+        "name": "Cecil H. Green Library",
+        "state": "CA",
+        "parent": "Stanford University",
+        "dtype": "Selective",
+        "titles": 29
+      },
+      {
+        "name": "Prescott Memorial Library",
+        "state": "LA",
+        "parent": "Louisiana Tech University",
+        "dtype": "Regional",
+        "titles": 28
+      },
+      {
+        "name": "Raymond H. Fogler Library",
+        "state": "ME",
+        "parent": "University of Maine, Orono",
+        "dtype": "Regional",
+        "titles": 28
+      },
+      {
+        "name": "Government Information Services",
+        "state": "OH",
+        "parent": "State Library of Ohio",
+        "dtype": "Regional",
+        "titles": 28
+      },
+      {
+        "name": "Ned R. McWherter Library",
+        "state": "TN",
+        "parent": "University of Memphis",
+        "dtype": "Regional",
+        "titles": 28
+      }
+    ]
   },
   "academic": {
     "institutions_2012": 4261,

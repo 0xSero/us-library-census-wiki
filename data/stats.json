@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 20:28 UTC",
+  "generated": "2026-08-14 20:31 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -7007,6 +7007,389 @@
       "circulation": 4029806,
       "expenditures": 2523675
     }
+  },
+  "imls_grants": {
+    "total_count": 13218,
+    "total_amount": 954348048,
+    "year_range": "1996\u20132013",
+    "trend_years": [
+      1996,
+      1997,
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013
+    ],
+    "trend_amounts": [
+      19461798,
+      20408446,
+      29623877,
+      49052443,
+      36345272,
+      36688287,
+      39956100,
+      50813835,
+      57965480,
+      68262477,
+      64594604,
+      80989051,
+      70805440,
+      76272211,
+      77459372,
+      63931564,
+      59514235,
+      52203556
+    ],
+    "trend_counts": [
+      623,
+      674,
+      988,
+      904,
+      894,
+      956,
+      876,
+      879,
+      880,
+      873,
+      580,
+      611,
+      561,
+      639,
+      661,
+      628,
+      619,
+      372
+    ],
+    "top_states": [
+      {
+        "state": "NY",
+        "grants": "1010",
+        "total_awarded": "105860170",
+        "avg_award": "104812",
+        "institutions": "391"
+      },
+      {
+        "state": "CA",
+        "grants": "1407",
+        "total_awarded": "74663752",
+        "avg_award": "53066",
+        "institutions": "403"
+      },
+      {
+        "state": "IL",
+        "grants": "443",
+        "total_awarded": "68112505",
+        "avg_award": "153753",
+        "institutions": "162"
+      },
+      {
+        "state": "PA",
+        "grants": "531",
+        "total_awarded": "59575053",
+        "avg_award": "112194",
+        "institutions": "225"
+      },
+      {
+        "state": "TX",
+        "grants": "393",
+        "total_awarded": "48252344",
+        "avg_award": "122780",
+        "institutions": "190"
+      },
+      {
+        "state": "MA",
+        "grants": "528",
+        "total_awarded": "45976945",
+        "avg_award": "87078",
+        "institutions": "213"
+      },
+      {
+        "state": "DC",
+        "grants": "144",
+        "total_awarded": "31486435",
+        "avg_award": "218656",
+        "institutions": "48"
+      },
+      {
+        "state": "NC",
+        "grants": "267",
+        "total_awarded": "29992038",
+        "avg_award": "112330",
+        "institutions": "125"
+      },
+      {
+        "state": "MI",
+        "grants": "427",
+        "total_awarded": "28799226",
+        "avg_award": "67445",
+        "institutions": "119"
+      },
+      {
+        "state": "FL",
+        "grants": "324",
+        "total_awarded": "26600594",
+        "avg_award": "82101",
+        "institutions": "178"
+      },
+      {
+        "state": "WA",
+        "grants": "506",
+        "total_awarded": "23476750",
+        "avg_award": "46397",
+        "institutions": "113"
+      },
+      {
+        "state": "CO",
+        "grants": "234",
+        "total_awarded": "22235728",
+        "avg_award": "95024",
+        "institutions": "109"
+      },
+      {
+        "state": "OH",
+        "grants": "260",
+        "total_awarded": "22015009",
+        "avg_award": "84673",
+        "institutions": "133"
+      },
+      {
+        "state": "MD",
+        "grants": "243",
+        "total_awarded": "21671260",
+        "avg_award": "89182",
+        "institutions": "107"
+      },
+      {
+        "state": "AZ",
+        "grants": "302",
+        "total_awarded": "19037687",
+        "avg_award": "63039",
+        "institutions": "78"
+      }
+    ],
+    "top_programs": [
+      {
+        "program": "Native American Library Service",
+        "grants": "2681",
+        "total_awarded": "43095606",
+        "avg_award": "16074"
+      },
+      {
+        "program": "Museum Assessment Program",
+        "grants": "1731",
+        "total_awarded": "7379235",
+        "avg_award": "4263"
+      },
+      {
+        "program": "Museums for America",
+        "grants": "1673",
+        "total_awarded": "179775946",
+        "avg_award": "107457"
+      },
+      {
+        "program": "Conservation Assessment Prog.",
+        "grants": "1397",
+        "total_awarded": "14442644",
+        "avg_award": "10338"
+      },
+      {
+        "program": "General Operating Support",
+        "grants": "1299",
+        "total_awarded": "108877629",
+        "avg_award": "83816"
+      },
+      {
+        "program": "Conservation Program",
+        "grants": "1121",
+        "total_awarded": "46041394",
+        "avg_award": "41072"
+      },
+      {
+        "program": "Native American Basic Grants",
+        "grants": "846",
+        "total_awarded": "3988350",
+        "avg_award": "4714"
+      },
+      {
+        "program": "National Leadership Grants",
+        "grants": "810",
+        "total_awarded": "210929957",
+        "avg_award": "260407"
+      },
+      {
+        "program": "Librarians for the 21st Century",
+        "grants": "388",
+        "total_awarded": "198999539",
+        "avg_award": "512885"
+      },
+      {
+        "program": "Native American Native Hawaiian",
+        "grants": "220",
+        "total_awarded": "8592999",
+        "avg_award": "39059"
+      },
+      {
+        "program": "Native Amer. Tech. Assistance",
+        "grants": "198",
+        "total_awarded": "396000",
+        "avg_award": "2000"
+      },
+      {
+        "program": "Learning Opportunities Grants",
+        "grants": "168",
+        "total_awarded": "15314815",
+        "avg_award": "91160"
+      }
+    ],
+    "largest": [
+      {
+        "institution": "National Constitution Center",
+        "program": "National Leadership Grants (LL)",
+        "state": "PA",
+        "city": "Philadelphia",
+        "amount": "10000000",
+        "year": "1999",
+        "title": ""
+      },
+      {
+        "institution": "Heritage Preservation, Inc.",
+        "program": "Conservation Assessment Prog.",
+        "state": "DC",
+        "city": "Washington",
+        "amount": "2266463",
+        "year": "2011",
+        "title": "Conservation Assessment Program for Museums"
+      },
+      {
+        "institution": "New York Public Library",
+        "program": "National Leadership Grants (LL)",
+        "state": "NY",
+        "city": "New York",
+        "amount": "2000000",
+        "year": "1999",
+        "title": ""
+      },
+      {
+        "institution": "Heritage Preservation, Inc.",
+        "program": "Conservation Assessment Prog.",
+        "state": "DC",
+        "city": "Washington",
+        "amount": "1606000",
+        "year": "2009",
+        "title": "Conservation Assessment Program Administration"
+      },
+      {
+        "institution": "Heritage Preservation, Inc.",
+        "program": "Conservation Assessment Prog.",
+        "state": "DC",
+        "city": "Washington",
+        "amount": "1599901",
+        "year": "2007",
+        "title": "Management of Conservation Assessment Program"
+      },
+      {
+        "institution": "American Association of Museums",
+        "program": "Museum Assessment Program",
+        "state": "DC",
+        "city": "Washington",
+        "amount": "1298346",
+        "year": "2011",
+        "title": "Museum Assessment Program (MAP)"
+      },
+      {
+        "institution": "Franklin Institute",
+        "program": "National Leadership Grants (LL)",
+        "state": "PA",
+        "city": "Philadelphia",
+        "amount": "1250000",
+        "year": "1999",
+        "title": ""
+      },
+      {
+        "institution": "Museum of Science and Industry, Chicago",
+        "program": "National Leadership Grants (LL)",
+        "state": "IL",
+        "city": "Chicago",
+        "amount": "1100000",
+        "year": "1999",
+        "title": ""
+      },
+      {
+        "institution": "Indiana State Library",
+        "program": "Librarians for the 21st Century",
+        "state": "IN",
+        "city": "Indianapolis",
+        "amount": "999991",
+        "year": "2008",
+        "title": "Librarians Leading in Diversity (LLID)"
+      },
+      {
+        "institution": "Free Library of Philadelphia Foundation",
+        "program": "Librarians for the 21st Century",
+        "state": "PA",
+        "city": "Philadelphia",
+        "amount": "999980",
+        "year": "2007",
+        "title": "Growing Our Own: A Model for Community Based Librarianship"
+      },
+      {
+        "institution": "Mansfield University of Pennsylvania, School of Library and Information Technologies",
+        "program": "Librarians for the 21st Century",
+        "state": "PA",
+        "city": "Mansfield",
+        "amount": "999940",
+        "year": "2010",
+        "title": "Fulfilling the Promise"
+      },
+      {
+        "institution": "Urban Libraries Council",
+        "program": "Librarians for the 21st Century",
+        "state": "IL",
+        "city": "Chicago",
+        "amount": "999873",
+        "year": "2005",
+        "title": "ULC Executive Leadership Institute"
+      },
+      {
+        "institution": "Thomas Edison State College; New Jersey State Library",
+        "program": "Librarians for the 21st Century",
+        "state": "NJ",
+        "city": "Trenton",
+        "amount": "999861",
+        "year": "2006",
+        "title": "Building the Multicultural, Multilingual New Jersey Library Staff"
+      },
+      {
+        "institution": "Arizona Board of Regents, University of Arizona",
+        "program": "Librarians for the 21st Century",
+        "state": "AZ",
+        "city": "Tucson",
+        "amount": "999860",
+        "year": "2008",
+        "title": "Knowledge River II - Building Capacity for Diversity in Library and Information Science Education"
+      },
+      {
+        "institution": "University of Pittsburgh",
+        "program": "Librarians for the 21st Century",
+        "state": "PA",
+        "city": "Pittsburgh",
+        "amount": "999771",
+        "year": "2006",
+        "title": "Spectrum Doctoral Fellowship Program"
+      }
+    ]
   },
   "consortia": {
     "total": 283,

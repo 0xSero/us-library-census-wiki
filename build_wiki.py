@@ -173,6 +173,7 @@ def panel(active=""):
     <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
     <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
+    <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
     <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
   </div>
 </div>"""
@@ -412,6 +413,12 @@ def load_all():
             data['museums'] = json.load(f)
     else:
         data['museums'] = {}
+    prison_path = os.path.join(DATA, "prison_libraries_summary.json")
+    if os.path.exists(prison_path):
+        with open(prison_path) as f:
+            data['prison_libraries'] = json.load(f)
+    else:
+        data['prison_libraries'] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1470,6 +1477,9 @@ def compute_stats(data):
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
+
+    # ---- Prison Libraries ----
+    stats['prison_libraries'] = data.get('prison_libraries', {})
 
     # ---- IMLS Grant Awards (1996-2025) ----
     gy = data.get('imls_grants_year', [])
@@ -4515,6 +4525,89 @@ def build_index(data, stats):
 </div>"""
 
         body += f'<p class="rsrc">Source: IMLS Museum Data File (MDF) 2018, the final edition of this dataset. IMLS has stated it has no plans to update the files. The MDF covers museums in all 50 states plus DC. Museum types follow IMLS discipline codes (ART, HST, HSC, GMU, SCI, NAT, CMU, ZAW, BOT). Urban/rural classification uses NCES locale codes. The museum-library relationship data shows {m_lib.get("academic_affiliated_with_ipeds", 0):,} museums are affiliated with postsecondary institutions (which host academic libraries) and {m_lib.get("co_located_with_library", 0)} museums are explicitly co-located with a named library.</p>'
+
+    # ---- Prison Libraries ----
+    prison = stats.get('prison_libraries', {})
+    if prison and prison.get('prison_counts'):
+        pc = prison['prison_counts']
+        la = prison.get('library_access', {})
+        leg = prison.get('legislation', {})
+        ks = prison.get('key_statistics', {})
+        std = prison.get('standards_and_guidance', {})
+
+        body += f"""
+
+<h2 id="prison-libraries">Prison Libraries: The Hidden Gap</h2>
+<p class="wiki-sub">Over 1.25 million Americans are incarcerated in U.S. prisons, yet no federal agency tracks how many of those prisons have functioning libraries. The Bureau of Justice Statistics counts prisoners but not library services; the BOP does not publish a public inventory of facility libraries; and state departments of corrections report inconsistently. What we do know: the Prison Libraries Act of 2026 (H.R. 7247) would authorize $60M over 6 years for prison library services - the first federal legislation to specifically target this gap. ALA's 2025 report found many prison libraries are "little more than a few dusty shelves."</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pc.get('total_prisoners_yearend_2023', 1254200):,}</div><div class="label">Total U.S. prisoners (2023)</div></div>
+  <div class="stat-card"><div class="num">{pc.get('federal_bop_prisoners_2023', 143300):,}</div><div class="label">Federal (BOP)</div></div>
+  <div class="stat-card"><div class="num">{pc.get('state_prisoners_2023_estimated', 1110900):,}</div><div class="label">State prisoners</div></div>
+  <div class="stat-card"><div class="num">{ks.get('individuals_released_from_prisons_per_year', 600000):,}</div><div class="label">Released each year</div></div>
+  <div class="stat-card"><div class="num">$60M</div><div class="label">Prison Libraries Act (proposed)</div></div>
+  <div class="stat-card"><div class="num">None</div><div class="label">Official access rate</div></div>
+</div>"""
+
+        # Prison population table
+        body += f"""
+<h3>U.S. prison population (BJS, yearend 2023)</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total prisoners</td><td class="pct">{pc.get('total_prisoners_yearend_2023', 0):,}</td></tr>
+  <tr><td>Change from 2022</td><td class="pct">+{pc.get('year_over_year_change_pct', 2)}%</td></tr>
+  <tr><td>Federal (BOP jurisdiction)</td><td class="pct">{pc.get('federal_bop_prisoners_2023', 0):,}</td></tr>
+  <tr><td>State (estimated)</td><td class="pct">{pc.get('state_prisoners_2023_estimated', 0):,}</td></tr>
+  <tr><td>Sentenced (1+ years)</td><td class="pct">{pc.get('sentenced_more_than_1_year_2023', 0):,}</td></tr>
+  <tr><td>Male prisoners (sentenced)</td><td class="pct">{pc.get('male_prisoners_sentenced_2023', 0):,}</td></tr>
+  <tr><td>Female prisoners (sentenced)</td><td class="pct">{pc.get('female_prisoners_sentenced_2023', 0):,}</td></tr>
+  <tr><td>Male decline since 2013</td><td class="pct">{pc.get('male_pct_decline_since_2013', 0)}%</td></tr>
+  <tr><td>Female decline since 2013</td><td class="pct">{pc.get('female_pct_decline_since_2013', 0)}%</td></tr>
+</table>"""
+
+        # Offense composition
+        offenses = ks.get('offense_composition_of_prison_population_pct', {})
+        if offenses:
+            body += """
+<h3>Offense composition of prison population</h3>
+<div class="services-bars">"""
+            max_o = max(offenses.values()) if offenses else 1
+            for label, val in sorted(offenses.items(), key=lambda x: -x[1]):
+                display = label.replace("_", " ").title()
+                pct_w = (val / max_o) * 100 if max_o else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-name">{esc(display)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-red" style="width:{pct_w:.1f}%"></span></span>
+    <span class="svc-count">{val}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Legislation
+        curr = leg.get('current_bill', {})
+        if curr:
+            body += f"""
+<h3>Prison Libraries Act of 2026</h3>
+<table class="wikitable">
+  <tr><th>Field</th><th>Detail</th></tr>
+  <tr><td>House bill</td><td>{esc(curr.get('house', ''))}</td></tr>
+  <tr><td>Senate companion</td><td>{esc(curr.get('senate', ''))}</td></tr>
+  <tr><td>Congress</td><td>{esc(curr.get('congress', ''))}</td></tr>
+  <tr><td>Date introduced</td><td>{esc(curr.get('date_introduced', ''))}</td></tr>
+  <tr><td>Status</td><td>{esc(curr.get('status', ''))}</td></tr>
+</table>"""
+
+        # Key context
+        body += f"""
+<h3>Key context</h3>
+<ul class="wiki-list">
+  <li>Pell Grant eligibility for incarcerated people reinstated July 1, 2023, ending the 1994 ban</li>
+  <li>ALA benchmark: adequate prison library funding should be ~$13 per capita per incarcerated person</li>
+  <li>ALA recidivism-savings ratio: every dollar invested in prison education saves ~5x in future incarceration costs</li>
+  <li>ALA released "Investing in Prison Libraries" report in June 2025</li>
+  <li>ALA Standards for Library Services for the Incarcerated or Detained: 2024 Revised Edition (first revision since 1992)</li>
+</ul>"""
+
+        body += '<p class="rsrc">Source: Bureau of Justice Statistics (BJS) yearend 2023 prison statistics, ALA "Investing in Prison Libraries" (2025), Congress.gov (H.R. 7247 / S. 4320), and Ithaka S+R (2024). The central data limitation: no comprehensive national dataset on prison libraries exists. BJS counts prisoners but not libraries; BOP facility-library inventories are not public; state DOCs vary widely. The facility census most recently collected was 2019. The Prison Libraries Act would be the first federal legislation to specifically establish and expand prison library services.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 22:48 UTC",
+  "generated": "2026-08-14 22:50 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -26372,6 +26372,274 @@
       "MuseumFile2018_File2_Nulls.csv": 7961,
       "MuseumFile2018_File3_Nulls.csv": 14785
     }
+  },
+  "prison_libraries": {
+    "topic": "Prison libraries and library services to incarcerated people in the United States",
+    "summary_date": "2026-08-14",
+    "data_availability": "There is NO single comprehensive national dataset on prison libraries. The Bureau of Justice Statistics (BJS) collects prison and prisoner counts but does NOT systematically collect library-access data. The Federal Bureau of Prisons (BOP) operates libraries in federal facilities but publishes no public inventory of them. State departments of corrections vary widely and most do not report library statistics. The figures below are compiled from BJS prison-population reports, ALA reports and standards, NIC topic resources, congressional press releases and bill text, Ithaka S+R research, and journalism. Where a number is an estimate or derived figure, it is flagged as such.",
+    "prison_counts": {
+      "total_prisoners_yearend_2023": 1254200,
+      "total_prisoners_yearend_2022": 1230100,
+      "year_over_year_change_pct": 2,
+      "federal_bop_prisoners_2023": 143300,
+      "state_prisoners_2023_estimated": 1110900,
+      "sentenced_more_than_1_year_2023": 1210300,
+      "pct_sentenced_more_than_1_year": 96,
+      "male_prisoners_sentenced_2023": 1124400,
+      "female_prisoners_sentenced_2023": 85900,
+      "male_pct_decline_since_2013": -21,
+      "female_pct_decline_since_2013": -18,
+      "facility_census_most_recent_year": 2019,
+      "facility_census_note": "The Census of State and Federal Adult Correctional Facilities is collected periodically (last published for 2019). BJS confirms it covers facility counts, programs, staff, and resources, but the 2019 detailed tables were not directly retrievable via the targeted URLs during this research. The widely cited figure from the 2019 census is approximately 1,677 state and federal correctional facilities. State prisons are operated by 50 state departments of corrections plus the Federal Bureau of Prisons (BOP).",
+      "data_source": "Bureau of Justice Statistics, Prisons Report Series: Preliminary Data Release, 2023 (NCJ 309396)",
+      "data_source_date": "2024-12",
+      "data_source_url": "https://bjs.ojp.gov/library/publications/prisons-report-series-preliminary-data-release-2023"
+    },
+    "library_access": {
+      "official_access_rate_pct": null,
+      "official_access_rate_note": "No federal statistical agency publishes the percentage of U.S. prisons with library services. BJS collects prison and prisoner counts but not library-access data; BOP does not publish a public inventory of facility libraries; state departments of corrections report inconsistently. The figures below are qualitative findings and informal estimates, not official statistics.",
+      "ala_finding_on_service_quality": "ALA (2025) reports that many so-called prison libraries are 'little more than a few dusty shelves, often not managed by trained library workers.' Some prisons have libraries 'worthy of the name,' but many others have 'only minimal or nonexistent services,' meaning many incarcerated people have 'no real access to a meaningful library and the expertise of librarians.'",
+      "ithaka_finding_on_law_vs_recreational": "Ithaka S+R (2024) found that in some facilities the law library is effectively the only library resource, because departments of corrections are generally obligated to provide legal-access resources, while recreational reading libraries are 'effectively non-existent.'",
+      "ala_adequate_funding_per_capita_usd": 13,
+      "filter_estimated_facilities_act_could_fund": 500,
+      "filter_estimated_share_of_state_prisons": "about one-third",
+      "filter_estimate_basis": "Using ALA's $13/capita adequate-funding benchmark against the $60M over six years, the Act might fund services at roughly 500 facilities - about one-third of state prisons. This is an informal journalist estimate, not an official projection.",
+      "prison_library_staffing_range": "Ithaka S+R (2024): staffing ranges from a professional librarian to a correctional officer to incarcerated individuals themselves. Many prison libraries depend on donations and outside organizations (including public libraries) for books and resources.",
+      "training_gap": "Ithaka S+R (2024): none of the interviewed librarians had received specific training in prison librarianship; it is usually treated as a 'special library' topic in library schools with few training opportunities.",
+      "covid_impact": "Ithaka S+R (2024): during COVID-19 many prison libraries were closed completely or sectioned off for social distancing, and prison libraries were impacted the most when departments of corrections made budget and staffing cuts."
+    },
+    "state_level_data": {
+      "comparable_state_dataset_available": false,
+      "note": "No comparable state-level dataset on prison library access exists. Each state department of corrections sets its own policies on library hours, budgets, staffing, and technology, and most do not report library statistics. BJS publishes state-level prisoner counts but not library-access figures. The examples below are documented programs found in the research, not a complete inventory.",
+      "documented_state_programs": [
+        {
+          "state": "CO",
+          "program": "Colorado State Prison Libraries / PRISM Project",
+          "note": "PRISM Project ('Are PRISon libraries Motivators of pro-social behavior and successful re-entry?') run by the Colorado State Library system to align library and correctional missions."
+        },
+        {
+          "state": "CA",
+          "program": "San Francisco Public Library - Jail and Reentry Services",
+          "note": "Leads the Expanding Information Access for Incarcerated People initiative; mapped library services to people in prison nationally and provides training in coordination with ALA. (Source: Ithaka S+R)"
+        },
+        {
+          "state": "NY",
+          "program": "New York Public Library - reference by mail",
+          "note": "Received Mellon Foundation funding to seed reference-by-mail programs at other library systems across the country. (Source: Ithaka S+R)"
+        },
+        {
+          "state": "MD",
+          "program": "Maryland prison library coordination (retired)",
+          "note": "Glennor Shirley, retired Maryland prison library coordinator, noted 'very few public libraries have proactively done outreach or programming in prison.' (Source: Ithaka S+R)"
+        }
+      ],
+      "bjs_state_prisoner_counts_url": "https://bjs.ojp.gov/topics/corrections"
+    },
+    "key_statistics": {
+      "incarcerated_population_2020_bjs_cited_by_ala": 1260000,
+      "prison_population_2019_lowest_since_1995": 1400000,
+      "individuals_released_from_prisons_per_year": 600000,
+      "offense_composition_of_prison_population_pct": {
+        "violent_crimes": 58,
+        "property_offenses": 16,
+        "drug_offenses": 13,
+        "other_offenses": 13
+      },
+      "pell_grant_for_incarcerated_reinstated": "2023-07-01",
+      "pell_grant_context": "The 1994 ban on federal Pell Grant eligibility for incarcerated people ended on July 1, 2023, restoring access to federal financial aid for higher education in prison programs - a parallel development to the expansion of prison library services.",
+      "recidivism_savings_ratio": "ALA (2025): whatever a state invests in prison education programs is estimated to save roughly five times that amount in future incarceration costs.",
+      "ala_2025_report_title": "Investing in Prison Libraries: A Cost-Effective Path to Safer Communities and Second Chances",
+      "ala_2025_report_date": "2025-06-23"
+    },
+    "legislation": {
+      "current_bill": {
+        "house": "H.R. 7247 - Prison Libraries Act of 2026",
+        "senate": "S. 4320 - Prison Libraries Act of 2026 (Senate companion)",
+        "congress": "119th Congress",
+        "date_introduced": "2026-01-27",
+        "status": "Introduced (in committee; not yet advanced as of research date)",
+        "sponsors": [
+          {
+            "name": "Emanuel Cleaver, II",
+            "party_state": "D-MO",
+            "role": "lead sponsor"
+          },
+          {
+            "name": "Shontel Brown",
+            "party_state": "D-OH",
+            "role": "cosponsor"
+          },
+          {
+            "name": "Valerie Foushee",
+            "party_state": "D-NC",
+            "role": "cosponsor"
+          }
+        ],
+        "senate_companion_sponsor": {
+          "name": "D-CA (sponsor)",
+          "party_state": "D-CA",
+          "role": "Senate companion sponsor"
+        },
+        "authorization_total_usd": 60000000,
+        "authorization_period_years": 6,
+        "purpose": "Establish a competitive grant program for state and U.S. territory prisons to expand library resources and services to support education and skills training of incarcerated Americans, advance reintegration, and reduce recidivism.",
+        "grant_eligible_uses": [
+          "Adequate library services including education and job training, digital literacy, career readiness programming, and computer and internet access, free of charge",
+          "Acquiring updated materials and equipment reflecting the prison population's interests, identities, abilities, and languages",
+          "Expanding the infrastructure of prison libraries",
+          "Hiring well-trained and qualified staff to manage libraries, resources, and services",
+          "Building collaborative relationships with respective local public libraries"
+        ]
+      },
+      "prior_versions": {
+        "hr_2023_118th_congress": "H.R. 2825 (118th Congress) - Prison Libraries Act introduced 2023 by Rep. Cleaver with Sheila Jackson Lee (D-TX); picked up 45 Democratic cosponsors; never advanced out of committee.",
+        "hr_2024_reintroduction": "Reintroduced in 2024 by Reps. Cleaver, Jackson Lee, and Brown."
+      },
+      "context": "The Prison Libraries Act is the first federal bill to establish and expand library services within state and territory correctional facilities. The original 2023 version (H.R. 2825) had 45 Democratic cosponsors but never advanced out of committee. It was revived in January 2026 as H.R. 7247 with a Senate companion (S. 4320). The ALA June 2025 report references the Act as 'a strong start for Congressional support and funding for prison libraries.'",
+      "sources": [
+        {
+          "url": "https://cleaver.house.gov/media-center/press-releases/reps-cleaver-brown-and-foushee-introduce-prison-libraries-act-reduce",
+          "cache": "cleaver_press_2026.html"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/bills/119/hr7247",
+          "cache": "govtrack_hr7247.html"
+        },
+        {
+          "url": "https://www.govtrack.us/congress/bills/119/hr7247/text",
+          "cache": "govtrack_hr7247_text.html"
+        },
+        {
+          "url": "https://congress.wiki/map/legislation/prison-libraries-act-of-2026-119s4320",
+          "cache": "congresswiki_s4320.html"
+        },
+        {
+          "url": "https://filtermag.org/prison-libraries-act/",
+          "cache": "filtermag_act.html"
+        }
+      ]
+    },
+    "standards_and_guidance": {
+      "ala_standards": {
+        "title": "Standards for Library Services for the Incarcerated or Detained: 2024 Revised Edition",
+        "publisher": "American Library Association",
+        "previous_revision_year": 1992,
+        "revision_initiative": "Expanding Information Access for Incarcerated People (San Francisco Public Library Jail and Reentry Services, in coordination with ALA)",
+        "note": "These are the primary national standards guiding prison library service provision. The 2024 revision was the first since 1992."
+      },
+      "ifla_guidelines": {
+        "title": "IFLA Guidelines for Library Services to Prisoners",
+        "note": "International model guide for planning, implementation, and evaluation of library services to prisoners; intended as a model for national prison library guidelines. Referenced by NIC."
+      },
+      "nic_role": "NIC describes library services in correctional facilities as offering resources for people in prisons, jails, and community corrections that help enhance or maintain literacy skills. NIC encourages collaboration among criminal justice organizations, library services, and academia.",
+      "nic_curated_resources": [
+        "Federal Library Resources - Federal Library and Information Network (FEDLINK)",
+        "Library of Congress Services and Programs",
+        "Colorado's State Prison Libraries",
+        "IFLA Guidelines for Library Services to Prisoners (international model guide)",
+        "Freedom Reads (Freedom Libraries - handcrafted bookcases in prisons)",
+        "Reference Services to Incarcerated People, Part I and Part II",
+        "Standards for Library Services for the Incarcerated or Detained: 2024 Revised Edition"
+      ]
+    },
+    "limitations": [
+      "No comprehensive national census of prison libraries exists. BJS collects prison and prisoner counts but not library-access data.",
+      "BOP facility library inventories are not published as a public machine-readable dataset.",
+      "State departments of corrections vary widely; most do not report library statistics, and figures are not comparable across states.",
+      "The percentage of prisons with library services cannot be stated precisely. The ALA reports that many prisons have 'only minimal or nonexistent' library services, and Ithaka S+R found that in some facilities the law library is effectively the only library resource because recreational reading libraries are 'effectively non-existent'. No single percentage figure is published by a statistical agency.",
+      "The ~1,677 state+federal correctional facility figure derives from the BJS 2019 Census of State and Federal Adult Correctional Facilities; a more recent facility census total was not directly retrievable during this research.",
+      "The 'about one-third of state prisons' funding estimate is an informal journalistic calculation, not an official projection.",
+      "BOP population statistics and congress.wiki bill pages are JavaScript-rendered; live numeric values could not be scraped as static HTML and rely on BJS-confirmed yearend figures."
+    ],
+    "sources": [
+      {
+        "key": "bjs_prisons_2023",
+        "name": "Bureau of Justice Statistics, Prisons Report Series: Preliminary Data Release, 2023 (NCJ 309396)",
+        "url": "https://bjs.ojp.gov/library/publications/prisons-report-series-preliminary-data-release-2023",
+        "cache_file": "bjs_prisons_2023.html",
+        "date": "2024-12"
+      },
+      {
+        "key": "bjs_facility_census",
+        "name": "Bureau of Justice Statistics, Census of State and Federal Adult Correctional Facilities (periodic)",
+        "url": "https://bjs.ojp.gov/topics/corrections"
+      },
+      {
+        "key": "bop_federal_prisons",
+        "name": "Federal Bureau of Prisons (BOP), Population Statistics",
+        "url": "https://www.bop.gov/about/statistics/population_statistics.jsp",
+        "cache_file": "bop_population.html"
+      },
+      {
+        "key": "ala_investing_report",
+        "name": "American Library Association, 'Investing in Prison Libraries: A Cost-Effective Path to Safer Communities and Second Chances' (ALA Policy Perspectives series)",
+        "url": "https://www.ala.org/news/2025/06/investing-in-prison-libraries-report",
+        "cache_file": "ala_investing_report.html",
+        "date": "2025-06-23",
+        "authors": "Erin Boyington, Amelia Bryne, Emily Durkin"
+      },
+      {
+        "key": "ala_libguide",
+        "name": "American Library Association, Libraries and Incarceration LibGuide",
+        "url": "https://libguides.ala.org/PrisonLibraries",
+        "cache_file": "ala_libguide_prison.html"
+      },
+      {
+        "key": "ala_standards_2024",
+        "name": "American Library Association, Standards for Library Services for the Incarcerated or Detained: 2024 Revised Edition",
+        "url": "https://nicic.gov/resources/topics/librarianship-in-corrections",
+        "cache_file": "nic_librarianship.html"
+      },
+      {
+        "key": "ala_funding_per_capita",
+        "name": "American Library Association, as cited in Filter reporting on the Prison Libraries Act",
+        "url": "https://filtermag.org/prison-libraries-act/",
+        "cache_file": "filtermag_act.html"
+      },
+      {
+        "key": "nic_librarianship_topic",
+        "name": "National Institute of Corrections (NIC), Librarianship in Corrections topic page",
+        "url": "https://nicic.gov/resources/topics/librarianship-in-corrections",
+        "cache_file": "nic_librarianship.html"
+      },
+      {
+        "key": "ithaka_behind_bars",
+        "name": "Ithaka S+R, 'Serving Library Patrons Behind Bars: Challenges and Collaborations' (Issue Brief)",
+        "url": "https://sr.ithaka.org/publications/serving-library-patrons-behind-bars/",
+        "cache_file": "ithaka_behind_bars.html",
+        "date": "2024-04-18",
+        "authors": "Tammy Ortiz, Kurtis Tanaka",
+        "doi": "https://doi.org/10.18665/sr.320573",
+        "funder": "Institute for Museum and Library Services (IMLS)"
+      },
+      {
+        "key": "everylibrary_prison",
+        "name": "EveryLibrary Institute, 'The Present and Future of Prison Libraries and Incarcerated Patrons'",
+        "url": "https://action.everylibrary.org/the_present_and_future_of_prison_libraries_and_incarcerated_patrons",
+        "cache_file": "everylibrary_prison.html"
+      },
+      {
+        "key": "prison_libraries_act_2026"
+      },
+      {
+        "key": "prison_libraries_act_prior_versions"
+      },
+      {
+        "key": "annual_releases",
+        "name": "Rep. Cleaver press release (2026 reintroduction)"
+      },
+      {
+        "key": "filter_mag_estimates",
+        "name": "Filter, 'An Attempt to Shift This Dynamic - House Revives Prison Libraries Act' (Kastalia Medrano)",
+        "url": "https://filtermag.org/prison-libraries-act/",
+        "cache_file": "filtermag_act.html",
+        "date": "2026-01-28"
+      },
+      {
+        "key": "pell_grant_reinstatement",
+        "name": "Ithaka S+R (2024) and ALA"
+      }
+    ]
   },
   "imls_grants": {
     "total_count": 21325,

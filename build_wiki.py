@@ -9056,6 +9056,189 @@ def build_index(data, stats):
 
         body += '<p class="rsrc">Source: Wikipedia articles on the Library Bill of Rights, intellectual freedom, censorship in the United States, and Banned Books Week. Challenge data from ALA Office for Intellectual Freedom and ALA State of America&apos;s Libraries 2024 report.</p>'
 
+    # ---- Academic institution profiles (IPEDS/Carnegie) ----
+    aip_path = os.path.join(DATA, 'academic_institution_profiles_summary.json')
+    if os.path.exists(aip_path):
+        try:
+            with open(aip_path) as f:
+                aip = json.load(f)
+            ks = aip.get('key_stats', {})
+            total_inst = ks.get('total_institutions', 0)
+            hbcu = ks.get('hbcu_count', 0)
+            tribal = ks.get('tribal_college_count', 0)
+            land_grant = ks.get('land_grant_count', 0)
+            medical = ks.get('medical_institution_count', 0)
+            total_enr = ks.get('total_enrollment', 0)
+
+            body += f"""
+<h2 id="academic-profiles">Academic Institutions: Higher Education Census</h2>
+<p>{esc(aip.get('overview', ''))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_inst:,}</div><div class="label">Academic institutions</div></div>
+  <div class="stat-card"><div class="num">{hbcu}</div><div class="label">HBCUs</div></div>
+  <div class="stat-card"><div class="num">{tribal}</div><div class="label">Tribal colleges</div></div>
+  <div class="stat-card"><div class="num">{land_grant}</div><div class="label">Land-grant</div></div>
+  <div class="stat-card"><div class="num">{medical}</div><div class="label">Medical institutions</div></div>
+</div>"""
+
+            # By control
+            by_ctrl = aip.get('by_control', {})
+            if by_ctrl and isinstance(by_ctrl, dict):
+                body += """
+<h3 id="academic-control">Institutions by Control</h3>
+<div class="services-bars">"""
+                max_c = max((v if isinstance(v, (int, float)) else 0 for v in by_ctrl.values()), default=1) or 1
+                for ctrl, cnt in sorted(by_ctrl.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if not isinstance(cnt, (int, float)):
+                        continue
+                    pct = (cnt / max_c * 100) if max_c else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{esc(str(ctrl))}</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.1f}%"></div></div><div class="svc-num">{cnt:,}</div></div>'
+                body += '\n</div>'
+
+            # By size category
+            by_size = aip.get('by_size_category', {})
+            if by_size and isinstance(by_size, dict):
+                body += """
+<h3 id="academic-size">Institutions by Enrollment Size</h3>
+<table class="wikitable">
+  <tr><th>Size Category</th><th>Count</th></tr>"""
+                for cat, cnt in sorted(by_size.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if isinstance(cnt, (int, float)):
+                        body += f'\n  <tr><td>{esc(str(cat))}</td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+
+            # Top 20 by enrollment
+            top_enr = aip.get('top_20_by_enrollment', [])
+            if top_enr:
+                body += """
+<h3 id="academic-top-enrollment">Top 20 Institutions by Enrollment</h3>
+<table class="wikitable sortable">
+  <tr><th>Institution</th><th>City</th><th>State</th><th>Control</th><th>Carnegie Class</th></tr>"""
+                for row in top_enr[:20]:
+                    name = esc(str(row.get('name', '')))
+                    city = esc(str(row.get('city', '')))
+                    st = esc(str(row.get('state', '')))
+                    ctrl = esc(str(row.get('control', '')))
+                    carnegie = esc(str(row.get('carnegie', ''))[:40])
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{st}</td><td>{ctrl}</td><td>{carnegie}</td></tr>'
+                body += '\n</table>'
+
+            # Featured: HBCUs and tribal colleges
+            feat = aip.get('featured_institutions', {})
+            if feat and isinstance(feat, dict):
+                hbcus = feat.get('hbcus', [])
+                if hbcus and isinstance(hbcus, list):
+                    body += f"""
+<h3 id="academic-hbcus">Historically Black Colleges &amp; Universities (HBCUs)</h3>
+<p>{len(hbcus)} HBCUs in the dataset.</p>
+<table class="wikitable">
+  <tr><th>Institution</th><th>State</th></tr>"""
+                    for h in hbcus[:20]:
+                        if isinstance(h, dict):
+                            name = esc(str(h.get('name', '')))
+                            st = esc(str(h.get('state', '')))
+                            body += f'\n  <tr><td><strong>{name}</strong></td><td>{st}</td></tr>'
+                    body += '\n</table>'
+
+                tribal_c = feat.get('tribal_colleges', [])
+                if tribal_c and isinstance(tribal_c, list):
+                    body += f"""
+<h3 id="academic-tribal">Tribal Colleges &amp; Universities</h3>
+<p>{len(tribal_c)} tribal colleges in the dataset.</p>
+<table class="wikitable">
+  <tr><th>Institution</th><th>State</th></tr>"""
+                    for t in tribal_c[:20]:
+                        if isinstance(t, dict):
+                            name = esc(str(t.get('name', '')))
+                            st = esc(str(t.get('state', '')))
+                            body += f'\n  <tr><td><strong>{name}</strong></td><td>{st}</td></tr>'
+                    body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Academic profiles data unavailable: {esc(str(e))}</em></p>'
+
+    # ---- NCES School Libraries by State (SASS 2011-12) ----
+    nces_st_path = os.path.join(DATA, 'nces_school_libraries_by_state_summary.json')
+    if os.path.exists(nces_st_path):
+        try:
+            with open(nces_st_path) as f:
+                nces_st = json.load(f)
+            ks = nces_st.get('key_stats', {})
+            nat = nces_st.get('national_aggregates', {})
+            total_schools = ks.get('national_total_schools', 0)
+            if not total_schools and isinstance(nat.get('total_schools'), dict):
+                total_schools = nat['total_schools'].get('sum', 0)
+            elif not total_schools:
+                total_schools = nat.get('total_schools', 0)
+            schools_lmc = ks.get('national_schools_with_lmc', 0)
+            if not schools_lmc and isinstance(nat.get('schools_with_lmc'), dict):
+                schools_lmc = nat['schools_with_lmc'].get('sum', 0)
+            elif not schools_lmc:
+                schools_lmc = nat.get('schools_with_lmc', 0)
+            prof_spec = ks.get('national_total_professional_specialists', 0)
+            if not prof_spec and isinstance(nat.get('total_professional_specialists'), dict):
+                prof_spec = nat['total_professional_specialists'].get('sum', 0)
+            paid_aides = ks.get('national_total_paid_aides', 0)
+            if not paid_aides and isinstance(nat.get('total_paid_aides'), dict):
+                paid_aides = nat['total_paid_aides'].get('sum', 0)
+
+            body += f"""
+<h2 id="nces-school-by-state">NCES School Libraries by State (SASS 2011-12)</h2>
+<p>{esc(nces_st.get('overview', ''))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(total_schools):,}</div><div class="label">Total schools</div></div>
+  <div class="stat-card"><div class="num">{int(schools_lmc):,}</div><div class="label">Schools with library media center</div></div>
+  <div class="stat-card"><div class="num">{int(prof_spec):,}</div><div class="label">Professional specialists</div></div>
+  <div class="stat-card"><div class="num">{int(paid_aides):,}</div><div class="label">Paid aides</div></div>
+</div>"""
+
+            # Top/bottom states by LMC %
+            top10 = nces_st.get('top_10_states_by_lmc_pct', [])
+            if top10:
+                body += """
+<h3 id="nces-top-lmc">Top 10 States by School Library Coverage</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>% with LMC</th><th>Schools with LMC</th><th>Total Schools</th></tr>"""
+                for row in top10:
+                    st = esc(str(row.get('state', '')))
+                    pct = row.get('pct_schools_with_lmc', 0)
+                    with_lmc = row.get('schools_with_lmc', 0)
+                    total_s = row.get('total_schools', 0)
+                    body += f'\n  <tr><td>{st}</td><td class="num">{pct:.1f}%</td><td class="num">{with_lmc:,}</td><td class="num">{total_s:,}</td></tr>'
+                body += '\n</table>'
+
+            bottom10 = nces_st.get('bottom_10_states_by_lmc_pct', [])
+            if bottom10:
+                body += """
+<h3 id="nces-bottom-lmc">Bottom 10 States by School Library Coverage</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>% with LMC</th><th>Schools with LMC</th><th>Total Schools</th></tr>"""
+                for row in bottom10:
+                    st = esc(str(row.get('state', '')))
+                    pct = row.get('pct_schools_with_lmc', 0)
+                    with_lmc = row.get('schools_with_lmc', 0)
+                    total_s = row.get('total_schools', 0)
+                    body += f'\n  <tr><td>{st}</td><td class="num">{pct:.1f}%</td><td class="num">{with_lmc:,}</td><td class="num">{total_s:,}</td></tr>'
+                body += '\n</table>'
+
+            # All states table
+            all_st = nces_st.get('all_states', [])
+            if all_st:
+                body += """
+<h3 id="nces-all-states">School Library Data by State (All)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Year</th><th>Total Schools</th><th>Schools with LMC</th><th>% with LMC</th><th>Professional Specialists</th></tr>"""
+                for row in all_st:
+                    st = esc(str(row.get('state', '')))
+                    yr = esc(str(row.get('year', '')))
+                    ts = row.get('total_schools', 0)
+                    slmc = row.get('schools_with_lmc', 0)
+                    pct = row.get('pct_schools_with_lmc', 0)
+                    prof = row.get('total_professional_specialists', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td>{yr}</td><td class="num">{ts:,}</td><td class="num">{slmc:,}</td><td class="num">{pct:.1f}%</td><td class="num">{prof:,}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>NCES school libraries by state data unavailable: {esc(str(e))}</em></p>'
+
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>
 <table class="wikitable leaderboard-table">

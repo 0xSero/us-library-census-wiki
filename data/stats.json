@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 01:16 UTC",
+  "generated": "2026-08-15 02:00 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -36016,6 +36016,2146 @@
       "https://en.wikipedia.org/wiki/GenBank",
       "https://www.ncbi.nlm.nih.gov/genbank/statistics/"
     ]
+  },
+  "pls_extended": {
+    "source": "IMLS Public Libraries Survey FY2024 via ALA State of America's Libraries",
+    "national_totals": {
+      "bookmobiles": 767,
+      "interlibrary_loan_from": 70740721,
+      "interlibrary_loan_to": 66603667,
+      "reference_transactions": 145423340,
+      "registered_borrowers": 155315498,
+      "wifi_sessions": 418415118,
+      "public_internet_users": 100854974,
+      "book_volumes": 639057391,
+      "audio_physical": 31259384,
+      "video_physical": 61507795,
+      "ebook_circulation": 316064430,
+      "electronic_circulation": 554832063,
+      "physical_circulation": 1421434214,
+      "children_circulation": 629560229,
+      "ya_programs": 509986,
+      "adult_programs": 1656474,
+      "online_programs": 4315255,
+      "total_program_attendance": 105321642
+    },
+    "state_count": 56,
+    "rankings": {
+      "bookmobiles": [
+        {
+          "state": "KY",
+          "state_name": "Kentucky",
+          "value": 74
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 68
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 65
+        },
+        {
+          "state": "SC",
+          "state_name": "South Carolina",
+          "value": 35
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 33
+        },
+        {
+          "state": "VA",
+          "state_name": "Virginia",
+          "value": 30
+        },
+        {
+          "state": "NC",
+          "state_name": "North Carolina",
+          "value": 29
+        },
+        {
+          "state": "LA",
+          "state_name": "Louisiana",
+          "value": 27
+        },
+        {
+          "state": "IN",
+          "state_name": "Indiana",
+          "value": 26
+        },
+        {
+          "state": "MD",
+          "state_name": "Maryland",
+          "value": 24
+        }
+      ],
+      "interlibrary_loan_from": [
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 8755750
+        },
+        {
+          "state": "OR",
+          "state_name": "Oregon",
+          "value": 7520488
+        },
+        {
+          "state": "WI",
+          "state_name": "Wisconsin",
+          "value": 7459218
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 6439448
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 6235823
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 5623521
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 5419291
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 2847328
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 2371286
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 2357890
+        }
+      ],
+      "interlibrary_loan_to": [
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 8745990
+        },
+        {
+          "state": "WI",
+          "state_name": "Wisconsin",
+          "value": 7343941
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 6318956
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 5898189
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 5500553
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 5465368
+        },
+        {
+          "state": "OR",
+          "state_name": "Oregon",
+          "value": 4515513
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 2757596
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 2506023
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 2369098
+        }
+      ],
+      "reference_transactions": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 15937174
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 12204290
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 10133667
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 9988808
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 9501162
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 6365194
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 5303274
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 4821009
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 4639135
+        },
+        {
+          "state": "NC",
+          "state_name": "North Carolina",
+          "value": 4563117
+        }
+      ],
+      "registered_borrowers": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 20910979
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 14269672
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 11702365
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 9553239
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 7358182
+        },
+        {
+          "state": "NC",
+          "state_name": "North Carolina",
+          "value": 5102092
+        },
+        {
+          "state": "GA",
+          "state_name": "Georgia",
+          "value": 4880626
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 4053920
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 4005020
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 3753410
+        }
+      ],
+      "wifi_sessions": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 45746100
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 27028865
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 25643777
+        },
+        {
+          "state": "MD",
+          "state_name": "Maryland",
+          "value": 23730993
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 23349077
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 22092336
+        },
+        {
+          "state": "IN",
+          "state_name": "Indiana",
+          "value": 21879014
+        },
+        {
+          "state": "MN",
+          "state_name": "Minnesota",
+          "value": 17805844
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 15329190
+        },
+        {
+          "state": "WI",
+          "state_name": "Wisconsin",
+          "value": 13950419
+        }
+      ],
+      "public_internet_users": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 8571805
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 7944030
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 6763783
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 6277173
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 5132679
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 4606499
+        },
+        {
+          "state": "GA",
+          "state_name": "Georgia",
+          "value": 4133709
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 2952201
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 2820824
+        },
+        {
+          "state": "CO",
+          "state_name": "Colorado",
+          "value": 2818340
+        }
+      ],
+      "book_volumes": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 63635825
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 52183720
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 34713470
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 34516030
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 32586254
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 26344500
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 24814996
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 22741410
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 22467171
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 22455276
+        }
+      ],
+      "audio_physical": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 2680191
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 2627066
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 2083721
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 2046836
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 2037682
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 1438897
+        },
+        {
+          "state": "WI",
+          "state_name": "Wisconsin",
+          "value": 1150132
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 1139328
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 1112144
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 1098070
+        }
+      ],
+      "video_physical": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 4688065
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 4602171
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 4516114
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 3663263
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 2925899
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 2776873
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 2622722
+        },
+        {
+          "state": "IN",
+          "state_name": "Indiana",
+          "value": 2293709
+        },
+        {
+          "state": "WI",
+          "state_name": "Wisconsin",
+          "value": 2176916
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 2049709
+        }
+      ],
+      "ebook_circulation": [
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 36398417
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 33507496
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 21386494
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 20516790
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 17881728
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 17220010
+        },
+        {
+          "state": "OR",
+          "state_name": "Oregon",
+          "value": 15109238
+        },
+        {
+          "state": "CO",
+          "state_name": "Colorado",
+          "value": 10026228
+        },
+        {
+          "state": "TN",
+          "state_name": "Tennessee",
+          "value": 9000763
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 8882966
+        }
+      ],
+      "electronic_circulation": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 75509343
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 46104777
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 38900204
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 37884880
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 34826069
+        },
+        {
+          "state": "CO",
+          "state_name": "Colorado",
+          "value": 23444854
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 20284533
+        },
+        {
+          "state": "VA",
+          "state_name": "Virginia",
+          "value": 19077950
+        },
+        {
+          "state": "IN",
+          "state_name": "Indiana",
+          "value": 17357226
+        },
+        {
+          "state": "MO",
+          "state_name": "Missouri",
+          "value": 16910233
+        }
+      ],
+      "physical_circulation": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 144750402
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 108338009
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 79490374
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 74553422
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 70146842
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 60829922
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 53652806
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 45785645
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 44891229
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 43491478
+        }
+      ],
+      "children_circulation": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 81833286
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 47301296
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 45336130
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 30846864
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 24425642
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 23736054
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 21863483
+        },
+        {
+          "state": "NC",
+          "state_name": "North Carolina",
+          "value": 21800107
+        },
+        {
+          "state": "VA",
+          "state_name": "Virginia",
+          "value": 20942984
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 20806987
+        }
+      ],
+      "ya_programs": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 62200
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 34835
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 30548
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 28458
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 23088
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 22873
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 21819
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 18532
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 16856
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 14847
+        }
+      ],
+      "adult_programs": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 246677
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 96275
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 91978
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 89024
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 86676
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 86478
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 73450
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 70751
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 69731
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 45238
+        }
+      ],
+      "online_programs": [
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 486962
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 304645
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 218345
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 212735
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 205892
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 202146
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 200228
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 189663
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 179640
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 145769
+        }
+      ],
+      "total_program_attendance": [
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 9122631
+        },
+        {
+          "state": "NY",
+          "state_name": "New York",
+          "value": 9108811
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 5863293
+        },
+        {
+          "state": "TX",
+          "state_name": "Texas",
+          "value": 5760825
+        },
+        {
+          "state": "IL",
+          "state_name": "Illinois",
+          "value": 5233722
+        },
+        {
+          "state": "FL",
+          "state_name": "Florida",
+          "value": 4563580
+        },
+        {
+          "state": "NJ",
+          "state_name": "New Jersey",
+          "value": 4131036
+        },
+        {
+          "state": "PA",
+          "state_name": "Pennsylvania",
+          "value": 4059613
+        },
+        {
+          "state": "MA",
+          "state_name": "Massachusetts",
+          "value": 3576079
+        },
+        {
+          "state": "MI",
+          "state_name": "Michigan",
+          "value": 3478581
+        }
+      ]
+    },
+    "state_data": {
+      "AK": {
+        "state_name": "Alaska",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 7274,
+        "interlibrary_loan_to": 2272,
+        "reference_transactions": 269791,
+        "registered_borrowers": 327553,
+        "wifi_sessions": 724265,
+        "public_internet_users": 189961,
+        "book_volumes": 1994864,
+        "audio_physical": 102461,
+        "video_physical": 288841,
+        "ebook_circulation": 602526,
+        "electronic_circulation": 1473153,
+        "physical_circulation": 2547359,
+        "children_circulation": 1316659,
+        "ya_programs": 1026,
+        "adult_programs": 2194,
+        "online_programs": 9326,
+        "total_program_attendance": 189180
+      },
+      "AL": {
+        "state_name": "Alabama",
+        "bookmobiles": 14,
+        "interlibrary_loan_from": 358792,
+        "interlibrary_loan_to": 375368,
+        "reference_transactions": 1964431,
+        "registered_borrowers": 2272219,
+        "wifi_sessions": 4316290,
+        "public_internet_users": 1396409,
+        "book_volumes": 8408271,
+        "audio_physical": 436228,
+        "video_physical": 667409,
+        "ebook_circulation": 2125511,
+        "electronic_circulation": 4065970,
+        "physical_circulation": 13872266,
+        "children_circulation": 6984254,
+        "ya_programs": 5746,
+        "adult_programs": 16275,
+        "online_programs": 47170,
+        "total_program_attendance": 1268027
+      },
+      "AR": {
+        "state_name": "Arkansas",
+        "bookmobiles": 6,
+        "interlibrary_loan_from": 20986,
+        "interlibrary_loan_to": 34357,
+        "reference_transactions": 1265577,
+        "registered_borrowers": 1551870,
+        "wifi_sessions": 3494012,
+        "public_internet_users": 760768,
+        "book_volumes": 5434619,
+        "audio_physical": 174976,
+        "video_physical": 602972,
+        "ebook_circulation": 2235469,
+        "electronic_circulation": 3922657,
+        "physical_circulation": 7398670,
+        "children_circulation": 3237995,
+        "ya_programs": 4268,
+        "adult_programs": 7984,
+        "online_programs": 20199,
+        "total_program_attendance": 555191
+      },
+      "AS": {
+        "state_name": "American Samoa",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 0,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 2253,
+        "registered_borrowers": 16562,
+        "wifi_sessions": 185,
+        "public_internet_users": 1799,
+        "book_volumes": 45922,
+        "audio_physical": 895,
+        "video_physical": 445,
+        "ebook_circulation": 0,
+        "electronic_circulation": 0,
+        "physical_circulation": 3302,
+        "children_circulation": 0,
+        "ya_programs": 115,
+        "adult_programs": 7,
+        "online_programs": 206,
+        "total_program_attendance": 5967
+      },
+      "AZ": {
+        "state_name": "Arizona",
+        "bookmobiles": 9,
+        "interlibrary_loan_from": 473408,
+        "interlibrary_loan_to": 350262,
+        "reference_transactions": 1916937,
+        "registered_borrowers": 3115262,
+        "wifi_sessions": 9717132,
+        "public_internet_users": 1865945,
+        "book_volumes": 6915258,
+        "audio_physical": 381520,
+        "video_physical": 1056829,
+        "ebook_circulation": 6720398,
+        "electronic_circulation": 11939565,
+        "physical_circulation": 23351457,
+        "children_circulation": 8374243,
+        "ya_programs": 7335,
+        "adult_programs": 24298,
+        "online_programs": 71246,
+        "total_program_attendance": 1493332
+      },
+      "CA": {
+        "state_name": "California",
+        "bookmobiles": 65,
+        "interlibrary_loan_from": 2371286,
+        "interlibrary_loan_to": 2369098,
+        "reference_transactions": 9988808,
+        "registered_borrowers": 20910979,
+        "wifi_sessions": 45746100,
+        "public_internet_users": 8571805,
+        "book_volumes": 52183720,
+        "audio_physical": 2083721,
+        "video_physical": 4602171,
+        "ebook_circulation": 33507496,
+        "electronic_circulation": 75509343,
+        "physical_circulation": 144750402,
+        "children_circulation": 81833286,
+        "ya_programs": 34835,
+        "adult_programs": 96275,
+        "online_programs": 304645,
+        "total_program_attendance": 9122631
+      },
+      "CO": {
+        "state_name": "Colorado",
+        "bookmobiles": 20,
+        "interlibrary_loan_from": 1147760,
+        "interlibrary_loan_to": 1185178,
+        "reference_transactions": 2755493,
+        "registered_borrowers": 3538808,
+        "wifi_sessions": 4725541,
+        "public_internet_users": 2818340,
+        "book_volumes": 10208236,
+        "audio_physical": 634128,
+        "video_physical": 1339412,
+        "ebook_circulation": 10026228,
+        "electronic_circulation": 23444854,
+        "physical_circulation": 37274295,
+        "children_circulation": 18149174,
+        "ya_programs": 10034,
+        "adult_programs": 29876,
+        "online_programs": 94383,
+        "total_program_attendance": 2323384
+      },
+      "CT": {
+        "state_name": "Connecticut",
+        "bookmobiles": 1,
+        "interlibrary_loan_from": 1159690,
+        "interlibrary_loan_to": 1182413,
+        "reference_transactions": 2118710,
+        "registered_borrowers": 1272261,
+        "wifi_sessions": 4231130,
+        "public_internet_users": 1309375,
+        "book_volumes": 12338080,
+        "audio_physical": 569999,
+        "video_physical": 1102396,
+        "ebook_circulation": 1799728,
+        "electronic_circulation": 4534527,
+        "physical_circulation": 19275375,
+        "children_circulation": 8053213,
+        "ya_programs": 10474,
+        "adult_programs": 32028,
+        "online_programs": 78071,
+        "total_program_attendance": 1917365
+      },
+      "DC": {
+        "state_name": "District of Columbia",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 68,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 356486,
+        "registered_borrowers": 432625,
+        "wifi_sessions": 632257,
+        "public_internet_users": 687133,
+        "book_volumes": 1095180,
+        "audio_physical": 19568,
+        "video_physical": 88193,
+        "ebook_circulation": 1323134,
+        "electronic_circulation": 2799947,
+        "physical_circulation": 3836880,
+        "children_circulation": 2132281,
+        "ya_programs": 350,
+        "adult_programs": 4330,
+        "online_programs": 7686,
+        "total_program_attendance": 265683
+      },
+      "DE": {
+        "state_name": "Delaware",
+        "bookmobiles": 2,
+        "interlibrary_loan_from": 597583,
+        "interlibrary_loan_to": 586562,
+        "reference_transactions": 421655,
+        "registered_borrowers": 331303,
+        "wifi_sessions": 289085,
+        "public_internet_users": 220494,
+        "book_volumes": 1445178,
+        "audio_physical": 98319,
+        "video_physical": 166183,
+        "ebook_circulation": 528665,
+        "electronic_circulation": 1025346,
+        "physical_circulation": 3898393,
+        "children_circulation": 1656416,
+        "ya_programs": 2285,
+        "adult_programs": 10219,
+        "online_programs": 21763,
+        "total_program_attendance": 420095
+      },
+      "FL": {
+        "state_name": "Florida",
+        "bookmobiles": 21,
+        "interlibrary_loan_from": 501293,
+        "interlibrary_loan_to": 358714,
+        "reference_transactions": 12204290,
+        "registered_borrowers": 11702365,
+        "wifi_sessions": 15329190,
+        "public_internet_users": 7944030,
+        "book_volumes": 22467171,
+        "audio_physical": 1098070,
+        "video_physical": 2776873,
+        "ebook_circulation": 36398417,
+        "electronic_circulation": 0,
+        "physical_circulation": 60829922,
+        "children_circulation": 0,
+        "ya_programs": 22873,
+        "adult_programs": 91978,
+        "online_programs": 205892,
+        "total_program_attendance": 4563580
+      },
+      "GA": {
+        "state_name": "Georgia",
+        "bookmobiles": 12,
+        "interlibrary_loan_from": 960705,
+        "interlibrary_loan_to": 998565,
+        "reference_transactions": 3946086,
+        "registered_borrowers": 4880626,
+        "wifi_sessions": 6865297,
+        "public_internet_users": 4133709,
+        "book_volumes": 13439988,
+        "audio_physical": 395607,
+        "video_physical": 1031172,
+        "ebook_circulation": 4010348,
+        "electronic_circulation": 10200895,
+        "physical_circulation": 24683063,
+        "children_circulation": 13635290,
+        "ya_programs": 8393,
+        "adult_programs": 25648,
+        "online_programs": 83088,
+        "total_program_attendance": 2053303
+      },
+      "GU": {
+        "state_name": "Guam",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 0,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 0,
+        "registered_borrowers": 1002,
+        "wifi_sessions": 8250,
+        "public_internet_users": 5951,
+        "book_volumes": 302530,
+        "audio_physical": 64,
+        "video_physical": 0,
+        "ebook_circulation": 0,
+        "electronic_circulation": 0,
+        "physical_circulation": 11375,
+        "children_circulation": 11375,
+        "ya_programs": 0,
+        "adult_programs": 0,
+        "online_programs": 254,
+        "total_program_attendance": 4474
+      },
+      "HI": {
+        "state_name": "Hawaii",
+        "bookmobiles": 2,
+        "interlibrary_loan_from": 21,
+        "interlibrary_loan_to": 144,
+        "reference_transactions": 352852,
+        "registered_borrowers": 1016000,
+        "wifi_sessions": 143654,
+        "public_internet_users": 466313,
+        "book_volumes": 2530918,
+        "audio_physical": 85331,
+        "video_physical": 149503,
+        "ebook_circulation": 795397,
+        "electronic_circulation": 1716408,
+        "physical_circulation": 3512685,
+        "children_circulation": 1426557,
+        "ya_programs": 239,
+        "adult_programs": 623,
+        "online_programs": 3718,
+        "total_program_attendance": 98390
+      },
+      "IA": {
+        "state_name": "Iowa",
+        "bookmobiles": 4,
+        "interlibrary_loan_from": 444873,
+        "interlibrary_loan_to": 436977,
+        "reference_transactions": 1197933,
+        "registered_borrowers": 1767140,
+        "wifi_sessions": 3248687,
+        "public_internet_users": 1292377,
+        "book_volumes": 11051031,
+        "audio_physical": 493399,
+        "video_physical": 1122902,
+        "ebook_circulation": 0,
+        "electronic_circulation": 0,
+        "physical_circulation": 16114620,
+        "children_circulation": 7546029,
+        "ya_programs": 9014,
+        "adult_programs": 34610,
+        "online_programs": 95982,
+        "total_program_attendance": 2183750
+      },
+      "ID": {
+        "state_name": "Idaho",
+        "bookmobiles": 17,
+        "interlibrary_loan_from": 349729,
+        "interlibrary_loan_to": 324068,
+        "reference_transactions": 1070931,
+        "registered_borrowers": 795076,
+        "wifi_sessions": 2665724,
+        "public_internet_users": 672627,
+        "book_volumes": 4330326,
+        "audio_physical": 177784,
+        "video_physical": 380854,
+        "ebook_circulation": 1420856,
+        "electronic_circulation": 4060916,
+        "physical_circulation": 11887806,
+        "children_circulation": 5946802,
+        "ya_programs": 3968,
+        "adult_programs": 8659,
+        "online_programs": 32562,
+        "total_program_attendance": 879323
+      },
+      "IL": {
+        "state_name": "Illinois",
+        "bookmobiles": 20,
+        "interlibrary_loan_from": 5623521,
+        "interlibrary_loan_to": 5465368,
+        "reference_transactions": 6365194,
+        "registered_borrowers": 3693852,
+        "wifi_sessions": 25643777,
+        "public_internet_users": 4606499,
+        "book_volumes": 34713470,
+        "audio_physical": 2046836,
+        "video_physical": 3663263,
+        "ebook_circulation": 596310,
+        "electronic_circulation": 596310,
+        "physical_circulation": 74553422,
+        "children_circulation": 2653120,
+        "ya_programs": 30548,
+        "adult_programs": 86676,
+        "online_programs": 212735,
+        "total_program_attendance": 5233722
+      },
+      "IN": {
+        "state_name": "Indiana",
+        "bookmobiles": 26,
+        "interlibrary_loan_from": 659995,
+        "interlibrary_loan_to": 697859,
+        "reference_transactions": 2079213,
+        "registered_borrowers": 2620624,
+        "wifi_sessions": 21879014,
+        "public_internet_users": 2459502,
+        "book_volumes": 19964048,
+        "audio_physical": 944635,
+        "video_physical": 2293709,
+        "ebook_circulation": 7998756,
+        "electronic_circulation": 17357226,
+        "physical_circulation": 38884252,
+        "children_circulation": 19630528,
+        "ya_programs": 12889,
+        "adult_programs": 35546,
+        "online_programs": 100182,
+        "total_program_attendance": 2460710
+      },
+      "KS": {
+        "state_name": "Kansas",
+        "bookmobiles": 13,
+        "interlibrary_loan_from": 733525,
+        "interlibrary_loan_to": 737674,
+        "reference_transactions": 1983485,
+        "registered_borrowers": 1718614,
+        "wifi_sessions": 2859189,
+        "public_internet_users": 1160927,
+        "book_volumes": 8031698,
+        "audio_physical": 344946,
+        "video_physical": 919919,
+        "ebook_circulation": 2317551,
+        "electronic_circulation": 5923824,
+        "physical_circulation": 15822998,
+        "children_circulation": 8094177,
+        "ya_programs": 6769,
+        "adult_programs": 17226,
+        "online_programs": 55601,
+        "total_program_attendance": 1336488
+      },
+      "KY": {
+        "state_name": "Kentucky",
+        "bookmobiles": 74,
+        "interlibrary_loan_from": 52903,
+        "interlibrary_loan_to": 43691,
+        "reference_transactions": 2497346,
+        "registered_borrowers": 2365366,
+        "wifi_sessions": 6813021,
+        "public_internet_users": 1841691,
+        "book_volumes": 8766735,
+        "audio_physical": 396116,
+        "video_physical": 963681,
+        "ebook_circulation": 3914480,
+        "electronic_circulation": 9021907,
+        "physical_circulation": 19542354,
+        "children_circulation": 8306318,
+        "ya_programs": 8954,
+        "adult_programs": 25287,
+        "online_programs": 62470,
+        "total_program_attendance": 2470212
+      },
+      "LA": {
+        "state_name": "Louisiana",
+        "bookmobiles": 27,
+        "interlibrary_loan_from": 78873,
+        "interlibrary_loan_to": 65220,
+        "reference_transactions": 2677287,
+        "registered_borrowers": 2285243,
+        "wifi_sessions": 5613526,
+        "public_internet_users": 1641435,
+        "book_volumes": 10264116,
+        "audio_physical": 398182,
+        "video_physical": 1287515,
+        "ebook_circulation": 4408379,
+        "electronic_circulation": 8556480,
+        "physical_circulation": 11582535,
+        "children_circulation": 4721156,
+        "ya_programs": 9414,
+        "adult_programs": 24940,
+        "online_programs": 75117,
+        "total_program_attendance": 1532850
+      },
+      "MA": {
+        "state_name": "Massachusetts",
+        "bookmobiles": 8,
+        "interlibrary_loan_from": 6439448,
+        "interlibrary_loan_to": 6318956,
+        "reference_transactions": 3590379,
+        "registered_borrowers": 3641280,
+        "wifi_sessions": 10532921,
+        "public_internet_users": 2366611,
+        "book_volumes": 26344500,
+        "audio_physical": 1139328,
+        "video_physical": 1983350,
+        "ebook_circulation": 8445277,
+        "electronic_circulation": 0,
+        "physical_circulation": 43491478,
+        "children_circulation": 20806987,
+        "ya_programs": 16856,
+        "adult_programs": 86478,
+        "online_programs": 179640,
+        "total_program_attendance": 3576079
+      },
+      "MD": {
+        "state_name": "Maryland",
+        "bookmobiles": 24,
+        "interlibrary_loan_from": 391874,
+        "interlibrary_loan_to": 331182,
+        "reference_transactions": 3511626,
+        "registered_borrowers": 3354035,
+        "wifi_sessions": 23730993,
+        "public_internet_users": 2253498,
+        "book_volumes": 9443661,
+        "audio_physical": 572401,
+        "video_physical": 785388,
+        "ebook_circulation": 6397339,
+        "electronic_circulation": 14656430,
+        "physical_circulation": 37532938,
+        "children_circulation": 17932813,
+        "ya_programs": 11311,
+        "adult_programs": 25935,
+        "online_programs": 74263,
+        "total_program_attendance": 2171049
+      },
+      "ME": {
+        "state_name": "Maine",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 627441,
+        "interlibrary_loan_to": 617939,
+        "reference_transactions": 514250,
+        "registered_borrowers": 628304,
+        "wifi_sessions": 1125422,
+        "public_internet_users": 314342,
+        "book_volumes": 5924596,
+        "audio_physical": 209473,
+        "video_physical": 447499,
+        "ebook_circulation": 436746,
+        "electronic_circulation": 708207,
+        "physical_circulation": 5795459,
+        "children_circulation": 2605331,
+        "ya_programs": 4406,
+        "adult_programs": 16824,
+        "online_programs": 44559,
+        "total_program_attendance": 683218
+      },
+      "MI": {
+        "state_name": "Michigan",
+        "bookmobiles": 18,
+        "interlibrary_loan_from": 2847328,
+        "interlibrary_loan_to": 2757596,
+        "reference_transactions": 5303274,
+        "registered_borrowers": 4005020,
+        "wifi_sessions": 12223382,
+        "public_internet_users": 2820824,
+        "book_volumes": 24814996,
+        "audio_physical": 1438897,
+        "video_physical": 2622722,
+        "ebook_circulation": 8882966,
+        "electronic_circulation": 20284533,
+        "physical_circulation": 53652806,
+        "children_circulation": 24425642,
+        "ya_programs": 14847,
+        "adult_programs": 45238,
+        "online_programs": 145769,
+        "total_program_attendance": 3478581
+      },
+      "MN": {
+        "state_name": "Minnesota",
+        "bookmobiles": 10,
+        "interlibrary_loan_from": 1036455,
+        "interlibrary_loan_to": 1018796,
+        "reference_transactions": 2250919,
+        "registered_borrowers": 2953937,
+        "wifi_sessions": 17805844,
+        "public_internet_users": 2168736,
+        "book_volumes": 12342293,
+        "audio_physical": 598193,
+        "video_physical": 1007384,
+        "ebook_circulation": 7402214,
+        "electronic_circulation": 15743437,
+        "physical_circulation": 37475921,
+        "children_circulation": 17859431,
+        "ya_programs": 5040,
+        "adult_programs": 17523,
+        "online_programs": 52208,
+        "total_program_attendance": 1178019
+      },
+      "MO": {
+        "state_name": "Missouri",
+        "bookmobiles": 21,
+        "interlibrary_loan_from": 1456843,
+        "interlibrary_loan_to": 1384596,
+        "reference_transactions": 1991272,
+        "registered_borrowers": 3371126,
+        "wifi_sessions": 11013131,
+        "public_internet_users": 2066874,
+        "book_volumes": 14123195,
+        "audio_physical": 706535,
+        "video_physical": 1283948,
+        "ebook_circulation": 7076865,
+        "electronic_circulation": 16910233,
+        "physical_circulation": 31973180,
+        "children_circulation": 15309754,
+        "ya_programs": 9168,
+        "adult_programs": 27196,
+        "online_programs": 71290,
+        "total_program_attendance": 1841897
+      },
+      "MP": {
+        "state_name": "Northern Mariana Islands",
+        "bookmobiles": 1,
+        "interlibrary_loan_from": 0,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 869,
+        "registered_borrowers": 46337,
+        "wifi_sessions": 46059,
+        "public_internet_users": 64591,
+        "book_volumes": 116759,
+        "audio_physical": 504,
+        "video_physical": 4904,
+        "ebook_circulation": 4923,
+        "electronic_circulation": 4923,
+        "physical_circulation": 17356,
+        "children_circulation": 7465,
+        "ya_programs": 29,
+        "adult_programs": 17,
+        "online_programs": 149,
+        "total_program_attendance": 13882
+      },
+      "MS": {
+        "state_name": "Mississippi",
+        "bookmobiles": 4,
+        "interlibrary_loan_from": 47683,
+        "interlibrary_loan_to": 41262,
+        "reference_transactions": 710126,
+        "registered_borrowers": 1433032,
+        "wifi_sessions": 4006144,
+        "public_internet_users": 664710,
+        "book_volumes": 5045846,
+        "audio_physical": 149745,
+        "video_physical": 449472,
+        "ebook_circulation": 291985,
+        "electronic_circulation": 1008474,
+        "physical_circulation": 4419921,
+        "children_circulation": 1884153,
+        "ya_programs": 2567,
+        "adult_programs": 8856,
+        "online_programs": 26077,
+        "total_program_attendance": 675409
+      },
+      "MT": {
+        "state_name": "Montana",
+        "bookmobiles": 6,
+        "interlibrary_loan_from": 437709,
+        "interlibrary_loan_to": 435472,
+        "reference_transactions": 602563,
+        "registered_borrowers": 387900,
+        "wifi_sessions": 1514442,
+        "public_internet_users": 394452,
+        "book_volumes": 2390749,
+        "audio_physical": 95329,
+        "video_physical": 239778,
+        "ebook_circulation": 554282,
+        "electronic_circulation": 1476888,
+        "physical_circulation": 3830389,
+        "children_circulation": 1823449,
+        "ya_programs": 2178,
+        "adult_programs": 5026,
+        "online_programs": 17321,
+        "total_program_attendance": 363531
+      },
+      "NC": {
+        "state_name": "North Carolina",
+        "bookmobiles": 29,
+        "interlibrary_loan_from": 639205,
+        "interlibrary_loan_to": 601462,
+        "reference_transactions": 4563117,
+        "registered_borrowers": 5102092,
+        "wifi_sessions": 8053935,
+        "public_internet_users": 2085218,
+        "book_volumes": 14287704,
+        "audio_physical": 444311,
+        "video_physical": 840876,
+        "ebook_circulation": 7852898,
+        "electronic_circulation": 16020700,
+        "physical_circulation": 38363952,
+        "children_circulation": 21800107,
+        "ya_programs": 10605,
+        "adult_programs": 35879,
+        "online_programs": 106159,
+        "total_program_attendance": 2940354
+      },
+      "ND": {
+        "state_name": "North Dakota",
+        "bookmobiles": 11,
+        "interlibrary_loan_from": 55841,
+        "interlibrary_loan_to": 58505,
+        "reference_transactions": 347997,
+        "registered_borrowers": 261930,
+        "wifi_sessions": 1494564,
+        "public_internet_users": 224005,
+        "book_volumes": 1941645,
+        "audio_physical": 66569,
+        "video_physical": 139028,
+        "ebook_circulation": 472366,
+        "electronic_circulation": 1263836,
+        "physical_circulation": 2908783,
+        "children_circulation": 1409996,
+        "ya_programs": 1427,
+        "adult_programs": 2339,
+        "online_programs": 10256,
+        "total_program_attendance": 264614
+      },
+      "NE": {
+        "state_name": "Nebraska",
+        "bookmobiles": 3,
+        "interlibrary_loan_from": 27586,
+        "interlibrary_loan_to": 30820,
+        "reference_transactions": 597057,
+        "registered_borrowers": 1027582,
+        "wifi_sessions": 2613832,
+        "public_internet_users": 696377,
+        "book_volumes": 5469862,
+        "audio_physical": 198514,
+        "video_physical": 431561,
+        "ebook_circulation": 1505320,
+        "electronic_circulation": 3776442,
+        "physical_circulation": 9606461,
+        "children_circulation": 5449511,
+        "ya_programs": 3313,
+        "adult_programs": 9734,
+        "online_programs": 33363,
+        "total_program_attendance": 716804
+      },
+      "NH": {
+        "state_name": "New Hampshire",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 256687,
+        "interlibrary_loan_to": 260424,
+        "reference_transactions": 703687,
+        "registered_borrowers": 657799,
+        "wifi_sessions": 486714,
+        "public_internet_users": 278355,
+        "book_volumes": 5200388,
+        "audio_physical": 207341,
+        "video_physical": 503160,
+        "ebook_circulation": 787884,
+        "electronic_circulation": 2520735,
+        "physical_circulation": 6481109,
+        "children_circulation": 2724762,
+        "ya_programs": 4308,
+        "adult_programs": 23751,
+        "online_programs": 55039,
+        "total_program_attendance": 905719
+      },
+      "NJ": {
+        "state_name": "New Jersey",
+        "bookmobiles": 11,
+        "interlibrary_loan_from": 2357890,
+        "interlibrary_loan_to": 2506023,
+        "reference_transactions": 4821009,
+        "registered_borrowers": 3521690,
+        "wifi_sessions": 5142056,
+        "public_internet_users": 2789561,
+        "book_volumes": 22741410,
+        "audio_physical": 2627066,
+        "video_physical": 2049709,
+        "ebook_circulation": 4642844,
+        "electronic_circulation": 10804222,
+        "physical_circulation": 36263997,
+        "children_circulation": 15976591,
+        "ya_programs": 21819,
+        "adult_programs": 89024,
+        "online_programs": 200228,
+        "total_program_attendance": 4131036
+      },
+      "NM": {
+        "state_name": "New Mexico",
+        "bookmobiles": 1,
+        "interlibrary_loan_from": 14810,
+        "interlibrary_loan_to": 7550,
+        "reference_transactions": 717304,
+        "registered_borrowers": 999992,
+        "wifi_sessions": 2302386,
+        "public_internet_users": 530143,
+        "book_volumes": 3731647,
+        "audio_physical": 156632,
+        "video_physical": 337573,
+        "ebook_circulation": 1650098,
+        "electronic_circulation": 5056057,
+        "physical_circulation": 4963058,
+        "children_circulation": 1984659,
+        "ya_programs": 2574,
+        "adult_programs": 8065,
+        "online_programs": 26622,
+        "total_program_attendance": 500772
+      },
+      "NV": {
+        "state_name": "Nevada",
+        "bookmobiles": 6,
+        "interlibrary_loan_from": 23394,
+        "interlibrary_loan_to": 21483,
+        "reference_transactions": 823648,
+        "registered_borrowers": 1082404,
+        "wifi_sessions": 1303093,
+        "public_internet_users": 1407517,
+        "book_volumes": 2427282,
+        "audio_physical": 126995,
+        "video_physical": 353873,
+        "ebook_circulation": 3116334,
+        "electronic_circulation": 7255811,
+        "physical_circulation": 10436034,
+        "children_circulation": 5524677,
+        "ya_programs": 3410,
+        "adult_programs": 15027,
+        "online_programs": 39248,
+        "total_program_attendance": 759539
+      },
+      "NY": {
+        "state_name": "New York",
+        "bookmobiles": 13,
+        "interlibrary_loan_from": 6235823,
+        "interlibrary_loan_to": 5898189,
+        "reference_transactions": 15937174,
+        "registered_borrowers": 9553239,
+        "wifi_sessions": 22092336,
+        "public_internet_users": 6763783,
+        "book_volumes": 63635825,
+        "audio_physical": 2680191,
+        "video_physical": 4688065,
+        "ebook_circulation": 17881728,
+        "electronic_circulation": 34826069,
+        "physical_circulation": 70146842,
+        "children_circulation": 30846864,
+        "ya_programs": 62200,
+        "adult_programs": 246677,
+        "online_programs": 486962,
+        "total_program_attendance": 9108811
+      },
+      "OH": {
+        "state_name": "Ohio",
+        "bookmobiles": 68,
+        "interlibrary_loan_from": 8755750,
+        "interlibrary_loan_to": 8745990,
+        "reference_transactions": 10133667,
+        "registered_borrowers": 7358182,
+        "wifi_sessions": 23349077,
+        "public_internet_users": 6277173,
+        "book_volumes": 34516030,
+        "audio_physical": 2037682,
+        "video_physical": 4516114,
+        "ebook_circulation": 21386494,
+        "electronic_circulation": 46104777,
+        "physical_circulation": 108338009,
+        "children_circulation": 47301296,
+        "ya_programs": 28458,
+        "adult_programs": 73450,
+        "online_programs": 218345,
+        "total_program_attendance": 5863293
+      },
+      "OK": {
+        "state_name": "Oklahoma",
+        "bookmobiles": 4,
+        "interlibrary_loan_from": 56120,
+        "interlibrary_loan_to": 32649,
+        "reference_transactions": 1060670,
+        "registered_borrowers": 1928864,
+        "wifi_sessions": 2138754,
+        "public_internet_users": 1370341,
+        "book_volumes": 5698869,
+        "audio_physical": 244977,
+        "video_physical": 561903,
+        "ebook_circulation": 4200757,
+        "electronic_circulation": 9242442,
+        "physical_circulation": 17369336,
+        "children_circulation": 8854027,
+        "ya_programs": 7593,
+        "adult_programs": 15896,
+        "online_programs": 46502,
+        "total_program_attendance": 1174236
+      },
+      "OR": {
+        "state_name": "Oregon",
+        "bookmobiles": 9,
+        "interlibrary_loan_from": 7520488,
+        "interlibrary_loan_to": 4515513,
+        "reference_transactions": 1095292,
+        "registered_borrowers": 1737388,
+        "wifi_sessions": 4998306,
+        "public_internet_users": 1202761,
+        "book_volumes": 8525378,
+        "audio_physical": 488874,
+        "video_physical": 970336,
+        "ebook_circulation": 15109238,
+        "electronic_circulation": 0,
+        "physical_circulation": 35626782,
+        "children_circulation": 12272168,
+        "ya_programs": 5126,
+        "adult_programs": 11142,
+        "online_programs": 0,
+        "total_program_attendance": 1157140
+      },
+      "PA": {
+        "state_name": "Pennsylvania",
+        "bookmobiles": 20,
+        "interlibrary_loan_from": 5419291,
+        "interlibrary_loan_to": 5500553,
+        "reference_transactions": 4639135,
+        "registered_borrowers": 4053920,
+        "wifi_sessions": 10320726,
+        "public_internet_users": 1996404,
+        "book_volumes": 22455276,
+        "audio_physical": 1026559,
+        "video_physical": 1949899,
+        "ebook_circulation": 7415417,
+        "electronic_circulation": 15917823,
+        "physical_circulation": 44891229,
+        "children_circulation": 21863483,
+        "ya_programs": 18532,
+        "adult_programs": 69731,
+        "online_programs": 189663,
+        "total_program_attendance": 4059613
+      },
+      "PR": {
+        "state_name": "Puerto Rico",
+        "bookmobiles": 0,
+        "interlibrary_loan_from": 0,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 0,
+        "registered_borrowers": 0,
+        "wifi_sessions": 0,
+        "public_internet_users": 0,
+        "book_volumes": 0,
+        "audio_physical": 0,
+        "video_physical": 0,
+        "ebook_circulation": 0,
+        "electronic_circulation": 0,
+        "physical_circulation": 0,
+        "children_circulation": 0,
+        "ya_programs": 0,
+        "adult_programs": 0,
+        "online_programs": 0,
+        "total_program_attendance": 0
+      },
+      "RI": {
+        "state_name": "Rhode Island",
+        "bookmobiles": 1,
+        "interlibrary_loan_from": 998821,
+        "interlibrary_loan_to": 995674,
+        "reference_transactions": 471099,
+        "registered_borrowers": 371786,
+        "wifi_sessions": 1082129,
+        "public_internet_users": 357750,
+        "book_volumes": 2912757,
+        "audio_physical": 129670,
+        "video_physical": 283473,
+        "ebook_circulation": 853809,
+        "electronic_circulation": 1631169,
+        "physical_circulation": 4827651,
+        "children_circulation": 2105098,
+        "ya_programs": 3076,
+        "adult_programs": 12448,
+        "online_programs": 26069,
+        "total_program_attendance": 468471
+      },
+      "SC": {
+        "state_name": "South Carolina",
+        "bookmobiles": 35,
+        "interlibrary_loan_from": 433890,
+        "interlibrary_loan_to": 413927,
+        "reference_transactions": 1912667,
+        "registered_borrowers": 2433876,
+        "wifi_sessions": 7587634,
+        "public_internet_users": 1446604,
+        "book_volumes": 7814664,
+        "audio_physical": 309391,
+        "video_physical": 705939,
+        "ebook_circulation": 3202018,
+        "electronic_circulation": 7041342,
+        "physical_circulation": 16610711,
+        "children_circulation": 8678411,
+        "ya_programs": 5289,
+        "adult_programs": 17673,
+        "online_programs": 48133,
+        "total_program_attendance": 1379447
+      },
+      "SD": {
+        "state_name": "South Dakota",
+        "bookmobiles": 5,
+        "interlibrary_loan_from": 47110,
+        "interlibrary_loan_to": 39782,
+        "reference_transactions": 273036,
+        "registered_borrowers": 324080,
+        "wifi_sessions": 1125797,
+        "public_internet_users": 353862,
+        "book_volumes": 2593465,
+        "audio_physical": 86091,
+        "video_physical": 174682,
+        "ebook_circulation": 663318,
+        "electronic_circulation": 1645366,
+        "physical_circulation": 4368589,
+        "children_circulation": 2278072,
+        "ya_programs": 1743,
+        "adult_programs": 3461,
+        "online_programs": 13953,
+        "total_program_attendance": 319847
+      },
+      "TN": {
+        "state_name": "Tennessee",
+        "bookmobiles": 6,
+        "interlibrary_loan_from": 102915,
+        "interlibrary_loan_to": 93196,
+        "reference_transactions": 2532386,
+        "registered_borrowers": 2889973,
+        "wifi_sessions": 4868706,
+        "public_internet_users": 1710533,
+        "book_volumes": 9884565,
+        "audio_physical": 380598,
+        "video_physical": 763803,
+        "ebook_circulation": 9000763,
+        "electronic_circulation": 13165178,
+        "physical_circulation": 18663414,
+        "children_circulation": 9507835,
+        "ya_programs": 10535,
+        "adult_programs": 21652,
+        "online_programs": 64987,
+        "total_program_attendance": 1616256
+      },
+      "TX": {
+        "state_name": "Texas",
+        "bookmobiles": 17,
+        "interlibrary_loan_from": 529785,
+        "interlibrary_loan_to": 451933,
+        "reference_transactions": 9501162,
+        "registered_borrowers": 14269672,
+        "wifi_sessions": 27028865,
+        "public_internet_users": 5132679,
+        "book_volumes": 32586254,
+        "audio_physical": 1112144,
+        "video_physical": 2925899,
+        "ebook_circulation": 17220010,
+        "electronic_circulation": 38900204,
+        "physical_circulation": 79490374,
+        "children_circulation": 45336130,
+        "ya_programs": 23088,
+        "adult_programs": 70751,
+        "online_programs": 202146,
+        "total_program_attendance": 5760825
+      },
+      "UT": {
+        "state_name": "Utah",
+        "bookmobiles": 11,
+        "interlibrary_loan_from": 47971,
+        "interlibrary_loan_to": 67197,
+        "reference_transactions": 1443100,
+        "registered_borrowers": 1744999,
+        "wifi_sessions": 7791470,
+        "public_internet_users": 1097590,
+        "book_volumes": 6337914,
+        "audio_physical": 473251,
+        "video_physical": 690768,
+        "ebook_circulation": 4196779,
+        "electronic_circulation": 11795651,
+        "physical_circulation": 25119653,
+        "children_circulation": 14834420,
+        "ya_programs": 4200,
+        "adult_programs": 8238,
+        "online_programs": 40927,
+        "total_program_attendance": 1452473
+      },
+      "VA": {
+        "state_name": "Virginia",
+        "bookmobiles": 30,
+        "interlibrary_loan_from": 110241,
+        "interlibrary_loan_to": 125751,
+        "reference_transactions": 4459251,
+        "registered_borrowers": 1915837,
+        "wifi_sessions": 13307960,
+        "public_internet_users": 2432373,
+        "book_volumes": 13766790,
+        "audio_physical": 586917,
+        "video_physical": 1189407,
+        "ebook_circulation": 8228496,
+        "electronic_circulation": 19077950,
+        "physical_circulation": 41109760,
+        "children_circulation": 20942984,
+        "ya_programs": 11395,
+        "adult_programs": 36261,
+        "online_programs": 100145,
+        "total_program_attendance": 2740538
+      },
+      "VI": {
+        "state_name": "U.S. Virgin Islands",
+        "bookmobiles": 3,
+        "interlibrary_loan_from": 0,
+        "interlibrary_loan_to": 0,
+        "reference_transactions": 0,
+        "registered_borrowers": 58346,
+        "wifi_sessions": 0,
+        "public_internet_users": 0,
+        "book_volumes": 160000,
+        "audio_physical": 600,
+        "video_physical": 4400,
+        "ebook_circulation": 0,
+        "electronic_circulation": 0,
+        "physical_circulation": 4206,
+        "children_circulation": 0,
+        "ya_programs": 5,
+        "adult_programs": 0,
+        "online_programs": 5,
+        "total_program_attendance": 2474
+      },
+      "VT": {
+        "state_name": "Vermont",
+        "bookmobiles": 4,
+        "interlibrary_loan_from": 119964,
+        "interlibrary_loan_to": 121389,
+        "reference_transactions": 278844,
+        "registered_borrowers": 302637,
+        "wifi_sessions": 905848,
+        "public_internet_users": 185148,
+        "book_volumes": 2951554,
+        "audio_physical": 108558,
+        "video_physical": 239700,
+        "ebook_circulation": 200315,
+        "electronic_circulation": 488896,
+        "physical_circulation": 3181259,
+        "children_circulation": 977085,
+        "ya_programs": 1635,
+        "adult_programs": 10002,
+        "online_programs": 27620,
+        "total_program_attendance": 390531
+      },
+      "WA": {
+        "state_name": "Washington",
+        "bookmobiles": 33,
+        "interlibrary_loan_from": 588112,
+        "interlibrary_loan_to": 542431,
+        "reference_transactions": 1679504,
+        "registered_borrowers": 3753410,
+        "wifi_sessions": 8280754,
+        "public_internet_users": 2952201,
+        "book_volumes": 9853937,
+        "audio_physical": 563552,
+        "video_physical": 1060892,
+        "ebook_circulation": 20516790,
+        "electronic_circulation": 37884880,
+        "physical_circulation": 45785645,
+        "children_circulation": 23736054,
+        "ya_programs": 8996,
+        "adult_programs": 22244,
+        "online_programs": 49291,
+        "total_program_attendance": 1926709
+      },
+      "WI": {
+        "state_name": "Wisconsin",
+        "bookmobiles": 8,
+        "interlibrary_loan_from": 7459218,
+        "interlibrary_loan_to": 7343941,
+        "reference_transactions": 2685819,
+        "registered_borrowers": 2251052,
+        "wifi_sessions": 13950419,
+        "public_internet_users": 1809705,
+        "book_volumes": 16700692,
+        "audio_physical": 1150132,
+        "video_physical": 2176916,
+        "ebook_circulation": 4234941,
+        "electronic_circulation": 10451549,
+        "physical_circulation": 37448995,
+        "children_circulation": 17449597,
+        "ya_programs": 10104,
+        "adult_programs": 35292,
+        "online_programs": 98721,
+        "total_program_attendance": 2521603
+      },
+      "WV": {
+        "state_name": "West Virginia",
+        "bookmobiles": 11,
+        "interlibrary_loan_from": 78535,
+        "interlibrary_loan_to": 79458,
+        "reference_transactions": 446006,
+        "registered_borrowers": 976358,
+        "wifi_sessions": 101131,
+        "public_internet_users": 280152,
+        "book_volumes": 4332243,
+        "audio_physical": 146288,
+        "video_physical": 364624,
+        "ebook_circulation": 864704,
+        "electronic_circulation": 1803966,
+        "physical_circulation": 4451673,
+        "children_circulation": 0,
+        "ya_programs": 2707,
+        "adult_programs": 6189,
+        "online_programs": 24397,
+        "total_program_attendance": 458029
+      },
+      "WY": {
+        "state_name": "Wyoming",
+        "bookmobiles": 3,
+        "interlibrary_loan_from": 34208,
+        "interlibrary_loan_to": 30238,
+        "reference_transactions": 390673,
+        "registered_borrowers": 302069,
+        "wifi_sessions": 1144962,
+        "public_internet_users": 313011,
+        "book_volumes": 2053286,
+        "audio_physical": 113291,
+        "video_physical": 256508,
+        "ebook_circulation": 638863,
+        "electronic_circulation": 1214545,
+        "physical_circulation": 3153813,
+        "children_circulation": 1342504,
+        "ya_programs": 1917,
+        "adult_programs": 3776,
+        "online_programs": 12902,
+        "total_program_attendance": 343186
+      }
+    }
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

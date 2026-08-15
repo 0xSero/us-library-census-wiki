@@ -164,6 +164,7 @@ def panel(active=""):
     <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
     <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
     <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
+    <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -441,6 +442,8 @@ def load_all():
     else:
         data['digital_libraries'] = {}
     imls_grants_path = os.path.join(DATA, "imls_library_grants_summary.json")
+    if not os.path.exists(imls_grants_path):
+        imls_grants_path = os.path.join(DATA, "imls_grants_summary.json")
     if os.path.exists(imls_grants_path):
         with open(imls_grants_path) as f:
             data['imls_library_grants'] = json.load(f)
@@ -464,6 +467,12 @@ def load_all():
             data['nlm'] = json.load(f)
     else:
         data['nlm'] = {}
+    pls_ext_path = os.path.join(DATA, "pls_extended_metrics.json")
+    if os.path.exists(pls_ext_path):
+        with open(pls_ext_path) as f:
+            data['pls_extended'] = json.load(f)
+    else:
+        data['pls_extended'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1561,6 +1570,9 @@ def compute_stats(data):
 
     # ---- National Library of Medicine ----
     stats['nlm'] = data.get('nlm', {})
+
+    # ---- PLS Extended Metrics (bookmobiles, ILL, WiFi, etc.) ----
+    stats['pls_extended'] = data.get('pls_extended', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3866,6 +3878,7 @@ def build_index(data, stats):
         ig_by_year = ig.get('grants_by_year', [])
         ig_top_recipients = ig.get('top_recipients', [])
         ig_largest = ig.get('largest_awards', [])
+        ig_by_program = ig.get('grants_by_program', [])
         ig_largest_amt = ig_largest[0]['amount'] if ig_largest else 0
 
         body += f"""
@@ -3894,6 +3907,16 @@ def build_index(data, stats):
                 pct = (amt / max_amt) * 100 if max_amt else 0
                 body += f'\n  <div class="svc-row"><span class="svc-label">{esc(name)} ({grnts} grants)</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.1f}M</span></div>'
             body += '\n</div>'
+
+        # IMLS programs breakdown
+        if ig_by_program:
+            body += """
+<h3>IMLS library grants by program (CFDA)</h3>
+<table class="wikitable">
+  <tr><th>Program</th><th>Grants</th><th>Total awarded</th><th>Avg award</th></tr>"""
+            for p in ig_by_program:
+                body += f'\n  <tr><td>{esc(p.get("program",""))}</td><td>{p.get("grants",0)}</td><td class="pct">${p.get("total_awarded",0)/1e6:.1f}M</td><td>${p.get("avg_award",0)/1e3:.0f}K</td></tr>'
+            body += '\n</table>'
 
         # Top states
         if ig_by_state:
@@ -4572,6 +4595,88 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024, compiled via ALA State of America\'s Libraries data. Per-capita metrics are computed by dividing each state\'s aggregate library statistic by its total population served. Rankings include all {n_states} states and territories with population &ge; 1,000. Some territories show extreme ratios (e.g., 100% digital circulation) due to small library systems with specialized collections.</p>'
+
+    # ---- PLS Extended Metrics: Bookmobiles, ILL, WiFi, etc. ----
+    plse = stats.get('pls_extended', {})
+    if plse and plse.get('national_totals'):
+        pe_nat = plse['national_totals']
+        pe_n_states = plse.get('state_count', 56)
+        pe_rankings = plse.get('rankings', {})
+
+        pe_bookmobiles = pe_nat.get('bookmobiles', 0)
+        pe_ill_from = pe_nat.get('interlibrary_loan_from', 0)
+        pe_ill_to = pe_nat.get('interlibrary_loan_to', 0)
+        pe_ref = pe_nat.get('reference_transactions', 0)
+        pe_registered = pe_nat.get('registered_borrowers', 0)
+        pe_wifi = pe_nat.get('wifi_sessions', 0)
+        pe_internet = pe_nat.get('public_internet_users', 0)
+        pe_books = pe_nat.get('book_volumes', 0)
+        pe_ebook_circ = pe_nat.get('ebook_circulation', 0)
+        pe_program_att = pe_nat.get('total_program_attendance', 0)
+
+        body += f"""
+
+<h2 id="pls-extended">Beyond the Basics: Bookmobiles, WiFi, and ILL</h2>
+<p class="wiki-sub">The IMLS Public Libraries Survey captures dozens of metrics beyond the headline numbers. This section surfaces the less-discussed but equally important dimensions of library service: the {pe_bookmobiles:,} bookmobiles still operating across America, {pe_registered/1e6:.0f}M registered borrowers, {pe_ill_from/1e6:.0f}M interlibrary loans received, {pe_wifi/1e6:.0f}M WiFi sessions, and {pe_books/1e6:.0f}M book volumes on shelves.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pe_registered/1e6:.0f}M</div><div class="label">Registered borrowers</div></div>
+  <div class="stat-card"><div class="num">{pe_books/1e6:.0f}M</div><div class="label">Book volumes on shelves</div></div>
+  <div class="stat-card"><div class="num">{pe_ill_from/1e6:.0f}M</div><div class="label">ILL items received</div></div>
+  <div class="stat-card"><div class="num">{pe_ill_to/1e6:.0f}M</div><div class="label">ILL items lent</div></div>
+  <div class="stat-card"><div class="num">{pe_wifi/1e6:.0f}M</div><div class="label">WiFi sessions</div></div>
+  <div class="stat-card"><div class="num">{pe_bookmobiles:,}</div><div class="label">Bookmobiles</div></div>
+  <div class="stat-card"><div class="num">{pe_internet/1e6:.0f}M</div><div class="label">Public internet users</div></div>
+  <div class="stat-card"><div class="num">{pe_ref/1e6:.0f}M</div><div class="label">Reference transactions</div></div>
+  <div class="stat-card"><div class="num">{pe_ebook_circ/1e6:.0f}M</div><div class="label">E-book circulation</div></div>
+  <div class="stat-card"><div class="num">{pe_program_att/1e6:.0f}M</div><div class="label">Program attendance</div></div>
+</div>"""
+
+        # Bookmobiles top states
+        bm_rank = pe_rankings.get('bookmobiles', [])
+        if bm_rank:
+            body += """
+<h3>States with the most bookmobiles</h3>
+<p class="wiki-sub">Bookmobiles remain a vital service for reaching rural communities, homebound patrons, and childcare centers.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Bookmobiles</th></tr>"""
+            for r in bm_rank[:10]:
+                body += f'\n  <tr><td><a href="states/{r["state"]}.html">{esc(r.get("state_name", r["state"]))}</a></td><td class="pct">{r["value"]}</td></tr>'
+            body += '\n</table>'
+
+        # ILL top states
+        ill_rank = pe_rankings.get('interlibrary_loan_from', [])
+        if ill_rank:
+            body += """
+<h3>Top states by interlibrary loan items received</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>ILL items received</th></tr>"""
+            for r in ill_rank[:10]:
+                body += f'\n  <tr><td><a href="states/{r["state"]}.html">{esc(r.get("state_name", r["state"]))}</a></td><td class="pct">{r["value"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # WiFi top states
+        wifi_rank = pe_rankings.get('wifi_sessions', [])
+        if wifi_rank:
+            body += """
+<h3>Top states by WiFi sessions</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>WiFi sessions</th></tr>"""
+            for r in wifi_rank[:10]:
+                body += f'\n  <tr><td><a href="states/{r["state"]}.html">{esc(r.get("state_name", r["state"]))}</a></td><td class="pct">{r["value"]:,}</td></tr>'
+            body += '\n</table>'
+
+        # Reference transactions top states
+        ref_rank = pe_rankings.get('reference_transactions', [])
+        if ref_rank:
+            body += """
+<h3>Top states by reference transactions</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Reference transactions</th></tr>"""
+            for r in ref_rank[:10]:
+                body += f'\n  <tr><td><a href="states/{r["state"]}.html">{esc(r.get("state_name", r["state"]))}</a></td><td class="pct">{r["value"]:,}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024, compiled via ALA State of America\'s Libraries data. All {pe_n_states} states and territories are included. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0. The {pe_bookmobiles:,} bookmobiles represent a often-overlooked dimension of library service - Kentucky leads with 74 bookmobiles. Interlibrary loan totals ({pe_ill_from/1e6:.0f}M received vs {pe_ill_to/1e6:.0f}M lent) show a rough balance, though individual states vary widely. Reference transactions ({pe_ref/1e6:.0f}M nationally) have been declining as patrons shift to self-service digital resources.</p>'
 
     # ---- ALA State of America's Libraries Report 2024 ----
     ala = stats.get('ala_report', {})

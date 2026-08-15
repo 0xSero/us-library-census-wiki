@@ -9229,8 +9229,108 @@ def build_gov(data, stats):
 
     body += f'</table>\n<p>Showing 50 of {len(summarized)} summarized agencies. <a href="search.html?type=govservices">Search all →</a></p>'
 
+    # ---- Geocoded government sites ----
+    geo_path = os.path.join(DATA, 'gov_sites_geocoded_summary.json')
+    if os.path.exists(geo_path):
+        try:
+            with open(geo_path) as f:
+                geo = json.load(f)
+            geo_total = geo.get('key_stats', {}).get('total_sites', 0)
+            geo_geocoded = geo.get('geocoded_count', 0)
+            geo_states = geo.get('key_stats', {}).get('states_represented', 0)
+
+            body += f"""
+<h2 id="geocoded-gov">Geocoded Government Sites: Map-Ready Data</h2>
+<p>{esc(geo.get('overview', ''))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{geo_total:,}</div><div class="label">Total sites geocoded</div></div>
+  <div class="stat-card"><div class="num">{geo_geocoded:,}</div><div class="label">With lat/lng (100%)</div></div>
+  <div class="stat-card"><div class="num">{geo_states}</div><div class="label">States represented</div></div>
+</div>"""
+
+            by_tier = geo.get('by_tier', {})
+            if by_tier and isinstance(by_tier, dict):
+                max_t = max((v if isinstance(v, (int, float)) else 0 for v in by_tier.values()), default=1) or 1
+                body += """
+<h3 id="geocoded-by-tier">Geocoded Sites by Tier</h3>
+<div class="services-bars">"""
+                for tier, cnt in sorted(by_tier.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if not isinstance(cnt, (int, float)):
+                        continue
+                    pct = (cnt / max_t * 100) if max_t else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{esc(str(tier).title())}</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></div></div><div class="svc-num">{cnt:,}</div></div>'
+                body += '\n</div>'
+
+            top_st = geo.get('top_20_states_by_site_count', [])
+            if top_st:
+                body += """
+<h3 id="geocoded-top-states">Top States by Government Site Count</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Sites</th></tr>"""
+                for row in top_st[:20]:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Geocoded gov sites data unavailable: {esc(str(e))}</em></p>'
+
+    # ---- Library website coverage ----
+    webcov_path = os.path.join(DATA, 'library_website_coverage_summary.json')
+    if os.path.exists(webcov_path):
+        try:
+            with open(webcov_path) as f:
+                wc = json.load(f)
+            ks = wc.get('key_stats', {})
+            total_sys = ks.get('total_systems', 0)
+            with_web = ks.get('systems_with_websites', 0)
+            needing = ks.get('systems_needing_websites', 0)
+            cov_pct = ks.get('website_coverage_pct', 0)
+
+            body += f"""
+<h2 id="website-coverage">Library Website Coverage: The Digital Gap</h2>
+<p>{esc(wc.get('overview', ''))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_sys:,}</div><div class="label">Total library systems</div></div>
+  <div class="stat-card"><div class="num">{with_web:,}</div><div class="label">With a website</div></div>
+  <div class="stat-card"><div class="num">{needing:,}</div><div class="label">Need a website</div></div>
+  <div class="stat-card"><div class="num">{cov_pct:.1f}%</div><div class="label">Coverage rate</div></div>
+</div>"""
+
+            # Systems with websites by state
+            sw = wc.get('systems_with_websites', {})
+            if sw and isinstance(sw, dict):
+                by_st = sw.get('by_state', {})
+                if by_st and isinstance(by_st, dict):
+                    top_st = sorted(by_st.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True)[:20]
+                    body += """
+<h3 id="website-coverage-states">Top States by Library Systems with Websites</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Systems with Website</th></tr>"""
+                    for st, cnt in top_st:
+                        if isinstance(cnt, (int, float)):
+                            body += f'\n  <tr><td><a href="states/{esc(str(st))}.html"><strong>{esc(str(st))}</strong></a></td><td class="num">{cnt:,}</td></tr>'
+                    body += '\n</table>'
+
+            # Systems needing websites by state
+            sn = wc.get('systems_needing_websites', {})
+            if sn and isinstance(sn, dict):
+                by_st = sn.get('by_state', {})
+                if by_st and isinstance(by_st, dict):
+                    top_need = sorted(by_st.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True)[:20]
+                    body += """
+<h3 id="website-coverage-needing">States with Most Library Systems Needing Websites</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Systems Needing Website</th></tr>"""
+                    for st, cnt in top_need:
+                        if isinstance(cnt, (int, float)):
+                            body += f'\n  <tr><td><a href="states/{esc(str(st))}.html"><strong>{esc(str(st))}</strong></a></td><td class="num">{cnt:,}</td></tr>'
+                    body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Website coverage data unavailable: {esc(str(e))}</em></p>'
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=gov&tier=federal">Federal</a> | <a href="search.html?type=gov&tier=state">State</a> | <a href="search.html?type=gov&tier=county">County</a> | <a href="search.html?type=gov&tier=city">City</a> | <a href="search.html?type=gov&tier=tribal">Tribal</a> | <a href="search.html?type=gov&tier=special">Special</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=gov&tier=federal">Federal</a> | <a href="search.html?type=gov&tier=state">State</a> | <a href="search.html?type=gov&tier=county">County</a> | <a href="search.html?type=gov&tier=city">City</a> | <a href="search.html?type=gov&tier=tribal">Tribal</a> | <a href="search.html?type=gov&tier=special">Special</a> | <a href="digital.html">Digital inclusion</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'gov.html'), 'w') as f:

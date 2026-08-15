@@ -63,6 +63,7 @@ def shell(title, body_html, panel_html="", active_tab="", extra_head="", body_cl
         ("map.html",    "Map",         "map"),
         ("contacts.html", "Contacts",  "contacts"),
         ("funders.html", "Funders",    "funders"),
+        ("digital.html", "Digital",    "digital"),
         ("gov.html",    "Government",  "gov"),
         ("about.html",   "About",       "about"),
     ]
@@ -139,6 +140,7 @@ def panel(active=""):
         ("map.html",    "Interactive map"),
         ("contacts.html", "Library contacts"),
         ("funders.html", "Funders & investors"),
+        ("digital.html", "Digital inclusion"),
         ("gov.html",    "Government sites"),
         ("about.html",   "About / methodology"),
     ]
@@ -10831,6 +10833,685 @@ def build_funders(data, stats):
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:
         f.write(shell("Library Funders & Investors", body, panel("funders"), active_tab="funders"))
 
+def build_digital(data, stats):
+    """Build digital.html — broadband, E-Rate, connectivity, tribal libraries, workforce, museums."""
+    body = f"""
+<p>The <strong>Digital Inclusion</strong> page covers the infrastructure, funding, and programs that connect America's libraries to the internet and bridge the digital divide. Includes E-Rate telecom subsidies, BEAD broadband deployment, ACP affordability, tribal broadband, librarian workforce salaries, and the IMLS museum universe.</p>"""
+
+    # ============================================================
+    # SECTION 1: E-Rate
+    # ============================================================
+    erate_path = os.path.join(DATA, 'erate_summary.json')
+    if os.path.exists(erate_path):
+        try:
+            with open(erate_path) as f:
+                er = json.load(f)
+            er_total = er.get('total_cost', 0)
+            er_records = er.get('total_records', 0)
+            er_applicants = er.get('unique_applicants', 0)
+            er_bens = er.get('unique_bens', 0)
+            er_years = er.get('year_range', '')
+
+            body += f"""
+<h2 id="erate">E-Rate: Telecommunications Subsidies for Libraries &amp; Schools</h2>
+<p>The <strong>Universal Service Fund E-Rate program</strong> (administered by USAC) provides discounts of 20-90% on telecommunications, internet access, and internal connections for libraries and schools. It is the single largest federal program directly subsidizing library connectivity.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${er_total/1e9:.2f}B</div><div class="label">Total E-Rate funding ({er_years})</div></div>
+  <div class="stat-card"><div class="num">{er_records:,}</div><div class="label">Funding records</div></div>
+  <div class="stat-card"><div class="num">{er_applicants:,}</div><div class="label">Unique applicants</div></div>
+  <div class="stat-card"><div class="num">{er_bens:,}</div><div class="label">Beneficiary entities</div></div>
+</div>"""
+
+            # By applicant type
+            by_at = er.get('by_applicant_type', [])
+            if by_at:
+                max_at = max((x.get('cost', 0) for x in by_at), default=1) or 1
+                body += """
+<h3 id="erate-applicant-type">E-Rate by Applicant Type</h3>
+<div class="services-bars">"""
+                for row in by_at:
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('count', 0)
+                    cost = row.get('cost', 0)
+                    pct = (cost / max_at * 100) if max_at else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{t}</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></div></div><div class="svc-num">${cost/1e6:.1f}M ({cnt:,} records)</div></div>'
+                body += '\n</div>'
+
+            # By function type
+            by_ft = er.get('by_function_type', [])
+            if by_ft:
+                max_ft = max((x.get('cost', 0) for x in by_ft), default=1) or 1
+                body += """
+<h3 id="erate-function">E-Rate by Service Category</h3>
+<p>What libraries spend E-Rate dollars on:</p>
+<div class="services-bars">"""
+                for row in sorted(by_ft, key=lambda x: x.get('cost', 0), reverse=True):
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('count', 0)
+                    cost = row.get('cost', 0)
+                    pct = (cost / max_ft * 100) if max_ft else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{t}</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.1f}%"></div></div><div class="svc-num">${cost/1e6:.1f}M</div></div>'
+                body += '\n</div>'
+
+            # Top states by E-Rate cost
+            by_st = er.get('by_state', [])
+            if by_st:
+                top_states = sorted(by_st, key=lambda x: x.get('cost', 0), reverse=True)[:20]
+                body += """
+<h3 id="erate-states">Top States by E-Rate Funding</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Records</th><th>Total E-Rate $</th></tr>"""
+                for row in top_states:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    cost = row.get('cost', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{cnt:,}</td><td class="num">${cost:,.0f}</td></tr>'
+                body += '\n</table>'
+
+            # By year
+            by_yr = er.get('by_year', [])
+            if by_yr:
+                body += """
+<h3 id="erate-by-year">E-Rate by Fiscal Year</h3>
+<table class="wikitable">
+  <tr><th>Fiscal Year</th><th>Records</th><th>Total $</th></tr>"""
+                for row in by_yr:
+                    yr = esc(str(row.get('year', '')))
+                    cnt = row.get('count', 0)
+                    cost = row.get('cost', 0)
+                    body += f'\n  <tr><td>{yr}</td><td class="num">{cnt:,}</td><td class="num">${cost:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>E-Rate data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 2: BEAD
+    # ============================================================
+    bead_path = os.path.join(DATA, 'bead_summary.json')
+    if os.path.exists(bead_path):
+        try:
+            with open(bead_path) as f:
+                bd = json.load(f)
+            body += f"""
+<h2 id="bead">Broadband Equity Access &amp; Deployment (BEAD) Program</h2>
+<p>The <strong>BEAD program</strong>, created by the Infrastructure Investment and Jobs Act (IIJA) of 2021, is the largest-ever federal investment in broadband infrastructure — ${bd.get('total_appropriated', 0)/1e9:.1f}B appropriated to states and territories for deploying high-speed internet to unserved and underserved locations. Announced {bd.get('date_announced', '2023-06-26')}.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${bd.get('total_appropriated', 0)/1e9:.1f}B</div><div class="label">Total appropriated</div></div>
+  <div class="stat-card"><div class="num">${bd.get('total_distributed', 0)/1e9:.1f}B</div><div class="label">Distributed to states</div></div>
+  <div class="stat-card"><div class="num">${bd.get('admin_reserve', 0)/1e6:.0f}M</div><div class="label">Admin reserve</div></div>
+  <div class="stat-card"><div class="num">{bd.get('states_count', 0)}</div><div class="label">States &amp; territories</div></div>
+</div>"""
+
+            method = bd.get('methodology', '')
+            if method:
+                body += f"""
+<div class="rules-box">
+  <p><strong>Allocation formula:</strong> {esc(method)}</p>
+</div>"""
+
+            all_st = bd.get('all_states', [])
+            if all_st:
+                all_st_sorted = sorted(all_st, key=lambda x: x.get('allocation', 0), reverse=True)
+                body += """
+<h3 id="bead-all-states">BEAD Allocations by State (All 56)</h3>
+<table class="wikitable sortable">
+  <tr><th>State / Territory</th><th>Allocation</th><th>Minimum</th><th>Above Minimum</th></tr>"""
+                for row in all_st_sorted:
+                    st = esc(str(row.get('state', '')))
+                    alloc = row.get('allocation', 0)
+                    mn = row.get('minimum', 0)
+                    above = row.get('above_minimum', 0)
+                    body += f'\n  <tr><td>{st}</td><td class="num">${alloc:,.0f}</td><td class="num">${mn:,.0f}</td><td class="num">${above:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>BEAD data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 3: ACP
+    # ============================================================
+    acp_path = os.path.join(DATA, 'acp_summary.json')
+    if os.path.exists(acp_path):
+        try:
+            with open(acp_path) as f:
+                acp = json.load(f)
+            acp_enrolled = acp.get('total_national_enrolled', 0)
+            acp_claims = acp.get('total_national_claims', 0)
+            acp_date = acp.get('date_range', '')
+            acp_claims_date = acp.get('claims_date_range', '')
+            acp_months = acp.get('months_active', 0)
+
+            body += f"""
+<h2 id="acp">Affordable Connectivity Program (ACP)</h2>
+<p>The <strong>ACP</strong> was a federal benefit program that provided households a discount of up to $30/month (up to $75/month on tribal lands) for internet service, plus a one-time device benefit. Libraries served as enrollment hubs. {esc(acp_date)}. The program ended in {esc(acp_claims_date)}.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{acp_enrolled:,}</div><div class="label">Households enrolled nationally</div></div>
+  <div class="stat-card"><div class="num">${acp_claims/1e9:.2f}B</div><div class="label">Total claims paid</div></div>
+  <div class="stat-card"><div class="num">{acp_months}</div><div class="label">Months active</div></div>
+</div>"""
+
+            # Top by enrollment
+            top_enr = acp.get('top_by_enrollment', [])
+            if top_enr:
+                max_enr = max((x.get('households_enrolled', 0) for x in top_enr), default=1) or 1
+                body += """
+<h3 id="acp-top-enrollment">Top States by ACP Enrollment</h3>
+<div class="services-bars">"""
+                for row in top_enr[:15]:
+                    st = esc(str(row.get('state_name', row.get('state', ''))))
+                    enr = row.get('households_enrolled', 0)
+                    pct = (enr / max_enr * 100) if max_enr else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{st}</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{pct:.1f}%"></div></div><div class="svc-num">{enr:,}</div></div>'
+                body += '\n</div>'
+
+            # Monthly trend
+            monthly = acp.get('monthly_trend', [])
+            if monthly:
+                max_m = max((x.get('amount', 0) for x in monthly), default=1) or 1
+                body += """
+<h3 id="acp-monthly">Monthly ACP Claims Trend</h3>
+<div class="services-bars">"""
+                for row in monthly:
+                    mo = esc(str(row.get('month', '')))
+                    amt = row.get('amount', 0)
+                    pct = (amt / max_m * 100) if max_m else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{mo}</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.1f}%"></div></div><div class="svc-num">${amt/1e6:.0f}M</div></div>'
+                body += '\n</div>'
+
+            # All states table
+            all_st = acp.get('states', [])
+            if all_st:
+                real_st = [s for s in all_st if s.get('state', '') not in ('Total', '')]
+                real_st.sort(key=lambda x: x.get('households_enrolled', 0), reverse=True)
+                body += """
+<h3 id="acp-all-states">ACP Enrollment &amp; Claims by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Households Enrolled</th><th>Total Claims $</th></tr>"""
+                for row in real_st:
+                    st_name = esc(str(row.get('state_name', row.get('state', ''))))
+                    enr = row.get('households_enrolled', 0)
+                    claims = row.get('total_claims', 0)
+                    body += f'\n  <tr><td>{st_name}</td><td class="num">{enr:,}</td><td class="num">${claims:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>ACP data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 4: Tribal Broadband
+    # ============================================================
+    tb_path = os.path.join(DATA, 'tribal_broadband_summary.json')
+    if os.path.exists(tb_path):
+        try:
+            with open(tb_path) as f:
+                tb = json.load(f)
+            tb_awards = tb.get('total_awards', 0)
+            tb_funding = tb.get('total_funding', 0)
+            tb_avg = tb.get('avg_award', 0)
+            tb_states = tb.get('states_covered', 0)
+
+            body += f"""
+<h2 id="tribal-broadband">Tribal Broadband Connectivity Program</h2>
+<p>The <strong>Tribal Broadband Connectivity Program</strong> is a ${tb_funding/1e9:.2f}B federal initiative (NTIA-administered) to deploy broadband infrastructure, improve digital inclusion, and support distance learning on tribal lands.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{tb_awards}</div><div class="label">Total awards</div></div>
+  <div class="stat-card"><div class="num">${tb_funding/1e9:.2f}B</div><div class="label">Total funding</div></div>
+  <div class="stat-card"><div class="num">${tb_avg/1e6:.1f}M</div><div class="label">Avg award size</div></div>
+  <div class="stat-card"><div class="num">{tb_states}</div><div class="label">States covered</div></div>
+</div>"""
+
+            # Categories
+            cats = tb.get('categories', {})
+            if cats:
+                body += """
+<h3 id="tribal-broadband-categories">Program Categories</h3>
+<div class="services-bars">"""
+                cat_max = max((v if isinstance(v, (int, float)) else 0 for v in cats.values()), default=1) or 1
+                for cat, val in cats.items():
+                    if isinstance(val, dict):
+                        val = val.get('total', val.get('count', 0))
+                    if not isinstance(val, (int, float)):
+                        continue
+                    pct = (val / cat_max * 100) if cat_max else 0
+                    label = cat.replace('_', ' ').title()
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{esc(label)}</div><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:{pct:.1f}%"></div></div><div class="svc-num">${val/1e6:.0f}M</div></div>'
+                body += '\n</div>'
+
+            # By BIA region
+            by_region = tb.get('by_bia_region', [])
+            if by_region:
+                region_sorted = sorted(by_region, key=lambda x: x.get('total', 0), reverse=True)
+                body += """
+<h3 id="tribal-broadband-regions">Awards by BIA Region</h3>
+<table class="wikitable sortable">
+  <tr><th>BIA Region</th><th>Awards</th><th>Total Funding</th></tr>"""
+                for row in region_sorted:
+                    r = esc(str(row.get('region', '')))
+                    cnt = row.get('count', 0)
+                    total = row.get('total', 0)
+                    body += f'\n  <tr><td>{r}</td><td class="num">{cnt}</td><td class="num">${total:,.0f}</td></tr>'
+                body += '\n</table>'
+
+            # By project type
+            by_pt = tb.get('by_project_type', [])
+            if by_pt:
+                pt_sorted = sorted(by_pt, key=lambda x: x.get('total', 0), reverse=True)
+                body += """
+<h3 id="tribal-broadband-types">Awards by Project Type</h3>
+<table class="wikitable">
+  <tr><th>Project Type</th><th>Awards</th><th>Total Funding</th></tr>"""
+                for row in pt_sorted:
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('count', 0)
+                    total = row.get('total', 0)
+                    body += f'\n  <tr><td>{t}</td><td class="num">{cnt}</td><td class="num">${total:,.0f}</td></tr>'
+                body += '\n</table>'
+
+            # Top awards
+            top_aw = tb.get('top_awards', [])
+            if top_aw:
+                body += """
+<h3 id="tribal-broadband-top">Largest Tribal Broadband Awards</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>BIA Region</th><th>State</th><th>Amount</th><th>Project Type</th></tr>"""
+                for row in top_aw[:25]:
+                    recip = esc(str(row.get('recipient', '')))
+                    region = esc(str(row.get('bia_region', '')))
+                    st = esc(str(row.get('state', '')))
+                    amt = row.get('amount', 0)
+                    pt = esc(str(row.get('project_type', '')))
+                    body += f'\n  <tr><td><strong>{recip}</strong></td><td>{region}</td><td>{st}</td><td class="num">${amt:,.0f}</td><td>{pt}</td></tr>'
+                body += '\n</table>'
+
+            # By state
+            by_st = tb.get('by_state', [])
+            if by_st:
+                st_sorted = sorted(by_st, key=lambda x: x.get('total', 0), reverse=True)
+                body += """
+<h3 id="tribal-broadband-states">Tribal Broadband by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Awards</th><th>Total Funding</th></tr>"""
+                for row in st_sorted:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    total = row.get('total', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{cnt}</td><td class="num">${total:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Tribal broadband data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 5: Tribal Libraries
+    # ============================================================
+    tl_path = os.path.join(DATA, 'tribal_libraries_summary.json')
+    if os.path.exists(tl_path):
+        try:
+            with open(tl_path) as f:
+                tl = json.load(f)
+
+            tlc = tl.get('tribal_library_count', {})
+            tl_est = tlc.get('estimated_total', 0)
+            tl_range = tlc.get('estimate_range', '')
+            tl_tribes = tlc.get('federally_recognized_tribes', 0)
+
+            body += f"""
+<h2 id="tribal-libraries">Tribal &amp; Indigenous Libraries</h2>
+<p>{esc(tl.get('data_availability', '')[:400])}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{tl_est}+</div><div class="label">Estimated tribal libraries</div></div>
+  <div class="stat-card"><div class="num">{tl_range}</div><div class="label">Estimate range</div></div>
+  <div class="stat-card"><div class="num">{tl_tribes}</div><div class="label">Federally recognized tribes</div></div>
+</div>"""
+
+            # IMLS Native grants
+            ing = tl.get('imls_native_grants', {})
+            ds = ing.get('dataset_summary', {})
+            body += f"""
+<h3 id="imls-native-grants">IMLS Native American Library Services</h3>
+<p>{esc(ing.get('program_name', ''))} — {esc(str(ing.get('eligibility', ''))[:200])}</p>"""
+            if ds:
+                total_rows = ds.get('total_native_american_grant_rows', 0)
+                distinct = ds.get('distinct_institutions_receiving_any_native_grant', 0)
+                fy = ds.get('fiscal_years_covered', [])
+                fy_str = f"{min(fy)}-{max(fy)}" if fy and isinstance(fy, list) else ''
+                body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_rows:,}</div><div class="label">Grant records ({fy_str})</div></div>
+  <div class="stat-card"><div class="num">{distinct}</div><div class="label">Distinct institutions</div></div>
+</div>"""
+
+            # ATALM
+            atalm = tl.get('atalm', {})
+            if atalm:
+                body += f"""
+<h3 id="atalm">Association of Tribal Archives, Libraries, &amp; Museums (ATALM)</h3>
+<div class="rules-box">
+  <p><strong>{esc(atalm.get('full_name', ''))}</strong> — founded {atalm.get('founded_year', '2010')}, headquartered in {esc(atalm.get('headquarters', ''))}.</p>
+  <p><strong>Mission:</strong> {esc(str(atalm.get('mission', ''))[:300])}</p>
+  <p><strong>Current President:</strong> {esc(str(atalm.get('current_president', '')))}</p>
+  <p><strong>Funding:</strong> {esc(str(atalm.get('funding', '')))}</p>
+</div>"""
+
+            # Notable tribal libraries
+            notable = tl.get('notable_tribal_libraries', [])
+            if notable:
+                body += """
+<h3 id="notable-tribal-libs">Notable Tribal Libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Location</th><th>Operator</th><th>Description</th></tr>"""
+                for lib in notable:
+                    name = esc(str(lib.get('name', '')))
+                    loc = esc(str(lib.get('location', '')))
+                    op = esc(str(lib.get('operator', '')))
+                    desc = esc(str(lib.get('description', ''))[:200])
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{loc}</td><td>{op}</td><td>{desc}</td></tr>'
+                body += '\n</table>'
+
+            # Tribal college libraries
+            tcl = tl.get('tribal_college_libraries', {})
+            tcu_overview = tcl.get('tcu_overview', {})
+            if tcu_overview:
+                body += f"""
+<h3 id="tribal-college-libs">Tribal College &amp; University Libraries</h3>
+<div class="rules-box">
+  <p>{esc(str(tcu_overview.get('definition', ''))[:400])}</p>
+  <p><strong>US TCUs (Wikipedia count):</strong> {tcl.get('us_tcu_list_count_wikipedia', '~35')}</p>
+</div>"""
+            notable_tcus = tcl.get('notable_tcus_with_libraries', [])
+            if notable_tcus:
+                body += """
+<table class="wikitable">
+  <tr><th>Tribal College</th><th>Location</th><th>Note</th></tr>"""
+                for tcu in notable_tcus:
+                    name = esc(str(tcu.get('name', '')))
+                    loc = esc(str(tcu.get('location', '')))
+                    note = esc(str(tcu.get('note', '')))
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{loc}</td><td>{note}</td></tr>'
+                body += '\n</table>'
+
+            # Language preservation
+            lp = tl.get('language_preservation', {})
+            if lp:
+                langs = lp.get('key_languages_served', [])
+                body += f"""
+<h3 id="language-preservation">Language Preservation &amp; Revitalization</h3>
+<div class="rules-box">
+  <p>{esc(str(lp.get('summary', ''))[:400])}</p>
+  <p><strong>Key Indigenous languages served by tribal libraries:</strong> {', '.join(esc(str(l)) for l in langs[:20])}</p>
+</div>"""
+
+            # Digital repatriation
+            dr = tl.get('digital_repatriation', {})
+            if dr:
+                mukurtu = dr.get('mukurtu_cms', {})
+                body += f"""
+<h3 id="digital-repatriation">Digital Repatriation</h3>
+<div class="rules-box">
+  <p>{esc(str(dr.get('definition', ''))[:300])}</p>
+  <p><strong>{esc(str(mukurtu.get('name', 'Mukurtu CMS')))}:</strong> {esc(str(mukurtu.get('description', ''))[:200])}</p>
+</div>"""
+            notable_proj = dr.get('notable_projects', [])
+            if notable_proj:
+                body += """
+<table class="wikitable">
+  <tr><th>Project</th><th>Year</th><th>Description</th></tr>"""
+                for proj in notable_proj:
+                    name = esc(str(proj.get('name', '')))
+                    yr = esc(str(proj.get('launched_year', '')))
+                    desc = esc(str(proj.get('description', ''))[:200])
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{yr}</td><td>{desc}</td></tr>'
+                body += '\n</table>'
+
+            # Funding challenges
+            fc = tl.get('funding_challenges', {})
+            if fc:
+                body += f"""
+<h3 id="tribal-funding-challenges">Funding Challenges</h3>
+<div class="rules-box">
+  <p>{esc(str(fc.get('summary', ''))[:400])}</p>
+  <p><strong>IMLS Basic Grant scale:</strong> {esc(str(fc.get('imls_basic_grant_scale', ''))[:300])}</p>
+  <p><strong>Digital divide:</strong> {esc(str(fc.get('digital_divide_compounding_factor', ''))[:300])}</p>
+</div>"""
+
+            # History
+            history = tl.get('history', [])
+            if history:
+                body += """
+<h3 id="tribal-library-history">History of Tribal Library Services</h3>
+<table class="wikitable">
+  <tr><th>Era</th><th>Description</th><th>Key Institution</th></tr>"""
+                for era in history:
+                    era_name = esc(str(era.get('era', '')))
+                    desc = esc(str(era.get('description', ''))[:250])
+                    key_inst = esc(str(era.get('key_institution', '')))
+                    body += f'\n  <tr><td><strong>{era_name}</strong></td><td>{desc}</td><td>{key_inst}</td></tr>'
+                body += '\n</table>'
+
+            # Key facts
+            kf = tl.get('key_facts', [])
+            if kf:
+                body += """
+<h3 id="tribal-key-facts">Key Facts</h3>
+<table class="wikitable">
+  <tr><th>Fact</th><th>Source</th></tr>"""
+                for fact in kf:
+                    f_text = esc(str(fact.get('fact', '')))
+                    f_src = esc(str(fact.get('source', '')))
+                    body += f'\n  <tr><td>{f_text}</td><td>{f_src}</td></tr>'
+                body += '\n</table>'
+
+            # Sources
+            sources = tl.get('sources', [])
+            if sources:
+                body += """
+<h3 id="tribal-sources">Data Sources</h3>
+<table class="wikitable">
+  <tr><th>Source</th><th>Name</th></tr>"""
+                for src in sources:
+                    key = esc(str(src.get('key', '')))
+                    name = esc(str(src.get('name', '')))
+                    body += f'\n  <tr><td><code>{key}</code></td><td>{name}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Tribal libraries data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 6: BLS Librarian Salaries
+    # ============================================================
+    bls_path = os.path.join(DATA, 'bls_librarian_salaries.json')
+    if os.path.exists(bls_path):
+        try:
+            with open(bls_path) as f:
+                bls = json.load(f)
+            occs = bls.get('occupations', {})
+            src_year = bls.get('source_year', 2024)
+
+            body += f"""
+<h2 id="bls-salaries">Library Workforce: Salaries &amp; Employment (BLS {src_year})</h2>
+<p>The <strong>Bureau of Labor Statistics</strong> tracks employment and wages for library occupations. These are the people who run America's libraries.</p>"""
+
+            for code, info in occs.items():
+                title = info.get('title', code)
+                total_emp = info.get('total_employment', 0)
+                avg_wage = info.get('avg_mean_wage', 0)
+                highest = info.get('highest_mean_wage', 0)
+                lowest = info.get('lowest_mean_wage', 0)
+                avg_med = info.get('avg_median_wage', 0)
+                states_wd = info.get('states_with_data', 0)
+
+                body += f"""
+<h3 id="bls-{code}">{title} <small class="text-muted">(SOC {code})</small></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(total_emp):,}</div><div class="label">Total employment</div></div>
+  <div class="stat-card"><div class="num">${avg_wage:,.0f}</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">${avg_med:,.0f}</div><div class="label">Avg median wage</div></div>
+  <div class="stat-card"><div class="num">${highest:,.0f}</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">${lowest:,.0f}</div><div class="label">Lowest (any state)</div></div>
+  <div class="stat-card"><div class="num">{states_wd}</div><div class="label">States with data</div></div>
+</div>"""
+
+                # Top by employment
+                top_emp = info.get('top_by_employment', [])
+                if top_emp:
+                    body += f"""
+<h4>Top States by Employment — {title}</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Employment</th><th>Mean Wage</th><th>Median Wage</th></tr>"""
+                    for row in top_emp[:15]:
+                        st = esc(str(row.get('state', '')))
+                        emp = row.get('employment', 0)
+                        mw = row.get('mean_wage', 0)
+                        mdw = row.get('median_wage', 0)
+                        body += f'\n  <tr><td>{st}</td><td class="num">{int(emp):,}</td><td class="num">${mw:,.0f}</td><td class="num">${mdw:,.0f}</td></tr>'
+                    body += '\n</table>'
+
+                # Top by wage
+                top_wage = info.get('top_by_wage', [])
+                if top_wage:
+                    body += f"""
+<h4>Highest-Paying States — {title}</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>"""
+                    for row in top_wage[:10]:
+                        st = esc(str(row.get('state', '')))
+                        emp = row.get('employment', 0)
+                        mw = row.get('mean_wage', 0)
+                        mdw = row.get('median_wage', 0)
+                        body += f'\n  <tr><td>{st}</td><td class="num">${mw:,.0f}</td><td class="num">${mdw:,.0f}</td><td class="num">{int(emp):,}</td></tr>'
+                    body += '\n</table>'
+
+                # Lowest by wage
+                low_wage = info.get('lowest_by_wage', [])
+                if low_wage:
+                    body += f"""
+<h4>Lowest-Paying States — {title}</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>"""
+                    for row in low_wage[:10]:
+                        st = esc(str(row.get('state', '')))
+                        emp = row.get('employment', 0)
+                        mw = row.get('mean_wage', 0)
+                        mdw = row.get('median_wage', 0)
+                        body += f'\n  <tr><td>{st}</td><td class="num">${mw:,.0f}</td><td class="num">${mdw:,.0f}</td><td class="num">{int(emp):,}</td></tr>'
+                    body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>BLS salary data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 7: IMLS Museums
+    # ============================================================
+    mus_path = os.path.join(DATA, 'museums_summary.json')
+    if os.path.exists(mus_path):
+        try:
+            with open(mus_path) as f:
+                mus = json.load(f)
+            total_mus = mus.get('total_museums', 0)
+            doc_mus = mus.get('documented_total_museums', 0)
+            rev_count = mus.get('revenue_reported_count', 0)
+            data_yr = mus.get('data_year', '2018')
+
+            body += f"""
+<h2 id="museums">IMLS Museum Universe ({data_yr})</h2>
+<p>{esc(mus.get('description', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_mus:,}</div><div class="label">Total museums</div></div>
+  <div class="stat-card"><div class="num">{doc_mus:,}</div><div class="label">Documented entries</div></div>
+  <div class="stat-card"><div class="num">{rev_count:,}</div><div class="label">Revenue reported</div></div>
+</div>"""
+
+            # By type
+            by_type = mus.get('museums_by_type', [])
+            if by_type:
+                max_t = max((x.get('count', 0) for x in by_type), default=1) or 1
+                body += """
+<h3 id="museums-by-type">Museums by Type</h3>
+<div class="services-bars">"""
+                for row in sorted(by_type, key=lambda x: x.get('count', 0), reverse=True):
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('count', 0)
+                    pct = (cnt / max_t * 100) if max_t else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{t}</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></div></div><div class="svc-num">{cnt:,}</div></div>'
+                body += '\n</div>'
+
+            # Top states
+            top_st = mus.get('top_10_states', [])
+            if top_st:
+                max_s = max((x.get('count', 0) for x in top_st), default=1) or 1
+                body += """
+<h3 id="museums-top-states">Top 10 States by Museum Count</h3>
+<div class="services-bars">"""
+                for row in top_st:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    pct = (cnt / max_s * 100) if max_s else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{st}</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{pct:.1f}%"></div></div><div class="svc-num">{cnt:,}</div></div>'
+                body += '\n</div>'
+
+            # All states table
+            all_st = mus.get('museums_by_state', [])
+            if all_st:
+                st_sorted = sorted(all_st, key=lambda x: x.get('count', 0), reverse=True)
+                body += """
+<h3 id="museums-all-states">Museums by State (All)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Museums</th></tr>"""
+                for row in st_sorted:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+
+            # By revenue size
+            by_rev = mus.get('museums_by_revenue_size', [])
+            if by_rev:
+                body += """
+<h3 id="museums-revenue">Museums by Revenue Size</h3>
+<table class="wikitable">
+  <tr><th>Budget Tier</th><th>Count</th></tr>"""
+                for row in by_rev:
+                    tier = esc(str(row.get('budget_tier', '')))
+                    cnt = row.get('count', 0)
+                    body += f'\n  <tr><td>{tier}</td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+
+            # Urban vs rural
+            uv = mus.get('urban_vs_rural', {})
+            if uv:
+                urban = uv.get('urban', 0)
+                rural = uv.get('rural', 0)
+                total_u = urban + rural if urban and rural else 0
+                body += f"""
+<h3 id="museums-urban-rural">Urban vs. Rural Museums</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{urban:,}</div><div class="label">Urban</div></div>
+  <div class="stat-card"><div class="num">{rural:,}</div><div class="label">Rural</div></div>
+</div>"""
+                if 'by_locale' in uv and isinstance(uv['by_locale'], dict):
+                    body += """
+<table class="wikitable">
+  <tr><th>Locale</th><th>Count</th></tr>"""
+                    for loc, cnt in uv['by_locale'].items():
+                        body += f'\n  <tr><td>{esc(str(loc))}</td><td class="num">{cnt:,}</td></tr>'
+                    body += '\n</table>'
+
+            # Museum-library relationship
+            mlr = mus.get('museum_library_relationship', {})
+            if mlr:
+                body += f"""
+<h3 id="museum-library-relationship">Museum-Library Relationship</h3>
+<div class="rules-box">
+  <p>{esc(str(mlr.get('description', ''))[:400])}</p>
+  <p><strong>Co-located with libraries:</strong> {esc(str(mlr.get('co_located_with_library', '')))}</p>
+  <p><strong>Academic museums affiliated with IPEDS:</strong> {esc(str(mlr.get('academic_affiliated_with_ipeds', '')))}</p>
+</div>"""
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Museum data unavailable: {esc(str(e))}</em></p>'
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a></div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'digital.html'), 'w') as f:
+        f.write(shell("Digital Inclusion & Broadband", body, panel("digital"), active_tab="digital"))
+
 def main():
     print(f"=== US Library Census Wiki build — {now_str()} ===")
     data = load_all()
@@ -10841,6 +11522,7 @@ def main():
     build_gov(data, stats)
     build_contacts(data, stats)
     build_funders(data, stats)
+    build_digital(data, stats)
     build_about(data, stats)
     build_search()
     build_state_pages(data, stats)

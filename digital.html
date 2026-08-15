@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digital Inclusion &amp; Broadband — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+
+<script>
+(function(){var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body class="wiki-body">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link " href="index.html">Main page</a></li>
+      <li class="nav-item"><a class="nav-link " href="search.html">Search</a></li>
+      <li class="nav-item"><a class="nav-link " href="map.html">Map</a></li>
+      <li class="nav-item"><a class="nav-link " href="contacts.html">Contacts</a></li>
+      <li class="nav-item"><a class="nav-link " href="funders.html">Funders</a></li>
+      <li class="nav-item"><a class="nav-link active" href="digital.html">Digital</a></li>
+      <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
+      <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
+      </ul>
+      <form class="d-flex me-2" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+  </div>
+</nav>
+<div class="container-fluid wiki-container">
+  <div class="row g-0">
+<aside class="col-lg-2 d-none d-lg-block wiki-sidebar"><div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="search.html" class="list-group-item list-group-item-action small py-1">Search the census</a>
+    <a href="map.html" class="list-group-item list-group-item-action small py-1">Interactive map</a>
+    <a href="contacts.html" class="list-group-item list-group-item-action small py-1">Library contacts</a>
+    <a href="funders.html" class="list-group-item list-group-item-action small py-1">Funders & investors</a>
+    <a href="digital.html" class="list-group-item list-group-item-action small py-1">Digital inclusion</a>
+    <a href="gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="about.html" class="list-group-item list-group-item-action small py-1">About / methodology</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
+    <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
+    <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
+    <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
+    <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
+    <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
+    <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
+    <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
+    <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
+    <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
+    <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
+    <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
+    <a href="index.html#academic-stats" class="list-group-item list-group-item-action small py-1">Academic libraries</a>
+    <a href="index.html#library-history" class="list-group-item list-group-item-action small py-1">Library history</a>
+    <a href="index.html#library-buildings" class="list-group-item list-group-item-action small py-1">Buildings & architecture</a>
+    <a href="index.html#library-economics" class="list-group-item list-group-item-action small py-1">Economics & ROI</a>
+    <a href="index.html#library-law" class="list-group-item list-group-item-action small py-1">Law & censorship</a>
+    <a href="index.html#school-library-stats" class="list-group-item list-group-item-action small py-1">School libraries</a>
+    <a href="index.html#international" class="list-group-item list-group-item-action small py-1">International comparison</a>
+    <a href="index.html#consortia-summary" class="list-group-item list-group-item-action small py-1">Library consortia</a>
+    <a href="index.html#digital-libraries-enhanced" class="list-group-item list-group-item-action small py-1">Digital libraries & e-books</a>
+    <a href="index.html#reading-habits" class="list-group-item list-group-item-action small py-1">Reading habits & literacy</a>
+    <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
+    <a href="index.html#innovation" class="list-group-item list-group-item-action small py-1">Innovation & makerspaces</a>
+    <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
+    <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
+    <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
+    <a href="index.html#special-libraries" class="list-group-item list-group-item-action small py-1">Special libraries & bookmobiles</a>
+    <a href="index.html#web-coverage" class="list-group-item list-group-item-action small py-1">Website coverage</a>
+    <a href="index.html#arp-grants" class="list-group-item list-group-item-action small py-1">ARP COVID grants</a>
+    <a href="index.html#programs-2024" class="list-group-item list-group-item-action small py-1">FY2024 programs detail</a>
+    <a href="index.html#format-shift" class="list-group-item list-group-item-action small py-1">Book format shift</a>
+    <a href="index.html#nces-sass" class="list-group-item list-group-item-action small py-1">NCES SASS survey</a>
+    <a href="index.html#national-snapshot" class="list-group-item list-group-item-action small py-1">National snapshot</a>
+    <a href="index.html#intellectual-freedom" class="list-group-item list-group-item-action small py-1">Intellectual freedom</a>
+    <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
+    <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
+    <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
+    <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
+    <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
+    <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
+    <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
+    <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
+    <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
+    <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
+    <a href="index.html#other-federal-grants" class="list-group-item list-group-item-action small py-1">Other federal grants</a>
+    <a href="index.html#federal-funding-totals" class="list-group-item list-group-item-action small py-1">Federal funding totals</a>
+    <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
+    <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
+    <a href="index.html#nlm" class="list-group-item list-group-item-action small py-1">National Library of Medicine</a>
+    <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
+    <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
+    <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
+    <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div></aside>
+    <main class="col-lg-10 wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">Digital Inclusion &amp; Broadband</h1>
+      <div class="wiki-body-content" id="bodyContent">
+
+<p>The <strong>Digital Inclusion</strong> page covers the infrastructure, funding, and programs that connect America's libraries to the internet and bridge the digital divide. Includes E-Rate telecom subsidies, BEAD broadband deployment, ACP affordability, tribal broadband, librarian workforce salaries, and the IMLS museum universe.</p>
+<h2 id="erate">E-Rate: Telecommunications Subsidies for Libraries &amp; Schools</h2>
+<p>The <strong>Universal Service Fund E-Rate program</strong> (administered by USAC) provides discounts of 20-90% on telecommunications, internet access, and internal connections for libraries and schools. It is the single largest federal program directly subsidizing library connectivity.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">$2.28B</div><div class="label">Total E-Rate funding (FY2016-FY2026)</div></div>
+  <div class="stat-card"><div class="num">252,923</div><div class="label">Funding records</div></div>
+  <div class="stat-card"><div class="num">4,066</div><div class="label">Unique applicants</div></div>
+  <div class="stat-card"><div class="num">3,987</div><div class="label">Beneficiary entities</div></div>
+</div>
+<h3 id="erate-applicant-type">E-Rate by Applicant Type</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">Library System</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:100.0%"></div></div><div class="svc-num">$1902.4M (177,287 records)</div></div>
+  <div class="svc-row"><div class="svc-label">Library</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:20.0%"></div></div><div class="svc-num">$380.7M (75,636 records)</div></div>
+</div>
+<h3 id="erate-function">E-Rate by Service Category</h3>
+<p>What libraries spend E-Rate dollars on:</p>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">Fiber</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:100.0%"></div></div><div class="svc-num">$1461.9M</div></div>
+  <div class="svc-row"><div class="svc-label">Data Distribution</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:10.1%"></div></div><div class="svc-num">$148.1M</div></div>
+  <div class="svc-row"><div class="svc-label">Miscellaneous</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:8.1%"></div></div><div class="svc-num">$117.9M</div></div>
+  <div class="svc-row"><div class="svc-label">Copper</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:4.8%"></div></div><div class="svc-num">$70.8M</div></div>
+  <div class="svc-row"><div class="svc-label">Cabling/Connectors</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:4.3%"></div></div><div class="svc-num">$63.3M</div></div>
+  <div class="svc-row"><div class="svc-label">Wireless</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:4.3%"></div></div><div class="svc-num">$63.3M</div></div>
+  <div class="svc-row"><div class="svc-label">Wireless Data Distribution</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:4.3%"></div></div><div class="svc-num">$62.6M</div></div>
+  <div class="svc-row"><div class="svc-label">License</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:3.9%"></div></div><div class="svc-num">$56.4M</div></div>
+  <div class="svc-row"><div class="svc-label">Data Protection</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:3.5%"></div></div><div class="svc-num">$51.4M</div></div>
+  <div class="svc-row"><div class="svc-label">Voice</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:3.3%"></div></div><div class="svc-num">$48.5M</div></div>
+  <div class="svc-row"><div class="svc-label">Basic Maintenance of Internal Connections</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:2.6%"></div></div><div class="svc-num">$38.5M</div></div>
+  <div class="svc-row"><div class="svc-label">Module</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:1.6%"></div></div><div class="svc-num">$23.0M</div></div>
+  <div class="svc-row"><div class="svc-label">Managed services contract of already installed equipment</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:1.4%"></div></div><div class="svc-num">$21.0M</div></div>
+  <div class="svc-row"><div class="svc-label">Other</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:1.1%"></div></div><div class="svc-num">$15.5M</div></div>
+  <div class="svc-row"><div class="svc-label">Managed and leased from a third party service provider</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:0.9%"></div></div><div class="svc-num">$13.4M</div></div>
+</div>
+<h3 id="erate-states">Top States by E-Rate Funding</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Records</th><th>Total E-Rate $</th></tr>
+  <tr><td><a href="states/IN.html"><strong>IN</strong></a></td><td class="num">11,911</td><td class="num">$181,073,741</td></tr>
+  <tr><td><a href="states/CA.html"><strong>CA</strong></a></td><td class="num">29,523</td><td class="num">$166,780,132</td></tr>
+  <tr><td><a href="states/PR.html"><strong>PR</strong></a></td><td class="num">18,885</td><td class="num">$156,940,398</td></tr>
+  <tr><td><a href="states/NY.html"><strong>NY</strong></a></td><td class="num">6,502</td><td class="num">$138,199,360</td></tr>
+  <tr><td><a href="states/GA.html"><strong>GA</strong></a></td><td class="num">8,406</td><td class="num">$111,765,192</td></tr>
+  <tr><td><a href="states/LA.html"><strong>LA</strong></a></td><td class="num">6,573</td><td class="num">$110,453,440</td></tr>
+  <tr><td><a href="states/MS.html"><strong>MS</strong></a></td><td class="num">11,602</td><td class="num">$97,448,821</td></tr>
+  <tr><td><a href="states/OH.html"><strong>OH</strong></a></td><td class="num">8,912</td><td class="num">$95,285,536</td></tr>
+  <tr><td><a href="states/WA.html"><strong>WA</strong></a></td><td class="num">5,310</td><td class="num">$86,960,189</td></tr>
+  <tr><td><a href="states/MI.html"><strong>MI</strong></a></td><td class="num">12,927</td><td class="num">$84,344,414</td></tr>
+  <tr><td><a href="states/FL.html"><strong>FL</strong></a></td><td class="num">4,551</td><td class="num">$75,281,766</td></tr>
+  <tr><td><a href="states/OK.html"><strong>OK</strong></a></td><td class="num">7,973</td><td class="num">$71,256,628</td></tr>
+  <tr><td><a href="states/TX.html"><strong>TX</strong></a></td><td class="num">8,711</td><td class="num">$68,601,472</td></tr>
+  <tr><td><a href="states/NV.html"><strong>NV</strong></a></td><td class="num">1,441</td><td class="num">$64,954,990</td></tr>
+  <tr><td><a href="states/AZ.html"><strong>AZ</strong></a></td><td class="num">4,934</td><td class="num">$61,165,322</td></tr>
+  <tr><td><a href="states/VA.html"><strong>VA</strong></a></td><td class="num">8,160</td><td class="num">$58,833,343</td></tr>
+  <tr><td><a href="states/IL.html"><strong>IL</strong></a></td><td class="num">10,937</td><td class="num">$56,266,242</td></tr>
+  <tr><td><a href="states/PA.html"><strong>PA</strong></a></td><td class="num">5,141</td><td class="num">$50,139,151</td></tr>
+  <tr><td><a href="states/CO.html"><strong>CO</strong></a></td><td class="num">3,363</td><td class="num">$48,217,698</td></tr>
+  <tr><td><a href="states/NJ.html"><strong>NJ</strong></a></td><td class="num">4,560</td><td class="num">$47,680,106</td></tr>
+</table>
+<h3 id="erate-by-year">E-Rate by Fiscal Year</h3>
+<table class="wikitable">
+  <tr><th>Fiscal Year</th><th>Records</th><th>Total $</th></tr>
+  <tr><td>2016</td><td class="num">2</td><td class="num">$132,074</td></tr>
+  <tr><td>2017</td><td class="num">31,214</td><td class="num">$265,558,523</td></tr>
+  <tr><td>2018</td><td class="num">21,371</td><td class="num">$234,612,170</td></tr>
+  <tr><td>2019</td><td class="num">25,018</td><td class="num">$230,378,779</td></tr>
+  <tr><td>2020</td><td class="num">30,398</td><td class="num">$236,099,588</td></tr>
+  <tr><td>2021</td><td class="num">31,863</td><td class="num">$212,186,323</td></tr>
+  <tr><td>2022</td><td class="num">22,105</td><td class="num">$206,557,423</td></tr>
+  <tr><td>2023</td><td class="num">24,233</td><td class="num">$247,054,832</td></tr>
+  <tr><td>2024</td><td class="num">23,961</td><td class="num">$220,538,668</td></tr>
+  <tr><td>2025</td><td class="num">23,724</td><td class="num">$260,824,168</td></tr>
+  <tr><td>2026</td><td class="num">19,034</td><td class="num">$169,155,696</td></tr>
+</table>
+<h2 id="bead">Broadband Equity Access &amp; Deployment (BEAD) Program</h2>
+<p>The <strong>BEAD program</strong>, created by the Infrastructure Investment and Jobs Act (IIJA) of 2021, is the largest-ever federal investment in broadband infrastructure — $42.5B appropriated to states and territories for deploying high-speed internet to unserved and underserved locations. Announced 2023-06-26.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">$42.5B</div><div class="label">Total appropriated</div></div>
+  <div class="stat-card"><div class="num">$41.6B</div><div class="label">Distributed to states</div></div>
+  <div class="stat-card"><div class="num">$849M</div><div class="label">Admin reserve</div></div>
+  <div class="stat-card"><div class="num">56</div><div class="label">States &amp; territories</div></div>
+</div>
+<div class="rules-box">
+  <p><strong>Allocation formula:</strong> Each entity&#x27;s allocation = Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Based on FCC Broadband DATA Maps.</p>
+</div>
+<h3 id="bead-all-states">BEAD Allocations by State (All 56)</h3>
+<table class="wikitable sortable">
+  <tr><th>State / Territory</th><th>Allocation</th><th>Minimum</th><th>Above Minimum</th></tr>
+  <tr><td>Texas</td><td class="num">$3,312,616,455</td><td class="num">$100,000,000</td><td class="num">$3,212,616,455</td></tr>
+  <tr><td>California</td><td class="num">$1,864,136,509</td><td class="num">$100,000,000</td><td class="num">$1,764,136,509</td></tr>
+  <tr><td>Missouri</td><td class="num">$1,736,302,708</td><td class="num">$100,000,000</td><td class="num">$1,636,302,708</td></tr>
+  <tr><td>Michigan</td><td class="num">$1,559,362,479</td><td class="num">$100,000,000</td><td class="num">$1,459,362,479</td></tr>
+  <tr><td>North Carolina</td><td class="num">$1,532,999,481</td><td class="num">$100,000,000</td><td class="num">$1,432,999,481</td></tr>
+  <tr><td>Virginia</td><td class="num">$1,481,489,573</td><td class="num">$100,000,000</td><td class="num">$1,381,489,573</td></tr>
+  <tr><td>Alabama</td><td class="num">$1,401,221,902</td><td class="num">$100,000,000</td><td class="num">$1,301,221,902</td></tr>
+  <tr><td>Louisiana</td><td class="num">$1,355,554,553</td><td class="num">$100,000,000</td><td class="num">$1,255,554,553</td></tr>
+  <tr><td>Georgia</td><td class="num">$1,307,214,371</td><td class="num">$100,000,000</td><td class="num">$1,207,214,371</td></tr>
+  <tr><td>Washington</td><td class="num">$1,227,742,066</td><td class="num">$100,000,000</td><td class="num">$1,127,742,066</td></tr>
+  <tr><td>West Virginia</td><td class="num">$1,210,800,970</td><td class="num">$100,000,000</td><td class="num">$1,110,800,970</td></tr>
+  <tr><td>Mississippi</td><td class="num">$1,203,561,563</td><td class="num">$100,000,000</td><td class="num">$1,103,561,563</td></tr>
+  <tr><td>Florida</td><td class="num">$1,169,947,393</td><td class="num">$100,000,000</td><td class="num">$1,069,947,393</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">$1,161,778,272</td><td class="num">$100,000,000</td><td class="num">$1,061,778,272</td></tr>
+  <tr><td>Kentucky</td><td class="num">$1,086,172,537</td><td class="num">$100,000,000</td><td class="num">$986,172,537</td></tr>
+  <tr><td>Wisconsin</td><td class="num">$1,055,823,574</td><td class="num">$100,000,000</td><td class="num">$955,823,574</td></tr>
+  <tr><td>Illinois</td><td class="num">$1,040,420,752</td><td class="num">$100,000,000</td><td class="num">$940,420,752</td></tr>
+  <tr><td>Arkansas</td><td class="num">$1,024,303,994</td><td class="num">$100,000,000</td><td class="num">$924,303,994</td></tr>
+  <tr><td>Alaska</td><td class="num">$1,017,139,672</td><td class="num">$100,000,000</td><td class="num">$917,139,672</td></tr>
+  <tr><td>Arizona</td><td class="num">$993,112,231</td><td class="num">$100,000,000</td><td class="num">$893,112,231</td></tr>
+  <tr><td>Indiana</td><td class="num">$868,109,930</td><td class="num">$100,000,000</td><td class="num">$768,109,930</td></tr>
+  <tr><td>Colorado</td><td class="num">$826,522,650</td><td class="num">$100,000,000</td><td class="num">$726,522,650</td></tr>
+  <tr><td>Tennessee</td><td class="num">$813,319,680</td><td class="num">$100,000,000</td><td class="num">$713,319,680</td></tr>
+  <tr><td>Oklahoma</td><td class="num">$797,435,691</td><td class="num">$100,000,000</td><td class="num">$697,435,691</td></tr>
+  <tr><td>Ohio</td><td class="num">$793,688,108</td><td class="num">$100,000,000</td><td class="num">$693,688,108</td></tr>
+  <tr><td>Oregon</td><td class="num">$688,914,932</td><td class="num">$100,000,000</td><td class="num">$588,914,932</td></tr>
+  <tr><td>New Mexico</td><td class="num">$675,372,312</td><td class="num">$100,000,000</td><td class="num">$575,372,312</td></tr>
+  <tr><td>New York</td><td class="num">$664,618,251</td><td class="num">$100,000,000</td><td class="num">$564,618,251</td></tr>
+  <tr><td>Minnesota</td><td class="num">$651,839,368</td><td class="num">$100,000,000</td><td class="num">$551,839,368</td></tr>
+  <tr><td>Montana</td><td class="num">$628,973,799</td><td class="num">$100,000,000</td><td class="num">$528,973,799</td></tr>
+  <tr><td>Idaho</td><td class="num">$583,256,250</td><td class="num">$100,000,000</td><td class="num">$483,256,250</td></tr>
+  <tr><td>South Carolina</td><td class="num">$551,535,983</td><td class="num">$100,000,000</td><td class="num">$451,535,983</td></tr>
+  <tr><td>Kansas</td><td class="num">$451,725,998</td><td class="num">$100,000,000</td><td class="num">$351,725,998</td></tr>
+  <tr><td>Nevada</td><td class="num">$416,666,230</td><td class="num">$100,000,000</td><td class="num">$316,666,230</td></tr>
+  <tr><td>Iowa</td><td class="num">$415,331,313</td><td class="num">$100,000,000</td><td class="num">$315,331,313</td></tr>
+  <tr><td>Nebraska</td><td class="num">$405,281,070</td><td class="num">$100,000,000</td><td class="num">$305,281,070</td></tr>
+  <tr><td>Wyoming</td><td class="num">$347,877,921</td><td class="num">$100,000,000</td><td class="num">$247,877,921</td></tr>
+  <tr><td>Puerto Rico</td><td class="num">$334,614,152</td><td class="num">$100,000,000</td><td class="num">$234,614,152</td></tr>
+  <tr><td>Utah</td><td class="num">$317,399,742</td><td class="num">$100,000,000</td><td class="num">$217,399,742</td></tr>
+  <tr><td>Maine</td><td class="num">$271,977,723</td><td class="num">$100,000,000</td><td class="num">$171,977,723</td></tr>
+  <tr><td>Maryland</td><td class="num">$267,738,401</td><td class="num">$100,000,000</td><td class="num">$167,738,401</td></tr>
+  <tr><td>New Jersey</td><td class="num">$263,689,549</td><td class="num">$100,000,000</td><td class="num">$163,689,549</td></tr>
+  <tr><td>Vermont</td><td class="num">$228,913,019</td><td class="num">$100,000,000</td><td class="num">$128,913,019</td></tr>
+  <tr><td>South Dakota</td><td class="num">$207,227,524</td><td class="num">$100,000,000</td><td class="num">$107,227,524</td></tr>
+  <tr><td>New Hampshire</td><td class="num">$196,560,279</td><td class="num">$100,000,000</td><td class="num">$96,560,279</td></tr>
+  <tr><td>Guam</td><td class="num">$156,831,734</td><td class="num">$25,000,000</td><td class="num">$131,831,734</td></tr>
+  <tr><td>Hawaii</td><td class="num">$149,484,494</td><td class="num">$100,000,000</td><td class="num">$49,484,494</td></tr>
+  <tr><td>Massachusetts</td><td class="num">$147,422,464</td><td class="num">$100,000,000</td><td class="num">$47,422,464</td></tr>
+  <tr><td>Connecticut</td><td class="num">$144,180,793</td><td class="num">$100,000,000</td><td class="num">$44,180,793</td></tr>
+  <tr><td>North Dakota</td><td class="num">$130,162,815</td><td class="num">$100,000,000</td><td class="num">$30,162,815</td></tr>
+  <tr><td>Rhode Island</td><td class="num">$108,718,821</td><td class="num">$100,000,000</td><td class="num">$8,718,821</td></tr>
+  <tr><td>Delaware</td><td class="num">$107,748,385</td><td class="num">$100,000,000</td><td class="num">$7,748,385</td></tr>
+  <tr><td>District of Columbia</td><td class="num">$100,694,787</td><td class="num">$100,000,000</td><td class="num">$694,787</td></tr>
+  <tr><td>Commonwealth of the Northern Mariana Islands</td><td class="num">$80,796,709</td><td class="num">$25,000,000</td><td class="num">$55,796,709</td></tr>
+  <tr><td>American Samoa</td><td class="num">$37,564,828</td><td class="num">$25,000,000</td><td class="num">$12,564,828</td></tr>
+  <tr><td>U.S. Virgin Islands</td><td class="num">$27,103,241</td><td class="num">$25,000,000</td><td class="num">$2,103,241</td></tr>
+</table>
+<h2 id="acp">Affordable Connectivity Program (ACP)</h2>
+<p>The <strong>ACP</strong> was a federal benefit program that provided households a discount of up to $30/month (up to $75/month on tribal lands) for internet service, plus a one-time device benefit. Libraries served as enrollment hubs. Enrollment Jan 1, 2022 - Feb 8, 2024 (enrollment freeze). The program ended in Claims Jan 2022 - May 2024 (29 monthly data months).</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">23,269,550</div><div class="label">Households enrolled nationally</div></div>
+  <div class="stat-card"><div class="num">$29.78B</div><div class="label">Total claims paid</div></div>
+  <div class="stat-card"><div class="num">29</div><div class="label">Months active</div></div>
+</div>
+<h3 id="acp-top-enrollment">Top States by ACP Enrollment</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">California</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:100.0%"></div></div><div class="svc-num">2,945,282</div></div>
+  <div class="svc-row"><div class="svc-label">New York</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:60.8%"></div></div><div class="svc-num">1,792,187</div></div>
+  <div class="svc-row"><div class="svc-label">Texas</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:58.3%"></div></div><div class="svc-num">1,718,552</div></div>
+  <div class="svc-row"><div class="svc-label">Florida</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:58.0%"></div></div><div class="svc-num">1,707,856</div></div>
+  <div class="svc-row"><div class="svc-label">Ohio</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:39.3%"></div></div><div class="svc-num">1,157,054</div></div>
+  <div class="svc-row"><div class="svc-label">Michigan</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:32.0%"></div></div><div class="svc-num">941,244</div></div>
+  <div class="svc-row"><div class="svc-label">North Carolina</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:30.6%"></div></div><div class="svc-num">901,394</div></div>
+  <div class="svc-row"><div class="svc-label">Pennsylvania</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:25.9%"></div></div><div class="svc-num">763,742</div></div>
+  <div class="svc-row"><div class="svc-label">Georgia</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:24.5%"></div></div><div class="svc-num">722,473</div></div>
+  <div class="svc-row"><div class="svc-label">Illinois</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:23.9%"></div></div><div class="svc-num">704,532</div></div>
+  <div class="svc-row"><div class="svc-label">Puerto Rico</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:22.6%"></div></div><div class="svc-num">664,623</div></div>
+  <div class="svc-row"><div class="svc-label">Louisiana</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:19.0%"></div></div><div class="svc-num">558,780</div></div>
+  <div class="svc-row"><div class="svc-label">Arizona</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:17.7%"></div></div><div class="svc-num">522,188</div></div>
+  <div class="svc-row"><div class="svc-label">Virginia</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:16.0%"></div></div><div class="svc-num">470,457</div></div>
+  <div class="svc-row"><div class="svc-label">Kentucky</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:15.5%"></div></div><div class="svc-num">455,685</div></div>
+</div>
+<h3 id="acp-monthly">Monthly ACP Claims Trend</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">Apr 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:41.7%"></div></div><div class="svc-num">$617M</div></div>
+  <div class="svc-row"><div class="svc-label">Apr 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:75.1%"></div></div><div class="svc-num">$1112M</div></div>
+  <div class="svc-row"><div class="svc-label">Apr 2024</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:83.9%"></div></div><div class="svc-num">$1242M</div></div>
+  <div class="svc-row"><div class="svc-label">Aug 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:54.3%"></div></div><div class="svc-num">$804M</div></div>
+  <div class="svc-row"><div class="svc-label">Aug 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:89.2%"></div></div><div class="svc-num">$1321M</div></div>
+  <div class="svc-row"><div class="svc-label">Dec 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:62.1%"></div></div><div class="svc-num">$920M</div></div>
+  <div class="svc-row"><div class="svc-label">Dec 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:96.9%"></div></div><div class="svc-num">$1435M</div></div>
+  <div class="svc-row"><div class="svc-label">Feb 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:52.4%"></div></div><div class="svc-num">$775M</div></div>
+  <div class="svc-row"><div class="svc-label">Feb 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:67.4%"></div></div><div class="svc-num">$998M</div></div>
+  <div class="svc-row"><div class="svc-label">Feb 2024</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:92.9%"></div></div><div class="svc-num">$1376M</div></div>
+  <div class="svc-row"><div class="svc-label">Jan 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:53.4%"></div></div><div class="svc-num">$791M</div></div>
+  <div class="svc-row"><div class="svc-label">Jan 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:64.1%"></div></div><div class="svc-num">$949M</div></div>
+  <div class="svc-row"><div class="svc-label">Jan 2024</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:100.0%"></div></div><div class="svc-num">$1480M</div></div>
+  <div class="svc-row"><div class="svc-label">Jul 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:50.4%"></div></div><div class="svc-num">$746M</div></div>
+  <div class="svc-row"><div class="svc-label">Jul 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:85.1%"></div></div><div class="svc-num">$1260M</div></div>
+  <div class="svc-row"><div class="svc-label">Jun 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:47.9%"></div></div><div class="svc-num">$710M</div></div>
+  <div class="svc-row"><div class="svc-label">Jun 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:83.0%"></div></div><div class="svc-num">$1230M</div></div>
+  <div class="svc-row"><div class="svc-label">Mar 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:40.7%"></div></div><div class="svc-num">$602M</div></div>
+  <div class="svc-row"><div class="svc-label">Mar 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:71.6%"></div></div><div class="svc-num">$1060M</div></div>
+  <div class="svc-row"><div class="svc-label">Mar 2024</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:87.0%"></div></div><div class="svc-num">$1288M</div></div>
+  <div class="svc-row"><div class="svc-label">May 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:44.8%"></div></div><div class="svc-num">$664M</div></div>
+  <div class="svc-row"><div class="svc-label">May 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:80.1%"></div></div><div class="svc-num">$1186M</div></div>
+  <div class="svc-row"><div class="svc-label">May 2024</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:34.6%"></div></div><div class="svc-num">$513M</div></div>
+  <div class="svc-row"><div class="svc-label">Nov 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:60.5%"></div></div><div class="svc-num">$896M</div></div>
+  <div class="svc-row"><div class="svc-label">Nov 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:94.5%"></div></div><div class="svc-num">$1399M</div></div>
+  <div class="svc-row"><div class="svc-label">Oct 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:59.4%"></div></div><div class="svc-num">$879M</div></div>
+  <div class="svc-row"><div class="svc-label">Oct 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:92.2%"></div></div><div class="svc-num">$1365M</div></div>
+  <div class="svc-row"><div class="svc-label">Sep 2022</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:56.5%"></div></div><div class="svc-num">$836M</div></div>
+  <div class="svc-row"><div class="svc-label">Sep 2023</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:89.9%"></div></div><div class="svc-num">$1331M</div></div>
+</div>
+<h3 id="acp-all-states">ACP Enrollment &amp; Claims by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Households Enrolled</th><th>Total Claims $</th></tr>
+  <tr><td>California</td><td class="num">2,945,282</td><td class="num">$1,790,216,104</td></tr>
+  <tr><td>New York</td><td class="num">1,792,187</td><td class="num">$1,090,088,591</td></tr>
+  <tr><td>Texas</td><td class="num">1,718,552</td><td class="num">$1,095,488,941</td></tr>
+  <tr><td>Florida</td><td class="num">1,707,856</td><td class="num">$1,067,901,564</td></tr>
+  <tr><td>Ohio</td><td class="num">1,157,054</td><td class="num">$738,766,137</td></tr>
+  <tr><td>Michigan</td><td class="num">941,244</td><td class="num">$558,812,406</td></tr>
+  <tr><td>North Carolina</td><td class="num">901,394</td><td class="num">$585,526,447</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">763,742</td><td class="num">$488,086,592</td></tr>
+  <tr><td>Georgia</td><td class="num">722,473</td><td class="num">$480,409,446</td></tr>
+  <tr><td>Illinois</td><td class="num">704,532</td><td class="num">$437,086,323</td></tr>
+  <tr><td>Puerto Rico</td><td class="num">664,623</td><td class="num">$489,717,659</td></tr>
+  <tr><td>Louisiana</td><td class="num">558,780</td><td class="num">$353,634,889</td></tr>
+  <tr><td>Arizona</td><td class="num">522,188</td><td class="num">$368,545,963</td></tr>
+  <tr><td>Virginia</td><td class="num">470,457</td><td class="num">$287,814,332</td></tr>
+  <tr><td>Kentucky</td><td class="num">455,685</td><td class="num">$296,255,063</td></tr>
+  <tr><td>Tennessee</td><td class="num">429,621</td><td class="num">$283,086,101</td></tr>
+  <tr><td>Wisconsin</td><td class="num">426,733</td><td class="num">$272,704,536</td></tr>
+  <tr><td>Indiana</td><td class="num">425,968</td><td class="num">$270,171,259</td></tr>
+  <tr><td>South Carolina</td><td class="num">415,680</td><td class="num">$271,379,667</td></tr>
+  <tr><td>Alabama</td><td class="num">413,668</td><td class="num">$272,661,219</td></tr>
+  <tr><td>Missouri</td><td class="num">395,504</td><td class="num">$243,682,900</td></tr>
+  <tr><td>Massachusetts</td><td class="num">367,884</td><td class="num">$234,265,658</td></tr>
+  <tr><td>Washington</td><td class="num">358,024</td><td class="num">$221,626,171</td></tr>
+  <tr><td>Oklahoma</td><td class="num">351,879</td><td class="num">$372,103,677</td></tr>
+  <tr><td>New Jersey</td><td class="num">337,969</td><td class="num">$201,455,481</td></tr>
+  <tr><td>Maryland</td><td class="num">287,722</td><td class="num">$177,262,185</td></tr>
+  <tr><td>Nevada</td><td class="num">276,024</td><td class="num">$171,764,119</td></tr>
+  <tr><td>Colorado</td><td class="num">251,506</td><td class="num">$156,298,457</td></tr>
+  <tr><td>Minnesota</td><td class="num">244,916</td><td class="num">$153,971,615</td></tr>
+  <tr><td>Mississippi</td><td class="num">244,280</td><td class="num">$164,840,081</td></tr>
+  <tr><td>Oregon</td><td class="num">238,974</td><td class="num">$139,745,971</td></tr>
+  <tr><td>Arkansas</td><td class="num">215,017</td><td class="num">$136,228,574</td></tr>
+  <tr><td>Connecticut</td><td class="num">186,531</td><td class="num">$122,633,986</td></tr>
+  <tr><td>New Mexico</td><td class="num">184,131</td><td class="num">$151,760,988</td></tr>
+  <tr><td>Kansas</td><td class="num">133,746</td><td class="num">$80,009,228</td></tr>
+  <tr><td>West Virginia</td><td class="num">128,571</td><td class="num">$81,641,755</td></tr>
+  <tr><td>Iowa</td><td class="num">124,054</td><td class="num">$76,388,764</td></tr>
+  <tr><td>Maine</td><td class="num">98,639</td><td class="num">$59,851,605</td></tr>
+  <tr><td>Nebraska</td><td class="num">96,140</td><td class="num">$58,506,115</td></tr>
+  <tr><td>Rhode Island</td><td class="num">83,516</td><td class="num">$49,427,402</td></tr>
+  <tr><td>Utah</td><td class="num">75,088</td><td class="num">$46,205,004</td></tr>
+  <tr><td>District of Columbia</td><td class="num">63,806</td><td class="num">$42,499,793</td></tr>
+  <tr><td>Hawaii</td><td class="num">60,721</td><td class="num">$36,138,140</td></tr>
+  <tr><td>Montana</td><td class="num">54,539</td><td class="num">$35,323,663</td></tr>
+  <tr><td>Idaho</td><td class="num">53,962</td><td class="num">$31,079,265</td></tr>
+  <tr><td>Delaware</td><td class="num">52,446</td><td class="num">$31,646,231</td></tr>
+  <tr><td>New Hampshire</td><td class="num">38,859</td><td class="num">$24,116,275</td></tr>
+  <tr><td>Vermont</td><td class="num">25,923</td><td class="num">$15,716,255</td></tr>
+  <tr><td>Alaska</td><td class="num">24,784</td><td class="num">$27,664,392</td></tr>
+  <tr><td>South Dakota</td><td class="num">24,194</td><td class="num">$18,256,828</td></tr>
+  <tr><td>Wyoming</td><td class="num">21,736</td><td class="num">$13,177,646</td></tr>
+  <tr><td>North Dakota</td><td class="num">17,742</td><td class="num">$10,638,045</td></tr>
+  <tr><td>Virgin Islands</td><td class="num">6,780</td><td class="num">$2,839,897</td></tr>
+  <tr><td>Northern Mariana Islands</td><td class="num">3,218</td><td class="num">$2,610,839</td></tr>
+  <tr><td>American Samoa</td><td class="num">1,684</td><td class="num">$1,579,021</td></tr>
+  <tr><td>Guam</td><td class="num">1,322</td><td class="num">$895,396</td></tr>
+</table>
+<h2 id="tribal-broadband">Tribal Broadband Connectivity Program</h2>
+<p>The <strong>Tribal Broadband Connectivity Program</strong> is a $2.16B federal initiative (NTIA-administered) to deploy broadband infrastructure, improve digital inclusion, and support distance learning on tribal lands.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">271</div><div class="label">Total awards</div></div>
+  <div class="stat-card"><div class="num">$2.16B</div><div class="label">Total funding</div></div>
+  <div class="stat-card"><div class="num">$8.0M</div><div class="label">Avg award size</div></div>
+  <div class="stat-card"><div class="num">33</div><div class="label">States covered</div></div>
+</div>
+<h3 id="tribal-broadband-categories">Program Categories</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">Adoption</div><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:60.0%"></div></div><div class="svc-num">$0M</div></div>
+  <div class="svc-row"><div class="svc-label">Infrastructure</div><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:100.0%"></div></div><div class="svc-num">$0M</div></div>
+  <div class="svc-row"><div class="svc-label">Planning</div><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:32.0%"></div></div><div class="svc-num">$0M</div></div>
+</div>
+<h3 id="tribal-broadband-regions">Awards by BIA Region</h3>
+<table class="wikitable sortable">
+  <tr><th>BIA Region</th><th>Awards</th><th>Total Funding</th></tr>
+  <tr><td>Alaska</td><td class="num">47</td><td class="num">$457,505,954</td></tr>
+  <tr><td>Southwest</td><td class="num">20</td><td class="num">$274,281,852</td></tr>
+  <tr><td>Northwest</td><td class="num">34</td><td class="num">$233,507,476</td></tr>
+  <tr><td>Eastern Oklahoma</td><td class="num">9</td><td class="num">$230,722,612</td></tr>
+  <tr><td>Pacific</td><td class="num">43</td><td class="num">$206,425,935</td></tr>
+  <tr><td>Western</td><td class="num">28</td><td class="num">$140,477,550</td></tr>
+  <tr><td>Great Plains</td><td class="num">15</td><td class="num">$132,907,243</td></tr>
+  <tr><td>Rocky Mountain</td><td class="num">4</td><td class="num">$124,248,674</td></tr>
+  <tr><td>Midwest</td><td class="num">24</td><td class="num">$100,800,530</td></tr>
+  <tr><td>Hawaii</td><td class="num">2</td><td class="num">$89,993,474</td></tr>
+  <tr><td>Southern Plains</td><td class="num">16</td><td class="num">$64,804,898</td></tr>
+  <tr><td>Eastern</td><td class="num">26</td><td class="num">$51,335,612</td></tr>
+  <tr><td>Navajo</td><td class="num">1</td><td class="num">$50,830,944</td></tr>
+  <tr><td>OK</td><td class="num">1</td><td class="num">$2,500,000</td></tr>
+  <tr><td>Southern Plaines</td><td class="num">1</td><td class="num">$497,658</td></tr>
+</table>
+<h3 id="tribal-broadband-types">Awards by Project Type</h3>
+<table class="wikitable">
+  <tr><th>Project Type</th><th>Awards</th><th>Total Funding</th></tr>
+  <tr><td>Broadband Infrastructure Deployment</td><td class="num">143</td><td class="num">$1,869,820,678</td></tr>
+  <tr><td>Use and Adoption</td><td class="num">44</td><td class="num">$91,093,438</td></tr>
+  <tr><td>Broadband Infrastructure Deployment &amp; Use and Adoption</td><td class="num">2</td><td class="num">$77,208,711</td></tr>
+  <tr><td>Broadband Use and Adoption</td><td class="num">34</td><td class="num">$68,433,444</td></tr>
+  <tr><td>Planning, Feasibility, and Sustainability</td><td class="num">33</td><td class="num">$24,324,688</td></tr>
+  <tr><td>Use and Adoption &amp; Planning, Feasibility, and Sustainability</td><td class="num">7</td><td class="num">$22,866,652</td></tr>
+  <tr><td>Broadband Infrastructure Deployment &amp; Planning, Feasibility, and Sustainability</td><td class="num">5</td><td class="num">$4,493,400</td></tr>
+  <tr><td>Use and Adoption &amp; Planning, Feasibility and Sustainability</td><td class="num">3</td><td class="num">$2,599,400</td></tr>
+</table>
+<h3 id="tribal-broadband-top">Largest Tribal Broadband Awards</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>BIA Region</th><th>State</th><th>Amount</th><th>Project Type</th></tr>
+  <tr><td><strong>Hawaii Department of Hawaiian Home Lands</strong></td><td>Hawaii</td><td></td><td class="num">$72,708,711</td><td>Broadband Infrastructure Deployment &amp; Use and Adoption</td></tr>
+  <tr><td><strong>NANA Regional Corp., Inc.</strong></td><td>Alaska</td><td>AK</td><td class="num">$65,168,000</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Hoopa Valley Tribal Council</strong></td><td>Pacific</td><td>CA</td><td class="num">$65,140,408</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Yurok Telecommunications Corp.</strong></td><td>Pacific</td><td>CA</td><td class="num">$61,661,366</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Santa Fe Indian School</strong></td><td>Southwest</td><td>NM</td><td class="num">$57,298,683</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Northern Cheyenne Tribe</strong></td><td>Rocky Mountain</td><td>MT</td><td class="num">$52,870,391</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Calista Corporation</strong></td><td>Alaska</td><td>AK</td><td class="num">$52,559,385</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Navajo Tribal Utility Authority</strong></td><td>Navajo</td><td>AZ</td><td class="num">$50,830,944</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Doyon, Limited</strong></td><td>Alaska</td><td>AK</td><td class="num">$50,651,548</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Chickasaw Nation</strong></td><td>Eastern Oklahoma</td><td>OK</td><td class="num">$50,000,000</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Central Council Tlingit &amp; Haida Indian Tribes of Alaska</strong></td><td>Alaska</td><td>AK</td><td class="num">$49,899,104</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Confederated Tribes of the Colville Reservation</strong></td><td>Northwest</td><td>WA</td><td class="num">$48,405,831</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Rosebud Sioux Tribe</strong></td><td>Great Plains</td><td>SD</td><td class="num">$48,352,974</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Choctaw Nation of Oklahoma</strong></td><td>Eastern Oklahoma</td><td></td><td class="num">$46,303,150</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Mescalero Apache Telecom, Inc.</strong></td><td>Southwest</td><td>NM</td><td class="num">$43,943,116</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Southern Ute Indian Tribe</strong></td><td>Southwest</td><td>CO</td><td class="num">$43,704,181</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Bethel Native Corporation</strong></td><td>Alaska</td><td>AK</td><td class="num">$42,383,221</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Confederated Salish and Kootenai Tribes</strong></td><td>Northwest</td><td>MT</td><td class="num">$41,572,832</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Muscogee (Creek) Nation</strong></td><td>Eastern Oklahoma</td><td></td><td class="num">$41,216,619</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Osage Nation</strong></td><td>Eastern Oklahoma</td><td>OK</td><td class="num">$40,679,250</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Sac and Fox Nation</strong></td><td>Southern Plains</td><td>OK</td><td class="num">$35,807,104</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Winnebago Tribe of Nebraska</strong></td><td>Great Plains</td><td>NE</td><td class="num">$35,252,376</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Alaska Federation of Natives (AFN)</strong></td><td>Alaska</td><td>AK</td><td class="num">$35,102,141</td><td>Use and Adoption</td></tr>
+  <tr><td><strong>Cherokee Nation</strong></td><td>Eastern Oklahoma</td><td>OK</td><td class="num">$33,947,877</td><td>Broadband Infrastructure Deployment</td></tr>
+  <tr><td><strong>Blackfeet Tribe of the Blackfeet Indian Reservation</strong></td><td>Rocky Mountain</td><td>MT</td><td class="num">$33,235,004</td><td>Broadband Infrastructure Deployment</td></tr>
+</table>
+<h3 id="tribal-broadband-states">Tribal Broadband by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Awards</th><th>Total Funding</th></tr>
+  <tr><td><a href="states/AK.html"><strong>AK</strong></a></td><td class="num">34</td><td class="num">$413,385,910</td></tr>
+  <tr><td><a href="states/OK.html"><strong>OK</strong></a></td><td class="num">18</td><td class="num">$200,176,067</td></tr>
+  <tr><td><a href="states/NM.html"><strong>NM</strong></a></td><td class="num">16</td><td class="num">$186,765,077</td></tr>
+  <tr><td><a href="states/CA.html"><strong>CA</strong></a></td><td class="num">36</td><td class="num">$167,526,229</td></tr>
+  <tr><td><a href="states/MT.html"><strong>MT</strong></a></td><td class="num">4</td><td class="num">$142,978,583</td></tr>
+  <tr><td><a href="states/AZ.html"><strong>AZ</strong></a></td><td class="num">11</td><td class="num">$126,696,013</td></tr>
+  <tr><td><a href="states/WA.html"><strong>WA</strong></a></td><td class="num">18</td><td class="num">$97,328,567</td></tr>
+  <tr><td><a href="states/SD.html"><strong>SD</strong></a></td><td class="num">6</td><td class="num">$77,341,952</td></tr>
+  <tr><td><a href="states/CO.html"><strong>CO</strong></a></td><td class="num">2</td><td class="num">$66,432,054</td></tr>
+  <tr><td><a href="states/MN.html"><strong>MN</strong></a></td><td class="num">5</td><td class="num">$52,501,528</td></tr>
+  <tr><td><a href="states/NE.html"><strong>NE</strong></a></td><td class="num">5</td><td class="num">$41,248,827</td></tr>
+  <tr><td><a href="states/WI.html"><strong>WI</strong></a></td><td class="num">10</td><td class="num">$37,027,118</td></tr>
+  <tr><td><a href="states/NV.html"><strong>NV</strong></a></td><td class="num">11</td><td class="num">$35,459,555</td></tr>
+  <tr><td><a href="states/OR.html"><strong>OR</strong></a></td><td class="num">7</td><td class="num">$24,974,861</td></tr>
+  <tr><td><a href="states/ID.html"><strong>ID</strong></a></td><td class="num">2</td><td class="num">$22,985,261</td></tr>
+  <tr><td><a href="states/HI.html"><strong>HI</strong></a></td><td class="num">1</td><td class="num">$17,284,763</td></tr>
+  <tr><td><a href="states/UT.html"><strong>UT</strong></a></td><td class="num">2</td><td class="num">$16,354,542</td></tr>
+  <tr><td><a href="states/NY.html"><strong>NY</strong></a></td><td class="num">4</td><td class="num">$10,697,449</td></tr>
+  <tr><td><a href="states/ND.html"><strong>ND</strong></a></td><td class="num">2</td><td class="num">$9,137,952</td></tr>
+  <tr><td><a href="states/MA.html"><strong>MA</strong></a></td><td class="num">1</td><td class="num">$9,130,692</td></tr>
+  <tr><td><a href="states/MS.html"><strong>MS</strong></a></td><td class="num">1</td><td class="num">$8,433,633</td></tr>
+  <tr><td><a href="states/KS.html"><strong>KS</strong></a></td><td class="num">3</td><td class="num">$4,708,317</td></tr>
+  <tr><td><a href="states/MI.html"><strong>MI</strong></a></td><td class="num">7</td><td class="num">$4,205,614</td></tr>
+  <tr><td><a href="states/TX.html"><strong>TX</strong></a></td><td class="num">2</td><td class="num">$3,123,357</td></tr>
+  <tr><td><a href="states/LA.html"><strong>LA</strong></a></td><td class="num">2</td><td class="num">$2,865,691</td></tr>
+  <tr><td><a href="states/RI.html"><strong>RI</strong></a></td><td class="num">1</td><td class="num">$2,498,250</td></tr>
+  <tr><td><a href="states/VA.html"><strong>VA</strong></a></td><td class="num">3</td><td class="num">$1,473,350</td></tr>
+  <tr><td><a href="states/ME.html"><strong>ME</strong></a></td><td class="num">2</td><td class="num">$1,000,000</td></tr>
+  <tr><td><a href="states/SC.html"><strong>SC</strong></a></td><td class="num">1</td><td class="num">$900,578</td></tr>
+  <tr><td><a href="states/NC.html"><strong>NC</strong></a></td><td class="num">1</td><td class="num">$500,000</td></tr>
+  <tr><td><a href="states/FL.html"><strong>FL</strong></a></td><td class="num">1</td><td class="num">$499,920</td></tr>
+  <tr><td><a href="states/CT.html"><strong>CT</strong></a></td><td class="num">1</td><td class="num">$493,008</td></tr>
+  <tr><td><a href="states/IA.html"><strong>IA</strong></a></td><td class="num">1</td><td class="num">$424,652</td></tr>
+</table>
+<h2 id="tribal-libraries">Tribal &amp; Indigenous Libraries</h2>
+<p>There is NO single comprehensive national census of tribal libraries. The Bureau of Indian Affairs (BIA) does not maintain a public inventory of tribal libraries. IMLS does not publish a count of tribal libraries separate from its grant recipient lists. The figures below are compiled from IMLS Native American Library Services grant award data (extracted from the cached IMLS grants dataset covering</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">300+</div><div class="label">Estimated tribal libraries</div></div>
+  <div class="stat-card"><div class="num">200-300+</div><div class="label">Estimate range</div></div>
+  <div class="stat-card"><div class="num">574</div><div class="label">Federally recognized tribes</div></div>
+</div>
+<h3 id="imls-native-grants">IMLS Native American Library Services</h3>
+<p>IMLS Native American Library Services — Federally recognized tribes, Alaska Native villages and corporations, Native Hawaiian organizations. Tribes must establish (or demonstrate intent to establish) a library for community use.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">3,747</div><div class="label">Grant records (1998-2013)</div></div>
+  <div class="stat-card"><div class="num">434</div><div class="label">Distinct institutions</div></div>
+</div>
+<h3 id="atalm">Association of Tribal Archives, Libraries, &amp; Museums (ATALM)</h3>
+<div class="rules-box">
+  <p><strong>Association of Tribal Archives, Libraries, &amp; Museums</strong> — founded 2010, headquartered in Oklahoma City, Oklahoma.</p>
+  <p><strong>Mission:</strong> Dedicated to serving the needs of cultural organizations worldwide, with an emphasis on indigenous peoples in the United States. ATALM seeks to provide support to indigenous archives, libraries, and museums through programming, collaborative work, and advocacy, and to guarantee that indigenous natio</p>
+  <p><strong>Current President:</strong> Susan Feller</p>
+  <p><strong>Funding:</strong> Largely funded by grants from IMLS and other affiliated institutions.</p>
+</div>
+<h3 id="notable-tribal-libs">Notable Tribal Libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Location</th><th>Operator</th><th>Description</th></tr>
+  <tr><td><strong>Navajo Nation Library</strong></td><td>Window Rock, Arizona (Navajo Nation capital)</td><td>Navajo Nation</td><td>Housed in the Navajo Nation Museum, Library &amp; Visitor&#x27;s Center building, alongside the Navajo Nation Museum and Special Collections. Home to five special collections supporting historical, legal, cult</td></tr>
+  <tr><td><strong>Cherokee Nation collections (Tahlequah, Oklahoma)</strong></td><td>Tahlequah, Oklahoma</td><td>Cherokee Nation</td><td>The Cherokee Nation maintains cultural institutions and archives in its capital at Tahlequah, Oklahoma, the seat of the federally recognized Cherokee Nation. Related institutions include the Cherokee </td></tr>
+  <tr><td><strong>Sequoyah National Research Center (SNRC)</strong></td><td>Little Rock, Arkansas (University of Arkansas at Little Rock)</td><td>University of Arkansas at Little Rock</td><td>Home of the American Native Press Archives (ANPA), one of the largest repositories of Native American publications in the world. Also home to the J.W. Wiggins Native American Art Collection of over 2,</td></tr>
+  <tr><td><strong>Seminole Tribe of Florida - Ah-Tah-Thi-Ki Museum and Tribal Library Program</strong></td><td>Big Cypress Seminole Indian Reservation, Florida</td><td>Seminole Tribe of Florida</td><td>The Seminole Tribe operates a Tribal Library Program associated with the Ah-Tah-Thi-Ki Museum. Referenced in Wikipedia coverage of Seminole Tribe of Florida.</td></tr>
+  <tr><td><strong>Seneca-Iroquois National Museum / Seneca Nation</strong></td><td>Salamanca, New York (traditional Seneca territory, Allegheny Territory)</td><td>Seneca Nation of Indians</td><td>The Seneca Nation (Onondowaga) maintains cultural and archival institutions. A dedicated Wikipedia article for a &#x27;Seneca-Iroquois National Museum&#x27; was not confirmed during this research, but the Senec</td></tr>
+</table>
+<h3 id="tribal-college-libs">Tribal College &amp; University Libraries</h3>
+<div class="rules-box">
+  <p>Tribal colleges and universities (TCUs) are a category of higher education, minority-serving institutions in the United States defined in the Higher Education Act of 1965. Each qualifies for funding under the Tribally Controlled Colleges and Universities Assistance Act of 1978 (25 U.S.C. 1801 et seq.) or the Navajo Community College Act (25 U.S.C. 640a note); or is cited in section 532 of the Equi</p>
+  <p><strong>US TCUs (Wikipedia count):</strong> 42</p>
+</div>
+<table class="wikitable">
+  <tr><th>Tribal College</th><th>Location</th><th>Note</th></tr>
+  <tr><td><strong>Diné College</strong></td><td>Tsaile, Arizona</td><td>First tribal college (founded 1968); accredited 1979</td></tr>
+  <tr><td><strong>Haskell Indian Nations University</strong></td><td>Lawrence, Kansas</td><td>Federally operated; four-year institution</td></tr>
+  <tr><td><strong>Navajo Technical University</strong></td><td>Crownpoint, New Mexico</td><td></td></tr>
+  <tr><td><strong>Institute of American Indian Arts</strong></td><td>Santa Fe, New Mexico</td><td></td></tr>
+  <tr><td><strong>Salish Kootenai College</strong></td><td>Pablo, Montana</td><td></td></tr>
+  <tr><td><strong>Sinte Gleska University</strong></td><td>Rosebud, South Dakota</td><td>Has a master&#x27;s degree program</td></tr>
+  <tr><td><strong>United Tribes Technical College</strong></td><td>Bismarck, North Dakota</td><td></td></tr>
+  <tr><td><strong>Iḷisaġvik College</strong></td><td>Utqiaġvik, Alaska</td><td></td></tr>
+  <tr><td><strong>College of the Menominee Nation</strong></td><td>Keshena, Wisconsin</td><td></td></tr>
+  <tr><td><strong>Southwestern Indian Polytechnic Institute</strong></td><td>Albuquerque, New Mexico</td><td></td></tr>
+  <tr><td><strong>Bay Mills Community College</strong></td><td>Brimley, Michigan</td><td></td></tr>
+  <tr><td><strong> Sitting Bull College</strong></td><td>Fort Yates, North Dakota</td><td></td></tr>
+  <tr><td><strong>Leech Lake Tribal College</strong></td><td>Cass Lake, Minnesota</td><td></td></tr>
+  <tr><td><strong>Fond du Lac Tribal and Community College</strong></td><td>Cloquet, Minnesota</td><td></td></tr>
+  <tr><td><strong>Tohono Oʼodham Community College</strong></td><td>Sells, Arizona</td><td></td></tr>
+</table>
+<h3 id="language-preservation">Language Preservation &amp; Revitalization</h3>
+<div class="rules-box">
+  <p>Tribal libraries and tribal college libraries serve as language revitalization centers. The suppression and attempted erasure of many Indigenous languages is tied to settler colonial assimilation practices, including the boarding-school era. Through collection development, programming, and digital archives, tribal libraries support Indigenous language revitalization.</p>
+  <p><strong>Key Indigenous languages served by tribal libraries:</strong> Cherokee, Navajo/Diné, Lakota, Ojibwe, Seneca (Onöndowaʼga꞉ʼ), Passamaquoddy, Karuk, Hawaiian, Inupiaq, Dakota, Assiniboine, Cree, Mohawk</p>
+</div>
+<h3 id="digital-repatriation">Digital Repatriation</h3>
+<div class="rules-box">
+  <p>Digital repatriation is the return of cultural heritage items in a digital format to the communities from which they originated. The term originated in anthropology and has expanded to museum, library, and archives collections, including digital photographs, digital collections, virtual exhibits, 3D</p>
+  <p><strong>Mukurtu CMS:</strong> Open-source content management system specifically designed for managing and sharing digital heritage in culturally relevant and ethically minded ways. Places the needs and concerns of Indigenous comm</p>
+</div>
+<table class="wikitable">
+  <tr><th>Project</th><th>Year</th><th>Description</th></tr>
+  <tr><td><strong>Sípnuuk (Karuk Tribe)</strong></td><td>2016</td><td>Digital archive originally started as a food security archive, expanded to cover the Karuk language, culture, skills, and traditional knowledge. The Karuk people have complete control and authority ov</td></tr>
+  <tr><td><strong>Passamaquoddy Peoples&#x27; Knowledge Portal</strong></td><td></td><td>Digital archive built around transcription and translation of wax cylinder recordings of the Passamaquoddy people made in 1890. Uses Local Contexts TK Labels to prevent misuse of cultural heritage, as</td></tr>
+  <tr><td><strong>National Museum of the American Indian (USA)</strong></td><td></td><td>Particularly active in bicultural co-curation of digital material, alongside the Museum of New Zealand Te Papa Tongarewa.</td></tr>
+</table>
+<h3 id="tribal-funding-challenges">Funding Challenges</h3>
+<div class="rules-box">
+  <p>Tribal libraries have been historically underfunded compared to mainstream public libraries. IMLS Basic Grants (~$6,000-$10,000) are small relative to the operating budgets of typical public libraries, and Enhancement Grants (up to $200,000) are competitive and not guaranteed. ALA and ATALM have both advocated for sustained and increased federal investment in tribal library services.</p>
+  <p><strong>IMLS Basic Grant scale:</strong> A typical IMLS Basic Grant of ~$7,000-$10,000 is modest; for comparison, ALA has used a benchmark of roughly $13 per capita as an &#x27;adequate&#x27; library funding level (cited in the prison-libraries context), implying that small tribal communities require proportionally larger per-capita investment to su</p>
+  <p><strong>Digital divide:</strong> ATALM&#x27;s 2014 report found that less than 10% of tribal land in Indian Country has broadband access (per FCC acknowledgment), compounding funding challenges. Many tribal libraries operate in remote locations where telecommunications companies have avoided infrastructure investment.</p>
+</div>
+<h3 id="tribal-library-history">History of Tribal Library Services</h3>
+<table class="wikitable">
+  <tr><th>Era</th><th>Description</th><th>Key Institution</th></tr>
+  <tr><td><strong>Boarding school libraries and assimilation (1870s-1930s)</strong></td><td>The federal government and religious organizations operated boarding schools for Native American children beginning in the 1870s, with the Carlisle Indian Industrial School (founded 1879 in Carlisle, Pennsylvania) as the flagship model. These schools</td><td>Carlisle Indian Industrial School (1879), Carlisle, Pennsylvania</td></tr>
+  <tr><td><strong>Self-determination and the founding of tribal libraries (1960s-1970s)</strong></td><td>The Tribal College movement developed as part of the Native American &#x27;self-determination&#x27; movement of the 1960s. The first tribal college, Navajo Community College (now Diné College), was founded by the Navajo Nation in 1968 in Tsaile, Arizona. The 1</td><td></td></tr>
+  <tr><td><strong>Federal grant infrastructure (1990s-2010s)</strong></td><td>The Tribally Controlled Colleges and Universities Assistance Act of 1978 and the Equity in Educational Land-Grant Status Act of 1994 established federal funding and land-grant status for tribal colleges. IMLS (established 1996) administers Native Ame</td><td></td></tr>
+  <tr><td><strong>Cultural sovereignty and digital repatriation (2000s-present)</strong></td><td>Modern tribal libraries, archives, and museums increasingly assert tribal sovereignty over cultural knowledge. Mukurtu CMS (2007), Local Contexts (2010), and ATALM (2010) represent a shift toward Indigenous-controlled digital infrastructure and advoc</td><td></td></tr>
+</table>
+<h3 id="tribal-key-facts">Key Facts</h3>
+<table class="wikitable">
+  <tr><th>Fact</th><th>Source</th></tr>
+  <tr><td>There is no single comprehensive national census of tribal libraries in the United States; estimates range from roughly 200 to 300+.</td><td>IMLS grant recipient data; ALA; ATALM; AILA literature</td></tr>
+  <tr><td>574 federally recognized Indian tribes are eligible for IMLS Native American Library Services grants.</td><td>Bureau of Indian Affairs (BIA), commonly cited as the denominator of IMLS eligibility</td></tr>
+  <tr><td>The IMLS grants dataset (FY1998-FY2013) records 3,747 Native American grant awards totaling approximately $56.7 million, reaching 434 distinct institutions.</td><td>Cached IMLS grants CSV (imls_grants.csv); aggregated in tribal_imls_grants_summary.json</td></tr>
+  <tr><td>IMLS Basic Grants are typically ~$7,000-$10,000 (non-competitive); Enhancement Grants are competitive, up to $200,000.</td><td>IMLS Native American Library Services program documentation; confirmed by award-size distribution in the cached dataset</td></tr>
+  <tr><td>ATALM was officially founded in 2010, building on conferences held in 2002, 2005, 2007, 2008, and 2009. It is based in Oklahoma City, Oklahoma, and is largely funded by IMLS grants.</td><td>Wikipedia, &#x27;Association of Tribal Archives, Libraries, &amp; Museums,&#x27; citing ATALM and IMLS primary sources</td></tr>
+  <tr><td>There are 37 Tribal Colleges and Universities (TCUs) in the United States that are AIHEC members; 32 were fully accredited as of 2018.</td><td>Wikipedia, &#x27;Tribal colleges and universities,&#x27; citing AIHEC</td></tr>
+  <tr><td>The first tribal college was Diné College (originally Navajo Community College), founded by the Navajo Nation in 1968 in Tsaile, Arizona, and accredited in 1979.</td><td>Wikipedia, &#x27;Tribal colleges and universities&#x27;</td></tr>
+  <tr><td>The American Indian Library Association (AILA) was established in 1979 as a result of the 1978 White House Pre-Conference on Indian Library and Information Services, and became an ALA affiliate in 1985.</td><td>Wikipedia, &#x27;American Indian Library Association&#x27;</td></tr>
+  <tr><td>Mukurtu CMS, an open-source platform for Indigenous communities to manage digital heritage, was originally designed in 2007 for the Warumungu people in Australia and has become a popular tool for Indigenous digital archives worldwide.</td><td>Wikipedia, &#x27;Digital repatriation&#x27;</td></tr>
+  <tr><td>Local Contexts (founded 2010) offers 18 Traditional Knowledge (TK) Labels that institutions can use in digital collections to let communities designate materials as restricted for access or use.</td><td>Wikipedia, &#x27;Digital repatriation&#x27;</td></tr>
+  <tr><td>The Navajo Nation Museum, Library &amp; Visitor&#x27;s Center in Window Rock, Arizona, was constructed in 1997 at a cost of $7 million and houses the Navajo Nation Library (with five special collections) alongside the museum, which holds over 40,000 photographs.</td><td>Wikipedia, &#x27;Navajo Nation Museum&#x27;</td></tr>
+  <tr><td>The Sequoyah National Research Center in Little Rock, Arkansas, is home to the American Native Press Archives (begun 1983), one of the world&#x27;s largest repositories of Native American publications, and the J.W. Wiggins Native American Art Collection of over 2,400 pieces.</td><td>Wikipedia, &#x27;Sequoyah Research Center&#x27;</td></tr>
+  <tr><td>Tribal college enrollment grew from approximately 2,100 in 1982 to 30,000 in 2003, reflecting both institutional growth and a return to reservations by many American Indians.</td><td>Wikipedia, &#x27;Tribal colleges and universities&#x27;</td></tr>
+  <tr><td>Less than 10% of tribal land in Indian Country has broadband access, per FCC acknowledgment cited by ATALM, compounding the digital divide for tribal libraries.</td><td>Wikipedia, &#x27;Association of Tribal Archives, Libraries, &amp; Museums,&#x27; citing ATALM&#x27;s Digital Inclusion in Native Communities report (2014) and the FCC</td></tr>
+</table>
+<h3 id="tribal-sources">Data Sources</h3>
+<table class="wikitable">
+  <tr><th>Source</th><th>Name</th></tr>
+  <tr><td><code>imls_grants_dataset</code></td><td>IMLS grants dataset (cached), covering FY1998-FY2013 Native American Library Services, Basic Grants, and Native Hawaiian awards</td></tr>
+  <tr><td><code>imls_native_american_library_services</code></td><td>IMLS Native American Library Services grant program (Basic and Enhancement Grants)</td></tr>
+  <tr><td><code>atalm_wikipedia</code></td><td>Wikipedia, &#x27;Association of Tribal Archives, Libraries, &amp; Museums&#x27;</td></tr>
+  <tr><td><code>atalm_org</code></td><td>Association of Tribal Archives, Libraries, &amp; Museums (official site)</td></tr>
+  <tr><td><code>tcu_wikipedia</code></td><td>Wikipedia, &#x27;Tribal colleges and universities&#x27;</td></tr>
+  <tr><td><code>tcu_list_wikipedia</code></td><td>Wikipedia, &#x27;List of tribal colleges and universities&#x27;</td></tr>
+  <tr><td><code>aihec_org</code></td><td>American Indian Higher Education Consortium (official site)</td></tr>
+  <tr><td><code>aila_wikipedia</code></td><td>Wikipedia, &#x27;American Indian Library Association&#x27;</td></tr>
+  <tr><td><code>digital_repatriation_wikipedia</code></td><td>Wikipedia, &#x27;Digital repatriation&#x27; (Mukurtu CMS, Local Contexts, Sípnuuk, Passamaquoddy)</td></tr>
+  <tr><td><code>indigenous_librarianship_wikipedia</code></td><td>Wikipedia, &#x27;Indigenous librarianship&#x27; (language revitalization, colonialism, education programs)</td></tr>
+  <tr><td><code>navajo_nation_museum_wikipedia</code></td><td>Wikipedia, &#x27;Navajo Nation Museum&#x27; (Navajo Nation Library)</td></tr>
+  <tr><td><code>sequoyah_research_center_wikipedia</code></td><td>Wikipedia, &#x27;Sequoyah Research Center&#x27; (American Native Press Archives)</td></tr>
+  <tr><td><code>cherokee_nation_wikipedia</code></td><td>Wikipedia, &#x27;Cherokee Nation&#x27;</td></tr>
+  <tr><td><code>boarding_schools_wikipedia</code></td><td>Wikipedia, &#x27;American Indian boarding schools&#x27; (history of assimilation-era libraries)</td></tr>
+  <tr><td><code>protocols_wikipedia</code></td><td>Wikipedia, &#x27;Protocols for Native American Archival Materials&#x27;</td></tr>
+  <tr><td><code>mukurtu_org</code></td><td>Mukurtu CMS (official site)</td></tr>
+</table>
+<h2 id="bls-salaries">Library Workforce: Salaries &amp; Employment (BLS 2024)</h2>
+<p>The <strong>Bureau of Labor Statistics</strong> tracks employment and wages for library occupations. These are the people who run America's libraries.</p>
+<h3 id="bls-25-4022">Librarians and Media Collections Specialists <small class="text-muted">(SOC 25-4022)</small></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">133,200</div><div class="label">Total employment</div></div>
+  <div class="stat-card"><div class="num">$65,149</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">$64,254</div><div class="label">Avg median wage</div></div>
+  <div class="stat-card"><div class="num">$94,300</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">$49,200</div><div class="label">Lowest (any state)</div></div>
+  <div class="stat-card"><div class="num">53</div><div class="label">States with data</div></div>
+</div>
+<h4>Top States by Employment — Librarians and Media Collections Specialists</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Employment</th><th>Mean Wage</th><th>Median Wage</th></tr>
+  <tr><td>New York</td><td class="num">11,020</td><td class="num">$82,150</td><td class="num">$77,080</td></tr>
+  <tr><td>California</td><td class="num">10,030</td><td class="num">$90,960</td><td class="num">$86,590</td></tr>
+  <tr><td>Texas</td><td class="num">9,430</td><td class="num">$64,910</td><td class="num">$64,910</td></tr>
+  <tr><td>Florida</td><td class="num">5,960</td><td class="num">$63,860</td><td class="num">$59,890</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">5,420</td><td class="num">$61,700</td><td class="num">$60,120</td></tr>
+  <tr><td>Massachusetts</td><td class="num">5,120</td><td class="num">$76,600</td><td class="num">$75,790</td></tr>
+  <tr><td>Ohio</td><td class="num">4,770</td><td class="num">$59,720</td><td class="num">$57,130</td></tr>
+  <tr><td>Virginia</td><td class="num">4,750</td><td class="num">$73,340</td><td class="num">$74,320</td></tr>
+  <tr><td>Illinois</td><td class="num">4,610</td><td class="num">$67,380</td><td class="num">$62,360</td></tr>
+  <tr><td>North Carolina</td><td class="num">3,990</td><td class="num">$62,070</td><td class="num">$59,860</td></tr>
+  <tr><td>New Jersey</td><td class="num">3,510</td><td class="num">$81,250</td><td class="num">$79,380</td></tr>
+  <tr><td>Georgia</td><td class="num">3,450</td><td class="num">$70,900</td><td class="num">$73,500</td></tr>
+  <tr><td>Michigan</td><td class="num">3,430</td><td class="num">$61,030</td><td class="num">$59,520</td></tr>
+  <tr><td>Maryland</td><td class="num">3,270</td><td class="num">$85,520</td><td class="num">$81,690</td></tr>
+  <tr><td>Alabama</td><td class="num">3,260</td><td class="num">$58,510</td><td class="num">$62,240</td></tr>
+</table>
+<h4>Highest-Paying States — Librarians and Media Collections Specialists</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>District of Columbia</td><td class="num">$94,300</td><td class="num">$93,740</td><td class="num">940</td></tr>
+  <tr><td>Washington</td><td class="num">$91,280</td><td class="num">$94,400</td><td class="num">2,830</td></tr>
+  <tr><td>California</td><td class="num">$90,960</td><td class="num">$86,590</td><td class="num">10,030</td></tr>
+  <tr><td>Maryland</td><td class="num">$85,520</td><td class="num">$81,690</td><td class="num">3,270</td></tr>
+  <tr><td>New York</td><td class="num">$82,150</td><td class="num">$77,080</td><td class="num">11,020</td></tr>
+  <tr><td>New Jersey</td><td class="num">$81,250</td><td class="num">$79,380</td><td class="num">3,510</td></tr>
+  <tr><td>Connecticut</td><td class="num">$79,080</td><td class="num">$76,380</td><td class="num">2,430</td></tr>
+  <tr><td>Delaware</td><td class="num">$77,850</td><td class="num">$78,300</td><td class="num">330</td></tr>
+  <tr><td>Alaska</td><td class="num">$77,090</td><td class="num">$78,280</td><td class="num">330</td></tr>
+  <tr><td>Massachusetts</td><td class="num">$76,600</td><td class="num">$75,790</td><td class="num">5,120</td></tr>
+</table>
+<h4>Lowest-Paying States — Librarians and Media Collections Specialists</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>Mississippi</td><td class="num">$49,200</td><td class="num">$50,320</td><td class="num">1,300</td></tr>
+  <tr><td>West Virginia</td><td class="num">$49,240</td><td class="num">$48,640</td><td class="num">430</td></tr>
+  <tr><td>Puerto Rico</td><td class="num">$50,460</td><td class="num">$49,800</td><td class="num">1,290</td></tr>
+  <tr><td>Wyoming</td><td class="num">$50,550</td><td class="num">$48,290</td><td class="num">360</td></tr>
+  <tr><td>South Dakota</td><td class="num">$51,970</td><td class="num">$49,290</td><td class="num">460</td></tr>
+  <tr><td>Indiana</td><td class="num">$52,880</td><td class="num">$48,880</td><td class="num">2,160</td></tr>
+  <tr><td>Idaho</td><td class="num">$52,930</td><td class="num">$46,570</td><td class="num">530</td></tr>
+  <tr><td>Kansas</td><td class="num">$53,860</td><td class="num">$59,580</td><td class="num">1,680</td></tr>
+  <tr><td>Iowa</td><td class="num">$54,270</td><td class="num">$52,780</td><td class="num">1,820</td></tr>
+  <tr><td>Arkansas</td><td class="num">$54,530</td><td class="num">$56,770</td><td class="num">1,470</td></tr>
+</table>
+<h3 id="bls-25-4031">Library Technicians <small class="text-muted">(SOC 25-4031)</small></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">74,080</div><div class="label">Total employment</div></div>
+  <div class="stat-card"><div class="num">$41,465</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">$40,096</div><div class="label">Avg median wage</div></div>
+  <div class="stat-card"><div class="num">$60,160</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">$29,070</div><div class="label">Lowest (any state)</div></div>
+  <div class="stat-card"><div class="num">52</div><div class="label">States with data</div></div>
+</div>
+<h4>Top States by Employment — Library Technicians</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Employment</th><th>Mean Wage</th><th>Median Wage</th></tr>
+  <tr><td>California</td><td class="num">7,760</td><td class="num">$54,580</td><td class="num">$51,290</td></tr>
+  <tr><td>Texas</td><td class="num">5,160</td><td class="num">$38,200</td><td class="num">$37,920</td></tr>
+  <tr><td>Ohio</td><td class="num">5,090</td><td class="num">$37,320</td><td class="num">$35,230</td></tr>
+  <tr><td>New York</td><td class="num">4,070</td><td class="num">$47,940</td><td class="num">$46,700</td></tr>
+  <tr><td>Florida</td><td class="num">3,610</td><td class="num">$42,960</td><td class="num">$38,810</td></tr>
+  <tr><td>Wisconsin</td><td class="num">2,780</td><td class="num">$34,330</td><td class="num">$33,030</td></tr>
+  <tr><td>Virginia</td><td class="num">2,690</td><td class="num">$45,060</td><td class="num">$45,140</td></tr>
+  <tr><td>Colorado</td><td class="num">2,560</td><td class="num">$43,880</td><td class="num">$44,870</td></tr>
+  <tr><td>Illinois</td><td class="num">2,540</td><td class="num">$45,400</td><td class="num">$43,920</td></tr>
+  <tr><td>North Carolina</td><td class="num">2,450</td><td class="num">$42,900</td><td class="num">$44,800</td></tr>
+  <tr><td>Michigan</td><td class="num">2,230</td><td class="num">$35,510</td><td class="num">$34,320</td></tr>
+  <tr><td>Massachusetts</td><td class="num">1,910</td><td class="num">$51,870</td><td class="num">$49,650</td></tr>
+  <tr><td>Oregon</td><td class="num">1,900</td><td class="num">$46,930</td><td class="num">$46,950</td></tr>
+  <tr><td>Georgia</td><td class="num">1,880</td><td class="num">$36,170</td><td class="num">$36,650</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">1,820</td><td class="num">$40,260</td><td class="num">$38,150</td></tr>
+</table>
+<h4>Highest-Paying States — Library Technicians</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>District of Columbia</td><td class="num">$60,160</td><td class="num">$58,780</td><td class="num">460</td></tr>
+  <tr><td>Washington</td><td class="num">$59,880</td><td class="num">$57,550</td><td class="num">1,630</td></tr>
+  <tr><td>Connecticut</td><td class="num">$55,290</td><td class="num">$54,550</td><td class="num">950</td></tr>
+  <tr><td>California</td><td class="num">$54,580</td><td class="num">$51,290</td><td class="num">7,760</td></tr>
+  <tr><td>Massachusetts</td><td class="num">$51,870</td><td class="num">$49,650</td><td class="num">1,910</td></tr>
+  <tr><td>Maryland</td><td class="num">$51,860</td><td class="num">$49,340</td><td class="num">1,470</td></tr>
+  <tr><td>Rhode Island</td><td class="num">$48,610</td><td class="num">$46,910</td><td class="num">140</td></tr>
+  <tr><td>New Jersey</td><td class="num">$48,280</td><td class="num">$46,730</td><td class="num">1,140</td></tr>
+  <tr><td>New York</td><td class="num">$47,940</td><td class="num">$46,700</td><td class="num">4,070</td></tr>
+  <tr><td>New Hampshire</td><td class="num">$47,810</td><td class="num">$47,640</td><td class="num">240</td></tr>
+</table>
+<h4>Lowest-Paying States — Library Technicians</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>Mississippi</td><td class="num">$29,070</td><td class="num">$26,080</td><td class="num">470</td></tr>
+  <tr><td>Puerto Rico</td><td class="num">$31,720</td><td class="num">$30,620</td><td class="num">310</td></tr>
+  <tr><td>Arkansas</td><td class="num">$32,180</td><td class="num">$30,790</td><td class="num">440</td></tr>
+  <tr><td>Oklahoma</td><td class="num">$32,670</td><td class="num">$28,490</td><td class="num">600</td></tr>
+  <tr><td>Kentucky</td><td class="num">$32,730</td><td class="num">$30,750</td><td class="num">1,300</td></tr>
+  <tr><td>South Dakota</td><td class="num">$33,060</td><td class="num">$28,370</td><td class="num">500</td></tr>
+  <tr><td>Indiana</td><td class="num">$33,480</td><td class="num">$32,420</td><td class="num">1,750</td></tr>
+  <tr><td>Idaho</td><td class="num">$33,550</td><td class="num">$33,700</td><td class="num">520</td></tr>
+  <tr><td>Wisconsin</td><td class="num">$34,330</td><td class="num">$33,030</td><td class="num">2,780</td></tr>
+  <tr><td>West Virginia</td><td class="num">$34,340</td><td class="num">$31,080</td><td class="num">190</td></tr>
+</table>
+<h3 id="bls-43-4111">Library Assistants, Bookkeeping, Clerical <small class="text-muted">(SOC 43-4111)</small></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">159,620</div><div class="label">Total employment</div></div>
+  <div class="stat-card"><div class="num">$43,227</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">$41,756</div><div class="label">Avg median wage</div></div>
+  <div class="stat-card"><div class="num">$55,150</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">$24,370</div><div class="label">Lowest (any state)</div></div>
+  <div class="stat-card"><div class="num">51</div><div class="label">States with data</div></div>
+</div>
+<h4>Top States by Employment — Library Assistants, Bookkeeping, Clerical</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Employment</th><th>Mean Wage</th><th>Median Wage</th></tr>
+  <tr><td>California</td><td class="num">24,430</td><td class="num">$54,920</td><td class="num">$51,720</td></tr>
+  <tr><td>Texas</td><td class="num">12,570</td><td class="num">$40,650</td><td class="num">$40,380</td></tr>
+  <tr><td>New York</td><td class="num">11,570</td><td class="num">$52,840</td><td class="num">$51,990</td></tr>
+  <tr><td>Florida</td><td class="num">7,690</td><td class="num">$40,890</td><td class="num">$39,310</td></tr>
+  <tr><td>Ohio</td><td class="num">7,400</td><td class="num">$42,790</td><td class="num">$40,100</td></tr>
+  <tr><td>Colorado</td><td class="num">5,930</td><td class="num">$49,780</td><td class="num">$48,470</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">4,570</td><td class="num">$43,800</td><td class="num">$43,060</td></tr>
+  <tr><td>New Jersey</td><td class="num">4,470</td><td class="num">$46,420</td><td class="num">$46,460</td></tr>
+  <tr><td>Michigan</td><td class="num">4,330</td><td class="num">$45,480</td><td class="num">$41,610</td></tr>
+  <tr><td>Indiana</td><td class="num">4,070</td><td class="num">$42,190</td><td class="num">$39,220</td></tr>
+  <tr><td>North Carolina</td><td class="num">4,060</td><td class="num">$41,790</td><td class="num">$40,870</td></tr>
+  <tr><td>Louisiana</td><td class="num">3,870</td><td class="num">$37,120</td><td class="num">$36,530</td></tr>
+  <tr><td>Kansas</td><td class="num">3,760</td><td class="num">$40,600</td><td class="num">$38,280</td></tr>
+  <tr><td>Missouri</td><td class="num">3,630</td><td class="num">$41,730</td><td class="num">$39,150</td></tr>
+  <tr><td>Maryland</td><td class="num">3,160</td><td class="num">$46,100</td><td class="num">$45,090</td></tr>
+</table>
+<h4>Highest-Paying States — Library Assistants, Bookkeeping, Clerical</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>District of Columbia</td><td class="num">$55,150</td><td class="num">$48,270</td><td class="num">830</td></tr>
+  <tr><td>California</td><td class="num">$54,920</td><td class="num">$51,720</td><td class="num">24,430</td></tr>
+  <tr><td>New York</td><td class="num">$52,840</td><td class="num">$51,990</td><td class="num">11,570</td></tr>
+  <tr><td>Rhode Island</td><td class="num">$52,660</td><td class="num">$50,420</td><td class="num">430</td></tr>
+  <tr><td>Oregon</td><td class="num">$51,670</td><td class="num">$50,230</td><td class="num">2,280</td></tr>
+  <tr><td>Massachusetts</td><td class="num">$51,250</td><td class="num">$48,940</td><td class="num">2,970</td></tr>
+  <tr><td>Delaware</td><td class="num">$51,150</td><td class="num">$50,860</td><td class="num">540</td></tr>
+  <tr><td>Connecticut</td><td class="num">$51,110</td><td class="num">$48,250</td><td class="num">1,300</td></tr>
+  <tr><td>Washington</td><td class="num">$50,890</td><td class="num">$48,570</td><td class="num">2,360</td></tr>
+  <tr><td>Colorado</td><td class="num">$49,780</td><td class="num">$48,470</td><td class="num">5,930</td></tr>
+</table>
+<h4>Lowest-Paying States — Library Assistants, Bookkeeping, Clerical</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>Puerto Rico</td><td class="num">$24,370</td><td class="num">$21,910</td><td class="num">2,700</td></tr>
+  <tr><td>Alabama</td><td class="num">$34,310</td><td class="num">$33,020</td><td class="num">2,940</td></tr>
+  <tr><td>Mississippi</td><td class="num">$34,410</td><td class="num">$33,950</td><td class="num">2,670</td></tr>
+  <tr><td>West Virginia</td><td class="num">$34,700</td><td class="num">$34,240</td><td class="num">2,020</td></tr>
+  <tr><td>Hawaii</td><td class="num">$35,590</td><td class="num">$35,050</td><td class="num">0</td></tr>
+  <tr><td>Louisiana</td><td class="num">$37,120</td><td class="num">$36,530</td><td class="num">3,870</td></tr>
+  <tr><td>Idaho</td><td class="num">$37,150</td><td class="num">$38,130</td><td class="num">590</td></tr>
+  <tr><td>Arkansas</td><td class="num">$38,520</td><td class="num">$37,260</td><td class="num">3,140</td></tr>
+  <tr><td>Georgia</td><td class="num">$38,750</td><td class="num">$37,700</td><td class="num">1,230</td></tr>
+  <tr><td>Iowa</td><td class="num">$39,140</td><td class="num">$38,360</td><td class="num">1,920</td></tr>
+</table>
+<h3 id="bls-25-1082">Library Science Teachers, Postsecondary <small class="text-muted">(SOC 25-1082)</small></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">3,660</div><div class="label">Total employment</div></div>
+  <div class="stat-card"><div class="num">$80,060</div><div class="label">Avg mean wage</div></div>
+  <div class="stat-card"><div class="num">$76,415</div><div class="label">Avg median wage</div></div>
+  <div class="stat-card"><div class="num">$133,140</div><div class="label">Highest (any state)</div></div>
+  <div class="stat-card"><div class="num">$62,100</div><div class="label">Lowest (any state)</div></div>
+  <div class="stat-card"><div class="num">30</div><div class="label">States with data</div></div>
+</div>
+<h4>Top States by Employment — Library Science Teachers, Postsecondary</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Employment</th><th>Mean Wage</th><th>Median Wage</th></tr>
+  <tr><td>Illinois</td><td class="num">540</td><td class="num">$76,430</td><td class="num">$76,030</td></tr>
+  <tr><td>California</td><td class="num">380</td><td class="num">$133,140</td><td class="num">$118,760</td></tr>
+  <tr><td>North Carolina</td><td class="num">270</td><td class="num">$79,710</td><td class="num">$77,390</td></tr>
+  <tr><td>Tennessee</td><td class="num">210</td><td class="num">$80,880</td><td class="num">$66,490</td></tr>
+  <tr><td>Texas</td><td class="num">200</td><td class="num">$79,410</td><td class="num">$76,190</td></tr>
+  <tr><td>New York</td><td class="num">170</td><td class="num">$72,810</td><td class="num">$63,130</td></tr>
+  <tr><td>Alabama</td><td class="num">150</td><td class="num">$73,460</td><td class="num">$73,250</td></tr>
+  <tr><td>New Jersey</td><td class="num">130</td><td class="num">$88,850</td><td class="num">$82,800</td></tr>
+  <tr><td>Georgia</td><td class="num">120</td><td class="num">$71,340</td><td class="num">$65,190</td></tr>
+  <tr><td>Minnesota</td><td class="num">120</td><td class="num">$83,180</td><td class="num">$80,330</td></tr>
+  <tr><td>Mississippi</td><td class="num">110</td><td class="num">$65,870</td><td class="num">$62,900</td></tr>
+  <tr><td>Massachusetts</td><td class="num">100</td><td class="num">$77,480</td><td class="num">$79,740</td></tr>
+  <tr><td>Virginia</td><td class="num">100</td><td class="num">$86,110</td><td class="num">$79,530</td></tr>
+  <tr><td>Maryland</td><td class="num">90</td><td class="num">$104,870</td><td class="num">$102,910</td></tr>
+  <tr><td>Michigan</td><td class="num">90</td><td class="num">$81,330</td><td class="num">$79,830</td></tr>
+</table>
+<h4>Highest-Paying States — Library Science Teachers, Postsecondary</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>California</td><td class="num">$133,140</td><td class="num">$118,760</td><td class="num">380</td></tr>
+  <tr><td>Washington</td><td class="num">$112,830</td><td class="num">$103,950</td><td class="num">90</td></tr>
+  <tr><td>Maryland</td><td class="num">$104,870</td><td class="num">$102,910</td><td class="num">90</td></tr>
+  <tr><td>New Jersey</td><td class="num">$88,850</td><td class="num">$82,800</td><td class="num">130</td></tr>
+  <tr><td>Virginia</td><td class="num">$86,110</td><td class="num">$79,530</td><td class="num">100</td></tr>
+  <tr><td>Indiana</td><td class="num">$84,750</td><td class="num">$79,970</td><td class="num">70</td></tr>
+  <tr><td>Minnesota</td><td class="num">$83,180</td><td class="num">$80,330</td><td class="num">120</td></tr>
+  <tr><td>Oregon</td><td class="num">$82,550</td><td class="num">$78,820</td><td class="num">50</td></tr>
+  <tr><td>Pennsylvania</td><td class="num">$82,200</td><td class="num">$81,060</td><td class="num">80</td></tr>
+  <tr><td>Ohio</td><td class="num">$81,950</td><td class="num">$81,190</td><td class="num">50</td></tr>
+</table>
+<h4>Lowest-Paying States — Library Science Teachers, Postsecondary</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Mean Wage</th><th>Median Wage</th><th>Employment</th></tr>
+  <tr><td>Wisconsin</td><td class="num">$62,100</td><td class="num">$62,820</td><td class="num">40</td></tr>
+  <tr><td>Kentucky</td><td class="num">$65,010</td><td class="num">$61,090</td><td class="num">60</td></tr>
+  <tr><td>Mississippi</td><td class="num">$65,870</td><td class="num">$62,900</td><td class="num">110</td></tr>
+  <tr><td>Puerto Rico</td><td class="num">$66,360</td><td class="num">$62,040</td><td class="num">60</td></tr>
+  <tr><td>Oklahoma</td><td class="num">$69,380</td><td class="num">$62,970</td><td class="num">80</td></tr>
+  <tr><td>Idaho</td><td class="num">$69,990</td><td class="num">$64,620</td><td class="num">60</td></tr>
+  <tr><td>South Carolina</td><td class="num">$70,110</td><td class="num">$63,950</td><td class="num">50</td></tr>
+  <tr><td>Missouri</td><td class="num">$70,820</td><td class="num">$65,300</td><td class="num">70</td></tr>
+  <tr><td>Georgia</td><td class="num">$71,340</td><td class="num">$65,190</td><td class="num">120</td></tr>
+  <tr><td>New York</td><td class="num">$72,810</td><td class="num">$63,130</td><td class="num">170</td></tr>
+</table>
+<h2 id="museums">IMLS Museum Universe (2018 (June release; final vintage - IMLS has no plans to update))</h2>
+<p>Final vintage of the IMLS museum universe. Compiled from IMLS administrative data, IRS nonprofit (990) data, private foundation grantee lists, museum associations, and third-party vendors. Coverage: 50 U.S. states and the District of Columbia.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">30,175</div><div class="label">Total museums</div></div>
+  <div class="stat-card"><div class="num">30,171</div><div class="label">Documented entries</div></div>
+  <div class="stat-card"><div class="num">21,501</div><div class="label">Revenue reported</div></div>
+</div>
+<h3 id="museums-by-type">Museums by Type</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">Historical Societies / Historic Preservation</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:100.0%"></div></div><div class="svc-num">14,785</div></div>
+  <div class="svc-row"><div class="svc-label">General / Uncategorized Museums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:53.8%"></div></div><div class="svc-num">7,961</div></div>
+  <div class="svc-row"><div class="svc-label">Art Museums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:17.7%"></div></div><div class="svc-num">2,620</div></div>
+  <div class="svc-row"><div class="svc-label">History Museums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:12.0%"></div></div><div class="svc-num">1,776</div></div>
+  <div class="svc-row"><div class="svc-label">Arboretums, Botanical Gardens &amp; Nature Centers</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:7.0%"></div></div><div class="svc-num">1,028</div></div>
+  <div class="svc-row"><div class="svc-label">Science &amp; Technology Museums &amp; Planetariums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:5.6%"></div></div><div class="svc-num">833</div></div>
+  <div class="svc-row"><div class="svc-label">Zoos, Aquariums &amp; Wildlife Conservation</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:3.1%"></div></div><div class="svc-num">465</div></div>
+  <div class="svc-row"><div class="svc-label">Children&#x27;s Museums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:3.0%"></div></div><div class="svc-num">438</div></div>
+  <div class="svc-row"><div class="svc-label">Natural History &amp; Natural Science Museums</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:1.8%"></div></div><div class="svc-num">269</div></div>
+</div>
+<h3 id="museums-top-states">Top 10 States by Museum Count</h3>
+<div class="services-bars">
+  <div class="svc-row"><div class="svc-label">CA</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:100.0%"></div></div><div class="svc-num">2,409</div></div>
+  <div class="svc-row"><div class="svc-label">NY</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:83.9%"></div></div><div class="svc-num">2,020</div></div>
+  <div class="svc-row"><div class="svc-label">TX</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:69.8%"></div></div><div class="svc-num">1,682</div></div>
+  <div class="svc-row"><div class="svc-label">PA</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:62.1%"></div></div><div class="svc-num">1,495</div></div>
+  <div class="svc-row"><div class="svc-label">OH</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:51.6%"></div></div><div class="svc-num">1,243</div></div>
+  <div class="svc-row"><div class="svc-label">IL</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:49.7%"></div></div><div class="svc-num">1,198</div></div>
+  <div class="svc-row"><div class="svc-label">FL</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:43.4%"></div></div><div class="svc-num">1,045</div></div>
+  <div class="svc-row"><div class="svc-label">MI</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:39.4%"></div></div><div class="svc-num">950</div></div>
+  <div class="svc-row"><div class="svc-label">MA</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:39.3%"></div></div><div class="svc-num">947</div></div>
+  <div class="svc-row"><div class="svc-label">VA</div><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:35.4%"></div></div><div class="svc-num">852</div></div>
+</div>
+<h3 id="museums-all-states">Museums by State (All)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Museums</th></tr>
+  <tr><td><a href="states/CA.html"><strong>CA</strong></a></td><td class="num">2,409</td></tr>
+  <tr><td><a href="states/NY.html"><strong>NY</strong></a></td><td class="num">2,020</td></tr>
+  <tr><td><a href="states/TX.html"><strong>TX</strong></a></td><td class="num">1,682</td></tr>
+  <tr><td><a href="states/PA.html"><strong>PA</strong></a></td><td class="num">1,495</td></tr>
+  <tr><td><a href="states/OH.html"><strong>OH</strong></a></td><td class="num">1,243</td></tr>
+  <tr><td><a href="states/IL.html"><strong>IL</strong></a></td><td class="num">1,198</td></tr>
+  <tr><td><a href="states/FL.html"><strong>FL</strong></a></td><td class="num">1,045</td></tr>
+  <tr><td><a href="states/MI.html"><strong>MI</strong></a></td><td class="num">950</td></tr>
+  <tr><td><a href="states/MA.html"><strong>MA</strong></a></td><td class="num">947</td></tr>
+  <tr><td><a href="states/VA.html"><strong>VA</strong></a></td><td class="num">852</td></tr>
+  <tr><td><a href="states/WI.html"><strong>WI</strong></a></td><td class="num">820</td></tr>
+  <tr><td><a href="states/NC.html"><strong>NC</strong></a></td><td class="num">721</td></tr>
+  <tr><td><a href="states/NJ.html"><strong>NJ</strong></a></td><td class="num">708</td></tr>
+  <tr><td><a href="states/MO.html"><strong>MO</strong></a></td><td class="num">697</td></tr>
+  <tr><td><a href="states/IN.html"><strong>IN</strong></a></td><td class="num">637</td></tr>
+  <tr><td><a href="states/MN.html"><strong>MN</strong></a></td><td class="num">633</td></tr>
+  <tr><td><a href="states/WA.html"><strong>WA</strong></a></td><td class="num">630</td></tr>
+  <tr><td><a href="states/GA.html"><strong>GA</strong></a></td><td class="num">625</td></tr>
+  <tr><td><a href="states/IA.html"><strong>IA</strong></a></td><td class="num">609</td></tr>
+  <tr><td><a href="states/CO.html"><strong>CO</strong></a></td><td class="num">588</td></tr>
+  <tr><td><a href="states/MD.html"><strong>MD</strong></a></td><td class="num">580</td></tr>
+  <tr><td><a href="states/TN.html"><strong>TN</strong></a></td><td class="num">509</td></tr>
+  <tr><td><a href="states/ME.html"><strong>ME</strong></a></td><td class="num">502</td></tr>
+  <tr><td><a href="states/KS.html"><strong>KS</strong></a></td><td class="num">498</td></tr>
+  <tr><td><a href="states/OR.html"><strong>OR</strong></a></td><td class="num">498</td></tr>
+  <tr><td><a href="states/CT.html"><strong>CT</strong></a></td><td class="num">493</td></tr>
+  <tr><td><a href="states/OK.html"><strong>OK</strong></a></td><td class="num">456</td></tr>
+  <tr><td><a href="states/KY.html"><strong>KY</strong></a></td><td class="num">431</td></tr>
+  <tr><td><a href="states/AL.html"><strong>AL</strong></a></td><td class="num">423</td></tr>
+  <tr><td><a href="states/AZ.html"><strong>AZ</strong></a></td><td class="num">406</td></tr>
+  <tr><td><a href="states/SC.html"><strong>SC</strong></a></td><td class="num">363</td></tr>
+  <tr><td><a href="states/LA.html"><strong>LA</strong></a></td><td class="num">361</td></tr>
+  <tr><td><a href="states/NH.html"><strong>NH</strong></a></td><td class="num">344</td></tr>
+  <tr><td><a href="states/NE.html"><strong>NE</strong></a></td><td class="num">329</td></tr>
+  <tr><td><a href="states/AR.html"><strong>AR</strong></a></td><td class="num">287</td></tr>
+  <tr><td><a href="states/NM.html"><strong>NM</strong></a></td><td class="num">275</td></tr>
+  <tr><td><a href="states/VT.html"><strong>VT</strong></a></td><td class="num">269</td></tr>
+  <tr><td><a href="states/ND.html"><strong>ND</strong></a></td><td class="num">254</td></tr>
+  <tr><td><a href="states/MT.html"><strong>MT</strong></a></td><td class="num">248</td></tr>
+  <tr><td><a href="states/WV.html"><strong>WV</strong></a></td><td class="num">237</td></tr>
+  <tr><td><a href="states/MS.html"><strong>MS</strong></a></td><td class="num">234</td></tr>
+  <tr><td><a href="states/SD.html"><strong>SD</strong></a></td><td class="num">215</td></tr>
+  <tr><td><a href="states/ID.html"><strong>ID</strong></a></td><td class="num">201</td></tr>
+  <tr><td><a href="states/DC.html"><strong>DC</strong></a></td><td class="num">171</td></tr>
+  <tr><td><a href="states/WY.html"><strong>WY</strong></a></td><td class="num">169</td></tr>
+  <tr><td><a href="states/RI.html"><strong>RI</strong></a></td><td class="num">168</td></tr>
+  <tr><td><a href="states/HI.html"><strong>HI</strong></a></td><td class="num">162</td></tr>
+  <tr><td><a href="states/NV.html"><strong>NV</strong></a></td><td class="num">158</td></tr>
+  <tr><td><a href="states/UT.html"><strong>UT</strong></a></td><td class="num">155</td></tr>
+  <tr><td><a href="states/AK.html"><strong>AK</strong></a></td><td class="num">152</td></tr>
+  <tr><td><a href="states/DE.html"><strong>DE</strong></a></td><td class="num">118</td></tr>
+</table>
+<h3 id="museums-revenue">Museums by Revenue Size</h3>
+<table class="wikitable">
+  <tr><th>Budget Tier</th><th>Count</th></tr>
+  <tr><td>$0</td><td class="num">10,518</td></tr>
+  <tr><td>$1 to $9,999</td><td class="num">735</td></tr>
+  <tr><td>$10,000 to $24,999</td><td class="num">735</td></tr>
+  <tr><td>$25,000 to $99,999</td><td class="num">2,745</td></tr>
+  <tr><td>$100,000 to $499,999</td><td class="num">3,140</td></tr>
+  <tr><td>$500,000 to $999,999</td><td class="num">922</td></tr>
+  <tr><td>$1,000,000 to $4,999,999</td><td class="num">1,141</td></tr>
+  <tr><td>$5,000,000 to $9,999,999</td><td class="num">277</td></tr>
+  <tr><td>$10,000,000 to $49,999,999</td><td class="num">436</td></tr>
+  <tr><td>$50,000,000 or greater</td><td class="num">852</td></tr>
+  <tr><td>Not reported / not a 990 filer</td><td class="num">8,674</td></tr>
+</table>
+<h3 id="museums-urban-rural">Urban vs. Rural Museums</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">15,460</div><div class="label">Urban</div></div>
+  <div class="stat-card"><div class="num">14,639</div><div class="label">Rural</div></div>
+</div>
+<table class="wikitable">
+  <tr><th>Locale</th><th>Count</th></tr>
+  <tr><td>City</td><td class="num">8,453</td></tr>
+  <tr><td>Rural</td><td class="num">9,766</td></tr>
+  <tr><td>Town</td><td class="num">4,873</td></tr>
+  <tr><td>Suburb</td><td class="num">7,007</td></tr>
+  <tr><td>Not reported</td><td class="num">76</td></tr>
+</table>
+<h3 id="museum-library-relationship">Museum-Library Relationship</h3>
+<div class="rules-box">
+  <p>Two signals link museums to libraries: (1) CO_LOC_RES flags a LIBRARY co-located on the museum site; (2) IPEDS id means the museum is affiliated with a postsecondary institution, whose campus hosts an academic library.</p>
+  <p><strong>Co-located with libraries:</strong> 4</p>
+  <p><strong>Academic museums affiliated with IPEDS:</strong> 2566</p>
+</div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a></div>
+<p class="edit-note">Generated on 2026-08-15 23:26 UTC.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AGI · EIN 42-4298008 ·
+    <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
+    <br>Data updated 2026-08-15 23:26 UTC
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){try{f.contentWindow.postMessage({type:'wiki-theme',theme:n},'*');}catch(e){}}}
+</script>
+</body>
+</html>

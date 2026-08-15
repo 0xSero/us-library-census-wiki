@@ -501,6 +501,12 @@ def load_all():
             data['circulation'] = json.load(f)
     else:
         data['circulation'] = {}
+    cards_path = os.path.join(DATA, "library_cards_summary.json")
+    if os.path.exists(cards_path):
+        with open(cards_path) as f:
+            data['library_cards'] = json.load(f)
+    else:
+        data['library_cards'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1613,6 +1619,7 @@ def compute_stats(data):
 
     # ---- Circulation & library card statistics ----
     stats['circulation'] = data.get('circulation', {})
+    stats['library_cards'] = data.get('library_cards', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -6141,6 +6148,162 @@ def build_index(data, stats):
             for f in kf:
                 body += f'\n  <li>{esc(f)}</li>'
             body += '\n</ul>'
+
+        # ---- COVID impact trend chart (from library_cards agent data) ----
+        lc = stats.get('library_cards', {})
+        if lc and lc.get('trends'):
+            trends_raw = lc.get('trends', [])
+            # Build {year: {metric: value}} dict
+            trend_dict = {}
+            for t in trends_raw:
+                yr = t.get('year', '')
+                met = t.get('metric', '')
+                if met in ('total_circulation', 'library_visits', 'per_capita_circulation', 'visits_per_capita'):
+                    if yr not in trend_dict:
+                        trend_dict[yr] = {}
+                    trend_dict[yr][met] = t.get('value', 0)
+            # Order years
+            ordered_years = sorted(yr for yr in trend_dict if yr.startswith('FY'))
+            if ordered_years:
+                circ_pts = []
+                visit_pts = []
+                for yr in ordered_years:
+                    td = trend_dict[yr]
+                    c = td.get('total_circulation', 0)
+                    v = td.get('library_visits', 0)
+                    if c:
+                        circ_pts.append((yr, c))
+                    if v:
+                        visit_pts.append((yr, v))
+                # SVG trend chart (circulation + visits)
+                if circ_pts and visit_pts:
+                    all_pts = circ_pts + visit_pts
+                    max_val = max(p[1] for p in all_pts) or 1
+                    chart_w = 720
+                    chart_h = 300
+                    pad_l, pad_b, pad_t = 60, 40, 20
+                    plot_w = chart_w - pad_l - 20
+                    plot_h = chart_h - pad_b - pad_t
+                    n = len(circ_pts)
+                    def x_pos(i):
+                        return pad_l + (plot_w * i / max(n - 1, 1))
+                    def y_pos(v):
+                        return pad_t + plot_h - (plot_h * v / max_val)
+                    body += f"""
+<h3>COVID-19 impact: circulation &amp; visits FY2019-FY2024</h3>
+<p>Circulation peaked at ~{circ_pts[0][1]/1e9:.2f}B items in {circ_pts[0][0]} before the pandemic, fell ~25% in FY2020, rebounded to ~{max(circ_pts, key=lambda x: x[1] if x[0] != circ_pts[0][0] else 0)[1]/1e9:.2f}B by FY2023, then eased as digital borrowing normalized. Physical visits collapsed ~42% in FY2020 and have only partially recovered.</p>
+<svg viewBox="0 0 {chart_w} {chart_h}" class="trend-chart" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Library circulation and visits trend FY2019 to FY2024">
+  <rect x="0" y="0" width="{chart_w}" height="{chart_h}" fill="var(--bg-soft, #f8f9fa)" rx="6"/>
+  <text x="{chart_w/2}" y="14" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text, #222)">Circulation vs. Visits (FY2019-FY2024)</text>"""
+                    # Grid lines
+                    for g in range(5):
+                        gy = pad_t + plot_h * g / 4
+                        gv = max_val * (1 - g / 4)
+                        body += f'\n  <line x1="{pad_l}" y1="{gy:.0f}" x2="{chart_w-20}" y2="{gy:.0f}" stroke="var(--border,#ddd)" stroke-width="0.5"/>'
+                        body += f'\n  <text x="{pad_l-6}" y="{gy+3:.0f}" text-anchor="end" font-size="9" fill="var(--muted,#888)">{gv/1e9:.1f}B</text>'
+                    # Circulation line (blue)
+                    path_c = ' '.join(f'L{x_pos(i):.0f},{y_pos(v):.0f}' for i, (yr, v) in enumerate(circ_pts))
+                    body += f'\n  <path d="M{x_pos(0):.0f},{y_pos(circ_pts[0][1]):.0f} {path_c[1:]}" fill="none" stroke="var(--accent-blue,#2b7fff)" stroke-width="2.5"/>'
+                    for i, (yr, v) in enumerate(circ_pts):
+                        body += f'\n  <circle cx="{x_pos(i):.0f}" cy="{y_pos(v):.0f}" r="4" fill="var(--accent-blue,#2b7fff)"/>'
+                        body += f'\n  <text x="{x_pos(i):.0f}" y="{y_pos(v)-10:.0f}" text-anchor="middle" font-size="9" fill="var(--accent-blue,#2b7fff)">{v/1e9:.2f}B</text>'
+                    # Visits line (red)
+                    path_v = ' '.join(f'L{x_pos(i):.0f},{y_pos(v):.0f}' for i, (yr, v) in enumerate(visit_pts))
+                    body += f'\n  <path d="M{x_pos(0):.0f},{y_pos(visit_pts[0][1]):.0f} {path_v[1:]}" fill="none" stroke="var(--accent-red,#e23b3b)" stroke-width="2.5"/>'
+                    for i, (yr, v) in enumerate(visit_pts):
+                        body += f'\n  <circle cx="{x_pos(i):.0f}" cy="{y_pos(v):.0f}" r="4" fill="var(--accent-red,#e23b3b)"/>'
+                    # X-axis labels
+                    for i, (yr, v) in enumerate(circ_pts):
+                        body += f'\n  <text x="{x_pos(i):.0f}" y="{pad_t+plot_h+18:.0f}" text-anchor="middle" font-size="9" fill="var(--muted,#888)">{yr}</text>'
+                    # Legend
+                    body += f'\n  <rect x="{pad_l}" y="{chart_h-16}" width="12" height="8" fill="var(--accent-blue,#2b7fff)"/><text x="{pad_l+16}" y="{chart_h-8}" font-size="10" fill="var(--text,#222)">Circulation</text>'
+                    body += f'\n  <rect x="{pad_l+100}" y="{chart_h-16}" width="12" height="8" fill="var(--accent-red,#e23b3b)"/><text x="{pad_l+116}" y="{chart_h-8}" font-size="10" fill="var(--text,#222)">Visits</text>'
+                    body += '\n</svg>'
+
+        # ---- Pew demographics of library card holders ----
+        demo = lc.get('demographics', {}) if lc else {}
+        if demo and demo.get('pct_with_library_card'):
+            pct_card = demo.get('pct_with_library_card', 0)
+            pct_card_prior = demo.get('pct_with_library_card_prior_year_2012', 0)
+            profile = demo.get('cardholder_profile', '')
+            body += f"""
+<h3>Who holds a library card? (Pew Research)</h3>
+<p>{esc(profile)} Pew Research Center's Library Services survey (2013) found that {pct_card}% of Americans age 16+ have a library card{' (down from ' + str(pct_card_prior) + '% in 2012)' if pct_card_prior else ''}. 86% have used a public library at some point; 54% used one in the past 12 months.</p>"""
+            # Age groups table
+            age_groups = demo.get('age_groups', {})
+            if age_groups and isinstance(age_groups, dict):
+                age_data = age_groups.get('16_17')  # check if structured
+                if isinstance(age_data, dict):
+                    body += f"""
+<h4>Library use by age group</h4>
+<p class="wiki-sub">{esc(age_groups.get('note', 'Pew 2013'))}</p>
+<table class="wikitable">
+  <tr><th>Age group</th><th>Ever visited (%)</th><th>Visited past year (%)</th></tr>"""
+                    age_labels = {'16_17': '16-17', '18_29': '18-29', '30_49': '30-49', '50_64': '50-64', '65_plus': '65+'}
+                    for k, label in age_labels.items():
+                        ag = age_groups.get(k, {})
+                        if isinstance(ag, dict):
+                            body += f'\n  <tr><td>{label}</td><td class="pct">{ag.get("ever_visited_pct",0)}%</td><td class="pct">{ag.get("visited_past_year_pct",0)}%</td></tr>'
+                    body += '\n</table>'
+
+            # Income table
+            income = demo.get('income_levels', {})
+            if income and isinstance(income, dict):
+                inc_check = income.get('less_than_30k')
+                if isinstance(inc_check, dict):
+                    body += f"""
+<h4>Library use by household income</h4>
+<p class="wiki-sub">{esc(income.get('note', 'Pew 2013'))}</p>
+<table class="wikitable">
+  <tr><th>Income</th><th>Ever visited (%)</th><th>Visited past year (%)</th></tr>"""
+                    inc_labels = {'less_than_30k': '< $30K', '30k_50k': '$30K-$50K', '50k_75k': '$50K-$75K', '75k_100k': '$75K-$100K', '100k_150k': '$100K-$150K', '150k_plus': '$150K+'}
+                    for k, label in inc_labels.items():
+                        ig = income.get(k, {})
+                        if isinstance(ig, dict):
+                            body += f'\n  <tr><td>{label}</td><td class="pct">{ig.get("ever_visited_pct",0)}%</td><td class="pct">{ig.get("visited_past_year_pct",0)}%</td></tr>'
+                    body += '\n</table>'
+
+            # Race/ethnicity table
+            race = demo.get('race_ethnicity', {})
+            if race and isinstance(race, dict):
+                rc_check = race.get('white_non_hispanic')
+                if isinstance(rc_check, dict):
+                    body += f"""
+<h4>Library use by race &amp; ethnicity</h4>
+<table class="wikitable">
+  <tr><th>Group</th><th>Ever visited (%)</th><th>Visited past year (%)</th></tr>"""
+                    race_labels = {'white_non_hispanic': 'White (non-Hispanic)', 'black_non_hispanic': 'Black (non-Hispanic)', 'hispanic': 'Hispanic', 'asian_american_english_speaking': 'Asian American (English-speaking)'}
+                    for k, label in race_labels.items():
+                        rg = race.get(k, {})
+                        if isinstance(rg, dict):
+                            body += f'\n  <tr><td>{label}</td><td class="pct">{rg.get("ever_visited_pct",0)}%</td><td class="pct">{rg.get("visited_past_year_pct",0)}%</td></tr>'
+                    body += '\n</table>'
+
+            # Education table
+            edu = demo.get('education_levels', {})
+            if edu and isinstance(edu, dict):
+                edu_check = next(iter(edu.values()), None) if edu else None
+                if isinstance(edu_check, dict):
+                    body += f"""
+<h4>Library use by education level</h4>
+<p class="wiki-sub">{esc(edu.get('note', 'Pew 2013'))}</p>
+<table class="wikitable">
+  <tr><th>Education</th><th>Ever visited (%)</th><th>Visited past year (%)</th></tr>"""
+                    edu_labels = {'less_than_hs': 'Less than high school', 'high_school_grad': 'High school grad', 'some_college': 'Some college', 'college_grad_plus': 'College grad+'}
+                    for k, label in edu_labels.items():
+                        eg = edu.get(k, {})
+                        if isinstance(eg, dict):
+                            body += f'\n  <tr><td>{label}</td><td class="pct">{eg.get("ever_visited_pct",0)}%</td><td class="pct">{eg.get("visited_past_year_pct",0)}%</td></tr>'
+                    body += '\n</table>'
+
+        # ALA estimate note
+        if lc and lc.get('national_stats', {}).get('ala_estimated_cardholders'):
+            ala_est = lc['national_stats'].get('ala_estimated_cardholders', 0)
+            ala_range = lc['national_stats'].get('ala_estimated_cardholders_range', [])
+            range_str = f"{ala_range[0]/1e6:.0f}-{ala_range[1]/1e6:.0f}M" if ala_range else f"{ala_est/1e6:.0f}M"
+            body += f"""
+<h3>The ALA estimate vs. IMLS count</h3>
+<p>The IMLS Public Libraries Survey counts {n_regs/1e6:.0f}M registered borrowers &mdash; but the American Library Association widely cites an estimate of ~{range_str} Americans with library cards. The difference reflects methodology: IMLS counts active registered borrowers reported by each library system, while the ALA advocacy figure counts active and household cards and is often used in public messaging. Both are legitimate measures; the IMLS figure is the authoritative government statistic.</p>"""
 
         body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2022 (latest finalized PLS data), compiled via ALA State of America\'s Libraries 2024 report. Covers {n_states} states and territories with circulation data. Total circulation ({n_circ/1e9:.2f}B) includes physical and electronic materials; electronic circulation ({n_ecirc/1e6:.0f}M, {pct_e:.0f}%) is reported separately and may overlap with total_circulation depending on each state\'s reporting methodology. Registered borrowers ({n_regs/1e6:.0f}M) are active library card holders as reported by each state. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0. Per-capita figures divide by population served (min 1,000). ALA designates September as Library Card Sign-Up Month.</p>'
 

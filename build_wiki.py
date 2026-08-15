@@ -168,6 +168,7 @@ def panel(active=""):
     <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
     <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
     <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
+    <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -494,6 +495,12 @@ def load_all():
             data['philanthropy'] = json.load(f)
     else:
         data['philanthropy'] = {}
+    circ_path = os.path.join(DATA, "circulation_summary.json")
+    if os.path.exists(circ_path):
+        with open(circ_path) as f:
+            data['circulation'] = json.load(f)
+    else:
+        data['circulation'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1603,6 +1610,9 @@ def compute_stats(data):
 
     # ---- Library philanthropy (Carnegie, Friends, Gates, endowments) ----
     stats['philanthropy'] = data.get('philanthropy', {})
+
+    # ---- Circulation & library card statistics ----
+    stats['circulation'] = data.get('circulation', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -5967,6 +5977,172 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: Wikipedia articles for Andrew Carnegie library grants, Friends of Libraries, Bill &amp; Melinda Gates Foundation, Carnegie Corporation of New York, Andrew W. Mellon Foundation, and New York Public Library (citing annual reports, the Carnegie Corporation history page, and FOLUSA/ALA United for Libraries materials). Carnegie built {carn_us:,} of {carn_world:,} worldwide libraries across {carn_states_count} states; by-state dollar total parsed from the Wikipedia detail table to ${carn_us_dollars:,.0f}. Friends group counts are historical snapshots (no single national registry exists). The Gates Foundation\'s cumulative library commitment is widely reported as exceeding $1 billion, though the foundation does not publish a single official total. Endowment figures are as of the year cited in each source.</p>'
+
+    # ---- Circulation & Library Cards ----
+    circ = stats.get('circulation', {})
+    if circ and circ.get('national'):
+        nat = circ.get('national', {})
+        by_st = circ.get('by_state', [])
+        top_circ = circ.get('top_by_circulation', [])
+        top_percap = circ.get('top_by_per_capita_circulation', [])
+        top_regs = circ.get('top_by_registered_borrowers', [])
+        top_visits = circ.get('top_by_visits', [])
+        top_child = circ.get('top_by_childrens_pct', [])
+        top_ecirc = circ.get('top_by_electronic_pct', [])
+        n_circ = nat.get('total_circulation', 0)
+        n_ecirc = nat.get('total_ebook_circulation', 0)
+        n_regs = nat.get('total_registered_borrowers', 0)
+        n_visits = nat.get('total_visits', 0)
+        n_child = nat.get('total_childrens_circulation', 0)
+        n_progs = nat.get('total_programs', 0)
+        n_attend = nat.get('total_program_attendance', 0)
+        n_inet = nat.get('total_public_internet_users', 0)
+        n_vols = nat.get('total_book_volumes', 0)
+        n_pop = nat.get('total_population_served', 0)
+        pct_e = nat.get('pct_electronic', 0)
+        pct_c = nat.get('pct_childrens', 0)
+        circ_pc = nat.get('circulation_per_capita', 0)
+        visits_pc = nat.get('visits_per_capita', 0)
+        borrows_pc = nat.get('borrowers_per_capita', 0)
+        n_states = len([s for s in by_st if s.get('total_circulation', 0) > 0])
+
+        # Max for bars
+        max_circ = max((s.get('total_circulation', 0) for s in top_circ), default=1) or 1
+        max_percap = max((s.get('circulation_per_capita', 0) for s in top_percap), default=1) or 1
+        max_regs = max((s.get('registered_borrowers', 0) for s in top_regs), default=1) or 1
+
+        body += f"""
+
+<h2 id="circulation">Circulation &amp; Library Cards: What Americans Borrow</h2>
+<p class="wiki-sub">Every year Americans check out {n_circ/1e9:.2f} billion items from public libraries &mdash; {circ_pc:.1f} items for every person in the country. {n_regs/1e6:.0f} million Americans hold library cards. Of all circulation, {pct_c:.0f}% is children's materials and {pct_e:.0f}% is electronic (e-books and e-audiobooks), a figure that was effectively zero just two decades ago. The library card &mdash; the most powerful free tool in America &mdash; is held by roughly {borrows_pc:.0f}% of the population served.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{n_circ/1e9:.2f}B</div><div class="label">Items circulated annually</div></div>
+  <div class="stat-card"><div class="num">{n_regs/1e6:.0f}M</div><div class="label">Registered borrowers (card holders)</div></div>
+  <div class="stat-card"><div class="num">{n_visits/1e6:.0f}M</div><div class="label">Annual library visits</div></div>
+  <div class="stat-card"><div class="num">{n_ecirc/1e6:.0f}M</div><div class="label">Electronic (e-book) circulation</div></div>
+  <div class="stat-card"><div class="num">{n_child/1e6:.0f}M</div><div class="label">Children's circulation</div></div>
+  <div class="stat-card"><div class="num">{n_progs/1e6:.1f}M</div><div class="label">Programs hosted</div></div>
+  <div class="stat-card"><div class="num">{n_attend/1e6:.0f}M</div><div class="label">Program attendance</div></div>
+  <div class="stat-card"><div class="num">{n_inet/1e6:.0f}M</div><div class="label">Public internet users</div></div>
+  <div class="stat-card"><div class="num">{n_vols/1e6:.0f}M</div><div class="label">Book volumes in collections</div></div>
+  <div class="stat-card"><div class="num">{circ_pc:.1f}</div><div class="label">Circulation per capita</div></div>
+</div>"""
+
+        # Circulation mix bars (children's vs electronic share)
+        body += f"""
+<h3>The circulation mix: what gets checked out</h3>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-label">Physical materials</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{(100-pct_e):.1f}%"></span></span>
+    <span class="svc-count">{100-pct_e:.0f}%</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-label">Electronic (e-books/audio)</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{pct_e:.1f}%"></span></span>
+    <span class="svc-count">{pct_e:.0f}%</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-label">Children's materials</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-yellow" style="width:{pct_c:.1f}%"></span></span>
+    <span class="svc-count">{pct_c:.0f}%</span>
+  </div>
+</div>"""
+
+        # Top states by total circulation
+        if top_circ:
+            body += """
+<h3>Top 10 states by total circulation</h3>
+<div class="services-bars">"""
+            for s in top_circ[:10]:
+                cnt = s.get('total_circulation', 0)
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(s["state"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{cnt/max_circ*100:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states by circulation per capita
+        if top_percap:
+            body += """
+<h3>Top 10 states by circulation per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Population served</th><th>Total circulation</th><th>Per capita</th></tr>"""
+            for i, s in enumerate(top_percap[:10], 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td>{esc(s["state"])}</td>
+    <td>{s.get("population",0):,}</td>
+    <td>{s.get("total_circulation",0):,}</td>
+    <td class="pct">{s.get("circulation_per_capita",0):.2f}</td>
+  </tr>"""
+            body += '\n</table>'
+
+        # Top states by registered borrowers
+        if top_regs:
+            body += """
+<h3>Top 10 states by registered library card holders</h3>
+<div class="services-bars">"""
+            for s in top_regs[:10]:
+                cnt = s.get('registered_borrowers', 0)
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(s["state"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{cnt/max_regs*100:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states by children's circulation share
+        if top_child:
+            body += """
+<h3>Where children's materials dominate circulation</h3>
+<p>States where children's materials make up the largest share of total circulation (among states with &gt;100,000 total circulation):</p>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Total circulation</th><th>Children's circulation</th><th>Children's share</th></tr>"""
+            for i, s in enumerate(top_child[:10], 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td>{esc(s["state"])}</td>
+    <td>{s.get("total_circulation",0):,}</td>
+    <td>{s.get("children_circulation",0):,}</td>
+    <td class="pct">{s.get("pct_childrens_circulation",0):.1f}%</td>
+  </tr>"""
+            body += '\n</table>'
+
+        # Top states by electronic circulation share
+        if top_ecirc:
+            body += """
+<h3>Where digital borrowing leads</h3>
+<p>States with the highest share of electronic (e-book/e-audio) circulation:</p>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Total circulation</th><th>Electronic circulation</th><th>Electronic share</th></tr>"""
+            for i, s in enumerate(top_ecirc[:10], 1):
+                body += f"""
+  <tr>
+    <td>{i}</td>
+    <td>{esc(s["state"])}</td>
+    <td>{s.get("total_circulation",0):,}</td>
+    <td>{s.get("electronic_circulation",0):,}</td>
+    <td class="pct">{s.get("pct_electronic_circulation",0):.1f}%</td>
+  </tr>"""
+            body += '\n</table>'
+
+        # Key facts
+        kf = circ.get('key_facts', [])
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2022 (latest finalized PLS data), compiled via ALA State of America\'s Libraries 2024 report. Covers {n_states} states and territories with circulation data. Total circulation ({n_circ/1e9:.2f}B) includes physical and electronic materials; electronic circulation ({n_ecirc/1e6:.0f}M, {pct_e:.0f}%) is reported separately and may overlap with total_circulation depending on each state\'s reporting methodology. Registered borrowers ({n_regs/1e6:.0f}M) are active library card holders as reported by each state. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0. Per-capita figures divide by population served (min 1,000). ALA designates September as Library Card Sign-Up Month.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

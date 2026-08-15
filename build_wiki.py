@@ -174,6 +174,7 @@ def panel(active=""):
     <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
     <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
     <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
+    <a href="index.html#academic-stats" class="list-group-item list-group-item-action small py-1">Academic libraries</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -542,6 +543,12 @@ def load_all():
             data['tribal_libraries'] = json.load(f)
     else:
         data['tribal_libraries'] = {}
+    acad_path = os.path.join(DATA, "academic_libraries_summary.json")
+    if os.path.exists(acad_path):
+        with open(acad_path) as f:
+            data['academic_stats'] = json.load(f)
+    else:
+        data['academic_stats'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1668,6 +1675,9 @@ def compute_stats(data):
 
     # ---- Tribal & Indigenous libraries ----
     stats['tribal_libraries'] = data.get('tribal_libraries', {})
+
+    # ---- Academic library statistics ----
+    stats['academic_stats'] = data.get('academic_stats', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -7083,6 +7093,128 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: IMLS Native American Library Services grant data (FY1998-FY2013, cached locally), Wikipedia articles on tribal libraries, ATALM, AIHEC, tribal colleges, Mukurtu CMS, and the American Indian Library Association (AILA), citing primary sources. IMLS awarded {total_grants:,} Native American grants totaling ${total_usd/1e6:.1f}M to {distinct_inst} institutions over FY1998-FY2013. The estimated {est_count}+ tribal libraries is an advocacy/scholarly estimate; no single federal census of tribal libraries exists. Tribal colleges (TCUs) number 37 as of 2018 (AIHEC), up from 6 founding members in 1973.</p>'
+
+    # ---- Academic Library Statistics ----
+    acad = stats.get('academic_stats', {})
+    if acad and acad.get('total_count'):
+        tc = acad.get('total_count', {})
+        th = acad.get('total_holdings', {})
+        arl = acad.get('arl', {})
+        exp = acad.get('expenditures', {})
+        stf = acad.get('staffing', {})
+        largest = acad.get('largest_by_volumes', [])
+        dt = acad.get('digital_transition', {})
+        ref_tr = acad.get('reference_trend', [])
+        space = acad.get('space_and_hours', {})
+        kf = acad.get('key_facts', [])
+
+        tc_count = tc.get('survey_universe', 0) if isinstance(tc, dict) else 0
+        th_vols = th.get('physical_volumes_2022_23', 0) if isinstance(th, dict) else 0
+        arl_members = arl.get('member_count', 0) if isinstance(arl, dict) else 0
+        exp_total = exp.get('total_usd_2022_23', 0) if isinstance(exp, dict) else 0
+        exp_materials = exp.get('materials_usd_2022_23', 0) if isinstance(exp, dict) else 0
+        stf_total = stf.get('total_fte_2022_23', 0) if isinstance(stf, dict) else 0
+        stf_lib = stf.get('librarians_fte_2022_23', 0) if isinstance(stf, dict) else 0
+        e_serial_pct = dt.get('electronic_serial_titles_pct_of_serial_titles_2022_23', 0) if isinstance(dt, dict) else 0
+        ebooks = dt.get('ebooks_2022_23', 0) if isinstance(dt, dict) else 0
+        serial_share = dt.get('current_serials_share_of_materials_budget_2022_23_pct', 0) if isinstance(dt, dict) else 0
+
+        body += f"""
+
+<h2 id="academic-stats">Academic Libraries: The Research Powerhouse</h2>
+<p class="wiki-sub">America's ~{tc_count:,} academic libraries hold {th_vols/1e6:.0f} million physical volumes and spend ${exp_total/1e9:.1f} billion annually &mdash; a scale that dwarfs public library collections. The 125-member Association of Research Libraries (ARL) represents the largest research libraries. The digital transition is nearly complete: {e_serial_pct:.1f}% of serial titles are now electronic, and e-books ({ebooks/1e6:.0f}M) outnumber physical books by 2:1. Harvard Library alone holds over 20 million volumes, making it the largest academic library in the world.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{tc_count:,}</div><div class="label">Academic libraries (NCES)</div></div>
+  <div class="stat-card"><div class="num">{th_vols/1e6:.0f}M</div><div class="label">Physical volumes held</div></div>
+  <div class="stat-card"><div class="num">{arl_members}</div><div class="label">ARL member libraries</div></div>
+  <div class="stat-card"><div class="num">${exp_total/1e9:.1f}B</div><div class="label">Annual expenditures</div></div>
+  <div class="stat-card"><div class="num">${exp_materials/1e9:.1f}B</div><div class="label">Materials/serials spending</div></div>
+  <div class="stat-card"><div class="num">{stf_total:,.0f}</div><div class="label">Total FTE staff</div></div>
+  <div class="stat-card"><div class="num">{stf_lib:,.0f}</div><div class="label">Librarians (FTE)</div></div>
+  <div class="stat-card"><div class="num">{e_serial_pct:.1f}%</div><div class="label">Electronic serial titles</div></div>
+</div>"""
+
+        # Largest academic libraries table
+        if largest:
+            body += """
+<h3>Largest academic libraries by volumes held</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>Institution</th><th>Volumes (ALS 2012)</th><th>Physical books (IPEDS 2022-23)</th></tr>"""
+            for l in largest[:15]:
+                if isinstance(l, dict):
+                    v12 = l.get('volumes_held_2012_als') or 0
+                    v22 = l.get('physical_volumes_2022_23_ipeds') or 0
+                    body += f'\n  <tr><td>{l.get("rank","")}</td><td>{esc(l.get("institution",""))}</td><td class="pct">{v12:,}</td><td class="pct">{v22:,}</td></tr>'
+            body += '\n</table>'
+
+        # Expenditures breakdown
+        if isinstance(exp, dict):
+            body += f"""
+<h3>Expenditure breakdown (IPEDS AL 2022-23)</h3>
+<table class="wikitable">
+  <tr><th>Category</th><th>Amount</th></tr>
+  <tr><td>Total expenditures</td><td class="pct">${exp_total/1e9:.2f}B</td></tr>
+  <tr><td>Materials/serials</td><td class="pct">${exp_materials/1e9:.2f}B</td></tr>
+  <tr><td>Current serials</td><td class="pct">${exp.get("current_serials_expenditure_usd_2022_23",0)/1e9:.2f}B ({serial_share:.1f}% of materials)</td></tr>
+  <tr><td>Salaries &amp; wages</td><td class="pct">${exp.get("salaries_usd_2022_23",0)/1e9:.2f}B</td></tr>
+</table>"""
+
+        # Digital transition
+        if isinstance(dt, dict):
+            body += f"""
+<h3>The digital transition</h3>
+<p>Academic libraries have led the shift to digital resources. {e_serial_pct:.1f}% of serial titles are now electronic, and e-book holdings ({ebooks/1e6:.0f}M) exceed physical book volumes. Current serials consume {serial_share:.1f}% of materials budgets &mdash; a figure dominated by "big deal" journal packages from major publishers.</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Electronic serial titles</td><td class="pct">{dt.get("electronic_serial_titles_2022_23",0):,}</td></tr>
+  <tr><td>Physical serial titles</td><td class="pct">{dt.get("physical_serial_titles_2022_23",0):,}</td></tr>
+  <tr><td>E-books</td><td class="pct">{ebooks:,}</td></tr>
+  <tr><td>E-books / physical books ratio</td><td class="pct">{dt.get("ebooks_vs_physical_books_ratio",0):.2f}</td></tr>
+</table>"""
+
+        # Staffing
+        if isinstance(stf, dict):
+            body += f"""
+<h3>Staffing (IPEDS AL 2022-23)</h3>
+<table class="wikitable">
+  <tr><th>Category</th><th>FTE</th><th>Share</th></tr>
+  <tr><td>Librarians</td><td class="pct">{stf_lib:,.0f}</td><td class="pct">{stf.get("librarians_share_of_staff_pct",0):.1f}%</td></tr>
+  <tr><td>Other professional staff</td><td class="pct">{stf.get("other_professional_fte_2022_23",0):,.0f}</td><td class="pct">{stf.get("other_professional_fte_2022_23",0)/stf_total*100:.1f}%</td></tr>
+  <tr><td>Other paid staff</td><td class="pct">{stf.get("other_paid_staff_fte_2022_23",0):,.0f}</td><td class="pct">{stf.get("other_paid_staff_fte_2022_23",0)/stf_total*100:.1f}%</td></tr>
+  <tr><td>Student assistants</td><td class="pct">{stf.get("student_assistants_fte_2022_23",0):,.0f}</td><td class="pct">{stf.get("student_assistants_fte_2022_23",0)/stf_total*100:.1f}%</td></tr>
+  <tr><td><strong>Total</strong></td><td class="pct"><strong>{stf_total:,.0f}</strong></td><td class="pct"><strong>100%</strong></td></tr>
+</table>"""
+
+        # Reference trend
+        if ref_tr:
+            body += """
+<h3>Reference transactions: a declining metric</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Reference transactions</th><th>Respondents</th></tr>"""
+            for r in ref_tr:
+                if isinstance(r, dict):
+                    body += f'\n  <tr><td class="pct">{r.get("year","")}</td><td>{r.get("reference_transactions",r.get("value",0)):,}</td><td class="pct">{r.get("respondents","")}</td></tr>'
+            body += '\n</table>'
+
+        # ARL detail
+        if isinstance(arl, dict) and arl:
+            body += f"""
+<h3>Association of Research Libraries (ARL)</h3>
+<p>{esc(arl.get("member_count_note", "ARL represents the largest research libraries in North America."))}</p>"""
+
+        # Key facts
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                if isinstance(f, str):
+                    body += f'\n  <li>{esc(f)}</li>'
+                elif isinstance(f, dict):
+                    body += f'\n  <li>{esc(f.get("fact", str(f)))}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: NCES Academic Library Survey (ALS) 2012 and IPEDS Academic Library (AL) component 2022-23, Association of Research Libraries (ARL) statistics (via Wikipedia), and Wikipedia articles on major academic libraries citing primary sources. The {tc_count:,} figure is the NCES survey universe; IPEDS AL 2022-23 contains 3,741 institutions. Physical volumes ({th_vols/1e6:.0f}M) are IPEDS "physical books" &mdash; a narrower count than the legacy ALS "total volumes held" metric. Total expenditures (${exp_total/1e9:.1f}B) reflect the post-2014 IPEDS accounting basis, which runs higher than pre-2014 ALS figures. ARL membership ({arl_members}) includes Canadian and non-academic research libraries.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

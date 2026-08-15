@@ -171,6 +171,8 @@ def panel(active=""):
     <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
     <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
     <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
+    <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
+    <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -521,6 +523,18 @@ def load_all():
             data['accessibility'] = json.load(f)
     else:
         data['accessibility'] = {}
+    prog_path = os.path.join(DATA, "library_programs_summary.json")
+    if os.path.exists(prog_path):
+        with open(prog_path) as f:
+            data['library_programs'] = json.load(f)
+    else:
+        data['library_programs'] = {}
+    tech_path = os.path.join(DATA, "library_technology_summary.json")
+    if os.path.exists(tech_path):
+        with open(tech_path) as f:
+            data['library_technology'] = json.load(f)
+    else:
+        data['library_technology'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1638,6 +1652,12 @@ def compute_stats(data):
 
     # ---- Library accessibility & disability services ----
     stats['accessibility'] = data.get('accessibility', {})
+
+    # ---- Library programs & events ----
+    stats['library_programs'] = data.get('library_programs', {})
+
+    # ---- Library technology & digital inclusion ----
+    stats['library_technology'] = data.get('library_technology', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -6654,6 +6674,273 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: Library of Congress NLS FY2024 Annual Report (Table 12 + narrative), NLS website (loc.gov/nls), Wikipedia articles on NLS, the Pratt-Smoot Act, and the Talking Book program, ADA.gov effective-communication guidance, and IMLS Public Libraries Survey FY2024 (bookmobile counts via ALA). NLS circulated {nls_circ:,} items to {nls_patrons:,} readers in FY2024; the commonly cited ~500,000 figure refers to the cumulative eligible-reader base, while {nls_patrons:,} is the active annual count. BARD (Braille and Audio Reading Download) recorded {bard_downloads:,} downloads. NLS operates through {net_total} cooperating libraries serving every state and territory.</p>'
+
+    # ---- Library Programs & Events ----
+    progs = stats.get('library_programs', {})
+    if progs and progs.get('national'):
+        nat = progs.get('national', {})
+        n_tp = nat.get('total_programs', 0)
+        n_ta = nat.get('total_attendance', 0)
+        n_cp = nat.get('childrens_programs', 0)
+        n_ya = nat.get('ya_programs', 0)
+        n_ap = nat.get('adult_programs', 0)
+        n_op = nat.get('online_programs', 0)
+        avg_att = nat.get('avg_attendance_per_program', 0)
+        top_tp = progs.get('top_by_total_programs', [])
+        top_att = progs.get('top_by_attendance', [])
+        top_per10k = progs.get('top_by_programs_per_10k', [])
+        top_pc = progs.get('top_by_attendance_per_capita', [])
+
+        # Program mix bars
+        max_cat = max(n_cp, n_ya, n_ap, n_op, 1)
+
+        body += f"""
+
+<h2 id="programs">Programs &amp; Events: What Happens at the Library</h2>
+<p class="wiki-sub">Libraries are no longer just places to borrow books. In FY2022, US public libraries hosted {n_tp/1e6:.1f} million programs attended by {n_ta/1e6:.0f} million people &mdash; more than the combined populations of California and Texas. Children's storytimes, adult education classes, summer reading programs, maker workshops, and the pandemic-era explosion of online programming have transformed the library into a community programming hub. The average program draws {avg_att} attendees.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{n_tp/1e6:.1f}M</div><div class="label">Programs hosted annually</div></div>
+  <div class="stat-card"><div class="num">{n_ta/1e6:.0f}M</div><div class="label">Total attendance</div></div>
+  <div class="stat-card"><div class="num">{n_cp/1e6:.1f}M</div><div class="label">Children's programs</div></div>
+  <div class="stat-card"><div class="num">{n_ya/1e6:.1f}M</div><div class="label">Young adult programs</div></div>
+  <div class="stat-card"><div class="num">{n_ap/1e6:.1f}M</div><div class="label">Adult programs</div></div>
+  <div class="stat-card"><div class="num">{n_op/1e6:.1f}M</div><div class="label">Online programs</div></div>
+  <div class="stat-card"><div class="num">{avg_att}</div><div class="label">Avg attendees/program</div></div>
+</div>"""
+
+        # Program mix bars
+        body += f"""
+<h3>Program mix by category</h3>
+<div class="services-bars">
+  <div class="svc-row">
+    <span class="svc-label">Children's</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-yellow" style="width:{n_cp/max_cat*100:.1f}%"></span></span>
+    <span class="svc-count">{n_cp:,}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-label">Adult</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{n_ap/max_cat*100:.1f}%"></span></span>
+    <span class="svc-count">{n_ap:,}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-label">Online</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{n_op/max_cat*100:.1f}%"></span></span>
+    <span class="svc-count">{n_op:,}</span>
+  </div>
+  <div class="svc-row">
+    <span class="svc-label">Young adult</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-red" style="width:{n_ya/max_cat*100:.1f}%"></span></span>
+    <span class="svc-count">{n_ya:,}</span>
+  </div>
+</div>"""
+
+        # Top states by total attendance
+        if top_att:
+            max_att = max((s.get('total_attendance', 0) for s in top_att), default=1) or 1
+            body += """
+<h3>Top 10 states by program attendance</h3>
+<div class="services-bars">"""
+            for s in top_att[:10]:
+                cnt = s.get('total_attendance', 0)
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(s["state"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{cnt/max_att*100:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states by programs per 10K residents
+        if top_per10k:
+            body += """
+<h3>Top 10 states by programs per 10,000 residents</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Total programs</th><th>Programs / 10K pop.</th></tr>"""
+            for i, s in enumerate(top_per10k[:10], 1):
+                body += f'\n  <tr><td>{i}</td><td>{esc(s["state"])}</td><td>{s.get("total_programs",0):,}</td><td class="pct">{s.get("programs_per_10k",0):.2f}</td></tr>'
+            body += '\n</table>'
+
+        # Top states by attendance per capita
+        if top_pc:
+            body += """
+<h3>Top 10 states by attendance per capita</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>State</th><th>Attendance</th><th>Attendance / capita</th></tr>"""
+            for i, s in enumerate(top_pc[:10], 1):
+                body += f'\n  <tr><td>{i}</td><td>{esc(s["state"])}</td><td>{s.get("total_attendance",0):,}</td><td class="pct">{s.get("attendance_per_capita",0):.2f}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        kf = progs.get('key_facts', [])
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2022, compiled via ALA State of America\'s Libraries 2024. Program categories: children\'s, young adult (YA), adult, and online. Online programs were added as a reporting category during the COVID-19 era and represent a permanent shift in service delivery. IMLS negative sentinels normalized to 0. Per-capita and per-10K figures computed using population served (min 1,000).</p>'
+
+    # ---- Library Technology & Digital Inclusion ----
+    tech = stats.get('library_technology', {})
+    if tech and tech.get('public_computers'):
+        pc = tech.get('public_computers', {})
+        wifi = tech.get('wifi', {})
+        bb = tech.get('broadband', {})
+        dd = tech.get('digital_divide', {})
+        hotspot = tech.get('hotspot_lending', {})
+        maker = tech.get('makerspaces', {})
+        erate = tech.get('erate_funding', {})
+        train = tech.get('tech_training', {})
+        gates = tech.get('gates_legacy', {})
+        trend = tech.get('trend', [])
+        kf = tech.get('key_facts', [])
+
+        pc_count = pc.get('count', 0) if isinstance(pc, dict) else 0
+        pc_sessions = pc.get('annual_sessions', 0) if isinstance(pc, dict) else 0
+        wifi_pct = wifi.get('pct_libraries_offering', {}) if isinstance(wifi, dict) else {}
+        wifi_2015 = wifi_pct.get('value_2015_pct', 0) if isinstance(wifi_pct, dict) else 0
+        erate_cum = erate.get('cumulative_commitments_usd', 0) if isinstance(erate, dict) else 0
+        erate_annual = erate.get('annual_discount_usd', 0) if isinstance(erate, dict) else 0
+        erate_applicants = bb.get('erate_participation', {}).get('unique_library_applicants_fy2016_2026', 0) if isinstance(bb, dict) else 0
+        no_home_net = dd.get('americans_relying_on_library_internet', {}).get('no_home_internet_pct', 0) if isinstance(dd, dict) else 0
+        no_net_all = dd.get('americans_relying_on_library_internet', {}).get('americans_no_internet_at_all', 0) if isinstance(dd, dict) else 0
+        train_pct = train.get('libraries_offering_tech_training_pct_2012', 0) if isinstance(train, dict) else 0
+
+        body += f"""
+
+<h2 id="technology">Technology &amp; Digital Inclusion: Libraries as Internet Gateways</h2>
+<p class="wiki-sub">For millions of Americans without home internet, the public library IS the internet. US public libraries provide {pc_count:,} public-access computers and hosted {pc_sessions/1e6:.0f} million internet-user sessions in FY2024, plus hundreds of millions of WiFi sessions. The Gates Foundation spent over $1 billion (1997-2018) wiring libraries into the digital age. Today, libraries draw ~${erate_annual/1e6:.0f}M/year in E-rate discounts to keep their broadband affordable, and have become hubs for hotspot lending, makerspaces, and technology training.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pc_count:,}</div><div class="label">Public-access computers</div></div>
+  <div class="stat-card"><div class="num">{pc_sessions/1e6:.0f}M</div><div class="label">Internet-user sessions (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{wifi_2015}%</div><div class="label">Libraries offering free WiFi (2015)</div></div>
+  <div class="stat-card"><div class="num">${erate_cum/1e9:.2f}B</div><div class="label">E-rate commitments (cumulative)</div></div>
+  <div class="stat-card"><div class="num">{erate_applicants:,}</div><div class="label">Unique library E-rate applicants</div></div>
+  <div class="stat-card"><div class="num">{no_home_net}%</div><div class="label">Americans w/o home broadband</div></div>
+  <div class="stat-card"><div class="num">{no_net_all/1e6:.0f}M</div><div class="label">Americans w/o internet at all</div></div>
+  <div class="stat-card"><div class="num">{train_pct}%</div><div class="label">Libraries offering tech training</div></div>
+</div>"""
+
+        # Public computers detail
+        if isinstance(pc, dict):
+            body += f"""
+<h3>Public-access computers</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Public internet terminals</td><td class="pct">{pc_count:,}</td></tr>
+  <tr><td>Annual internet-user sessions</td><td class="pct">{pc_sessions:,}</td></tr>
+  <tr><td>Source</td><td>{esc(pc.get("count_source", "IMLS PLS FY2024"))}</td></tr>
+</table>"""
+
+        # WiFi
+        if isinstance(wifi, dict):
+            body += f"""
+<h3>WiFi access</h3>
+<p>{esc(wifi_pct.get("note", "Free public WiFi is effectively near-universal at US public libraries.") if isinstance(wifi_pct, dict) else "")}</p>
+<table class="wikitable">
+  <tr><th>Year</th><th>% libraries offering WiFi</th></tr>"""
+            if isinstance(wifi_pct, dict):
+                if wifi_pct.get('value_2012_pct'):
+                    body += f'\n  <tr><td class="pct">2012</td><td class="pct">{wifi_pct.get("value_2012_pct",0)}%</td></tr>'
+                if wifi_pct.get('value_2015_pct'):
+                    body += f'\n  <tr><td class="pct">2015</td><td class="pct">{wifi_pct.get("value_2015_pct",0)}%</td></tr>'
+            body += '\n</table>'
+
+        # E-rate / Broadband
+        if isinstance(erate, dict):
+            body += f"""
+<h3>E-rate: federal broadband subsidies for libraries</h3>
+<p>The E-rate program (Universal Service Fund) provides discounts of 20-90% on telecommunications and internet services for schools and libraries. Library-attributed E-rate commitments total ${erate_cum/1e9:.2f}B cumulatively (FY2016-FY2026), averaging ~${erate_annual/1e6:.0f}M/year.</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Cumulative library commitments</td><td class="pct">${erate_cum/1e9:.2f}B</td></tr>
+  <tr><td>Average annual commitment</td><td class="pct">${erate_annual/1e6:.0f}M</td></tr>
+  <tr><td>Unique library applicants (FY2016-FY2026)</td><td class="pct">{erate_applicants:,}</td></tr>
+  <tr><td>Program budget (total, schools+libraries)</td><td class="pct">~$3.9B/year</td></tr>
+</table>"""
+
+        # Digital divide
+        if isinstance(dd, dict):
+            dd_data = dd.get('americans_relying_on_library_internet', {})
+            if isinstance(dd_data, dict):
+                body += f"""
+<h3>The digital divide: libraries as the internet of last resort</h3>
+<p>{esc(dd_data.get("note", ""))}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Americans without home broadband</td><td class="pct">{dd_data.get("no_home_internet_pct",0)}%</td></tr>
+  <tr><td>Americans with no internet at all</td><td class="pct">{dd_data.get("americans_no_internet_at_all",0)/1e6:.0f}M ({dd_data.get("no_internet_at_all_pct",0)}%)</td></tr>
+</table>"""
+            pew_dd = dd.get('pew_findings', {})
+            if isinstance(pew_dd, dict) and pew_dd:
+                body += '<ul class="wiki-list">'
+                for k, v in pew_dd.items():
+                    if isinstance(v, str) and v:
+                        body += f'\n  <li>{esc(v)}</li>'
+                body += '\n</ul>'
+
+        # Hotspot lending
+        if isinstance(hotspot, dict):
+            hl = hotspot.get('libraries_offering', {})
+            body += f"""
+<h3>Hotspot lending</h3>
+<p>{esc(hl.get("note", "Library hotspot lending programs grew rapidly from 2013 onward, allowing patrons to check out mobile hotspots for home internet access.") if isinstance(hl, dict) else "Library hotspot lending programs grew rapidly from 2013 onward.")} No central national count of participating libraries exists.</p>"""
+
+        # Makerspaces
+        if isinstance(maker, dict):
+            mk = maker.get('libraries_with_makerspace', {})
+            body += f"""
+<h3>Makerspaces</h3>
+<p>{esc(mk.get("note", "Library makerspaces spread rapidly after 2011, beginning with Fayetteville Free Library (NY). Typical equipment includes 3D printers, laser cutters, and robotics kits.") if isinstance(mk, dict) else "Library makerspaces spread rapidly after 2011.")} No central national count exists.</p>"""
+
+        # Tech training
+        if isinstance(train, dict):
+            train_note = train.get("tech_training_note", f"As of 2012, {train_pct}% of public libraries offered formal or informal technology training.")
+            body += f"""
+<h3>Technology training</h3>
+<p>{esc(train_note)}</p>"""
+
+        # Gates legacy
+        if isinstance(gates, dict):
+            gates_desc = gates.get("description", "The Bill & Melinda Gates Foundation's U.S. Libraries Program, launched in 1997, aimed to ensure that anyone who could reach a public library could reach the internet. It installed computers, software, and training at library systems across all 50 states, then wound down the program around 2018 as internet access at libraries became near-universal.")
+            body += f"""
+<h3>Gates Foundation legacy (1997-2018)</h3>
+<p>{esc(gates_desc)}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Program start</td><td class="pct">{gates.get("start_year", 1997)}</td></tr>
+  <tr><td>Reach</td><td class="pct">{esc(gates.get("reach", "All 50 states"))}</td></tr>
+  <tr><td>Cumulative commitment</td><td class="pct">&gt;$1 billion</td></tr>
+</table>"""
+
+        # Trend timeline
+        if trend:
+            body += """
+<h3>Technology timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Milestone</th></tr>"""
+            for t in trend:
+                if isinstance(t, dict):
+                    body += f'\n  <tr><td class="pct">{t.get("year", "")}</td><td>{esc(t.get("event", t.get("milestone", "")))}</td></tr>'
+                elif isinstance(t, (list, tuple)) and len(t) >= 2:
+                    body += f'\n  <tr><td class="pct">{t[0]}</td><td>{esc(str(t[1]))}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                if isinstance(f, dict):
+                    body += f'\n  <li>{esc(f.get("fact", str(f)))}</li>'
+                else:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2024 (public internet terminals, sessions, WiFi sessions), USAC E-rate Form 471 data (library-filtered commitments FY2016-FY2026), Pew Research Center Internet &amp; American Life Project (2013/2016/2019), ALA State of America\'s Libraries 2024, and Wikipedia articles (Public library, E-Rate, Digital divide, Gates Foundation, Library makerspace) citing primary sources. The E-rate program\'s total budget is ~$3.9B/year for schools and libraries combined; the library-attributed share averages ~${erate_annual/1e6:.0f}M/year. Where no single authoritative national count exists (hotspot lending, makerspace counts), this is noted rather than estimated.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

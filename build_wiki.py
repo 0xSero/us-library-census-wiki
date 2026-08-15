@@ -170,6 +170,7 @@ def panel(active=""):
     <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
     <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
     <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
+    <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -514,6 +515,12 @@ def load_all():
             data['pls_trends'] = json.load(f)
     else:
         data['pls_trends'] = {}
+    access_path = os.path.join(DATA, "library_accessibility_summary.json")
+    if os.path.exists(access_path):
+        with open(access_path) as f:
+            data['accessibility'] = json.load(f)
+    else:
+        data['accessibility'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1628,6 +1635,9 @@ def compute_stats(data):
     stats['circulation'] = data.get('circulation', {})
     stats['library_cards'] = data.get('library_cards', {})
     stats['pls_trends'] = data.get('pls_trends', {})
+
+    # ---- Library accessibility & disability services ----
+    stats['accessibility'] = data.get('accessibility', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -6452,6 +6462,198 @@ def build_index(data, stats):
                 body += '\n</ul>'
 
             body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) historical trends FY2019-FY2024, compiled via ALA State of America\'s Libraries. FY2021 is omitted from the source due to IMLS data-structure changes during that collection cycle. All values aggregated from per-state PLS submissions across {fy24.get("states_reporting",56)} reporting states/territories. IMLS negative sentinels (-1, -3, -40) normalized to 0. Percent changes are vs. the FY2019 pre-pandemic baseline. Income includes local, state, federal, and other revenue. The FY2024 circulation dip (from FY2023\'s rebound) reflects normalization of digital borrowing patterns and partial reporting adjustments.</p>'
+
+    # ---- Library Accessibility & Disability Services ----
+    acc = stats.get('accessibility', {})
+    if acc and acc.get('nls'):
+        nls = acc.get('nls', {})
+        ada = acc.get('ada_compliance', {})
+        braille = acc.get('braille_collections', {})
+        atech = acc.get('assistive_tech', {})
+        homeb = acc.get('homebound_delivery', {})
+        signlang = acc.get('sign_language', {})
+        sensory = acc.get('sensory_friendly', {})
+        digacc = acc.get('digital_accessibility', {})
+        history = acc.get('history', [])
+        kf = acc.get('key_facts', [])
+
+        nls_patrons = nls.get('registered_patrons', 0)
+        nls_circ = nls.get('items_circulated_annually', 0)
+        nls_network = nls.get('network_libraries', {})
+        nls_bard = nls.get('bard', {})
+        nls_collection = nls.get('collection', {})
+
+        # Network library count
+        net_total = 0
+        if isinstance(nls_network, dict):
+            net_total = nls_network.get('total', 0) or sum(v for v in nls_network.values() if isinstance(v, (int, float)))
+        elif isinstance(nls_network, list):
+            net_total = len(nls_network)
+
+        # BARD stats
+        bard_downloads = nls_bard.get('downloads_fy2024', 0) if isinstance(nls_bard, dict) else 0
+        bard_users = nls_bard.get('users_fy2024', 0) if isinstance(nls_bard, dict) else 0
+
+        # Braille stats
+        br_circ = braille.get('nls_braille_circulation_fy2024', {}) if isinstance(braille, dict) else {}
+        br_ebraille = br_circ.get('ebraille_circulated', 0) if isinstance(br_circ, dict) else 0
+        br_hard = br_circ.get('hard_copy_braille_circulated', 0) if isinstance(br_circ, dict) else 0
+        br_readers = br_circ.get('braille_readers_fy2024', 0) if isinstance(br_circ, dict) else 0
+        br_ereader = braille.get('braille_ereader_program', {}) if isinstance(braille, dict) else {}
+
+        body += f"""
+
+<h2 id="accessibility">Accessibility &amp; Disability Services</h2>
+<p class="wiki-sub">Library service for blind, deaf, disabled, and homebound Americans dates to the Pratt-Smoot Act of 1931, which created what is now the Library of Congress National Library Service for the Blind and Print Disabled (NLS). Today NLS circulates more than 22 million items annually through a network of 101 cooperating libraries. The ADA (1990) extended accessibility obligations to every public library. This section traces the infrastructure &mdash; from braille and talking books to BARD digital downloads, refreshable braille eReaders, and sensory-friendly programming &mdash; that ensures libraries serve all Americans.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nls_patrons:,}</div><div class="label">NLS active readers (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{nls_circ/1e6:.1f}M</div><div class="label">NLS items circulated (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{net_total}</div><div class="label">NLS network libraries</div></div>
+  <div class="stat-card"><div class="num">{bard_downloads/1e6:.1f}M</div><div class="label">BARD audio downloads (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{bard_users:,}</div><div class="label">BARD users (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{br_ebraille + br_hard:,}</div><div class="label">Braille items circulated (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{br_readers:,}</div><div class="label">Braille readers (FY2024)</div></div>
+  <div class="stat-card"><div class="num">1931</div><div class="label">NLS founded (Pratt-Smoot Act)</div></div>
+</div>"""
+
+        # NLS detail table
+        body += f"""
+<h3>National Library Service for the Blind and Print Disabled (NLS)</h3>
+<p>{esc(nls.get("description", "") or "The NLS, part of the Library of Congress, provides free braille and talking-book services to U.S. residents who are blind, visually impaired, or physically unable to read standard print.")}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Founded</td><td class="pct">{nls.get("founded_year", 1931)} &mdash; {esc(nls.get("founded_date", ""))}</td></tr>
+  <tr><td>Enabling legislation</td><td class="pct">{esc(nls.get("enabling_act", "Pratt-Smoot Act (1931)"))}</td></tr>
+  <tr><td>Director</td><td class="pct">{esc(nls.get("director", ""))}</td></tr>
+  <tr><td>Active readers (FY2024)</td><td class="pct">{nls_patrons:,}</td></tr>
+  <tr><td>Items circulated (FY2024)</td><td class="pct">{nls_circ:,}</td></tr>
+  <tr><td>Network libraries</td><td class="pct">{net_total}</td></tr>
+  <tr><td>BARD audio downloads (FY2024)</td><td class="pct">{bard_downloads:,}</td></tr>
+  <tr><td>BARD users (FY2024)</td><td class="pct">{bard_users:,}</td></tr>
+</table>"""
+
+        # Braille section
+        if br_circ:
+            body += f"""
+<h3>Braille services</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>E-braille circulated (FY2024)</td><td class="pct">{br_ebraille:,}</td></tr>
+  <tr><td>Hard-copy braille circulated (FY2024)</td><td class="pct">{br_hard:,}</td></tr>
+  <tr><td>Braille readers (FY2024)</td><td class="pct">{br_readers:,}</td></tr>"""
+            if isinstance(braille, dict):
+                coll_items = braille.get('nls_total_collection_items_fy2024', 0)
+                coll_titles = braille.get('nls_collection_titles_fy2024', 0)
+                body += f'\n  <tr><td>NLS total collection items</td><td class="pct">{coll_items:,}</td></tr>'
+                body += f'\n  <tr><td>NLS collection titles</td><td class="pct">{coll_titles:,}</td></tr>'
+            if isinstance(br_ereader, dict):
+                body += f'\n  <tr><td>Braille eReader program</td><td class="pct">{esc(br_ereader.get("status", ""))} &mdash; {esc(str(br_ereader.get("devices_deployed", "")))}</td></tr>'
+            body += '\n</table>'
+
+        # ADA compliance
+        if ada:
+            body += f"""
+<h3>Americans with Disabilities Act &amp; libraries</h3>
+<p>{esc(ada.get("core_requirement", "") or "The ADA (1990) requires public libraries to provide effective communication through auxiliary aids and services, physical accessibility, and program accessibility.")}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Act</td><td class="pct">{esc(ada.get("act_name", "Americans with Disabilities Act of 1990"))}</td></tr>
+  <tr><td>Enacted</td><td class="pct">{ada.get("enacted_year", 1990)}</td></tr>
+  <tr><td>Revised regulations</td><td class="pct">{esc(ada.get("revised_regulations_date", "September 15, 2010"))}</td></tr>
+  <tr><td>Effective communication rules</td><td class="pct">{esc(ada.get("effective_communication_rules_effective", "March 15, 2011"))}</td></tr>
+</table>"""
+            # Auxiliary aids list
+            aids = ada.get('auxiliary_aids', [])
+            if aids:
+                body += '<h4>Required auxiliary aids &amp; services</h4><ul class="wiki-list">'
+                for a in aids:
+                    body += f'\n  <li>{esc(str(a))}</li>'
+                body += '\n</ul>'
+
+        # Assistive technology
+        if atech:
+            body += """
+<h3>Assistive technology in libraries</h3>
+<ul class="wiki-list">"""
+            if isinstance(atech, dict):
+                eq = atech.get('nls_equipment', {})
+                if isinstance(eq, dict):
+                    for k, v in eq.items():
+                        label = k.replace('_', ' ').title()
+                        body += f'\n  <li><strong>{esc(label)}:</strong> {esc(str(v))}</li>'
+            body += '\n</ul>'
+
+        # Bookmobiles / homebound (complement existing PLS extended section)
+        if homeb:
+            bm = homeb.get('national_bookmobiles_fy2024', {})
+            bm_total = bm.get('total', 0) if isinstance(bm, dict) else 0
+            top_bm = homeb.get('top_states_bookmobiles', [])
+            body += f"""
+<h3>Bookmobiles &amp; homebound delivery</h3>
+<p>Bookmobiles bring library services to rural communities, retirement centers, and homebound patrons who cannot visit a physical library. In FY2024, {bm_total:,} bookmobiles operated nationally. The U.S. Postal Service complements this through "Free Matter for the Blind" mail for NLS patrons.</p>"""
+            if top_bm:
+                body += """
+<table class="wikitable">
+  <tr><th>State</th><th>Bookmobiles</th></tr>"""
+                for s in top_bm[:10]:
+                    if isinstance(s, dict):
+                        body += f'\n  <tr><td>{esc(s.get("state_name", s.get("state", "")))}</td><td class="pct">{s.get("value", 0):,}</td></tr>'
+                body += '\n</table>'
+
+        # Sign language
+        if signlang:
+            body += f"""
+<h3>Sign language services</h3>
+<p>{esc(signlang.get("ada_requirement", "") or "Under the ADA, libraries must provide qualified sign language interpreters when needed for effective communication.")}</p>"""
+            interps = signlang.get('interpreter_types', [])
+            if interps:
+                body += '<h4>Interpreter types</h4><ul class="wiki-list">'
+                for it in interps:
+                    body += f'\n  <li>{esc(str(it))}</li>'
+                body += '\n</ul>'
+
+        # Sensory-friendly
+        if sensory:
+            body += f"""
+<h3>Sensory-friendly &amp; autism-friendly programming</h3>
+<p>{esc(sensory.get("description", ""))}</p>"""
+            features = sensory.get('common_features', [])
+            if features:
+                body += '<h4>Common features</h4><ul class="wiki-list">'
+                for ft in features:
+                    body += f'\n  <li>{esc(str(ft))}</li>'
+                body += '\n</ul>'
+
+        # Digital accessibility
+        if digacc:
+            body += f"""
+<h3>Digital accessibility</h3>
+<p>{esc(digacc.get("wcag_standard", ""))} {esc(digacc.get("section_508", ""))}</p>"""
+
+        # History timeline
+        if history:
+            body += """
+<h3>History of library accessibility</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for h in history:
+                if isinstance(h, dict):
+                    body += f'\n  <tr><td class="pct">{h.get("year", "")}</td><td>{esc(h.get("event", ""))}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                if isinstance(f, dict):
+                    body += f'\n  <li>{esc(f.get("fact", ""))} <span class="muted">({esc(f.get("source", ""))})</span></li>'
+                else:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: Library of Congress NLS FY2024 Annual Report (Table 12 + narrative), NLS website (loc.gov/nls), Wikipedia articles on NLS, the Pratt-Smoot Act, and the Talking Book program, ADA.gov effective-communication guidance, and IMLS Public Libraries Survey FY2024 (bookmobile counts via ALA). NLS circulated {nls_circ:,} items to {nls_patrons:,} readers in FY2024; the commonly cited ~500,000 figure refers to the cumulative eligible-reader base, while {nls_patrons:,} is the active annual count. BARD (Braille and Audio Reading Download) recorded {bard_downloads:,} downloads. NLS operates through {net_total} cooperating libraries serving every state and territory.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

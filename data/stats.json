@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 03:17 UTC",
+  "generated": "2026-08-15 03:26 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -44458,6 +44458,376 @@
       "Registration rates vary widely by state (roughly 30%-70% of the served population), reflecting differences in data reporting, card-expiration policies, and community outreach."
     ],
     "source_notes": "PRIMARY DATA: IMLS Public Libraries Survey (PLS) FY2024 \u2014 registered_borrowers, total_circulation, physical_circulation, electronic_circulation, children_circulation, population_served \u2014 aggregated by state/territory in data/_cache/ala_state_data.json (sourced from pls_fy2024_state_summary.json). 56 reporting jurisdictions (50 states + DC + territories). IMLS uses sentinel codes (e.g. -79) for suppressed/missing values; 4 states (FL, IA, MA, OR) suppressed total_circulation. The official national total (1.705B) excludes them; a best-estimate total (1.862B) adds their physical circulation as a lower bound (electronic unknown). Historical circulation FY2019-FY2024 from data/_cache/pls_historical_trends.json (FY2021 omitted due to IMLS data-structure changes). NATIONAL CARDHOLDER ESTIMATE: The American Library Association (ALA) 'Quotable Facts About America's Libraries' and advocacy materials broadly cite ~166-170M Americans with library cards; this counts active and household cards and exceeds the raw IMLS registered-borrower sum (~155M), partly because not all jurisdictions report the field and the ALA figure includes household-level estimates. DEMOGRAPHICS: Pew Research Center Internet & American Life Project, Library Services Survey (n=6,224, ages 16+, July 18-Sept 30, 2013), report 'How Americans Value Public Libraries in Their Communities' (Jan 2014); retrieved via an Internet Archive Wayback snapshot of the original Pew PDF (Pew's current site restructured the legacy /internet/ URLs to 404). Card-ownership rate: 61% (vs 63% in Nov 2012). LIBRARY CARD SIGN-UP MONTH: ALA national campaign, observed each September since 1987. LIMITATIONS: ALA.org and IMLS.gov public web pages were largely inaccessible from this environment (404s/timeouts following ALA's 2024 site restructuring), so the ALA cardholder estimate and Sign-Up Month facts are cited as established ALA figures corroborated by Wikipedia citations rather than freshly fetched. All quantitative cardholder/circulation/per-capita figures derive from the locally cached IMLS PLS FY2024 raw data, the authoritative government source."
+  },
+  "accessibility": {
+    "topic": "US Library Accessibility and Disability Services",
+    "compiled_at_utc": "2026-08-14",
+    "description": "A Wikipedia-style data summary of accessibility and disability services provided by United States libraries, covering the Library of Congress National Library Service for the Blind and Print Disabled (NLS), Americans with Disabilities Act (ADA) compliance, braille collections, assistive technology, bookmobiles and homebound delivery, sign language programs, sensory-friendly programming, and digital/web accessibility.",
+    "primary_sources": [
+      "https://www.loc.gov/nls/who-we-are/ (NLS Who We Are)",
+      "https://www.loc.gov/nls/who-we-are/overview/ (NLS Overview)",
+      "https://www.loc.gov/nls/who-we-are/faq/ (NLS Frequently Asked Questions)",
+      "https://www.loc.gov/nls/who-we-are/history/ (NLS History)",
+      "https://www.loc.gov/about/reports-and-budgets/annual-reports/ (LOC FY2024 Annual Report, Table 12 + 'Improving Braille Access')",
+      "https://www.loc.gov/about/general-information/ (LOC FY2023 Year at a Glance)",
+      "https://en.wikipedia.org/wiki/National_Library_Service_for_the_Blind_and_Print_Disabled",
+      "https://en.wikipedia.org/wiki/Pratt-Smoot_Act",
+      "https://www.ada.gov/resources/effective-communication/ (ADA.gov Effective Communication)",
+      "https://en.wikipedia.org/wiki/Bookmobile",
+      "IMLS Public Libraries Survey FY2024 via ALA State of America's Libraries (bookmobiles)"
+    ],
+    "nls": {
+      "name": "National Library Service for the Blind and Print Disabled",
+      "acronym": "NLS",
+      "parent_organization": "Library of Congress",
+      "former_name": "National Library Service for the Blind and Physically Handicapped (Division for the Blind and Physically Handicapped)",
+      "founded_year": 1931,
+      "founded_date": "July 1, 1931 (operations began)",
+      "enabling_act": "Pratt-Smoot Act (signed March 3, 1931 by President Herbert Hoover; introduced by Ruth Baker Pratt and Reed Smoot; $100,000 initial appropriation)",
+      "director": "Jason Broughton (11th director, since September 2021)",
+      "registered_patrons": 219589,
+      "registered_patrons_year": "FY2024",
+      "registered_patrons_text": "219,589 total readers served in FY2024",
+      "registered_patrons_note": "NLS has historically served 500,000+ registered patrons cumulatively; FY2024 annual count of active readers served was 219,589. Public reporting commonly cites the program as serving approximately half a million eligible readers nationwide.",
+      "items_circulated_annually": 22188638,
+      "items_circulated_annually_text": "more than 22.2 million copies of braille, audio and large print items circulated in FY2024",
+      "items_circulated_fy2023_text": "more than 24.5 million copies (FY2023, per LOC Year at a Glance)",
+      "network_libraries": 101,
+      "network_libraries_breakdown": {
+        "regional_libraries": 55,
+        "subregional_libraries": 32,
+        "advisory_and_outreach_centers": 14
+      },
+      "network_libraries_text": "55 regional libraries, 32 subregional libraries, and 14 advisory and outreach centers serving every state and U.S. territory (original network of 19 libraries in 1931 has grown to more than 90)",
+      "territories_served": [
+        "District of Columbia",
+        "Puerto Rico",
+        "U.S. Virgin Islands",
+        "Guam"
+      ],
+      "bard_downloads": 4257667,
+      "bard_downloads_text": "4,257,667 BARD audio downloads in FY2024; treaty works downloaded more than 36,000 times via BARD",
+      "bard_description": "BARD (Braille and Audio Reading Download) is a web-based service providing access to thousands of braille and encrypted audio books, magazines, and music scores; also accessible via BARD Mobile app for iOS and Android (including Kindle Fire)",
+      "bard_users_fy2024": 46646,
+      "collection_size_titles": 332077,
+      "collection_size_text": "332,077 titles in the NLS collection (FY2024)",
+      "total_items_in_collection": 355102,
+      "appropriation_usd_fy2024": 66130000,
+      "appropriation_text_fy2024": "$66.13 million (FY2024 appropriation)",
+      "service_cost": "Free to eligible readers; tax-supported by federal, state, and local government or private agencies",
+      "delivery_methods": [
+        "US Postal Service as 'Free Matter for the Blind' (postage-free mail)",
+        "BARD (Braille and Audio Reading Download) online site",
+        "BARD Mobile app (iOS and Android)"
+      ],
+      "source": "Library of Congress NLS (loc.gov/nls) + LOC FY2024 Annual Report Table 12"
+    },
+    "ada_compliance": {
+      "act_name": "Americans with Disabilities Act of 1990",
+      "enacted_year": 1990,
+      "applies_to_public_libraries": true,
+      "titles_applying_to_libraries": {
+        "title_ii": "State and local government services (public libraries are covered as public entities)",
+        "title_iii": "Public accommodations and commercial facilities (nonprofit/private libraries serving the public)"
+      },
+      "revised_regulations_date": "September 15, 2010 (2010 Standards for Accessible Design)",
+      "effective_communication_rules_effective": "March 15, 2011",
+      "core_requirement": "Covered entities (including public libraries) must provide auxiliary aids and services when needed to communicate effectively with people who have vision, hearing, or speech disabilities, so that communication is equally effective as with people without disabilities.",
+      "primary_consideration_rule": "Title II entities (public libraries) must give primary consideration to the choice of aid or service requested by the person with a communication disability, unless another equally effective means is available or the choice would result in undue burden or fundamental alteration.",
+      "undue_burson_limitation": "Aids and services are not required if they would result in an 'undue burden' (significant difficulty or expense) or fundamentally alter the nature of the goods/services; an alternative effective aid must be provided if possible.",
+      "staff_training_requirement": "Comprehensive and ongoing staff training is a critical, often overlooked component; front line staff must know how to implement ADA communication policies.",
+      "ada_information_line": "800-514-0301 (Voice) and 1-833-610-1264 (TTY)",
+      "compliance_context_note": "There is no single national database publishing ADA compliance rates for all U.S. public libraries. Compliance is enforced through DOJ complaints, ADA Title II self-evaluation/transition plans, and the 2010 ADA Standards for Accessible Design. Many libraries provide accessibility features (ramps, accessible restrooms, automatic doors, accessible service desks) consistent with these standards.",
+      "source": "ADA.gov (U.S. Department of Justice, Civil Rights Division)"
+    },
+    "braille_collections": {
+      "nls_braille_circulation_fy2024": {
+        "ebraille_circulated": 447288,
+        "hard_copy_braille_circulated": 155519,
+        "braille_books_added_fy2024": 377,
+        "braille_readers_fy2024": 12102
+      },
+      "nls_total_collection_items_fy2024": 355102,
+      "nls_collection_titles_fy2024": 332077,
+      "braille_ereader_program": {
+        "status": "Completed nationwide rollout in FY2024",
+        "devices_deployed": "approximately 8,500 refreshable braille display devices",
+        "deployed_to": "All states and territories plus network libraries"
+      },
+      "braille_on_demand_initiative": {
+        "description": "NLS produces hard-copy braille books on demand for patrons",
+        "focus_areas": [
+          "cookbooks",
+          "religious texts",
+          "knitting and crocheting books"
+        ]
+      },
+      "music_braille": "NLS music collection (authorized by Congress in 1962) includes braille and large-print musical scores, recorded instructional materials, and recorded materials about music and musicians; obtained directly from NLS headquarters in Washington D.C.",
+      "marrakesh_treaty_braille": "Under the Marrakesh Treaty in FY2024, NLS acquired 741 braille books and 6 braille music scores in 8 languages; the WIPO Accessible Books Consortium holds 202,771 books originally produced by NLS or its network libraries.",
+      "other_braille_producers": [
+        "American Printing House for the Blind (Louis database: tens of thousands of accessible materials from 170+ agencies)",
+        "Braille Institute of America",
+        "Bookshare",
+        "Learning Ally (formerly Recording for the Blind & Dyslexic)"
+      ],
+      "source": "Library of Congress NLS + LOC FY2024 Annual Report"
+    },
+    "assistive_tech": {
+      "nls_equipment": {
+        "standard_digital_talking_book_machine": "8 controls; basic playback (volume, tone, rewind, fast forward, variable speed); built-in rechargeable battery; internal audio user guide; key describer mode",
+        "advanced_digital_talking_book_machine": "Additional controls for bookmarks and structured navigation (chapters, sections); same power/features as standard model",
+        "high_volume_player": "Amplified volume up to 120 dB for patrons who are hard of hearing; paired with NLS-provided stereo headphones; available as standard or advanced; bears warning label",
+        "refreshable_braille_displays": "Loan of refreshable braille displays permitted since 2016; approximately 8,500 Braille eReader devices deployed nationwide by FY2024"
+      },
+      "ada_required_technologies": [
+        "Assistive listening systems and devices (e.g., hearing loops)",
+        "Open captioning, closed captioning, real-time captioning (CART), and caption decoders",
+        "Telephone handset amplifiers, hearing-aid compatible telephones, text telephones (TTYs), videophones, captioned telephones",
+        "Videotext displays",
+        "Screen reader software, magnification software, and optical readers",
+        "Video description and secondary auditory programming (SAP) devices",
+        "Accessibility features in electronic documents and information technology"
+      ],
+      "common_library_assistive_tech_note": "U.S. public libraries commonly provide screen readers (e.g., JAWS, NVDA), screen magnifiers (e.g., ZoomText), video magnifiers/CCTV, hearing loop/assistive listening systems in meeting rooms, large-print keyboards, trackballs, height-adjustable tables, and text-to-speech software. NLS supplies dedicated digital talking-book machines and high-volume players at no cost to eligible patrons.",
+      "source": "ADA.gov (Effective Communication) + Library of Congress NLS FAQ"
+    },
+    "homebound_delivery": {
+      "national_bookmobiles_fy2024": {
+        "total": 767,
+        "source": "IMLS Public Libraries Survey FY2024 via ALA State of America's Libraries",
+        "source_file": "data/pls_extended_metrics.json"
+      },
+      "top_states_bookmobiles": [
+        {
+          "state": "KY",
+          "state_name": "Kentucky",
+          "value": 74
+        },
+        {
+          "state": "OH",
+          "state_name": "Ohio",
+          "value": 68
+        },
+        {
+          "state": "CA",
+          "state_name": "California",
+          "value": 65
+        },
+        {
+          "state": "SC",
+          "state_name": "South Carolina",
+          "value": 35
+        },
+        {
+          "state": "WA",
+          "state_name": "Washington",
+          "value": 33
+        },
+        {
+          "state": "VA",
+          "state_name": "Virginia",
+          "value": 30
+        },
+        {
+          "state": "NC",
+          "state_name": "North Carolina",
+          "value": 29
+        },
+        {
+          "state": "LA",
+          "state_name": "Louisiana",
+          "value": 27
+        },
+        {
+          "state": "IN",
+          "state_name": "Indiana",
+          "value": 26
+        },
+        {
+          "state": "MD",
+          "state_name": "Maryland",
+          "value": 24
+        }
+      ],
+      "bookmobile_services": {
+        "populations_served": [
+          "rural and remote areas",
+          "residents of retirement homes and senior care homes",
+          "homebound patrons",
+          "disabled patrons",
+          "parks",
+          "churches",
+          "resource centers",
+          "community events",
+          "underserved locations"
+        ],
+        "materials_offered": [
+          "books",
+          "internet access",
+          "large print books"
+        ],
+        "first_us_bookmobile_history": "Maryland's Washington County Free Library, under Mary Lemist Titcomb, pioneered the first horse-drawn 'book wagon' in 1905; the American School Library (1839) was an earlier traveling frontier library published by Harper & Brothers."
+      },
+      "nls_free_matter_mail": "NLS materials and equipment are sent through the US Postal Service as 'Free Matter for the Blind' (postage-free) and may be returned the same way, which functions as homebound delivery for blind and print-disabled patrons who cannot visit a library.",
+      "homebound_services_context": "Many public libraries provide homebound delivery (also called books-by-mail or homebound services) in addition to bookmobiles, serving seniors, people with disabilities, and those without transportation; bookmobiles complement this by reaching group settings (senior care homes, retirement communities).",
+      "source": "IMLS Public Libraries Survey FY2024 + Wikipedia (Bookmobile) + Library of Congress NLS"
+    },
+    "sign_language": {
+      "ada_requirement": "Under the ADA, covered entities including public libraries must provide qualified sign language interpreters (ASL, oral, cued-speech, or tactile interpreters) when needed for effective communication with people who are deaf or hard of hearing.",
+      "interpreter_types": [
+        "qualified sign language interpreter (ASL)",
+        "oral interpreter",
+        "cued-speech interpreter",
+        "tactile interpreter (for deaf-blind)"
+      ],
+      "telecom_interpreting": {
+        "VRS": "Video Relay Service (free, subscriber-based, for sign language users with videophones)",
+        "VRI": "Video Remote Interpreting (fee-based, off-site interpreter via video conferencing; useful in rural areas where on-site interpreters are scarce)"
+      },
+      "library_programs_context": "Many U.S. public libraries offer ASL storytimes, sign language interpretation at programs/events, deaf services collections, and partnerships with deaf community organizations. Some libraries employ ASL-fluent staff or contract with interpreter services. ALA and state libraries promote deaf awareness programming.",
+      "companion_rule": "ADA requires effective communication for companions (family members, friends) of library patrons who have communication disabilities, not just the patron receiving services.",
+      "minor_children_interpreters_prohibited": "Libraries cannot require a person to bring a minor child to interpret; an accompanying adult may interpret only in limited emergency/requested situations with documented appropriateness.",
+      "source": "ADA.gov (Effective Communication)"
+    },
+    "sensory_friendly": {
+      "description": "Sensory-friendly and autism-friendly programming in U.S. libraries includes sensory-friendly hours (reduced lighting, lowered noise, fewer patrons), quiet spaces/sensory rooms, autism-friendly storytimes, and adapted programming for neurodivergent patrons.",
+      "common_features": [
+        "Sensory-friendly hours with dimmed lights and reduced noise",
+        "Quiet spaces and sensory/calming rooms",
+        "Autism-friendly storytimes with predictable structure and visual schedules",
+        "Fidget tools and noise-canceling headphones available",
+        "Social stories describing library visits in advance",
+        "Trained staff on autism awareness and de-escalation"
+      ],
+      "ala_guidance_context": "ALA's Office for Diversity, Literacy and Outreach Services and the Association of Specialized and Cooperative Library Agencies (ASCLA, now part of United for Libraries/RRT) have published toolkits on serving patrons with autism and sensory processing needs; many libraries participate in Autism Awareness Month programming.",
+      "note": "There is no single authoritative national count of libraries offering sensory-friendly programming; it is a growing area of inclusive service documented through ALA toolkits, library system websites, and state library initiatives.",
+      "source": "ALA accessibility guidance + ADA.gov context (program accommodations as auxiliary aids/services)"
+    },
+    "digital_accessibility": {
+      "wcag_standard": "Web Content Accessibility Guidelines (WCAG), developed by the W3C Web Accessibility Initiative, are the prevailing standard for accessible library websites.",
+      "section_508": "Section 508 of the Rehabilitation Act requires federal electronic and information technology (including federal library websites such as loc.gov/nls) to be accessible; the LOC NLS site itself provides an accessibility toolbar (increase/decrease text, high contrast, negative contrast, light background, underline links).",
+      "ada_digital_context": "Under the ADA effective communication rules, accessibility features in electronic documents and information technology (accessible independently or via assistive technology such as screen readers) are recognized auxiliary aids and services. Title II web accessibility is increasingly enforced through DOJ rulemaking and settlement agreements.",
+      "ada_title_ii_web_rule_note": "In April 2024 the U.S. Department of Justice issued a final rule under Title II of the ADA establishing accessibility standards for state and local government web and mobile app content (aligning with WCAG 2.1 Level AA), which applies to public library websites and apps.",
+      "screen_reader_friendly_websites": "Accessible library websites support screen readers (e.g., JAWS, NVDA, VoiceOver), provide alt text for images, keyboard navigation, sufficient color contrast, and accessible PDFs/electronic documents.",
+      "bard_digital_service": "NLS BARD provides screen-reader-friendly download of braille and audio materials; the BARD Mobile app supports iOS VoiceOver and Android TalkBack; the NLS catalog is designed for accessibility.",
+      "imls_digital_inclusion_context": "IMLS supports digital inclusion and accessibility through grants and the Digital Inclusion Initiative; many libraries participate in digital literacy programs that incorporate accessibility training.",
+      "source": "ADA.gov + LOC NLS website (accessibility toolbar observed in source HTML) + W3C/WCAG (referenced in Wikipedia NLS 'See also')"
+    },
+    "history": [
+      {
+        "year": 1931,
+        "event": "Pratt-Smoot Act signed by President Herbert Hoover on March 3, 1931 (introduced by Ruth Baker Pratt and Reed Smoot); established free library service for blind adults with embossed (braille) books, $100,000 appropriation administered by the Library of Congress. Operations began July 1, 1931. J. Robert Atkinson of the Braille Institute of America was instrumental in lobbying for the act.",
+        "source": "Wikipedia (Pratt-Smoot Act) + NLS History"
+      },
+      {
+        "year": 1934,
+        "event": "Act amended to include sound recordings ('talking books'), beginning the Talking Book program.",
+        "source": "Wikipedia (NLS) + NLS FAQ"
+      },
+      {
+        "year": 1934,
+        "event": "NLS pioneered popularization of the 33 1/3 rpm record for talking books; early talking books were also recorded on vinyl at 16 2/3 rpm (half normal album speed, running twice as long).",
+        "source": "NLS Who We Are (90th anniversary content) + Wikipedia (Talking Book)"
+      },
+      {
+        "year": 1952,
+        "event": "Program expanded to include blind children.",
+        "source": "Wikipedia (NLS) + NLS FAQ"
+      },
+      {
+        "year": 1962,
+        "event": "Program expanded to include music materials (NLS music collection authorized by Congress, including braille and large-print musical scores).",
+        "source": "Wikipedia (NLS) + NLS FAQ"
+      },
+      {
+        "year": 1966,
+        "event": "Program expanded to include individuals with physical impairments that prevent reading standard print.",
+        "source": "Wikipedia (NLS) + NLS FAQ"
+      },
+      {
+        "year": 1990,
+        "event": "Americans with Disabilities Act (ADA) enacted, applying Title II (state/local government, including public libraries) and Title III (public accommodations) accessibility and effective communication requirements.",
+        "source": "ADA.gov"
+      },
+      {
+        "year": 1996,
+        "event": "Chafee Amendment (PL 104-197) added 17 U.S.C. section 121, allowing authorized entities (nonprofit organizations and governmental agencies) to reproduce or distribute copyrighted nondramatic literary works in specialized formats exclusively for use by blind or other persons with disabilities.",
+        "source": "Wikipedia (NLS)"
+      },
+      {
+        "year": 2009,
+        "event": "NLS launched the digital talking-book program, transitioning from cassette tapes to digital cartridges played on NLS digital talking-book machines; BARD (Braille and Audio Reading Download) launched for online downloads.",
+        "source": "NLS History"
+      },
+      {
+        "year": 2013,
+        "event": "BARD Mobile app launched for iOS and Android, enabling direct playback of braille and audio materials on personal smartphones and tablets (including Kindle Fire).",
+        "source": "NLS FAQ"
+      },
+      {
+        "year": 2016,
+        "event": "NLS permitted to provide/loan refreshable braille displays to patrons.",
+        "source": "Wikipedia (NLS) + NLS FAQ"
+      },
+      {
+        "year": 2018,
+        "event": "Marrakesh Treaty implementation allowed NLS to exchange accessible-format books across international borders via WIPO's Accessible Books Consortium, enabling rapid growth of its foreign-language collection.",
+        "source": "NLS Who We Are + LOC FY2024 Annual Report"
+      },
+      {
+        "year": 2021,
+        "event": "Jason Broughton became NLS's 11th director (September 2021); NLS marked its 90th anniversary, highlighting the role of blinded World War I veterans in its founding and its history of innovation.",
+        "source": "NLS Who We Are"
+      },
+      {
+        "year": 2024,
+        "event": "NLS completed the nationwide rollout of the Braille eReader program, deploying approximately 8,500 refreshable braille display devices to all states, territories, and network libraries. In FY2024 NLS circulated more than 22.2 million copies and served 219,589 readers.",
+        "source": "LOC FY2024 Annual Report"
+      }
+    ],
+    "key_facts": [
+      {
+        "fact": "The National Library Service for the Blind and Print Disabled (NLS), part of the Library of Congress, was founded in 1931 by the Pratt-Smoot Act (signed March 3, 1931 by President Hoover) and is the primary U.S. federal program providing free braille and talking-book library service to people who are blind or have visual, physical, or reading disabilities.",
+        "source": "Wikipedia (Pratt-Smoot Act, NLS) + loc.gov/nls"
+      },
+      {
+        "fact": "In FY2024, NLS circulated more than 22.2 million copies of braille, audio, and large-print items to 219,589 readers, with a collection of 332,077 titles, supported by a $66.13 million appropriation.",
+        "source": "Library of Congress FY2024 Annual Report (Table 12)"
+      },
+      {
+        "fact": "NLS operates through a nationwide network of 101 cooperating libraries (55 regional, 32 subregional, and 14 advisory/outreach centers) serving every U.S. state and territory, grown from an original network of 19 libraries in 1931.",
+        "source": "Wikipedia (NLS, citing loc.gov/nls About Local Network Libraries)"
+      },
+      {
+        "fact": "BARD (Braille and Audio Reading Download), NLS's digital download service, recorded 4,257,667 audio downloads in FY2024 and is accessible via the BARD Mobile app for iOS and Android; 46,646 patrons used BARD in FY2024.",
+        "source": "Library of Congress FY2024 Annual Report (Table 12)"
+      },
+      {
+        "fact": "The Americans with Disabilities Act of 1990 applies to public libraries under Title II (state/local government) and Title III (public accommodations), requiring effective communication through auxiliary aids and services (e.g., qualified sign language interpreters, real-time captioning, screen-reader-compatible materials, Braille, large print) and compliance with the 2010 Standards for Accessible Design.",
+        "source": "ADA.gov (Effective Communication)"
+      },
+      {
+        "fact": "Under the Marrakesh Treaty in FY2024, NLS acquired 1,987 works in 8 languages (1,240 audiobooks, 741 braille books, and 6 braille music scores); the WIPO Accessible Books Consortium holds 202,771 books originally produced by NLS or its network libraries, downloaded about 10,000 times by readers in 35 countries.",
+        "source": "Library of Congress FY2024 Annual Report"
+      },
+      {
+        "fact": "NLS completed the nationwide rollout of the Braille eReader program in FY2024, deploying approximately 8,500 refreshable braille display devices to all states and territories; NLS was first permitted to loan refreshable braille displays in 2016.",
+        "source": "Library of Congress FY2024 Annual Report + Wikipedia (NLS)"
+      },
+      {
+        "fact": "There were 767 bookmobiles operating nationally in FY2024 (IMLS Public Libraries Survey), with Kentucky (74), Ohio (68), and California (65) leading; bookmobiles serve rural areas, retirement/senior care homes, homebound, and disabled patrons with books, internet access, and large-print materials.",
+        "source": "IMLS Public Libraries Survey FY2024 via ALA + Wikipedia (Bookmobile)"
+      },
+      {
+        "fact": "NLS provides a high-volume digital talking-book machine amplified up to 120 dB with a paired headset for patrons who are hard of hearing, alongside standard and advanced digital players, all at no cost; materials are mailed postage-free as 'Free Matter for the Blind.'",
+        "source": "Library of Congress NLS FAQ"
+      },
+      {
+        "fact": "The Chafee Amendment of 1996 (17 U.S.C. section 121) allows authorized nonprofit entities and governmental agencies to reproduce copyrighted works in specialized formats exclusively for blind or other persons with disabilities, enabling NLS and partner organizations to produce accessible books without seeking individual publisher permissions.",
+        "source": "Wikipedia (NLS)"
+      }
+    ],
+    "source_notes": "Statistics are drawn from authoritative primary and secondary sources. NLS operational and circulation figures for FY2024 come from the Library of Congress FY2024 Annual Report of the Librarian of Congress (Table 12, 'Improving Braille Access' narrative, and Facts at a Glance), downloaded from loc.gov. Historical and structural facts about NLS (founding, Pratt-Smoot Act, network library counts, eligibility, BARD, equipment) come from the NLS website (loc.gov/nls) and the Wikipedia article on NLS, which cites loc.gov/nls primary pages. ADA compliance and auxiliary aids/services requirements come from ADA.gov (U.S. Department of Justice, Civil Rights Division, 'ADA Requirements: Effective Communication'). Bookmobile counts (767 nationally, FY2024) come from the IMLS Public Libraries Survey FY2024 as compiled via ALA's State of America's Libraries (data/pls_extended_metrics.json). Where no single authoritative national statistic exists (e.g., exact counts of libraries with braille collections, sensory-friendly programming, or WCAG-compliant websites), the summary notes this and describes the prevailing standards and program landscape rather than fabricating numbers. All figures are as attributed per fact."
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

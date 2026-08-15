@@ -182,6 +182,9 @@ def panel(active=""):
     <a href="index.html#school-library-stats" class="list-group-item list-group-item-action small py-1">School libraries</a>
     <a href="index.html#international" class="list-group-item list-group-item-action small py-1">International comparison</a>
     <a href="index.html#consortia-summary" class="list-group-item list-group-item-action small py-1">Library consortia</a>
+    <a href="index.html#digital-libraries-enhanced" class="list-group-item list-group-item-action small py-1">Digital libraries & e-books</a>
+    <a href="index.html#reading-habits" class="list-group-item list-group-item-action small py-1">Reading habits & literacy</a>
+    <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -589,6 +592,9 @@ def load_all():
         ('school_libraries', 'school_libraries_summary.json'),
         ('international_libraries', 'international_libraries_summary.json'),
         ('library_consortia_summary', 'library_consortia_summary.json'),
+        ('digital_libraries_enhanced', 'digital_libraries_enhanced_summary.json'),
+        ('reading_habits', 'reading_habits_summary.json'),
+        ('slide_inequities', 'slide_inequities_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1795,6 +1801,9 @@ def compute_stats(data):
     stats['school_libraries'] = data.get('school_libraries', {})
     stats['international_libraries'] = data.get('international_libraries', {})
     stats['library_consortia_summary'] = data.get('library_consortia_summary', {})
+    stats['digital_libraries_enhanced'] = data.get('digital_libraries_enhanced', {})
+    stats['reading_habits'] = data.get('reading_habits', {})
+    stats['slide_inequities'] = data.get('slide_inequities', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -7444,7 +7453,7 @@ def build_index(data, stats):
 <div class="stats-grid">
   <div class="stat-card"><div class="num">${total_exp/1e9:.1f}B</div><div class="label">Total expenditures</div></div>
   <div class="stat-card"><div class="num">${avg_pc}</div><div class="label">Avg per capita</div></div>
-  <div class="stat-card"><div class="num">${roi_mult:.1f}</div><div class="label">ROI per $1</div></div>
+  <div class="stat-card"><div class="num">{esc(str(roi_mult))}</div><div class="label">ROI per $1</div></div>
   <div class="stat-card"><div class="num">{eks.get('total_employ', 149800):,}</div><div class="label">Total employees</div></div>
   <div class="stat-card"><div class="num">${eks.get('median_librarian_salary', 65670):,}</div><div class="label">Median librarian salary</div></div>
   <div class="stat-card"><div class="num">{eks.get('ballot_pass_rate', 75)}%</div><div class="label">Ballot pass rate</div></div>
@@ -7480,7 +7489,7 @@ def build_index(data, stats):
 <table class="wikitable">
   <tr><th>State</th><th>Year</th><th>ROI Ratio</th><th>Finding</th></tr>"""
             for r in roi:
-                body += f'\n  <tr><td>{esc(r.get("state",""))}</td><td class="num">{r.get("study_year","")}</td><td>${r.get("roi_ratio",0):.2f}</td><td>{esc(r.get("description",""))}</td></tr>'
+                body += f'\n  <tr><td>{esc(r.get("state",""))}</td><td class="num">{r.get("study_year","")}</td><td>{esc(str(r.get("roi_ratio",0)))}</td><td>{esc(r.get("description",""))}</td></tr>'
             body += '\n</table>'
 
         if salaries:
@@ -7707,71 +7716,113 @@ def build_index(data, stats):
     # =========================================================================
     intl = stats.get('international_libraries', {})
     if intl:
-        iks = intl.get('key_stats', {})
-        us_vs = intl.get('us_vs_world', [])
+        gc = intl.get('global_count', {})
+        if isinstance(gc, dict):
+            gc_estimate = esc(str(gc.get('estimate', '350,000+')))
+        else:
+            gc_estimate = '350,000+'
+        largest = intl.get('largest_worldwide', [])
         nat_libs = intl.get('national_libraries', [])
-        largest = intl.get('largest_libraries_world', [])
-        profiles = intl.get('country_profiles', [])
-        orgs = intl.get('international_organizations', [])
+        pc_countries = intl.get('per_capita_by_country', [])
+        fund_countries = intl.get('funding_by_country', [])
+        ifla = intl.get('ifla', {})
+        if isinstance(ifla, dict):
+            ifla_members = esc(str(ifla.get('members', '1,700+')))
+            ifla_founded = ifla.get('founded', 1927)
+        else:
+            ifla_members = '1,700+'
+            ifla_founded = 1927
+        unesco = intl.get('unesco_manifesto', {})
+        wdl = intl.get('world_digital_library', {})
+        rc = intl.get('reading_culture', {})
         i_facts = intl.get('key_facts', [])
 
         body += f"""
 <h2 id="international">International Library Comparison: How the US Compares</h2>
-<p>{esc(intl.get('overview', ''))}</p>
+<p>{esc(intl.get('description', ''))}</p>
 <div class="stats-grid">
-  <div class="stat-card"><div class="num">{iks.get('us_public_libraries',9212):,}</div><div class="label">US public libraries</div></div>
-  <div class="stat-card"><div class="num">{iks.get('us_per_capita_visits',4.1)}</div><div class="label">US visits/capita</div></div>
-  <div class="stat-card"><div class="num">{iks.get('finland_per_capita_loans',18.6)}</div><div class="label">Finland loans/capita</div></div>
-  <div class="stat-card"><div class="num">{iks.get('uk_public_libraries',3300):,}</div><div class="label">UK public libraries</div></div>
-  <div class="stat-card"><div class="num">{iks.get('ifla_members',1400):,}</div><div class="label">IFLA members</div></div>
-  <div class="stat-card"><div class="num">200+</div><div class="label">National libraries</div></div>
+  <div class="stat-card"><div class="num">{gc_estimate}</div><div class="label">Libraries worldwide</div></div>
+  <div class="stat-card"><div class="num">{len(nat_libs) if nat_libs else '19'}</div><div class="label">National libraries listed</div></div>
+  <div class="stat-card"><div class="num">{len(largest) if largest else '15'}</div><div class="label">Largest libraries ranked</div></div>
+  <div class="stat-card"><div class="num">{ifla_members}</div><div class="label">IFLA members</div></div>
+  <div class="stat-card"><div class="num">{ifla_founded}</div><div class="label">IFLA founded</div></div>
+  <div class="stat-card"><div class="num">{len(pc_countries) if pc_countries else '8'}</div><div class="label">Countries compared</div></div>
 </div>"""
-
-        if us_vs:
-            body += """
-<h3>US vs World: Key Metrics</h3>
-<table class="wikitable">
-  <tr><th>Metric</th><th>US</th><th>Finland</th><th>UK</th><th>Germany</th><th>Rank</th></tr>"""
-            for m in us_vs:
-                body += f'\n  <tr><td>{esc(m.get("metric",""))}</td><td>{esc(m.get("us",""))}</td><td>{esc(m.get("finland",""))}</td><td>{esc(m.get("uk",""))}</td><td>{esc(m.get("germany",""))}</td><td>{esc(m.get("rank",""))}</td></tr>'
-            body += '\n</table>'
 
         if nat_libs:
             body += """
 <h3>Major National Libraries of the World</h3>
 <table class="wikitable">
-  <tr><th>Country</th><th>Library</th><th>Founded</th><th>Collection</th><th>Description</th></tr>"""
+  <tr><th>Library</th><th>Country</th><th>City</th><th>Founded</th><th>Collection</th><th>Budget</th><th>Legal Deposit</th></tr>"""
             for n in nat_libs:
-                body += f'\n  <tr><td>{esc(n.get("country",""))}</td><td>{esc(n.get("name",""))}</td><td class="num">{n.get("founded","")}</td><td>{esc(n.get("collection_size",""))}</td><td>{esc(n.get("description",""))}</td></tr>'
+                body += f'\n  <tr><td>{esc(n.get("name",""))}</td><td>{esc(n.get("country",""))}</td><td>{esc(n.get("city",""))}</td><td class="num">{n.get("founded","")}</td><td>{esc(str(n.get("items","")))}</td><td>{esc(str(n.get("budget_text","")))}</td><td>{esc(str(n.get("legal_deposit","")))}</td></tr>'
             body += '\n</table>'
 
         if largest:
             body += """
-<h3>Largest Libraries in the World</h3>
+<h3>Largest Libraries in the World by Collection Size</h3>
 <table class="wikitable">
-  <tr><th>Library</th><th>Country</th><th>Collection</th><th>Description</th></tr>"""
+  <tr><th>#</th><th>Library</th><th>Country</th><th>City</th><th>Items</th><th>Founded</th><th>Annual Visitors</th></tr>"""
             for l in largest:
-                body += f'\n  <tr><td>{esc(l.get("name",""))}</td><td>{esc(l.get("country",""))}</td><td>{esc(l.get("collection_size",""))}</td><td>{esc(l.get("description",""))}</td></tr>'
+                body += f'\n  <tr><td class="num">{l.get("rank","")}</td><td>{esc(l.get("name",""))}</td><td>{esc(l.get("country",""))}</td><td>{esc(l.get("city",""))}</td><td>{esc(str(l.get("items","")))}</td><td>{esc(str(l.get("founded","")))}</td><td>{esc(str(l.get("visitors_per_year","")))}</td></tr>'
             body += '\n</table>'
 
-        if profiles:
+        if pc_countries:
             body += """
-<h3>Country Profiles</h3>"""
-            for p in profiles:
-                body += f"""
+<h3>Libraries Per Capita by Country</h3>
+<table class="wikitable">
+  <tr><th>Country</th><th>Libraries per 100K</th><th>Library Systems</th><th>Population</th><th>Source</th></tr>"""
+            for c in pc_countries:
+                body += f'\n  <tr><td>{esc(c.get("country",""))}</td><td>{esc(str(c.get("libraries_per_100k","")))}</td><td class="num">{c.get("library_systems","")}</td><td class="num">{c.get("population_served","")}</td><td>{esc(str(c.get("source","")))}</td></tr>'
+            body += '\n</table>'
+
+        if fund_countries:
+            body += """
+<h3>Library Funding Per Capita by Country (USD)</h3>
+<table class="wikitable">
+  <tr><th>Country</th><th>Per Capita (USD)</th><th>Year</th><th>Source</th></tr>"""
+            for c in fund_countries:
+                body += f'\n  <tr><td>{esc(c.get("country",""))}</td><td>{esc(str(c.get("per_capita_usd","")))}</td><td>{esc(str(c.get("year","")))}</td><td>{esc(str(c.get("source","")))}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(ifla, dict) and ifla.get('full_name'):
+            body += f"""
+<h3>International Federation of Library Associations (IFLA)</h3>
 <div class="rules-box">
-  <h4>{esc(p.get('country',''))} &mdash; {p.get('libraries',0):,} libraries, {p.get('per_capita_loans',0)} loans/capita</h4>
-  <p>{esc(p.get('description',''))}</p>
-  <p><strong>Notable:</strong> {esc(p.get('notable_feature',''))}</p>
+  <h4>{esc(ifla.get('full_name',''))}</h4>
+  <p><strong>Founded:</strong> {esc(str(ifla.get('founded','')))} &mdash; {esc(str(ifla.get('founded_detail','')))}</p>
+  <p><strong>Headquarters:</strong> {esc(str(ifla.get('hq','')))}</p>
+  <p><strong>Type:</strong> {esc(str(ifla.get('type','')))}</p>
+  <p><strong>Members:</strong> {esc(str(ifla.get('members','')))}</p>
 </div>"""
 
-        if orgs:
+        if isinstance(unesco, dict) and unesco.get('name'):
+            body += f"""
+<h3>UNESCO Public Library Manifesto</h3>
+<div class="rules-box">
+  <h4>{esc(unesco.get('name',''))}</h4>
+  <p><strong>First adopted:</strong> {unesco.get('first_adopted','')} &middot; <strong>Revised:</strong> {esc(str(unesco.get('revised_2022','')))}</p>
+  <p>{esc(str(unesco.get('core_principle','')))}</p>
+  <p><strong>Key missions ({unesco.get('missions_count','12')}):</strong> {esc(str(unesco.get('key_missions_summary','')))}</p>
+</div>"""
+
+        if isinstance(wdl, dict) and wdl.get('name'):
+            body += f"""
+<h3>World Digital Library (WDL)</h3>
+<div class="rules-box">
+  <h4>{esc(wdl.get('name',''))}</h4>
+  <p><strong>Launched:</strong> {esc(str(wdl.get('launched','')))}</p>
+  <p><strong>Created by:</strong> {', '.join(str(x) for x in wdl.get('created_by',[]))}</p>
+  <p>{esc(str(wdl.get('mission','')))}</p>
+</div>"""
+
+        if isinstance(rc, dict) and rc.get('books_borrowers_per_capita'):
             body += """
-<h3>International Library Organizations</h3>
+<h3>Reading Culture: Library Borrowing Worldwide</h3>
 <table class="wikitable">
-  <tr><th>Organization</th><th>Founded</th><th>Headquarters</th><th>Members</th><th>Description</th></tr>"""
-            for o in orgs:
-                body += f'\n  <tr><td>{esc(o.get("name",""))}</td><td class="num">{o.get("founded","")}</td><td>{esc(o.get("headquarters",""))}</td><td class="num">{o.get("members",0):,}</td><td>{esc(o.get("description",""))}</td></tr>'
+  <tr><th>Country</th><th>Key Fact</th><th>Source</th></tr>"""
+            for b in rc.get('books_borrowers_per_capita', []):
+                body += f'\n  <tr><td>{esc(b.get("country",""))}</td><td>{esc(str(b.get("fact","")))}</td><td>{esc(str(b.get("source","")))}</td></tr>'
             body += '\n</table>'
 
         if i_facts:
@@ -7781,9 +7832,13 @@ def build_index(data, stats):
             for f_item in i_facts:
                 if isinstance(f_item, str):
                     body += f'\n  <li>{esc(f_item)}</li>'
+                elif isinstance(f_item, dict):
+                    fact_txt = esc(f_item.get('fact', ''))
+                    fact_src = esc(f_item.get('source', ''))
+                    body += f'\n  <li>{fact_txt} <span class="muted">({fact_src})</span></li>'
             body += '\n</ul>'
 
-        body += '<p class="rsrc">Source: Wikipedia articles on national libraries, public libraries worldwide, the largest libraries in the world, IFLA, UNESCO Public Library Manifesto, and the World Digital Library. US data from IMLS Public Libraries Survey FY2024. International per-capita figures from respective national library agencies and IFLA reports.</p>'
+        body += '<p class="rsrc">Source: IFLA Global Vision / Library Map of the World, Wikipedia articles on national libraries and the world&apos;s largest libraries (citing each library&apos;s annual reports), Library of Congress FY2024 Annual Report, UNESCO Public Library Manifesto 2022, World Digital Library, Statistics Finland, and IMLS Public Libraries Survey FY2024. Per-capita figures compiled from respective national statistical agencies.</p>'
 
     # =========================================================================
     # LIBRARY CONSORTIA (detailed summary)
@@ -7855,6 +7910,202 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += '<p class="rsrc">Source: Wikipedia articles on OCLC, HathiTrust, ARL, the Center for Research Libraries, OhioLINK, TexShare, VIVA, Amigos, Lyrasis, Internet2, NISO, and the Digital Public Library of America. OCLC annual reports and WorldCat statistics. DPLA partner data from dpla.org.</p>'
+
+    # =========================================================================
+    # DIGITAL LIBRARIES & E-BOOKS (enhanced)
+    # =========================================================================
+    dl_enh = stats.get('digital_libraries_enhanced', {})
+    if dl_enh:
+        dlks = dl_enh.get('key_stats', {})
+        dl_libs = dl_enh.get('digital_libraries', [])
+        od = dl_enh.get('overdrive_stats', {})
+        wb = dl_enh.get('wayback_machine', {})
+        dl_tl = dl_enh.get('timeline', [])
+        dl_facts = dl_enh.get('key_facts', [])
+
+        body += f"""
+<h2 id="digital-libraries-enhanced">Digital Libraries & E-Books: The Digital Reading Revolution</h2>
+<p>{esc(dl_enh.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{dlks.get('internet_archive_items',41000000):,}</div><div class="label">Internet Archive items</div></div>
+  <div class="stat-card"><div class="num">{dlks.get('internet_archive_wayback_pages',835000000000):,}</div><div class="label">Wayback pages</div></div>
+  <div class="stat-card"><div class="num">{dlks.get('project_gutenberg_ebooks',70000):,}</div><div class="label">Gutenberg e-books</div></div>
+  <div class="stat-card"><div class="num">{dlks.get('google_books_scanned',40000000):,}</div><div class="label">Google Books scanned</div></div>
+  <div class="stat-card"><div class="num">{dlks.get('overdrive_checkouts_2023',600000000):,}</div><div class="label">OverDrive checkouts</div></div>
+  <div class="stat-card"><div class="num">{dlks.get('dpla_items',50000000):,}</div><div class="label">DPLA items</div></div>
+</div>"""
+
+        if dl_libs:
+            body += """
+<h3>Major Digital Libraries</h3>
+<table class="wikitable">
+  <tr><th>Name</th><th>Founded</th><th>Founder</th><th>Items</th><th>Key Feature</th><th>Description</th></tr>"""
+            for d in dl_libs:
+                body += f'\n  <tr><td>{esc(d.get("name",""))}</td><td class="num">{d.get("founded","")}</td><td>{esc(d.get("founder",""))}</td><td class="num">{d.get("items",0):,}</td><td>{esc(d.get("key_feature",""))}</td><td>{esc(d.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(od, dict) and od.get('growth'):
+            body += """
+<h3>OverDrive Checkout Growth</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Digital Checkouts</th></tr>"""
+            for g in od.get('growth', []):
+                body += f'\n  <tr><td class="num">{g.get("year","")}</td><td class="num">{g.get("checkouts",0):,}</td></tr>'
+            body += '\n</table>'
+
+        if dl_tl:
+            body += """
+<h3>Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in dl_tl:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if dl_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in dl_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Internet Archive, Project Gutenberg, Open Library, Google Books, HathiTrust, OverDrive/Libby, Digital Public Library of America (DPLA), Wikipedia articles on digital libraries, and Internet Archive annual reports. OverDrive checkout data from company press releases.</p>'
+
+    # =========================================================================
+    # READING HABITS & LITERACY
+    # =========================================================================
+    rh = stats.get('reading_habits', {})
+    if rh:
+        rhks = rh.get('key_stats', {})
+        nea = rh.get('nea_sppa_2022', {})
+        pew = rh.get('pew_findings', {})
+        formats = rh.get('format_preferences', [])
+        lit = rh.get('literacy_data', {})
+        activities = rh.get('reading_vs_other_activities', [])
+        rh_facts = rh.get('key_facts', [])
+
+        body += f"""
+<h2 id="reading-habits">Reading Habits & Literacy in America</h2>
+<p>{esc(rh.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{rhks.get('pct_adults_read_literature',23)}%</div><div class="label">Read literature</div></div>
+  <div class="stat-card"><div class="num">{rhks.get('pct_americans_use_library',54)}%</div><div class="label">Use libraries</div></div>
+  <div class="stat-card"><div class="num">{rhks.get('avg_library_visits_per_year',10.5)}</div><div class="label">Library visits/yr</div></div>
+  <div class="stat-card"><div class="num">{rhks.get('avg_books_read_per_year',12)}</div><div class="label">Books read/yr</div></div>
+  <div class="stat-card"><div class="num">{rhks.get('us_literacy_rate',79)}%</div><div class="label">US literacy rate</div></div>
+  <div class="stat-card"><div class="num">{rhks.get('pct_adults_below_basic_prose',14)}%</div><div class="label">Below basic prose</div></div>
+</div>"""
+
+        if isinstance(nea, dict) and nea.get('demographics'):
+            body += """
+<h3>NEA SPPA 2022: Who Reads Literature?</h3>
+<table class="wikitable">
+  <tr><th>Demographic</th><th>% Reading Literature</th></tr>"""
+            for d in nea.get('demographics', []):
+                body += f'\n  <tr><td>{esc(d.get("category",""))}</td><td class="pct">{d.get("pct_read_literature",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if formats:
+            body += """
+<h3>Reading Format Preferences</h3>
+<div class="services-bars">"""
+            max_f = max(f.get('pct_readers', 1) for f in formats) if formats else 1
+            for f_item in formats:
+                pct = (f_item.get('pct_readers', 0) / max_f * 100) if max_f else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(f_item.get("format",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.0f}%"></div><span class="svc-val">{f_item.get("pct_readers",0)}%</span></div></div>'
+            body += '\n</div>'
+
+        if isinstance(lit, dict) and lit.get('state_variation'):
+            body += """
+<h3>Literacy by State (Selected)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Literacy Rate</th></tr>"""
+            for s in lit.get('state_variation', []):
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td class="pct">{s.get("literacy_rate",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if activities:
+            body += """
+<h3>Reading vs Other Activities</h3>
+<table class="wikitable">
+  <tr><th>Activity</th><th>% Americans</th><th>Frequency</th></tr>"""
+            for a in activities:
+                body += f'\n  <tr><td>{esc(a.get("activity",""))}</td><td class="pct">{a.get("pct_americans",0)}%</td><td>{esc(a.get("frequency",""))}</td></tr>'
+            body += '\n</table>'
+
+        if rh_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in rh_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: NEA Survey of Public Participation in the Arts (SPPA) 2022, Pew Research Center library usage surveys (2013, 2016), Gallup library visit survey (2019), NCES PIAAC adult literacy assessment, and Pew Internet & American Life Project reading habits studies.</p>'
+
+    # =========================================================================
+    # SLIDE: SCHOOL LIBRARY INEQUITIES
+    # =========================================================================
+    sl = stats.get('slide_inequities', {})
+    if sl:
+        slks = sl.get('key_stats', {})
+        sl_findings = sl.get('inequity_findings', [])
+        sl_states = sl.get('state_losses', [])
+        sl_disp = sl.get('demographic_disparities', [])
+        sl_facts = sl.get('key_facts', [])
+
+        body += f"""
+<h2 id="slide-inequities">School Library Inequities: The SLIDE Project</h2>
+<p>{esc(sl.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{slks.get('students_without_librarians',3000000):,}</div><div class="label">Students w/o librarians</div></div>
+  <div class="stat-card"><div class="num">{slks.get('pct_majority_nonwhite_without',54)}%</div><div class="label">Nonwhite districts</div></div>
+  <div class="stat-card"><div class="num">{slks.get('pct_districts_no_librarian',30)}%</div><div class="label">Districts w/o librarian</div></div>
+  <div class="stat-card"><div class="num">{slks.get('national_decline_pct',20)}%</div><div class="label">National decline</div></div>
+  <div class="stat-card"><div class="num">{slks.get('states_lost_20plus_pct',25)}</div><div class="label">States losing 20%+</div></div>
+  <div class="stat-card"><div class="num">{slks.get('rural_districts_no_librarian',35)}%</div><div class="label">Rural w/o librarian</div></div>
+</div>"""
+
+        if sl_states:
+            body += """
+<h3>State-Level School Librarian Losses (2010-2019)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>2010</th><th>2019</th><th>% Lost</th></tr>"""
+            for s in sl_states:
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td class="num">{s.get("librarians_2010",0):,}</td><td class="num">{s.get("librarians_2019",0):,}</td><td class="pct">{s.get("pct_lost",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if sl_disp:
+            body += """
+<h3>Demographic Disparities</h3>
+<table class="wikitable">
+  <tr><th>District Type</th><th>% Without Librarian</th><th>Students Affected</th></tr>"""
+            for d in sl_disp:
+                body += f'\n  <tr><td>{esc(d.get("district_type",""))}</td><td class="pct">{d.get("pct_without_librarian",0)}%</td><td class="num">{d.get("students_affected",0):,}</td></tr>'
+            body += '\n</table>'
+
+        if sl_findings:
+            body += """
+<h3>Key Findings</h3>
+<ul class="wiki-list">"""
+            for f_item in sl_findings:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        if sl_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in sl_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: SLIDE (School Librarian Investigation: Decline in Education) project at libslide.org, using NCES Schools and Staffing Survey (SASS) data, Common Core of Data (CCD), and demographic analysis. SLIDE is led by school library researchers Deborah Rinio, Ann Carlson Weeks, and Mega Subramaniam.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

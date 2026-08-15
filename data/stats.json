@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 11:35 UTC",
+  "generated": "2026-08-15 11:47 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -64512,8 +64512,11 @@
       "carnegie_libraries_built": 1689,
       "carnegie_total_cost": 40000000,
       "carnegie_communities": 1412,
-      "nrhp_listed_libraries": 276,
-      "leed_certified_libraries": 8,
+      "carnegie_buildings_extant_1992": 1554,
+      "carnegie_buildings_unchanged_1992": 276,
+      "carnegie_buildings_demolished_1992": 243,
+      "nrhp_individually_listed_properties": 100000,
+      "leed_certified_libraries_documented": 7,
       "oldest_library_year": 1731,
       "oldest_library_name": "Library Company of Philadelphia",
       "loc_buildings_count": 3,
@@ -64547,28 +64550,12 @@
       "total_built": 1689,
       "total_cost_usd": 40000000,
       "communities_served": 1412,
-      "states_with_most": [
-        {
-          "state": "IN",
-          "count": 164
-        },
-        {
-          "state": "CA",
-          "count": 142
-        },
-        {
-          "state": "OH",
-          "count": 105
-        },
-        {
-          "state": "IA",
-          "count": 101
-        },
-        {
-          "state": "PA",
-          "count": 59
-        }
-      ],
+      "buildings_still_extant_1992": 1554,
+      "buildings_still_used_as_libraries_1992": 911,
+      "buildings_demolished_1992": 243,
+      "buildings_unchanged_1992": 276,
+      "buildings_expanded_1992": 286,
+      "buildings_remodeled_1992": 175,
       "notable_examples": [
         {
           "name": "Carnegie Free Library of Braddock",
@@ -64959,7 +64946,8 @@
         "state": "CO",
         "leed_level": "Gold",
         "year": 2009,
-        "description": "Considered the first carbon-negative library in the U.S. LEED Gold certified. Includes a 108 kW photovoltaic system and offsets more carbon than it emits through renewable energy and carbon credits. Part of a capital construction project pursuing LEED Silver on three of four new facilities."
+        "status": "Certified",
+        "description": "Considered the first carbon-negative library in the U.S. The building is LEED Gold certified. Includes a 108 kW photovoltaic system purchased through a $300,000 matching grant and offsets more carbon than it emits through renewable energy and carbon credits, offsetting an additional 167,620 lbs of CO2 from other community buildings."
       },
       {
         "name": "Lemieux Library and McGoldrick Learning Commons",
@@ -64967,15 +64955,17 @@
         "state": "WA",
         "leed_level": "Gold",
         "year": 2010,
+        "status": "Certified",
         "description": "LEED Gold-certified building on the Seattle University campus, designed by Pfeiffer and completed in 2010."
       },
       {
-        "name": "Minneapolis Central Library",
-        "city": "Minneapolis",
-        "state": "MN",
+        "name": "Church History Library",
+        "city": "Salt Lake City",
+        "state": "UT",
         "leed_level": "Certified",
-        "year": 2006,
-        "description": "Designed by Cesar Pelli with extensive energy-efficiency measures, an 18,560 sq ft green roof planted with drought-resistant ground cover, and substantial daylighting. Opened May 20, 2006."
+        "year": 2009,
+        "status": "Certified",
+        "description": "In 2005 the Church History Library applied to be certified through the LEED rating system; in 2009 the CHL received LEED certification. A religious library for The Church of Jesus Christ of Latter-day Saints."
       },
       {
         "name": "Anythink Huron Street (Rangeview Library District)",
@@ -64983,7 +64973,8 @@
         "state": "CO",
         "leed_level": "Silver",
         "year": 2010,
-        "description": "One of three Rangeview Library District new facilities pursuing LEED Silver certification as part of the district's goal of making all libraries carbon-neutral."
+        "status": "Pursuing",
+        "description": "One of three Rangeview Library District new facilities pursuing LEED Silver certification as part of the district's long-term goal of making all libraries carbon-neutral."
       },
       {
         "name": "Anythink Wright Farms (Rangeview Library District)",
@@ -64991,6 +64982,7 @@
         "state": "CO",
         "leed_level": "Silver",
         "year": 2010,
+        "status": "Pursuing",
         "description": "Part of the Rangeview Library District's 2008-2010 capital construction project pursuing LEED Silver certification; houses a digital learning lab (The Studio)."
       },
       {
@@ -64999,6 +64991,7 @@
         "state": "CO",
         "leed_level": "Silver",
         "year": 2010,
+        "status": "Pursuing",
         "description": "Part of the Rangeview Library District's capital construction project pursuing LEED Silver certification; features an outdoor classroom (Explore Outdoors)."
       },
       {
@@ -65007,15 +65000,8 @@
         "state": "CO",
         "leed_level": "Not certified",
         "year": 2009,
-        "description": "Highly efficient and sustainable though not LEED certified; uses beetle-killed pine, Solatubes for natural light, ground-source heating and cooling, recycled materials, and a 10 kW photovoltaic system."
-      },
-      {
-        "name": "Woodridge Neighborhood Library",
-        "city": "Washington",
-        "state": "DC",
-        "leed_level": "Certified",
-        "year": 2016,
-        "description": "New 20,000-square-foot library built at a cost of $16.5 million, designed by Wiencek & Associates and Bing Thom Architects, featuring the city's first library roof terrace."
+        "status": "Not certified",
+        "description": "Highly efficient and sustainable though explicitly not LEED certified; uses beetle-killed pine, Solatubes for natural light, ground-source heating and cooling, recycled materials, and a 10 kW photovoltaic system."
       }
     ],
     "architectural_styles": [
@@ -65197,7 +65183,6 @@
     ],
     "key_facts": [
       "Andrew Carnegie funded the construction of 1,689 library buildings in the United States between 1883 and 1929, spending roughly $40 million and building nearly half of all American public libraries by 1930.",
-      "A 1992 survey by George Bobinski found that 1,554 of the 1,681 original Carnegie library buildings in the United States still existed, and 911 were still used as libraries; 243 had been demolished.",
       "The Library of Congress comprises three buildings named for U.S. presidents: the Thomas Jefferson Building (1897), the John Adams Building (1939), and the James Madison Memorial Building (1976/1980).",
       "The Thomas Jefferson Building was designated a National Historic Landmark on December 21, 1965, for its prominent monumental Beaux-Arts structure and historical significance.",
       "The Harold Washington Library Center in Chicago (1991) holds the Guinness World Record as the largest public library building in the world, approximately 972,000 square feet across ten floors.",
@@ -65208,7 +65193,8 @@
       "The James Madison Memorial Building contains 2.1 million square feet with 1.5 million square feet of assignable space, making it one of the three largest public buildings in the Washington metropolitan area.",
       "The Carnegie Free Library of Braddock (1889) was the first Carnegie library to open in the United States and was designated a National Historic Landmark in March 2012.",
       "Carnegie required recipient towns to provide a building site, pay staff, maintain the library, draw from public funds, provide free service to all, and annually provide ten percent of the building's construction cost for operation.",
-      "The National Register of Historic Places was established by the National Historic Preservation Act in 1966 and now includes more than 100,000 individually listed properties, many of them Carnegie libraries.",
+      "The National Register of Historic Places was established by the National Historic Preservation Act in 1966 and now includes more than 100,000 individually listed properties; as of 1999, 982 properties had been removed from the Register, most often due to being destroyed.",
+      "A 1992 survey by George Bobinski found that 1,554 of the 1,681 original Carnegie library buildings in the United States still existed, with 911 still used as libraries, 276 unchanged, 286 expanded, 175 remodeled, and 243 demolished.",
       "Anythink Brighton in Colorado (2009) is considered the first carbon-negative library in the United States, producing more renewable energy than it uses and offsetting an additional 167,620 lbs of CO2 from other community buildings.",
       "The San Diego Central Library (2013) houses e3 Civic High School, billed as the only school in the United States to be housed within a library, serving grades 9 through 12.",
       "The John Adams Building features bronze entrance doors by sculptor Lee Lawrie depicting deities and heroes associated with the history of writing, including Sequoyah, the only historical person represented.",
@@ -65218,711 +65204,469 @@
   },
   "library_economics": {
     "title": "Library Economics: Funding, ROI & Economic Impact",
-    "overview": "Public libraries are primarily funded through local taxes, with approximately 85-86% of revenue coming from local sources, 7-10% from state governments, and less than 1% from federal sources. The total operating expenditures for US public libraries exceed $14 billion annually. Despite being a tiny fraction of most municipal budgets, libraries deliver an outsized economic return: studies consistently show that every $1 invested in public libraries returns $4-6 in direct and indirect economic benefits. Libraries support local economies through job search assistance, small business resources, workforce development, and early literacy programs that reduce future social costs.",
+    "overview": "The United States public library system represents a massive public investment with significant economic returns. As of FY2022, US public libraries reported total operating expenditures of $14,147,646,938 and total revenue of $15,709,000,375, serving a population of over 334,210,711 through approximately 9,249 library systems. Funding is overwhelmingly local: municipal and county governments provide the vast majority of library revenue, with local sources contributing 86.03% of total income, followed by state government at 7.25%, other sources at 5.86%, and federal government at just 0.86%.\n\nThe economic value of libraries extends far beyond their operating costs. Multiple state-level return on investment (ROI) studies have consistently demonstrated that public libraries return between $3 and $6.50 for every $1 invested, making them one of the highest-return public investments. Libraries support local economies through direct employment, workforce development, small business resources, technology access, and educational services. Despite this proven value, public awareness of library funding challenges remains low, and many systems face chronic underfunding.\n\nVoter support for libraries remains strong: 116 of 168 ballot measures passed (a 69.0% pass rate), seeking over $718,569,078 in total funding. The federal Institute of Museum and Library Services (IMLS) provides supplementary funding through 13,216 grants totaling $954,340,048, though this represents less than 1% of total library revenue. The combination of local funding dominance, proven ROI, and strong voter support underscores the deeply embedded community value of public libraries in American civic life.",
     "key_stats": {
-      "total_public_library_expenditures": 14000000000,
-      "total_public_library_revenue": 14000000000,
-      "avg_per_capita_spending": 43,
-      "median_librarian_salary": 65670,
-      "roi_multiplier": 5.0,
-      "total_ballot_measures": 176,
-      "ballot_pass_rate": 69.88636363636364,
-      "federal_funding_total": 250000000,
-      "local_funding_pct": 86,
-      "state_funding_pct": 9,
-      "federal_funding_pct": 1,
-      "other_funding_pct": 4,
-      "total_employ": 149800
+      "total_public_library_expenditures": 14147646938,
+      "total_public_library_revenue": 15709000375,
+      "avg_per_capita_spending": 42.33,
+      "median_librarian_salary": 61540,
+      "roi_multiplier": "3.00 to 6.54",
+      "total_ballot_measures": 168,
+      "ballot_pass_rate": 69.0,
+      "federal_funding_total": 135371234,
+      "local_funding_pct": 86.03,
+      "state_funding_pct": 7.25,
+      "federal_funding_pct": 0.86
     },
     "funding_sources": {
-      "local_pct": 86,
-      "state_pct": 9,
-      "federal_pct": 1,
-      "other_pct": 4,
-      "description": "Public libraries in the US are overwhelmingly funded by local tax revenue (city, county, and district taxes). State and federal contributions are supplementary. The Gates Foundation's Global Libraries program (1997-2018) was the largest private philanthropic investment in US public library technology, investing over $1 billion globally."
+      "local_pct": 86.03,
+      "state_pct": 7.25,
+      "federal_pct": 0.86,
+      "other_pct": 5.86,
+      "description": "Public library funding in the US is predominantly local. Municipal and county governments contribute 86.03% of total revenue, making local funding the backbone of library operations. State governments provide 7.25%, primarily through state aid programs and grants. Federal funding through IMLS and other agencies accounts for only 0.86%, supplemented by 5.86% from other sources including private donations, grants, fees, and endowments. This heavy reliance on local funding creates significant disparities in per-capita spending across states and communities."
     },
     "per_capita_by_state": [
       {
         "state": "DC",
-        "per_capita_operating": 121.1,
-        "per_capita_income": 110.62,
-        "per_capita_capital": 17.44,
-        "total_operating": 85042819.0,
-        "total_income": 77680473.0,
-        "population_served": 702250
+        "per_capita_spending": 121.1,
+        "total_expenditures": 85042819,
+        "rank": 1
       },
       {
         "state": "CO",
-        "per_capita_operating": 81.54,
-        "per_capita_income": 110.24,
-        "per_capita_capital": 13.07,
-        "total_operating": 476527712.0,
-        "total_income": 644264055.0,
-        "population_served": 5844413
+        "per_capita_spending": 81.54,
+        "total_expenditures": 476527712,
+        "rank": 2
       },
       {
         "state": "OH",
-        "per_capita_operating": 81.43,
-        "per_capita_income": 96.28,
-        "per_capita_capital": 15.06,
-        "total_operating": 951214292.0,
-        "total_income": 1124652231.0,
-        "population_served": 11681554
+        "per_capita_spending": 81.43,
+        "total_expenditures": 951214292,
+        "rank": 3
       },
       {
         "state": "IL",
-        "per_capita_operating": 77.24,
-        "per_capita_income": 90.46,
-        "per_capita_capital": 9.89,
-        "total_operating": 905680996.0,
-        "total_income": 1060710687.0,
-        "population_served": 11725127
+        "per_capita_spending": 77.24,
+        "total_expenditures": 905680996,
+        "rank": 4
       },
       {
         "state": "NY",
-        "per_capita_operating": 77.22,
-        "per_capita_income": 84.99,
-        "per_capita_capital": 7.19,
-        "total_operating": 1578771481.0,
-        "total_income": 1737526708.0,
-        "population_served": 20444087
+        "per_capita_spending": 77.22,
+        "total_expenditures": 1578771481,
+        "rank": 5
       },
       {
         "state": "OR",
-        "per_capita_operating": 75.59,
-        "per_capita_income": 81.83,
-        "per_capita_capital": 56.39,
-        "total_operating": 290426986.0,
-        "total_income": 314392854.0,
-        "population_served": 3842087
+        "per_capita_spending": 75.59,
+        "total_expenditures": 290426986,
+        "rank": 6
       },
       {
         "state": "WA",
-        "per_capita_operating": 73.15,
-        "per_capita_income": 76.1,
-        "per_capita_capital": 14.16,
-        "total_operating": 579289273.0,
-        "total_income": 602683329.0,
-        "population_served": 7919713
+        "per_capita_spending": 73.15,
+        "total_expenditures": 579289273,
+        "rank": 7
       },
       {
         "state": "KS",
-        "per_capita_operating": 71.2,
-        "per_capita_income": 76.65,
-        "per_capita_capital": 2.56,
-        "total_operating": 181497499.0,
-        "total_income": 195373179.0,
-        "population_served": 2549041
+        "per_capita_spending": 71.2,
+        "total_expenditures": 181497499,
+        "rank": 8
       },
       {
         "state": "IN",
-        "per_capita_operating": 66.19,
-        "per_capita_income": 76.53,
-        "per_capita_capital": 5.57,
-        "total_operating": 438602515.0,
-        "total_income": 507091774.0,
-        "population_served": 6626294
+        "per_capita_spending": 66.19,
+        "total_expenditures": 438602515,
+        "rank": 9
       },
       {
         "state": "WY",
-        "per_capita_operating": 64.77,
-        "per_capita_income": 67.2,
-        "per_capita_capital": 0.62,
-        "total_operating": 37827380.0,
-        "total_income": 39250833.0,
-        "population_served": 584057
+        "per_capita_spending": 64.77,
+        "total_expenditures": 37827380,
+        "rank": 10
       },
       {
         "state": "AK",
-        "per_capita_operating": 64.4,
-        "per_capita_income": 68.36,
-        "per_capita_capital": 13.36,
-        "total_operating": 41550284.0,
-        "total_income": 44099620.0,
-        "population_served": 645141
+        "per_capita_spending": 64.4,
+        "total_expenditures": 41550284,
+        "rank": 11
       },
       {
         "state": "MA",
-        "per_capita_operating": 60.51,
-        "per_capita_income": 60.4,
-        "per_capita_capital": 7.29,
-        "total_operating": 422450693.0,
-        "total_income": 421716430.0,
-        "population_served": 6981725
+        "per_capita_spending": 60.51,
+        "total_expenditures": 422450693,
+        "rank": 12
       },
       {
         "state": "LA",
-        "per_capita_operating": 60.04,
-        "per_capita_income": 71.71,
-        "per_capita_capital": 12.42,
-        "total_operating": 272980821.0,
-        "total_income": 326021546.0,
-        "population_served": 4546477
+        "per_capita_spending": 60.04,
+        "total_expenditures": 272980821,
+        "rank": 13
       },
       {
         "state": "MO",
-        "per_capita_operating": 57.99,
-        "per_capita_income": 65.82,
-        "per_capita_capital": 10.14,
-        "total_operating": 329834842.0,
-        "total_income": 374413246.0,
-        "population_served": 5688137
+        "per_capita_spending": 57.99,
+        "total_expenditures": 329834842,
+        "rank": 14
       },
       {
         "state": "RI",
-        "per_capita_operating": 57.03,
-        "per_capita_income": 58.07,
-        "per_capita_capital": 11.24,
-        "total_operating": 62587293.0,
-        "total_income": 63721384.0,
-        "population_served": 1097379
+        "per_capita_spending": 57.03,
+        "total_expenditures": 62587293,
+        "rank": 15
       },
       {
         "state": "VT",
-        "per_capita_operating": 56.74,
-        "per_capita_income": 58.0,
-        "per_capita_capital": 4.02,
-        "total_operating": 36452519.0,
-        "total_income": 37258033.0,
-        "population_served": 642404
+        "per_capita_spending": 56.74,
+        "total_expenditures": 36452519,
+        "rank": 16
       },
       {
         "state": "CT",
-        "per_capita_operating": 56.69,
-        "per_capita_income": 58.73,
-        "per_capita_capital": 9.11,
-        "total_operating": 234364777.0,
-        "total_income": 242800415.0,
-        "population_served": 4133899
+        "per_capita_spending": 56.69,
+        "total_expenditures": 234364777,
+        "rank": 17
       },
       {
         "state": "NJ",
-        "per_capita_operating": 56.02,
-        "per_capita_income": 62.46,
-        "per_capita_capital": 3.76,
-        "total_operating": 554185811.0,
-        "total_income": 617932921.0,
-        "population_served": 9893089
+        "per_capita_spending": 56.02,
+        "total_expenditures": 554185811,
+        "rank": 18
       },
       {
         "state": "CA",
-        "per_capita_operating": 54.79,
-        "per_capita_income": 58.07,
-        "per_capita_capital": 4.23,
-        "total_operating": 2142904286.0,
-        "total_income": 2271338098.0,
-        "population_served": 39110863
+        "per_capita_spending": 54.79,
+        "total_expenditures": 2142904286,
+        "rank": 19
       },
       {
         "state": "NH",
-        "per_capita_operating": 52.26,
-        "per_capita_income": 52.67,
-        "per_capita_capital": 9.6,
-        "total_operating": 79301803.0,
-        "total_income": 79929161.0,
-        "population_served": 1517456
+        "per_capita_spending": 52.26,
+        "total_expenditures": 79301803,
+        "rank": 20
       }
     ],
     "roi_studies": [
       {
         "state": "Colorado",
         "study_year": 2009,
-        "roi_ratio": 4.99,
-        "description": "Colorado LRS study found libraries return $4.99 for every $1 invested. Conducted by the Library Research Service at the Colorado State Library."
-      },
-      {
-        "state": "South Carolina",
-        "study_year": 2005,
-        "roi_ratio": 4.0,
-        "description": "South Carolina study found $4.00 return per $1 invested, with direct economic impact of $350 million from public libraries."
-      },
-      {
-        "state": "Florida",
-        "study_year": 2004,
-        "roi_ratio": 6.54,
-        "description": "Florida taxpayer return on investment study found $6.54 return for every $1 invested in public libraries."
+        "roi_ratio": "4.60 to 6.50",
+        "description": "Library Research Service study found Colorado public libraries return $4.60 to $6.50 for every $1 invested, based on cost-benefit analysis of direct and indirect economic contributions."
       },
       {
         "state": "Wisconsin",
         "study_year": 2008,
-        "roi_ratio": 4.06,
-        "description": "Wisconsin study showed $4.06 return per dollar invested, including direct services, economic development, and property value enhancement."
+        "roi_ratio": "4.06",
+        "description": "NorthStar Economics study for Wisconsin Department of Public Instruction found a $4.06 return for every $1 invested in Wisconsin public libraries."
+      },
+      {
+        "state": "Florida",
+        "study_year": 2004,
+        "roi_ratio": "6.54",
+        "description": "University of South Florida study found Florida public libraries return $6.54 for every $1 of taxpayer investment, totaling $2.9 billion in direct and indirect economic benefit."
+      },
+      {
+        "state": "South Carolina",
+        "study_year": 2005,
+        "roi_ratio": "3.81",
+        "description": "University of South Carolina study found South Carolina public libraries return $3.81 for every $1 invested, generating $199 million in direct economic impact and $356 million total impact."
       },
       {
         "state": "Vermont",
         "study_year": 2007,
-        "roi_ratio": 5.0,
-        "description": "Vermont Department of Libraries found libraries return $5 for every $1 invested in direct and indirect economic benefits."
+        "roi_ratio": "4.81",
+        "description": "Vermont Department of Libraries study found a $4.81 return for every $1 invested in Vermont public libraries."
       },
       {
         "state": "Pennsylvania",
         "study_year": 2006,
-        "roi_ratio": 5.5,
-        "description": "Pennsylvania study found $5.50 return per $1, driven by direct library services, economic development, and educational impact."
+        "roi_ratio": "5.50",
+        "description": "Pennsylvania Office of Commonwealth Libraries study found public libraries return $5.50 for every $1 invested, generating over $1 billion in total economic value."
       },
       {
-        "state": "Indiana",
-        "study_year": 2007,
-        "roi_ratio": 2.38,
-        "description": "Indiana study found $2.38 return per $1 invested in direct services alone, higher when including indirect benefits."
-      },
-      {
-        "state": "Maine",
-        "study_year": 2010,
-        "roi_ratio": 3.0,
-        "description": "Maine State Library study found $3 return per $1 invested in public library services statewide."
+        "state": "New York",
+        "study_year": 2008,
+        "roi_ratio": "3.00",
+        "description": "New York State Library study found a $3 return for every $1 invested in public libraries, with total economic impact of over $5 billion annually."
       }
     ],
     "librarian_salaries": [
       {
+        "state": "Washington",
+        "avg_salary": 91280,
+        "median_salary": 94400
+      },
+      {
+        "state": "District of Columbia",
+        "avg_salary": 94300,
+        "median_salary": 93740
+      },
+      {
         "state": "California",
-        "avg_salary": 82000,
-        "median_salary": 78500
-      },
-      {
-        "state": "New Jersey",
-        "avg_salary": 78000,
-        "median_salary": 75000
-      },
-      {
-        "state": "Massachusetts",
-        "avg_salary": 76000,
-        "median_salary": 72000
-      },
-      {
-        "state": "New York",
-        "avg_salary": 75000,
-        "median_salary": 71000
-      },
-      {
-        "state": "Connecticut",
-        "avg_salary": 74000,
-        "median_salary": 70000
+        "avg_salary": 90960,
+        "median_salary": 86590
       },
       {
         "state": "Maryland",
-        "avg_salary": 73000,
-        "median_salary": 69000
+        "avg_salary": 85520,
+        "median_salary": 81690
       },
       {
-        "state": "Washington",
-        "avg_salary": 72000,
-        "median_salary": 68000
+        "state": "Nevada",
+        "avg_salary": 76480,
+        "median_salary": 79710
+      },
+      {
+        "state": "New Jersey",
+        "avg_salary": 81250,
+        "median_salary": 79380
+      },
+      {
+        "state": "Delaware",
+        "avg_salary": 77850,
+        "median_salary": 78300
       },
       {
         "state": "Alaska",
-        "avg_salary": 70000,
-        "median_salary": 66000
+        "avg_salary": 77090,
+        "median_salary": 78280
       },
       {
-        "state": "Hawaii",
-        "avg_salary": 69000,
-        "median_salary": 65000
+        "state": "New York",
+        "avg_salary": 82150,
+        "median_salary": 77080
       },
       {
-        "state": "Colorado",
-        "avg_salary": 67000,
-        "median_salary": 63000
+        "state": "Connecticut",
+        "avg_salary": 79080,
+        "median_salary": 76380
+      },
+      {
+        "state": "Massachusetts",
+        "avg_salary": 76600,
+        "median_salary": 75790
+      },
+      {
+        "state": "Oregon",
+        "avg_salary": 73900,
+        "median_salary": 75360
       },
       {
         "state": "Minnesota",
-        "avg_salary": 66000,
-        "median_salary": 62000
-      },
-      {
-        "state": "Illinois",
-        "avg_salary": 65000,
-        "median_salary": 61000
-      },
-      {
-        "state": "Ohio",
-        "avg_salary": 64000,
-        "median_salary": 60000
+        "avg_salary": 73480,
+        "median_salary": 75260
       },
       {
         "state": "Virginia",
-        "avg_salary": 63000,
-        "median_salary": 59000
+        "avg_salary": 73340,
+        "median_salary": 74320
       },
       {
-        "state": "Texas",
-        "avg_salary": 58000,
-        "median_salary": 55000
+        "state": "Georgia",
+        "avg_salary": 70900,
+        "median_salary": 73500
       }
     ],
     "ballot_measures": {
-      "total": 176,
-      "passed": 150,
-      "failed": 50,
-      "pass_rate": 69.88636363636364,
+      "total": 168,
+      "passed": 116,
+      "failed": 52,
+      "pass_rate": 69.0,
       "by_state": [
         {
           "state": "IL",
-          "total": 23,
-          "pass": 13,
-          "fail": 10,
-          "amount": 166539000.0
+          "total": 22,
+          "passed": 12,
+          "amount_requested": 166539000
         },
         {
           "state": "MI",
           "total": 18,
-          "pass": 13,
-          "fail": 5,
-          "amount": 40168185.0
+          "passed": 14,
+          "amount_requested": 40168185
         },
         {
           "state": "CA",
-          "total": 17,
-          "pass": 12,
-          "fail": 5,
-          "amount": 104605000.0
-        },
-        {
-          "state": "MO",
-          "total": 13,
-          "pass": 12,
-          "fail": 1,
-          "amount": 14396000.0
+          "total": 16,
+          "passed": 11,
+          "amount_requested": 93105000
         },
         {
           "state": "CO",
           "total": 13,
-          "pass": 8,
-          "fail": 5,
-          "amount": 39046000.0
+          "passed": 9,
+          "amount_requested": 39046000
+        },
+        {
+          "state": "MO",
+          "total": 13,
+          "passed": 12,
+          "amount_requested": 14396000
         },
         {
           "state": "OH",
-          "total": 11,
-          "pass": 9,
-          "fail": 2,
-          "amount": 15590000.0
+          "total": 10,
+          "passed": 8,
+          "amount_requested": 3090000
         },
         {
           "state": "NY",
-          "total": 10,
-          "pass": 9,
-          "fail": 1,
-          "amount": 43824396.0
-        },
-        {
-          "state": "WA",
-          "total": 10,
-          "pass": 8,
-          "fail": 2,
-          "amount": 30052000.0
+          "total": 9,
+          "passed": 8,
+          "amount_requested": 42000000
         },
         {
           "state": "OR",
           "total": 9,
-          "pass": 4,
-          "fail": 5,
-          "amount": 22890000.0
+          "passed": 4,
+          "amount_requested": 18590000
+        },
+        {
+          "state": "WA",
+          "total": 9,
+          "passed": 7,
+          "amount_requested": 17002000
         },
         {
           "state": "LA",
-          "total": 6,
-          "pass": 5,
-          "fail": 1,
-          "amount": 36700000.0
+          "total": 5,
+          "passed": 4,
+          "amount_requested": 19700000
         },
         {
           "state": "PA",
           "total": 5,
-          "pass": 3,
-          "fail": 2,
-          "amount": 14512893.0
-        },
-        {
-          "state": "MA",
-          "total": 4,
-          "pass": 3,
-          "fail": 1,
-          "amount": 50700000.0
-        },
-        {
-          "state": "MT",
-          "total": 4,
-          "pass": 4,
-          "fail": 0,
-          "amount": 30280000.0
+          "passed": 3,
+          "amount_requested": 14512893
         },
         {
           "state": "ID",
           "total": 4,
-          "pass": 1,
-          "fail": 3,
-          "amount": 16200000.0
-        },
-        {
-          "state": "FL",
-          "total": 3,
-          "pass": 2,
-          "fail": 1,
-          "amount": 22000000.0
-        },
-        {
-          "state": "IA",
-          "total": 3,
-          "pass": 1,
-          "fail": 2,
-          "amount": 1600000.0
-        },
-        {
-          "state": "CT",
-          "total": 3,
-          "pass": 2,
-          "fail": 1,
-          "amount": 22300000.0
-        },
-        {
-          "state": "NJ",
-          "total": 3,
-          "pass": 2,
-          "fail": 1,
-          "amount": 320000.0
-        },
-        {
-          "state": "WV",
-          "total": 2,
-          "pass": 2,
-          "fail": 0,
-          "amount": 500000.0
-        },
-        {
-          "state": "AR",
-          "total": 2,
-          "pass": 1,
-          "fail": 1,
-          "amount": 0
-        },
-        {
-          "state": "KA",
-          "total": 1,
-          "pass": 0,
-          "fail": 1,
-          "amount": 8750000.0
-        },
-        {
-          "state": "NV",
-          "total": 1,
-          "pass": 0,
-          "fail": 1,
-          "amount": 0
-        },
-        {
-          "state": "WI",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 4300000.0
-        },
-        {
-          "state": "ME",
-          "total": 1,
-          "pass": 0,
-          "fail": 1,
-          "amount": 0
-        },
-        {
-          "state": "NM",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 19200000.0
-        },
-        {
-          "state": "AZ",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 0
-        },
-        {
-          "state": "VT",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 700000.0
-        },
-        {
-          "state": "KS",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 0
-        },
-        {
-          "state": "TX",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 11500000.0
-        },
-        {
-          "state": "IN",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 6200000.0
-        },
-        {
-          "state": "SC",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 30000000.0
-        },
-        {
-          "state": "RI",
-          "total": 1,
-          "pass": 1,
-          "fail": 0,
-          "amount": 1200000.0
-        },
-        {
-          "state": "VA",
-          "total": 1,
-          "pass": 0,
-          "fail": 1,
-          "amount": 3500000.0
-        }
-      ],
-      "notable": [
-        {
-          "state": "MA",
-          "year": 2022,
-          "amount": 200000000,
-          "result": "passed",
-          "description": "Boston's $200M capital improvement for branch libraries"
-        },
-        {
-          "state": "CA",
-          "year": 2022,
-          "amount": 350000000,
-          "result": "passed",
-          "description": "Los Angeles Public Library bond measure"
-        },
-        {
-          "state": "WA",
-          "year": 2022,
-          "amount": 128000000,
-          "result": "passed",
-          "description": "Seattle Public Library capital levy"
-        },
-        {
-          "state": "MN",
-          "year": 2023,
-          "amount": 219000000,
-          "result": "passed",
-          "description": "Hennepin County Library capital referendum"
-        },
-        {
-          "state": "OH",
-          "year": 2023,
-          "amount": 60000000,
-          "result": "passed",
-          "description": "Columbus Metropolitan Library levy renewal"
+          "passed": 1,
+          "amount_requested": 16200000
         }
       ]
     },
     "economic_impact": {
-      "roi_range": "$2.38 to $6.54 per $1 invested (varies by state and study methodology)",
+      "roi_range": "$3.00 to $6.54 for every $1 invested",
       "key_findings": [
-        "Every $1 invested in public libraries returns $4-6 in direct and indirect economic benefits across multiple state studies",
-        "Libraries generate economic activity through direct employment, purchasing, and capital construction",
-        "Libraries support workforce development: job search assistance, resume help, computer access, and online training",
-        "Early literacy programs reduce future educational and social costs by preparing children for school success",
-        "Libraries increase property values: homes near well-funded libraries sell for more",
-        "Libraries serve as business incubators: providing meeting space, databases, market research tools, and 3D printing",
-        "Free internet access saves households $3,600+ annually in internet costs",
-        "Summer reading programs prevent the 'summer slide' that costs an estimated 2-3 months of learning loss per child"
+        "Public libraries consistently provide returns on taxpayer investment far higher than other municipal spending, as documented across multiple state-level cost-benefit studies.",
+        "State ROI studies show returns ranging from $3.00 (New York, 2008) to $6.54 (Florida, 2004) for every dollar invested in public libraries.",
+        "Libraries generate economic value through direct employment of over 143,324 staff, workforce development programs, small business support, and technology access services.",
+        "The ALA reports that libraries are critical infrastructure for digital equity, providing free internet access to over 100,854,933 users annually.",
+        "Libraries serve as economic anchors in downtown areas and commercial districts, driving foot traffic and supporting local businesses.",
+        "Despite proven ROI, 84% of the public considers maintaining free library services a top priority (Public Agenda, 2006), yet awareness of funding challenges remains low."
       ],
       "major_studies": [
         {
-          "name": "Colorado LRS Economic Impact Study",
+          "name": "Colorado Public Library ROI Study (LRS)",
           "year": 2009,
-          "finding": "Libraries return $4.99 for every $1 invested"
+          "finding": "Colorado public libraries return $4.60 to $6.50 for every $1 invested."
         },
         {
-          "name": "South Carolina ROI Study",
-          "year": 2005,
-          "finding": "Libraries generate $350M in direct economic impact; ROI of 4:1"
-        },
-        {
-          "name": "Florida Taxpayer Return on Investment",
-          "year": 2004,
-          "finding": "ROI of $6.54 per $1 invested"
-        },
-        {
-          "name": "Wisconsin Economic Impact",
+          "name": "Wisconsin Public Library Economic Impact (NorthStar Economics)",
           "year": 2008,
-          "finding": "ROI of $4.06 per $1 invested"
+          "finding": "Wisconsin public libraries return $4.06 for every $1 invested."
         },
         {
-          "name": "Vermont Economic Impact",
+          "name": "Florida Public Library Economic Impact (USF)",
+          "year": 2004,
+          "finding": "Florida public libraries return $6.54 for every $1 invested, totaling $2.9 billion in economic benefit."
+        },
+        {
+          "name": "South Carolina Public Library Impact (USC)",
+          "year": 2005,
+          "finding": "South Carolina public libraries return $3.81 for every $1 invested, with $356 million total economic impact."
+        },
+        {
+          "name": "Vermont Public Library ROI Study",
           "year": 2007,
-          "finding": "ROI of $5.00 per $1 invested"
+          "finding": "Vermont public libraries return $4.81 for every $1 invested."
+        },
+        {
+          "name": "Pennsylvania Public Library ROI Study",
+          "year": 2006,
+          "finding": "Pennsylvania public libraries return $5.50 for every $1 invested, generating over $1 billion in total economic value."
+        },
+        {
+          "name": "New York State Library Economic Impact",
+          "year": 2008,
+          "finding": "New York public libraries return $3 for every $1 invested, with total economic impact exceeding $5 billion annually."
         }
       ]
     },
     "history_timeline": [
       {
-        "year": 1848,
-        "event": "Boston establishes first tax-supported public library, creating the funding model for American public libraries"
+        "year": 1833,
+        "event": "Peterborough, New Hampshire establishes the first tax-supported public library in the United States."
       },
       {
-        "year": 1886,
-        "event": "Andrew Carnegie begins library philanthropy, investing $41.5M in 1,689 buildings"
+        "year": 1848,
+        "event": "Boston Public Library founded by city ordinance, becoming the first large free municipal library in the US."
+      },
+      {
+        "year": 1850,
+        "event": "UK Public Libraries Act passes, allowing towns to establish rate-supported public libraries, a model for US library legislation."
+      },
+      {
+        "year": 1854,
+        "event": "Boston Public Library opens to the public, becoming the first municipally funded library to lend books freely."
+      },
+      {
+        "year": 1883,
+        "event": "Andrew Carnegie begins funding library construction in the US; by 1929 he funded 1,689 libraries nationwide."
       },
       {
         "year": 1956,
-        "event": "Library Services Act provides first federal funding for public libraries"
+        "event": "US Congress passes the Library Services Act, providing federal funding for public library services in rural areas."
       },
       {
         "year": 1964,
-        "event": "LSCA expands federal library funding to urban areas and construction"
+        "event": "Library Services and Construction Act (LSCA) expands federal library funding to include construction and urban services."
       },
       {
         "year": 1996,
-        "event": "LSTA replaces LSCA; IMLS established; E-Rate subsidizes library internet"
+        "event": "Institute of Museum and Library Services (IMLS) established by Museum and Library Services Act, becoming primary federal funder."
       },
       {
         "year": 1997,
-        "event": "Gates Foundation Global Libraries program begins, investing $1B+ in library technology"
+        "event": "E-Rate program created under the Telecommunications Act, providing discounts on internet access for libraries and schools."
+      },
+      {
+        "year": 1998,
+        "event": "Library Services and Technology Act (LSTA) replaces LSCA, shifting focus to technology and information access."
       },
       {
         "year": 2004,
-        "event": "Florida study documents $6.54 ROI per dollar - highest documented library ROI"
+        "event": "ALA reports $162 million in library funding cuts across 41 states over four years."
       },
       {
-        "year": 2008,
-        "event": "Great Recession increases library usage while cutting library budgets"
-      },
-      {
-        "year": 2020,
-        "event": "COVID-19 causes budget cuts but also federal relief funding (ARPA) for libraries"
-      },
-      {
-        "year": 2024,
-        "event": "Total public library expenditures exceed $14 billion nationally"
+        "year": 2012,
+        "event": "Voters in 13 US states approve new library funding measures in ballot initiatives."
       }
     ],
     "key_facts": [
-      "US public libraries spend over $14 billion annually, with local taxes providing 86% of funding",
-      "Every $1 invested in public libraries returns $4-6 in economic value across multiple state studies",
-      "The median librarian salary is approximately $65,670 nationally (BLS 2024), varying from $58K in Texas to $82K in California",
-      "Approximately 149,800 people work in US public libraries, including librarians, paraprofessionals, and support staff",
-      "Florida's 2004 study found the highest documented library ROI at $6.54 per $1 invested",
-      "The Gates Foundation's Global Libraries program invested over $1 billion in public library technology worldwide between 1997 and 2018",
-      "Library ballot measures pass at a rate of approximately 75% nationally, reflecting strong community support",
-      "Per-capita library spending ranges from $25 in low-funding states to $120+ in Washington DC",
-      "Federal funding for libraries through IMLS represents less than 1% of total library budgets but supports critical innovation and equity programs",
-      "Libraries save households an estimated $3,600+ annually through free internet access, programming, and materials",
-      "During the 2008 Great Recession, library usage increased dramatically while budgets were cut, creating a counter-cyclical pattern",
-      "The E-Rate program has provided over $3 billion in telecommunications subsidies to libraries since 1998",
-      "Colorado's Library Research Service (LRS) is the leading academic center for library economic impact research",
-      "Libraries employ approximately 149,800 people nationally, making them significant local employers in many communities"
+      "US public libraries had total operating expenditures of $14,147,646,938 in FY2022 (IMLS Public Libraries Survey).",
+      "Total public library revenue nationwide was $15,709,000,375 in FY2022.",
+      "Local government funding accounts for 86.03% of public library revenue, making it the dominant funding source.",
+      "State government provides 7.25% and federal government provides 0.86% of public library revenue.",
+      "The national average per-capita operating expenditure for public libraries is $42.33 (FY2022).",
+      "District of Columbia has the highest per-capita library spending at $121.10, while Mississippi has among the lowest at $16.48 (FY2024).",
+      "The median annual salary for librarians across US states is $61,540 (BLS Occupational Employment Statistics).",
+      "Washington state has the highest median librarian salary at $94,400; Idaho has the lowest at $46,570 (BLS).",
+      "Total US public librarian employment is approximately 49,741 FTE positions (IMLS FY2024).",
+      "Voters approved 116 of 168 library ballot measures, a 69.0% pass rate.",
+      "Library ballot measures nationwide sought over $718,569,078 in total funding.",
+      "IMLS awarded 13,216 grants totaling $954,340,048 to libraries and museums.",
+      "IMLS American Rescue Plan Act grants provided $77,736,457 across 96 awards to state library agencies in FY2021.",
+      "Andrew Carnegie funded 1,689 public libraries in the US between 1883 and 1929, accounting for nearly half of all US public libraries by 1930.",
+      "A 2013 Pew Research survey found 90% of Americans ages 16+ said closing their local library would affect their community.",
+      "A 2006 Public Agenda survey reported 84% of the public said maintaining free library services should be a top priority.",
+      "Cost-benefit studies consistently show libraries provide returns on taxpayer dollars far higher than other municipal spending.",
+      "Women librarians had a median annual salary of $48,589 compared to $52,528 for men as of 2014, reflecting a persistent wage gap.",
+      "US public libraries served a population of 343,094,915 with 9,249 systems in FY2024.",
+      "Total public library circulation nationwide reached 1,705,466,066 items in FY2024."
     ]
   },
   "library_law": {
@@ -68320,275 +68064,879 @@
   },
   "library_consortia_summary": {
     "title": "Library Consortia: Collaboration at Scale",
-    "overview": "Library consortia are cooperative organizations that enable libraries to share resources, negotiate collectively, and provide services that no single library could offer alone. The US has dozens of library consortia ranging from massive international organizations like OCLC (with 16,000+ member libraries) to state-based systems like OhioLINK and TexShare. Consortia negotiate database licensing discounts, operate shared catalogs and interlibrary loan systems, maintain digital repositories like HathiTrust, and develop technical standards through NISO. The Digital Public Library of America (DPLA), launched in 2013, represents a new model of consortium bringing together digital collections from libraries, archives, and museums nationwide.",
+    "overview": "A library consortium is any cooperative association of libraries that coordinates resources and activities on behalf of its members, whether they are academic, public, school, or special libraries and information centers. The bedrock principle upon which consortia operate is that \"libraries can accomplish more together than alone.\" Consortia amplify member capabilities through collective action, including print and electronic resource sharing, cost reduction through group purchasing of resources, shared technology infrastructure, professional development, and shared print programs. North America, principally the United States and Canada, accounts for nearly 60% of the consortia registered with the International Coalition of Library Consortia (ICOLC), an informal, self-organized group that currently counts 243 participating consortia worldwide.\n\nThe United States consortium landscape took shape over more than a century. Documented library cooperation dates to 1867, while the earliest formally established consortium, the Triangle Research Libraries Network (TRLN), appeared in 1933, and the 1960s and 1970s are considered the \"heyday of consortia development.\" The founding of OCLC in 1967 for shared cataloging, the spread of statewide and regional online-catalog consortia in the 1970s through the 1990s, and the rise of collaborative electronic-resource licensing in the mid-1990s shaped today's system. Major players now include OCLC (nearly 30,000 member libraries in 100+ countries and annual revenue of about $217.8 million), HathiTrust (more than 18 million digitized volumes), the Association of Research Libraries (125 members spending approximately $4.5 billion every year on information resources), and the Center for Research Libraries (250 member libraries).\n\nState and regional consortia extend collaboration to the local level. OhioLINK serves 88 institutions and 117 libraries serving more than 800,000 students, faculty, and staff; TexShare coordinates hundreds of Texas libraries; and VIVA unites 74 Virginia academic libraries. Beyond licensing and resource sharing, consortia increasingly develop shared technology (Lyrasis hosts open-source platforms such as DSpace, Fedora, ArchivesSpace, and VIVO), set technical standards (NISO), build high-speed research networks (Internet2's 100 Gbit/s backbone connecting over 60,000 US institutions including public libraries and museums), and aggregate digital heritage (the Digital Public Library of America's 53M+ items from 46 partner hubs across 40 states and 8,700+ contributing institutions).",
     "key_stats": {
-      "total_consortia_us": 50,
-      "total_member_libraries": 50000,
-      "oclc_member_libraries": 16000,
-      "oclc_worldcat_records": 540000000,
+      "total_consortia_us": 67,
+      "total_member_libraries": 30000,
+      "oclc_member_libraries": 30000,
+      "oclc_worldcat_records": 1000000000,
       "hathitrust_volumes": 18000000,
-      "arl_members": 127,
-      "dpla_partners": 5000,
-      "dpla_items": 50000000,
-      "internet2_members": 350,
-      "niso_standards": 30,
-      "crl_members": 200
+      "arl_members": 125,
+      "dpla_partners": 46,
+      "dpla_items": 53000000
     },
     "major_consortia": [
       {
-        "name": "OCLC (Online Computer Library Center)",
+        "name": "OCLC",
         "founded": 1967,
         "headquarters": "Dublin, Ohio",
-        "members": 16000,
-        "description": "The largest library consortium in the world. OCLC operates WorldCat (the world's largest bibliographic database with 540M+ records), provides interlibrary loan systems (ILLiad, Tipasa, WorldShare), cataloging tools, and research services.",
-        "key_service": "WorldCat shared catalog"
+        "members": 30000,
+        "description": "US-based nonprofit cooperative organization (originally the Ohio College Library Center) that provides shared technology services, original research, and community programs for its membership. It funds itself mainly through fees libraries pay for services (about $217.8 million annually as of 2021) and maintains the Dewey Decimal Classification system. The first online cataloging by any library worldwide occurred through OCLC on August 26, 1971, at Ohio University.",
+        "key_service": "WorldCat shared cataloging (largest online public access catalog in the world)"
       },
       {
         "name": "HathiTrust",
         "founded": 2008,
-        "headquarters": "Ann Arbor, Michigan",
-        "members": 200,
-        "description": "Collaborative digital repository of 18+ million volumes from research libraries. Provides shared access to digitized books, including full-text search and access for users with print disabilities.",
-        "key_service": "Shared digital repository"
+        "headquarters": "Ann Arbor, Michigan (administered by the University of Michigan)",
+        "members": 219,
+        "description": "Large-scale collaborative repository of digital content from research libraries, founded in October 2008 by the twelve universities of the Committee on Institutional Cooperation and the eleven libraries of the University of California. As of September 2024 it held more than 18 million volumes, including 6.7 million in the US public domain. Its Shared Print Program commits participating libraries to retaining almost 18 million monograph volumes for 25 years.",
+        "key_service": "Shared digital repository with full-text search across the entire corpus"
       },
       {
-        "name": "Center for Research Libraries (CRL)",
+        "name": "Center for Research Libraries",
         "founded": 1949,
         "headquarters": "Chicago, Illinois",
-        "members": 200,
-        "description": "Consortium of research libraries that acquires and preserves newspapers, journals, documents, archives, and other traditional and digital resources for research and teaching.",
-        "key_service": "Shared collection development and preservation"
+        "members": 250,
+        "description": "Consortium of North American universities, colleges, and independent research libraries founded in 1949 as the Midwest Inter-Library Center (MILC) by ten midwestern universities. It acquires and preserves traditional and digital resources for research and teaching, including foreign newspapers, government documents, microform archives, and foreign dissertations, and makes them available through interlibrary loan. Since 2013 it has hosted NERL, which negotiates licenses for 28 member academic research libraries and 80 affiliates.",
+        "key_service": "Shared storage and preservation of last-copy print, microform, and digital research collections"
       },
       {
-        "name": "Association of Research Libraries (ARL)",
+        "name": "Association of Research Libraries",
         "founded": 1932,
-        "headquarters": "Washington, DC",
-        "members": 127,
-        "description": "Association of 127 research libraries in the US and Canada. Advocates for research libraries, collects statistics, and influences policy on scholarly communication, copyright, and public access.",
-        "key_service": "Advocacy and statistics for research libraries"
+        "headquarters": "Washington, D.C.",
+        "members": 125,
+        "description": "Nonprofit membership organization of research libraries and archives in major public and private universities, federal government agencies, and large public institutions in Canada and the US. It held its first meeting on December 29, 1932 with 42 major university and research libraries. ARL member libraries spend approximately $4.5 billion every year on information resources. ARL co-founded the Coalition for Networked Information (CNI) with EDUCAUSE in 1990.",
+        "key_service": "Research library advocacy, statistics, and scholarly communications policy"
       },
       {
         "name": "OhioLINK",
         "founded": 1992,
         "headquarters": "Columbus, Ohio",
-        "members": 120,
-        "description": "Ohio's statewide library consortium serving 120+ academic libraries and the State Library of Ohio. Provides shared catalog of 46M+ items, 140+ electronic databases, and statewide interlibrary delivery.",
-        "key_service": "Statewide shared catalog and database licensing"
+        "members": 88,
+        "description": "The Ohio Library and Information Network, a consortium of Ohio's college and university libraries and the State Library of Ohio. It serves more than 800,000 students, faculty, and staff at 88 institutions with 117 libraries, including 16 public universities, 23 community/technical colleges, 48 private colleges, and the State Library of Ohio. It grew out of a 1987 recommendation by the Ohio Board of Regents and selected its software in 1990; six universities installed systems in 1992.",
+        "key_service": "Statewide electronic catalog and shared electronic resource access for Ohio higher education"
       },
       {
         "name": "TexShare",
         "founded": 1994,
-        "headquarters": "Austin, Texas",
-        "members": 700,
-        "description": "Texas statewide library consortium administered by the Texas State Library. Provides shared databases, interlibrary loan, and resource sharing for 700+ academic and public libraries.",
-        "key_service": "Statewide database licensing and resource sharing"
+        "headquarters": "Austin, Texas (administered by the Texas State Library and Archives Commission)",
+        "members": 53,
+        "description": "Statewide resource-sharing consortium of hundreds of member libraries in Texas, administered by the Texas State Library and Archives Commission (TSLAC). It was first proposed by Texas academic library directors in 1988 and established with 53 publicly supported four-year academic and medical libraries, with funding beginning in fiscal year 1994. Legislative statutes later expanded membership to independent academic institutions, community colleges, public libraries (1997-1999), clinical medicine libraries (2001), and K-12 public school purchasing (2005).",
+        "key_service": "Statewide database licensing, TexShare Card reciprocal borrowing, and interlibrary loan"
       },
       {
-        "name": "VIVA (Virtual Library of Virginia)",
+        "name": "VIVA",
         "founded": 1994,
-        "headquarters": "Richmond, Virginia",
-        "members": 72,
-        "description": "Virginia's academic library consortium serving 72 nonprofit academic libraries. Negotiates database licenses and provides shared digital collections.",
-        "key_service": "Academic database licensing"
+        "headquarters": "Virginia",
+        "members": 74,
+        "description": "The Virtual Library of Virginia, a consortium of nonprofit academic libraries within the Commonwealth of Virginia, established in July 1994. Members include all 39 state-assisted colleges and universities (6 doctoral, 9 four-year, and 24 community/two-year institutions), 34 independent (private, nonprofit) institutions, and the Library of Virginia. In fiscal year 2012, state General Assembly funding accounted for 44% of VIVA's budget, down from 77% in fiscal year 2006.",
+        "key_service": "Collaborative licensing and procurement of electronic resources for Virginia academic libraries"
       },
       {
         "name": "Amigos Library Services",
-        "founded": 1972,
+        "founded": 1974,
         "headquarters": "Dallas, Texas",
-        "members": 400,
-        "description": "One of the largest library consortia in the western US. Provides OCLC services, continuing education, and disaster recovery services for 400+ libraries.",
-        "key_service": "OCLC services and training"
+        "members": 22,
+        "description": "Membership-based American not-for-profit organization formed in 1974 as the AMIGOS Bibliographic Council by 22 libraries to bring OCLC access to the southwestern United States. In July 2012 it merged with the Missouri Library Network Corporation (MLNC), becoming the largest library network west of the Mississippi River and serving libraries and cultural heritage institutions across 22 states, with an office in the St. Louis area.",
+        "key_service": "OCLC access, continuing education, and group purchasing for southwestern and midwestern libraries"
       },
       {
         "name": "Lyrasis",
         "founded": 2009,
-        "headquarters": "Atlanta, Georgia",
-        "members": 1500,
-        "description": "Formed from merger of PALINET and SOLINET. One of the largest library consortia in the US, providing digital services, group purchasing, and preservation services to 1,500+ member organizations.",
-        "key_service": "Digital services and group purchasing"
+        "headquarters": "Alpharetta, Georgia",
+        "members": 1000,
+        "description": "Nonprofit 501(c)(3) membership organization serving libraries, archives, museums, and cultural heritage and research organizations globally, formed in April 2009 from the merger of SOLINET and PALINET (whose history dated to 1933). NELINET merged in late 2009 and the Bibliographical Center for Research in January 2011. As of 2025 it had more than 1,000 institutional and group members and about 100 staff, with revenue of about $139 million. It serves as the organizational home for open-source projects including CollectionSpace, ArchivesSpace, Fedora, DSpace, and VIVO.",
+        "key_service": "Open-source software hosting, content and scholarly communications services, and consulting"
       },
       {
         "name": "Internet2",
         "founded": 1996,
-        "headquarters": "Ann Arbor, Michigan",
-        "members": 350,
-        "description": "Advanced networking consortium of 350+ universities, corporations, and research institutions. Provides high-speed network infrastructure used by academic libraries for data-intensive research and collaboration.",
-        "key_service": "High-speed research networking"
+        "headquarters": "Ann Arbor, Michigan (offices in Washington, D.C. and Denver, Colorado)",
+        "members": 500,
+        "description": "Not-for-profit US computer networking consortium led by members from the research and education communities, industry, and government. Originally established by 34 university researchers in 1996 and formally organized as the University Corporation for Advanced Internet Development (UCAID) in 1997, it operates a 100 Gbit/s network backbone serving more than 210 US educational institutions, 70 corporations, and 45 non-profit and government agencies, and connects over 60,000 US educational, research, government, and community anchor institutions including public libraries and museums.",
+        "key_service": "High-speed research and education network, InCommon federated identity, and Net+ cloud services"
       },
       {
-        "name": "NISO (National Information Standards Organization)",
+        "name": "NISO",
         "founded": 1939,
         "headquarters": "Baltimore, Maryland",
-        "members": 0,
-        "description": "Non-profit organization accredited by ANSI that develops and maintains technical standards for information services, including library metadata, circulation, and preservation standards.",
-        "key_service": "Technical standards development"
+        "members": 221,
+        "description": "The National Information Standards Organization, a US non-profit standards organization that develops, maintains, and publishes technical standards related to publishing, bibliographic, and library applications. Founded in 1939 as the Z39 Committee, incorporated as a not-for-profit education association in 1983, and renamed NISO in 1984, it is accredited by ANSI and represents US interests to ISO Technical Committee 46. It merged with the National Federation of Advanced Information Services (NFAIS) in July 2019. Standards include Z39.50 (database access), Z39.85 (Dublin Core), and Z39.96 (JATS).",
+        "key_service": "Development of ANSI/NISO Z39 technical standards for libraries and publishing"
       },
       {
-        "name": "Digital Public Library of America (DPLA)",
+        "name": "DPLA",
         "founded": 2013,
         "headquarters": "Boston, Massachusetts",
-        "members": 5000,
-        "description": "Aggregator of digital resources from libraries, archives, and museums across America. Provides free access to 50+ million items from 5,000+ partner institutions through a single discovery platform.",
-        "key_service": "National digital aggregation"
+        "members": 46,
+        "description": "The Digital Public Library of America, a US nonprofit (501(c)(3)) discovery tool and union catalog for public domain and openly licensed content held by US archives, libraries, and museums. It launched on April 18, 2013 after two-and-a-half years of development begun at Harvard University's Berkman Center. It aggregates 53M+ items from 46 partner hubs across 40 states and 8,700+ contributing institutions, and partnered with HathiTrust in June 2013. It launched the Banned Book Club in July 2023.",
+        "key_service": "National aggregation of digital cultural heritage items from service and content hubs"
       }
     ],
     "state_consortia": [
       {
         "name": "OhioLINK",
         "state": "Ohio",
-        "members": 120,
-        "description": "Serves Ohio's academic libraries with shared catalog, databases, and delivery"
+        "members": 88,
+        "description": "Ohio Library and Information Network serving 88 institutions (16 public universities, 23 community/technical colleges, 48 private colleges, and the State Library of Ohio) with 117 libraries and more than 800,000 users. Part of the Ohio Technology Consortium (OH-TECH) and funded by the Ohio General Assembly through the Department of Higher Education. Also partners in Libraries Connect Ohio (LCO) with INFOhio, OPLIN, and the State Library of Ohio to build the Ohio Web Library."
       },
       {
         "name": "TexShare",
         "state": "Texas",
-        "members": 700,
-        "description": "Texas statewide consortium for academic and public libraries"
+        "members": 53,
+        "description": "Statewide resource-sharing consortium administered by the Texas State Library and Archives Commission. Founded in 1994 with 53 publicly supported academic and medical libraries, it has since expanded by statute to include independent academic institutions, community colleges, public libraries, and clinical medicine libraries, and now comprises hundreds of member libraries. Offers the TexShare Databases, the TexShare Card for reciprocal borrowing, and works with the TexQuest K-12 program and the E-Read Texas e-books program."
       },
       {
         "name": "VIVA",
         "state": "Virginia",
-        "members": 72,
-        "description": "Virginia's academic library consortium for database licensing"
-      },
-      {
-        "name": "PALCI",
-        "state": "Pennsylvania",
-        "members": 70,
-        "description": "Pennsylvania Academic Library Consortium for resource sharing"
-      },
-      {
-        "name": "IDS Project",
-        "state": "New York",
-        "members": 100,
-        "description": "New York state interlibrary loan and resource sharing consortium"
-      },
-      {
-        "name": "ICLC",
-        "state": "Illinois",
-        "members": 200,
-        "description": "Illinois academic library consortium"
-      },
-      {
-        "name": "SCENDL",
-        "state": "South Carolina",
-        "members": 50,
-        "description": "South Carolina electronic network for digital libraries"
+        "members": 74,
+        "description": "The Virtual Library of Virginia, established July 1994, a consortium of 74 nonprofit academic libraries comprising all 39 state-assisted colleges and universities, 34 independent (private, nonprofit) institutions, and the Library of Virginia. Operates under a memorandum of understanding with a 15-member steering committee and three standing committees (Outreach, Resources for Users, and Resource Sharing). Received the Governor's Technology Gold Award in 2003."
       }
     ],
     "services": [
       {
         "service": "Shared cataloging (WorldCat)",
         "provider": "OCLC",
-        "description": "Cooperative cataloging system where libraries share bibliographic records, reducing duplicate cataloging effort. WorldCat contains 540M+ records."
+        "description": "OCLC and its member libraries cooperatively produce and maintain WorldCat, the largest online public access catalog in the world, with holding records from public and private libraries worldwide. OCLC assigns a unique OCLC Control Number (OCN) to each bibliographic record; over a billion OCNs had been created by mid-2013 and were declared public domain in September 2013."
       },
       {
-        "service": "Interlibrary loan",
-        "provider": "OCLC (ILLiad, Tipasa, WorldShare ILL)",
-        "description": "Systems for borrowing and lending materials between libraries. OCLC processes millions of ILL requests annually."
+        "service": "Interlibrary loan and resource sharing",
+        "provider": "OCLC (Tipasa, ILLiad, WorldShare Interlibrary Loan)",
+        "description": "OCLC operates the largest resource sharing network in the world with 10,000+ libraries worldwide, built on more than 40 years of leadership. Its Express digital delivery program has more than 1,000 participating libraries and fills copy requests in an average of 10 hours. WorldShare ILL and Tipasa are cloud-based ILL management systems; ILLiad is hosted in partnership with Atlas Systems."
       },
       {
         "service": "Shared digital repository",
         "provider": "HathiTrust",
-        "description": "18+ million digitized volumes from research libraries with full-text search and access for users with print disabilities."
+        "description": "A large-scale collaborative repository holding more than 18 million digitized volumes (including 6.7 million in the US public domain) with full-text search across the entire corpus. The Emergency Temporary Access Service (ETAS) provides lawful access to in-copyright digital materials in place of physical books during closures such as public health emergencies."
       },
       {
-        "service": "Joint licensing/negotiation",
-        "provider": "Various consortia (OhioLINK, TexShare, VIVA, etc.)",
-        "description": "Consortial purchasing of electronic databases and e-books, achieving significant cost savings through collective negotiation."
+        "service": "Joint licensing and content negotiation",
+        "provider": "Various consortia (VIVA, TexShare, OhioLINK, NERL/CRL, SCELC, California Digital Library, etc.)",
+        "description": "The most traditional consortial function: negotiating better prices and licensing terms for electronic databases, e-journals, ebooks, and streaming media. A growing focus is Open Access through transformative agreements, such as the California Digital Library's 2021 deal with Elsevier to make all University of California research open access over four years."
       },
       {
-        "service": "Shared storage/preservation",
-        "provider": "CRL, HathiTrust",
-        "description": "Shared collection development and long-term preservation of research materials, reducing redundant storage costs."
+        "service": "Shared storage and preservation",
+        "provider": "Center for Research Libraries",
+        "description": "CRL acquires and preserves traditional and digital research resources including foreign newspapers, government documents, microform archives, historic journals, and foreign dissertations, and lends them to members at no charge while charging non-members. Its holdings are discoverable in OCLC's WorldCat, and it coordinates last-copy retention through the Global Resources Forum."
       },
       {
-        "service": "Standards development",
+        "service": "Shared print programs",
+        "provider": "HathiTrust and regional/national consortia",
+        "description": "Coordinated retention of scholarly monographs so that institutions within a region maintain a practical number of copies while freeing library space. The HathiTrust Shared Print Program commits participating libraries to retaining almost 18 million monograph volumes for 25 years, representing three-quarters of HathiTrust digital book holdings."
+      },
+      {
+        "service": "Technical standards development",
         "provider": "NISO",
-        "description": "Technical standards for metadata (Z39.50, Dublin Core), circulation (NCIP), and digital preservation (PREMIS)."
+        "description": "ANSI-accredited development of US national standards and recommended practices for publishing, libraries, and content distribution. Notable standards include ANSI/NISO Z39.50 (protocol for accessing bibliographic databases), Z39.85 (Dublin Core), Z39.88 (OpenURL), Z39.93 (SUSHI usage statistics), and Z39.96 (JATS Journal Article Tag Suite)."
       },
       {
-        "service": "High-speed networking",
+        "service": "Open-source software hosting and shared technology",
+        "provider": "Lyrasis",
+        "description": "Since 2014 Lyrasis has provided fiscal sponsorship and program services as the organizational home for open-source projects serving libraries, museums, and archives, including CollectionSpace, ArchivesSpace, Fedora, DSpace, and VIVO. It also leads the ORCID US community of practice and acquired the Palace Project e-book platform from DPLA in 2025."
+      },
+      {
+        "service": "High-speed research and education networking",
         "provider": "Internet2",
-        "description": "Advanced network infrastructure enabling data-intensive research collaboration between academic libraries."
+        "description": "Operation of a 100 Gbit/s dynamic hybrid optical and packet network backbone for research and education, connecting over 60,000 US institutions. Includes the InCommon Federation for federated identity, access to eduGAIN globally, eduroam wifi for research and education users, and Net+ cloud-based services tailored to the R&E community."
       },
       {
-        "service": "Digital aggregation",
-        "provider": "DPLA",
-        "description": "Single discovery platform aggregating 50M+ digital items from 5,000+ cultural heritage institutions nationwide."
+        "service": "Professional development",
+        "provider": "Various consortia (Lyrasis, Amigos, OCLC WebJunction, Professional Development Alliance)",
+        "description": "Consortia provide paid and free training, workshops, conferences, and skill-sharing for library staff. OCLC's WebJunction, funded by the Bill & Melinda Gates Foundation since 2003, is an online learning hub. The Professional Development Alliance shares professional development content across consortia."
       }
     ],
     "history_timeline": [
       {
+        "year": 1867,
+        "event": "The American Library Association's Committee on Cooperation in Indexing and Cataloguing College Libraries documents the earliest US library cooperation."
+      },
+      {
         "year": 1932,
-        "event": "Association of Research Libraries (ARL) founded to advocate for research libraries"
+        "event": "The Association of Research Libraries (ARL) holds its first meeting in Chicago on December 29 with 42 major university and research libraries."
+      },
+      {
+        "year": 1933,
+        "event": "The Triangle Research Libraries Network (TRLN) is founded to serve the major academic libraries of North Carolina, the earliest formally established US library consortium."
       },
       {
         "year": 1939,
-        "event": "Z39 standards established (later became NISO) for bibliographic information interchange"
+        "event": "NISO is founded as the Z39 Committee to develop bibliographic and library technical standards."
       },
       {
         "year": 1949,
-        "event": "Center for Research Libraries (CRL) founded as Midwest Inter-Library Center"
+        "event": "The Center for Research Libraries is founded as the Midwest Inter-Library Center (MILC) by ten midwestern universities, an early form of shared print."
       },
       {
         "year": 1967,
-        "event": "OCLC founded as Ohio College Library Center, beginning the computerized library cooperation era"
+        "event": "OCLC is formed on July 5 as the Ohio College Library Center for the purposes of shared library cataloging, founded by Frederick G. Kilgour."
       },
       {
         "year": 1971,
-        "event": "OCLC launches shared cataloging system, beginning the WorldCat database"
+        "event": "The first online cataloging by any library worldwide occurs on August 26 at Ohio University's Alden Library through OCLC."
       },
       {
-        "year": 1972,
-        "event": "Amigos Library Services founded to serve southwestern libraries"
+        "year": 1974,
+        "event": "Amigos Library Services is formed in Dallas as the AMIGOS Bibliographic Council by 22 libraries to bring OCLC access to the southwestern United States."
       },
       {
-        "year": 1988,
-        "event": "ILLiad interlibrary loan system introduced by Atlas Systems"
+        "year": 1990,
+        "event": "ARL co-founds the Coalition for Networked Information (CNI) with EDUCAUSE to advance higher education through information technology."
       },
       {
         "year": 1992,
-        "event": "OhioLINK established as statewide academic library consortium"
+        "event": "OhioLINK begins operations as six Ohio universities install its systems and start building the central catalog."
       },
       {
         "year": 1994,
-        "event": "TexShare and VIVA established as state-level consortia"
+        "event": "TexShare is established with 53 Texas academic and medical libraries, and the Virtual Library of Virginia (VIVA) is established in July."
       },
       {
         "year": 1996,
-        "event": "Internet2 founded to provide advanced networking for research"
+        "event": "The Internet2 project is established by 34 university researchers (formally organized as UCAID in 1997) to serve research and education networking needs."
+      },
+      {
+        "year": 1997,
+        "event": "The International Coalition of Library Consortia (ICOLC) first meets informally as the Consortium of Consortia (COC)."
       },
       {
         "year": 2008,
-        "event": "HathiTrust founded as shared digital repository"
+        "event": "HathiTrust is founded in October by the Committee on Institutional Cooperation universities and the University of California libraries, and CRL receives a $1.45 million Andrew W. Mellon Foundation grant for its digital strategy."
       },
       {
         "year": 2009,
-        "event": "Lyrasis formed from merger of PALINET and SOLINET"
+        "event": "Lyrasis is formed in April from the merger of SOLINET and PALINET, later absorbing NELINET (2009) and the Bibliographical Center for Research (2011)."
       },
       {
         "year": 2013,
-        "event": "Digital Public Library of America (DPLA) launches with 2.4M items"
+        "event": "The Digital Public Library of America (DPLA) launches on April 18 with nearly 2.5 million records from six Service Hubs and ten Content Hubs."
       },
       {
-        "year": 2024,
-        "event": "DPLA aggregates 50M+ items from 5,000+ partner institutions"
+        "year": 2021,
+        "event": "The California Digital Library negotiates a landmark transformative open-access agreement with Elsevier, making University of California research open access over four years."
       }
     ],
     "key_facts": [
-      "OCLC, founded in 1967, is the world's largest library consortium with 16,000+ member libraries in 100+ countries",
-      "WorldCat, OCLC's shared catalog, contains 540+ million bibliographic records making it the world's largest library catalog",
+      "A library consortium is any cooperative association of libraries that coordinates resources and activities; the bedrock principle is that libraries can accomplish more together than alone.",
+      "North America (the United States and Canada) accounts for nearly 60% of consortia registered with the International Coalition of Library Consortia (ICOLC).",
+      "ICOLC currently has 243 participating consortia worldwide and is entirely informal, with no dues, no elected officials, and no bylaws.",
+      "OCLC, founded in 1967 as the Ohio College Library Center, is the largest library consortium with nearly 30,000 member libraries in 100+ countries and annual revenue of about $217.8 million (2020-21).",
+      "WorldCat, maintained cooperatively by OCLC and its member libraries, is the largest online public access catalog in the world; over a billion OCLC Control Numbers had been created by mid-2013.",
+      "The first online cataloging by any library worldwide occurred on August 26, 1971, at Ohio University's Alden Library through OCLC.",
+      "OCLC maintains the Dewey Decimal Classification system, having acquired the trademark and copyrights with Forest Press in 1988.",
+      "HathiTrust, founded in October 2008, holds more than 18 million digitized volumes, including 6.7 million in the US public domain (as of September 2024).",
+      "The HathiTrust Shared Print Program commits participating libraries to retaining almost 18 million monograph volumes for 25 years, representing three-quarters of its digital book holdings.",
+      "ARL's 125 member libraries spend approximately $4.5 billion every year on information resources and make up a large portion of the academic and research library marketplace.",
+      "The Center for Research Libraries, founded in 1949 by ten midwestern universities, has 250 member libraries and hosts NERL, which negotiates licenses for 28 member and 80 affiliate academic research libraries.",
+      "The 1960s and 1970s are considered the heyday of consortia development in the United States.",
+      "Collaborative licensing of electronic resources rose to prominence in the mid-1990s as libraries shifted from print-focused collection development to online databases and e-journals.",
+      "OCLC's resource sharing network is the largest in the world with 10,000+ libraries; its Express digital delivery program fills copy requests in an average of 10 hours.",
+      "Internet2 operates a 100 Gbit/s network backbone connecting over 60,000 US educational, research, government, and community anchor institutions including public libraries and museums.",
+      "The Digital Public Library of America aggregates 53M+ items from 46 partner hubs across 40 states and 8,700+ contributing institutions, and launched the Banned Book Club in July 2023.",
+      "Lyrasis, formed in 2009 from the merger of SOLINET and PALINET, has 1,000+ members and serves as the organizational home for open-source projects including DSpace, Fedora, ArchivesSpace, and VIVO.",
+      "NISO, founded in 1939 as the Z39 Committee, develops standards including Z39.50 (database access protocol), Dublin Core (Z39.85), OpenURL (Z39.88), SUSHI (Z39.93), and JATS (Z39.96).",
+      "OhioLINK serves more than 800,000 students, faculty, and staff at 88 institutions with 117 libraries in Ohio.",
+      "VIVA's 74 member institutions include all 39 state-assisted Virginia colleges and universities, 34 independent (private, nonprofit) institutions, and the Library of Virginia.",
+      "TexShare began in 1994 with 53 publicly supported academic and medical libraries and has since expanded by statute to include public libraries, community colleges, and clinical medicine libraries.",
+      "Amigos Library Services, founded in 1974 by 22 libraries to bring OCLC access to the southwest, merged with MLNC in 2012 to become the largest library network west of the Mississippi River, serving libraries across 22 states.",
+      "Many libraries commonly belong to multiple consortia, so aggregate membership counts across consortia overcount unique libraries; OCLC's nearly 30,000 member libraries represent the largest single consortial membership.",
+      "The California Digital Library's 2021 transformative agreement with Elsevier is a prominent US example of consortial open-access negotiation, converting paywalled content to open access."
+    ]
+  },
+  "digital_libraries_enhanced": {
+    "title": "Digital Libraries & E-Books: The Digital Reading Revolution",
+    "overview": "The digital library revolution has transformed how Americans access books, research, and cultural heritage. Project Gutenberg (1971) was the first digital library, offering free e-books decades before the term existed. The Internet Archive (1996) pioneered web preservation and digital lending. Google Books (2004) set out to scan every book ever published. HathiTrust (2008) created a shared research repository of 18+ million volumes. OverDrive (2003) became the dominant e-book lending platform for public libraries. The Digital Public Library of America (2013) aggregates 50+ million items from 5,000+ institutions. Together, these digital libraries represent a fundamental shift in how knowledge is preserved, discovered, and shared.",
+    "key_stats": {
+      "internet_archive_items": 41000000,
+      "internet_archive_wayback_pages": 835000000000,
+      "project_gutenberg_ebooks": 70000,
+      "open_library_records": 20000000,
+      "google_books_scanned": 40000000,
+      "hathitrust_volumes": 18000000,
+      "overdrive_titles": 5000000,
+      "overdrive_checkouts_2023": 600000000,
+      "dpla_items": 50000000,
+      "dpla_partners": 5000
+    },
+    "digital_libraries": [
+      {
+        "name": "Project Gutenberg",
+        "founded": 1971,
+        "founder": "Michael Hart",
+        "items": 70000,
+        "description": "The world's first digital library. Founded at the University of Illinois, it offers 70,000+ free e-books, mostly public domain classics. Predates the Internet by decades.",
+        "key_feature": "Free public domain e-books in multiple formats"
+      },
+      {
+        "name": "Internet Archive",
+        "founded": 1996,
+        "founder": "Brewster Kahle",
+        "items": 41000000,
+        "description": "Non-profit digital library offering free universal access to 41M+ texts, 14M+ videos, 15M+ audio recordings, and the Wayback Machine with 835B+ archived web pages. Operates controlled digital lending of scanned books.",
+        "key_feature": "Wayback Machine (835B web pages); controlled digital lending"
+      },
+      {
+        "name": "Open Library",
+        "founded": 2006,
+        "founder": "Internet Archive / Aaron Swartz",
+        "items": 20000000,
+        "description": "An Internet Archive project with the goal of creating 'one web page for every book ever published.' Contains 20M+ book records with a wiki interface for community contributions.",
+        "key_feature": "One web page for every book ever published; editable catalog"
+      },
+      {
+        "name": "Google Books",
+        "founded": 2004,
+        "founder": "Google (Larry Page, Sergey Brin)",
+        "items": 40000000,
+        "description": "Google's ambitious project to scan every book ever published. Has scanned 40M+ books from major research libraries. Full text searchable; public domain works fully viewable. Sparked the Authors Guild v. Google lawsuit (settled 2013).",
+        "key_feature": "Full-text search of 40M+ scanned books"
+      },
+      {
+        "name": "HathiTrust",
+        "founded": 2008,
+        "founder": "Committee on Institutional Cooperation (CIC)",
+        "items": 18000000,
+        "description": "Collaborative digital repository of 18M+ digitized volumes contributed by research libraries. Provides full-text search and access for users with print disabilities. Member-governed, with 200+ partner institutions.",
+        "key_feature": "Shared digital repository; access for print-disabled users"
+      },
+      {
+        "name": "OverDrive / Libby",
+        "founded": 2003,
+        "founder": "Steve Potash",
+        "items": 5000000,
+        "description": "The dominant e-book and audiobook lending platform for public libraries. Serves 92,000+ libraries and schools worldwide. In 2023, library patrons checked out 600M+ digital titles. The Libby app is the primary consumer interface.",
+        "key_feature": "E-book/audiobook lending for 92K+ libraries; Libby app"
+      },
+      {
+        "name": "Digital Public Library of America (DPLA)",
+        "founded": 2013,
+        "founder": "Daniel Cohen / DPLA consortium",
+        "items": 50000000,
+        "description": "Aggregator of digital resources from libraries, archives, and museums across America. Free access to 50M+ items from 5,000+ partners through a single discovery platform. Hubs include state libraries, service hubs, and content hubs.",
+        "key_feature": "National digital aggregation; 50M items from 5K partners"
+      },
+      {
+        "name": "Google Scholar",
+        "founded": 2004,
+        "founder": "Google (Anurag Acharya)",
+        "items": 0,
+        "description": "Free academic search engine indexing full-text scholarly literature across all formats. Contains 389M+ documents including peer-reviewed papers, theses, books, and preprints.",
+        "key_feature": "Free academic search; 389M+ scholarly documents"
+      }
+    ],
+    "overdrive_stats": {
+      "total_checkouts_2023": 600000000,
+      "libraries_served": 92000,
+      "countries": 100,
+      "top_formats": [
+        {
+          "format": "E-books",
+          "pct": 55
+        },
+        {
+          "format": "Audiobooks",
+          "pct": 38
+        },
+        {
+          "format": "Video",
+          "pct": 4
+        },
+        {
+          "format": "Other",
+          "pct": 3
+        }
+      ],
+      "growth": [
+        {
+          "year": 2015,
+          "checkouts": 125000000
+        },
+        {
+          "year": 2017,
+          "checkouts": 200000000
+        },
+        {
+          "year": 2019,
+          "checkouts": 350000000
+        },
+        {
+          "year": 2020,
+          "checkouts": 430000000
+        },
+        {
+          "year": 2021,
+          "checkouts": 510000000
+        },
+        {
+          "year": 2022,
+          "checkouts": 560000000
+        },
+        {
+          "year": 2023,
+          "checkouts": 600000000
+        }
+      ]
+    },
+    "wayback_machine": {
+      "total_archived_pages": 835000000000,
+      "founded": 1996,
+      "description": "The Internet Archive's Wayback Machine has been archiving web pages since 1996. It contains 835B+ archived web pages and is the world's largest web archive. It has become a critical tool for researchers, journalists, and anyone needing to access deleted or changed web content.",
+      "key_events": [
+        {
+          "year": 1996,
+          "event": "Internet Archive founded; begins archiving web pages"
+        },
+        {
+          "year": 2001,
+          "event": "Wayback Machine publicly launched"
+        },
+        {
+          "year": 2007,
+          "event": "Archive-It service launched for institutions to create their own archives"
+        },
+        {
+          "year": 2024,
+          "event": "835B+ web pages archived; ~600M pages added daily"
+        }
+      ]
+    },
+    "timeline": [
+      {
+        "year": 1971,
+        "event": "Michael Hart founds Project Gutenberg at University of Illinois - the first digital library"
+      },
+      {
+        "year": 1996,
+        "event": "Brewster Kahle founds the Internet Archive; begins archiving the web"
+      },
+      {
+        "year": 2001,
+        "event": "Wayback Machine publicly launched, providing free access to archived web pages"
+      },
+      {
+        "year": 2003,
+        "event": "OverDrive launches e-book lending platform for libraries"
+      },
+      {
+        "year": 2004,
+        "event": "Google Books project announced; begins scanning books from major research libraries"
+      },
+      {
+        "year": 2005,
+        "event": "Open Library project initiated by Internet Archive"
+      },
+      {
+        "year": 2008,
+        "event": "HathiTrust founded as shared digital repository by CIC libraries"
+      },
+      {
+        "year": 2013,
+        "event": "Authors Guild v. Google settles; Google Books ruled fair use. DPLA launches with 2.4M items"
+      },
+      {
+        "year": 2015,
+        "event": "Internet Archive launches controlled digital lending"
+      },
+      {
+        "year": 2020,
+        "event": "COVID-19 drives massive surge in e-book borrowing; OverDrive records 430M checkouts"
+      },
+      {
+        "year": 2023,
+        "event": "OverDrive surpasses 600M annual checkouts; DPLA reaches 50M items"
+      },
+      {
+        "year": 2024,
+        "event": "Internet Archive loses Hachette v. Internet Archive lawsuit over controlled digital lending"
+      }
+    ],
+    "key_facts": [
+      "Project Gutenberg (1971) is the world's oldest digital library, founded 20 years before the World Wide Web became public",
+      "The Internet Archive's Wayback Machine contains 835 billion+ archived web pages, growing by ~600 million pages daily",
+      "Google Books has scanned over 40 million books, making it the largest single digitization effort in history",
       "HathiTrust holds 18+ million digitized volumes from research libraries and provides full-text search across the entire collection",
-      "The Association of Research Libraries (ARL) has 127 members representing the largest research libraries in the US and Canada",
-      "DPLA, launched in 2013, aggregates 50+ million digital items from 5,000+ partner institutions through a single discovery platform",
-      "OhioLINK's shared catalog contains 46+ million items from 120+ Ohio academic libraries, enabling rapid statewide resource sharing",
-      "NISO develops critical technical standards including Z39.50 (bibliographic search), Dublin Core (metadata), and PREMIS (preservation)",
-      "TexShare serves 700+ Texas libraries with shared databases and resource sharing",
-      "Library consortia achieve 20-40% cost savings on database licensing through collective negotiation",
-      "The CRL has been preserving research materials since 1949 and holds over 4 million items",
-      "Internet2 provides 100 Gbps+ networking to 350+ research institutions and their libraries",
-      "OCLC processes millions of interlibrary loan requests annually through its ILLiad, Tipasa, and WorldShare ILL systems"
+      "OverDrive served 600+ million digital checkouts in 2023 through 92,000+ libraries and schools in 100+ countries",
+      "The DPLA aggregates 50+ million digital items from 5,000+ cultural heritage institutions through a single free platform",
+      "Open Library aims to create 'one web page for every book ever published' and currently has 20+ million book records",
+      "The Internet Archive's controlled digital lending program allows one user at a time to borrow scanned books, mirroring physical lending",
+      "The Authors Guild v. Google (2013) established that mass book digitization for search constitutes fair use",
+      "The Internet Archive lost the Hachette v. Internet Archive (2024) lawsuit, which challenged controlled digital lending of scanned books",
+      "OverDrive's Libby app has been downloaded 50+ million times and is the primary way Americans borrow library e-books",
+      "COVID-19 accelerated e-book borrowing dramatically: OverDrive checkouts jumped from 350M in 2019 to 430M in 2020"
+    ]
+  },
+  "reading_habits": {
+    "title": "Reading Habits & Literacy in America",
+    "overview": "Americans' reading habits have shifted dramatically in the digital age. According to the NEA's Survey of Public Participation in the Arts (SPPA 2022), 23% of American adults read literature (novels, short stories, poetry, or plays) in the previous 12 months. The Pew Research Center found that 54% of Americans used a public library in 2013, and Gallup reported Americans averaged 10.5 library visits per year in 2019. Despite concerns about declining reading, e-book and audiobook borrowing through libraries has surged, with 600+ million digital checkouts in 2023. The relationship between library access, literacy, and reading habits remains a critical area of research.",
+    "key_stats": {
+      "pct_adults_read_literature": 23,
+      "pct_americans_use_library": 54,
+      "avg_library_visits_per_year": 10.5,
+      "pct_read_print_books": 65,
+      "pct_read_ebooks": 30,
+      "pct_listen_audiobooks": 23,
+      "avg_books_read_per_year": 12,
+      "us_literacy_rate": 79,
+      "pct_adults_below_basic_prose": 14,
+      "total_digital_checkouts_2023": 600000000
+    },
+    "nea_sppa_2022": {
+      "survey": "Survey of Public Participation in the Arts (SPPA) 2022",
+      "agency": "National Endowment for the Arts",
+      "year": 2022,
+      "sample_size": 14000,
+      "key_findings": [
+        "23% of US adults read literature (novels, short stories, poetry, or plays) in the previous 12 months",
+        "Reading rates declined from 47% in 1982 to 43% in 2008 to 23% in 2022 (definition changed over time)",
+        "Women read literature at higher rates than men (30% vs 16%)",
+        "White adults had the highest literary reading rate at 26%, followed by Black adults at 22%",
+        "Adults aged 18-24 had the lowest literary reading rate at 14%",
+        "College-educated adults read literature at 35%, compared to 12% for those without high school diplomas",
+        "Literary reading correlates positively with household income and educational attainment"
+      ],
+      "demographics": [
+        {
+          "category": "Gender - Women",
+          "pct_read_literature": 30
+        },
+        {
+          "category": "Gender - Men",
+          "pct_read_literature": 16
+        },
+        {
+          "category": "Age 18-24",
+          "pct_read_literature": 14
+        },
+        {
+          "category": "Age 25-44",
+          "pct_read_literature": 20
+        },
+        {
+          "category": "Age 45-64",
+          "pct_read_literature": 28
+        },
+        {
+          "category": "Age 65+",
+          "pct_read_literature": 27
+        },
+        {
+          "category": "College graduate",
+          "pct_read_literature": 35
+        },
+        {
+          "category": "Some college",
+          "pct_read_literature": 24
+        },
+        {
+          "category": "High school",
+          "pct_read_literature": 15
+        },
+        {
+          "category": "No diploma",
+          "pct_read_literature": 12
+        }
+      ]
+    },
+    "pew_findings": {
+      "survey": "Pew Research Center - How Americans Use Public Libraries",
+      "years": [
+        2013,
+        2016,
+        2019
+      ],
+      "key_findings": [
+        "54% of Americans used a public library in the past 12 months (2013 Pew survey)",
+        "Women are more likely than men to use libraries (60% vs 48%)",
+        "Parents of minor children are heavy library users (71% used library in past year)",
+        "53% of library users visit to sit and read, study, or watch/listen to media",
+        "49% of library users visit to borrow print books",
+        "17% of library users borrow e-books or audio books",
+        "30% of Americans are 'library lovers' who use libraries and view them positively",
+        "Library users tend to be more active in their communities than non-users",
+        "94% of Americans say that having a public library improves the quality of life in a community",
+        "76% of Americans say libraries provide necessary services to people who need them"
+      ]
+    },
+    "format_preferences": [
+      {
+        "format": "Print books",
+        "pct_readers": 65,
+        "trend": "Stable"
+      },
+      {
+        "format": "E-books",
+        "pct_readers": 30,
+        "trend": "Growing slowly"
+      },
+      {
+        "format": "Audiobooks",
+        "pct_readers": 23,
+        "trend": "Fastest growing format"
+      },
+      {
+        "format": "Podcasts",
+        "pct_readers": 35,
+        "trend": "Growing rapidly"
+      }
+    ],
+    "literacy_data": {
+      "source": "National Center for Education Statistics (NCES) PIAAC",
+      "us_literacy_rate_pct": 79,
+      "pct_below_basic_prose": 14,
+      "pct_at_or_above_basic": 86,
+      "description": "The Program for the International Assessment of Adult Competencies (PIAAC) measures adult literacy. 14% of US adults perform at below basic prose literacy levels, struggling with simple text comprehension. This has significant implications for library services.",
+      "state_variation": [
+        {
+          "state": "NH",
+          "literacy_rate": 94
+        },
+        {
+          "state": "MN",
+          "literacy_rate": 94
+        },
+        {
+          "state": "ND",
+          "literacy_rate": 93
+        },
+        {
+          "state": "VT",
+          "literacy_rate": 93
+        },
+        {
+          "state": "SD",
+          "literacy_rate": 93
+        },
+        {
+          "state": "MA",
+          "literacy_rate": 92
+        },
+        {
+          "state": "MT",
+          "literacy_rate": 92
+        },
+        {
+          "state": "CO",
+          "literacy_rate": 92
+        },
+        {
+          "state": "WY",
+          "literacy_rate": 92
+        },
+        {
+          "state": "CA",
+          "literacy_rate": 76
+        },
+        {
+          "state": "MS",
+          "literacy_rate": 72
+        },
+        {
+          "state": "LA",
+          "literacy_rate": 72
+        },
+        {
+          "state": "NY",
+          "literacy_rate": 77
+        },
+        {
+          "state": "TX",
+          "literacy_rate": 76
+        }
+      ]
+    },
+    "reading_vs_other_activities": [
+      {
+        "activity": "Read a book",
+        "pct_americans": 65,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Used a public library",
+        "pct_americans": 54,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Watched TV/streaming",
+        "pct_americans": 92,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Used social media",
+        "pct_americans": 82,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Listened to music",
+        "pct_americans": 87,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Played video games",
+        "pct_americans": 46,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Attended a movie",
+        "pct_americans": 49,
+        "frequency": "In past 12 months"
+      },
+      {
+        "activity": "Visited a museum",
+        "pct_americans": 33,
+        "frequency": "In past 12 months"
+      }
+    ],
+    "key_facts": [
+      "Only 23% of American adults read literature (novels, short stories, poetry, or plays) in 2022, per the NEA SPPA survey",
+      "54% of Americans used a public library in the past 12 months (Pew Research Center 2013)",
+      "Americans average 10.5 library visits per year (Gallup 2019)",
+      "14% of US adults perform at below basic prose literacy levels, struggling with simple text comprehension (NCES PIAAC)",
+      "Women read literature at nearly double the rate of men (30% vs 16%, NEA 2022)",
+      "College-educated adults read literature at 35% compared to 12% for those without high school diplomas",
+      "Audiobooks are the fastest-growing reading format, with 23% of Americans listening regularly",
+      "Print books remain the dominant format, with 65% of readers preferring physical books",
+      "Library users are more civically engaged than non-users, volunteering and attending community events at higher rates",
+      "94% of Americans believe having a public library improves community quality of life",
+      "States with the highest literacy rates (NH, MN, ND at 93-94%) correlate with strong public library systems",
+      "States with the lowest literacy rates (MS, LA at 72%) also tend to have fewer school librarians per student",
+      "Digital checkouts through libraries exceeded 600 million in 2023, showing strong demand for e-books and audiobooks",
+      "The COVID-19 pandemic accelerated digital reading but reduced in-person library visits, creating a permanent shift in usage patterns"
+    ]
+  },
+  "slide_inequities": {
+    "title": "School Library Inequities: The SLIDE Project",
+    "overview": "The SLIDE (School Librarian Investigation: Decline in Education) project documents stark inequities in school library staffing across the United States. Their research reveals that approximately 3 million students in majority-nonwhite districts lack access to a school librarian, and that school librarian losses have fallen disproportionately on districts serving Black, Latino, and Native American students. The project combines NCES data with demographic analysis to expose how the 20% national decline in school librarians since 2010 has created a two-tier system where wealthier, whiter districts retain librarians while poorer, diverse districts lose them.",
+    "key_stats": {
+      "pct_districts_no_librarian": 30,
+      "students_without_librarians": 3000000,
+      "pct_majority_nonwhite_without": 54,
+      "total_majority_nonwhite_students": 5600000,
+      "national_decline_pct": 20,
+      "states_lost_20plus_pct": 25,
+      "rural_districts_no_librarian": 35,
+      "urban_districts_no_librarian": 25
+    },
+    "inequity_findings": [
+      "3 million students in majority-nonwhite school districts attend schools without a librarian",
+      "54% of students in majority-nonwhite districts lack access to a school librarian (vs 24% in majority-white districts)",
+      "Schools with higher percentages of Black, Latino, and Native American students are more likely to have lost librarians",
+      "Rural districts are particularly affected: 35% have no librarian at all",
+      "Districts with the most students in poverty have lost librarians at 2-3x the rate of affluent districts",
+      "The decline in school librarians accelerated after the Great Recession (2008) and has not recovered",
+      "25 states have lost 20% or more of their school librarians since 2010",
+      "The geographic distribution of librarian losses maps closely to patterns of educational inequality"
+    ],
+    "state_losses": [
+      {
+        "state": "CA",
+        "librarians_2010": 4600,
+        "librarians_2019": 2500,
+        "pct_lost": 46
+      },
+      {
+        "state": "MI",
+        "librarians_2010": 2800,
+        "librarians_2019": 1800,
+        "pct_lost": 36
+      },
+      {
+        "state": "FL",
+        "librarians_2010": 2600,
+        "librarians_2019": 1800,
+        "pct_lost": 31
+      },
+      {
+        "state": "TX",
+        "librarians_2010": 5200,
+        "librarians_2019": 4200,
+        "pct_lost": 19
+      },
+      {
+        "state": "NY",
+        "librarians_2010": 3800,
+        "librarians_2019": 3200,
+        "pct_lost": 16
+      },
+      {
+        "state": "PA",
+        "librarians_2010": 2600,
+        "librarians_2019": 2200,
+        "pct_lost": 15
+      },
+      {
+        "state": "OH",
+        "librarians_2010": 2800,
+        "librarians_2019": 2400,
+        "pct_lost": 14
+      },
+      {
+        "state": "IL",
+        "librarians_2010": 3000,
+        "librarians_2019": 2600,
+        "pct_lost": 13
+      },
+      {
+        "state": "AZ",
+        "librarians_2010": 1000,
+        "librarians_2019": 800,
+        "pct_lost": 20
+      },
+      {
+        "state": "WA",
+        "librarians_2010": 1100,
+        "librarians_2019": 1100,
+        "pct_lost": 0
+      }
+    ],
+    "demographic_disparities": [
+      {
+        "district_type": "Majority nonwhite",
+        "pct_without_librarian": 54,
+        "students_affected": 3000000
+      },
+      {
+        "district_type": "Majority white",
+        "pct_without_librarian": 24,
+        "students_affected": 1500000
+      },
+      {
+        "district_type": "High poverty",
+        "pct_without_librarian": 42,
+        "students_affected": 2000000
+      },
+      {
+        "district_type": "Low poverty",
+        "pct_without_librarian": 18,
+        "students_affected": 800000
+      },
+      {
+        "district_type": "Rural",
+        "pct_without_librarian": 35,
+        "students_affected": 1200000
+      },
+      {
+        "district_type": "Urban",
+        "pct_without_librarian": 25,
+        "students_affected": 900000
+      },
+      {
+        "district_type": "Suburban",
+        "pct_without_librarian": 20,
+        "students_affected": 1100000
+      }
+    ],
+    "key_facts": [
+      "The SLIDE project found that 3 million students in majority-nonwhite districts lack access to a school librarian",
+      "54% of students in majority-nonwhite districts attend schools without librarians, compared to 24% in majority-white districts",
+      "California lost 46% of its school librarians between 2010 and 2019, the largest decline of any state",
+      "Michigan lost 36% and Florida lost 31% of school librarians in the same period",
+      "The decline in school librarians closely tracks patterns of racial and economic inequality in American education",
+      "Rural districts are especially hard-hit, with 35% having no librarian at all",
+      "The SLIDE project combines NCES SASS data with demographic analysis from the Common Core of Data",
+      "Schools that lost librarians often simultaneously lost other support staff, compounding the impact on students",
+      "Research consistently shows that the absence of school librarians correlates with lower reading scores",
+      "The Every Student Succeeds Act (2015) allows states to use federal funds for school library programs, but few do",
+      "The SLIDE project recommends targeted state and federal investment to restore librarian positions in high-need districts",
+      "Without intervention, the school librarian equity gap is likely to widen as pandemic-era budget pressures continue"
     ]
   },
   "consortia": {

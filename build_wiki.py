@@ -185,6 +185,8 @@ def panel(active=""):
     <a href="index.html#digital-libraries-enhanced" class="list-group-item list-group-item-action small py-1">Digital libraries & e-books</a>
     <a href="index.html#reading-habits" class="list-group-item list-group-item-action small py-1">Reading habits & literacy</a>
     <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
+    <a href="index.html#innovation" class="list-group-item list-group-item-action small py-1">Innovation & makerspaces</a>
+    <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -595,6 +597,8 @@ def load_all():
         ('digital_libraries_enhanced', 'digital_libraries_enhanced_summary.json'),
         ('reading_habits', 'reading_habits_summary.json'),
         ('slide_inequities', 'slide_inequities_summary.json'),
+        ('library_innovation', 'library_innovation_summary.json'),
+        ('library_attitudes', 'library_attitudes_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1804,6 +1808,8 @@ def compute_stats(data):
     stats['digital_libraries_enhanced'] = data.get('digital_libraries_enhanced', {})
     stats['reading_habits'] = data.get('reading_habits', {})
     stats['slide_inequities'] = data.get('slide_inequities', {})
+    stats['library_innovation'] = data.get('library_innovation', {})
+    stats['library_attitudes'] = data.get('library_attitudes', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -8106,6 +8112,220 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += '<p class="rsrc">Source: SLIDE (School Librarian Investigation: Decline in Education) project at libslide.org, using NCES Schools and Staffing Survey (SASS) data, Common Core of Data (CCD), and demographic analysis. SLIDE is led by school library researchers Deborah Rinio, Ann Carlson Weeks, and Mega Subramaniam.</p>'
+
+    # =========================================================================
+    # LIBRARY INNOVATION: HOTSPOTS, MAKERSPACES & EMERGING SERVICES
+    # =========================================================================
+    innov = stats.get('library_innovation', {})
+    if innov:
+        ivks = innov.get('key_stats', {})
+        hot = innov.get('hotspot_lending', {})
+        mk = innov.get('makerspaces', {})
+        emerging = innov.get('emerging_services', [])
+        di = innov.get('digital_inclusion_services', {})
+        iv_tl = innov.get('timeline', [])
+        iv_facts = innov.get('key_facts', [])
+
+        body += f"""
+<h2 id="innovation">Library Innovation: Hotspots, Makerspaces &amp; Emerging Services</h2>
+<p>{esc(innov.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ivks.get('pct_libraries_free_wifi',98)}%</div><div class="label">Free WiFi</div></div>
+  <div class="stat-card"><div class="num">{ivks.get('pct_digital_literacy_training',90)}%</div><div class="label">Digital literacy training</div></div>
+  <div class="stat-card"><div class="num">{ivks.get('pct_help_with_jobs',73)}%</div><div class="label">Help with jobs</div></div>
+  <div class="stat-card"><div class="num">{ivks.get('pct_3d_printers_patrons',13)}%</div><div class="label">Used 3D printers</div></div>
+  <div class="stat-card"><div class="num">{ivks.get('households_without_internet_millions',24)}M</div><div class="label">Households w/o internet</div></div>
+  <div class="stat-card"><div class="num">{esc(str(ivks.get('hotspot_lending_decade','2013-2023')))}</div><div class="label">Hotspot lending era</div></div>
+</div>"""
+
+        if isinstance(hot, dict):
+            body += f"""
+<h3>WiFi Hotspot Lending</h3>
+<div class="rules-box">
+  <p>{esc(hot.get('description', ''))}</p>
+  <p><strong>Emergence:</strong> {esc(hot.get('emergence', ''))}</p>
+  <p><strong>Growth:</strong> {esc(hot.get('growth_period', ''))}</p>
+  <p><strong>COVID-19 expansion:</strong> {esc(hot.get('covid_expansion', ''))}</p>
+</div>"""
+            if hot.get('notable_programs'):
+                body += """
+<h4>Notable Hotspot Lending Programs</h4>
+<ul class="wiki-list">"""
+                for prog in hot.get('notable_programs', []):
+                    if isinstance(prog, str):
+                        body += f'\n  <li>{esc(prog)}</li>'
+                body += '\n</ul>'
+            if isinstance(hot.get('federal_policy'), dict):
+                fp = hot.get('federal_policy', {})
+                body += """
+<h4>Federal Policy: E-Rate &amp; Hotspot Lending</h4>
+<ul class="wiki-list">"""
+                for label, txt in [
+                    ('Learn Without Limits (2023)', fp.get('learn_without_limits_2023', '')),
+                    ('FCC 2024 eligibility', fp.get('fcc_2024_eligibility', '')),
+                    ('FCC 2025 rollback', fp.get('fcc_2025_rollback', '')),
+                ]:
+                    if txt:
+                        body += f'\n  <li><strong>{esc(label)}:</strong> {esc(txt)}</li>'
+                body += '\n</ul>'
+
+        if isinstance(mk, dict):
+            body += f"""
+<h3>Library Makerspaces</h3>
+<div class="rules-box">
+  <p>{esc(mk.get('description', ''))}</p>
+  <p><strong>First public library makerspace:</strong> {esc(mk.get('first_public_library_makerspace', ''))}</p>
+  <p><strong>Early history:</strong> {esc(mk.get('early_history', ''))}</p>
+  <p><strong>Growth context:</strong> {esc(mk.get('growth_context', ''))}</p>
+</div>"""
+            tools = mk.get('tools_typically_offered', [])
+            if tools and isinstance(tools, list):
+                body += """
+<h4>Tools Typically Available in Library Makerspaces</h4>
+<ul class="wiki-list">"""
+                for tool in tools:
+                    if isinstance(tool, str):
+                        body += f'\n  <li>{esc(tool)}</li>'
+                body += '\n</ul>'
+
+        if emerging:
+            body += """
+<h3>Emerging &amp; Innovative Library Services</h3>
+<table class="wikitable">
+  <tr><th>Service</th><th>% Offering</th><th>Description</th></tr>"""
+            for svc in emerging:
+                pct_val = svc.get('pct_offering')
+                pct_str = f'{pct_val}%' if pct_val is not None else 'Widespread'
+                body += f'\n  <tr><td>{esc(svc.get("service",""))}</td><td class="pct">{pct_str}</td><td>{esc(svc.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if iv_tl:
+            body += """
+<h3>Innovation Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in iv_tl:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if iv_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in iv_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: ALA Digital Inclusion Survey (2014), ALA Broadband advocacy pages, Wikipedia articles on library makerspaces and public library digital engagement, Pew Research Center library technology surveys (2013, 2016), and ALA State of America&apos;s Libraries 2024 report. Hotspot lending and E-rate policy data from FCC filings and ALA policy statements.</p>'
+
+    # =========================================================================
+    # PUBLIC ATTITUDES TOWARD LIBRARIES
+    # =========================================================================
+    att = stats.get('library_attitudes', {})
+    if att:
+        aks = att.get('key_stats', {})
+        att_findings = att.get('attitudes', {})
+        exp = att.get('expectations', {})
+        reasons = att.get('reasons_for_use', {})
+        demo = att.get('demographics', {})
+        a_facts = att.get('key_facts', [])
+
+        body += f"""
+<h2 id="attitudes">Public Attitudes Toward Libraries: What Americans Think</h2>
+<p>{esc(att.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{aks.get('pct_say_libraries_provide_resources',77)}%</div><div class="label">Libraries provide what's needed</div></div>
+  <div class="stat-card"><div class="num">{aks.get('pct_say_closing_major_impact_community',66)}%</div><div class="label">Closing = major impact</div></div>
+  <div class="stat-card"><div class="num">{aks.get('pct_say_libraries_safe_place',69)}%</div><div class="label">Libraries as safe place</div></div>
+  <div class="stat-card"><div class="num">{aks.get('pct_expect_digital_skills_training',80)}%</div><div class="label">Expect digital skills</div></div>
+  <div class="stat-card"><div class="num">{aks.get('pct_say_libraries_educational',58)}%</div><div class="label">Educational opportunities</div></div>
+  <div class="stat-card"><div class="num">{aks.get('pct_say_libraries_spark_creativity',49)}%</div><div class="label">Spark creativity</div></div>
+</div>"""
+
+        if isinstance(att_findings, dict) and att_findings.get('findings'):
+            body += """
+<h3>What Americans Say About Libraries</h3>
+<table class="wikitable">
+  <tr><th>Finding</th><th>Source</th></tr>"""
+            for f_item in att_findings.get('findings', []):
+                body += f'\n  <tr><td>{esc(f_item.get("finding",""))}</td><td>{esc(f_item.get("source",""))}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(exp, dict):
+            exp_findings = exp.get('findings', [])
+            if exp_findings:
+                body += """
+<h3>What Americans Expect Libraries to Offer</h3>
+<table class="wikitable">
+  <tr><th>Expectation</th><th>% "Definitely Should"</th></tr>"""
+                for e in exp_findings:
+                    body += f'\n  <tr><td>{esc(e.get("expectation",""))}</td><td class="pct">{e.get("pct_definitely",0)}%</td></tr>'
+                body += '\n</table>'
+            bvt = exp.get('books_vs_tech', {})
+            if isinstance(bvt, dict) and bvt:
+                body += """
+<h3>Should Libraries Move Books to Make Room for Tech?</h3>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">Definitely move books</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{bvt.get('support_moving_books_for_tech',24)}%"></div><span class="svc-val">{bvt.get('support_moving_books_for_tech',24)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Maybe move books</span><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:{bvt.get('say_maybe_move_books',40)}%"></div><span class="svc-val">{bvt.get('say_maybe_move_books',40)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Definitely not move books</span><div class="svc-bar"><div class="svc-fill svc-fill-red" style="width:{bvt.get('say_definitely_not_move_books',31)}%"></div><span class="svc-val">{bvt.get('say_definitely_not_move_books',31)}%</span></div></div>
+</div>"""
+
+        if isinstance(reasons, dict):
+            activities = reasons.get('activities', [])
+            if activities:
+                body += """
+<h3>Why Americans Visit Libraries (Among Past-Year Visitors)</h3>
+<table class="wikitable">
+  <tr><th>Activity</th><th>2016</th><th>2012</th></tr>"""
+                for a in activities:
+                    pct_2016 = a.get('pct_2016', '')
+                    pct_2012 = a.get('pct_2012', '')
+                    pct_2016_str = f'{pct_2016}%' if pct_2016 is not None else '&mdash;'
+                    pct_2012_str = f'{pct_2012}%' if pct_2012 is not None else '&mdash;'
+                    body += f'\n  <tr><td>{esc(a.get("activity",""))}</td><td class="pct">{pct_2016_str}</td><td class="pct">{pct_2012_str}</td></tr>'
+                body += '\n</table>'
+            tech_acts = reasons.get('tech_activities', [])
+            if tech_acts:
+                body += """
+<h3>What Library Tech Users Do Online</h3>
+<table class="wikitable">
+  <tr><th>Activity</th><th>% of Library Tech Users</th></tr>"""
+                for a in tech_acts:
+                    body += f'\n  <tr><td>{esc(a.get("activity",""))}</td><td class="pct">{a.get("pct",0)}%</td></tr>'
+                body += '\n</table>'
+
+        if isinstance(demo, dict):
+            gallup_demo = demo.get('gallup_2019_visits_by_demographic', [])
+            if gallup_demo:
+                body += """
+<h3>Library Visits Per Year by Demographic (Gallup 2019)</h3>
+<table class="wikitable">
+  <tr><th>Demographic</th><th>Visits per Year</th></tr>"""
+                for d in gallup_demo:
+                    body += f'\n  <tr><td>{esc(d.get("demographic",""))}</td><td class="num">{d.get("visits_per_year",0)}</td></tr>'
+                body += '\n</table>'
+            pew_demo = demo.get('pew_2016_visit_rate_by_demographic', [])
+            if pew_demo:
+                body += """
+<h3>% Who Visited a Library in Past Year by Demographic (Pew 2016)</h3>
+<table class="wikitable">
+  <tr><th>Demographic</th><th>% Visited</th></tr>"""
+                for d in pew_demo:
+                    body += f'\n  <tr><td>{esc(d.get("demographic",""))}</td><td class="pct">{d.get("pct_visited",0)}%</td></tr>'
+                body += '\n</table>'
+
+        if a_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in a_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Pew Research Center (Libraries 2016, How Americans Value Public Libraries 2013, Library Usage and Engagement 2016), Gallup library visit frequency survey (2019), and NEA Survey of Public Participation in the Arts (SPPA) 2022 demographic tables.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

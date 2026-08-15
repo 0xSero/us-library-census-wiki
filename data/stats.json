@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 11:47 UTC",
+  "generated": "2026-08-15 11:52 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -68937,6 +68937,409 @@
       "The Every Student Succeeds Act (2015) allows states to use federal funds for school library programs, but few do",
       "The SLIDE project recommends targeted state and federal investment to restore librarian positions in high-need districts",
       "Without intervention, the school librarian equity gap is likely to widen as pandemic-era budget pressures continue"
+    ]
+  },
+  "library_innovation": {
+    "title": "Library Innovation: Hotspots, Makerspaces & Emerging Services",
+    "overview": "America's public libraries have evolved far beyond book lending into hubs of technological innovation and community creation. From WiFi hotspot lending that brings internet access into homes, to makerspaces equipped with 3D printers and audio/video editing tools, libraries are bridging the digital divide and fostering creativity in ways unimaginable a generation ago. The FCC's 2024 decision to allow E-rate funding for off-premises hotspot lending marked a watershed moment, recognizing libraries as essential digital equity infrastructure.",
+    "key_stats": {
+      "pct_libraries_free_wifi": 98,
+      "pct_libraries_summer_reading": 95,
+      "pct_digital_literacy_training": 90,
+      "pct_help_with_jobs": 73,
+      "pct_online_job_resources": 68,
+      "pct_3d_printers_patrons": 13,
+      "households_without_internet_millions": 24,
+      "hotspot_lending_decade": "2013-2023"
+    },
+    "hotspot_lending": {
+      "description": "Library mobile hotspot lending programs allow patrons to borrow cellular WiFi hotspots, bringing internet access to households without home broadband. What began as a handful of pioneering programs in the early 2010s grew into a widespread service embraced by urban and suburban library systems nationwide.",
+      "emergence": "Over the past few years [of the mid-2010s], some public libraries in the United States started to lend out hotspots to patrons.",
+      "growth_period": "Grew rapidly roughly 2013-2023 (ALA describes 'a decade of library hotspot and device lending expertise' as of 2023).",
+      "covid_expansion": "During the COVID-19 pandemic (2020-2021) many libraries expanded outdoor/parking-lot Wi-Fi and hotspot lending to serve students and patrons cut off from school and work; libraries extended Wi-Fi signals to parking lots so patrons could access the internet from cars even when buildings were closed.",
+      "notable_programs": [
+        "New York Public Library Hotspot program (NYPL) \u2014 one of the earliest and largest, lending cellular hotspots to patrons without home internet, funded in part by philanthropic grants.",
+        "Chicago Public Library \u2014 early municipal hotspot lending program.",
+        "Kansas City Public Library and other mid-size urban systems \u2014 early adopters."
+      ],
+      "federal_policy": {
+        "learn_without_limits_2023": "In 2023 the FCC (Chairwoman Jessica Rosenworcel) unveiled the Learn Without Limits initiative, proposing to allow libraries and schools to use E-rate funds to purchase Wi-Fi hotspots and services for patrons/students to use off-premises \u2014 building on the decade of library hotspot lending experience.",
+        "fcc_2024_eligibility": "The FCC in 2024 added off-premises hotspot lending eligibility under E-rate (Wi-Fi hotspots and school-bus Wi-Fi).",
+        "fcc_2025_rollback": "In October 2025, the FCC under chairman Brendan Carr voted 2-1 to end E-rate support for Wi-Fi hotspots and school-bus Wi-Fi. ALA and coalition partners filed comments/letters (2025-2026) opposing the rollback."
+      },
+      "national_count_note": "No single authoritative national count of libraries offering hotspot lending is published by IMLS or ALA as a recurring statistic. Industry reporting (American Libraries Magazine, Public Libraries Online, 'Check Out a Library Hotspot', 2016) documents widespread adoption among urban and suburban systems; the ALA characterizes it as a mature, decade-old service as of 2023. A precise national total is not centrally aggregated in IMLS PLS."
+    },
+    "makerspaces": {
+      "description": "A library makerspace (hackerspace/hacklab) is an area/service offering patrons tools to create intellectual and physical materials: computers, 3-D printers, 3D scanning, audio/video capture and editing, and traditional arts and crafts.",
+      "first_public_library_makerspace": "Fayetteville Free Library (Fayetteville, NY), conceived by Lauren Britton as MLIS coursework (2012 article; makerspace began ~2011).",
+      "early_history": "Precursors: 1873 Gowanda Ladies Social Society (later Ladies Library Association) quilted/knit/sewed; 1905 Carnegie Library of Pittsburgh children's dept crafts; 1979 Merrimack Public Library (NH) crafts.",
+      "tools_typically_offered": [
+        "3D printers and 3D scanning",
+        "Audio/video capture and editing equipment",
+        "Computers with design software",
+        "Traditional arts and crafts supplies",
+        "Laser cutters and CNC machines",
+        "Electronics and soldering equipment"
+      ],
+      "growth_context": "Library makerspaces grew rapidly from 2011 onward, with the Institute of Museum and Library Services and the John S. and James L. Knight Foundation providing seed funding to numerous programs."
+    },
+    "emerging_services": [
+      {
+        "service": "WiFi hotspot lending",
+        "pct_offering": null,
+        "description": "Libraries lend cellular hotspots to patrons for home internet access, pioneered by NYPL and Chicago PL, now widespread."
+      },
+      {
+        "service": "3D printing",
+        "pct_offering": 13,
+        "description": "13% of library visitors reported using 3D printers or new tech at the library (Pew 2016). Makerspaces often center on 3D printing capabilities."
+      },
+      {
+        "service": "Seed libraries",
+        "pct_offering": null,
+        "description": "Hundreds of public libraries now host seed libraries where patrons can borrow and donate seeds, promoting food security and biodiversity."
+      },
+      {
+        "service": "Tool lending libraries",
+        "pct_offering": null,
+        "description": "Some libraries lend tools and equipment beyond books, from power tools to kitchen equipment, expanding the sharing economy model."
+      },
+      {
+        "service": "Library of Things",
+        "pct_offering": null,
+        "description": "An emerging trend where libraries lend non-traditional items: telescopes, museum passes, fishing poles, instruments, and more."
+      },
+      {
+        "service": "Social workers in libraries",
+        "pct_offering": null,
+        "description": "Growing number of libraries employ social workers to assist homeless patrons, connecting them with housing, mental health, and social services."
+      },
+      {
+        "service": "Notary services",
+        "pct_offering": null,
+        "description": "Many public libraries offer free or low-cost notary services, providing essential legal document assistance."
+      },
+      {
+        "service": "Passport acceptance",
+        "pct_offering": null,
+        "description": "Selected libraries serve as passport acceptance facilities, processing first-time passport applications."
+      },
+      {
+        "service": "Telehealth services",
+        "pct_offering": null,
+        "description": "Rural libraries increasingly provide private spaces and connectivity for telehealth appointments with medical providers."
+      },
+      {
+        "service": "Memory cafes & dementia support",
+        "pct_offering": null,
+        "description": "Libraries host memory cafes and programming for individuals with dementia and their caregivers, creating safe social spaces."
+      }
+    ],
+    "digital_inclusion_services": {
+      "free_public_wifi_pct": 98,
+      "summer_reading_pct": 95,
+      "digital_literacy_training_pct": 90,
+      "help_apply_jobs_pct": 73,
+      "online_job_resources_pct": 68,
+      "e_government_services_pct": null,
+      "description": "The ALA Digital Inclusion Survey (2014) documented the breadth of digital services offered by public libraries, establishing libraries as the nation's primary free internet access providers."
+    },
+    "timeline": [
+      {
+        "year": 2006,
+        "event": "73% of library branches report they are the only provider of free public internet access in their community."
+      },
+      {
+        "year": 2011,
+        "event": "Fayetteville Free Library (NY) launches the first public library makerspace, conceived by Lauren Britton."
+      },
+      {
+        "year": 2012,
+        "event": "91% of public libraries offer free WiFi; NYPL launches hotspot lending program."
+      },
+      {
+        "year": 2013,
+        "event": "Hotspot lending programs spread to Chicago, Kansas City, and other urban systems."
+      },
+      {
+        "year": 2014,
+        "event": "ALA Digital Inclusion Survey documents 98% of libraries offering free public WiFi."
+      },
+      {
+        "year": 2020,
+        "event": "COVID-19 pandemic: libraries expand parking-lot WiFi and hotspot lending for remote learning and work."
+      },
+      {
+        "year": 2023,
+        "event": "FCC Chairwoman Rosenworcel unveils Learn Without Limits initiative to allow E-rate funding for off-premises hotspot lending."
+      },
+      {
+        "year": 2024,
+        "event": "FCC adds off-premises hotspot lending eligibility under E-rate, a landmark policy change."
+      },
+      {
+        "year": 2025,
+        "event": "FCC under Chairman Carr votes 2-1 to end E-rate support for off-premises hotspot lending, reversing the 2024 expansion."
+      }
+    ],
+    "key_facts": [
+      "98% of US public libraries offer free public WiFi, making them the primary free internet access point in many communities (ALA Digital Inclusion Survey 2014).",
+      "24 million US households still lack home internet access, making library connectivity programs critical for digital equity (ALA Broadband).",
+      "The first public library makerspace was launched at Fayetteville Free Library (NY) around 2011, conceived by Lauren Britton as MLIS coursework.",
+      "NYPL's hotspot lending program was one of the earliest and largest, lending cellular hotspots to patrons without home internet, funded partly by philanthropic grants.",
+      "During COVID-19, libraries extended WiFi signals to parking lots so patrons could access the internet from cars even when buildings were closed.",
+      "13% of library visitors reported using 3D printers or new technology at the library (Pew 2016).",
+      "The FCC's 2024 decision to allow E-rate funding for off-premises hotspot lending was reversed in October 2025 by a 2-1 vote under Chairman Brendan Carr.",
+      "90% of public libraries offer formal or informal technology training, making them a primary digital literacy education provider.",
+      "73% of libraries help patrons apply for jobs, and 68% provide online job resources.",
+      "Library makerspaces typically offer 3D printers, audio/video editing equipment, computers with design software, and traditional arts and crafts tools.",
+      "The ALA characterizes library hotspot lending as a mature, decade-old service as of 2023.",
+      "In 2006, 73% of library branches reported being the only provider of free public internet in their community.",
+      "Seed libraries, tool lending, Library of Things programs, and telehealth services represent the next frontier of library innovation.",
+      "Growing numbers of libraries employ social workers to assist homeless patrons with housing, mental health, and social services."
+    ]
+  },
+  "library_attitudes": {
+    "title": "Public Attitudes Toward Libraries: What Americans Think",
+    "overview": "Americans overwhelmingly value their public libraries. Majorities say libraries provide the resources they need, and two-thirds say closing their local library would have a major impact on their community. Yet despite this broad support, library visitation has been declining, particularly among younger and lower-income Americans. This section examines the gap between how Americans value libraries and how they actually use them, drawing on data from Pew Research Center, Gallup, and the NEA Survey of Public Participation in the Arts.",
+    "key_stats": {
+      "pct_say_libraries_provide_resources": 77,
+      "pct_say_closing_major_impact_community": 66,
+      "pct_say_closing_major_impact_family": 33,
+      "pct_say_libraries_safe_place": 69,
+      "pct_say_libraries_educational": 58,
+      "pct_say_libraries_spark_creativity": 49,
+      "pct_expect_digital_skills_training": 80,
+      "pct_expect_creative_tech": 50
+    },
+    "attitudes": {
+      "description": "Pew Research Center surveys consistently show that Americans hold libraries in high regard, with strong majorities saying libraries are essential community resources.",
+      "findings": [
+        {
+          "finding": "77% say libraries provide the resources they need",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "66% say closing the library would have a major impact on the community",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "33% say closing the library would have a major impact on their family",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "69% say libraries contribute a lot as a safe place to spend time",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "58% say libraries contribute a lot to educational opportunities",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "49% say libraries spark creativity in young people",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "47% say libraries are trusted sources for tech learning",
+          "source": "Pew 2016"
+        },
+        {
+          "finding": "37% say libraries help people decide what information to trust",
+          "source": "Pew 2016"
+        }
+      ]
+    },
+    "expectations": {
+      "description": "When asked what libraries should offer, Americans express strong expectations for digital and creative services.",
+      "findings": [
+        {
+          "expectation": "Teach digital skills",
+          "pct_definitely": 80
+        },
+        {
+          "expectation": "Offer comfortable spaces",
+          "pct_definitely": 57
+        },
+        {
+          "expectation": "Help learn new creative tech",
+          "pct_definitely": 50
+        }
+      ],
+      "books_vs_tech": {
+        "support_moving_books_for_tech": 24,
+        "say_definitely_not_move_books": 31,
+        "say_maybe_move_books": 40
+      }
+    },
+    "reasons_for_use": {
+      "description": "Among Americans who visited a library in the past 12 months, book borrowing remains the most common activity, but program attendance is rising.",
+      "activities": [
+        {
+          "activity": "Checked out a printed book",
+          "pct_2016": 64,
+          "pct_2012": 73
+        },
+        {
+          "activity": "Sat, read, studied, or engaged with media",
+          "pct_2016": 49,
+          "pct_2012": 49
+        },
+        {
+          "activity": "Got help from librarians",
+          "pct_2016": 35,
+          "pct_2012": 50
+        },
+        {
+          "activity": "Attended classes, programs, or lectures",
+          "pct_2016": 27,
+          "pct_2015": 17
+        },
+        {
+          "activity": "Used 3D printers or new tech",
+          "pct_2016": 13,
+          "pct_2012": null
+        }
+      ],
+      "tech_activities": [
+        {
+          "activity": "Research for school or work",
+          "pct": 61
+        },
+        {
+          "activity": "Check email or send texts",
+          "pct": 53
+        },
+        {
+          "activity": "Acquire health information",
+          "pct": 38
+        },
+        {
+          "activity": "Complete online classes",
+          "pct": 26
+        }
+      ],
+      "website_activities": [
+        {
+          "activity": "Search library catalog",
+          "pct": 58
+        },
+        {
+          "activity": "Reserve or place holds",
+          "pct": 44
+        },
+        {
+          "activity": "Research or homework help",
+          "pct": 44
+        },
+        {
+          "activity": "Renew materials",
+          "pct": 40
+        },
+        {
+          "activity": "Use online databases",
+          "pct": 37
+        },
+        {
+          "activity": "Read reviews or recommendations",
+          "pct": 31
+        }
+      ]
+    },
+    "demographics": {
+      "gallup_2019_visits_by_demographic": [
+        {
+          "demographic": "Women",
+          "visits_per_year": 13.4
+        },
+        {
+          "demographic": "Men",
+          "visits_per_year": 7.5
+        },
+        {
+          "demographic": "Ages 18-29",
+          "visits_per_year": 15.5
+        },
+        {
+          "demographic": "Ages 30-49",
+          "visits_per_year": 12.3
+        },
+        {
+          "demographic": "Ages 50-64",
+          "visits_per_year": 6.8
+        },
+        {
+          "demographic": "Ages 65+",
+          "visits_per_year": 8.2
+        },
+        {
+          "demographic": "Income < $40K",
+          "visits_per_year": 12.2
+        },
+        {
+          "demographic": "Income $40K-$99K",
+          "visits_per_year": 10.4
+        },
+        {
+          "demographic": "Income $100K+",
+          "visits_per_year": 8.5
+        },
+        {
+          "demographic": "Midwest",
+          "visits_per_year": 12.9
+        },
+        {
+          "demographic": "East",
+          "visits_per_year": 10.4
+        },
+        {
+          "demographic": "West",
+          "visits_per_year": 10.1
+        },
+        {
+          "demographic": "South",
+          "visits_per_year": 9.3
+        }
+      ],
+      "pew_2016_visit_rate_by_demographic": [
+        {
+          "demographic": "College degree holders",
+          "pct_visited": 59
+        },
+        {
+          "demographic": "Women",
+          "pct_visited": 57
+        },
+        {
+          "demographic": "Parents",
+          "pct_visited": 55
+        },
+        {
+          "demographic": "Ages 16-29",
+          "pct_visited": 55
+        },
+        {
+          "demographic": "Black Americans",
+          "pct_visited": 52
+        },
+        {
+          "demographic": "Households earning <$30K",
+          "pct_visited": 50
+        }
+      ]
+    },
+    "key_facts": [
+      "77% of Americans say libraries provide the resources they need (Pew 2016).",
+      "66% say closing their local public library would have a major impact on their community (Pew 2016), up from 63% in 2013.",
+      "69% say libraries contribute a lot as a safe place to spend time, and 58% say they provide educational opportunities.",
+      "80% of Americans say libraries should definitely teach digital skills, showing high expectations for library tech services.",
+      "Despite valuing libraries, only 31% say books should definitely not be moved to make room for tech spaces, while 24% support it and 40% are open to it.",
+      "Among recent library visitors, 64% checked out a printed book (down from 73% in 2012), while program attendance rose 10 points from 2015 to 2016.",
+      "Women visit libraries more often than men: 13.4 vs 7.5 visits per year (Gallup 2019).",
+      "Young adults (18-29) are the most frequent library visitors at 15.5 visits per year (Gallup 2019).",
+      "Lower-income Americans (<$40K) visit libraries more often (12.2 visits/yr) than higher-income ($100K+, 8.5 visits/yr).",
+      "Midwesterners visit libraries most often (12.9 visits/yr), while Southerners visit least (9.3 visits/yr).",
+      "College graduates are the most likely to have visited a library in the past year (59%), followed by women (57%) and parents (55%).",
+      "Among library tech users, 61% use library internet for school or work research, and 38% use it to acquire health information."
     ]
   },
   "consortia": {

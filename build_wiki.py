@@ -61,6 +61,8 @@ def shell(title, body_html, panel_html="", active_tab="", extra_head="", body_cl
         ("index.html",  "Main page",   "index"),
         ("search.html", "Search",      "search"),
         ("map.html",    "Map",         "map"),
+        ("contacts.html", "Contacts",  "contacts"),
+        ("funders.html", "Funders",    "funders"),
         ("gov.html",    "Government",  "gov"),
         ("about.html",   "About",       "about"),
     ]
@@ -135,6 +137,8 @@ def panel(active=""):
         ("index.html",  "Main page"),
         ("search.html", "Search the census"),
         ("map.html",    "Interactive map"),
+        ("contacts.html", "Library contacts"),
+        ("funders.html", "Funders & investors"),
         ("gov.html",    "Government sites"),
         ("about.html",   "About / methodology"),
     ]
@@ -10002,6 +10006,500 @@ def build_map_page():
         f.write(page)
     print("  map.html generated (MapLibre GL JS, standalone)")
 
+# ---------------------------------------------------------------------------
+# Build contacts.html — comprehensive library directory
+# ---------------------------------------------------------------------------
+def build_contacts(data, stats):
+    print("[build] Building contacts.html...")
+    pubs = data.get('public', [])
+    privs = data.get('private', [])
+    slaas = data.get('slaa', [])
+    gov_total = stats.get('gov', {}).get('total', 0)
+    pubs_with_phone = sum(1 for r in pubs if (r.get('phone') or '').strip())
+    pubs_with_url = sum(1 for r in pubs if (r.get('website') or '').strip())
+    privs_with_url = sum(1 for r in privs if (r.get('website') or '').strip())
+
+    body = f"""
+<p class="contentSub">Library contacts directory</p>
+<div class="wiki-sub">State library agencies, public library systems, and special libraries across all 56 states and territories — with addresses, phone numbers, and websites.</div>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{len(pubs):,}</div><div class="label">Public libraries</div></div>
+  <div class="stat-card"><div class="num">{len(privs):,}</div><div class="label">Private/special libraries</div></div>
+  <div class="stat-card"><div class="num">{len(slaas)}</div><div class="label">State library agencies</div></div>
+  <div class="stat-card"><div class="num">{gov_total:,}</div><div class="label">Government websites</div></div>
+  <div class="stat-card"><div class="num">{pubs_with_phone:,}</div><div class="label">Public libs with phone</div></div>
+  <div class="stat-card"><div class="num">{pubs_with_url:,}</div><div class="label">Public libs with website</div></div>
+</div>"""
+
+    # ---- State Library Agencies ----
+    if slaas:
+        body += f"""
+<h2 id="slaas">State Library Agencies (SLAA) — Contact Directory</h2>
+<p>The chief library agency in each state and territory. Each is the primary point of contact for state-level library policy, funding, and coordination.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Agency</th><th>Type</th><th>Address</th><th>City, ZIP</th><th>Website</th><th>Region</th></tr>"""
+        for r in slaas:
+            st = esc(r.get('state', ''))
+            name = esc(r.get('agency_name', ''))
+            atype = esc(r.get('agency_type', ''))
+            addr = esc(r.get('address', ''))
+            city = esc(r.get('city', ''))
+            zip_c = esc(r.get('zip', ''))
+            website = r.get('website', '')
+            web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+            region = esc(r.get('region', ''))
+            body += f'\n  <tr><td><a href="states/{st}.html">{st}</a></td><td><strong>{name}</strong></td><td>{atype}</td><td>{addr}</td><td>{city}, {zip_c}</td><td>{web_link}</td><td>{region}</td></tr>'
+        body += '\n</table>'
+
+    # ---- Public library contacts by state ----
+    if pubs:
+        by_state = {}
+        for r in pubs:
+            st = r.get('state', '')
+            if st:
+                by_state.setdefault(st, []).append(r)
+
+        body += f"""
+<h2 id="public-contacts">Public Library Contacts by State</h2>
+<p>Complete contact directory for all {len(pubs):,} public library systems — {pubs_with_phone:,} with phone numbers and {pubs_with_url:,} with websites.</p>"""
+
+        for st_code in sorted(by_state.keys()):
+            st_libs = by_state[st_code]
+            w_url = sum(1 for r in st_libs if (r.get('website') or '').strip())
+            w_phone = sum(1 for r in st_libs if (r.get('phone') or '').strip())
+            body += f"""
+<h3 id="contacts-{st_code}">{st_code} — {len(st_libs)} libraries ({w_url} with websites, {w_phone} with phones)</h3>
+<table class="wikitable">
+  <tr><th>Name</th><th>City</th><th>Address</th><th>Phone</th><th>Website</th></tr>"""
+            for r in sorted(st_libs, key=lambda x: (x.get('name', '') or '').lower()):
+                name = esc(r.get('name', ''))
+                city = esc(r.get('city', ''))
+                addr = esc(r.get('address', ''))
+                phone = esc(r.get('phone', ''))
+                website = r.get('website', '')
+                web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+                phone_str = phone if phone else '&mdash;'
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{addr}</td><td>{phone_str}</td><td>{web_link}</td></tr>'
+            body += '\n</table>'
+
+    # ---- Private/special libraries ----
+    if privs:
+        body += f"""
+<h2 id="private-contacts">Private &amp; Special Libraries</h2>
+<p>{len(privs):,} private and special libraries including academic, law, medical, theological, and corporate libraries — {privs_with_url:,} with websites.</p>
+<table class="wikitable">
+  <tr><th>Name</th><th>Type</th><th>City</th><th>State</th><th>Phone</th><th>Website</th></tr>"""
+        for r in sorted(privs, key=lambda x: (x.get('name', '') or '').lower())[:500]:
+            name = esc(r.get('name', ''))
+            ltype = esc(r.get('type', ''))
+            city = esc(r.get('city', ''))
+            state = esc(r.get('state', ''))
+            phone = esc(r.get('phone', ''))
+            website = r.get('website', '') or r.get('url', '')
+            web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+            phone_str = phone if phone else '&mdash;'
+            body += f'\n  <tr><td><strong>{name}</strong></td><td>{ltype}</td><td>{city}</td><td>{state}</td><td>{phone_str}</td><td>{web_link}</td></tr>'
+        body += '\n</table>'
+        if len(privs) > 500:
+            body += f'\n<p>Showing 500 of {len(privs):,} private libraries. <a href="search.html?type=private">Search all →</a></p>'
+
+    # ---- State library directory from cache ----
+    state_dirs = {}
+    cache_dir = os.path.join(os.path.dirname(WIKI), 'data', '_cache')
+    if os.path.isdir(cache_dir):
+        for fn in os.listdir(cache_dir):
+            if fn.startswith('state_dir_') and fn.endswith('.json'):
+                st_c = fn.replace('state_dir_', '').replace('.json', '')
+                try:
+                    with open(os.path.join(cache_dir, fn)) as sf:
+                        sd = json.load(sf)
+                    if isinstance(sd, dict) and sd.get('records'):
+                        state_dirs[st_c] = sd
+                except Exception:
+                    pass
+
+    if state_dirs:
+        total_dir = sum(len(v.get('records', [])) for v in state_dirs.values())
+        body += f"""
+<h2 id="state-directories">State Library Directories (from SLAA websites)</h2>
+<p>Additional directory data scraped from state library agency websites — {total_dir:,} library entries across {len(state_dirs)} states.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Libraries Listed</th><th>With Website</th><th>Coverage</th></tr>"""
+        for st_code in sorted(state_dirs.keys()):
+            sd = state_dirs[st_code]
+            recs = sd.get('records', [])
+            total_s = len(recs)
+            with_url_s = sum(1 for r in recs if (r.get('url', '') or '').strip())
+            pct_s = f'{with_url_s / total_s * 100:.0f}%' if total_s else '0%'
+            body += f'\n  <tr><td><a href="states/{st_code}.html">{esc(st_code)}</a></td><td class="num">{total_s:,}</td><td class="num">{with_url_s:,}</td><td class="pct">{pct_s}</td></tr>'
+        body += '\n</table>'
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="funders.html">Funders &amp; investors</a></div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'contacts.html'), 'w') as f:
+        f.write(shell("Library Contacts Directory", body, panel("contacts"), active_tab="contacts"))
+
+# ---------------------------------------------------------------------------
+# Build funders.html — all library funders and investors
+# ---------------------------------------------------------------------------
+def build_funders(data, stats):
+    print("[build] Building funders.html...")
+    body = f"""
+<p class="contentSub">Library funders, investors &amp; philanthropic organizations</p>
+<div class="wiki-sub">Every organization that funds American libraries — federal agencies, foundations, philanthropists, and voter-approved ballot measures.</div>"""
+
+    # ---- Federal funders ----
+    fft = stats.get('federal_funding_totals', {})
+    ff_total = fft.get('total_federal_funding', 0)
+    ff_sources = fft.get('sources', [])
+    body += f"""
+<h2 id="federal-funders">Federal Funders</h2>
+<p>The federal government is a major library funder through multiple agencies and programs. Total tracked federal funding: <strong>${ff_total/1e9:.1f} billion</strong> across {fft.get('source_count', 0)} funding streams.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ff_total/1e9:.1f}B</div><div class="label">Total federal funding</div></div>
+  <div class="stat-card"><div class="num">{fft.get('source_count', 0)}</div><div class="label">Funding streams</div></div>
+  <div class="stat-card"><div class="num">{stats.get('imls_grants',{}).get('total_count',0):,}</div><div class="label">IMLS grants</div></div>
+  <div class="stat-card"><div class="num">${stats.get('imls_grants',{}).get('total_amount',0)/1e9:.2f}B</div><div class="label">IMLS awarded</div></div>
+</div>"""
+
+    # Federal funding sources table
+    if ff_sources:
+        body += """
+<h3>Federal Funding Programs</h3>
+<table class="wikitable">
+  <tr><th>Program</th><th>Amount</th><th>Grants</th><th>Period</th><th>Description</th></tr>"""
+        for src in ff_sources:
+            name = esc(src.get('name', ''))
+            amt = src.get('amount', 0)
+            grants = src.get('grants', 0)
+            period = esc(str(src.get('period', '')))
+            desc = esc(src.get('description', '')[:120])
+            body += f'\n  <tr><td><strong>{name}</strong></td><td class="num">${amt:,}</td><td class="num">{esc(str(grants))}</td><td>{period}</td><td>{desc}</td></tr>'
+        body += '\n</table>'
+
+    # IMLS
+    ig = stats.get('imls_grants', {})
+    body += f"""
+<h3 id="imls-funder">Institute of Museum and Library Services (IMLS)</h3>
+<div class="rules-box">
+  <p>The Institute of Museum and Library Services is the primary federal funder for libraries in the United States. Established in 1996, IMLS administers the Library Services and Technology Act (LSTA) grants and the Grants to States program.</p>
+  <p><strong>Total grants:</strong> {ig.get('total_count', 0):,} &middot; <strong>Total awarded:</strong> ${ig.get('total_amount', 0):,} &middot; <strong>Years:</strong> {esc(str(ig.get('year_range', '')))}</p>
+  <p><strong>Website:</strong> <a href="https://www.imls.gov" target="_blank">https://www.imls.gov</a></p>
+  <p><strong>Key programs:</strong> Grants to States (G2S), National Leadership Grants, Laura Bush 21st Century Librarian Program, Museums for America, American Rescue Plan, Native American Library Services</p>
+</div>"""
+
+    # IMLS top programs
+    if ig.get('top_programs'):
+        body += """
+<h4>IMLS Grant Programs</h4>
+<table class="wikitable">
+  <tr><th>Program</th><th>Grants</th><th>Total Awarded</th><th>Avg Award</th></tr>"""
+        for p in ig['top_programs'][:15]:
+            prog = esc(str(p.get('program', '')))
+            grants_p = esc(str(p.get('grants', '')))
+            total_p = esc(str(p.get('total_awarded', '')))
+            avg_p = esc(str(p.get('avg_award', '')))
+            body += f'\n  <tr><td><strong>{prog}</strong></td><td class="num">{grants_p}</td><td class="num">${total_p}</td><td class="num">${avg_p}</td></tr>'
+        body += '\n</table>'
+
+    # IMLS top states
+    if ig.get('top_states'):
+        body += """
+<h4>Top States by IMLS Funding</h4>
+<div class="services-bars">"""
+        max_amt = max(s.get('total_awarded', 1) for s in ig['top_states']) if ig['top_states'] else 1
+        for s in ig['top_states'][:15]:
+            pct = (s.get('total_awarded', 0) / max_amt * 100) if max_amt else 0
+            body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{pct:.0f}%"></div><span class="svc-val">${s.get("total_awarded",0):,}</span></div></div>'
+        body += '\n</div>'
+
+    # IMLS G2S
+    g2s = stats.get('imls_g2s', {})
+    body += f"""
+<h4>IMLS Grants to States (G2S) — Formula Funding</h4>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total G2S funding</td><td>${g2s.get('total_amount', 0):,}</td></tr>
+  <tr><td>Year range</td><td>{esc(str(g2s.get('year_range', '')))}</td></tr>
+</table>"""
+
+    if g2s.get('top_states'):
+        body += """
+<h4>Top States by G2S Funding</h4>
+<div class="services-bars">"""
+        max_g2s = max(s.get('amount', 1) for s in g2s['top_states']) if g2s['top_states'] else 1
+        for s in g2s['top_states'][:15]:
+            pct = (s.get('amount', 0) / max_g2s * 100) if max_g2s else 0
+            body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.0f}%"></div><span class="svc-val">${s.get("amount",0):,}</span></div></div>'
+        body += '\n</div>'
+
+    # IMLS library grants (from USASpending.gov)
+    ilg = stats.get('imls_library_grants', {})
+    if ilg:
+        body += f"""
+<h4>IMLS Library Grants (USASpending.gov detail)</h4>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ilg.get('total_grants', 0):,}</div><div class="label">Total grants</div></div>
+  <div class="stat-card"><div class="num">${ilg.get('total_awarded', 0):,}</div><div class="label">Total awarded</div></div>
+  <div class="stat-card"><div class="num">${ilg.get('avg_grant', 0):,}</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">${ilg.get('largest_grant', 0):,}</div><div class="label">Largest grant</div></div>
+</div>"""
+
+        if ilg.get('top_recipients'):
+            body += """
+<h4>Top IMLS Grant Recipients</h4>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>Total Awarded</th><th>Grants</th></tr>"""
+            for r in ilg['top_recipients'][:15]:
+                body += f'\n  <tr><td><strong>{esc(r.get("recipient",""))}</strong></td><td class="num">${r.get("total_awarded",0):,}</td><td class="num">{r.get("grant_count",0)}</td></tr>'
+            body += '\n</table>'
+
+    # NEH
+    neh = stats.get('neh_grants', {})
+    body += f"""
+<h3 id="neh-funder">National Endowment for the Humanities (NEH)</h3>
+<div class="rules-box">
+  <p>The NEH funds library-related humanities projects including preservation, digitization, and public programming.</p>
+  <p><strong>Website:</strong> <a href="https://www.neh.gov" target="_blank">https://www.neh.gov</a></p>
+</div>"""
+    if neh:
+        body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{neh.get('total_grants', 0):,}</div><div class="label">NEH grants</div></div>
+  <div class="stat-card"><div class="num">${neh.get('total_dollars', 0):,}</div><div class="label">NEH awarded</div></div>
+  <div class="stat-card"><div class="num">${neh.get('avg_grant', 0):,}</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">{neh.get('states_reached', 0)}</div><div class="label">States reached</div></div>
+</div>"""
+        if neh.get('top_recipients'):
+            body += """
+<h4>Top NEH Library Grant Recipients</h4>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>Amount</th></tr>"""
+            for r in neh['top_recipients'][:10]:
+                body += f'\n  <tr><td><strong>{esc(r.get("name",""))}</strong></td><td class="num">${r.get("amount",0):,}</td></tr>'
+            body += '\n</table>'
+
+    # USDA
+    usda = stats.get('usda_grants', {})
+    body += f"""
+<h3 id="usda-funder">USDA Rural Development</h3>
+<div class="rules-box">
+  <p>The USDA provides grants and loans for library facilities and technology in rural communities through the Community Facilities Program.</p>
+  <p><strong>Website:</strong> <a href="https://www.rd.usda.gov" target="_blank">https://www.rd.usda.gov</a></p>
+</div>"""
+    usda_totals = usda.get('totals', {}) if usda else {}
+    if usda_totals:
+        body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{usda_totals.get('total_cf_awards_in_dataset', 0):,}</div><div class="label">CF awards</div></div>
+  <div class="stat-card"><div class="num">${usda_totals.get('total_dollars', 0):,}</div><div class="label">Total dollars</div></div>
+  <div class="stat-card"><div class="num">${usda_totals.get('grant_dollars_obligated', 0):,}</div><div class="label">Grant dollars</div></div>
+  <div class="stat-card"><div class="num">{usda_totals.get('distinct_recipients', 0)}</div><div class="label">Recipients</div></div>
+</div>"""
+
+    # NSF — load from cache
+    nsf_cache = os.path.join(os.path.dirname(WIKI), 'data', '_cache', 'imls_nsf_award_details.json')
+    nsf_awards = []
+    if os.path.exists(nsf_cache):
+        try:
+            with open(nsf_cache) as nf:
+                nsf_awards = json.load(nf)
+        except Exception:
+            pass
+    body += f"""
+<h3 id="nsf-funder">National Science Foundation (NSF)</h3>
+<div class="rules-box">
+  <p>The NSF funds library science research, STEM education, and informatics projects through various directorates.</p>
+  <p><strong>Website:</strong> <a href="https://www.nsf.gov" target="_blank">https://www.nsf.gov</a></p>
+</div>"""
+    if nsf_awards:
+        nsf_total = 0
+        for a in nsf_awards.values() if isinstance(nsf_awards, dict) else nsf_awards:
+            try:
+                nsf_total += float(a.get('total_obligation', 0) or 0)
+            except Exception:
+                pass
+        nsf_count = len(nsf_awards) if isinstance(nsf_awards, dict) else len(nsf_awards)
+        body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nsf_count:,}</div><div class="label">NSF/IMLS awards</div></div>
+  <div class="stat-card"><div class="num">${nsf_total:,.0f}</div><div class="label">Total obligated</div></div>
+</div>"""
+
+    # Other federal grants
+    oth = stats.get('other_federal_grants', {})
+    body += f"""
+<h3 id="other-federal-funder">Other Federal Grant Programs</h3>
+<div class="rules-box">
+  <p>Additional federal agencies that fund library projects, including the Department of Education, NASA, EPA, and others.</p>
+</div>"""
+    if oth:
+        body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{oth.get('total_grants', 0):,}</div><div class="label">Other federal grants</div></div>
+  <div class="stat-card"><div class="num">${oth.get('total_awarded', 0):,}</div><div class="label">Total awarded</div></div>
+  <div class="stat-card"><div class="num">{oth.get('agencies_count', 0)}</div><div class="label">Agencies</div></div>
+</div>"""
+        if oth.get('by_agency'):
+            body += """
+<h4>Other Federal Agencies Funding Libraries</h4>
+<table class="wikitable">
+  <tr><th>Agency</th><th>Grants</th><th>Total Awarded</th></tr>"""
+            for a in oth['by_agency']:
+                body += f'\n  <tr><td><strong>{esc(a.get("agency_name",""))}</strong></td><td class="num">{a.get("grants",0):,}</td><td class="num">${a.get("total_awarded",0):,}</td></tr>'
+            body += '\n</table>'
+
+    # ---- Philanthropic funders ----
+    phil = stats.get('philanthropy', {})
+    body += """
+<h2 id="philanthropic-funders">Philanthropic Funders</h2>
+<p>Private foundations and philanthropists have been transformative library funders since Andrew Carnegie's building program.</p>"""
+
+    # Carnegie
+    carnegie = phil.get('carnegie_libraries', {})
+    carn_us = carnegie.get('total_built_us', 1689)
+    carn_world = carnegie.get('total_built_worldwide', 2509)
+    body += f"""
+<h3 id="carnegie-funder">Andrew Carnegie &amp; Carnegie Corporation</h3>
+<div class="rules-box">
+  <p><strong>Andrew Carnegie</strong> (1835-1919) funded the construction of {carn_us:,} public library buildings in the United States and {carn_world:,} worldwide, investing approximately $56 million (over $1.2 billion in today's dollars).</p>
+  <p><strong>Carnegie Corporation of New York</strong> continues to fund library and education initiatives. The Corporation was established by Carnegie in 1911 with a $135 million endowment; today it holds approximately $4.1 billion in endowment.</p>
+  <p><strong>Website:</strong> <a href="https://www.carnegie.org" target="_blank">https://www.carnegie.org</a></p>
+</div>"""
+    if carnegie.get('by_region_worldwide'):
+        body += """
+<h4>Carnegie Libraries by Region</h4>
+<table class="wikitable">
+  <tr><th>Region</th><th>Libraries Built</th></tr>"""
+        for reg in carnegie['by_region_worldwide']:
+            body += f'\n  <tr><td>{esc(reg.get("region",""))}</td><td class="num">{reg.get("libraries",0):,}</td></tr>'
+        body += '\n</table>'
+
+    # Gates Foundation
+    gates = phil.get('gates_foundation', {})
+    body += f"""
+<h3 id="gates-funder">Bill &amp; Melinda Gates Foundation</h3>
+<div class="rules-box">
+  <p>The Bill &amp; Melinda Gates Foundation has been a major library funder since {gates.get('us_libraries_initiative_start_year', 1997)}, investing over $1 billion in public libraries through the Global Libraries program. Key initiatives included computer hardware grants, internet access expansion, and digital inclusion programs.</p>
+  <p><strong>Goal:</strong> {esc(gates.get('goal', 'Ensuring that if you can get to a public library, you can reach the internet.'))}</p>
+  <p>The foundation funded the US IMPACT Study (2010), which documented 77 million Americans using library computers annually.</p>
+  <p><strong>Website:</strong> <a href="https://www.gatesfoundation.org" target="_blank">https://www.gatesfoundation.org</a></p>
+</div>"""
+
+    # Major foundations from stats data
+    major_founds = phil.get('major_foundations', [])
+    if major_founds:
+        body += """
+<h3 id="major-foundations">Major Library Foundations</h3>
+<table class="wikitable">
+  <tr><th>Foundation</th><th>Endowment</th><th>Founded</th><th>Focus Areas</th></tr>"""
+        for f in major_founds:
+            name = esc(str(f.get('name', '')))
+            endow = f.get('endowment_usd', 0)
+            endow_str = f'${endow/1e9:.2f}B' if endow and endow > 0 else '&mdash;'
+            founded = esc(str(f.get('founded', '')))
+            areas = esc(str(f.get('areas', '') or f.get('goal', ''))[:200])
+            body += f'\n  <tr><td><strong>{name}</strong></td><td class="num">{endow_str}</td><td>{founded}</td><td>{areas}</td></tr>'
+        body += '\n</table>'
+
+    # Endowments
+    endowments = phil.get('endowments', [])
+    if endowments:
+        body += """
+<h3 id="endowments">Library Endowments</h3>
+<table class="wikitable">
+  <tr><th>Library / Institution</th><th>Endowment</th><th>Year</th></tr>"""
+        for e in endowments[:15]:
+            lib = esc(str(e.get('library', '')))
+            amt = e.get('endowment_size_usd', 0)
+            yr = esc(str(e.get('year', '')))
+            body += f'\n  <tr><td><strong>{lib}</strong></td><td class="num">${amt:,}</td><td>{yr}</td></tr>'
+        body += '\n</table>'
+
+    # ---- Friends of Libraries ----
+    friends = phil.get('friends_groups', {})
+    body += f"""
+<h3 id="friends-funder">Friends of Libraries &amp; Library Foundations</h3>
+<div class="rules-box">
+  <p>Friends of Libraries groups are non-profit volunteer organizations that support libraries through fundraising, advocacy, and programming. {esc(str(friends.get('estimated_count_national', 'Thousands of')))} groups exist nationwide, generating millions in supplementary funding through used book sales, membership drives, and capital campaigns.</p>
+  <p><strong>National organization:</strong> <a href="https://www.ala.org/united" target="_blank">United for Libraries (ALA)</a> — association of library trustees, advocates, Friends, and foundations.</p>
+</div>"""
+
+    # ---- Ballot measures (voter-approved funding) ----
+    ballot = stats.get('ballot', {})
+    body += f"""
+<h2 id="ballot-funders">Voter-Approved Library Funding (Ballot Measures)</h2>
+<p>Voters directly approve library funding through ballot measures — bonds, levies, and tax initiatives.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ballot.get('total_measures', 0)}</div><div class="label">Total ballot measures</div></div>
+  <div class="stat-card"><div class="num">{ballot.get('total_pass', 0)}</div><div class="label">Passed</div></div>
+  <div class="stat-card"><div class="num">{ballot.get('pass_rate', 0):.1f}%</div><div class="label">Pass rate</div></div>
+  <div class="stat-card"><div class="num">${ballot.get('total_amount_requested', 0)/1e6:.0f}M</div><div class="label">Total requested</div></div>
+</div>"""
+    if ballot.get('by_year'):
+        body += """
+<h4>Ballot Measures by Year</h4>
+<table class="wikitable">
+  <tr><th>Year</th><th>Measures</th></tr>"""
+        for y in ballot['by_year']:
+            body += f'\n  <tr><td>{esc(str(y.get("year","")))}</td><td class="num">{y.get("count",0)}</td></tr>'
+        body += '\n</table>'
+
+    # ---- State funding sources ----
+    sf = stats.get('state_funding', {})
+    sf_nat = sf.get('national_totals', {}) if sf else {}
+    body += f"""
+<h2 id="state-funders">State &amp; Local Library Funding</h2>
+<p>Public libraries in America are primarily funded by local government. State and federal contributions supplement local funding.</p>
+<table class="wikitable">
+  <tr><th>Funding Source</th><th>National Total</th><th>Share</th></tr>
+  <tr><td>Local government (municipal/county)</td><td>${sf_nat.get('local_government_income', 0):,}</td><td class="pct">{sf_nat.get('local_pct', 85.5):.1f}%</td></tr>
+  <tr><td>State government</td><td>${sf_nat.get('state_government_income', 0):,}</td><td class="pct">{sf_nat.get('state_pct', 6.7):.1f}%</td></tr>
+  <tr><td>Federal government</td><td>${sf_nat.get('federal_government_income', 0):,}</td><td class="pct">{sf_nat.get('federal_pct', 0.5):.1f}%</td></tr>
+  <tr><td>Other (donations, fees, endowments)</td><td>${sf_nat.get('other_income', 0):,}</td><td class="pct">{sf_nat.get('other_pct', 7.3):.1f}%</td></tr>
+  <tr><td><strong>Total income</strong></td><td><strong>${sf_nat.get('total_income', 0):,}</strong></td><td><strong>100%</strong></td></tr>
+</table>"""
+    if sf.get('top_10', {}).get('total_funding'):
+        body += """
+<h4>Top States by Total Library Income</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Total Income</th><th>Per Capita</th></tr>"""
+        for st in sf['top_10']['total_funding'][:10]:
+            body += f'\n  <tr><td>{esc(st.get("state",""))}</td><td class="num">${st.get("total_income",0):,}</td><td class="num">${st.get("total_income_per_capita",0):.2f}</td></tr>'
+        body += '\n</table>'
+
+    # ---- IMLS ARP grants ----
+    arp = stats.get('imls_arp_grants', {})
+    if arp:
+        aks = arp.get('key_stats', {})
+        body += f"""
+<h2 id="arp-funder">IMLS American Rescue Plan (ARP) Grants</h2>
+<p>COVID-era digital inclusion grants from IMLS.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${aks.get('total_funding', 0):,.0f}</div><div class="label">ARP total</div></div>
+  <div class="stat-card"><div class="num">{aks.get('total_grants', 0)}</div><div class="label">ARP grants</div></div>
+  <div class="stat-card"><div class="num">${aks.get('avg_grant_size', 0):,}</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">{esc(str(aks.get('fiscal_year', 'FY2021')))}</div><div class="label">Fiscal year</div></div>
+</div>"""
+        if arp.get('by_state'):
+            body += """
+<h4>ARP Grants by State</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Grants</th><th>Funding</th></tr>"""
+            for st in arp['by_state'][:15]:
+                body += f'\n  <tr><td>{esc(st.get("state",""))}</td><td class="num">{st.get("grants",0)}</td><td class="num">${st.get("total",0):,}</td></tr>'
+            body += '\n</table>'
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a></div>
+<p class="edit-note">Generated on {now_str()}.</p>"""
+
+    with open(os.path.join(WIKI, 'funders.html'), 'w') as f:
+        f.write(shell("Library Funders & Investors", body, panel("funders"), active_tab="funders"))
+
 def main():
     print(f"=== US Library Census Wiki build — {now_str()} ===")
     data = load_all()
@@ -10010,13 +10508,15 @@ def main():
     build_states_geojson()
     build_index(data, stats)
     build_gov(data, stats)
+    build_contacts(data, stats)
+    build_funders(data, stats)
     build_about(data, stats)
     build_search()
     build_state_pages(data, stats)
     build_map_page()
     print(f"\n=== Build complete — {now_str()} ===")
     print(f"  Output: {WIKI}")
-    print(f"  Pages: index.html, search.html, gov.html, about.html, map.html, states/*.html")
+    print(f"  Pages: index.html, search.html, gov.html, contacts.html, funders.html, about.html, map.html, states/*.html")
     print(f"  Data: data/*.json")
     print(f"\n  To serve: cd wiki && python3 -m http.server 8124")
     print(f"  Then open: http://localhost:8124")

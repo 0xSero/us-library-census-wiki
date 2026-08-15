@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Library Funders &amp; Investors — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+
+<script>
+(function(){var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body class="wiki-body">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link " href="index.html">Main page</a></li>
+      <li class="nav-item"><a class="nav-link " href="search.html">Search</a></li>
+      <li class="nav-item"><a class="nav-link " href="map.html">Map</a></li>
+      <li class="nav-item"><a class="nav-link " href="contacts.html">Contacts</a></li>
+      <li class="nav-item"><a class="nav-link active" href="funders.html">Funders</a></li>
+      <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
+      <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
+      </ul>
+      <form class="d-flex me-2" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+  </div>
+</nav>
+<div class="container-fluid wiki-container">
+  <div class="row g-0">
+<aside class="col-lg-2 d-none d-lg-block wiki-sidebar"><div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="search.html" class="list-group-item list-group-item-action small py-1">Search the census</a>
+    <a href="map.html" class="list-group-item list-group-item-action small py-1">Interactive map</a>
+    <a href="contacts.html" class="list-group-item list-group-item-action small py-1">Library contacts</a>
+    <a href="funders.html" class="list-group-item list-group-item-action small py-1">Funders & investors</a>
+    <a href="gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="about.html" class="list-group-item list-group-item-action small py-1">About / methodology</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
+    <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
+    <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
+    <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
+    <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
+    <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
+    <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
+    <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
+    <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
+    <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
+    <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
+    <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
+    <a href="index.html#academic-stats" class="list-group-item list-group-item-action small py-1">Academic libraries</a>
+    <a href="index.html#library-history" class="list-group-item list-group-item-action small py-1">Library history</a>
+    <a href="index.html#library-buildings" class="list-group-item list-group-item-action small py-1">Buildings & architecture</a>
+    <a href="index.html#library-economics" class="list-group-item list-group-item-action small py-1">Economics & ROI</a>
+    <a href="index.html#library-law" class="list-group-item list-group-item-action small py-1">Law & censorship</a>
+    <a href="index.html#school-library-stats" class="list-group-item list-group-item-action small py-1">School libraries</a>
+    <a href="index.html#international" class="list-group-item list-group-item-action small py-1">International comparison</a>
+    <a href="index.html#consortia-summary" class="list-group-item list-group-item-action small py-1">Library consortia</a>
+    <a href="index.html#digital-libraries-enhanced" class="list-group-item list-group-item-action small py-1">Digital libraries & e-books</a>
+    <a href="index.html#reading-habits" class="list-group-item list-group-item-action small py-1">Reading habits & literacy</a>
+    <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
+    <a href="index.html#innovation" class="list-group-item list-group-item-action small py-1">Innovation & makerspaces</a>
+    <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
+    <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
+    <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
+    <a href="index.html#special-libraries" class="list-group-item list-group-item-action small py-1">Special libraries & bookmobiles</a>
+    <a href="index.html#web-coverage" class="list-group-item list-group-item-action small py-1">Website coverage</a>
+    <a href="index.html#arp-grants" class="list-group-item list-group-item-action small py-1">ARP COVID grants</a>
+    <a href="index.html#programs-2024" class="list-group-item list-group-item-action small py-1">FY2024 programs detail</a>
+    <a href="index.html#format-shift" class="list-group-item list-group-item-action small py-1">Book format shift</a>
+    <a href="index.html#nces-sass" class="list-group-item list-group-item-action small py-1">NCES SASS survey</a>
+    <a href="index.html#national-snapshot" class="list-group-item list-group-item-action small py-1">National snapshot</a>
+    <a href="index.html#intellectual-freedom" class="list-group-item list-group-item-action small py-1">Intellectual freedom</a>
+    <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
+    <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
+    <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
+    <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
+    <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
+    <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
+    <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
+    <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
+    <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
+    <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
+    <a href="index.html#other-federal-grants" class="list-group-item list-group-item-action small py-1">Other federal grants</a>
+    <a href="index.html#federal-funding-totals" class="list-group-item list-group-item-action small py-1">Federal funding totals</a>
+    <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
+    <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
+    <a href="index.html#nlm" class="list-group-item list-group-item-action small py-1">National Library of Medicine</a>
+    <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
+    <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
+    <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
+    <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div></aside>
+    <main class="col-lg-10 wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">Library Funders &amp; Investors</h1>
+      <div class="wiki-body-content" id="bodyContent">
+
+<p class="contentSub">Library funders, investors &amp; philanthropic organizations</p>
+<div class="wiki-sub">Every organization that funds American libraries — federal agencies, foundations, philanthropists, and voter-approved ballot measures.</div>
+<h2 id="federal-funders">Federal Funders</h2>
+<p>The federal government is a major library funder through multiple agencies and programs. Total tracked federal funding: <strong>$88.4 billion</strong> across 9 funding streams.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">$88.4B</div><div class="label">Total federal funding</div></div>
+  <div class="stat-card"><div class="num">9</div><div class="label">Funding streams</div></div>
+  <div class="stat-card"><div class="num">21,325</div><div class="label">IMLS grants</div></div>
+  <div class="stat-card"><div class="num">$4.04B</div><div class="label">IMLS awarded</div></div>
+</div>
+<h3>Federal Funding Programs</h3>
+<table class="wikitable">
+  <tr><th>Program</th><th>Amount</th><th>Grants</th><th>Period</th><th>Description</th></tr>
+  <tr><td><strong>BEAD Broadband Allocations</strong></td><td class="num">$42,450,000,000</td><td class="num">56</td><td>FY2022-2030</td><td>Broadband Equity Access and Deployment program allocations to 56 states/territories</td></tr>
+  <tr><td><strong>ACP Broadband Subsidy</strong></td><td class="num">$29,800,000,000</td><td class="num">23300000</td><td>FY2022-2024</td><td>Affordable Connectivity Program: 23.3M households received broadband subsidy (now ended)</td></tr>
+  <tr><td><strong>USAC ECF (Emergency Connectivity)</strong></td><td class="num">$10,000,000,000</td><td class="num">10971</td><td>FY2021-2024</td><td>Emergency Connectivity Fund: devices and connectivity for libraries and schools during COVID</td></tr>
+  <tr><td><strong>E-Rate Library Funding</strong></td><td class="num">$2,280,000,000</td><td class="num">253000</td><td>FY2016-2024</td><td>USAC E-Rate telecommunications and internet access for libraries</td></tr>
+  <tr><td><strong>NTIA Tribal Broadband</strong></td><td class="num">$2,160,000,000</td><td class="num">271</td><td>FY2014-2024</td><td>Tribal Broadband Connectivity Program awards (library-benefiting subset)</td></tr>
+  <tr><td><strong>IMLS Grants to Libraries</strong></td><td class="num">$1,465,541,788</td><td class="num">936</td><td>FY2007-2026</td><td>Grants to States (LSTA), National Leadership Grants, Laura Bush 21st Century Librarian Program</td></tr>
+  <tr><td><strong>Other Federal Agency Grants</strong></td><td class="num">$89,400,000</td><td class="num">156</td><td>FY2007-2026</td><td>HUD CDBG, DOI tribal/historic, HHS health literacy, NSF STEM, EPA, ED, CNCS</td></tr>
+  <tr><td><strong>USDA Rural Library Grants</strong></td><td class="num">$64,200,000</td><td class="num">262</td><td>FY2007-2025</td><td>Community Facilities Loans and Grants (CFDA 10.766) for rural libraries under 20K pop</td></tr>
+  <tr><td><strong>NEH Library Grants</strong></td><td class="num">$61,629,242</td><td class="num">309</td><td>FY2005-2025</td><td>Preservation/Access, Public Programs, Digital Humanities, We the People, ARP relief</td></tr>
+</table>
+<h3 id="imls-funder">Institute of Museum and Library Services (IMLS)</h3>
+<div class="rules-box">
+  <p>The Institute of Museum and Library Services is the primary federal funder for libraries in the United States. Established in 1996, IMLS administers the Library Services and Technology Act (LSTA) grants and the Grants to States program.</p>
+  <p><strong>Total grants:</strong> 21,325 &middot; <strong>Total awarded:</strong> $4,037,587,891 &middot; <strong>Years:</strong> 1996–2025</p>
+  <p><strong>Website:</strong> <a href="https://www.imls.gov" target="_blank">https://www.imls.gov</a></p>
+  <p><strong>Key programs:</strong> Grants to States (G2S), National Leadership Grants, Laura Bush 21st Century Librarian Program, Museums for America, American Rescue Plan, Native American Library Services</p>
+</div>
+<h4>IMLS Grant Programs</h4>
+<table class="wikitable">
+  <tr><th>Program</th><th>Grants</th><th>Total Awarded</th><th>Avg Award</th></tr>
+  <tr><td><strong>Native American Library Service</strong></td><td class="num">2681</td><td class="num">$43095606</td><td class="num">$16074</td></tr>
+  <tr><td><strong>Museum Assessment Program</strong></td><td class="num">1731</td><td class="num">$7379235</td><td class="num">$4263</td></tr>
+  <tr><td><strong>Museums for America</strong></td><td class="num">1673</td><td class="num">$179775946</td><td class="num">$107457</td></tr>
+  <tr><td><strong>Conservation Assessment Prog.</strong></td><td class="num">1397</td><td class="num">$14442644</td><td class="num">$10338</td></tr>
+  <tr><td><strong>General Operating Support</strong></td><td class="num">1299</td><td class="num">$108877629</td><td class="num">$83816</td></tr>
+  <tr><td><strong>Conservation Program</strong></td><td class="num">1121</td><td class="num">$46041394</td><td class="num">$41072</td></tr>
+  <tr><td><strong>Native American Basic Grants</strong></td><td class="num">846</td><td class="num">$3988350</td><td class="num">$4714</td></tr>
+  <tr><td><strong>National Leadership Grants</strong></td><td class="num">810</td><td class="num">$210929957</td><td class="num">$260407</td></tr>
+  <tr><td><strong>Librarians for the 21st Century</strong></td><td class="num">388</td><td class="num">$198999539</td><td class="num">$512885</td></tr>
+  <tr><td><strong>Native American Native Hawaiian</strong></td><td class="num">220</td><td class="num">$8592999</td><td class="num">$39059</td></tr>
+  <tr><td><strong>Native Amer. Tech. Assistance</strong></td><td class="num">198</td><td class="num">$396000</td><td class="num">$2000</td></tr>
+  <tr><td><strong>Learning Opportunities Grants</strong></td><td class="num">168</td><td class="num">$15314815</td><td class="num">$91160</td></tr>
+</table>
+<h4>Top States by IMLS Funding</h4>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">CA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:100%"></div><span class="svc-val">$366,807,516</span></div></div>
+  <div class="svc-row"><span class="svc-label">NY</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:85%"></div><span class="svc-val">$313,126,089</span></div></div>
+  <div class="svc-row"><span class="svc-label">TX</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:61%"></div><span class="svc-val">$224,733,166</span></div></div>
+  <div class="svc-row"><span class="svc-label">IL</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:52%"></div><span class="svc-val">$192,341,052</span></div></div>
+  <div class="svc-row"><span class="svc-label">PA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:47%"></div><span class="svc-val">$170,908,318</span></div></div>
+  <div class="svc-row"><span class="svc-label">FL</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:44%"></div><span class="svc-val">$160,308,272</span></div></div>
+  <div class="svc-row"><span class="svc-label">MA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:35%"></div><span class="svc-val">$130,172,806</span></div></div>
+  <div class="svc-row"><span class="svc-label">OH</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:32%"></div><span class="svc-val">$117,801,910</span></div></div>
+  <div class="svc-row"><span class="svc-label">MI</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:32%"></div><span class="svc-val">$115,630,817</span></div></div>
+  <div class="svc-row"><span class="svc-label">NC</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:31%"></div><span class="svc-val">$112,943,669</span></div></div>
+  <div class="svc-row"><span class="svc-label">WA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:28%"></div><span class="svc-val">$103,663,534</span></div></div>
+  <div class="svc-row"><span class="svc-label">VA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:28%"></div><span class="svc-val">$103,095,903</span></div></div>
+  <div class="svc-row"><span class="svc-label">DC</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:24%"></div><span class="svc-val">$87,064,713</span></div></div>
+  <div class="svc-row"><span class="svc-label">GA</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:23%"></div><span class="svc-val">$83,691,858</span></div></div>
+  <div class="svc-row"><span class="svc-label">MD</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:23%"></div><span class="svc-val">$83,642,560</span></div></div>
+</div>
+<h4>IMLS Grants to States (G2S) — Formula Funding</h4>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total G2S funding</td><td>$1,985,331,382</td></tr>
+  <tr><td>Year range</td><td>2014–2025</td></tr>
+</table>
+<h4>Top States by G2S Funding</h4>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">CA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:100%"></div><span class="svc-val">$186,687,776</span></div></div>
+  <div class="svc-row"><span class="svc-label">TX</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:75%"></div><span class="svc-val">$139,419,776</span></div></div>
+  <div class="svc-row"><span class="svc-label">FL</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:56%"></div><span class="svc-val">$104,746,038</span></div></div>
+  <div class="svc-row"><span class="svc-label">NY</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:52%"></div><span class="svc-val">$97,576,520</span></div></div>
+  <div class="svc-row"><span class="svc-label">PA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:36%"></div><span class="svc-val">$67,694,702</span></div></div>
+  <div class="svc-row"><span class="svc-label">IL</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:35%"></div><span class="svc-val">$65,749,991</span></div></div>
+  <div class="svc-row"><span class="svc-label">OH</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:33%"></div><span class="svc-val">$62,410,120</span></div></div>
+  <div class="svc-row"><span class="svc-label">GA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:31%"></div><span class="svc-val">$57,264,778</span></div></div>
+  <div class="svc-row"><span class="svc-label">NC</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:30%"></div><span class="svc-val">$56,120,088</span></div></div>
+  <div class="svc-row"><span class="svc-label">MI</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:29%"></div><span class="svc-val">$54,615,237</span></div></div>
+  <div class="svc-row"><span class="svc-label">NJ</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:27%"></div><span class="svc-val">$50,504,469</span></div></div>
+  <div class="svc-row"><span class="svc-label">VA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:26%"></div><span class="svc-val">$47,828,049</span></div></div>
+  <div class="svc-row"><span class="svc-label">WA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:23%"></div><span class="svc-val">$43,330,354</span></div></div>
+  <div class="svc-row"><span class="svc-label">AZ</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:22%"></div><span class="svc-val">$41,744,164</span></div></div>
+  <div class="svc-row"><span class="svc-label">MA</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:22%"></div><span class="svc-val">$40,627,319</span></div></div>
+</div>
+<h4>IMLS Library Grants (USASpending.gov detail)</h4>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">936</div><div class="label">Total grants</div></div>
+  <div class="stat-card"><div class="num">$1,465,541,788.23</div><div class="label">Total awarded</div></div>
+  <div class="stat-card"><div class="num">$1,565,749.77375</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">$17,318,599.0</div><div class="label">Largest grant</div></div>
+</div>
+<h4>Top IMLS Grant Recipients</h4>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>Total Awarded</th><th>Grants</th></tr>
+  <tr><td><strong>CALIFORNIA STATE LIBRARY</strong></td><td class="num">$299,939,149.77</td><td class="num">21</td></tr>
+  <tr><td><strong>LIBRARY &amp; ARCHIVES COMMISSION</strong></td><td class="num">$223,036,791.67999998</td><td class="num">25</td></tr>
+  <tr><td><strong>STATE LIBRARY OF OHIO</strong></td><td class="num">$103,437,172.0</td><td class="num">24</td></tr>
+  <tr><td><strong>MASS BOARD OF LIBRARY COMMISSIONERS</strong></td><td class="num">$67,055,486.0</td><td class="num">22</td></tr>
+  <tr><td><strong>STATE LIBRARY &amp; ARCHIVES TENNESSEE</strong></td><td class="num">$66,148,015.0</td><td class="num">22</td></tr>
+  <tr><td><strong>INDIANA STATE PUBLIC LIBRARY</strong></td><td class="num">$63,603,853.0</td><td class="num">21</td></tr>
+  <tr><td><strong>SOUTH CAROLINA STATE LIBRARY</strong></td><td class="num">$53,270,285.0</td><td class="num">21</td></tr>
+  <tr><td><strong>STATE OF OREGON - STATE LIBRARY</strong></td><td class="num">$46,642,707.58</td><td class="num">21</td></tr>
+  <tr><td><strong>CONNECTICUT STATE LIBRARY</strong></td><td class="num">$44,515,411.04000001</td><td class="num">27</td></tr>
+  <tr><td><strong>STATE LIBRARY LOUISIANA</strong></td><td class="num">$41,445,663.0</td><td class="num">18</td></tr>
+  <tr><td><strong>ARKANSAS STATE LIBRARY</strong></td><td class="num">$38,636,010.03</td><td class="num">21</td></tr>
+  <tr><td><strong>PUBLIC LIBRARY SERVICE ALABAMA</strong></td><td class="num">$38,402,516.0</td><td class="num">16</td></tr>
+  <tr><td><strong>STATE LIBRARY KANSAS</strong></td><td class="num">$38,042,348.95</td><td class="num">23</td></tr>
+  <tr><td><strong>MISSISSIPPI LIBRARY COMMISSION</strong></td><td class="num">$37,742,392.0</td><td class="num">23</td></tr>
+  <tr><td><strong>MARYLAND STATE LIBRARY</strong></td><td class="num">$32,483,213.06</td><td class="num">11</td></tr>
+</table>
+<h3 id="neh-funder">National Endowment for the Humanities (NEH)</h3>
+<div class="rules-box">
+  <p>The NEH funds library-related humanities projects including preservation, digitization, and public programming.</p>
+  <p><strong>Website:</strong> <a href="https://www.neh.gov" target="_blank">https://www.neh.gov</a></p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">314</div><div class="label">NEH grants</div></div>
+  <div class="stat-card"><div class="num">$62,821,144.669999994</div><div class="label">NEH awarded</div></div>
+  <div class="stat-card"><div class="num">$200,067.33971337578</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">13</div><div class="label">States reached</div></div>
+</div>
+<h4>Top NEH Library Grant Recipients</h4>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>Amount</th></tr>
+  <tr><td><strong>AMERICAN LIBRARY ASSOCIATION</strong></td><td class="num">$12,786,113.44</td></tr>
+  <tr><td><strong>NEWBERRY LIBRARY</strong></td><td class="num">$9,594,328.389999999</td></tr>
+  <tr><td><strong>NEW YORK PUBLIC LIBRARY</strong></td><td class="num">$6,649,146.91</td></tr>
+  <tr><td><strong>THE LIBRARY COMPANY OF PHILADELPHIA</strong></td><td class="num">$2,617,222.63</td></tr>
+  <tr><td><strong>HENRY E. HUNTINGTON LIBRARY AND ART GALLERY</strong></td><td class="num">$2,268,176.79</td></tr>
+  <tr><td><strong>PENINSULA LIBRARY SYSTEM</strong></td><td class="num">$1,822,941.0</td></tr>
+  <tr><td><strong>CONNECTICUT STATE LIBRARY</strong></td><td class="num">$1,656,921.95</td></tr>
+  <tr><td><strong>PROVIDENCE PUBLIC LIBRARY</strong></td><td class="num">$1,504,942.05</td></tr>
+  <tr><td><strong>FOLGER SHAKESPEARE LIBRARY</strong></td><td class="num">$1,472,176.0</td></tr>
+  <tr><td><strong>THE LIBRARY OF VIRGINIA FOUNDATION</strong></td><td class="num">$1,270,368.0</td></tr>
+</table>
+<h3 id="usda-funder">USDA Rural Development</h3>
+<div class="rules-box">
+  <p>The USDA provides grants and loans for library facilities and technology in rural communities through the Community Facilities Program.</p>
+  <p><strong>Website:</strong> <a href="https://www.rd.usda.gov" target="_blank">https://www.rd.usda.gov</a></p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">27,410</div><div class="label">CF awards</div></div>
+  <div class="stat-card"><div class="num">$64,218,642</div><div class="label">Total dollars</div></div>
+  <div class="stat-card"><div class="num">$19,361,808</div><div class="label">Grant dollars</div></div>
+  <div class="stat-card"><div class="num">172</div><div class="label">Recipients</div></div>
+</div>
+<h3 id="nsf-funder">National Science Foundation (NSF)</h3>
+<div class="rules-box">
+  <p>The NSF funds library science research, STEM education, and informatics projects through various directorates.</p>
+  <p><strong>Website:</strong> <a href="https://www.nsf.gov" target="_blank">https://www.nsf.gov</a></p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">940</div><div class="label">NSF/IMLS awards</div></div>
+  <div class="stat-card"><div class="num">$1,467,320,685</div><div class="label">Total obligated</div></div>
+</div>
+<h3 id="other-federal-funder">Other Federal Grant Programs</h3>
+<div class="rules-box">
+  <p>Additional federal agencies that fund library projects, including the Department of Education, NASA, EPA, and others.</p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">156</div><div class="label">Other federal grants</div></div>
+  <div class="stat-card"><div class="num">$89,422,777.24</div><div class="label">Total awarded</div></div>
+  <div class="stat-card"><div class="num">7</div><div class="label">Agencies</div></div>
+</div>
+<h4>Other Federal Agencies Funding Libraries</h4>
+<table class="wikitable">
+  <tr><th>Agency</th><th>Grants</th><th>Total Awarded</th></tr>
+  <tr><td><strong>Department of Housing and Urban Development</strong></td><td class="num">73</td><td class="num">$53,482,702.68</td></tr>
+  <tr><td><strong>Department of the Interior</strong></td><td class="num">53</td><td class="num">$23,896,458.11</td></tr>
+  <tr><td><strong>Department of Education</strong></td><td class="num">5</td><td class="num">$4,643,743.0</td></tr>
+  <tr><td><strong>Department of Health and Human Services</strong></td><td class="num">8</td><td class="num">$3,420,883.45</td></tr>
+  <tr><td><strong>Corporation for National and Community Service</strong></td><td class="num">11</td><td class="num">$1,940,093.0</td></tr>
+  <tr><td><strong>National Science Foundation</strong></td><td class="num">4</td><td class="num">$1,778,897.0</td></tr>
+  <tr><td><strong>Environmental Protection Agency</strong></td><td class="num">2</td><td class="num">$260,000.0</td></tr>
+</table>
+<h2 id="philanthropic-funders">Philanthropic Funders</h2>
+<p>Private foundations and philanthropists have been transformative library funders since Andrew Carnegie's building program.</p>
+<h3 id="carnegie-funder">Andrew Carnegie &amp; Carnegie Corporation</h3>
+<div class="rules-box">
+  <p><strong>Andrew Carnegie</strong> (1835-1919) funded the construction of 1,689 public library buildings in the United States and 2,509 worldwide, investing approximately $56 million (over $1.2 billion in today's dollars).</p>
+  <p><strong>Carnegie Corporation of New York</strong> continues to fund library and education initiatives. The Corporation was established by Carnegie in 1911 with a $135 million endowment; today it holds approximately $4.1 billion in endowment.</p>
+  <p><strong>Website:</strong> <a href="https://www.carnegie.org" target="_blank">https://www.carnegie.org</a></p>
+</div>
+<h4>Carnegie Libraries by Region</h4>
+<table class="wikitable">
+  <tr><th>Region</th><th>Libraries Built</th></tr>
+  <tr><td>United States</td><td class="num">1,689</td></tr>
+  <tr><td>United Kingdom and Ireland</td><td class="num">660</td></tr>
+  <tr><td>Canada</td><td class="num">125</td></tr>
+  <tr><td>Other (Australia, South Africa, New Zealand, Serbia, Belgium, France, Caribbean, Mauritius, Malaysia, Fiji)</td><td class="num">25</td></tr>
+</table>
+<h3 id="gates-funder">Bill &amp; Melinda Gates Foundation</h3>
+<div class="rules-box">
+  <p>The Bill &amp; Melinda Gates Foundation has been a major library funder since 1997, investing over $1 billion in public libraries through the Global Libraries program. Key initiatives included computer hardware grants, internet access expansion, and digital inclusion programs.</p>
+  <p><strong>Goal:</strong> Ensuring that if you can get to a public library, you can reach the internet.</p>
+  <p>The foundation funded the US IMPACT Study (2010), which documented 77 million Americans using library computers annually.</p>
+  <p><strong>Website:</strong> <a href="https://www.gatesfoundation.org" target="_blank">https://www.gatesfoundation.org</a></p>
+</div>
+<h3 id="major-foundations">Major Library Foundations</h3>
+<table class="wikitable">
+  <tr><th>Foundation</th><th>Endowment</th><th>Founded</th><th>Focus Areas</th></tr>
+  <tr><td><strong>Carnegie Corporation of New York (now Andrew Carnegie Foundation)</strong></td><td class="num">$4.10B</td><td>1911</td><td></td></tr>
+  <tr><td><strong>Andrew W. Mellon Foundation</strong></td><td class="num">$6.10B</td><td>1969</td><td>Higher education (including the humanities, libraries, and scholarly communication and information technology); museums and art conservation; performing arts; conservation and the environment</td></tr>
+  <tr><td><strong>New York Public Library (private nonprofit; chartered as The New York Public Library, Astor, Lenox and Tilden Foundations)</strong></td><td class="num">$1.45B</td><td>1895</td><td></td></tr>
+  <tr><td><strong>Chicago Public Library Foundation</strong></td><td class="num">&mdash;</td><td></td><td></td></tr>
+  <tr><td><strong>Boston Public Library</strong></td><td class="num">&mdash;</td><td>1848</td><td></td></tr>
+  <tr><td><strong>San Francisco Public Library</strong></td><td class="num">&mdash;</td><td></td><td></td></tr>
+</table>
+<h3 id="endowments">Library Endowments</h3>
+<table class="wikitable">
+  <tr><th>Library / Institution</th><th>Endowment</th><th>Year</th></tr>
+  <tr><td><strong>New York Public Library</strong></td><td class="num">$1,448,838,000</td><td>2017</td></tr>
+  <tr><td><strong>Carnegie Corporation of New York (grantmaker supporting libraries/knowledge)</strong></td><td class="num">$4,100,000,000</td><td>2022</td></tr>
+  <tr><td><strong>Andrew W. Mellon Foundation (grantmaker supporting libraries/humanities)</strong></td><td class="num">$6,100,000,000</td><td>2015</td></tr>
+</table>
+<h3 id="friends-funder">Friends of Libraries &amp; Library Foundations</h3>
+<div class="rules-box">
+  <p>Friends of Libraries groups are non-profit volunteer organizations that support libraries through fundraising, advocacy, and programming. thousands (no single registry; ~10,000+ estimated across all US public library systems) groups exist nationwide, generating millions in supplementary funding through used book sales, membership drives, and capital campaigns.</p>
+  <p><strong>National organization:</strong> <a href="https://www.ala.org/united" target="_blank">United for Libraries (ALA)</a> — association of library trustees, advocates, Friends, and foundations.</p>
+</div>
+<h2 id="ballot-funders">Voter-Approved Library Funding (Ballot Measures)</h2>
+<p>Voters directly approve library funding through ballot measures — bonds, levies, and tax initiatives.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">176</div><div class="label">Total ballot measures</div></div>
+  <div class="stat-card"><div class="num">123</div><div class="label">Passed</div></div>
+  <div class="stat-card"><div class="num">69.9%</div><div class="label">Pass rate</div></div>
+  <div class="stat-card"><div class="num">$758M</div><div class="label">Total requested</div></div>
+</div>
+<h4>Ballot Measures by Year</h4>
+<table class="wikitable">
+  <tr><th>Year</th><th>Measures</th></tr>
+  <tr><td>2013</td><td class="num">7</td></tr>
+  <tr><td>2014</td><td class="num">17</td></tr>
+  <tr><td>2015</td><td class="num">10</td></tr>
+  <tr><td>2016</td><td class="num">28</td></tr>
+  <tr><td>2017</td><td class="num">16</td></tr>
+  <tr><td>2018</td><td class="num">16</td></tr>
+  <tr><td>2019</td><td class="num">14</td></tr>
+  <tr><td>2020</td><td class="num">9</td></tr>
+  <tr><td>2021</td><td class="num">9</td></tr>
+  <tr><td>2022</td><td class="num">9</td></tr>
+  <tr><td>2023</td><td class="num">9</td></tr>
+  <tr><td>2024</td><td class="num">10</td></tr>
+  <tr><td>2025</td><td class="num">10</td></tr>
+  <tr><td>2026</td><td class="num">12</td></tr>
+</table>
+<h2 id="state-funders">State &amp; Local Library Funding</h2>
+<p>Public libraries in America are primarily funded by local government. State and federal contributions supplement local funding.</p>
+<table class="wikitable">
+  <tr><th>Funding Source</th><th>National Total</th><th>Share</th></tr>
+  <tr><td>Local government (municipal/county)</td><td>$15,267,430,648.0</td><td class="pct">85.5%</td></tr>
+  <tr><td>State government</td><td>$1,203,877,816.0</td><td class="pct">6.7%</td></tr>
+  <tr><td>Federal government</td><td>$88,397,272.0</td><td class="pct">0.5%</td></tr>
+  <tr><td>Other (donations, fees, endowments)</td><td>$1,305,117,957.0</td><td class="pct">7.3%</td></tr>
+  <tr><td><strong>Total income</strong></td><td><strong>$17,864,823,807.0</strong></td><td><strong>100%</strong></td></tr>
+</table>
+<h4>Top States by Total Library Income</h4>
+<table class="wikitable">
+  <tr><th>State</th><th>Total Income</th><th>Per Capita</th></tr>
+  <tr><td>CA</td><td class="num">$2,271,338,098.0</td><td class="num">$58.07</td></tr>
+  <tr><td>NY</td><td class="num">$1,737,526,708.0</td><td class="num">$84.99</td></tr>
+  <tr><td>OH</td><td class="num">$1,124,652,231.0</td><td class="num">$96.28</td></tr>
+  <tr><td>IL</td><td class="num">$1,060,710,687.0</td><td class="num">$90.46</td></tr>
+  <tr><td>FL</td><td class="num">$914,709,256.0</td><td class="num">$39.67</td></tr>
+  <tr><td>TX</td><td class="num">$720,196,704.0</td><td class="num">$26.83</td></tr>
+  <tr><td>CO</td><td class="num">$644,264,055.0</td><td class="num">$110.24</td></tr>
+  <tr><td>NJ</td><td class="num">$617,932,921.0</td><td class="num">$62.46</td></tr>
+  <tr><td>WA</td><td class="num">$602,683,329.0</td><td class="num">$76.10</td></tr>
+  <tr><td>MI</td><td class="num">$585,879,163.0</td><td class="num">$58.30</td></tr>
+</table>
+<h2 id="arp-funder">IMLS American Rescue Plan (ARP) Grants</h2>
+<p>COVID-era digital inclusion grants from IMLS.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">$77,736,457</div><div class="label">ARP total</div></div>
+  <div class="stat-card"><div class="num">96</div><div class="label">ARP grants</div></div>
+  <div class="stat-card"><div class="num">$809,754.0</div><div class="label">Avg grant</div></div>
+  <div class="stat-card"><div class="num">2021</div><div class="label">Fiscal year</div></div>
+</div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a></div>
+<p class="edit-note">Generated on 2026-08-15 22:58 UTC.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AGI · EIN 42-4298008 ·
+    <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
+    <br>Data updated 2026-08-15 22:58 UTC
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){try{f.contentWindow.postMessage({type:'wiki-theme',theme:n},'*');}catch(e){}}}
+</script>
+</body>
+</html>

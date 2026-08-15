@@ -189,6 +189,7 @@ def panel(active=""):
     <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
     <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
     <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
+    <a href="index.html#special-libraries" class="list-group-item list-group-item-action small py-1">Special libraries & bookmobiles</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -603,6 +604,7 @@ def load_all():
         ('library_attitudes', 'library_attitudes_summary.json'),
         ('library_access_equity', 'library_access_equity_summary.json'),
         ('reading_trends_enhanced', 'reading_trends_enhanced_summary.json'),
+        ('special_libraries', 'special_libraries_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1816,6 +1818,7 @@ def compute_stats(data):
     stats['library_attitudes'] = data.get('library_attitudes', {})
     stats['library_access_equity'] = data.get('library_access_equity', {})
     stats['reading_trends_enhanced'] = data.get('reading_trends_enhanced', {})
+    stats['special_libraries'] = data.get('special_libraries', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -8489,6 +8492,132 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += '<p class="rsrc">Source: NEA Survey of Public Participation in the Arts (SPPA) 2012, 2017, 2022; IMLS Public Libraries Survey FY2019-FY2024; Pew Research Center library usage surveys (2012-2016); Gallup library visit frequency survey (2019).</p>'
+
+    # =========================================================================
+    # SPECIAL LIBRARIES & MOBILE SERVICES
+    # =========================================================================
+    spl = stats.get('special_libraries', {})
+    if spl:
+        spks = spl.get('key_stats', {})
+        sp_types = spl.get('special_libraries', {})
+        bm = spl.get('bookmobiles', {})
+        sr = spl.get('summer_reading', {})
+        fr = spl.get('friends_of_libraries', {})
+        ala = spl.get('american_library_association', {})
+        lsta = spl.get('lsta', {})
+        sp_facts = spl.get('key_facts', [])
+
+        body += f"""
+<h2 id="special-libraries">Special Libraries &amp; Mobile Services: Beyond the Public Library</h2>
+<p>{esc(spl.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{spks.get('total_bookmobiles',767):,}</div><div class="label">Bookmobiles</div></div>
+  <div class="stat-card"><div class="num">{spks.get('states_with_bookmobiles',40)}</div><div class="label">States w/ bookmobiles</div></div>
+  <div class="stat-card"><div class="num">{spks.get('pct_libraries_summer_reading',95)}%</div><div class="label">Summer reading</div></div>
+  <div class="stat-card"><div class="num">{spks.get('ala_founded',1876)}</div><div class="label">ALA founded</div></div>
+  <div class="stat-card"><div class="num">{spks.get('lsta_enacted',1996)}</div><div class="label">LSTA enacted</div></div>
+  <div class="stat-card"><div class="num">{spks.get('total_special_libraries_private',3695):,}</div><div class="label">Special/private libraries</div></div>
+</div>"""
+
+        if isinstance(sp_types, dict) and sp_types.get('types'):
+            body += """
+<h3>Types of Special Libraries</h3>
+<table class="wikitable">
+  <tr><th>Type</th><th>Count</th><th>Description</th></tr>"""
+            for t in sp_types.get('types', []):
+                cnt = t.get('count', '')
+                cnt_str = f'{cnt:,}' if isinstance(cnt, int) and cnt > 0 else '&mdash;'
+                body += f'\n  <tr><td>{esc(t.get("type",""))}</td><td class="num">{cnt_str}</td><td>{esc(t.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(bm, dict) and bm.get('description'):
+            body += f"""
+<h3>Bookmobiles: Libraries on Wheels</h3>
+<p>{esc(bm.get('description', ''))}</p>"""
+            bm_states = bm.get('states_with_most', [])
+            if bm_states:
+                body += """
+<h4>States with the Most Bookmobiles (FY2024)</h4>
+<div class="services-bars">"""
+                max_bm = max(s.get('bookmobiles', 1) for s in bm_states) if bm_states else 1
+                for s in bm_states[:15]:
+                    pct = (s.get('bookmobiles', 0) / max_bm * 100) if max_bm else 0
+                    body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.0f}%"></div><span class="svc-val">{s.get("bookmobiles",0):,}</span></div></div>'
+                body += '\n</div>'
+            bm_hist = bm.get('history', [])
+            if bm_hist:
+                body += """
+<h4>Bookmobile History</h4>
+<table class="wikitable">
+  <tr><th>Period</th><th>Event</th></tr>"""
+                for h in bm_hist:
+                    body += f'\n  <tr><td class="num">{esc(str(h.get("year","")))}</td><td>{esc(h.get("event",""))}</td></tr>'
+                body += '\n</table>'
+            body += f'<p><strong>Significance:</strong> {esc(bm.get("significance", ""))}</p>'
+
+        if isinstance(sr, dict) and sr.get('description'):
+            body += f"""
+<h3>Summer Reading Programs</h3>
+<div class="rules-box">
+  <p>{esc(sr.get('description', ''))}</p>
+  <p><strong>{sr.get('pct_libraries_offering', 95)}%</strong> of US public libraries offer summer reading programs.</p>
+  <p>{esc(sr.get('significance', ''))}</p>
+</div>"""
+
+        if isinstance(fr, dict) and fr.get('description'):
+            body += f"""
+<h3>Friends of Libraries</h3>
+<div class="rules-box">
+  <p>{esc(fr.get('description', ''))}</p>
+  <p><strong>Role:</strong> {esc(fr.get('role', ''))}</p>
+</div>"""
+            fr_acts = fr.get('activities', [])
+            if fr_acts:
+                body += """
+<h4>Friends Group Activities</h4>
+<ul class="wiki-list">"""
+                for act in fr_acts:
+                    if isinstance(act, str):
+                        body += f'\n  <li>{esc(act)}</li>'
+                body += '\n</ul>'
+
+        if isinstance(ala, dict) and ala.get('description'):
+            body += f"""
+<h3>The American Library Association (ALA)</h3>
+<div class="rules-box">
+  <p>{esc(ala.get('description', ''))}</p>
+  <p><strong>Founded:</strong> {ala.get('founded', 1876)} &middot; <strong>Headquarters:</strong> {esc(str(ala.get('headquarters', '')))} &middot; <strong>Membership:</strong> {esc(str(ala.get('membership', '')))}</p>
+  <p>{esc(ala.get('role', ''))}</p>
+</div>"""
+            ala_divs = ala.get('key_divisions', [])
+            if ala_divs:
+                body += """
+<h4>Key ALA Divisions</h4>
+<ul class="wiki-list">"""
+                for div in ala_divs:
+                    if isinstance(div, str):
+                        body += f'\n  <li>{esc(div)}</li>'
+                body += '\n</ul>'
+
+        if isinstance(lsta, dict) and lsta.get('description'):
+            body += f"""
+<h3>Library Services and Technology Act (LSTA)</h3>
+<div class="rules-box">
+  <p>{esc(lsta.get('description', ''))}</p>
+  <p><strong>Enacted:</strong> {lsta.get('enacted', 1996)} &middot; <strong>Predecessor:</strong> {esc(str(lsta.get('predecessor', '')))} &middot; <strong>Roots:</strong> {esc(str(lsta.get('roots', '')))}</p>
+  <p>{esc(lsta.get('significance', ''))}</p>
+</div>"""
+
+        if sp_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in sp_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on special libraries, bookmobiles, the Library Services and Technology Act, summer reading programs, Friends of Libraries, and the American Library Association. Bookmobile counts from IMLS Public Libraries Survey FY2024. Special library type counts from the project&apos;s private library database.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

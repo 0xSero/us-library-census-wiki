@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 11:56 UTC",
+  "generated": "2026-08-15 12:02 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -69556,6 +69556,230 @@
       "Pew Research Center measured in-person library visit rate at 53% in 2012, declining to 44% by 2015 before recovering to 48% in 2016.",
       "Gallup (2019) found Americans averaged 10.5 library visits per year, with young adults (18-29) visiting most at 15.5 times per year.",
       "The NEA SPPA first measured public library visitation in 2022, finding a 23% visit rate."
+    ]
+  },
+  "special_libraries": {
+    "title": "Special Libraries & Mobile Services: Beyond the Public Library",
+    "overview": "America's library ecosystem extends far beyond public library buildings. Special libraries serve specialized audiences \u2014 corporate libraries, law libraries, medical libraries, military libraries, and museum libraries. Bookmobiles bring library services to rural communities, nursing homes, and schools. Summer reading programs operate at 95% of public libraries. Friends of Libraries groups provide volunteer and financial support. This section covers the diverse types of libraries and services that make up the American library landscape.",
+    "key_stats": {
+      "total_bookmobiles": 767,
+      "states_with_bookmobiles": 49,
+      "pct_libraries_summer_reading": 95,
+      "total_special_libraries_private": 3695,
+      "law_libraries": 41,
+      "theological_libraries": 14,
+      "medical_libraries": 10,
+      "corporate_libraries": 10,
+      "ala_founded": 1876,
+      "lsta_enacted": 1996
+    },
+    "special_libraries": {
+      "description": "A special library is a library that provides specialized information resources on a particular subject, serves a specialized and limited clientele, and delivers specialized services to that clientele. Special libraries include corporate libraries, government libraries, law libraries, medical libraries, museum libraries, military libraries, and news libraries. Special libraries also exist within academic institutions. These libraries are included as special libraries because they are often funded separately from the rest of the university and they serve a targeted group of users.",
+      "types": [
+        {
+          "type": "Corporate libraries",
+          "description": "Libraries maintained by corporations for employees, containing industry-specific resources, market research, and technical documentation."
+        },
+        {
+          "type": "Law libraries",
+          "count": 41,
+          "description": "Libraries serving lawyers, judges, and law students, often attached to courts, law firms, or law schools."
+        },
+        {
+          "type": "Medical libraries",
+          "count": 10,
+          "description": "Libraries in hospitals, medical schools, and health organizations providing specialized biomedical and clinical information."
+        },
+        {
+          "type": "Theological libraries",
+          "count": 14,
+          "description": "Libraries at seminaries, religious institutions, and theological schools."
+        },
+        {
+          "type": "Government libraries",
+          "description": "Libraries serving government agencies, including the Library of Congress, National Library of Medicine, and agency-specific libraries."
+        },
+        {
+          "type": "Military libraries",
+          "description": "Libraries on military bases and in defense agencies, serving service members and their families worldwide."
+        },
+        {
+          "type": "Museum libraries",
+          "description": "Libraries within museums supporting curatorial research, exhibition development, and scholarly access to collections."
+        },
+        {
+          "type": "News libraries",
+          "description": "Libraries maintained by newspapers and media organizations, preserving archives and supporting journalistic research."
+        }
+      ]
+    },
+    "bookmobiles": {
+      "description": "A bookmobile, or mobile library, is a vehicle designed for use as a library. They have been known by many names throughout history, including traveling library, library wagon, book wagon, book truck, library-on-wheels, and book auto service. Bookmobiles expand the reach of traditional libraries by transporting books to potential readers, providing library services to people in otherwise underserved locations and/or circumstances. Bookmobile services and materials, may be customized for the locations and populations served.",
+      "total_national": 767,
+      "states_with_most": [
+        {
+          "state": "KY",
+          "bookmobiles": 74
+        },
+        {
+          "state": "OH",
+          "bookmobiles": 68
+        },
+        {
+          "state": "CA",
+          "bookmobiles": 65
+        },
+        {
+          "state": "SC",
+          "bookmobiles": 35
+        },
+        {
+          "state": "WA",
+          "bookmobiles": 33
+        },
+        {
+          "state": "VA",
+          "bookmobiles": 30
+        },
+        {
+          "state": "NC",
+          "bookmobiles": 29
+        },
+        {
+          "state": "LA",
+          "bookmobiles": 27
+        },
+        {
+          "state": "IN",
+          "bookmobiles": 26
+        },
+        {
+          "state": "MD",
+          "bookmobiles": 24
+        },
+        {
+          "state": "FL",
+          "bookmobiles": 21
+        },
+        {
+          "state": "MO",
+          "bookmobiles": 21
+        },
+        {
+          "state": "CO",
+          "bookmobiles": 20
+        },
+        {
+          "state": "IL",
+          "bookmobiles": 20
+        },
+        {
+          "state": "PA",
+          "bookmobiles": 20
+        },
+        {
+          "state": "MI",
+          "bookmobiles": 18
+        },
+        {
+          "state": "ID",
+          "bookmobiles": 17
+        },
+        {
+          "state": "TX",
+          "bookmobiles": 17
+        },
+        {
+          "state": "AL",
+          "bookmobiles": 14
+        },
+        {
+          "state": "KS",
+          "bookmobiles": 13
+        }
+      ],
+      "history": [
+        {
+          "year": "1905",
+          "event": "Mary L. Titcomb, librarian at Washington County Free Library (MD), introduces the first American bookmobile \u2014 a wagon drawn by horses to deliver books to rural areas."
+        },
+        {
+          "year": "1920s",
+          "event": "Motorized bookmobiles begin to replace horse-drawn wagons, dramatically expanding reach."
+        },
+        {
+          "year": "1956",
+          "event": "Library Services Act provides federal funding to extend library services to rural areas, accelerating bookmobile adoption."
+        },
+        {
+          "year": "1970s",
+          "event": "Peak era of bookmobiles, with over 2,000 operating nationwide."
+        },
+        {
+          "year": "1990s",
+          "event": "Bookmobile numbers begin declining as digital services and branch construction expand."
+        },
+        {
+          "year": "2024",
+          "event": "IMLS PLS FY2024 reports 767 bookmobiles still operating, serving rural and homebound populations."
+        }
+      ],
+      "significance": "Bookmobiles remain critical for reaching populations that cannot visit physical libraries: rural communities, nursing homes, schools without libraries, homebound individuals, and isolated populations."
+    },
+    "summer_reading": {
+      "description": "Summer reading programs take place at 95% of public libraries in the United States. Children, teens, and adults participate in activities meant to encourage reading, such as keeping a reading log. Other names for summer reading programs include vacation reading club, summer reading club, vacation reading program, and summer library program.",
+      "pct_libraries_offering": 95,
+      "significance": "Summer reading programs combat the 'summer slide' \u2014 the loss of reading skills during school vacation. Research shows children who participate maintain or improve reading levels, with disproportionate benefits for low-income children."
+    },
+    "friends_of_libraries": {
+      "description": "Friends of Libraries are non-profit, charitable groups formed to support libraries in their communities. Support from the Friends groups may be financial, political and cultural. Groups are separate from the libraries they support and made up of volunteers. Generally, groups are structured, handle finances and work closely with library management. In the United States, Friends groups also work closely with the American Library Association (ALA). Other countries, such as Australia, France, South Africa and the United Kingdom all have Friends of Libraries groups.",
+      "role": "Friends of Libraries groups are non-profit, charitable organizations that support libraries through fundraising, advocacy, volunteer work, and cultural programming.",
+      "activities": [
+        "Used book sales \u2014 a primary fundraising activity generating millions nationally",
+        "Advocacy for library funding at local, state, and federal levels",
+        "Sponsoring author talks, book clubs, and cultural programs",
+        "Funding summer reading program prizes and materials",
+        "Supporting library capital campaigns and building projects",
+        "Lobbying against censorship and book banning efforts"
+      ]
+    },
+    "american_library_association": {
+      "description": "The American Library Association (ALA) is a nonprofit organization based in the United States that promotes libraries and library education internationally. It is the oldest and largest library association in the world.",
+      "founded": 1876,
+      "headquarters": "Chicago, Illinois",
+      "membership": "approximately 50,000+ members",
+      "role": "The ALA is the oldest and largest library association in the world. It accredits MLIS programs, sets professional standards, advocates for library funding and intellectual freedom, and publishes American Libraries magazine.",
+      "key_divisions": [
+        "ALA Advocacy & Government Relations",
+        "ALA Office for Intellectual Freedom (tracks book challenges and censorship)",
+        "ALA Office for Diversity, Literacy and Outreach Services",
+        "American Association of School Librarians (AASL)",
+        "Public Library Association (PLA)",
+        "Association of College and Research Libraries (ACRL)",
+        "American Library Trustee Association (ALTA)"
+      ]
+    },
+    "lsta": {
+      "title": "Library Services and Technology Act",
+      "description": "United States President Bill Clinton signed the Library Services and Technology Act (LSTA) on October 1, 1996. LSTA is a United States federal library grant program. Its roots come from the Library Services Act, first enacted in 1956. LSTA replaced the Library Services and Construction Act (LSCA), first enacted in 1962. The National Commission on Libraries and Information Science held two White House Conferences that generated discussion and support.",
+      "enacted": 1996,
+      "predecessor": "Library Services and Construction Act (LSCA, 1962)",
+      "roots": "Library Services Act (1956)",
+      "significance": "LSTA is the primary federal funding mechanism for libraries, administered by IMLS. It provides grants to states for library technology, services to underserved populations, and information access programs."
+    },
+    "key_facts": [
+      "767 bookmobiles operate across 49 states and territories (IMLS PLS FY2024).",
+      "Kentucky leads the nation with 74 bookmobiles, followed by Ohio (68) and California (65).",
+      "The first American bookmobile was introduced in 1905 by Mary L. Titcomb at Washington County Free Library in Maryland, using a horse-drawn wagon.",
+      "95% of US public libraries offer summer reading programs, making them the most widespread library program in the country.",
+      "Special libraries include corporate, law, medical, theological, government, military, museum, and news libraries \u2014 each serving specialized audiences.",
+      "The American Library Association, founded in 1876, is the oldest and largest library association in the world.",
+      "The Library Services and Technology Act (LSTA), signed by President Clinton in 1996, is the primary federal funding mechanism for libraries.",
+      "LSTA replaced the Library Services and Construction Act (1962), which itself grew from the Library Services Act (1956).",
+      "Friends of Libraries groups are non-profit volunteer organizations that support libraries through fundraising, advocacy, and programming.",
+      "Bookmobile numbers peaked in the 1970s at over 2,000 nationwide, declining as digital services expanded.",
+      "Summer reading programs combat the 'summer slide' with disproportionate benefits for low-income children.",
+      "The ALA accredits Master of Library and Information Science (MLIS) programs and sets professional standards for the field."
     ]
   },
   "consortia": {

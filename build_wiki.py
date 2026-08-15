@@ -166,6 +166,7 @@ def panel(active=""):
     <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
     <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
     <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
+    <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -480,6 +481,12 @@ def load_all():
             data['ill'] = json.load(f)
     else:
         data['ill'] = {}
+    wf_path = os.path.join(DATA, "library_workforce_summary.json")
+    if os.path.exists(wf_path):
+        with open(wf_path) as f:
+            data['library_workforce'] = json.load(f)
+    else:
+        data['library_workforce'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1583,6 +1590,9 @@ def compute_stats(data):
 
     # ---- Interlibrary Loan stats ----
     stats['ill'] = data.get('ill', {})
+
+    # ---- Library workforce demographics ----
+    stats['library_workforce'] = data.get('library_workforce', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3544,6 +3554,84 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += '<p class="rsrc">Source: NTIA Broadband Equity Access and Deployment (BEAD) Program. Allocations announced June 2023. Formula: Minimum ($100M states/$25M territories) + High-Cost Allocation (share of unserved in high-cost areas x $4.245B) + Remaining Funds (share of total unserved x balance). Unserved locations identified from FCC Broadband DATA Maps. 2% ($849M) reserved for NTIA administration.</p>'
+
+    # ---- Library Workforce Demographics ----
+    wf = stats.get('library_workforce', {})
+    if wf and wf.get('total_employed'):
+        wf_total = wf['total_employed']
+        wf_occupations = wf.get('by_occupation', [])
+        wf_gender = wf.get('gender_breakdown', {})
+        wf_race = wf.get('racial_ethnic', {})
+        wf_age = wf.get('age_distribution', [])
+        wf_union = wf.get('union_membership', {})
+        wf_education = wf.get('education', {})
+        wf_facts = wf.get('key_facts', [])
+        wf_challenges = wf.get('workforce_challenges', [])
+
+        body += f"""
+
+<h2 id="workforce">The Library Workforce: Who Works in Libraries</h2>
+<p class="wiki-sub">The US library workforce comprises approximately {wf_total:,} workers across four BLS occupational categories. Librarianship is one of the most female-dominated professions in America ({wf_gender.get('female_pct',83):.0f}% women) and has a persistent racial diversity gap ({wf_race.get('white_pct',84):.0f}% white). The workforce is aging - 42% of librarians were over 55 in 2014 - signaling a wave of impending retirements. Yet education, training, and library occupations have the highest unionization rate of any professional occupation group ({wf_union.get('all_education_training_library_occupations_pct',35.5):.1f}%).</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{wf_total:,}</div><div class="label">Total library workers</div></div>
+  <div class="stat-card"><div class="num">{wf_gender.get('female_pct',83):.0f}%</div><div class="label">Female (librarians)</div></div>
+  <div class="stat-card"><div class="num">{wf_race.get('white_pct',84):.0f}%</div><div class="label">White (librarians)</div></div>
+  <div class="stat-card"><div class="num">{wf_union.get('librarians_pct',20.5):.1f}%</div><div class="label">Librarian union rate</div></div>
+  <div class="stat-card"><div class="num">{wf_union.get('all_education_training_library_occupations_pct',35.5):.1f}%</div><div class="label">All ed/library union rate (highest of any profession)</div></div>
+</div>"""
+
+        # By occupation table
+        if wf_occupations:
+            body += """
+<h3>Library occupations (BLS OEWS 2023)</h3>
+<table class="wikitable">
+  <tr><th>Occupation</th><th>SOC code</th><th>Employed</th><th>Median salary</th></tr>"""
+            for o in wf_occupations:
+                body += f'\n  <tr><td>{esc(o.get("occupation",""))}</td><td>{esc(o.get("soc_code",""))}</td><td class="pct">{o.get("employed",0):,}</td><td>${o.get("median_salary",0):,}</td></tr>'
+            body += '\n</table>'
+
+        # Gender breakdown bars
+        if wf_gender:
+            body += f"""
+<h3>Gender breakdown of librarians</h3>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">Female</span><span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{wf_gender.get("female_pct",83):.1f}%"></span></span><span class="svc-val">{wf_gender.get("female_pct",83):.1f}%</span></div>
+  <div class="svc-row"><span class="svc-label">Male</span><span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{wf_gender.get("male_pct",16):.1f}%"></span></span><span class="svc-val">{wf_gender.get("male_pct",16):.1f}%</span></div>
+  <div class="svc-row"><span class="svc-label">Nonbinary / gender nonconforming</span><span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{wf_gender.get("nonbinary_pct",0.6)*10:.1f}%"></span></span><span class="svc-val">{wf_gender.get("nonbinary_pct",0.6):.1f}%</span></div>
+</div>"""
+
+        # Racial/ethnic breakdown
+        if wf_race:
+            body += """
+<h3>Racial / ethnic breakdown of librarians</h3>
+<div class="services-bars">"""
+            for label, key in [('White', 'white_pct'), ('Black/African American', 'black_pct'), ('Hispanic/Latine', 'hispanic_pct'), ('Asian', 'asian_pct')]:
+                pct = wf_race.get(key, 0)
+                body += f'\n  <div class="svc-row"><span class="svc-label">{label}</span><span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{pct:.1f}%"></span></span><span class="svc-val">{pct:.1f}%</span></div>'
+            body += '\n</div>'
+
+        # Union membership
+        if wf_union:
+            body += """
+<h3>Union membership rates</h3>
+<table class="wikitable">
+  <tr><th>Occupation</th><th>Union rate</th></tr>"""
+            for label, key in [('Librarians', 'librarians_pct'), ('Library technicians', 'library_technicians_pct'), ('Library assistants', 'library_assistants_pct'), ('All education/training/library occupations', 'all_education_training_library_occupations_pct')]:
+                body += f'\n  <tr><td>{label}</td><td class="pct">{wf_union.get(key,0):.1f}%</td></tr>'
+            body += '\n</table>'
+            if wf_union.get('union_wage_premium'):
+                body += f'<p class="wiki-sub"><strong>Union wage premium:</strong> {esc(str(wf_union.get("union_wage_premium","")))}</p>'
+
+        # Key facts
+        if wf_facts:
+            body += """
+<h3>Key findings</h3>
+<ul class="wiki-list">"""
+            for f in wf_facts[:10]:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: BLS Occupational Employment and Wage Statistics (OEWS) May 2023 for employment counts and salaries; AFL-CIO Department for Professional Employees "Library Workers: Facts & Figures 2016" for gender/racial/union data; Library Journal 2023 Placements & Salaries Survey for new MLIS graduate demographics. The {wf_total:,} total includes 133K librarians/media collections specialists, 160K library assistants, 74K library technicians, and 3.7K library science teachers. Librarianship has been majority-female since ~1930. The racial diversity gap is narrowing among new MLIS graduates (white share fell from 84% in 2021 to 74% in 2022). Education, training, and library occupations have the highest unionization rate (35.5%) of any professional occupation group.</p>'
 
     # ---- Library Ballot Measures (EveryLibrary) ----
     ballot = stats.get('ballot', {})

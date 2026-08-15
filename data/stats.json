@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 02:06 UTC",
+  "generated": "2026-08-15 02:11 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -38879,6 +38879,575 @@
       "data/_cache/ill_imls_explore.html (+.txt)"
     ],
     "source_notes": "Primary quantitative source: IMLS Public Libraries Survey (PLS), FY2000-FY2024, fields LOANFM (loans from / borrowed) and LOANTO (loans to / lent), parsed by scripts/parse_pls_historical.py into data/pls_trends_national.csv and data/pls_trends_by_state.csv. Raw PLS vintages cached under data/_cache/pls_historical/ (FY2000-FY2023) and data/_cache/pls_fy2024_csv.zip (FY2024); FY2024 download URL https://www.imls.gov/sites/default/files/2026-06/pls_fy2024_csv.zip. OCLC and network statistics drawn from OCLC product/about pages (resource-sharing, Tipasa, WorldShare ILL, ILLiad, annual report) and the Wikipedia articles on OCLC, Interlibrary loan, the Center for Research Libraries, and the Association of Research Libraries, all cached under data/_cache/ill_*. State-level and Maine InfoNet details from maineinfonet.org and crl.edu. ARL Statistics referenced from arl.org/arl-terms/arl-statistics/ (latest edition ARL Statistics 2024, 124 U.S. member libraries); ARL transaction-level tables are paywalled and not freely available online. ALA Interlibrary Loan Code for the United States is maintained by the RUSA STARS committee (ala.org/rusa); ALA's CMS returned 404 boilerplate for the tested URLs during this fetch, so the code is cited as a known standard rather than from cached live text. WebFetch calls against several sites (ARL, ALA, OCLC, study repositories) repeatedly timed out or returned 400/403/404; quantitative figures were therefore extracted directly from the curl-cached HTML in data/_cache/ill_* via local text parsing."
+  },
+  "library_workforce": {
+    "total_employed": 370560,
+    "total_employed_note": "Sum of BLS OEWS employment across 4 library occupations (25-4022, 25-4031, 43-4111, 25-1082); librarians alone (25-4022) = 133,200. DPE/AFL-CIO 2016 fact sheet reported 295,000 across librarians+technicians+assistants in 2015.",
+    "data_year": 2023,
+    "by_occupation": [
+      {
+        "occupation": "Librarians and Media Collections Specialists",
+        "soc_code": "25-4022",
+        "employed": 133200,
+        "median_salary": 64254
+      },
+      {
+        "occupation": "Library Technicians",
+        "soc_code": "25-4031",
+        "employed": 74080,
+        "median_salary": 40096
+      },
+      {
+        "occupation": "Library Assistants, Bookkeeping, Clerical",
+        "soc_code": "43-4111",
+        "employed": 159620,
+        "median_salary": 41756
+      },
+      {
+        "occupation": "Library Science Teachers, Postsecondary",
+        "soc_code": "25-1082",
+        "employed": 3660,
+        "median_salary": 76415
+      }
+    ],
+    "gender_breakdown": {
+      "female_pct": 83.0,
+      "male_pct": 16.4,
+      "nonbinary_pct": 0.6,
+      "year": 2019,
+      "source": "AFL-CIO Department for Professional Employees, 'Library Workers: Facts & Figures 2016' (83% women in 2015) and Wikipedia/Librarian citing 2019 data (81% women, 79% in 2018). Library Journal 2023 Placements & Salaries Survey (class of 2022): 74% women, 18% male, 6% nonbinary/gender nonconforming, 2% undisclosed among new MLIS graduates.",
+      "notes": "Librarianship has been majority-female since ~1930; women were 80% of the profession by 1960. Share has held at ~80-84% for decades."
+    },
+    "racial_ethnic": {
+      "white_pct": 84.0,
+      "black_pct": 8.5,
+      "hispanic_pct": 4.8,
+      "asian_pct": 2.8,
+      "other_pct": 0.0,
+      "year": 2015,
+      "source": "AFL-CIO DPE 'Library Workers: Facts & Figures 2016' citing BLS/CPS 2015 data for librarians. Library assistants were more diverse: 74% non-Hispanic White in 2015. Library Journal 2023 Placements & Salaries Survey (class of 2022 new MLIS graduates): 74% white, 10% Asian (7% South Asian, 2% East Asian, 1% Southeast Asian), 8% Hispanic/Latine, 4% Black/African American, 3% mixed race, 2% Native American/Indigenous, 5% undisclosed \u2014 white share down from 84% in 2021.",
+      "notes": "The librarian profession has a persistent racial diversity lag; workforce is far whiter than the broader U.S. labor force. Diversity is greater among library technicians/assistants and improving among new MLIS graduates."
+    },
+    "age_distribution": [
+      {
+        "age_range": "25 and under",
+        "pct": 12.0,
+        "population": "new MLIS graduates (class of 2022)"
+      },
+      {
+        "age_range": "26-35",
+        "pct": 54.0,
+        "population": "new MLIS graduates (class of 2022)"
+      },
+      {
+        "age_range": "36-45",
+        "pct": 19.0,
+        "population": "new MLIS graduates (class of 2022)"
+      },
+      {
+        "age_range": "46-56",
+        "pct": 11.0,
+        "population": "new MLIS graduates (class of 2022)"
+      },
+      {
+        "age_range": "56 and older",
+        "pct": 4.0,
+        "population": "new MLIS graduates (class of 2022)"
+      },
+      {
+        "age_range": "over 55 (all librarians)",
+        "pct": 42.0,
+        "population": "all librarians, 2014 (DPE)"
+      },
+      {
+        "age_range": "over 55 (library technicians)",
+        "pct": 28.0,
+        "population": "all technicians, 2014 (DPE)"
+      },
+      {
+        "age_range": "over 55 (library assistants)",
+        "pct": 35.0,
+        "population": "all assistants, 2014 (DPE)"
+      }
+    ],
+    "age_distribution_note": "Average age of new MLIS graduates (class of 2022) was 35, unchanged from 2021. The overall librarian workforce skews older: 42% of librarians were over 55 in 2014 (DPE), signaling an aging workforce and impending retirements.",
+    "education": {
+      "mlis_holders_pct": 55.0,
+      "bachelor_only_pct": 26.0,
+      "other_pct": 19.0,
+      "year": 2014,
+      "source": "AFL-CIO DPE 'Library Workers: Facts & Figures 2016' citing 2014 data. Among librarians: 55% held a master's degree or higher (typically the ALA-accredited MLIS), 26% reported a bachelor's as their highest degree. Library technicians: 16% bachelor's, 8% master's, 6% associate's. Library assistants: 23% bachelor's, 6% master's, 10% associate's.",
+      "mlis_context": "The Master of Library and Information Science (MLIS) from an ALA-accredited program is the terminal professional degree required for most librarian positions in the U.S. and Canada. Library Journal 2023 survey: 37 ALA-accredited institutions graduated the class of 2022; 81% had no advanced degree prior to starting their LIS program; 91% were not enrolled in another graduate program."
+    },
+    "union_membership": {
+      "librarians_pct": 20.5,
+      "library_technicians_pct": 11.2,
+      "library_assistants_pct": 16.3,
+      "all_education_training_library_occupations_pct": 35.5,
+      "year": 2015,
+      "source": "AFL-CIO DPE 'Library Workers: Facts & Figures 2016' citing BLS Current Population Survey 2015. Education, training, and library occupations had the HIGHEST unionization rate of any professional occupation group (35.5%).",
+      "union_wage_premium": "Union librarians earned 37% ($336) more per week than non-union counterparts in 2015. Union library assistants earned 99% more than non-union counterparts. Union library technicians earned 49% more (last comparable data 2009)."
+    },
+    "by_state": [
+      {
+        "state": "District of Columbia",
+        "employed": 940
+      },
+      {
+        "state": "Washington",
+        "employed": 2830
+      },
+      {
+        "state": "California",
+        "employed": 10030
+      },
+      {
+        "state": "Maryland",
+        "employed": 3270
+      },
+      {
+        "state": "New York",
+        "employed": 11020
+      },
+      {
+        "state": "New Jersey",
+        "employed": 3510
+      },
+      {
+        "state": "Connecticut",
+        "employed": 2430
+      },
+      {
+        "state": "Delaware",
+        "employed": 330
+      },
+      {
+        "state": "Alaska",
+        "employed": 330
+      },
+      {
+        "state": "Massachusetts",
+        "employed": 5120
+      },
+      {
+        "state": "Nevada",
+        "employed": 650
+      },
+      {
+        "state": "Oregon",
+        "employed": 1650
+      },
+      {
+        "state": "Minnesota",
+        "employed": 2290
+      },
+      {
+        "state": "Virginia",
+        "employed": 4750
+      },
+      {
+        "state": "Rhode Island",
+        "employed": 810
+      },
+      {
+        "state": "Georgia",
+        "employed": 3450
+      },
+      {
+        "state": "Colorado",
+        "employed": 2130
+      },
+      {
+        "state": "Illinois",
+        "employed": 4610
+      },
+      {
+        "state": "Hawaii",
+        "employed": 330
+      },
+      {
+        "state": "Wisconsin",
+        "employed": 2370
+      },
+      {
+        "state": "Texas",
+        "employed": 9430
+      },
+      {
+        "state": "North Dakota",
+        "employed": 460
+      },
+      {
+        "state": "New Mexico",
+        "employed": 660
+      },
+      {
+        "state": "Florida",
+        "employed": 5960
+      },
+      {
+        "state": "New Hampshire",
+        "employed": 1170
+      },
+      {
+        "state": "Kentucky",
+        "employed": 2010
+      },
+      {
+        "state": "North Carolina",
+        "employed": 3990
+      },
+      {
+        "state": "Pennsylvania",
+        "employed": 5420
+      },
+      {
+        "state": "Arizona",
+        "employed": 1880
+      },
+      {
+        "state": "Montana",
+        "employed": 610
+      },
+      {
+        "state": "Vermont",
+        "employed": 580
+      },
+      {
+        "state": "Michigan",
+        "employed": 3430
+      },
+      {
+        "state": "South Carolina",
+        "employed": 2320
+      },
+      {
+        "state": "Louisiana",
+        "employed": 1890
+      },
+      {
+        "state": "Ohio",
+        "employed": 4770
+      },
+      {
+        "state": "Alabama",
+        "employed": 3260
+      },
+      {
+        "state": "Nebraska",
+        "employed": 1150
+      },
+      {
+        "state": "Tennessee",
+        "employed": 2590
+      },
+      {
+        "state": "Virgin Islands",
+        "employed": 40
+      },
+      {
+        "state": "Maine",
+        "employed": 930
+      },
+      {
+        "state": "Utah",
+        "employed": 1630
+      },
+      {
+        "state": "Missouri",
+        "employed": 2660
+      },
+      {
+        "state": "Oklahoma",
+        "employed": 2010
+      },
+      {
+        "state": "Arkansas",
+        "employed": 1470
+      },
+      {
+        "state": "Iowa",
+        "employed": 1820
+      },
+      {
+        "state": "Kansas",
+        "employed": 1680
+      },
+      {
+        "state": "Idaho",
+        "employed": 530
+      },
+      {
+        "state": "Indiana",
+        "employed": 2160
+      },
+      {
+        "state": "South Dakota",
+        "employed": 460
+      },
+      {
+        "state": "Wyoming",
+        "employed": 360
+      },
+      {
+        "state": "Puerto Rico",
+        "employed": 1290
+      },
+      {
+        "state": "West Virginia",
+        "employed": 430
+      },
+      {
+        "state": "Mississippi",
+        "employed": 1300
+      }
+    ],
+    "by_state_note": "BLS OEWS employment for SOC 25-4022 (Librarians and Media Collections Specialists) by state. Top states by employment: New York (11,020), California (10,030), Texas (9,430), Florida (5,960), Pennsylvania (5,420). Includes DC, Puerto Rico, and Virgin Islands.",
+    "salary_disparities": {
+      "gender_wage_gap": {
+        "year_2014": {
+          "women_median": 48589,
+          "men_median": 52528,
+          "ratio_pct": 93.0
+        },
+        "year_2019": {
+          "women_to_men_ratio_pct": 92.0
+        },
+        "year_2022_new_grads": {
+          "women_avg": 60316,
+          "men_avg": 66277,
+          "nonbinary_avg": 59726,
+          "all_avg": 61473,
+          "women_to_men_gap_pct": 9.0
+        },
+        "source": "AFL-CIO DPE 2016 (2014 data); Wikipedia/Librarian (2019 data); Library Journal 2023 Placements & Salaries Survey (2022 graduates). Gender pay gap among new MLIS graduates narrowed from 15.5% (2021) to 9% (2022)."
+      },
+      "racial_wage_gap_2015_cents_per_dollar_earned_by_men": {
+        "african_american_women": 69.0,
+        "hispanic_latina_women": 63.0,
+        "asian_women_vs_all_men": 98.0,
+        "asian_women_vs_asian_men_pct": 78.0,
+        "source": "AFL-CIO DPE 2016 citing 2015 BLS data. 2019 figures (Wikipedia/Librarian): African American women 69.9 cents, Hispanic/Latina women 63.8 cents, Asian women 76.7 cents vs Asian men."
+      },
+      "racial_wage_gap_higher_ed_2014": {
+        "black_vs_white_librarians_ratio_pct": 90.0,
+        "source": "AFL-CIO DPE 2016: Black full-time librarians in higher education earned 90% of White counterparts in 2014."
+      },
+      "library_technicians_gender_gap_2014": {
+        "women_median": 28121,
+        "men_median": 36862,
+        "ratio_pct": 76.0,
+        "note": "High margin of error due to few men in the sample."
+      }
+    },
+    "key_facts": [
+      "The U.S. library workforce comprises ~370,560 workers across four BLS occupational categories (2023 OEWS): 133,200 librarians/media collections specialists, 159,620 library assistants, 74,080 library technicians, and 3,660 postsecondary library science teachers.",
+      "Librarianship is one of the most female-dominated professions in the U.S.: women were 83% of librarians in 2015 (DPE) and 81% in 2019; the share has held at roughly 80-84% since the 1990s. Among new 2022 MLIS graduates, 74% were women, 18% men, 6% nonbinary/gender nonconforming (LJ 2023).",
+      "The profession has a persistent racial diversity gap: 84% of librarians were non-Hispanic White in 2015, vs. 74% of library assistants. Among new 2022 MLIS graduates the white share fell to 74% (from 84% in 2021), with Asian graduates rising to 10% \u2014 a notable diversification trend among new entrants.",
+      "The workforce is aging: 42% of librarians were over age 55 in 2014, signaling a wave of impending retirements and succession challenges. New MLIS graduates average age 35 (2022).",
+      "Despite being female-dominated, a gender wage gap persists: women full-time librarians earned 93% of men's median salary in 2014 ($48,589 vs $52,528) and 92% in 2019. The gap is wider for women of color \u2014 African American women earned 69-70 cents and Hispanic/Latina women 63-64 cents per dollar earned by men (2015/2019).",
+      "Education, training, and library occupations had the HIGHEST unionization rate of any professional occupation group in 2015 (35.5%). 20.5% of librarians, 16.3% of library assistants, and 11.2% of library technicians were union members. Union librarians earned 37% more per week than non-union counterparts.",
+      "Cumulative employment among librarians, technicians, and assistants shrank from 380,000 (2007) to 295,000 (2015) \u2014 a 22.5% decline. Employment of elementary/secondary school librarians fell 25% (2004-2014), from ~80,000 to ~66,000.",
+      "The average full-time starting salary for new MLIS graduates was $61,473 in 2022 (LJ 2023 survey), up from $45,650 in 2013 but with a COVID dip to $56,453 in 2020. Unemployment among new graduates fell to 5% in 2023 from 7% in 2022.",
+      "ALA's Spectrum Scholarship Program awards scholarships to minority library students to diversify the profession; ALA provides over $300,000 in scholarships annually. In 2022 ALA formally acknowledged its history of 'upholding unjust systems of racism and discrimination against Black, Indigenous, and People of Color (BIPOC)' and resolved to build a more equitable association.",
+      "The MLIS (Master of Library and Information Science) from an ALA-accredited program is the terminal professional degree for librarians in the U.S. and Canada; 55% of librarians held a master's degree or higher in 2014. Most academic librarians also hold a second subject-based master's degree.",
+      "Health insurance coverage in 2014: 80% of librarians had employer/union health insurance (4% uninsured), but only 63% of library technicians (8% uninsured) and 66% of library assistants (9% uninsured) \u2014 reflecting poorer benefits for paraprofessional staff."
+    ],
+    "trends": [
+      {
+        "year": 1995,
+        "metric": "women_pct_of_librarians",
+        "value": 83.9
+      },
+      {
+        "year": 2003,
+        "metric": "women_pct_of_librarians",
+        "value": 84.4
+      },
+      {
+        "year": 2004,
+        "metric": "school_librarians_employed",
+        "value": 80000
+      },
+      {
+        "year": 2007,
+        "metric": "total_library_employment_librarians_technicians_assistants",
+        "value": 380000
+      },
+      {
+        "year": 2013,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 45650
+      },
+      {
+        "year": 2014,
+        "metric": "school_librarians_employed",
+        "value": 66000
+      },
+      {
+        "year": 2014,
+        "metric": "women_fulltime_librarian_median_salary",
+        "value": 48589
+      },
+      {
+        "year": 2014,
+        "metric": "men_fulltime_librarian_median_salary",
+        "value": 52528
+      },
+      {
+        "year": 2015,
+        "metric": "total_library_employment_librarians_technicians_assistants",
+        "value": 295000
+      },
+      {
+        "year": 2015,
+        "metric": "librarians_employed",
+        "value": 166000
+      },
+      {
+        "year": 2015,
+        "metric": "library_technicians_employed",
+        "value": 31000
+      },
+      {
+        "year": 2015,
+        "metric": "library_assistants_employed",
+        "value": 98000
+      },
+      {
+        "year": 2015,
+        "metric": "librarians_mean_annual_wage",
+        "value": 58930
+      },
+      {
+        "year": 2015,
+        "metric": "women_pct_of_librarians",
+        "value": 83.0
+      },
+      {
+        "year": 2015,
+        "metric": "librarians_union_membership_pct",
+        "value": 20.5
+      },
+      {
+        "year": 2016,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 51798
+      },
+      {
+        "year": 2018,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 55357
+      },
+      {
+        "year": 2018,
+        "metric": "women_pct_of_librarians",
+        "value": 79.0
+      },
+      {
+        "year": 2019,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 58655
+      },
+      {
+        "year": 2019,
+        "metric": "women_pct_of_librarians",
+        "value": 81.0
+      },
+      {
+        "year": 2019,
+        "metric": "women_to_men_wage_ratio_pct",
+        "value": 92.0
+      },
+      {
+        "year": 2020,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 56453
+      },
+      {
+        "year": 2021,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 60911
+      },
+      {
+        "year": 2021,
+        "metric": "new_grads_unemployment_pct",
+        "value": 7.0
+      },
+      {
+        "year": 2021,
+        "metric": "new_mlis_grads_white_pct",
+        "value": 84.0
+      },
+      {
+        "year": 2022,
+        "metric": "avg_starting_salary_new_mlis_grads",
+        "value": 61473
+      },
+      {
+        "year": 2022,
+        "metric": "new_grads_unemployment_pct",
+        "value": 5.0
+      },
+      {
+        "year": 2022,
+        "metric": "new_mlis_grads_white_pct",
+        "value": 74.0
+      },
+      {
+        "year": 2022,
+        "metric": "new_mlis_grads_asian_pct",
+        "value": 10.0
+      },
+      {
+        "year": 2022,
+        "metric": "new_grads_gender_pay_gap_women_vs_men_pct",
+        "value": 9.0
+      },
+      {
+        "year": 2023,
+        "metric": "librarians_employed_bls_25_4022",
+        "value": 133200
+      },
+      {
+        "year": 2023,
+        "metric": "library_technicians_employed_bls_25_4031",
+        "value": 74080
+      },
+      {
+        "year": 2023,
+        "metric": "library_assistants_employed_bls_43_4111",
+        "value": 159620
+      },
+      {
+        "year": 2023,
+        "metric": "library_science_teachers_employed_bls_25_1082",
+        "value": 3660
+      }
+    ],
+    "employment_by_sector": {
+      "school_and_academic_libraries_pct": 57.0,
+      "public_libraries_pct": 30.0,
+      "special_libraries_pct": 13.0,
+      "librarians_part_time_pct": 22.0,
+      "year": 2015,
+      "source": "AFL-CIO DPE 2016 fact sheet. 'Special libraries' includes businesses, law firms, nonprofits, and scientific organizations."
+    },
+    "ala_diversity_initiatives": {
+      "spectrum_scholarship": "ALA's Spectrum Scholarship Program awards academic scholarships to minority library students each year to diversify the profession. ALA provides over $300,000 in scholarships annually across its programs.",
+      "office_for_diversity_literacy_outreach": "The ALA Office for Diversity, Literacy and Outreach Services (ODLOS) supports library/information workers in creating inclusive spaces, using a social justice framework.",
+      "2022_bipoc_acknowledgment": "In 2022 ALA expanded its accountability to include the organization's history of 'upholding unjust systems of racism and discrimination against Black, Indigenous, and People of Color (BIPOC) within the association and the profession' and resolved to build a more equitable association.",
+      "committee_on_status_of_women": "ALA's Committee on the Status of Women in Librarianship (COSWL), founded 1976, promotes collection/analysis of information on the status of women in librarianship.",
+      "source": "Wikipedia/American Library Association and archived ALA Office for Diversity page (Wayback Machine, 2020 snapshot)."
+    },
+    "workforce_challenges": {
+      "declining_employment": "Cumulative library employment (librarians+technicians+assistants) fell 22.5%, from 380,000 in 2007 to 295,000 in 2015 (DPE). School librarian employment fell 25% from 2004 to 2014 (80,000 to 66,000); library technician employment fell 50% and library assistant employment fell 30% over the same period.",
+      "aging_workforce": "42% of librarians were over age 55 in 2014, indicating large-scale pending retirements and a need for succession planning and recruitment.",
+      "new_graduate_job_market": "Library Journal's 2023 survey found 5% unemployment among 2022 MLIS graduates (down from 7%); 87% of employed graduates held full-time positions; 19% worked outside the library field. Employers emphasize prior experience, creating an 'experience needed to get experience' barrier for new graduates.",
+      "diversity_recruitment": "The profession remains far less racially diverse than the U.S. population; ALA's Spectrum Scholarship and other initiatives target minority recruitment, and new-graduate cohorts are diversifying (white share fell from 84% in 2021 to 74% in 2022).",
+      "source": "AFL-CIO DPE 'Library Workers: Facts & Figures 2016'; Library Journal 2023 Placements & Salaries Survey."
+    },
+    "source_notes": "Primary employment, wage, and by-state data: U.S. Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), SOC 25-4022 (Librarians and Media Collections Specialists), 25-4031 (Library Technicians), 43-4111 (Library Assistants, Bookkeeping, Clerical), and 25-1082 (Library Science Teachers, Postsecondary) \u2014 May 2023 reference data, published 2024; cached locally at data/bls_librarian_salaries.json (BLS site blocks automated retrieval). Demographics (gender, race, age, education), union membership, and salary disparities: AFL-CIO Department for Professional Employees, 'Library Workers: Facts & Figures' fact sheet, October 2016 (archived via Wayback Machine at data/_cache/workforce_aflcio_facts_figures_2016.html), citing 2014-2015 BLS/CPS data. Recent new-graduate demographics, salary trends, and gender/race breakdown of the class of 2022: Library Journal 'Holding Steady | Placements and Salaries Survey 2022' (2023 survey, archived at data/_cache/workforce_lj_salary_survey_2023.html). Gender history and 2019 workforce figures: Wikipedia 'Librarian' article (data/_cache/workforce_wikipedia_librarian.html), which cites the DPE fact sheet and ALA data. ALA diversity initiatives and Spectrum Scholarship: Wikipedia 'American Library Association' (data/_cache/workforce_wikipedia_ala.html) and archived ALA Office for Diversity page (data/_cache/workforce_ala_office_diversity.html). NOTE: BLS and ALA live websites block automated access (HTTP 403); data was obtained from locally cached BLS files and Wayback Machine snapshots. All percentages are as reported by the cited sources and may use different reference years and occupation definitions."
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

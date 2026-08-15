@@ -10994,6 +10994,203 @@ def build_funders(data, stats):
         except Exception as e:
             body += f'\n<p class="text-muted"><em>USAspending.gov data unavailable: {esc(str(e))}</em></p>'
 
+    # ---- Grants.gov library/literacy/museum opportunities ----
+    gg_path = os.path.join(DATA, 'grantsgov_library_summary.json')
+    if os.path.exists(gg_path):
+        try:
+            with open(gg_path) as f:
+                gg = json.load(f)
+            gg_total = gg.get('total_opportunities', 0)
+            gg_extract = gg.get('total_opportunities_in_extract', 0)
+            gg_avg_ceil = gg.get('avg_award_ceiling', 0)
+            gg_avg_floor = gg.get('avg_award_floor', 0)
+            gg_med_ceil = gg.get('median_award_ceiling', 0)
+
+            body += f"""
+<h2 id="grantsgov">Grants.gov: Library &amp; Literacy Grant Opportunities</h2>
+<p>The <strong>Grants.gov</strong> database contains all federal grant opportunities. A keyword search across library, literacy, reading, museum, archive, digital inclusion, and information literacy terms found {gg_total:,} relevant opportunities out of {gg_extract:,} total in the extract.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{gg_total:,}</div><div class="label">Relevant opportunities</div></div>
+  <div class="stat-card"><div class="num">${gg_avg_ceil:,.0f}</div><div class="label">Avg award ceiling</div></div>
+  <div class="stat-card"><div class="num">${gg_med_ceil:,.0f}</div><div class="label">Median award ceiling</div></div>
+  <div class="stat-card"><div class="num">${gg_avg_floor:,.0f}</div><div class="label">Avg award floor</div></div>
+</div>"""
+
+            # By status
+            by_status = gg.get('by_status', {})
+            if by_status and isinstance(by_status, dict):
+                body += """
+<h3 id="grantsgov-status">Opportunities by Status</h3>
+<table class="wikitable">
+  <tr><th>Status</th><th>Count</th></tr>"""
+                for status, cnt in sorted(by_status.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if isinstance(cnt, (int, float)):
+                        body += f'\n  <tr><td>{esc(str(status).title())}</td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+
+            # By agency
+            by_ag = gg.get('by_agency', [])
+            if by_ag:
+                top_ag = sorted(by_ag, key=lambda x: x.get('count', 0), reverse=True)[:20]
+                max_ag = max((x.get('count', 0) for x in by_ag), default=1) or 1
+                body += """
+<h3 id="grantsgov-agencies">Top Federal Agencies Offering Library-Related Grants</h3>
+<div class="services-bars">"""
+                for r in top_ag:
+                    ag = esc(str(r.get('key', '')))
+                    cnt = r.get('count', 0)
+                    pct = (cnt / max_ag * 100) if max_ag else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{ag}</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></div></div><div class="svc-num">{cnt:,}</div></div>'
+                body += '\n</div>'
+
+            # By funding activity
+            by_fa = gg.get('by_funding_activity', [])
+            if by_fa:
+                body += """
+<h3 id="grantsgov-activities">Opportunities by Funding Activity Category</h3>
+<table class="wikitable">
+  <tr><th>Funding Activity</th><th>Count</th></tr>"""
+                for r in sorted(by_fa, key=lambda x: x.get('count', 0), reverse=True):
+                    fa = esc(str(r.get('key', '')))
+                    cnt = r.get('count', 0)
+                    body += f'\n  <tr><td>{fa}</td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+
+            # Top 20 by posted date
+            top20 = gg.get('top_20_by_posted_date', [])
+            if top20:
+                body += """
+<h3 id="grantsgov-recent">Recent Grant Opportunities</h3>
+<table class="wikitable sortable">
+  <tr><th>Number</th><th>Title</th><th>Agency</th><th>Status</th><th>Posted</th><th>Closes</th><th>Award Ceiling</th></tr>"""
+                for r in top20[:20]:
+                    num = esc(str(r.get('number', '')))
+                    title = esc(str(r.get('title', ''))[:80])
+                    agency = esc(str(r.get('agency', ''))[:40])
+                    status = esc(str(r.get('status', '')))
+                    posted = esc(str(r.get('post_date', '')))
+                    closes = esc(str(r.get('close_date', '')))
+                    ceil = r.get('award_ceiling', 0) or 0
+                    ceil_str = f'${ceil:,.0f}' if ceil else '&mdash;'
+                    body += f'\n  <tr><td><code>{num}</code></td><td><strong>{title}</strong></td><td>{agency}</td><td>{status}</td><td>{posted}</td><td>{closes}</td><td class="num">{ceil_str}</td></tr>'
+                body += '\n</table>'
+
+            # Keyword hit counts
+            khc = gg.get('keyword_hit_counts', {})
+            if khc:
+                body += """
+<h3 id="grantsgov-keywords">Keyword Search Results</h3>
+<table class="wikitable">
+  <tr><th>Keyword</th><th>Matches</th></tr>"""
+                for kw, cnt in sorted(khc.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if isinstance(cnt, (int, float)):
+                        body += f'\n  <tr><td>{esc(str(kw))}</td><td class="num">{cnt:,}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>Grants.gov data unavailable: {esc(str(e))}</em></p>'
+
+    # ---- IMLS Program Data Inventory ----
+    imls_prog_path = os.path.join(DATA, 'imls_program_data_summary.json')
+    if os.path.exists(imls_prog_path):
+        try:
+            with open(imls_prog_path) as f:
+                ipd = json.load(f)
+
+            body += f"""
+<h2 id="imls-program-data">IMLS Program Data: Complete Inventory</h2>
+<p>{esc(str(ipd.get('description', ''))[:400])}</p>"""
+
+            # PLS data
+            pls = ipd.get('public_libraries_survey', {})
+            if pls:
+                yr_range = pls.get('year_range', '')
+                kf = pls.get('key_facts', [])
+                trends = pls.get('trend_summary', {})
+                body += f"""
+<h3 id="imls-pls-data">Public Libraries Survey (PLS)</h3>
+<p>The IMLS Public Libraries Survey is the foundational dataset for this wiki. Data available for {esc(str(yr_range))}.</p>"""
+                if kf and isinstance(kf, list):
+                    body += '<ul>'
+                    for fact in kf[:10]:
+                        if isinstance(fact, str):
+                            body += f'\n  <li>{esc(fact)}</li>'
+                        elif isinstance(fact, dict):
+                            body += f'\n  <li><strong>{esc(str(fact.get("label", fact.get("key", ""))))}</strong>: {esc(str(fact.get("value", "")))}</li>'
+                    body += '</ul>'
+
+                # National trends by year
+                nat_trends = pls.get('national_trends_by_year', [])
+                if nat_trends and isinstance(nat_trends, list):
+                    body += """
+<h4>PLS National Trends</h4>
+<table class="wikitable">
+  <tr>"""
+                    if nat_trends and isinstance(nat_trends[0], dict):
+                        for col in list(nat_trends[0].keys())[:8]:
+                            body += f'<th>{esc(str(col).replace("_", " ").title())}</th>'
+                        body += '</tr>'
+                        for row in nat_trends[-10:]:
+                            body += '<tr>'
+                            for col in list(row.keys())[:8]:
+                                val = row.get(col, '')
+                                if isinstance(val, (int, float)):
+                                    body += f'<td class="num">{val:,.0f}</td>'
+                                else:
+                                    body += f'<td>{esc(str(val))[:30]}</td>'
+                            body += '</tr>'
+                    body += '\n</table>'
+
+            # SLAA survey
+            slaa_s = ipd.get('state_library_agency_survey', {})
+            if slaa_s:
+                fy24_count = slaa_s.get('fy2024_state_count', 0)
+                fy24_nat = slaa_s.get('fy2024_national_totals', {})
+                body += f"""
+<h3 id="imls-slaa-data">State Library Agency Survey (SLAA)</h3>
+<p>FY2024 data covers {fy24_count} state library agencies.</p>"""
+                if fy24_nat and isinstance(fy24_nat, dict):
+                    body += """
+<table class="wikitable">
+  <tr><th>Metric</th><th>FY2024 Value</th></tr>"""
+                    for k, v in fy24_nat.items():
+                        if isinstance(v, (int, float)):
+                            body += f'\n  <tr><td>{esc(str(k).replace("_", " ").title())}</td><td class="num">{v:,.0f}</td></tr>'
+                        else:
+                            body += f'\n  <tr><td>{esc(str(k).replace("_", " ").title())}</td><td>{esc(str(v))[:100]}</td></tr>'
+                    body += '\n</table>'
+
+            # IMLS Grants summary
+            ig = ipd.get('imls_grants', {})
+            if ig:
+                prog_count = ig.get('program_count', 0)
+                all_grants = ig.get('all_imls_grants', 0)
+                body += f"""
+<h3 id="imls-grants-inventory">IMLS Grants Inventory</h3>
+<p>{all_grants:,} total IMLS grants across {prog_count} programs.</p>"""
+                gbp = ig.get('grants_by_program', [])
+                if gbp and isinstance(gbp, list):
+                    body += """
+<table class="wikitable">
+  <tr><th>Program</th><th>Grant Count</th></tr>"""
+                    for r in gbp[:15]:
+                        if isinstance(r, dict):
+                            prog = esc(str(r.get('program', r.get('key', ''))))
+                            cnt = r.get('count', 0)
+                            body += f'\n  <tr><td>{prog}</td><td class="num">{cnt:,}</td></tr>'
+                    body += '\n</table>'
+
+            # Key findings
+            kfs = ipd.get('key_findings', {})
+            if kfs:
+                body += """
+<h3 id="imls-key-findings">Key Findings</h3>
+<div class="rules-box">"""
+                for k, v in kfs.items():
+                    body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+                body += '\n</div>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>IMLS program data unavailable: {esc(str(e))}</em></p>'
+
     body += f"""
 <div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""

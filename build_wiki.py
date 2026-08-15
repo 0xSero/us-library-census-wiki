@@ -10378,6 +10378,37 @@ def build_funders(data, stats):
             body += f'\n  <tr><td>{esc(reg.get("region",""))}</td><td class="num">{reg.get("libraries",0):,}</td></tr>'
         body += '\n</table>'
 
+    # Carnegie by state (from cache)
+    carnegie_state_cache = os.path.join(os.path.dirname(WIKI), 'data', '_cache', 'philanthropy_carnegie_by_state.json')
+    if os.path.exists(carnegie_state_cache):
+        try:
+            with open(carnegie_state_cache) as cs_f:
+                carnegie_states = json.load(cs_f)
+            if carnegie_states:
+                body += """
+<h4>Carnegie Library Grants by State</h4>
+<p>Andrew Carnegie's library building grants, broken down by state — the most granular record of his philanthropic legacy.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>Public Libraries</th><th>Academic Libraries</th><th>Total Grants</th><th>Total Amount</th><th>Earliest Grant</th><th>Latest Grant</th></tr>"""
+                # Sort by total amount descending (parse dollar amounts)
+                def _carn_amt(s):
+                    try:
+                        return float(str(s).replace(',', '').replace('$', '').replace('.00', '').strip() or 0)
+                    except Exception:
+                        return 0
+                sorted_states = sorted(carnegie_states.items(), key=lambda x: _carn_amt(x[1].get('total_amount', '0')), reverse=True)
+                for state_name, sd in sorted_states:
+                    pub = sd.get('public_libraries', 0)
+                    ac = sd.get('academic_libraries', '0')
+                    grants_c = sd.get('public_grants', 0)
+                    amt = sd.get('total_amount', '0')
+                    earliest = esc(str(sd.get('earliest_grant', '')))
+                    latest = esc(str(sd.get('latest_grant', '')))
+                    body += f'\n  <tr><td><strong>{esc(state_name)}</strong></td><td class="num">{esc(str(pub))}</td><td class="num">{esc(str(ac))}</td><td class="num">{esc(str(grants_c))}</td><td class="num">${esc(str(amt))}</td><td>{earliest}</td><td>{latest}</td></tr>'
+                body += '\n</table>'
+        except Exception:
+            pass
+
     # Gates Foundation
     gates = phil.get('gates_foundation', {})
     body += f"""
@@ -10448,6 +10479,34 @@ def build_funders(data, stats):
             body += f'\n  <tr><td>{esc(str(y.get("year","")))}</td><td class="num">{y.get("count",0)}</td></tr>'
         body += '\n</table>'
 
+    # Ballot measure detail from CSV
+    ballot_csv = os.path.join(os.path.dirname(WIKI), 'data', '_cache', 'library_ballot_measures.csv')
+    if os.path.exists(ballot_csv):
+        try:
+            import csv as _csv
+            with open(ballot_csv) as bf:
+                ballot_rows = list(_csv.DictReader(bf))
+            if ballot_rows:
+                body += f"""
+<h4>All Library Ballot Measures ({len(ballot_rows)} measures)</h4>
+<table class="wikitable">
+  <tr><th>Year</th><th>State</th><th>Library System</th><th>Description</th><th>Amount</th><th>Result</th><th>Vote %</th><th>Election Date</th></tr>"""
+                for r in sorted(ballot_rows, key=lambda x: (x.get('year', ''), x.get('state_abbr', ''))):
+                    yr_b = esc(r.get('year', ''))
+                    st_b = esc(r.get('state_abbr', ''))
+                    sys_b = esc(r.get('library_system_name', ''))
+                    desc_b = esc(r.get('measure_description', '')[:80])
+                    amt_b = r.get('amount_requested_numeric', '')
+                    amt_str = f'${float(amt_b):,.0f}' if amt_b and amt_b.strip() else '&mdash;'
+                    result_b = esc(r.get('vote_result', ''))
+                    result_cls = 'live' if result_b.lower() == 'pass' else ''
+                    vp_b = esc(r.get('vote_percentage', ''))
+                    ed_b = esc(r.get('election_date', ''))
+                    body += f'\n  <tr><td>{yr_b}</td><td>{st_b}</td><td><strong>{sys_b}</strong></td><td>{desc_b}</td><td class="num">{amt_str}</td><td class="{result_cls}">{result_b}</td><td class="pct">{vp_b}</td><td>{ed_b}</td></tr>'
+                body += '\n</table>'
+        except Exception:
+            pass
+
     # ---- State funding sources ----
     sf = stats.get('state_funding', {})
     sf_nat = sf.get('national_totals', {}) if sf else {}
@@ -10492,6 +10551,46 @@ def build_funders(data, stats):
             for st in arp['by_state'][:15]:
                 body += f'\n  <tr><td>{esc(st.get("state",""))}</td><td class="num">{st.get("grants",0)}</td><td class="num">${st.get("total",0):,}</td></tr>'
             body += '\n</table>'
+
+    # ---- IMLS/NSF 940-award detail table ----
+    award_cache = os.path.join(os.path.dirname(WIKI), 'data', '_cache', 'imls_nsf_award_details.json')
+    if os.path.exists(award_cache):
+        try:
+            with open(award_cache) as af:
+                all_awards = json.load(af)
+            award_list = list(all_awards.values()) if isinstance(all_awards, dict) else all_awards
+            if award_list:
+                award_total = 0
+                for aw in award_list:
+                    try:
+                        award_total += float(aw.get('total_obligation', 0) or 0)
+                    except Exception:
+                        pass
+                body += f"""
+<h2 id="award-details">Complete IMLS &amp; NSF Award Details — {len(award_list):,} Awards</h2>
+<p>Every individual IMLS and NSF award with recipient, location, amount, dates, and program classification. Total obligated: <strong>${award_total:,.0f}</strong>.</p>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>City, State</th><th>County</th><th>Amount</th><th>Program</th><th>Type</th><th>Date Signed</th><th>Period</th><th>Description</th></tr>"""
+                for aw in sorted(award_list, key=lambda x: float(x.get('total_obligation', 0) or 0), reverse=True)[:200]:
+                    recip = esc(aw.get('recipient_name', ''))
+                    city_s = esc(aw.get('city_name', ''))
+                    state_s = esc(aw.get('state_code', ''))
+                    county_s = esc(aw.get('county_name', ''))
+                    amt_a = aw.get('total_obligation', 0) or 0
+                    try:
+                        amt_a = float(amt_a)
+                    except Exception:
+                        amt_a = 0
+                    prog = esc(aw.get('cfda_popular_name', '') or aw.get('cfda_title', ''))
+                    atype = esc(aw.get('type_description', ''))
+                    dsig = esc(aw.get('date_signed', ''))
+                    start_d = esc(aw.get('start_date', ''))
+                    end_d = esc(aw.get('end_date', ''))
+                    desc_a = esc(aw.get('description', '')[:100])
+                    body += f'\n  <tr><td><strong>{recip}</strong></td><td>{city_s}, {state_s}</td><td>{county_s}</td><td class="num">${amt_a:,.0f}</td><td>{prog}</td><td>{atype}</td><td>{dsig}</td><td>{start_d} → {end_d}</td><td>{desc_a}</td></tr>'
+                body += f'\n</table>\n<p>Showing top 200 of {len(award_list):,} awards (sorted by amount). All awards sourced from USASpending.gov.</p>'
+        except Exception:
+            pass
 
     body += f"""
 <div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a></div>

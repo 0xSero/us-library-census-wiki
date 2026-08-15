@@ -173,6 +173,7 @@ def panel(active=""):
     <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
     <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
     <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
+    <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -535,6 +536,12 @@ def load_all():
             data['library_technology'] = json.load(f)
     else:
         data['library_technology'] = {}
+    tribal_path = os.path.join(DATA, "tribal_libraries_summary.json")
+    if os.path.exists(tribal_path):
+        with open(tribal_path) as f:
+            data['tribal_libraries'] = json.load(f)
+    else:
+        data['tribal_libraries'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1658,6 +1665,9 @@ def compute_stats(data):
 
     # ---- Library technology & digital inclusion ----
     stats['library_technology'] = data.get('library_technology', {})
+
+    # ---- Tribal & Indigenous libraries ----
+    stats['tribal_libraries'] = data.get('tribal_libraries', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -6941,6 +6951,138 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2024 (public internet terminals, sessions, WiFi sessions), USAC E-rate Form 471 data (library-filtered commitments FY2016-FY2026), Pew Research Center Internet &amp; American Life Project (2013/2016/2019), ALA State of America\'s Libraries 2024, and Wikipedia articles (Public library, E-Rate, Digital divide, Gates Foundation, Library makerspace) citing primary sources. The E-rate program\'s total budget is ~$3.9B/year for schools and libraries combined; the library-attributed share averages ~${erate_annual/1e6:.0f}M/year. Where no single authoritative national count exists (hotspot lending, makerspace counts), this is noted rather than estimated.</p>'
+
+    # ---- Tribal & Indigenous Libraries ----
+    trib = stats.get('tribal_libraries', {})
+    if trib and trib.get('imls_native_grants'):
+        tlc = trib.get('tribal_library_count', {})
+        imls = trib.get('imls_native_grants', {})
+        atalm = trib.get('atalm', {})
+        notable = trib.get('notable_tribal_libraries', [])
+        tcl = trib.get('tribal_college_libraries', {})
+        funding = trib.get('funding_challenges', {})
+        lang = trib.get('language_preservation', {})
+        digrep = trib.get('digital_repatriation', {})
+        history = trib.get('history', [])
+        kf = trib.get('key_facts', [])
+
+        ds = imls.get('dataset_summary', {}) if isinstance(imls, dict) else {}
+        bg = imls.get('basic_grants', {}) if isinstance(imls, dict) else {}
+        eg = imls.get('enhancement_grants', {}) if isinstance(imls, dict) else {}
+        nh = imls.get('native_hawaiian_library_services', {}) if isinstance(imls, dict) else {}
+        total_grants = ds.get('total_native_american_grant_rows', 0) if isinstance(ds, dict) else 0
+        total_usd = ds.get('total_award_usd_all_native_programs', 0) if isinstance(ds, dict) else 0
+        distinct_inst = ds.get('distinct_institutions_receiving_any_native_grant', 0) if isinstance(ds, dict) else 0
+        est_count = tlc.get('estimated_total', 300) if isinstance(tlc, dict) else 300
+        top_states = ds.get('top_states_by_grant_count', []) if isinstance(ds, dict) else []
+
+        body += f"""
+
+<h2 id="tribal-libraries">Tribal &amp; Indigenous Libraries</h2>
+<p class="wiki-sub">There are 574 federally recognized Native American tribes in the United States, yet no federal agency maintains a complete census of tribal libraries. IMLS estimates 200-300+ tribal libraries exist across Indian Country, many operating on shoestring budgets through Basic Grants of just ~${bg.get("amount_typical_usd", 7000) if isinstance(bg, dict) else 7000:,}. Over FY1998-FY2013, IMLS awarded {total_grants:,} Native American library grants totaling ${total_usd/1e6:.1f}M to {distinct_inst} distinct institutions. The story of tribal libraries runs from the boarding-school assimilation era through modern cultural sovereignty, language revitalization, and digital repatriation via platforms like Mukurtu CMS.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{est_count}+</div><div class="label">Estimated tribal libraries</div></div>
+  <div class="stat-card"><div class="num">574</div><div class="label">Federally recognized tribes</div></div>
+  <div class="stat-card"><div class="num">{total_grants:,}</div><div class="label">IMLS Native grants (FY1998-2013)</div></div>
+  <div class="stat-card"><div class="num">${total_usd/1e6:.1f}M</div><div class="label">Total IMLS Native grant funding</div></div>
+  <div class="stat-card"><div class="num">{distinct_inst}</div><div class="label">Distinct institutions served</div></div>
+  <div class="stat-card"><div class="num">37</div><div class="label">Tribal colleges (TCUs)</div></div>
+  <div class="stat-card"><div class="num">2010</div><div class="label">ATALM founded</div></div>
+</div>"""
+
+        # IMLS Native grants detail
+        if isinstance(imls, dict):
+            body += f"""
+<h3>IMLS Native American Library Services grants</h3>
+<table class="wikitable">
+  <tr><th>Program</th><th>Description</th><th>Typical amount</th></tr>
+  <tr><td>Basic Grants</td><td>{esc(bg.get("description", "Non-competitive grants for existing library operations") if isinstance(bg, dict) else "")}</td><td class="pct">${bg.get("amount_typical_usd", 7000):,} (range: {esc(str(bg.get("amount_range_usd", "$6K-$10K")) if isinstance(bg, dict) else "")})</td></tr>
+  <tr><td>Enhancement Grants</td><td>{esc(eg.get("description", "Competitive grants for enhanced services") if isinstance(eg, dict) else "")}</td><td class="pct">up to ${eg.get("max_amount_usd", 200000):,}</td></tr>
+  <tr><td>Native Hawaiian Library Services</td><td>{esc(nh.get("description", "Parallel program serving Native Hawaiian libraries") if isinstance(nh, dict) else "")}</td><td class="pct">{nh.get("count_in_dataset_fy1998_2013", 220)} awards / ${nh.get("total_in_dataset_usd", 0)/1e6:.1f}M</td></tr>
+</table>"""
+
+        # Top states by grant count
+        if top_states:
+            max_st = max((s.get('grants', 0) for s in top_states), default=1) or 1
+            body += """
+<h3>Top states by IMLS Native grant awards (FY1998-2013)</h3>
+<div class="services-bars">"""
+            for s in top_states[:10]:
+                cnt = s.get('grants', 0)
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(s.get("state",""))}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{cnt/max_st*100:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # ATALM
+        if isinstance(atalm, dict) and atalm:
+            body += f"""
+<h3>Association of Tribal Archives, Libraries, &amp; Museums (ATALM)</h3>
+<p>{esc(atalm.get("full_name", ""))}, founded {atalm.get("founded_year", 2010)} in {esc(atalm.get("headquarters", "Oklahoma City"))}. {esc(atalm.get("predecessor_conferences", ""))}</p>"""
+
+        # Notable tribal libraries
+        if notable:
+            body += """
+<h3>Notable tribal libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Location</th></tr>"""
+            for l in notable:
+                if isinstance(l, dict):
+                    body += f'\n  <tr><td>{esc(l.get("name", ""))}</td><td>{esc(l.get("location", ""))}</td></tr>'
+            body += '\n</table>'
+
+        # Tribal college libraries
+        if isinstance(tcl, dict) and tcl:
+            aihec = tcl.get('aihec', {})
+            body += f"""
+<h3>Tribal college libraries (TCUs)</h3>
+<p>{esc(aihec.get("full_name", "American Indian Higher Education Consortium"))} (AIHEC), founded {aihec.get("founded_year", 1973)}, supports {len(tcl.get("notable_tribal_colleges", [])) or 37} tribally controlled colleges and universities. Diné College (founded 1968) was the first TCU. Enrollment grew from ~2,100 in 1982 to ~30,000 by 2003.</p>"""
+
+        # Language preservation
+        if isinstance(lang, dict) and lang:
+            langs = lang.get('key_languages_served', [])
+            body += f"""
+<h3>Language preservation</h3>
+<p>{esc(lang.get("summary", "Tribal libraries serve as language revitalization centers for Indigenous languages suppressed during the boarding-school era."))}</p>"""
+            if langs:
+                body += '<p><strong>Key languages served:</strong> ' + ', '.join(esc(str(l)) for l in langs) + '</p>'
+
+        # Digital repatriation
+        if isinstance(digrep, dict) and digrep:
+            mukurtu = digrep.get('mukurtu_cms', {})
+            body += f"""
+<h3>Digital repatriation</h3>
+<p>{esc(digrep.get("definition", "Digital repatriation is the return of cultural heritage items in digital format to originating communities."))}</p>"""
+            if isinstance(mukurtu, dict) and mukurtu:
+                body += f'<p><strong>{esc(mukurtu.get("name", "Mukurtu CMS"))}:</strong> {esc(mukurtu.get("description", "Open-source CMS designed for Indigenous communities to manage digital heritage."))}</p>'
+
+        # History timeline
+        if history:
+            body += """
+<h3>History of tribal libraries</h3>
+<table class="wikitable">
+  <tr><th>Era</th><th>Period</th><th>Theme</th></tr>"""
+            for h in history:
+                if isinstance(h, dict):
+                    body += f'\n  <tr><td>{esc(h.get("era", ""))}</td><td class="pct">{esc(h.get("period", ""))}</td><td>{esc(h.get("theme", h.get("description", "")))}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        if kf:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for f in kf:
+                if isinstance(f, dict):
+                    body += f'\n  <li>{esc(f.get("fact", str(f)))}</li>'
+                else:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: IMLS Native American Library Services grant data (FY1998-FY2013, cached locally), Wikipedia articles on tribal libraries, ATALM, AIHEC, tribal colleges, Mukurtu CMS, and the American Indian Library Association (AILA), citing primary sources. IMLS awarded {total_grants:,} Native American grants totaling ${total_usd/1e6:.1f}M to {distinct_inst} institutions over FY1998-FY2013. The estimated {est_count}+ tribal libraries is an advocacy/scholarly estimate; no single federal census of tribal libraries exists. Tribal colleges (TCUs) number 37 as of 2018 (AIHEC), up from 6 founding members in 1973.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

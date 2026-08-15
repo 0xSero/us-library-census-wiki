@@ -10910,8 +10910,92 @@ def build_funders(data, stats):
         except Exception:
             pass
 
+    # ---- USAspending.gov library-related federal awards ----
+    usa_path = os.path.join(DATA, 'usaspending_library_awards_summary.json')
+    if os.path.exists(usa_path):
+        try:
+            with open(usa_path) as f:
+                usa = json.load(f)
+            usa_total = usa.get('total_award_amount', 0)
+            usa_found = usa.get('total_awards_found', 0)
+            usa_fetched = usa.get('total_awards_fetched', 0)
+
+            body += f"""
+<h2 id="usaspending">USAspending.gov: Federal Library Awards Database</h2>
+<p>The <strong>USAspending.gov</strong> API reveals all federal assistance awards (grants, direct payments, other) with "library" in the description or recipient name. This is a cross-agency view of federal library funding beyond IMLS, NEH, and USDA.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{usa_found:,}</div><div class="label">Total awards found</div></div>
+  <div class="stat-card"><div class="num">${usa_total/1e9:.2f}B</div><div class="label">Total award amount</div></div>
+  <div class="stat-card"><div class="num">{usa_fetched:,}</div><div class="label">Awards fetched (sample)</div></div>
+</div>"""
+
+            # Top recipients
+            top_rec = usa.get('top_recipients', [])
+            if top_rec:
+                body += """
+<h3 id="usaspending-recipients">Top Federal Library Funding Recipients</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>State</th><th>City</th><th>Total Amount</th><th>Awards</th></tr>"""
+                for r in top_rec[:25]:
+                    name = esc(str(r.get('name', '')))
+                    st = esc(str(r.get('state', '')))
+                    city = esc(str(r.get('city', '')))
+                    amt = r.get('total_amount', 0)
+                    cnt = r.get('award_count', 0)
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{st}</td><td>{city}</td><td class="num">${amt:,.0f}</td><td class="num">{cnt}</td></tr>'
+                body += '\n</table>'
+
+            # By agency
+            by_ag = usa.get('by_agency', [])
+            if by_ag:
+                max_ag = max((x.get('total_amount', 0) for x in by_ag), default=1) or 1
+                body += """
+<h3 id="usaspending-agencies">Federal Library Funding by Agency</h3>
+<div class="services-bars">"""
+                for r in sorted(by_ag, key=lambda x: x.get('total_amount', 0), reverse=True)[:15]:
+                    ag = esc(str(r.get('agency', '')))
+                    cnt = r.get('count', 0)
+                    amt = r.get('total_amount', 0)
+                    pct = (amt / max_ag * 100) if max_ag else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{ag}</div><div class="svc-bar"><div class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></div></div><div class="svc-num">${amt/1e6:.0f}M ({cnt})</div></div>'
+                body += '\n</div>'
+
+            # Top individual awards
+            top_aw = usa.get('top_20_individual_awards', [])
+            if top_aw:
+                body += """
+<h3 id="usaspending-top-awards">Largest Individual Federal Library Awards</h3>
+<table class="wikitable sortable">
+  <tr><th>Award ID</th><th>Recipient</th><th>Agency</th><th>Amount</th><th>Start</th><th>End</th><th>Description</th></tr>"""
+                for r in top_aw[:20]:
+                    aid = esc(str(r.get('award_id', '')))
+                    recip = esc(str(r.get('recipient_name', '')))
+                    agency = esc(str(r.get('awarding_agency', '')))
+                    amt = r.get('award_amount', 0)
+                    sd = esc(str(r.get('start_date', '')))
+                    ed = esc(str(r.get('end_date', '')))
+                    desc = esc(str(r.get('description', ''))[:150])
+                    body += f'\n  <tr><td><code>{aid}</code></td><td><strong>{recip}</strong></td><td>{agency}</td><td class="num">${amt:,.0f}</td><td>{sd}</td><td>{ed}</td><td>{desc}</td></tr>'
+                body += '\n</table>'
+
+            # By year
+            by_yr = usa.get('by_year', [])
+            if by_yr:
+                body += """
+<h3 id="usaspending-by-year">Federal Library Awards by Year</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Awards</th><th>Total Amount</th></tr>"""
+                for r in sorted(by_yr, key=lambda x: x.get('year', '')):
+                    yr = esc(str(r.get('year', '')))
+                    cnt = r.get('count', 0)
+                    amt = r.get('total_amount', 0)
+                    body += f'\n  <tr><td>{yr}</td><td class="num">{cnt}</td><td class="num">${amt:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>USAspending.gov data unavailable: {esc(str(e))}</em></p>'
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:

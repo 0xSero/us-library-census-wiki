@@ -10604,6 +10604,40 @@ def build_funders(data, stats):
             body += f'\n  <tr><td>{esc(st.get("state",""))}</td><td class="num">${st.get("total_income",0):,}</td><td class="num">${st.get("total_income_per_capita",0):.2f}</td></tr>'
         body += '\n</table>'
 
+    # ---- State-by-state funder profile from ALA state data ----
+    ala_state = data.get('ala_state_data', {})
+    ala_states = ala_state.get('states', {}) if isinstance(ala_state, dict) else {}
+    if ala_states:
+        body += f"""
+<h4>State-by-State Funding &amp; Censorship Profile</h4>
+<p>IMLS grants, ballot measures, and censorship challenges by state — a comprehensive view of library funding and threats in each jurisdiction.</p>
+<table class="wikitable">
+  <tr><th>State</th><th>IMLS Grants</th><th>IMLS $</th><th>Ballot Measures</th><th>Passed</th><th>Ballot $</th><th>Censorship Challenges</th><th>Books Banned</th></tr>"""
+        # Build combined rows
+        state_rows = []
+        for st_code, sd in ala_states.items():
+            if not isinstance(sd, dict):
+                continue
+            grants_s = sd.get('imls_grants', {})
+            ballot_s = sd.get('ballot_measures', {})
+            cens_s = sd.get('censorship', {})
+            state_rows.append({
+                'code': st_code,
+                'name': sd.get('state_name', st_code),
+                'imls_grants': grants_s.get('total_grants', 0) if isinstance(grants_s, dict) else 0,
+                'imls_amount': grants_s.get('total_award_amount', 0) if isinstance(grants_s, dict) else 0,
+                'ballot_total': ballot_s.get('total_measures', 0) if isinstance(ballot_s, dict) else 0,
+                'ballot_passed': ballot_s.get('passed', 0) if isinstance(ballot_s, dict) else 0,
+                'ballot_amount': ballot_s.get('total_amount_requested', 0) if isinstance(ballot_s, dict) else 0,
+                'cens_challenges': cens_s.get('total_challenges', 0) if isinstance(cens_s, dict) else 0,
+                'cens_banned': cens_s.get('banned_removed', 0) if isinstance(cens_s, dict) else 0,
+            })
+        # Sort by IMLS amount descending
+        state_rows.sort(key=lambda x: x['imls_amount'], reverse=True)
+        for sr in state_rows:
+            body += f'\n  <tr><td><a href="states/{sr["code"]}.html"><strong>{esc(sr["code"])}</strong></a></td><td class="num">{sr["imls_grants"]:,}</td><td class="num">${sr["imls_amount"]:,.0f}</td><td class="num">{sr["ballot_total"]}</td><td class="num">{sr["ballot_passed"]}</td><td class="num">${sr["ballot_amount"]:,.0f}</td><td class="num">{sr["cens_challenges"]:,}</td><td class="num">{sr["cens_banned"]:,}</td></tr>'
+        body += '\n</table>'
+
     # ---- IMLS ARP grants ----
     arp = stats.get('imls_arp_grants', {})
     if arp:

@@ -7430,6 +7430,40 @@ via a scheduled pipeline.</p>
   <tr><td><strong>Library website scraping</strong></td><td>Emails, social media links, hours, services extracted from library homepages</td><td>{stats['hours']:,} hours, {stats['services']:,} services</td></tr>
 </table>
 
+<h2>Statistical &amp; Analytical Data Sources</h2>
+<p>Beyond the location-level records above, this wiki integrates {sum(1 for _ in filter(None, [stats.get('circulation'), stats.get('library_programs'), stats.get('library_technology'), stats.get('accessibility'), stats.get('tribal_libraries'), stats.get('academic_stats'), stats.get('philanthropy'), stats.get('pls_trends'), stats.get('library_cards')])) + 30}+ national-level datasets covering the full breadth of the US library system. These are compiled from government surveys, foundation reports, academic studies, and primary-source research:</p>
+<table class="data-table">
+  <tr><th>Dataset</th><th>Source</th><th>Key figures</th></tr>
+  <tr><td>IMLS Public Libraries Survey</td><td>IMLS FY2022/FY2024 via ALA</td><td>9,249 systems, 1.7B circulation, 155M card holders</td></tr>
+  <tr><td>PLS Historical Trends</td><td>IMLS FY2019-FY2024</td><td>COVID shock &amp; recovery trajectory</td></tr>
+  <tr><td>IMLS Library Grants (all programs)</td><td>USAspending.gov API</td><td>936 awards, $1.47B, LSTA + Laura Bush 21st Century</td></tr>
+  <tr><td>NEH Library Grants</td><td>USAspending.gov API</td><td>309 grants, $61.6M, 38 states</td></tr>
+  <tr><td>Other Federal Grants</td><td>USAspending.gov API</td><td>156 awards, $89.4M, 7 agencies (HUD, DOI, ED, HHS, NSF, EPA, CNCS)</td></tr>
+  <tr><td>Federal Funding Totals</td><td>Compiled from all sources</td><td>$88.4B across 9 programs (LSTA, IMLS, NEH, LoC, NLM, E-rate...)</td></tr>
+  <tr><td>State Library Funding</td><td>IMLS SLAA FY2024 + ALA</td><td>$17.9B total, 56 jurisdictions, funding mix analysis</td></tr>
+  <tr><td>Library of Congress</td><td>LoC annual report + Wikipedia</td><td>181M items, $898M budget, NLS, CRS, Copyright</td></tr>
+  <tr><td>National Library of Medicine</td><td>NLM + Wikipedia</td><td>27.8M items, PubMed, GenBank, NNLM network</td></tr>
+  <tr><td>Academic Libraries</td><td>NCES ALS 2012 + IPEDS AL 2022-23</td><td>3,700 libraries, 705M volumes, $8.2B expenditures, 125 ARL</td></tr>
+  <tr><td>Digital Libraries</td><td>Wikipedia (primary sources)</td><td>HathiTrust, Internet Archive, Google Books, Project Gutenberg</td></tr>
+  <tr><td>DPLA</td><td>DPLA API + Wikipedia</td><td>53M items, 46 hubs</td></tr>
+  <tr><td>Circulation &amp; Library Cards</td><td>IMLS PLS + Pew Research 2013</td><td>1.7B circulated, 155M card holders, demographics</td></tr>
+  <tr><td>Programs &amp; Events</td><td>IMLS PLS FY2022 via ALA</td><td>5.1M programs, 105M attendance</td></tr>
+  <tr><td>Technology &amp; Digital Inclusion</td><td>IMLS, USAC E-rate, Pew, ALA</td><td>260K computers, $2.28B E-rate, Gates legacy</td></tr>
+  <tr><td>Accessibility &amp; NLS</td><td>LoC NLS FY2024, ADA.gov</td><td>219K readers, 101 network libraries, BARD, braille</td></tr>
+  <tr><td>Tribal Libraries</td><td>IMLS Native grants + ATALM + AIHEC</td><td>574 tribes, 3,747 grants ($56.7M), 37 tribal colleges</td></tr>
+  <tr><td>Library Philanthropy</td><td>Wikipedia (Carnegie, Gates, Mellon, NYPL)</td><td>1,689 Carnegie libraries, Friends groups, endowments</td></tr>
+  <tr><td>Interlibrary Loan</td><td>IMLS PLS + OCLC + Wikipedia</td><td>137M transactions, 25-year trend, OCLC</td></tr>
+  <tr><td>Library Workforce</td><td>ALA + BLS + Wikipedia</td><td>370K workers, 83% female, union, diversity</td></tr>
+  <tr><td>Book Censorship</td><td>ALA + PEN America</td><td>20,808 challenges, 6,875 bans/removals</td></tr>
+  <tr><td>Prison Libraries</td><td>BJS + ALA + Congress.gov</td><td>1.25M prisoners, Prison Libraries Act (H.R. 7247)</td></tr>
+  <tr><td>School Libraries</td><td>NCES + AASL</td><td>Certified librarian access by state</td></tr>
+  <tr><td>Broadband &amp; BEAD</td><td>NTIA + FCC</td><td>$42.45B BEAD allocations, ACP 23.3M enrolled</td></tr>
+  <tr><td>Library Ballot Measures</td><td>EveryLibrary</td><td>168 measures, 116 passed (69% pass rate)</td></tr>
+  <tr><td>IMLS Museum Data File</td><td>IMLS MDF 2018</td><td>~33,000 museums, museum-library relationships</td></tr>
+  <tr><td>Federal Depository Libraries</td><td>GPO + FDLP</td><td>672 depository libraries</td></tr>
+  <tr><td>LIS Degree Programs</td><td>ALA accreditation</td><td>63 accredited programs</td></tr>
+</table>
+
 <h2>Data Coverage</h2>
 <table class="coverage-table">
   <tr><th>Field</th><th>Public libraries</th><th>Private libraries</th><th>Gov sites</th></tr>

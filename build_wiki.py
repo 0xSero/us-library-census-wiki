@@ -379,6 +379,12 @@ def load_all():
             data['ala_report'] = json.load(f)
     else:
         data['ala_report'] = {}
+    ala_state_path = os.path.join(DATA, "_cache", "ala_state_data.json")
+    if os.path.exists(ala_state_path):
+        with open(ala_state_path) as f:
+            data['ala_state_data'] = json.load(f)
+    else:
+        data['ala_state_data'] = {}
     pc_path = os.path.join(DATA, "state_per_capita_rankings.json")
     if os.path.exists(pc_path):
         with open(pc_path) as f:
@@ -1598,6 +1604,7 @@ def compute_stats(data):
 
     # ---- ALA State of America's Libraries Report 2024 ----
     stats['ala_report'] = data.get('ala_report', {})
+    stats['ala_state_data'] = data.get('ala_state_data', {})
 
     # ---- State per-capita library rankings (PLS FY2024) ----
     stats['state_per_capita'] = data.get('state_per_capita', {})
@@ -7556,6 +7563,48 @@ def build_state_pages(data, stats):
   <div class="stat-card"><div class="num">{st_gov_live:,}</div><div class="label">Gov live</div></div>
   <div class="stat-card"><div class="num">{st_web:,}</div><div class="label">With websites</div></div>
 </div>"""
+
+        # ---- Per-state PLS metrics (IMLS FY2024 via ALA) ----
+        ala_sd = stats.get('ala_state_data', {})
+        st_pls = ala_sd.get('states', {}).get(st, {}).get('pls_fy2024', {}) if ala_sd else {}
+        if st_pls:
+            def pnorm(v):
+                if v is None or (isinstance(v, (int, float)) and v < 0):
+                    return 0
+                return v
+            p_pop = pnorm(st_pls.get('population_served'))
+            p_sys = pnorm(st_pls.get('library_systems'))
+            p_circ = pnorm(st_pls.get('total_circulation'))
+            p_ecirc = pnorm(st_pls.get('electronic_circulation'))
+            p_regs = pnorm(st_pls.get('registered_borrowers'))
+            p_visits = pnorm(st_pls.get('visits'))
+            p_progs = pnorm(st_pls.get('total_programs'))
+            p_attend = pnorm(st_pls.get('total_program_attendance'))
+            p_staff = pnorm(st_pls.get('total_staff'))
+            p_vols = pnorm(st_pls.get('book_volumes'))
+            p_income = pnorm(st_pls.get('total_income'))
+            p_exp = pnorm(st_pls.get('total_operating_expenditures'))
+            p_bookmob = pnorm(st_pls.get('bookmobiles'))
+            if p_pop and (p_circ or p_visits or p_regs):
+                body += f"""
+<h3>Library Metrics (IMLS PLS FY2024)</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{p_sys:,}</div><div class="label">Library systems</div></div>
+  <div class="stat-card"><div class="num">{p_pop:,}</div><div class="label">Population served</div></div>
+  <div class="stat-card"><div class="num">{p_circ:,}</div><div class="label">Total circulation</div></div>
+  <div class="stat-card"><div class="num">{p_ecirc:,}</div><div class="label">Electronic circulation</div></div>
+  <div class="stat-card"><div class="num">{p_regs:,}</div><div class="label">Registered borrowers</div></div>
+  <div class="stat-card"><div class="num">{p_visits:,}</div><div class="label">Annual visits</div></div>
+  <div class="stat-card"><div class="num">{p_progs:,}</div><div class="label">Programs hosted</div></div>
+  <div class="stat-card"><div class="num">{p_attend:,}</div><div class="label">Program attendance</div></div>
+  <div class="stat-card"><div class="num">{p_staff:,}</div><div class="label">Staff (FTE)</div></div>
+  <div class="stat-card"><div class="num">{p_vols:,}</div><div class="label">Book volumes</div></div>
+  <div class="stat-card"><div class="num">${p_income/1e6:.0f}M</div><div class="label">Total income</div></div>
+  <div class="stat-card"><div class="num">${p_exp/1e6:.0f}M</div><div class="label">Operating expenditures</div></div>
+  <div class="stat-card"><div class="num">{p_bookmob}</div><div class="label">Bookmobiles</div></div>
+</div>"""
+                if p_pop >= 1000:
+                    body += f'<p class="wiki-sub">Per capita: {p_circ/p_pop:.1f} items circulated, {p_visits/p_pop:.1f} visits, ${p_income/p_pop:.0f} income per resident. Card holders: {p_regs/p_pop*100:.0f}% of population served.</p>'
 
         # ---- State Library Agency info box (SLAA FY2024) ----
         st_slaa = stats.get('slaa_by_state', {}).get(st)

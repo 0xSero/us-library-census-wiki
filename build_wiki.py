@@ -64,6 +64,7 @@ def shell(title, body_html, panel_html="", active_tab="", extra_head="", body_cl
         ("contacts.html", "Contacts",  "contacts"),
         ("funders.html", "Funders",    "funders"),
         ("digital.html", "Digital",    "digital"),
+        ("encyclopedia.html", "Encyclopedia", "encyclopedia"),
         ("gov.html",    "Government",  "gov"),
         ("about.html",   "About",       "about"),
     ]
@@ -141,6 +142,7 @@ def panel(active=""):
         ("contacts.html", "Library contacts"),
         ("funders.html", "Funders & investors"),
         ("digital.html", "Digital inclusion"),
+        ("encyclopedia.html", "Library encyclopedia"),
         ("gov.html",    "Government sites"),
         ("about.html",   "About / methodology"),
     ]
@@ -11721,6 +11723,202 @@ def build_digital(data, stats):
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:
         f.write(shell("Digital Inclusion & Broadband", body, panel("digital"), active_tab="digital"))
 
+def build_encyclopedia(data, stats):
+    """Build encyclopedia.html — comprehensive Wikipedia article summaries for library-related topics."""
+    import glob as _glob
+
+    cache_dir = os.path.join(DATA, '_cache')
+    wiki_files = sorted(_glob.glob(os.path.join(cache_dir, 'wiki_*.json')))
+
+    # Categorize articles
+    categories = {
+        'Major Public Libraries': [],
+        'Academic & University Libraries': [],
+        'Special & Research Libraries': [],
+        'Federal Agencies & Programs': [],
+        'Foundations & Philanthropy': [],
+        'Professional Associations': [],
+        'Digital Libraries & Technology': [],
+        'Library Concepts & Practices': [],
+        'Library History & People': [],
+        'Intellectual Freedom & Censorship': [],
+        'Other Library Topics': [],
+    }
+
+    cat_map = {
+        'wiki_new_york_public_library': 'Major Public Libraries',
+        'wiki_boston_public_library': 'Major Public Libraries',
+        'wiki_chicago_public_library': 'Major Public Libraries',
+        'wiki_seattle_public_library': 'Major Public Libraries',
+        'wiki_san_francisco_public_library': 'Major Public Libraries',
+        'wiki_los_angeles_public_library': 'Major Public Libraries',
+        'wiki_public_library_funding': 'Major Public Libraries',
+        'wiki_bookmobile': 'Major Public Libraries',
+        'wiki_harvard_library': 'Academic & University Libraries',
+        'wiki_yale_university_library': 'Academic & University Libraries',
+        'wiki_columbia_university_libraries': 'Academic & University Libraries',
+        'wiki_cornell_university_library': 'Academic & University Libraries',
+        'wiki_university_of_michigan_library': 'Academic & University Libraries',
+        'wiki_university_of_california_berkeley_library': 'Academic & University Libraries',
+        'wiki_university_of_virginia_library': 'Academic & University Libraries',
+        'wiki_university_of_north_carolina_at_chapel_hill': 'Academic & University Libraries',
+        'wiki_mit_libraries': 'Academic & University Libraries',
+        'wiki_stanford_university_libraries': 'Academic & University Libraries',
+        'wiki_duke_university_libraries': 'Academic & University Libraries',
+        'wiki_john_crerar_library': 'Special & Research Libraries',
+        'wiki_newberry_library': 'Special & Research Libraries',
+        'wiki_morgan_library_museum': 'Special & Research Libraries',
+        'wiki_linda_hall_library': 'Special & Research Libraries',
+        'wiki_american_philosophical_society': 'Special & Research Libraries',
+        'wiki_historical_society_of_pennsylvania': 'Special & Research Libraries',
+        'wiki_special_library': 'Special & Research Libraries',
+        'wiki_bibliotheca_alexandrina': 'Special & Research Libraries',
+        'wiki_library_of_congress': 'Federal Agencies & Programs',
+        'wiki_institute_of_museum_and_library_services': 'Federal Agencies & Programs',
+        'wiki_national_endowment_for_the_humanities': 'Federal Agencies & Programs',
+        'wiki_national_endowment_for_the_arts': 'Federal Agencies & Programs',
+        'wiki_national_science_foundation': 'Federal Agencies & Programs',
+        'wiki_national_library_of_medicine': 'Federal Agencies & Programs',
+        'wiki_library_services_and_technology_act': 'Federal Agencies & Programs',
+        'wiki_lsta': 'Federal Agencies & Programs',
+        'wiki_e-rate': 'Federal Agencies & Programs',
+        'wiki_national_archives_and_records_administration': 'Federal Agencies & Programs',
+        'wiki_corporation_for_national_and_community_service': 'Federal Agencies & Programs',
+        'wiki_andrew_carnegie': 'Library History & People',
+        'wiki_melvil_dewey': 'Library History & People',
+        'wiki_bill_%26_melinda_gates_foundation': 'Foundations & Philanthropy',
+        'wiki_carnegie_corporation_of_new_york': 'Foundations & Philanthropy',
+        'wiki_ford_foundation': 'Foundations & Philanthropy',
+        'wiki_rockefeller_foundation': 'Foundations & Philanthropy',
+        'wiki_knight_foundation': 'Foundations & Philanthropy',
+        'wiki_andrew_w._mellon_foundation': 'Foundations & Philanthropy',
+        'wiki_alfred_p._sloan_foundation': 'Foundations & Philanthropy',
+        'wiki_pew_charitable_trusts': 'Foundations & Philanthropy',
+        'wiki_bush_foundation': 'Foundations & Philanthropy',
+        'wiki_w.k._kellogg_foundation': 'Foundations & Philanthropy',
+        'wiki_walton_family_foundation': 'Foundations & Philanthropy',
+        'wiki_john_d._and_catherine_t._macarthur_foundation': 'Foundations & Philanthropy',
+        'wiki_charles_stewart_mott_foundation': 'Foundations & Philanthropy',
+        'wiki_claude_worthington_benedum_foundation': 'Foundations & Philanthropy',
+        'wiki_robert_w._woodruff_foundation': 'Foundations & Philanthropy',
+        'wiki_lilly_endowment': 'Foundations & Philanthropy',
+        'wiki_friends_of_libraries': 'Foundations & Philanthropy',
+        'wiki_american_library_association': 'Professional Associations',
+        'wiki_public_library_association': 'Professional Associations',
+        'wiki_library_and_information_technology_association': 'Professional Associations',
+        'wiki_american_association_of_school_librarians': 'Professional Associations',
+        'wiki_association_for_library_service_to_children': 'Professional Associations',
+        'wiki_association_of_college_and_research_libraries': 'Professional Associations',
+        'wiki_reforma_organization': 'Professional Associations',
+        'wiki_urban_libraries_council': 'Professional Associations',
+        'wiki_internet_archive': 'Digital Libraries & Technology',
+        'wiki_project_gutenberg': 'Digital Libraries & Technology',
+        'wiki_digital_public_library_of_america': 'Digital Libraries & Technology',
+        'wiki_hathitrust': 'Digital Libraries & Technology',
+        'wiki_oclc': 'Digital Libraries & Technology',
+        'wiki_open_access': 'Digital Libraries & Technology',
+        'wiki_digital_divide': 'Digital Libraries & Technology',
+        'wiki_digital_library_federation': 'Digital Libraries & Technology',
+        'wiki_national_digital_information_infrastructure_and_preservation_program': 'Digital Libraries & Technology',
+        'wiki_library_of_congress_national_audio-visual_conservation_center': 'Digital Libraries & Technology',
+        'wiki_library_catalog': 'Library Concepts & Practices',
+        'wiki_library_consortium': 'Library Concepts & Practices',
+        'wiki_interlibrary_loan': 'Library Concepts & Practices',
+        'wiki_reference_desk': 'Library Concepts & Practices',
+        'wiki_information_literacy': 'Library Concepts & Practices',
+        'wiki_summer_reading_program': 'Library Concepts & Practices',
+        'wiki_intellectual_freedom': 'Intellectual Freedom & Censorship',
+        'wiki_library_bill_of_rights': 'Intellectual Freedom & Censorship',
+        'wiki_banned_books_week': 'Intellectual Freedom & Censorship',
+        'wiki_censorship_in_the_united_states': 'Intellectual Freedom & Censorship',
+    }
+
+    total_articles = 0
+    for wf in wiki_files:
+        try:
+            with open(wf) as f:
+                d = json.load(f)
+            if not d.get('title') or not d.get('extract'):
+                continue
+            basename = os.path.basename(wf).replace('.json', '')
+            cat = cat_map.get(basename, 'Other Library Topics')
+            extract = d.get('extract', '')
+            title = d.get('title', '')
+            wiki_url = ''
+            try:
+                wiki_url = d.get('content_urls', {}).get('desktop', {}).get('page', '')
+            except:
+                pass
+            thumbnail = ''
+            try:
+                thumbnail = d.get('thumbnail', {}).get('source', '')
+            except:
+                pass
+            description = d.get('description', '')
+            categories[cat].append({
+                'title': title,
+                'extract': extract,
+                'wiki_url': wiki_url,
+                'thumbnail': thumbnail,
+                'description': description,
+                'file': basename,
+            })
+            total_articles += 1
+        except:
+            continue
+
+    body = f"""
+<p>The <strong>US Library Census Encyclopedia</strong> is a comprehensive reference of Wikipedia articles about libraries, library organizations, library foundations, and library concepts. Each entry includes a summary extracted from Wikipedia's REST API. {total_articles} articles are organized by category below.</p>"""
+
+    body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_articles}</div><div class="label">Encyclopedia entries</div></div>
+  <div class="stat-card"><div class="num">{len([c for c in categories if categories[c]])}</div><div class="label">Categories</div></div>
+</div>"""
+
+    # Table of contents
+    body += '\n<h2 id="contents">Contents</h2>\n<ul>'
+    for cat, entries in categories.items():
+        if entries:
+            anchor = cat.lower().replace(' ', '-').replace('&', 'and').replace('/', '').replace('--', '-')
+            body += f'\n  <li><a href="#{esc(anchor)}">{esc(cat)}</a> ({len(entries)} articles)</li>'
+    body += '\n</ul>'
+
+    # Render each category
+    for cat, entries in categories.items():
+        if not entries:
+            continue
+        anchor = cat.lower().replace(' ', '-').replace('&', 'and').replace('/', '').replace('--', '-')
+        body += f'\n<h2 id="{esc(anchor)}">{esc(cat)}</h2>'
+        body += f'\n<p>{len(entries)} articles in this category.</p>'
+
+        for entry in sorted(entries, key=lambda x: x['title'].lower()):
+            title = esc(entry['title'])
+            extract = esc(entry['extract'])
+            wiki_url = entry['wiki_url']
+            desc = esc(entry.get('description', ''))
+            thumb = entry.get('thumbnail', '')
+
+            thumb_html = f'<img src="{esc(thumb)}" alt="{title}" class="encyclopedia-thumb" loading="lazy">' if thumb else ''
+            link_html = f'<a href="{esc(wiki_url)}" target="_blank">Wikipedia article &rarr;</a>' if wiki_url else ''
+            desc_html = f'<p class="text-muted"><em>{desc}</em></p>' if desc else ''
+
+            body += f"""
+<div class="rules-box encyclopedia-entry">
+  {thumb_html}
+  <h3>{title}</h3>
+  {desc_html}
+  <p>{extract}</p>
+  <p class="small">{link_html}</p>
+</div>"""
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="funders.html">Funders</a> | <a href="contacts.html">Contacts</a> | <a href="digital.html">Digital inclusion</a></div>
+<p class="edit-note">Generated on {now_str()} from Wikipedia REST API summaries.</p>"""
+
+    with open(os.path.join(WIKI, 'encyclopedia.html'), 'w') as f:
+        f.write(shell("Library Encyclopedia", body, panel("encyclopedia"), active_tab="encyclopedia"))
+
 def main():
     print(f"=== US Library Census Wiki build — {now_str()} ===")
     data = load_all()
@@ -11732,6 +11930,7 @@ def main():
     build_contacts(data, stats)
     build_funders(data, stats)
     build_digital(data, stats)
+    build_encyclopedia(data, stats)
     build_about(data, stats)
     build_search()
     build_state_pages(data, stats)

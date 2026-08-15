@@ -807,3 +807,11 @@ body.map-page { overflow: hidden; }
 [data-theme="dark"] .trend-chart rect { fill: #60a5fa; }
 [data-theme="dark"] .trend-chart line { stroke: var(--wiki-border); }
 
+/* Encyclopedia page */
+.encyclopedia-entry { margin: 12px 0; padding: 16px; }
+.encyclopedia-entry h3 { margin-top: 0; font-size: 1.3em; }
+.encyclopedia-thumb { float: right; max-width: 150px; max-height: 150px; margin: 0 0 8px 16px; border-radius: 4px; border: 1px solid var(--wiki-border); }
+.encyclopedia-entry::after { content: ''; display: block; clear: both; }
+[data-theme="dark"] .encyclopedia-entry { background: rgba(51,102,204,0.08); border-color: var(--wiki-border-strong); }
+[data-theme="dark"] .encyclopedia-thumb { border-color: var(--wiki-border-strong); opacity: 0.85; }
+

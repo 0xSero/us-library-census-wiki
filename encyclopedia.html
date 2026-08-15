@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Library Encyclopedia — US Library Census Wiki</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="wiki.css">
+
+<script>
+(function(){var t=localStorage.getItem('wiki-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body class="wiki-body">
+<nav class="navbar navbar-expand-lg border-bottom fixed-top wiki-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><b>US Library Census</b> <small class="text-muted fw-normal">AGI</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wikiNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="wikiNav">
+      <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link " href="index.html">Main page</a></li>
+      <li class="nav-item"><a class="nav-link " href="search.html">Search</a></li>
+      <li class="nav-item"><a class="nav-link " href="map.html">Map</a></li>
+      <li class="nav-item"><a class="nav-link " href="contacts.html">Contacts</a></li>
+      <li class="nav-item"><a class="nav-link " href="funders.html">Funders</a></li>
+      <li class="nav-item"><a class="nav-link " href="digital.html">Digital</a></li>
+      <li class="nav-item"><a class="nav-link active" href="encyclopedia.html">Encyclopedia</a></li>
+      <li class="nav-item"><a class="nav-link " href="gov.html">Government</a></li>
+      <li class="nav-item"><a class="nav-link " href="about.html">About</a></li>
+      </ul>
+      <form class="d-flex me-2" action="search.html" method="get">
+        <input class="form-control form-control-sm" name="q" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary theme-toggle ms-2" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+  </div>
+</nav>
+<div class="container-fluid wiki-container">
+  <div class="row g-0">
+<aside class="col-lg-2 d-none d-lg-block wiki-sidebar"><div class="wiki-portlet">
+  <h6 class="sidebar-heading">Navigation</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html" class="list-group-item list-group-item-action small py-1">Main page</a>
+    <a href="search.html" class="list-group-item list-group-item-action small py-1">Search the census</a>
+    <a href="map.html" class="list-group-item list-group-item-action small py-1">Interactive map</a>
+    <a href="contacts.html" class="list-group-item list-group-item-action small py-1">Library contacts</a>
+    <a href="funders.html" class="list-group-item list-group-item-action small py-1">Funders & investors</a>
+    <a href="digital.html" class="list-group-item list-group-item-action small py-1">Digital inclusion</a>
+    <a href="encyclopedia.html" class="list-group-item list-group-item-action small py-1">Library encyclopedia</a>
+    <a href="gov.html" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="about.html" class="list-group-item list-group-item-action small py-1">About / methodology</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Data</h6>
+  <div class="list-group list-group-flush">
+    <a href="search.html?type=public" class="list-group-item list-group-item-action small py-1">Public libraries</a>
+    <a href="search.html?type=private" class="list-group-item list-group-item-action small py-1">Private libraries</a>
+    <a href="search.html?type=gov" class="list-group-item list-group-item-action small py-1">Government sites</a>
+    <a href="search.html?type=hours" class="list-group-item list-group-item-action small py-1">Library hours</a>
+    <a href="search.html?type=services" class="list-group-item list-group-item-action small py-1">Library services</a>
+  </div>
+</div>
+<div class="wiki-portlet">
+  <h6 class="sidebar-heading">Explore</h6>
+  <div class="list-group list-group-flush">
+    <a href="index.html#states" class="list-group-item list-group-item-action small py-1">Browse by state</a>
+    <a href="index.html#coverage" class="list-group-item list-group-item-action small py-1">Data coverage</a>
+    <a href="index.html#gov" class="list-group-item list-group-item-action small py-1">Government tiers</a>
+    <a href="index.html#ala-report" class="list-group-item list-group-item-action small py-1">ALA report 2024</a>
+    <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
+    <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
+    <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
+    <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
+    <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
+    <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
+    <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
+    <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
+    <a href="index.html#accessibility" class="list-group-item list-group-item-action small py-1">Accessibility & NLS</a>
+    <a href="index.html#programs" class="list-group-item list-group-item-action small py-1">Programs & events</a>
+    <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
+    <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
+    <a href="index.html#academic-stats" class="list-group-item list-group-item-action small py-1">Academic libraries</a>
+    <a href="index.html#library-history" class="list-group-item list-group-item-action small py-1">Library history</a>
+    <a href="index.html#library-buildings" class="list-group-item list-group-item-action small py-1">Buildings & architecture</a>
+    <a href="index.html#library-economics" class="list-group-item list-group-item-action small py-1">Economics & ROI</a>
+    <a href="index.html#library-law" class="list-group-item list-group-item-action small py-1">Law & censorship</a>
+    <a href="index.html#school-library-stats" class="list-group-item list-group-item-action small py-1">School libraries</a>
+    <a href="index.html#international" class="list-group-item list-group-item-action small py-1">International comparison</a>
+    <a href="index.html#consortia-summary" class="list-group-item list-group-item-action small py-1">Library consortia</a>
+    <a href="index.html#digital-libraries-enhanced" class="list-group-item list-group-item-action small py-1">Digital libraries & e-books</a>
+    <a href="index.html#reading-habits" class="list-group-item list-group-item-action small py-1">Reading habits & literacy</a>
+    <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
+    <a href="index.html#innovation" class="list-group-item list-group-item-action small py-1">Innovation & makerspaces</a>
+    <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
+    <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
+    <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
+    <a href="index.html#special-libraries" class="list-group-item list-group-item-action small py-1">Special libraries & bookmobiles</a>
+    <a href="index.html#web-coverage" class="list-group-item list-group-item-action small py-1">Website coverage</a>
+    <a href="index.html#arp-grants" class="list-group-item list-group-item-action small py-1">ARP COVID grants</a>
+    <a href="index.html#programs-2024" class="list-group-item list-group-item-action small py-1">FY2024 programs detail</a>
+    <a href="index.html#format-shift" class="list-group-item list-group-item-action small py-1">Book format shift</a>
+    <a href="index.html#nces-sass" class="list-group-item list-group-item-action small py-1">NCES SASS survey</a>
+    <a href="index.html#national-snapshot" class="list-group-item list-group-item-action small py-1">National snapshot</a>
+    <a href="index.html#intellectual-freedom" class="list-group-item list-group-item-action small py-1">Intellectual freedom</a>
+    <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
+    <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
+    <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
+    <a href="index.html#reading-trends" class="list-group-item list-group-item-action small py-1">Reading trends</a>
+    <a href="index.html#state-censorship" class="list-group-item list-group-item-action small py-1">Bans by state</a>
+    <a href="index.html#dpla" class="list-group-item list-group-item-action small py-1">DPLA digital library</a>
+    <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
+    <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
+    <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
+    <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
+    <a href="index.html#other-federal-grants" class="list-group-item list-group-item-action small py-1">Other federal grants</a>
+    <a href="index.html#federal-funding-totals" class="list-group-item list-group-item-action small py-1">Federal funding totals</a>
+    <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
+    <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
+    <a href="index.html#nlm" class="list-group-item list-group-item-action small py-1">National Library of Medicine</a>
+    <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
+    <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
+    <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
+    <a href="index.html#lis-programs" class="list-group-item list-group-item-action small py-1">LIS degree programs</a>
+    <a href="gov.html#services" class="list-group-item list-group-item-action small py-1">Gov services</a>
+  </div>
+</div></aside>
+    <main class="col-lg-10 wiki-main" id="content">
+      <h1 class="wiki-title" id="firstHeading">Library Encyclopedia</h1>
+      <div class="wiki-body-content" id="bodyContent">
+
+<p>The <strong>US Library Census Encyclopedia</strong> is a comprehensive reference of Wikipedia articles about libraries, library organizations, library foundations, and library concepts. Each entry includes a summary extracted from Wikipedia's REST API. 79 articles are organized by category below.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">79</div><div class="label">Encyclopedia entries</div></div>
+  <div class="stat-card"><div class="num">11</div><div class="label">Categories</div></div>
+</div>
+<h2 id="contents">Contents</h2>
+<ul>
+  <li><a href="#major-public-libraries">Major Public Libraries</a> (8 articles)</li>
+  <li><a href="#academic-and-university-libraries">Academic &amp; University Libraries</a> (11 articles)</li>
+  <li><a href="#special-and-research-libraries">Special &amp; Research Libraries</a> (8 articles)</li>
+  <li><a href="#federal-agencies-and-programs">Federal Agencies &amp; Programs</a> (8 articles)</li>
+  <li><a href="#foundations-and-philanthropy">Foundations &amp; Philanthropy</a> (9 articles)</li>
+  <li><a href="#professional-associations">Professional Associations</a> (3 articles)</li>
+  <li><a href="#digital-libraries-and-technology">Digital Libraries &amp; Technology</a> (7 articles)</li>
+  <li><a href="#library-concepts-and-practices">Library Concepts &amp; Practices</a> (6 articles)</li>
+  <li><a href="#library-history-and-people">Library History &amp; People</a> (2 articles)</li>
+  <li><a href="#intellectual-freedom-and-censorship">Intellectual Freedom &amp; Censorship</a> (4 articles)</li>
+  <li><a href="#other-library-topics">Other Library Topics</a> (13 articles)</li>
+</ul>
+<h2 id="major-public-libraries">Major Public Libraries</h2>
+<p>8 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Bookmobile.jpg/330px-Bookmobile.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Bookmobile" class="encyclopedia-thumb" loading="lazy">
+  <h3>Bookmobile</h3>
+  <p class="text-muted"><em>Vehicle with an onboard library</em></p>
+  <p>A bookmobile, or mobile library, is a vehicle designed for use as a library. They have been known by many names throughout history, including traveling library, library wagon, book wagon, book truck, library-on-wheels, and book auto service. Bookmobiles expand the reach of traditional libraries by transporting books to potential readers, providing library services to people in otherwise underserved locations and/or circumstances. Bookmobile services and materials, may be customized for the locations and populations served.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Bookmobile" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Seal_of_the_Boston_Public_Library.svg/330px-Seal_of_the_Boston_Public_Library.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Boston Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Boston Public Library</h3>
+  <p class="text-muted"><em>Library system in Massachusetts, US</em></p>
+  <p>The Boston Public Library (BPL) is a municipal public library system in Boston, Massachusetts, founded in 1848. The Boston Public Library is also Massachusetts&#x27; Library for the Commonwealth, meaning all adult residents of the state are entitled to borrowing and research privileges, and the library receives state funding. The Boston Public Library contains approximately 24 million items, making it the third-largest public library in the United States behind the federal Library of Congress and New York Public Library, which is also privately endowed. The Boston Central Library in Copley Square was designated as a Boston Landmark by the Boston Landmarks Commission in 2000.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Boston_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Chicago_Public_Library_Logo.PNG/330px-Chicago_Public_Library_Logo.PNG?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Chicago Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Chicago Public Library</h3>
+  <p class="text-muted"><em>Library system in Illinois, United States</em></p>
+  <p>The Chicago Public Library (CPL) is the municipal public library system of the City of Chicago in Illinois, United States. It consists of 82 locations, including a central library, three regional libraries, and branch libraries distributed throughout the city&#x27;s 77 community areas. The Chicago Public Library system was founded in 1872, in the wake of the Great Chicago Fire.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Chicago_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Los-angeles-central-library.jpg/330px-Los-angeles-central-library.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Los Angeles Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Los Angeles Public Library</h3>
+  <p class="text-muted"><em>Public library system in Los Angeles, California</em></p>
+  <p>The Los Angeles Public Library (LAPL) is a public library system in Los Angeles, California, operating separate from the Los Angeles County Public Library system. The system holds more than six million volumes, and with around 19 million residents in the Greater Los Angeles area, it serves the largest metropolitan population of any public library system in the United States. The system is overseen by a Board of Library Commissioners with five members appointed by the mayor of Los Angeles in staggered terms, and operates 72 library branches throughout the city. In 1997 a local historian described it as &quot;one of the biggest and best-regarded library systems in the nation.&quot;</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Los_Angeles_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/New_York_Public_Library_logo.svg/330px-New_York_Public_Library_logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="New York Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>New York Public Library</h3>
+  <p class="text-muted"><em>Public library system in New York City</em></p>
+  <p>The New York Public Library (NYPL) is a chartered public library system in New York City, United States. With nearly 53 million items and 92 locations, the New York Public Library is the second-largest public library in the United States behind the Library of Congress. It is a private, non-governmental, independently managed, nonprofit corporation operating with both private and public financing.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/New_York_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Milwaukee_Central_Library_Mar10.jpg/330px-Milwaukee_Central_Library_Mar10.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Public library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Public library</h3>
+  <p class="text-muted"><em>Collection of books accessible by the public</em></p>
+  <p>A public library is a library, most often a lending library, that is accessible by the general public and is usually funded from public sources, such as taxes. It is operated by librarians and library paraprofessionals, who are also civil servants.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Public_library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/SFPL_Main_Library_Full_Exterior.jpg/330px-SFPL_Main_Library_Full_Exterior.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="San Francisco Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>San Francisco Public Library</h3>
+  <p class="text-muted"><em>Public library system in California, US</em></p>
+  <p>The San Francisco Public Library is the public library system of the city and county of San Francisco in United States. The Main Library is located at Civic Center, at 100 Larkin Street. The library system has won several awards, such as Library Journal&#x27;s Library of the Year award in 2018. The library is well-funded due to the city&#x27;s dedicated Library Preservation Fund that was established by a 1994 ballot measure. The Preservation Fund was renewed twice, by ballot measures in 2007 and 2022.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/San_Francisco_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Seattle_Library_01.jpg/330px-Seattle_Library_01.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Seattle Public Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Seattle Public Library</h3>
+  <p class="text-muted"><em>Municipal library system of Seattle, Washington, U.S.</em></p>
+  <p>The Seattle Public Library (SPL) is the public library system serving the city of Seattle, Washington. Efforts to start a Seattle library had commenced as early as 1868, with the system eventually being established by the city in 1890. The system currently comprises 27 branches, most of which are named after the neighborhoods in which they are located. The Seattle Public Library also includes Mobile Services and the Central Library, which was designed by Rem Koolhaas and opened in 2004. The Seattle Public Library also founded the Washington Talking Book &amp; Braille Library (WTBBL), which it administered until July 2008.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Seattle_Public_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="academic-and-university-libraries">Academic &amp; University Libraries</h2>
+<p>11 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Butler_Library_Columbia_University.jpg/330px-Butler_Library_Columbia_University.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Columbia University Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>Columbia University Libraries</h3>
+  <p class="text-muted"><em>Academic library system in New York</em></p>
+  <p>Columbia University Libraries is the library system of Columbia University and one of the largest academic library systems in North America. With 15.0 million volumes and over 160,000 journals and serials, as well as extensive electronic resources, manuscripts, rare books, microforms, maps, and graphic and audio-visual materials, it is the fifth-largest academic library in the United States and the largest in the State of New York.The closely affiliated Jewish Theological Seminary Library holds over 400,000 volumes, which combined makes the Columbia University Libraries the third-largest academic library, and the second-largest private library, in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Columbia_University_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/UrisLibrary24.jpg/330px-UrisLibrary24.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Cornell University Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Cornell University Library</h3>
+  <p class="text-muted"><em>Library system of Cornell University</em></p>
+  <p>The Cornell University Library is the library system of Cornell University. As of 2014, it holds over eight million printed volumes and over a million ebooks. More than 90 percent of its current 120,000 periodical titles are available online. It has 8.5 million microfilms and microfiches, more than 71,000 cubic feet (2,000 m3) of manuscripts, and close to 500,000 other materials, including motion pictures, DVDs, sound recordings, and computer files, extensive digital resources, and the University Archives. It is the 16th-largest library in North America, ranked by number of volumes held, and the 13th-largest research library in the U.S. by both titles and volumes held.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Cornell_University_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/BostockLibrary.jpg/330px-BostockLibrary.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Duke University Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>Duke University Libraries</h3>
+  <p class="text-muted"><em>Academic library system of Duke University, North Carolina</em></p>
+  <p>Duke University Libraries is the library system of Duke University, serving the university&#x27;s students and faculty. The Libraries collectively hold some 6 million volumes.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Duke_University_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Harvard_Library_Logo.svg/330px-Harvard_Library_Logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Harvard Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Harvard Library</h3>
+  <p class="text-muted"><em>Library system of Harvard University</em></p>
+  <p>Harvard Library is the network of libraries and services at Harvard University, a private Ivy League university in Cambridge, Massachusetts. Harvard Library is the oldest library system in the United States and both the largest academic library and largest private library in the world. Its collection holds over 20 million volumes, 400 million manuscripts, 10 million photographs, and one million maps.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Harvard_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Barker_Library_MIT_October_2014_002.jpg/330px-Barker_Library_MIT_October_2014_002.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Massachusetts Institute of Technology Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>Massachusetts Institute of Technology Libraries</h3>
+  
+  <p>The library system of the Massachusetts Institute of Technology covers all five academic schools comprising the university. The print and multimedia collections of the MIT Libraries include more than 5 million items, with over 3 million volumes of print material, 17,000 journal and other serial subscriptions, 478 online databases, over 55,000 electronic journal titles licensed for access, and over 2.8 million items in collections of microforms, maps, images, musical scores, sound recordings, and videotapes.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Stanford_University_Green_Library_Bing_Wing.jpg/330px-Stanford_University_Green_Library_Bing_Wing.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Stanford University Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>Stanford University Libraries</h3>
+  <p class="text-muted"><em>American college library system</em></p>
+  <p>The Stanford University Libraries (SUL), formerly known as &quot;Stanford University Libraries and Academic Information Resources&quot; (&quot;SULAIR&quot;), is the library system of Stanford University in California. It encompasses more than 24 libraries in all. Several academic departments and some residences also have their own libraries.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Stanford_University_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Doe_Library%2C_main_facade%2C_July_2018.jpg/330px-Doe_Library%2C_main_facade%2C_July_2018.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="University of California, Berkeley Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>University of California, Berkeley Libraries</h3>
+  
+  <p>Twenty-six constituent and affiliated libraries combine to make the library system of the University of California, Berkeley the sixth-largest research library by number of volumes in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/University_of_California%2C_Berkeley_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Seal_of_the_University_of_Michigan.svg/330px-Seal_of_the_University_of_Michigan.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="University of Michigan Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>University of Michigan Library</h3>
+  <p class="text-muted"><em>University library system</em></p>
+  <p>The University of Michigan Library is the academic library system of the University of Michigan. The university&#x27;s 38 constituent and affiliated libraries together make it the second largest research library by number of volumes in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/University_of_Michigan_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/University_of_North_Carolina_at_Chapel_Hill_seal.svg/330px-University_of_North_Carolina_at_Chapel_Hill_seal.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="University of North Carolina at Chapel Hill" class="encyclopedia-thumb" loading="lazy">
+  <h3>University of North Carolina at Chapel Hill</h3>
+  <p class="text-muted"><em>Public university in North Carolina, US</em></p>
+  <p>The University of North Carolina at Chapel Hill is a public research university in Chapel Hill, North Carolina, United States. Chartered in 1789, the university began enrolling students in 1795, making it one of the oldest public universities in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/University_of_North_Carolina_at_Chapel_Hill" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/University_of_Virginia_seal.svg/330px-University_of_Virginia_seal.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="University of Virginia" class="encyclopedia-thumb" loading="lazy">
+  <h3>University of Virginia</h3>
+  <p class="text-muted"><em>Public university in Charlottesville, Virginia, US</em></p>
+  <p>The University of Virginia is a public research university located in Charlottesville City and Albemarle County in Virginia, United States. It was founded in 1819 by Thomas Jefferson and contains his Academical Village, a UNESCO World Heritage Site. Its original governing Board of Visitors included three U.S. presidents: Jefferson, James Madison, and James Monroe, the latter as sitting president of the United States at the time of its foundation. As its first two rectors, presidents Jefferson and Madison played key roles in the university&#x27;s foundation, with Jefferson designing both the original courses of study and the university&#x27;s original architecture. The original campus contains President Monroe&#x27;s former residence and law office, today used as a residential college.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/University_of_Virginia" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Sterling_Memorial_Library_4%2C_September_1%2C_2008.jpg/330px-Sterling_Memorial_Library_4%2C_September_1%2C_2008.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Yale University Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Yale University Library</h3>
+  <p class="text-muted"><em>Library system of Yale University</em></p>
+  <p>Yale University Library is the library system of Yale University in New Haven, Connecticut. Originating in 1701 with the gift of several dozen books to a new “Collegiate School,&quot; the library&#x27;s collection now contains approximately 14.9 million volumes housed in fifteen university buildings and is the third-largest academic library system in North America and the second-largest housed on a singular campus.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Yale_University_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="special-and-research-libraries">Special &amp; Research Libraries</h2>
+<p>8 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/American_Philosophical_Society_%2853590377813%29.jpg/330px-American_Philosophical_Society_%2853590377813%29.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="American Philosophical Society" class="encyclopedia-thumb" loading="lazy">
+  <h3>American Philosophical Society</h3>
+  <p class="text-muted"><em>American scholarly organization and learned society</em></p>
+  <p>
+
+The American Philosophical Society (APS) is an American scholarly organization and learned society founded in 1743 in Philadelphia that promotes knowledge in the humanities and natural sciences through research, professional meetings, publications, library resources, and community outreach. It was founded by the polymath Benjamin Franklin and is considered the first learned society founded in what became the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/American_Philosophical_Society" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Alexandria%27s_Bibliotheca.jpg/330px-Alexandria%27s_Bibliotheca.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Bibliotheca Alexandrina" class="encyclopedia-thumb" loading="lazy">
+  <h3>Bibliotheca Alexandrina</h3>
+  <p class="text-muted"><em>Major library and cultural center in Alexandria, Egypt</em></p>
+  <p>The Bibliotheca Alexandrina (BA) is a major library and cultural center on the shore of the Mediterranean Sea in Alexandria, Egypt. It is a commemoration of the Library of Alexandria, once one of the largest libraries worldwide, which was lost in antiquity.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Bibliotheca_Alexandrina" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Historical_Society_of_Pennsylvania_logo.svg/330px-Historical_Society_of_Pennsylvania_logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Historical Society of Pennsylvania" class="encyclopedia-thumb" loading="lazy">
+  <h3>Historical Society of Pennsylvania</h3>
+  <p class="text-muted"><em>Research facility in Philadelphia, US</em></p>
+  <p>The Historical Society of Pennsylvania is a historic research facility headquartered on Locust Street in Center City Philadelphia. It is a repository for millions of historic items ranging across rare books, scholarly monographs, family chronicles, maps, press reports and varied ephemera, reaching back almost 300 years, and accessible on the society&#x27;s website.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Historical_Society_of_Pennsylvania" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Crerar_Library_at_UChicago.jpg/330px-Crerar_Library_at_UChicago.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="John Crerar Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>John Crerar Library</h3>
+  <p class="text-muted"><em>Private research library in Chicago, Illinois, USA</em></p>
+  <p>The John Crerar Library is the academic library for science, technology, and medicine at the University of Chicago. It is part of the University of Chicago Library.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/John_Crerar_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Linda_Hall_Library4.jpg/330px-Linda_Hall_Library4.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Linda Hall Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Linda Hall Library</h3>
+  <p class="text-muted"><em>American library of STEM subjects in Kansas City, Missouri</em></p>
+  <p>The Linda Hall Library is a privately endowed American library of STEM subjects located in Kansas City, Missouri, on the grounds of a 14-acre (5.7 ha) urban arboretum. It claims to be the &quot;largest independently funded public library of science, engineering and technology in North America&quot; and &quot;among the largest science libraries in the world&quot; with half a million items in its collection, as of 2009.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Linda_Hall_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Morgan_Library_%26_Museum%2C_New_York_2017_02.jpg/330px-Morgan_Library_%26_Museum%2C_New_York_2017_02.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Morgan Library &amp; Museum" class="encyclopedia-thumb" loading="lazy">
+  <h3>Morgan Library &amp; Museum</h3>
+  <p class="text-muted"><em>Institution in Manhattan, New York</em></p>
+  <p>The Morgan Library &amp; Museum is a museum and research library in New York City, New York, United States. Completed in 1906 as the private library of the banker J. P. Morgan, the institution is housed at 225 Madison Avenue in the Murray Hill neighborhood of Manhattan. As of 2024, the museum is directed by Colin B. Bailey and governed by a board of trustees.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Morgan_Library_%26_Museum" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/20070329_Newberry_Library2.JPG/330px-20070329_Newberry_Library2.JPG?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Newberry Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Newberry Library</h3>
+  <p class="text-muted"><em>Private research library in Chicago, Illinois, USA</em></p>
+  <p>The Newberry Library is an independent research library specializing in the humanities, located in the Near North Side community area of Chicago, Illinois, United States. It has been free and open to the public since 1887.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Newberry_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Fee.library.tour.jpg/330px-Fee.library.tour.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Special library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Special library</h3>
+  <p class="text-muted"><em>Library providing resources on a particular topic or discipline</em></p>
+  <p>A special library is a library that provides specialized information resources on a particular subject, serves a specialized and limited clientele, and delivers specialized services to that clientele. Special libraries include corporate libraries, government libraries, law libraries, medical libraries, museum libraries, military libraries, and news libraries. Special libraries also exist within academic institutions. These libraries are included as special libraries because they are often funded separately from the rest of the university and they serve a targeted group of users.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Special_library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="federal-agencies-and-programs">Federal Agencies &amp; Programs</h2>
+<p>8 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0d/IMLS-logo.jpg/330px-IMLS-logo.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Institute of Museum and Library Services" class="encyclopedia-thumb" loading="lazy">
+  <h3>Institute of Museum and Library Services</h3>
+  <p class="text-muted"><em>US federal government agency</em></p>
+  <p>The Institute of Museum and Library Services (IMLS) is an independent agency of the United States federal government established in 1996. It is the main source of federal support for libraries and museums within the United States, having the mission to &quot;advance, support, and empower America&#x27;s museums, libraries, and related organizations through grantmaking, research, and policy development&quot;. It has provided much of the funding for interlibrary loan programs in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Institute_of_Museum_and_Library_Services" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/LOC_Main_Reading_Room_Highsmith.jpg/330px-LOC_Main_Reading_Room_Highsmith.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Library of Congress" class="encyclopedia-thumb" loading="lazy">
+  <h3>Library of Congress</h3>
+  <p class="text-muted"><em>US Congress research library</em></p>
+  <p>The Library of Congress (LOC) is a research library in Washington, D.C., serving as the library and research service for the United States Congress and the de facto national library of the United States. It also administers copyright law through the United States Copyright Office, and it houses the Congressional Research Service.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_of_Congress" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Great_Seal_of_the_United_States_%28obverse%29.svg/330px-Great_Seal_of_the_United_States_%28obverse%29.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Library Services and Technology Act" class="encyclopedia-thumb" loading="lazy">
+  <h3>Library Services and Technology Act</h3>
+  <p class="text-muted"><em>U.S. legislation passed in 1996</em></p>
+  <p>United States President Bill Clinton signed the Library Services and Technology Act (LSTA) on October 1, 1996. LSTA is a United States federal library grant program. Its roots come from the Library Services Act, first enacted in 1956. LSTA replaced the Library Services and Construction Act (LSCA), first enacted in 1962. The National Commission on Libraries and Information Science held two White House Conferences that generated discussion and support.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_Services_and_Technology_Act" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Great_Seal_of_the_United_States_%28obverse%29.svg/330px-Great_Seal_of_the_United_States_%28obverse%29.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Library Services and Technology Act" class="encyclopedia-thumb" loading="lazy">
+  <h3>Library Services and Technology Act</h3>
+  <p class="text-muted"><em>U.S. legislation passed in 1996</em></p>
+  <p>United States President Bill Clinton signed the Library Services and Technology Act (LSTA) on October 1, 1996. LSTA is a United States federal library grant program. Its roots come from the Library Services Act, first enacted in 1956. LSTA replaced the Library Services and Construction Act (LSCA), first enacted in 1962. The National Commission on Libraries and Information Science held two White House Conferences that generated discussion and support.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_Services_and_Technology_Act" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/National_Endowment_for_the_Arts_%28NEA%29_Logo_2018_Square.svg/330px-National_Endowment_for_the_Arts_%28NEA%29_Logo_2018_Square.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="National Endowment for the Arts" class="encyclopedia-thumb" loading="lazy">
+  <h3>National Endowment for the Arts</h3>
+  <p class="text-muted"><em>Independent agency of the US federal government</em></p>
+  <p>The National Endowment for the Arts (NEA) is an independent agency of the United States federal government that offers support and funding for projects exhibiting artistic excellence. It was created in 1965 as an independent agency of the federal government by an act of the U.S. Congress, signed by President Lyndon B. Johnson on September 29, 1965. It is a sub-agency of the National Foundation on the Arts and the Humanities, along with the National Endowment for the Humanities, the Federal Council on the Arts and the Humanities, and the Institute of Museum and Library Services.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/National_Endowment_for_the_Arts" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/US-NEH-Seal.svg/330px-US-NEH-Seal.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="National Endowment for the Humanities" class="encyclopedia-thumb" loading="lazy">
+  <h3>National Endowment for the Humanities</h3>
+  <p class="text-muted"><em>Agency of the US government supporting the humanities</em></p>
+  <p>The National Endowment for the Humanities (NEH) is an independent federal agency of the U.S. government, established by the National Foundation on the Arts and the Humanities Act of 1965, dedicated to supporting research, education, preservation, and public programs in the humanities. The NEH is housed in the Constitution Center at 400 7th St SW, Washington, D.C. From 1979 to 2014, NEH was at 1100 Pennsylvania Avenue, N.W., Washington, D.C., in the Nancy Hanks Center at the Old Post Office.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/National_Endowment_for_the_Humanities" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/NSF_logo.svg/330px-NSF_logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="National Science Foundation" class="encyclopedia-thumb" loading="lazy">
+  <h3>National Science Foundation</h3>
+  <p class="text-muted"><em>Independent United States government agency</em></p>
+  <p>The United States National Science Foundation (NSF) is an independent agency of the United States federal government that supports fundamental research and education in all the non-medical fields of science and engineering. Its medical counterpart is the National Institutes of Health. With an annual budget of about $8.75 billion, the NSF funds approximately 25% of all federally supported basic research conducted by the United States&#x27; colleges and universities. In some fields, such as mathematics, computer science, economics, and the social sciences, the NSF is the major source of federal backing.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/National_Science_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/United_States_National_Library_of_Medicine_1999.jpg/330px-United_States_National_Library_of_Medicine_1999.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="United States National Library of Medicine" class="encyclopedia-thumb" loading="lazy">
+  <h3>United States National Library of Medicine</h3>
+  <p class="text-muted"><em>World&#x27;s largest medical library</em></p>
+  <p>The United States National Library of Medicine (NLM), operated by the United States federal government, is the world&#x27;s largest medical library.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/United_States_National_Library_of_Medicine" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="foundations-and-philanthropy">Foundations &amp; Philanthropy</h2>
+<p>9 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Alfred_P_Sloan_Foundation_Logo.png/330px-Alfred_P_Sloan_Foundation_Logo.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Alfred P. Sloan Foundation" class="encyclopedia-thumb" loading="lazy">
+  <h3>Alfred P. Sloan Foundation</h3>
+  <p class="text-muted"><em>American philanthropic nonprofit organization</em></p>
+  <p>The Alfred P. Sloan Foundation is an American philanthropic nonprofit organization. It was established in 1934 by Alfred P. Sloan Jr., president and chief executive officer of General Motors.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Alfred_P._Sloan_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/ITT-American_Building.jpg/330px-ITT-American_Building.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Andrew Carnegie Foundation" class="encyclopedia-thumb" loading="lazy">
+  <h3>Andrew Carnegie Foundation</h3>
+  <p class="text-muted"><em>American philanthropic fund</em></p>
+  <p>The Andrew Carnegie Foundation is a private foundation established by Andrew Carnegie in 1911 &quot;to promote the advancement and diffusion of knowledge and understanding.&quot; In June 2026, the foundation changed its name from the Carnegie Corporation of New York to better reflect its mission.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Andrew_Carnegie_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Andrew W. Mellon Foundation</h3>
+  <p class="text-muted"><em>Private foundation in New York City</em></p>
+  <p>The Andrew W. Mellon Foundation, commonly known as the Mellon Foundation, is a New York City-based private foundation with wealth accumulated by Andrew Mellon of the Mellon family of Pittsburgh, Pennsylvania. It is the product of the 1969 merger of the Avalon Foundation and the Old Dominion Foundation. These foundations had been set up separately by Ailsa Mellon Bruce and Paul Mellon, the children of Andrew Mellon.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Andrew_W._Mellon_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Ford Foundation</h3>
+  <p class="text-muted"><em>American private foundation</em></p>
+  <p>The Ford Foundation is an American private foundation with the stated goal of advancing human welfare. Created in 1936 by Edsel Ford and his father Henry Ford, it was originally funded by a $25,000 gift from Edsel Ford. By 1947, after the death of the two founders, the foundation owned 90% of the non-voting shares of the Ford Motor Company; the Ford family retained the voting shares. Between 1955 and 1974, the foundation sold its Ford Motor Company holdings and now plays no role in the automobile company.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Ford_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Friends_of_the_Cambrian_Library_membership_drive.jpg/330px-Friends_of_the_Cambrian_Library_membership_drive.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Friends of Libraries" class="encyclopedia-thumb" loading="lazy">
+  <h3>Friends of Libraries</h3>
+  <p class="text-muted"><em>Type of charitable group that supports libraries</em></p>
+  <p>Friends of Libraries are non-profit, charitable groups formed to support libraries in their communities. Support from the Friends groups may be financial, political and cultural. Groups are separate from the libraries they support and made up of volunteers. Generally, groups are structured, handle finances and work closely with library management. In the United States, Friends groups also work closely with the American Library Association (ALA). Other countries, such as Australia, France, South Africa and the United Kingdom all have Friends of Libraries groups.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Friends_of_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Bill_%26_Melinda_Gates_Foundation_NE.jpg/330px-Bill_%26_Melinda_Gates_Foundation_NE.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Gates Foundation" class="encyclopedia-thumb" loading="lazy">
+  <h3>Gates Foundation</h3>
+  <p class="text-muted"><em>Private foundation founded by Bill and Melinda Gates</em></p>
+  <p>The Gates Foundation is an American private foundation founded by Bill Gates and Melinda French Gates. Based in Seattle, Washington, it was launched in 2000 and is reported to be the third-wealthiest charitable foundation in the world, holding $91 billion in assets as of December 31, 2025. The primary stated goals of the foundation are to enhance healthcare and reduce extreme poverty across the world, and to expand educational opportunities and access to information technology in the United States. Key individuals of the foundation include Warren Buffett, chief executive officer Mark Suzman, and Michael Larson.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Gates_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Knight Foundation</h3>
+  <p class="text-muted"><em>American nonprofit foundation</em></p>
+  <p>The John S. and James L. Knight Foundation, also known as the Knight Foundation, is an American philanthropic organization that provides grants for the arts, journalism, research, and community development, with a focus on impact.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Knight_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/RockefellerFoundationlogo.png/330px-RockefellerFoundationlogo.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Rockefeller Foundation" class="encyclopedia-thumb" loading="lazy">
+  <h3>Rockefeller Foundation</h3>
+  <p class="text-muted"><em>American philanthropic organization</em></p>
+  <p>The Rockefeller Foundation is an American private foundation and philanthropic medical research and arts funding organization based at 420 Fifth Avenue, New York City. The foundation was created by Standard Oil magnate John D. Rockefeller (&quot;Senior&quot;) and son &quot;Junior&quot;, and their primary business advisor, Frederick Taylor Gates, on May 14, 1913, when its charter was granted by New York. It is the second-oldest major philanthropic institution in America and ranks as the 35th largest foundation globally by endowment, with assets of over $6.4 billion in 2023.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Rockefeller_Foundation" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Pew_logo_blue.svg/330px-Pew_logo_blue.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="The Pew Charitable Trusts" class="encyclopedia-thumb" loading="lazy">
+  <h3>The Pew Charitable Trusts</h3>
+  <p class="text-muted"><em>American non-governmental organization</em></p>
+  <p>The Pew Charitable Trusts is an independent non-profit, non-governmental organization (NGO), founded in 1948.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/The_Pew_Charitable_Trusts" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="professional-associations">Professional Associations</h2>
+<p>3 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>American Library Association</h3>
+  <p class="text-muted"><em>American professional society</em></p>
+  <p>The American Library Association (ALA) is a nonprofit organization based in the United States that promotes libraries and library education internationally. It is the oldest and largest library association in the world.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/American_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Library and Information Technology Association</h3>
+  <p class="text-muted"><em>Division of the American Library Association</em></p>
+  <p>The Library and Information Technology Association (LITA) was a division of the American Library Association (ALA), focusing on the intersections of libraries and information technology. Founded in 1966 and headquartered in Chicago, LITA was dissolved in 2020 amid declining membership and persistent budget deficits. LITA merged into a new ALA division, Core.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_and_Information_Technology_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Public Library Association</h3>
+  <p class="text-muted"><em>Division of the American Library Association</em></p>
+  <p>The Public Library Association (PLA), a division of the American Library Association, is a professional association of public librarians and supporters dedicated to the &quot;development and effectiveness of public library staff and public library services.&quot; In keeping with this mission, the PLA provides continuing education to members, hosts a biennial professional conference, publishes a trade journal, and advocates for public libraries and literacy. The PLA was founded in 1944 and currently has over 7,000 members.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Public_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="digital-libraries-and-technology">Digital Libraries &amp; Technology</h2>
+<p>7 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Digital divide</h3>
+  <p class="text-muted"><em>Inequality of access to information and communication technologies</em></p>
+  <p>Digital divide is inequitable access to and use of digital technology, encompassing four interrelated dimensions: motivational, material, skills, and usage access.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Digital_divide" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Digital Public Library of America</h3>
+  <p class="text-muted"><em>US digital library project</em></p>
+  <p>The Digital Public Library of America (DPLA) is a US project aimed at providing public access to digital holdings in order to create a large-scale public digital library. It officially launched on April 18, 2013, after two-and-a-half years of development.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Digital_Public_Library_of_America" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>HathiTrust</h3>
+  <p class="text-muted"><em>Digital library</em></p>
+  <p>HathiTrust Digital Library is a large-scale collaborative repository of digital content from research libraries, administered by the University of Michigan. Its holdings include content digitized via Google Books and the Internet Archive digitization initiatives, as well as content digitized locally by libraries.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/HathiTrust" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Internet_Archive_logo_and_wordmark.svg/330px-Internet_Archive_logo_and_wordmark.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Internet Archive" class="encyclopedia-thumb" loading="lazy">
+  <h3>Internet Archive</h3>
+  <p class="text-muted"><em>American non-profit digital archive</em></p>
+  <p>The Internet Archive is an American non-profit library founded in 1996 by Brewster Kahle that runs a digital library website, archive.org. It provides free access to collections of digitized media including websites, software applications, music, audiovisual, and print materials. The Archive also advocates a free and open Internet. Its mission is committing to provide &quot;universal access to all knowledge&quot;.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Internet_Archive" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/OCLC_logo.svg/330px-OCLC_logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="OCLC" class="encyclopedia-thumb" loading="lazy">
+  <h3>OCLC</h3>
+  <p class="text-muted"><em>Global library cooperative</em></p>
+  <p>OCLC, Inc. is a US-based nonprofit cooperative organization &quot;that provides shared technology services, original research, and community programs for its membership and the library community at large&quot;. It was founded in 1967 as the Ohio College Library Center, then became the Online Computer Library Center as it expanded. In 2017, the name was formally changed to OCLC, Inc. OCLC and thousands of its member libraries cooperatively produce and maintain WorldCat, the largest online public access catalog in the world. OCLC is funded mainly by the fees that libraries pay for the many different services it offers. OCLC also maintains the Dewey Decimal Classification system.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/OCLC" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Open_Access_logo_PLoS_transparent.svg/330px-Open_Access_logo_PLoS_transparent.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Open access" class="encyclopedia-thumb" loading="lazy">
+  <h3>Open access</h3>
+  <p class="text-muted"><em>Unrestricted availability of scholarly publications</em></p>
+  <p>Open access (OA) is a set of principles and a range of practices through which nominally copyrightable publications are delivered to readers free of access charges or other barriers. With open access strictly defined, or libre open access, barriers to copying or reuse are also reduced or removed by applying an open license for copyright, which regulates post-publication uses of the work.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Open_access" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Project_Gutenberg_logo.svg/330px-Project_Gutenberg_logo.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Project Gutenberg" class="encyclopedia-thumb" loading="lazy">
+  <h3>Project Gutenberg</h3>
+  <p class="text-muted"><em>Online digital book library</em></p>
+  <p>Project Gutenberg (PG) is a volunteer effort to digitize and archive cultural works, as well as to &quot;encourage the creation and distribution of eBooks.&quot; It was founded in 1971 by American writer Michael S. Hart and is the oldest digital library. Most of the items in its collection are the full texts of books or individual stories in the public domain. All files can be accessed for free under an open format layout, available on almost any computer. As of 22 March 2026, Project Gutenberg had reached nearly 78,000 items in its collection of free eBooks.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Project_Gutenberg" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="library-concepts-and-practices">Library Concepts &amp; Practices</h2>
+<p>6 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Information literacy</h3>
+  <p class="text-muted"><em>Academic discipline</em></p>
+  <p>The Association of College and Research Libraries defines information literacy as a &quot;set of integrated abilities encompassing the reflective discovery of information, the understanding of how information is produced and valued and the use of information in creating new knowledge and participating ethically in communities of learning&quot;. In the United Kingdom, the Chartered Institute of Library and Information Professionals&#x27; definition also makes reference to knowing both &quot;when&quot; and &quot;why&quot; information is needed.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Information_literacy" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Interlibrary_Loan_%283744575318%29.jpg/330px-Interlibrary_Loan_%283744575318%29.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Interlibrary loan" class="encyclopedia-thumb" loading="lazy">
+  <h3>Interlibrary loan</h3>
+  <p class="text-muted"><em>Patrons of one library borrowing material owned by another library</em></p>
+  <p>Interlibrary loan is a service that enables patrons of one library to borrow materials that are held by another library.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Interlibrary_loan" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Yale_card_catalog.jpg/330px-Yale_card_catalog.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Library catalog" class="encyclopedia-thumb" loading="lazy">
+  <h3>Library catalog</h3>
+  <p class="text-muted"><em>Register of bibliographic items</em></p>
+  <p>A library catalog is a register of all bibliographic items found in a library or group of libraries, such as a network of libraries at several locations. A catalog for a group of libraries is also called a union catalog. A bibliographic item can be any information entity that is considered library material, or a group of library materials, or linked from the catalog as far as it is relevant to the catalog and to the users (patrons) of the library.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_catalog" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Library consortium</h3>
+  <p class="text-muted"><em>Cooperative association of libraries</em></p>
+  <p>A library consortium is any cooperative association of libraries that coordinates resources and/or activities on behalf of its members, whether they are academic, public, school or special libraries, and/or information centers. Library consortia have been created to service specific regions or geographic areas, e.g., local, state, regional, national or international. Many libraries commonly belong to multiple consortia. The goal of a library consortium is to amplify the capabilities and effectiveness of its member libraries through collective action, including, but not limited to, print or electronic resource sharing, reducing costs through group purchases of resources, and hosting professional development opportunities. The &quot;bedrock principle upon which consortia operate is that libraries can accomplish more together than alone.&quot;</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_consortium" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Historylink_Ballardlib03.JPG?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail_unscaled" alt="Reference desk" class="encyclopedia-thumb" loading="lazy">
+  <h3>Reference desk</h3>
+  <p class="text-muted"><em>Public service counter in a library</em></p>
+  <p>The reference desk or information desk of a library is a public service counter where professional librarians provide library users with direction to library materials, advice on library collections and services, and expertise on multiple kinds of information from multiple sources.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Reference_desk" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Summer reading program</h3>
+  <p class="text-muted"><em>Seasonal activity at libraries to encourage reading</em></p>
+  <p>Summer reading programs take place at 95% of public libraries in the United States. Children, teens, and adults participate in activities meant to encourage reading, such as keeping a reading log. Other names for summer reading programs include vacation reading club, summer reading club, vacation reading program, and summer library program.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Summer_reading_program" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="library-history-and-people">Library History &amp; People</h2>
+<p>2 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Andrew_Carnegie%2C_by_Theodore_Marceau_%28cropped%29_%282%29.jpg/330px-Andrew_Carnegie%2C_by_Theodore_Marceau_%28cropped%29_%282%29.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Andrew Carnegie" class="encyclopedia-thumb" loading="lazy">
+  <h3>Andrew Carnegie</h3>
+  <p class="text-muted"><em>American industrialist and philanthropist (1835–1919)</em></p>
+  <p>Andrew Carnegie was a Scottish-American industrialist and philanthropist. Carnegie led the expansion of the American steel industry in the late-19th century and became one of the richest Americans in history.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Andrew_Carnegie" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Melvil_Dewey_by_Bach_Bros.jpg/330px-Melvil_Dewey_by_Bach_Bros.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Melvil Dewey" class="encyclopedia-thumb" loading="lazy">
+  <h3>Melvil Dewey</h3>
+  <p class="text-muted"><em>Inventor of the Dewey Decimal system (1851–1931)</em></p>
+  <p>Melville Louis Kossuth &quot;Melvil&quot; Dewey was an American librarian and educator who invented the Dewey Decimal system of library classification. He was a founder of the Lake Placid Club, a chief librarian at Columbia College, founder of what would later become the Columbia University School of Library Service, and a founding member of the American Library Association. Although Dewey&#x27;s contributions to the modern library are widely recognized, his legacy is marred by his sexual harassment of female colleagues, as well as his racism and antisemitism.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Melvil_Dewey" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="intellectual-freedom-and-censorship">Intellectual Freedom &amp; Censorship</h2>
+<p>4 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/1/10/Bannedbooksweek.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail_unscaled" alt="Banned Books Week" class="encyclopedia-thumb" loading="lazy">
+  <h3>Banned Books Week</h3>
+  <p class="text-muted"><em>Annual awareness campaign</em></p>
+  <p>Banned Books Week is an annual awareness campaign promoted by the American Library Association and Amnesty International, that celebrates the freedom to read, draws attention to banned and challenged books, and highlights persecuted individuals. Held in late September or early October since 1982, the United States campaign &quot;stresses the importance of ensuring the availability of those unorthodox or unpopular viewpoints to all who wish to read them&quot; and the requirement to keep material publicly available so that people can develop their own conclusions and opinions. The international campaign notes individuals &quot;persecuted because of the writings that they produce, circulate or read.&quot; Some of the events that occur during Banned Book Week are The Virtual Read-Out and The First Amendment Film Festival.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Banned_Books_Week" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Censorship in the United States</h3>
+  
+  <p>In the United States, censorship involves the suppression of speech or public communication and raises issues of freedom of speech, which is protected by the First Amendment to the United States Constitution. Interpretation of this fundamental freedom has varied since its enshrinement. Traditionally, the First Amendment was regarded as applying only to the Federal government, leaving the states and local communities free to censor or not. As the applicability of states&#x27; rights in lawmaking vis-a-vis citizens&#x27; national rights began to wane in the wake of the Civil War, censorship by any level of government eventually came under scrutiny, but not without resistance. For example, in recent decades, censorial restraints increased during the 1950s period of widespread anti-communist sentiment, as exemplified by the hearings of the House Committee on Un-American Activities. In Miller v. California (1973), the U.S. Supreme Court found that the First Amendment&#x27;s freedom of speech does not apply to obscenity, which can, therefore, be censored. While certain forms of hate speech are legal so long as they do not turn to action or incite others to commit illegal acts, more severe forms have led to people or groups being denied marching permits or the Westboro Baptist Church being sued, although the initial adverse ruling against the latter was later overturned on appeal to the U.S. Supreme Court case Snyder v. Phelps.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Censorship_in_the_United_States" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Intellectual freedom</h3>
+  <p class="text-muted"><em>Freedom to hold, receive and disseminate ideas without restriction</em></p>
+  <p>Intellectual freedom encompasses the freedom to hold, receive and disseminate ideas without restriction. Viewed as an integral component of a democratic society, intellectual freedom protects an individual&#x27;s right to access, explore, consider, and express ideas and information as the basis for a self-governing, well-informed citizenry. Intellectual freedom comprises the bedrock for freedoms of expression, speech, and the press and relates to freedoms of information and the right to privacy.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Intellectual_freedom" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Library Bill of Rights</h3>
+  
+  <p>The Library Bill of Rights is the American Library Association&#x27;s statement expressing the rights of library users to intellectual freedom and the expectations the association places on libraries to support those rights. The Association&#x27;s Council has adopted a number of interpretations of the document applying it to various library policies.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_Bill_of_Rights" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<h2 id="other-library-topics">Other Library Topics</h2>
+<p>13 articles in this category.</p>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>American Indian Library Association</h3>
+  <p class="text-muted"><em>Professional US library association focusing on American Indians and Alaska Natives</em></p>
+  <p>The American Indian Library Association (AILA) is an affiliate of the American Library Association (ALA), and is a membership action group that focuses on the library-related needs of Native Americans and Alaska Natives. The organization&#x27;s members consist of both individuals and institutions that are interested in improving library services to Native American people in any type of library in the United States.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/American_Indian_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Association of Jewish Libraries</h3>
+  <p class="text-muted"><em>International library organization</em></p>
+  <p>The Association of Jewish Libraries (AJL) is an international organization dedicated to the production, collection, organization and dissemination of Judaic resources as a library, media, and information service. AJL has members in the United States, Canada, Israel and over 22 other countries.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Association_of_Jewish_Libraries" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/4/43/Black_Caucus_of_the_American_Library_Association_%28logo%29.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail_unscaled" alt="Black Caucus of the American Library Association" class="encyclopedia-thumb" loading="lazy">
+  <h3>Black Caucus of the American Library Association</h3>
+  <p class="text-muted"><em>Professional association for Black librarians in the American Library Association</em></p>
+  <p>The Black Caucus of the American Library Association (BCALA) is an affiliate of the American Library Association (ALA) that focuses on the needs of African-American library professionals by promoting careers in librarianship, funding literacy initiatives, and providing scholarships.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Black_Caucus_of_the_American_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/2/2c/Catholic_Lib_assoc_logo.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail_unscaled" alt="Catholic Library Association" class="encyclopedia-thumb" loading="lazy">
+  <h3>Catholic Library Association</h3>
+  <p class="text-muted"><em>Library Association</em></p>
+  <p>The Catholic Library Association is an international membership organization concerned with Catholic Church libraries. Its activities include the development of reference tools and guidance on materials related to Catholicism, and it holds annual conferences and presents awards.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Catholic_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Chinese American Librarians Association</h3>
+  
+  <p>The Chinese American Librarians Association or CALA is a library association that supports professional development and research scholarship of CALA members, in the profession of librarianship.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Chinese_American_Librarians_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/HK_Wan_Chai_Library_Inside_Bookcase_a.jpg/330px-HK_Wan_Chai_Library_Inside_Bookcase_a.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Dewey Decimal Classification" class="encyclopedia-thumb" loading="lazy">
+  <h3>Dewey Decimal Classification</h3>
+  <p class="text-muted"><em>Library classification system</em></p>
+  <p>The Dewey Decimal Classification, colloquially known as the Dewey Decimal System, is a proprietary library classification system which organizes books based on discipline and subject. It was first published in the United States by Melvil Dewey in 1876. Originally described in a 44-page pamphlet, it has been expanded to multiple volumes and revised through 23 major editions, the latest printed in 2011. It is also available in an abridged version suitable for smaller libraries. OCLC, a non-profit cooperative that serves libraries, currently maintains the system and licenses online access to WebDewey, a continuously updated version for catalogers.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Dewey_Decimal_Classification" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/LIS_SidebarPicture.png/330px-LIS_SidebarPicture.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Library and information science" class="encyclopedia-thumb" loading="lazy">
+  <h3>Library and information science</h3>
+  <p class="text-muted"><em>Branch of academic disciplines</em></p>
+  <p>Library and Information Science (LIS) are two academic disciplines that study all aspects of the creation, organization, documentation, management, communication, and use of recorded information. It underlies a variety of professional activities such as information management, librarianship, and archiving and records management, educating professionals for work in those areas, and carrying out research to improve practice.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_and_information_science" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>Library of Congress Classification</h3>
+  <p class="text-muted"><em>System of library classification</em></p>
+  <p>The Library of Congress Classification (LCC) is a system of library classification developed by the Library of Congress in the United States, which can be used for shelving books in a library. LCC is used by many large research and academic libraries. LCC was developed in 1897 by James Hanson, with assistance from Charles Martel while they were working at the Library of Congress. It was designed specifically for the purposes and collection of the Library of Congress, to replace the fixed location system developed by Thomas Jefferson.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Library_of_Congress_Classification" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/MLA-logo.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail_unscaled" alt="Medical Library Association" class="encyclopedia-thumb" loading="lazy">
+  <h3>Medical Library Association</h3>
+  <p class="text-muted"><em>Nonprofit, educational organization of health-sciences information professionals</em></p>
+  <p>The Medical Library Association (MLA) is a nonprofit educational organization based in the United States with more than 3,400 health-sciences information professional members.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Medical_Library_Association" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/OpenLibrarypage.jpg/330px-OpenLibrarypage.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Open Library" class="encyclopedia-thumb" loading="lazy">
+  <h3>Open Library</h3>
+  <p class="text-muted"><em>Online project for book data of the Internet Archive</em></p>
+  <p>Open Library is an online project intended to create &quot;one web page for every book ever published&quot;. Created by Aaron Swartz, Brewster Kahle, Alexis Rossi, Anand Chitipothu, and Rebecca Hargrave Malamud, Open Library is a project of the Internet Archive, a nonprofit organization. It has been funded in part by grants from the California State Library and the Kahle/Austin Foundation. Open Library provides online digital copies in multiple formats, created from images of many public domain, out-of-print, and in-print books.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Open_Library" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Publicknowledgeproject.svg/330px-Publicknowledgeproject.svg.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="Public Knowledge Project" class="encyclopedia-thumb" loading="lazy">
+  <h3>Public Knowledge Project</h3>
+  <p class="text-muted"><em>Metadata reservation project for e-journals</em></p>
+  <p>The Public Knowledge Project (PKP) is a non-profit research initiative that is focused on the importance of making the results of publicly funded research freely available through open access policies, and on developing strategies for making this possible. It is a partnership between the Faculty of Education at the University of British Columbia, the Canadian Centre for Studies in Publishing at Simon Fraser University, the University of Pittsburgh, Ontario Council of University Libraries, the California Digital Library and the School of Education at Stanford University. It seeks to improve the scholarly and public quality of academic research through the development of innovative online environments.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/Public_Knowledge_Project" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  
+  <h3>The Right to Read</h3>
+  <p class="text-muted"><em>Short story by Richard Stallman</em></p>
+  <p>The Right to Read is a short story by Richard Stallman, the founder of the Free Software Foundation, which was first published in 1997 in Communications of the ACM. It is a cautionary tale set in the year 2047, when copy protection technologies are employed to restrict the readership of books, and the sharing of books and written material is a crime punishable by imprisonment.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/The_Right_to_Read" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="rules-box encyclopedia-entry">
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/WorldCat_homepage.png/330px-WorldCat_homepage.png?utm_source=en.wikipedia.org&amp;utm_campaign=api&amp;utm_content=thumbnail" alt="WorldCat" class="encyclopedia-thumb" loading="lazy">
+  <h3>WorldCat</h3>
+  <p class="text-muted"><em>International union library catalog</em></p>
+  <p>WorldCat is a union catalog that itemizes the collections of tens of thousands of institutions, in many countries, that are current or past members of the OCLC global cooperative. It is operated by OCLC, Inc. Many of the OCLC member libraries collectively maintain WorldCat&#x27;s database, the world&#x27;s largest bibliographic database. The database includes other information sources in addition to member library collections. OCLC makes WorldCat itself available free to libraries, but the catalog is the foundation for other subscription OCLC services. WorldCat is used by librarians for cataloging and research and by the general public.</p>
+  <p class="small"><a href="https://en.wikipedia.org/wiki/WorldCat" target="_blank">Wikipedia article &rarr;</a></p>
+</div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="funders.html">Funders</a> | <a href="contacts.html">Contacts</a> | <a href="digital.html">Digital inclusion</a></div>
+<p class="edit-note">Generated on 2026-08-15 23:37 UTC from Wikipedia REST API summaries.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="wiki-footer py-3 px-4 border-top mt-auto">
+  <small class="text-muted">
+    AGI · EIN 42-4298008 ·
+    <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
+    <br>Data updated 2026-08-15 23:37 UTC
+  </small>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement;var c=h.getAttribute('data-theme')||'light';var n=c==='light'?'dark':'light';h.setAttribute('data-theme',n);localStorage.setItem('wiki-theme',n);var f=document.querySelector('.map-embed iframe');if(f&&f.contentWindow){try{f.contentWindow.postMessage({type:'wiki-theme',theme:n},'*');}catch(e){}}}
+</script>
+</body>
+</html>

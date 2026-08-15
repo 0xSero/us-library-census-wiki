@@ -10592,6 +10592,32 @@ def build_funders(data, stats):
         except Exception:
             pass
 
+    # ---- Funder Encyclopedia from Wikipedia summaries ----
+    found_summary_path = os.path.join(os.path.dirname(WIKI), 'data', 'foundation_wikipedia_summaries.json')
+    if os.path.exists(found_summary_path):
+        try:
+            with open(found_summary_path) as fs_f:
+                found_data = json.load(fs_f)
+            founds = found_data.get('foundations', [])
+            if founds:
+                body += f"""
+<h2 id="funder-encyclopedia">Funder &amp; Organization Encyclopedia</h2>
+<p>Wikipedia summaries of {len(founds)} major library funders, foundations, and organizations.</p>
+<table class="wikitable">
+  <tr><th>Organization</th><th>Description</th><th>Summary</th><th>Website</th><th>Wikipedia</th></tr>"""
+                for entry in founds:
+                    name = esc(entry.get('name', ''))
+                    desc = esc(entry.get('description', ''))
+                    extract = esc(entry.get('extract', '')[:300])
+                    website = entry.get('website', '')
+                    web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+                    wiki_url = entry.get('wiki_url', '')
+                    wiki_link = f'<a href="{esc(wiki_url)}" target="_blank">Article →</a>' if wiki_url else '&mdash;'
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{desc}</td><td>{extract}</td><td>{web_link}</td><td>{wiki_link}</td></tr>'
+                body += '\n</table>'
+        except Exception:
+            pass
+
     body += f"""
 <div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""

@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 12:08 UTC",
+  "generated": "2026-08-15 12:12 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -70952,6 +70952,228 @@
       "The SASS was discontinued after 2011-12 \u2014 the last comprehensive federal school library survey.",
       "In 2011-12, 58,000 elementary and 17,100 secondary schools had library media centers.",
       "Discontinuation means we lack current national data on school library infrastructure."
+    ]
+  },
+  "national_snapshot": {
+    "title": "America's Libraries at a Glance: The National Snapshot (FY2024)",
+    "overview": "This comprehensive national snapshot combines all available data from IMLS, ALA, BLS, and other sources into a single picture of the American public library system as of FY2024. It covers infrastructure, finances, staffing, usage, programs, technology, censorship, and federal funding \u2014 the most complete one-page overview of US public libraries available.",
+    "key_stats": {
+      "total_library_systems": 9249,
+      "total_population_served": 343094915,
+      "total_income": 17864823767.0,
+      "total_local_government_income": 15267430608.0,
+      "total_state_government_income": 1203877776.0,
+      "total_federal_government_income": 88397229.0,
+      "total_operating_expenditures": 16165992896.0,
+      "total_staff": 143324,
+      "total_librarians": 49741,
+      "total_visits": 869277475,
+      "total_circulation": 1705466066,
+      "total_programs": 5085068,
+      "total_program_attendance": 105321602,
+      "total_public_internet_users": 100854933,
+      "total_ebook_circulation": 316063843,
+      "total_central_libraries": 9046,
+      "total_branch_libraries": 7769,
+      "total_bookmobiles": 765,
+      "total_book_volumes": 639057351,
+      "total_imls_grants": 13216,
+      "total_imls_grant_funding": 954340048.2,
+      "total_censorship_challenges": 20808,
+      "total_banned_removed": 6875,
+      "total_ballot_measures": 168,
+      "total_ballot_measures_passed": 116
+    },
+    "ala_report_2024": {
+      "report_title": "State of America's Libraries 2024",
+      "report_year": 2024,
+      "data_year": 2023,
+      "report_url": "https://www.ala.org/news/state-americas-libraries-report-2024",
+      "pdf_url": "https://live-alaorg.pantheonsite.io/sites/default/files/2024-04/state-of-americas-libraries-report-2024-accessible-web-version_0.pdf",
+      "key_statistics": {
+        "unique_titles_challenged_2023": 4240,
+        "unique_titles_challenged_2022": 2571,
+        "percent_increase_challenged_titles": 65.0,
+        "censorship_attempts_documented_2023": 1247,
+        "cases_with_known_locations": 954,
+        "average_unique_titles_challenged_2001_2020": 273,
+        "highest_single_year_pre_2023": 390,
+        "total_unique_titles_challenged_2001_2020": 3637,
+        "percent_multi_title_challenges": 93.4,
+        "public_library_challenges_percent_2022": 16,
+        "public_library_challenges_percent_2023": 32,
+        "state_censorship_bills_introduced_2023": 151
+      },
+      "state_legislation_highlights": [
+        {
+          "state": "Illinois",
+          "description": "Passed first anti-book ban law for public libraries"
+        },
+        {
+          "state": "California",
+          "description": "Passed first law protecting books and library collections in school libraries"
+        },
+        {
+          "state": "Arkansas",
+          "description": "Act 372 challenged in court - would restrict minors' access to books; enjoined by federal judge"
+        },
+        {
+          "state": "Florida",
+          "description": "Lawsuit pending challenging book removal policies"
+        },
+        {
+          "state": "Iowa",
+          "description": "Lawsuit pending challenging book removal policies"
+        },
+        {
+          "state": "Texas",
+          "description": "Llano County case - preliminary injunction ordering return of ~60 banned books"
+        }
+      ],
+      "federal_legislation_highlights": [
+        {
+          "description": "FCC Learn Without Limits initiative - E-rate funds for Wi-Fi hotspots off-premises"
+        },
+        {
+          "description": "Prison Libraries Act introduced by Reps. Cleaver, Jackson Lee, and Himes"
+        },
+        {
+          "description": "FY2024 IMLS appropriations delayed by continuing resolutions; potential cuts"
+        },
+        {
+          "description": "Advancing Research in Education Act would improve library data collection"
+        },
+        {
+          "description": "FCC improved E-rate rules for Tribal libraries broadband access"
+        }
+      ],
+      "top_10_challenged_books_2023": [
+        {
+          "rank": 1,
+          "title": "Gender Queer",
+          "author": "Maia Kobabe",
+          "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+        },
+        {
+          "rank": 2,
+          "title": "All Boys Aren't Blue",
+          "author": "George M. Johnson",
+          "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+        },
+        {
+          "rank": 3,
+          "title": "This Book is Gay",
+          "author": "Juno Dawson",
+          "reasons": "LGBTQIA+ content, sex education, claimed to be sexually explicit"
+        },
+        {
+          "rank": 4,
+          "title": "The Perks of Being a Wallflower",
+          "author": "Stephen Chbosky",
+          "reasons": "claimed to be sexually explicit, LGBTQIA+ content, rape, drugs, profanity"
+        },
+        {
+          "rank": 5,
+          "title": "Flamer",
+          "author": "Mike Curato",
+          "reasons": "LGBTQIA+ content, claimed to be sexually explicit"
+        },
+        {
+          "rank": 6,
+          "title": "The Bluest Eye",
+          "author": "Toni Morrison",
+          "reasons": "rape, incest, claimed to be sexually explicit, EDI content"
+        },
+        {
+          "rank": "7/8",
+          "title": "Me and Earl and the Dying Girl",
+          "author": "Jesse Andrews",
+          "reasons": "claimed to be sexually explicit, profanity"
+        },
+        {
+          "rank": "7/8",
+          "title": "Tricks",
+          "author": "Ellen Hopkins",
+          "reasons": "claimed to be sexually explicit, drugs, rape, LGBTQIA+ content"
+        },
+        {
+          "rank": 9,
+          "title": "Let's Talk About It",
+          "author": "Erika Moen and Matthew Nolan",
+          "reasons": "claimed to be sexually explicit, sex education, LGBTQIA+ content"
+        },
+        {
+          "rank": 10,
+          "title": "Patricia McCormick",
+          "author": "Patricia McCormick",
+          "reasons": ""
+        }
+      ]
+    },
+    "key_facts": [
+      "America has 9,249 public library systems serving 343,094,915 people.",
+      "These systems operate 9,046 central libraries, 7,769 branches, and 765 bookmobiles.",
+      "Total library income was $17,864,823,767.0, with 16,165,992,896.0 in operating expenditures.",
+      "Libraries employ 143,324 total staff, including 49,741 librarians.",
+      "Annual visits totaled 869,277,475 and circulation reached 1,705,466,066 items.",
+      "E-book circulation alone reached 316,063,843 \u2014 18.5% of total circulation.",
+      "Libraries hosted 5,085,068 programs attended by 105,321,602 people.",
+      "Public internet users at libraries totaled 100,854,933 \u2014 nearly 101 million Americans using library computers/internet.",
+      "Total book volumes held: 639,057,351 across all public libraries.",
+      "IMLS awarded 13,216 grants totaling $954,340,048.2.",
+      "Book censorship challenges reached 20,808, resulting in 6,875 bans/removals.",
+      "Library ballot measures: 168 total, 116 passed (69% pass rate).",
+      "Local government provides $15,267,430,608.0 (85.5%) of library funding.",
+      "Federal funding accounts for only $88,397,229.0 (0.5%) of total income."
+    ]
+  },
+  "intellectual_freedom": {
+    "title": "Intellectual Freedom & the Library Bill of Rights",
+    "overview": "Intellectual freedom \u2014 the right to access information and ideas without restriction \u2014 is a core value of the library profession. The American Library Association's Library Bill of Rights, first adopted in 1939, establishes the principles that libraries should provide materials representing all viewpoints and resist censorship. In an era of unprecedented book challenges, these principles are being tested as never before.",
+    "key_stats": {
+      "ala_challenges_2023": 20808,
+      "books_banned_removed": 6875,
+      "library_bill_of_rights_adopted": 1939,
+      "banned_books_week_started": 1982,
+      "ala_office_intellectual_freedom_founded": 1967
+    },
+    "library_bill_of_rights": {
+      "title": "Library Bill of Rights",
+      "description": "The Library Bill of Rights is the American Library Association's statement expressing the rights of library users to intellectual freedom and the expectations the association places on libraries to support those rights. The Association's Council has adopted a number of interpretations of the document applying it to various library policies.",
+      "adopted": 1939,
+      "key_principles": [
+        "Books and other library resources should be provided for the interest, information, and enlightenment of all people of the community the library serves.",
+        "Libraries should provide materials and information presenting all points of view on current and historical issues.",
+        "Libraries should challenge censorship in the fulfillment of their responsibility to provide information and enlightenment.",
+        "Libraries should cooperate with all persons and groups concerned with resisting abridgment of free expression and free access to ideas.",
+        "A person's right to use a library should not be denied or abridged because of origin, age, background, or views.",
+        "Libraries which make exhibit spaces and meeting rooms available to the public they serve should make such facilities available on an equitable basis, regardless of the beliefs or affiliations of individuals or groups requesting their use."
+      ]
+    },
+    "intellectual_freedom": {
+      "title": "Intellectual freedom",
+      "description": "Intellectual freedom encompasses the freedom to hold, receive and disseminate ideas without restriction. Viewed as an integral component of a democratic society, intellectual freedom protects an individual's right to access, explore, consider, and express ideas and information as the basis for a self-governing, well-informed citizenry. Intellectual freedom comprises the bedrock for freedoms of expression, speech, and the press and relates to freedoms of information and the right to privacy.",
+      "ala_role": "The ALA Office for Intellectual Freedom (OIF), founded in 1967, is the primary organization defending intellectual freedom in libraries. It tracks book challenges, supports librarians facing censorship pressure, and promotes the Library Bill of Rights."
+    },
+    "censorship_us": {
+      "title": "Censorship in the United States",
+      "description": "In the United States, censorship involves the suppression of speech or public communication and raises issues of freedom of speech, which is protected by the First Amendment to the United States Constitution. Interpretation of this fundamental freedom has varied since its enshrinement. Traditionally, the First Amendment was regarded as applying only to the Federal government, leaving the states and local communities free to censor or not. As the applicability of states' rights in lawmaking vis-a-vis citizens' national rights began to wane in the wake of the Civil War, censorship by any level of government eventually came under scrutiny, but not without resistance. For example, in recent decades, censorial restraints increased during the 1950s period of widespread anti-communist sentiment, as exemplified by the hearings of the House Committee on Un-American Activities. In Miller v. California (1973), the U.S. Supreme Court found that the First Amendment's freedom of speech does not apply to obscenity, which can, therefore, be censored. While certain forms of hate speech are legal so long as they do not turn to action or incite others to commit illegal acts, more severe forms have led to people or groups being denied marching permits or the Westboro Baptist Church being sued, although the initial adverse ruling against the latter was later overturned on appeal to the U.S. Supreme Court case Snyder v. Phelps."
+    },
+    "banned_books_week": {
+      "title": "Banned Books Week",
+      "description": "Banned Books Week is an annual awareness campaign promoted by the American Library Association and Amnesty International, that celebrates the freedom to read, draws attention to banned and challenged books, and highlights persecuted individuals. Held in late September or early October since 1982, the United States campaign \"stresses the importance of ensuring the availability of those unorthodox or unpopular viewpoints to all who wish to read them\" and the requirement to keep material publicly available so that people can develop their own conclusions and opinions. The international campaign notes individuals \"persecuted because of the writings that they produce, circulate or read.\" Some of the events that occur during Banned Book Week are The Virtual Read-Out and The First Amendment Film Festival.",
+      "started": 1982,
+      "significance": "Banned Books Week is an annual awareness campaign promoted by the American Library Association and Amnesty International that celebrates the freedom to read, draws attention to banned and challenged books, and highlights persecuted individuals."
+    },
+    "key_facts": [
+      "The Library Bill of Rights was adopted by the ALA in 1939, establishing intellectual freedom as a foundational library principle.",
+      "20,808 book challenges were documented, resulting in 6,875 bans or removals.",
+      "The ALA Office for Intellectual Freedom (OIF) was founded in 1967 to defend intellectual freedom in libraries.",
+      "Banned Books Week, started in 1982, is an annual campaign celebrating the freedom to read and highlighting censorship.",
+      "The Library Bill of Rights states that materials should represent all points of view, not just popular or majority viewpoints.",
+      "Intellectual freedom includes the right to access information without government or community censorship.",
+      "The modern wave of book challenges targets primarily LGBTQ+ content and books about race and racism.",
+      "Libraries are required by the Library Bill of Rights to resist censorship pressures from any source."
     ]
   },
   "consortia": {

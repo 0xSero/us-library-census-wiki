@@ -195,6 +195,8 @@ def panel(active=""):
     <a href="index.html#programs-2024" class="list-group-item list-group-item-action small py-1">FY2024 programs detail</a>
     <a href="index.html#format-shift" class="list-group-item list-group-item-action small py-1">Book format shift</a>
     <a href="index.html#nces-sass" class="list-group-item list-group-item-action small py-1">NCES SASS survey</a>
+    <a href="index.html#national-snapshot" class="list-group-item list-group-item-action small py-1">National snapshot</a>
+    <a href="index.html#intellectual-freedom" class="list-group-item list-group-item-action small py-1">Intellectual freedom</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -615,6 +617,8 @@ def load_all():
         ('programs_2024_breakdown', 'programs_2024_breakdown_summary.json'),
         ('book_format_trend', 'book_format_trend_summary.json'),
         ('nces_sass', 'nces_sass_summary.json'),
+        ('national_snapshot', 'national_snapshot_summary.json'),
+        ('intellectual_freedom', 'intellectual_freedom_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1834,6 +1838,8 @@ def compute_stats(data):
     stats['programs_2024_breakdown'] = data.get('programs_2024_breakdown', {})
     stats['book_format_trend'] = data.get('book_format_trend', {})
     stats['nces_sass'] = data.get('nces_sass', {})
+    stats['national_snapshot'] = data.get('national_snapshot', {})
+    stats['intellectual_freedom'] = data.get('intellectual_freedom', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -8920,6 +8926,127 @@ def build_index(data, stats):
             body += f'<p class="rsrc">Source: {esc(src)}</p>'
         else:
             body += '<p class="rsrc">Source: NCES Digest of Education Statistics, Table 701.10, from Schools and Staffing Survey (SASS) data.</p>'
+
+    # =========================================================================
+    # NATIONAL SNAPSHOT
+    # =========================================================================
+    ns = stats.get('national_snapshot', {})
+    if ns:
+        nks = ns.get('key_stats', {})
+        ns_facts = ns.get('key_facts', [])
+
+        body += f"""
+<h2 id="national-snapshot">America's Libraries at a Glance: The National Snapshot (FY2024)</h2>
+<p>{esc(ns.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nks.get('total_library_systems',9249):,}</div><div class="label">Library systems</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_population_served',343094915):,}</div><div class="label">Population served</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_visits',869277475):,}</div><div class="label">Annual visits</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_circulation',1705466066):,}</div><div class="label">Items circulated</div></div>
+  <div class="stat-card"><div class="num">${nks.get('total_income',17864823767)/1e9:.1f}B</div><div class="label">Total income</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_staff',143324):,}</div><div class="label">Total staff</div></div>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nks.get('total_central_libraries',9046):,}</div><div class="label">Central libraries</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_branch_libraries',7769):,}</div><div class="label">Branch libraries</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_bookmobiles',765):,}</div><div class="label">Bookmobiles</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_book_volumes',639057351):,}</div><div class="label">Book volumes</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_ebook_circulation',316063843):,}</div><div class="label">E-book circulation</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_public_internet_users',100854933):,}</div><div class="label">Internet users</div></div>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nks.get('total_programs',5085068):,}</div><div class="label">Programs</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_program_attendance',105321602):,}</div><div class="label">Program attendance</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_librarians',49741):,}</div><div class="label">Librarians</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_censorship_challenges',20808):,}</div><div class="label">Book challenges</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_imls_grants',13216):,}</div><div class="label">IMLS grants</div></div>
+  <div class="stat-card"><div class="num">{nks.get('total_ballot_measures_passed',116)}/{nks.get('total_ballot_measures',168)}</div><div class="label">Ballot measures</div></div>
+</div>"""
+
+        if ns_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in ns_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: ALA State of America&apos;s Libraries 2024 report, IMLS Public Libraries Survey FY2024, BLS Occupational Employment Statistics, ALA Office for Intellectual Freedom book challenge data, and EveryLibrary ballot measure database. All figures represent the most current national data available as compiled in ala_state_data.json.</p>'
+
+    # =========================================================================
+    # INTELLECTUAL FREEDOM & LIBRARY BILL OF RIGHTS
+    # =========================================================================
+    ifree = stats.get('intellectual_freedom', {})
+    if ifree:
+        ifks = ifree.get('key_stats', {})
+        lbor = ifree.get('library_bill_of_rights', {})
+        ifreed = ifree.get('intellectual_freedom', {})
+        cen = ifree.get('censorship_us', {})
+        bbw = ifree.get('banned_books_week', {})
+        if_facts = ifree.get('key_facts', [])
+
+        body += f"""
+<h2 id="intellectual-freedom">Intellectual Freedom &amp; the Library Bill of Rights</h2>
+<p>{esc(ifree.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ifks.get('ala_challenges_2023',20808):,}</div><div class="label">Book challenges</div></div>
+  <div class="stat-card"><div class="num">{ifks.get('books_banned_removed',6875):,}</div><div class="label">Banned/removed</div></div>
+  <div class="stat-card"><div class="num">{ifks.get('library_bill_of_rights_adopted',1939)}</div><div class="label">Bill of Rights adopted</div></div>
+  <div class="stat-card"><div class="num">{ifks.get('banned_books_week_started',1982)}</div><div class="label">Banned Books Week</div></div>
+  <div class="stat-card"><div class="num">{ifks.get('ala_office_intellectual_freedom_founded',1967)}</div><div class="label">OIF founded</div></div>
+  <div class="stat-card"><div class="num">1939</div><div class="label">ALA founding value</div></div>
+</div>"""
+
+        if isinstance(lbor, dict) and lbor.get('description'):
+            body += f"""
+<h3>The Library Bill of Rights</h3>
+<div class="rules-box">
+  <p>{esc(lbor.get('description', ''))}</p>
+  <p><strong>Adopted:</strong> {lbor.get('adopted', 1939)} by the American Library Association</p>
+</div>"""
+            principles = lbor.get('key_principles', [])
+            if principles:
+                body += """
+<h4>Key Principles</h4>
+<ul class="wiki-list">"""
+                for p in principles:
+                    if isinstance(p, str):
+                        body += f'\n  <li>{esc(p)}</li>'
+                body += '\n</ul>'
+
+        if isinstance(ifreed, dict) and ifreed.get('description'):
+            body += f"""
+<h3>Intellectual Freedom</h3>
+<div class="rules-box">
+  <p>{esc(ifreed.get('description', ''))}</p>
+  <p>{esc(ifreed.get('ala_role', ''))}</p>
+</div>"""
+
+        if isinstance(bbw, dict) and bbw.get('description'):
+            body += f"""
+<h3>Banned Books Week</h3>
+<div class="rules-box">
+  <p>{esc(bbw.get('description', ''))}</p>
+  <p><strong>Started:</strong> {bbw.get('started', 1982)}</p>
+  <p>{esc(bbw.get('significance', ''))}</p>
+</div>"""
+
+        if isinstance(cen, dict) and cen.get('description'):
+            body += f"""
+<h3>Censorship in the United States</h3>
+<p>{esc(cen.get('description', ''))}</p>"""
+
+        if if_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in if_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on the Library Bill of Rights, intellectual freedom, censorship in the United States, and Banned Books Week. Challenge data from ALA Office for Intellectual Freedom and ALA State of America&apos;s Libraries 2024 report.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

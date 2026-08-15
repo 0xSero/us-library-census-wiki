@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 00:57 UTC",
+  "generated": "2026-08-15 01:16 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -35654,6 +35654,368 @@
       }
     ],
     "note": "Total represents cumulative federal funding across all programs. Some amounts are allocations (BEAD) rather than disbursed grants. ACP and ECF programs have ended. E-Rate is an ongoing annual program."
+  },
+  "nlm": {
+    "name": "National Library of Medicine",
+    "founded": "1836 (as the Library of the Office of the Surgeon General of the Army); established as the National Library of Medicine in 1956",
+    "location": "Bethesda, Maryland, United States (on the campus of the National Institutes of Health, Building 38, 8600 Rockville Pike, Bethesda, MD 20894)",
+    "type": "National medical library (federal agency, institute within the National Institutes of Health)",
+    "description": "The National Library of Medicine (NLM), operated by the United States federal government, is the world's largest biomedical library. Located on the campus of the National Institutes of Health in Bethesda, Maryland, NLM has been a center of information innovation since its founding in 1836. It maintains and makes available a vast print collection and produces electronic information services on a wide range of topics that are searched billions of times each year by millions of people around the globe. NLM also supports and conducts research, development, and training in biomedical informatics and health information technology, and coordinates an 8,000+ member Network of the National Library of Medicine that promotes and provides access to health information in communities across the United States.",
+    "current_stats": {
+      "collection_size_items": 27846111,
+      "collection_size_year": 2015,
+      "collection_books_journals_reports": 7000000,
+      "annual_circulation": 309817,
+      "circulation_year": 2015,
+      "annual_budget_usd": 341119000,
+      "budget_fiscal_year": "FY2016",
+      "budget_source": "H.R. 3020, Departments of Labor, Health and Human Services, and Education, and Related Agencies Appropriations Act, 2016",
+      "employees": 1741,
+      "employee_count_source": "Wikipedia/NLM, 2015",
+      "director": "Stephen Sherry (Acting, since October 1, 2023)",
+      "parent_organization": "National Institutes of Health (NIH)",
+      "address": "8600 Rockville Pike, Bethesda, MD 20894",
+      "coordinates": "38.995951 N, 77.098832 W",
+      "items_collected_types": "books, journals, manuscripts, images, and multimedia; genomic, chemical, toxicological, and environmental data; drug information; clinical trials data; health data standards; software; and consumer health information",
+      "access_requirements": "Open to the public",
+      "reading_room_hours": "Monday-Thursday 8:30 AM - 5:00 PM by appointment; closed Fridays, weekends, and Federal holidays"
+    },
+    "key_databases": [
+      {
+        "name": "PubMed",
+        "description": "A free database primarily including the MEDLINE database of references and abstracts on life sciences and biomedical topics. Maintained by NLM at NIH as part of the Entrez system of information retrieval. First released January 1996; offered free to the public starting June 1997.",
+        "size": "More than 40 million citations and abstracts (as of March 2025)",
+        "size_detail": "40M+ citations dating back to 1966, selectively to 1865, and highly selectively to 1809. 24.6 million records with abstracts (2023). 26.8 million records with links to full-text versions, of which 10.9 million available full-text for free (2023).",
+        "release_date": "January 1996",
+        "url": "pubmed.ncbi.nlm.nih.gov"
+      },
+      {
+        "name": "MEDLINE",
+        "description": "Medical Literature Analysis and Retrieval System Online. A bibliographic database of life sciences and biomedical information covering medicine, nursing, pharmacy, dentistry, veterinary medicine, and health care. The online version of MEDLARS, launched in 1971; compiled by NLM and freely searchable via PubMed.",
+        "size": "Over 29 million records",
+        "size_detail": "29M+ references covering 1946-present. Updated daily with 2,000-4,000 references per update. Covers 40 languages for current journals, 60 for older journals. Over 93% of records are published in English.",
+        "temporal_coverage": "1946-present",
+        "history": "MEDLARS launched 1964 as first large-scale computer-based retrospective search service; online version (MEDLINE) began late 1971"
+      },
+      {
+        "name": "PubMed Central (PMC)",
+        "description": "A free digital repository that archives openly accessible full-text scholarly articles published in biomedical and life sciences journals. More than a document repository - submissions are indexed and formatted for enhanced metadata, medical ontology, and unique identifiers. A major research database developed by NCBI.",
+        "size": "10,800,000 full-text articles",
+        "size_detail": "10.8M+ full-text archived articles",
+        "founded": "2000",
+        "history": "Began as E-biomed, proposed May 1999 by then-NIH director Harold Varmus. Hosts access to human genome (2000). 2008 NIH Public Access Policy mandated NIH-funded research be available on PMC within 12 months of publication.",
+        "url": "pmc.ncbi.nlm.nih.gov"
+      },
+      {
+        "name": "ClinicalTrials.gov",
+        "description": "A registry of clinical trials run by NLM at NIH. Launched February 29, 2000 following the Food and Drug Administration Modernization Act of 1997. Expanded by FDA Amendments Act of 2007 to require registration and results reporting.",
+        "size": "Over 444,000 trials from 221 countries",
+        "size_detail": "444K+ registered trials spanning 221 countries",
+        "launch_date": "February 29, 2000",
+        "director": "Rebecca J. Williams",
+        "url": "clinicaltrials.gov"
+      },
+      {
+        "name": "National Center for Biotechnology Information (NCBI)",
+        "description": "An intramural division within NLM that creates public databases in molecular biology, conducts research in computational biology, develops software tools for analyzing molecular and genomic data, and disseminates biomedical information. Founded November 4, 1988 through legislation sponsored by Congressman Claude Pepper.",
+        "size": "Houses multiple major databases including GenBank, PubMed, PMC, and dozens of others",
+        "founded": "1988",
+        "director": "Stephen Sherry (since September 26, 2022)",
+        "key_tools": "BLAST, Entrez retrieval system",
+        "url": "ncbi.nlm.nih.gov"
+      },
+      {
+        "name": "GenBank",
+        "description": "An open access, annotated collection of publicly available nucleotide sequences and their protein translations. Part of the International Nucleotide Sequence Database Collaboration (INSDC). Produced and maintained by NCBI at NLM/NIH. Established in 1982 by Walter Goad at Los Alamos National Laboratory.",
+        "size": "53.90 trillion bases in 6.27 billion sequence records (release 271, April 2026)",
+        "size_detail": "Traditional GenBank entries: 261,460,182 records containing 7,289,942,983,522 base pairs (April 2026). Combined with WGS: 45,628,511,953,497 bases in 4,756,526,485 sequences. Includes sequences from more than 581,000 formally described species. Doubles approximately every 18 months.",
+        "founded": "1982",
+        "url": "ncbi.nlm.nih.gov/genbank"
+      },
+      {
+        "name": "MedlinePlus",
+        "description": "An online consumer health information service produced by NLM. Provides curated consumer health information in English and Spanish with select content in additional languages. Brings together information from NLM, NIH, other U.S. government agencies, and health-related organizations. Introduced October 1998.",
+        "size": "Almost 1,000 health topics in English and Spanish, with links to health information in over 40 languages",
+        "size_detail": "~400 million users worldwide in 2015",
+        "founded": "October 1998",
+        "url": "medlineplus.gov"
+      },
+      {
+        "name": "MeSH (Medical Subject Headings)",
+        "description": "The NLM controlled vocabulary thesaurus used for indexing articles for PubMed/MEDLINE. A comprehensive life science vocabulary that enables consistent retrieval of biomedical literature.",
+        "url": "meshb.nlm.nih.gov"
+      },
+      {
+        "name": "ChemIDplus",
+        "description": "A chemical database of over 400,000 chemicals complete with names, synonyms, and structures. Includes links to NLM and other databases and resources, including federal, state, and international agencies.",
+        "size": "Over 400,000 chemicals"
+      },
+      {
+        "name": "LocatorPlus",
+        "description": "NLM's online catalog, providing access to the library's collection holdings.",
+        "url": "catalog.nlm.nih.gov"
+      },
+      {
+        "name": "TOXNET (Toxicology Data Network)",
+        "description": "Toxicology and environmental health information system established at NLM in 1967. Includes databases compiled from medical literature and governmental/nongovernmental organization files for chemical emergency response and public education.",
+        "established": "1967",
+        "related_resources": "TOXMAP, Tox Town, Wireless Information System for Emergency Responders, Toxmystery, Household Products Database"
+      },
+      {
+        "name": "Unified Medical Language System (UMLS)",
+        "description": "A set of files and software that brings together many health and biomedical vocabularies and standards to enable interoperability between computer systems. NLM is the U.S. National Release Center for SNOMED CT.",
+        "url": "uts.nlm.nih.gov"
+      }
+    ],
+    "nnlm_network": {
+      "name": "Network of the National Library of Medicine (NNLM)",
+      "member_organizations": 8000,
+      "member_count_text": "8,000+ member organizations",
+      "regions": 7,
+      "coordinating_institutions": 14,
+      "description": "NNLM is coordinated by 14 institutions across the United States. Member organizations provide health professionals and the general public with health information resources and services. The network promotes and provides access to health information in communities across the United States.",
+      "award_period": "May 1, 2021 - April 30, 2026",
+      "regional_structure": [
+        {
+          "region": "Region 1",
+          "states": "Delaware, District of Columbia, Kentucky, Maryland, New Jersey, North Carolina, Pennsylvania, Virginia, West Virginia"
+        },
+        {
+          "region": "Region 2",
+          "states": "Alabama, Florida, Georgia, Mississippi, Puerto Rico, South Carolina, Tennessee, U.S. Virgin Islands"
+        },
+        {
+          "region": "Region 3",
+          "states": "Arkansas, Kansas, Louisiana, Missouri, Nebraska, Oklahoma, Texas"
+        },
+        {
+          "region": "Region 4",
+          "states": "Arizona, Idaho, Colorado, Montana, New Mexico, North Dakota, South Dakota, Utah, Wyoming"
+        },
+        {
+          "region": "Region 5",
+          "states": "Alaska, American Samoa, California, Guam, Federated States of Micronesia, Hawaii, Nevada, Northern Mariana Islands, Oregon, Republic of Palau, Republic of the Marshall Islands, Washington"
+        },
+        {
+          "region": "Region 6",
+          "states": "Illinois, Indiana, Iowa, Michigan, Minnesota, Ohio, Wisconsin"
+        },
+        {
+          "region": "Region 7",
+          "states": "Connecticut, Massachusetts, Maine, New Hampshire, New York, Rhode Island, Vermont"
+        }
+      ],
+      "specialized_offices": [
+        "National Center for Data Services (NCDS)",
+        "NNLM National Public Health Coordination Office (NPHCO)",
+        "NNLM Training Office (NTO)",
+        "NNLM Evaluation Center (NEC)",
+        "NNLM Web Services Office (NWSO)"
+      ]
+    },
+    "key_facts": [
+      "World's largest biomedical library, founded in 1836 as a small collection of medical books in the office of the U.S. Army Surgeon General",
+      "Located on the campus of the National Institutes of Health in Bethesda, Maryland, since 1962",
+      "An institute within the National Institutes of Health (NIH), part of the U.S. Department of Health and Human Services",
+      "Collection of 27.8 million items (2015), including 7+ million books, journals, technical reports, manuscripts, microfilms, photographs, and images",
+      "Annual budget of US$341,119,000 (FY2016 appropriation)",
+      "Employs approximately 1,741 staff",
+      "Electronic information resources searched billions of times each year by millions of people around the globe",
+      "Coordinates the Network of the National Library of Medicine (NNLM) with 8,000+ member organizations across 7 regions",
+      "PubMed contains 40+ million citations and abstracts (as of March 2025)",
+      "PubMed Central archives 10.8 million full-text biomedical and life sciences articles",
+      "ClinicalTrials.gov holds registrations from over 444,000 trials in 221 countries",
+      "GenBank contains 53.90 trillion bases in 6.27 billion sequence records (April 2026 release), covering 581,000+ formally described species",
+      "MEDLINE contains over 29 million references covering 1946-present, updated daily with 2,000-4,000 references per update",
+      "MedlinePlus served approximately 400 million users worldwide in 2015 with consumer health information in English, Spanish, and 40+ other languages",
+      "NLM's National Center for Biotechnology Information (NCBI), founded 1988, houses GenBank, PubMed, PMC and develops BLAST and other bioinformatics tools",
+      "Legal mandate established by Public Law 941 (August 3, 1956), an amendment to Title III of the Public Health Service Act",
+      "Index Medicus, the predecessor to MEDLINE, was published from 1879 until December 2004",
+      "The library moved through several historic locations including Ford's Theatre (1866-1887) after Lincoln's assassination",
+      "ChemIDplus database contains over 400,000 chemicals with names, synonyms, and structures",
+      "Acting Director Stephen Sherry assumed role October 1, 2023, following the retirement of Patricia Flatley Brennan (Director 2016-2023)"
+    ],
+    "historical_timeline": [
+      {
+        "year": 1836,
+        "event": "Founded as the Library of the Office of the Surgeon General of the Army with $150 for medical books; first catalog of books issued in 1840"
+      },
+      {
+        "year": 1862,
+        "event": "Library moved to Riggs Bank Building at 15th Street and Pennsylvania Avenue, NW, Washington, DC"
+      },
+      {
+        "year": 1865,
+        "event": "Lieutenant John Shaw Billings appointed to take charge of the collection, marking a turning point in the library's development"
+      },
+      {
+        "year": 1866,
+        "event": "Library moved to Ford's Theatre (after Lincoln's assassination) at 513 10th Street NW, Washington, DC; remained until 1887"
+      },
+      {
+        "year": 1879,
+        "event": "Billings began Index Medicus, the first comprehensive index of journal articles; predecessor to MEDLINE"
+      },
+      {
+        "year": 1880,
+        "event": "Index-Catalogue launched, a combined author and subject catalog of the library's growing collection"
+      },
+      {
+        "year": 1887,
+        "event": "Library moved to Army Medical Museum and Library Building at 7th Street and Independence Avenue SW, Washington, DC (remained until 1962)"
+      },
+      {
+        "year": 1895,
+        "event": "By Billings' departure, holdings reached 116,847 books and 191,598 pamphlets; transformed into the world's greatest medical library"
+      },
+      {
+        "year": 1922,
+        "event": "Officially renamed the Army Medical Library"
+      },
+      {
+        "year": 1956,
+        "event": "Library transferred from Department of Defense to the Public Health Service and renamed the National Library of Medicine via Public Law 941 (August 3, 1956)"
+      },
+      {
+        "year": 1958,
+        "event": "Library took first steps into the computer age, launching a mechanized system for producing its publications"
+      },
+      {
+        "year": 1962,
+        "event": "Library moved to its current quarters on the NIH campus in Bethesda, Maryland"
+      },
+      {
+        "year": 1964,
+        "event": "MEDLARS (Medical Literature Analysis and Retrieval System) launched as the first large-scale, computer-based retrospective search service available to the general public; cost $3 million to develop"
+      },
+      {
+        "year": 1967,
+        "event": "Toxicology and Environmental Health Program established at NLM"
+      },
+      {
+        "year": 1971,
+        "event": "MEDLINE (MEDLARS Online) became available for online searching from remote medical libraries; initially covered 239 journals"
+      },
+      {
+        "year": 1986,
+        "event": "Director Donald Lindberg's Grateful Med project facilitated direct, affordable access to the MEDLINE database"
+      },
+      {
+        "year": 1988,
+        "event": "National Center for Biotechnology Information (NCBI) established within NLM (November 4, 1988) through legislation by Congressman Claude Pepper"
+      },
+      {
+        "year": 1990,
+        "event": "NCBI team developed the BLAST tool for comparing biological sequences"
+      },
+      {
+        "year": 1994,
+        "event": "NCBI established a website for online access to BLAST, GenBank, and the Entrez retrieval system"
+      },
+      {
+        "year": 1996,
+        "event": "PubMed first released in January 1996, ushering in free home and office-based MEDLINE searching"
+      },
+      {
+        "year": 1997,
+        "event": "PubMed offered free to the public starting June 1997"
+      },
+      {
+        "year": 1998,
+        "event": "MedlinePlus introduced in October 1998 to provide consumer-friendly health information"
+      },
+      {
+        "year": 2000,
+        "event": "PubMed Central launched; ClinicalTrials.gov made available to the public on February 29, 2000; NCBI hosted access to the human genome"
+      },
+      {
+        "year": 2004,
+        "event": "Last printed issue of Index Medicus published in December 2004, replaced by freely accessible PubMed"
+      },
+      {
+        "year": 2007,
+        "event": "FDA Amendments Act of 2007 mandated expansion of ClinicalTrials.gov for tracking basic results of clinical trials"
+      },
+      {
+        "year": 2008,
+        "event": "NIH Public Access Policy mandated that NIH-funded research papers be made available on PubMed Central within 12 months of publication"
+      },
+      {
+        "year": 2023,
+        "event": "Stephen Sherry selected as Acting Director of NLM (October 1, 2023) following retirement of Patricia Flatley Brennan"
+      }
+    ],
+    "directors_timeline": [
+      {
+        "director": "Leon Lloyd Gardner",
+        "took_office": 1945,
+        "left_office": 1946
+      },
+      {
+        "director": "Joseph Hamilton McNinch",
+        "took_office": 1946,
+        "left_office": 1949
+      },
+      {
+        "director": "Frank Bradway Rogers",
+        "took_office": 1949,
+        "left_office": "August 31, 1963"
+      },
+      {
+        "director": "Martin Marc Cummings",
+        "took_office": "January 1, 1964",
+        "left_office": "September 30, 1984"
+      },
+      {
+        "director": "Donald A. B. Lindberg",
+        "took_office": "October 11, 1984",
+        "left_office": "March 31, 2015"
+      },
+      {
+        "director": "Betsy Humphreys (Acting)",
+        "took_office": "April 1, 2015",
+        "left_office": "September 11, 2016"
+      },
+      {
+        "director": "Patricia Flatley Brennan",
+        "took_office": "September 12, 2016",
+        "left_office": "September 30, 2023"
+      },
+      {
+        "director": "Stephen Sherry (Acting)",
+        "took_office": "October 1, 2023",
+        "left_office": "Present"
+      }
+    ],
+    "organizational_structure": {
+      "parent_agency": "National Institutes of Health (NIH)",
+      "department": "U.S. Department of Health and Human Services (HHS)",
+      "key_divisions": [
+        "National Center for Biotechnology Information (NCBI)",
+        "Lister Hill National Center for Biomedical Communications",
+        "Division of Intramural Research",
+        "History of Medicine Division",
+        "Extramural Programs Division",
+        "Division of Specialized Information Services"
+      ]
+    },
+    "sources": [
+      "https://www.nlm.nih.gov/about/index.html",
+      "https://www.nlm.nih.gov/about/briefhistory.html",
+      "https://www.nlm.nih.gov/about/visitor.html",
+      "https://www.nlm.nih.gov/about/org.html",
+      "https://nnlm.gov/about",
+      "https://nnlm.gov/membership",
+      "https://en.wikipedia.org/wiki/United_States_National_Library_of_Medicine",
+      "https://en.wikipedia.org/wiki/PubMed",
+      "https://en.wikipedia.org/wiki/PubMed_Central",
+      "https://en.wikipedia.org/wiki/MEDLINE",
+      "https://en.wikipedia.org/wiki/ClinicalTrials.gov",
+      "https://en.wikipedia.org/wiki/MedlinePlus",
+      "https://en.wikipedia.org/wiki/National_Center_for_Biotechnology_Information",
+      "https://en.wikipedia.org/wiki/GenBank",
+      "https://www.ncbi.nlm.nih.gov/genbank/statistics/"
+    ]
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

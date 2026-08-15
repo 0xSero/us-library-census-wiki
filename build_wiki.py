@@ -178,6 +178,7 @@ def panel(active=""):
     <a href="index.html#federal-funding-totals" class="list-group-item list-group-item-action small py-1">Federal funding totals</a>
     <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
     <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
+    <a href="index.html#nlm" class="list-group-item list-group-item-action small py-1">National Library of Medicine</a>
     <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
     <a href="index.html#museums" class="list-group-item list-group-item-action small py-1">US museums (IMLS)</a>
     <a href="index.html#prison-libraries" class="list-group-item list-group-item-action small py-1">Prison libraries</a>
@@ -457,6 +458,12 @@ def load_all():
             data['federal_funding_totals'] = json.load(f)
     else:
         data['federal_funding_totals'] = {}
+    nlm_path = os.path.join(DATA, "nlm_summary.json")
+    if os.path.exists(nlm_path):
+        with open(nlm_path) as f:
+            data['nlm'] = json.load(f)
+    else:
+        data['nlm'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1551,6 +1558,9 @@ def compute_stats(data):
 
     # ---- Federal funding totals (comprehensive) ----
     stats['federal_funding_totals'] = data.get('federal_funding_totals', {})
+
+    # ---- National Library of Medicine ----
+    stats['nlm'] = data.get('nlm', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -5285,6 +5295,75 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: Library of Congress FY2024 Annual Report of the Librarian of Congress (loc.gov/about/reports-and-budgets/annual-reports/), loc.gov/about/fascinating-facts/, and Wikipedia. The Library operates with a total budget authority of ${loc_budget/1e6:.0f}M (${loc_approp/1e6:.0f}M appropriations + ${loc_budget_dict.get("offsetting_receipts_usd",0)/1e6:.0f}M offsetting receipts). The Library employs {loc_staff:,} permanent staff ({loc_female:,} female, {loc_male:,} male), with an average of {loc_budget_dict.get("avg_years_loc_service",0)} years of service. Collections span {loc_coll_breakdown and len(loc_coll_breakdown) or 13} categories including cataloged books, manuscripts, maps, photographs, audio materials, and moving images. The NLS served {loc_nls.get("total_readers_served",0):,} blind and print-disabled readers in FY2024.</p>'
+
+    # ---- National Library of Medicine ----
+    nlm = stats.get('nlm', {})
+    if nlm and nlm.get('current_stats'):
+        nlm_stats = nlm['current_stats']
+        nlm_items = nlm_stats.get('collection_size_items', 0)
+        nlm_budget = nlm_stats.get('annual_budget_usd', 0)
+        nlm_staff = nlm_stats.get('employees', 0)
+        nlm_databases = nlm.get('key_databases', [])
+        nlm_nnlm = nlm.get('nnlm_network', {})
+        nlm_facts = nlm.get('key_facts', [])
+        nlm_timeline = nlm.get('historical_timeline', [])
+        nlm_founded = nlm.get('founded', 1836)
+
+        body += f"""
+
+<h2 id="nlm">National Library of Medicine: The World's Largest Biomedical Library</h2>
+<p class="wiki-sub">Founded in {nlm_founded} as the Library of the Office of the Surgeon General, the National Library of Medicine is the world's largest biomedical library and a vital component of the National Institutes of Health. Located on the NIH campus in Bethesda, MD, NLM serves researchers, healthcare professionals, and the public through its extensive digital databases - most notably PubMed, which indexes over 40 million biomedical citations. Unlike most libraries, NLM's impact is felt primarily through its digital services rather than its physical collection of {nlm_items/1e6:.1f}M items.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nlm_items/1e6:.1f}M</div><div class="label">Collection items</div></div>
+  <div class="stat-card"><div class="num">${nlm_budget/1e6:.0f}M</div><div class="label">Annual budget (FY2016)</div></div>
+  <div class="stat-card"><div class="num">{nlm_staff:,}</div><div class="label">Employees</div></div>
+  <div class="stat-card"><div class="num">{nlm_nnlm.get('member_organizations', 8000):,}+</div><div class="label">NNLM member organizations</div></div>
+  <div class="stat-card"><div class="num">{nlm_nnlm.get('regions', 7)}</div><div class="label">NNLM regions</div></div>
+  <div class="stat-card"><div class="num">{len(nlm_databases)}</div><div class="label">Major databases</div></div>
+</div>"""
+
+        # Key databases
+        if nlm_databases:
+            body += """
+<h3>Key databases and digital services</h3>
+<table class="wikitable">
+  <tr><th>Database</th><th>Size / Scope</th><th>Description</th></tr>"""
+            for db in nlm_databases:
+                body += f'\n  <tr><td>{esc(db.get("name",""))}</td><td class="pct">{esc(db.get("size",""))}</td><td>{esc(db.get("description","")[:150])}{"..." if len(db.get("description",""))>150 else ""}</td></tr>'
+            body += '\n</table>'
+
+        # NNLM network
+        if nlm_nnlm:
+            body += f"""
+<h3>Network of the National Library of Medicine (NNLM)</h3>
+<p>{esc(nlm_nnlm.get("description",""))}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Member organizations</td><td class="pct">{nlm_nnlm.get("member_count_text","8,000+")}</td></tr>
+  <tr><td>Regions</td><td class="pct">{nlm_nnlm.get("regions",7)}</td></tr>
+  <tr><td>Coordinating institutions</td><td class="pct">{nlm_nnlm.get("coordinating_institutions",14)}</td></tr>
+</table>"""
+
+        # Historical timeline (first 10 key events)
+        if nlm_timeline:
+            body += """
+<h3>Historical timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in nlm_timeline[:12]:
+                body += f'\n  <tr><td class="pct">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        if nlm_facts:
+            body += """
+<h3>Notable facts</h3>
+<ul class="wiki-list">"""
+            for f in nlm_facts[:10]:
+                body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: nlm.nih.gov/about/, en.wikipedia.org/wiki/United_States_National_Library_of_Medicine, ncbi.nlm.nih.gov (GenBank statistics), nnlm.gov. NLM was founded in {nlm_founded} and established as the National Library of Medicine by the National Library of Medicine Act of 1956 (Public Law 941). Collection size of {nlm_items/1e6:.1f}M items is from 2015; budget of ${nlm_budget/1e6:.0f}M is FY2016 appropriation — more recent figures were not available from live .gov budget pages. PubMed contains 40M+ citations (March 2025); PubMed Central holds 10.8M full-text articles; ClinicalTrials.gov lists 444K+ trials from 221 countries; GenBank contains 53.9 trillion bases in 6.27 billion sequence records. The NNLM network connects {nlm_nnlm.get("member_organizations",8000):,}+ member organizations across {nlm_nnlm.get("regions",7)} regions.</p>'
 
     # ---- Digital Libraries (HathiTrust, Internet Archive, etc.) ----
     dl = stats.get('digital_libraries', {})

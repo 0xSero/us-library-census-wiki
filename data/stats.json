@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 00:34 UTC",
+  "generated": "2026-08-15 00:57 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -35573,6 +35573,87 @@
         "year": 2023
       }
     ]
+  },
+  "federal_funding_totals": {
+    "title": "Federal Funding for US Libraries: Comprehensive Summary",
+    "total_federal_funding": 88370771030,
+    "total_federal_funding_billions": 88.4,
+    "source_count": 9,
+    "sources": [
+      {
+        "name": "BEAD Broadband Allocations",
+        "amount": 42450000000,
+        "grants": 56,
+        "period": "FY2022-2030",
+        "description": "Broadband Equity Access and Deployment program allocations to 56 states/territories",
+        "source": "NTIA BEAD"
+      },
+      {
+        "name": "ACP Broadband Subsidy",
+        "amount": 29800000000,
+        "grants": 23300000,
+        "period": "FY2022-2024",
+        "description": "Affordable Connectivity Program: 23.3M households received broadband subsidy (now ended)",
+        "source": "FCC ACP"
+      },
+      {
+        "name": "USAC ECF (Emergency Connectivity)",
+        "amount": 10000000000,
+        "grants": 10971,
+        "period": "FY2021-2024",
+        "description": "Emergency Connectivity Fund: devices and connectivity for libraries and schools during COVID",
+        "source": "USAC ECF"
+      },
+      {
+        "name": "E-Rate Library Funding",
+        "amount": 2280000000,
+        "grants": 253000,
+        "period": "FY2016-2024",
+        "description": "USAC E-Rate telecommunications and internet access for libraries",
+        "source": "USAC/E-Rate data"
+      },
+      {
+        "name": "NTIA Tribal Broadband",
+        "amount": 2160000000,
+        "grants": 271,
+        "period": "FY2014-2024",
+        "description": "Tribal Broadband Connectivity Program awards (library-benefiting subset)",
+        "source": "NTIA/USASpending"
+      },
+      {
+        "name": "IMLS Grants to Libraries",
+        "amount": 1465541788,
+        "grants": 936,
+        "period": "FY2007-2026",
+        "description": "Grants to States (LSTA), National Leadership Grants, Laura Bush 21st Century Librarian Program",
+        "source": "USASpending.gov API"
+      },
+      {
+        "name": "Other Federal Agency Grants",
+        "amount": 89400000,
+        "grants": 156,
+        "period": "FY2007-2026",
+        "description": "HUD CDBG, DOI tribal/historic, HHS health literacy, NSF STEM, EPA, ED, CNCS",
+        "source": "USASpending.gov API"
+      },
+      {
+        "name": "USDA Rural Library Grants",
+        "amount": 64200000,
+        "grants": 262,
+        "period": "FY2007-2025",
+        "description": "Community Facilities Loans and Grants (CFDA 10.766) for rural libraries under 20K pop",
+        "source": "USASpending.gov API"
+      },
+      {
+        "name": "NEH Library Grants",
+        "amount": 61629242,
+        "grants": 309,
+        "period": "FY2005-2025",
+        "description": "Preservation/Access, Public Programs, Digital Humanities, We the People, ARP relief",
+        "source": "USASpending.gov API"
+      }
+    ],
+    "note": "Total represents cumulative federal funding across all programs. Some amounts are allocations (BEAD) rather than disbursed grants. ACP and ECF programs have ended. E-Rate is an ongoing annual program."
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

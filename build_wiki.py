@@ -175,6 +175,7 @@ def panel(active=""):
     <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
     <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
     <a href="index.html#other-federal-grants" class="list-group-item list-group-item-action small py-1">Other federal grants</a>
+    <a href="index.html#federal-funding-totals" class="list-group-item list-group-item-action small py-1">Federal funding totals</a>
     <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
     <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
     <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
@@ -450,6 +451,12 @@ def load_all():
             data['other_federal_grants'] = json.load(f)
     else:
         data['other_federal_grants'] = {}
+    fft_path = os.path.join(DATA, "federal_funding_totals.json")
+    if os.path.exists(fft_path):
+        with open(fft_path) as f:
+            data['federal_funding_totals'] = json.load(f)
+    else:
+        data['federal_funding_totals'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1541,6 +1548,9 @@ def compute_stats(data):
 
     # ---- Other federal agency grants to libraries ----
     stats['other_federal_grants'] = data.get('other_federal_grants', {})
+
+    # ---- Federal funding totals (comprehensive) ----
+    stats['federal_funding_totals'] = data.get('federal_funding_totals', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3914,6 +3924,45 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the Institute of Museum and Library Services (toptier agency) where the recipient name contains "library" and award type codes 02-05 (grants). The {ig_total} awards span FY{ig_yr_min}-FY{ig_yr_max} and total ${ig_dollars/1e9:.1f}B. The Grants to States program (LSTA) is the largest component, flowing through state library agencies. The spike in FY2021 (${max(y.get("total_awarded",0) for y in ig_by_year)/1e6:.0f}M) reflects American Rescue Plan supplemental funding. State extraction from recipient name may undercount some states where the recipient name does not include a state identifier.</p>'
+
+    # ---- Federal Funding Totals (comprehensive overview) ----
+    fft = stats.get('federal_funding_totals', {})
+    if fft and fft.get('total_federal_funding'):
+        fft_total = fft['total_federal_funding']
+        fft_sources = fft.get('sources', [])
+
+        body += f"""
+
+<h2 id="federal-funding-totals">Federal Funding for Libraries: The Complete Picture</h2>
+<p class="wiki-sub">When you add up every federal program that funds libraries - from IMLS grants to broadband subsidies to emergency COVID relief - the total reaches ${fft_total/1e9:.1f}B across {fft.get('source_count',0)} distinct programs. The largest programs are broadband infrastructure (BEAD, ACP, ECF, E-Rate) rather than direct library grants. IMLS, the agency most people associate with library funding, accounts for just ${1_465_541_788/fft_total*100:.1f}% of the total federal investment in libraries.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${fft_total/1e9:.1f}B</div><div class="label">Total federal library funding</div></div>
+  <div class="stat-card"><div class="num">{fft.get('source_count',0)}</div><div class="label">Federal funding programs</div></div>
+  <div class="stat-card"><div class="num">${42.45}</div><div class="label">B: BEAD (largest)</div></div>
+  <div class="stat-card"><div class="num">${1.47}</div><div class="label">B: IMLS grants</div></div>
+</div>"""
+
+        # Bar chart of all programs
+        if fft_sources:
+            body += """
+<h3>All federal library funding programs, ranked</h3>
+<div class="services-bars">"""
+            max_amt = fft_sources[0].get('amount', 1) if fft_sources else 1
+            for s in fft_sources:
+                amt = s.get('amount', 0)
+                pct = (amt / max_amt) * 100 if max_amt else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("name",""))}</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e9:.2f}B</span></div>'
+            body += '\n</div>'
+
+            # Detailed table
+            body += """
+<table class="wikitable">
+  <tr><th>Program</th><th>Amount</th><th>Awards</th><th>Period</th><th>Description</th></tr>"""
+            for s in fft_sources:
+                body += f'\n  <tr><td>{esc(s.get("name",""))}</td><td class="pct">${s.get("amount",0)/1e9:.2f}B</td><td>{s.get("grants",0):,}</td><td>{esc(s.get("period",""))}</td><td>{esc(s.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">{esc(fft.get("note",""))} BEAD ($42.45B) and ACP ($29.8B) are broadband programs that benefit libraries as anchor institutions but are not library-specific grants. E-Rate ($2.28B) is the largest ongoing library-specific federal program, providing telecommunications and internet access discounts. The $10B Emergency Connectivity Fund (ECF) was a one-time COVID-era program that has ended. IMLS ($1.47B) is the primary direct grant-making agency for libraries. Together, these programs represent the most significant federal investment in library infrastructure, access, and services in American history.</p>'
 
     # ---- Other Federal Agency Grants to Libraries ----
     ofg = stats.get('other_federal_grants', {})

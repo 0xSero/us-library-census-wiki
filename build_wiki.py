@@ -169,6 +169,7 @@ def panel(active=""):
     <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
     <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
     <a href="index.html#circulation" class="list-group-item list-group-item-action small py-1">Circulation & cards</a>
+    <a href="index.html#pls-trends" class="list-group-item list-group-item-action small py-1">5-year trends (COVID)</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -507,6 +508,12 @@ def load_all():
             data['library_cards'] = json.load(f)
     else:
         data['library_cards'] = {}
+    pls_tr_path = os.path.join(DATA, "pls_trends_summary.json")
+    if os.path.exists(pls_tr_path):
+        with open(pls_tr_path) as f:
+            data['pls_trends'] = json.load(f)
+    else:
+        data['pls_trends'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1620,6 +1627,7 @@ def compute_stats(data):
     # ---- Circulation & library card statistics ----
     stats['circulation'] = data.get('circulation', {})
     stats['library_cards'] = data.get('library_cards', {})
+    stats['pls_trends'] = data.get('pls_trends', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -6306,6 +6314,144 @@ def build_index(data, stats):
 <p>The IMLS Public Libraries Survey counts {n_regs/1e6:.0f}M registered borrowers &mdash; but the American Library Association widely cites an estimate of ~{range_str} Americans with library cards. The difference reflects methodology: IMLS counts active registered borrowers reported by each library system, while the ALA advocacy figure counts active and household cards and is often used in public messaging. Both are legitimate measures; the IMLS figure is the authoritative government statistic.</p>"""
 
         body += f'<p class="rsrc">Source: IMLS Public Libraries Survey FY2022 (latest finalized PLS data), compiled via ALA State of America\'s Libraries 2024 report. Covers {n_states} states and territories with circulation data. Total circulation ({n_circ/1e9:.2f}B) includes physical and electronic materials; electronic circulation ({n_ecirc/1e6:.0f}M, {pct_e:.0f}%) is reported separately and may overlap with total_circulation depending on each state\'s reporting methodology. Registered borrowers ({n_regs/1e6:.0f}M) are active library card holders as reported by each state. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0. Per-capita figures divide by population served (min 1,000). ALA designates September as Library Card Sign-Up Month.</p>'
+
+    # ---- PLS Historical Trends (FY2019-FY2024) ----
+    pls_tr = stats.get('pls_trends', {})
+    if pls_tr and pls_tr.get('trend'):
+        tr = pls_tr.get('trend', [])
+        chg = pls_tr.get('pct_change_vs_fy2019', {})
+        ny = pls_tr.get('national_by_year', {})
+        if tr:
+            fy24 = ny.get('FY2024', {})
+            fy19 = ny.get('FY2019', {})
+            fy20 = ny.get('FY2020', {})
+            # Multi-metric SVG chart: visits + circulation over years
+            chart_w = 760
+            chart_h = 340
+            pad_l, pad_b, pad_t = 60, 45, 24
+            plot_w = chart_w - pad_l - 20
+            plot_h = chart_h - pad_b - pad_t
+            years_plotted = [t['year'] for t in tr]
+            circ_vals = [t['circulation'] for t in tr]
+            visit_vals = [t['visits'] for t in tr]
+            inc_vals = [t['total_income'] for t in tr]
+            max_val = max(max(circ_vals), max(visit_vals), 1)
+            n = len(tr)
+            def xp(i):
+                return pad_l + (plot_w * i / max(n - 1, 1))
+            def yp(v):
+                return pad_t + plot_h - (plot_h * v / max_val)
+
+            body += f"""
+
+<h2 id="pls-trends">Five-Year Trends: COVID Shock &amp; Recovery (FY2019-FY2024)</h2>
+<p class="wiki-sub">The IMLS Public Libraries Survey captures a natural experiment: FY2019 is the last pre-pandemic baseline, FY2020 shows the COVID shock, and FY2022-FY2024 trace the recovery. The story is not a simple bounce-back. Circulation peaked at {fy19.get("total_circulation",0)/1e9:.2f}B items in FY2019, crashed {abs(chg.get("FY2020",{}).get("total_circulation",0)):.0f}% in FY2020, rebounded to {ny.get("FY2023",{}).get("total_circulation",0)/1e9:.2f}B by FY2023, then settled back to {fy24.get("total_circulation",0)/1e9:.2f}B in FY2024. Physical visits have recovered only partially &mdash; from {fy19.get("visits",0)/1e6:.0f}M to {fy24.get("visits",0)/1e6:.0f}M ({chg.get("FY2024",{}).get("visits",0):.1f}% vs pre-pandemic). Meanwhile, total income rose to ${fy24.get("total_income",0)/1e9:.1f}B as federal relief funds flowed in.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fy19.get("total_circulation",0)/1e9:.2f}B</div><div class="label">Circulation FY2019 (peak)</div></div>
+  <div class="stat-card"><div class="num">{abs(chg.get("FY2020",{}).get("total_circulation",0)):.0f}%</div><div class="label">Circulation drop FY2020</div></div>
+  <div class="stat-card"><div class="num">{abs(chg.get("FY2020",{}).get("visits",0)):.0f}%</div><div class="label">Visits drop FY2020</div></div>
+  <div class="stat-card"><div class="num">{chg.get("FY2024",{}).get("visits",0):.1f}%</div><div class="label">Visits vs FY2019 (FY2024)</div></div>
+  <div class="stat-card"><div class="num">${fy24.get("total_income",0)/1e9:.1f}B</div><div class="label">Income FY2024</div></div>
+  <div class="stat-card"><div class="num">{chg.get("FY2024",{}).get("total_income",0):+.1f}%</div><div class="label">Income vs FY2019</div></div>
+  <div class="stat-card"><div class="num">{fy24.get("total_staff",0)/1000:.0f}K</div><div class="label">Staff FTE FY2024</div></div>
+  <div class="stat-card"><div class="num">{chg.get("FY2024",{}).get("total_staff",0):+.1f}%</div><div class="label">Staff vs FY2019</div></div>
+</div>"""
+
+            # SVG multi-line trend chart
+            body += f"""
+<svg viewBox="0 0 {chart_w} {chart_h}" class="trend-chart" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Library trends FY2019 to FY2024">
+  <rect x="0" y="0" width="{chart_w}" height="{chart_h}" fill="var(--bg-soft, #f8f9fa)" rx="6"/>
+  <text x="{chart_w/2}" y="16" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text, #222)">Circulation, Visits &amp; Income (FY2019-FY2024)</text>"""
+            # Grid + Y labels
+            for g in range(5):
+                gy = pad_t + plot_h * g / 4
+                gv = max_val * (1 - g / 4)
+                body += f'\n  <line x1="{pad_l}" y1="{gy:.0f}" x2="{chart_w-20}" y2="{gy:.0f}" stroke="var(--border,#ddd)" stroke-width="0.5"/>'
+                body += f'\n  <text x="{pad_l-6}" y="{gy+3:.0f}" text-anchor="end" font-size="9" fill="var(--muted,#888)">{gv/1e9:.1f}B</text>'
+            # Circulation line (blue)
+            path_c = ' '.join(f'L{xp(i):.0f},{yp(v):.0f}' for i, v in enumerate(circ_vals))
+            body += f'\n  <path d="M{xp(0):.0f},{yp(circ_vals[0]):.0f} {path_c[1:]}" fill="none" stroke="var(--accent-blue,#2b7fff)" stroke-width="2.5"/>'
+            for i, v in enumerate(circ_vals):
+                body += f'\n  <circle cx="{xp(i):.0f}" cy="{yp(v):.0f}" r="4" fill="var(--accent-blue,#2b7fff)"/>'
+                body += f'\n  <text x="{xp(i):.0f}" y="{yp(v)-9:.0f}" text-anchor="middle" font-size="8" fill="var(--accent-blue,#2b7fff)">{v/1e9:.2f}B</text>'
+            # Visits line (red)
+            path_v = ' '.join(f'L{xp(i):.0f},{yp(v):.0f}' for i, v in enumerate(visit_vals))
+            body += f'\n  <path d="M{xp(0):.0f},{yp(visit_vals[0]):.0f} {path_v[1:]}" fill="none" stroke="var(--accent-red,#e23b3b)" stroke-width="2.5"/>'
+            for i, v in enumerate(visit_vals):
+                body += f'\n  <circle cx="{xp(i):.0f}" cy="{yp(v):.0f}" r="4" fill="var(--accent-red,#e23b3b)"/>'
+            # X-axis labels
+            for i, yr in enumerate(years_plotted):
+                body += f'\n  <text x="{xp(i):.0f}" y="{pad_t+plot_h+18:.0f}" text-anchor="middle" font-size="9" fill="var(--muted,#888)">{yr}</text>'
+            # Legend
+            body += f'\n  <rect x="{pad_l}" y="{chart_h-16}" width="12" height="8" fill="var(--accent-blue,#2b7fff)"/><text x="{pad_l+16}" y="{chart_h-8}" font-size="10" fill="var(--text,#222)">Circulation</text>'
+            body += f'\n  <rect x="{pad_l+100}" y="{chart_h-16}" width="12" height="8" fill="var(--accent-red,#e23b3b)"/><text x="{pad_l+116}" y="{chart_h-8}" font-size="10" fill="var(--text,#222)">Visits</text>'
+            body += '\n</svg>'
+
+            # Detailed year-by-year table
+            body += """
+<h3>Year-by-year detail</h3>
+<table class="wikitable">
+  <tr><th>Fiscal Year</th><th>Systems</th><th>Pop. served</th><th>Income</th><th>Expenditures</th><th>Staff (FTE)</th><th>Visits</th><th>Circulation</th><th>Programs</th><th>Attendance</th></tr>"""
+            for t in tr:
+                body += f"""
+  <tr>
+    <td>{t['year']}</td>
+    <td class="pct">{t['library_systems']:,}</td>
+    <td>{t['population_served']:,}</td>
+    <td class="pct">${t['total_income']/1e9:.2f}B</td>
+    <td class="pct">${t['operating_expenditures']/1e9:.2f}B</td>
+    <td class="pct">{t['total_staff']:,}</td>
+    <td>{t['visits']:,}</td>
+    <td>{t['circulation']:,}</td>
+    <td>{t['programs']:,}</td>
+    <td>{t['program_attendance']:,}</td>
+  </tr>"""
+            body += '\n</table>'
+
+            # % change vs FY2019 table
+            body += """
+<h3>Percent change vs. pre-pandemic baseline (FY2019)</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>FY2020</th><th>FY2022</th><th>FY2023</th><th>FY2024</th></tr>"""
+            metric_labels = {'visits': 'Visits', 'total_circulation': 'Circulation', 'total_programs': 'Programs',
+                             'total_program_attendance': 'Program attendance', 'total_income': 'Income',
+                             'total_operating_expenditures': 'Expenditures', 'total_staff': 'Staff (FTE)'}
+            for mk, label in metric_labels.items():
+                row = f'\n  <tr><td>{label}</td>'
+                for yr in ['FY2020', 'FY2022', 'FY2023', 'FY2024']:
+                    val = chg.get(yr, {}).get(mk, 0)
+                    color = 'var(--accent-red,#e23b3b)' if val < 0 else 'var(--accent-green,#2d8a3e)'
+                    row += f'<td class="pct" style="color:{color}">{val:+.1f}%</td>'
+                row += '</tr>'
+                body += row
+            body += '\n</table>'
+
+            # Per-capita table
+            body += """
+<h3>Per-capita metrics over time</h3>
+<table class="wikitable">
+  <tr><th>Fiscal Year</th><th>Visits/capita</th><th>Circ/capita</th><th>Income/capita</th><th>Expenditure/capita</th></tr>"""
+            for t in tr:
+                body += f"""
+  <tr>
+    <td>{t['year']}</td>
+    <td class="pct">{t['visits_per_capita']}</td>
+    <td class="pct">{t['circulation_per_capita']}</td>
+    <td class="pct">${t['income_per_capita']}</td>
+    <td class="pct">${t['expenditure_per_capita']}</td>
+  </tr>"""
+            body += '\n</table>'
+
+            kf = pls_tr.get('key_facts', [])
+            if kf:
+                body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+                for f in kf:
+                    body += f'\n  <li>{esc(f)}</li>'
+                body += '\n</ul>'
+
+            body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) historical trends FY2019-FY2024, compiled via ALA State of America\'s Libraries. FY2021 is omitted from the source due to IMLS data-structure changes during that collection cycle. All values aggregated from per-state PLS submissions across {fy24.get("states_reporting",56)} reporting states/territories. IMLS negative sentinels (-1, -3, -40) normalized to 0. Percent changes are vs. the FY2019 pre-pandemic baseline. Income includes local, state, federal, and other revenue. The FY2024 circulation dip (from FY2023\'s rebound) reflects normalization of digital borrowing patterns and partial reporting adjustments.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

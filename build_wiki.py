@@ -10211,8 +10211,90 @@ def build_contacts(data, stats):
             body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td>{web_link}</td></tr>'
         body += f'\n</table>\n<p>Showing 300 of {len(fdlp)} federal depository libraries.</p>'
 
+    # ---- FDLP Item Selections (what documents each depository holds) ----
+    fdlp_items_path = os.path.join(DATA, 'fdlp_item_selections_summary.json')
+    if os.path.exists(fdlp_items_path):
+        try:
+            with open(fdlp_items_path) as f:
+                fis = json.load(f)
+            total_sel = fis.get('total_selection_rows', 0)
+            total_depos = fis.get('unique_depositories', 0)
+            total_items = fis.get('unique_item_numbers', 0)
+            total_titles = fis.get('unique_titles', 0)
+            steward_sel = fis.get('preservation_steward_selections', 0)
+
+            body += f"""
+<h2 id="fdlp-items">FDLP Item Selections: What Documents Depositories Hold</h2>
+<p>Beyond the directory of depository libraries, the GPO's Public Document Triangulation (PDT) dataset records which specific federal document items each depository has elected to receive. This reveals what government information is actually available where.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_sel:,}</div><div class="label">Selection rows</div></div>
+  <div class="stat-card"><div class="num">{total_depos}</div><div class="label">Depositories with selections</div></div>
+  <div class="stat-card"><div class="num">{total_items}</div><div class="label">Unique item numbers</div></div>
+  <div class="stat-card"><div class="num">{total_titles}</div><div class="label">Unique titles</div></div>
+  <div class="stat-card"><div class="num">{steward_sel}</div><div class="label">Preservation steward selections</div></div>
+</div>"""
+
+            # Top items by depository count
+            top_items = fis.get('by_item_top30', [])
+            if top_items:
+                max_it = max((x.get('depositories', 0) for x in top_items), default=1) or 1
+                body += """
+<h3 id="fdlp-top-items">Most-Selected FDLP Items</h3>
+<div class="services-bars">"""
+                for row in top_items[:20]:
+                    title = esc(str(row.get('title', '')))
+                    item_num = esc(str(row.get('item_number', '')))
+                    depos = row.get('depositories', 0)
+                    pct = (depos / max_it * 100) if max_it else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{title} <small class="text-muted">({item_num})</small></div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.1f}%"></div></div><div class="svc-num">{depos}</div></div>'
+                body += '\n</div>'
+
+            # Top depositories by unique items
+            top_depos = fis.get('top_depositories_by_unique_items', [])
+            if top_depos:
+                body += """
+<h3 id="fdlp-top-depositories">Depositories with Most Unique Item Selections</h3>
+<table class="wikitable sortable">
+  <tr><th>Depository</th><th>Type</th><th>Unique Items Selected</th></tr>"""
+                for row in top_depos[:25]:
+                    name = esc(str(row.get('name', '')))
+                    dtype = esc(str(row.get('type', '')))
+                    items = row.get('unique_items_selected', 0)
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{dtype}</td><td class="num">{items}</td></tr>'
+                body += '\n</table>'
+
+            # By library type
+            by_lt = fis.get('by_library_type', {})
+            if by_lt and isinstance(by_lt, dict):
+                body += """
+<h3 id="fdlp-by-lib-type">FDLP Depositories by Library Type</h3>
+<table class="wikitable">
+  <tr><th>Library Type</th><th>Selections</th></tr>"""
+                for lt, cnt in sorted(by_lt.items(), key=lambda x: x[1] if isinstance(x[1], (int, float)) else 0, reverse=True):
+                    if isinstance(cnt, dict):
+                        cnt = cnt.get('selections', cnt.get('count', 0))
+                    body += f'\n  <tr><td>{esc(str(lt))}</td><td class="num">{cnt}</td></tr>'
+                body += '\n</table>'
+
+            # By state
+            by_st = fis.get('by_state', [])
+            if by_st:
+                st_sorted = sorted(by_st, key=lambda x: x.get('selections', 0), reverse=True)
+                body += """
+<h3 id="fdlp-items-by-state">FDLP Item Selections by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Selections</th><th>Depositories</th></tr>"""
+                for row in st_sorted:
+                    st = esc(str(row.get('state', '')))
+                    sels = row.get('selections', 0)
+                    depos = row.get('depositories', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{sels}</td><td class="num">{depos}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>FDLP item selections data unavailable: {esc(str(e))}</em></p>'
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="funders.html">Funders &amp; investors</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="funders.html">Funders &amp; investors</a> | <a href="digital.html">Digital inclusion</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'contacts.html'), 'w') as f:
@@ -10924,6 +11006,68 @@ def build_digital(data, stats):
         except Exception as e:
             body += f'\n<p class="text-muted"><em>E-Rate data unavailable: {esc(str(e))}</em></p>'
 
+    # ---- E-Rate Form 471 full universe ----
+    er471_path = os.path.join(DATA, 'erate_form471_summary.json')
+    if os.path.exists(er471_path):
+        try:
+            with open(er471_path) as f:
+                er471 = json.load(f)
+            e471_total = er471.get('total_eligible_cost', 0)
+            e471_records = er471.get('total_records', 0)
+            e471_applicants = er471.get('unique_applicants', 0)
+            e471_bens = er471.get('unique_bens', 0)
+            e471_yr = er471.get('year_range', '')
+
+            body += f"""
+<h3 id="erate-form471">E-Rate Full Form 471 Universe (All Sectors)</h3>
+<p>The library-specific E-Rate data above covers only library applicants. The <strong>full Form 471 universe</strong> includes schools, school districts, consortia, and library systems — {esc(str(er471.get('description', ''))[:200])}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${e471_total/1e9:.1f}B</div><div class="label">Total eligible cost ({e471_yr})</div></div>
+  <div class="stat-card"><div class="num">{e471_records:,}</div><div class="label">Total FRN line items</div></div>
+  <div class="stat-card"><div class="num">{e471_applicants:,}</div><div class="label">Unique applicants</div></div>
+  <div class="stat-card"><div class="num">{e471_bens:,}</div><div class="label">Unique BENs</div></div>
+</div>"""
+
+            # Library subset cross-validation
+            lib_sub = er471.get('library_subset', {})
+            if lib_sub:
+                body += f"""
+<div class="rules-box">
+  <p><strong>Library subset:</strong> {lib_sub.get('records', 0):,} records, ${lib_sub.get('eligible_cost', 0)/1e9:.2f}B — {lib_sub.get('share_of_records_pct', 0):.1f}% of all records, {lib_sub.get('share_of_cost_pct', 0):.1f}% of total cost.</p>
+</div>"""
+
+            # By applicant type
+            by_at = er471.get('by_applicant_type', [])
+            if by_at:
+                max_at = max((x.get('cost', 0) for x in by_at), default=1) or 1
+                body += """
+<h4>Form 471 by Applicant Type</h4>
+<div class="services-bars">"""
+                for row in sorted(by_at, key=lambda x: x.get('cost', 0), reverse=True):
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('records', 0)
+                    cost = row.get('cost', 0)
+                    pct = (cost / max_at * 100) if max_at else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{t}</div><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></div></div><div class="svc-num">${cost/1e9:.1f}B</div></div>'
+                body += '\n</div>'
+
+            # Top applicants by cost
+            top_app = er471.get('top_applicants_by_cost', [])
+            if top_app:
+                body += """
+<h4>Top 30 E-Rate Applicants by Cost (All Sectors)</h4>
+<table class="wikitable sortable">
+  <tr><th>Applicant</th><th>Cost</th><th>Records</th><th>BENs</th></tr>"""
+                for row in top_app[:30]:
+                    app = esc(str(row.get('applicant', '')))
+                    cost = row.get('cost', 0)
+                    recs = row.get('records', 0)
+                    bens = row.get('bens', 0)
+                    body += f'\n  <tr><td><strong>{app}</strong></td><td class="num">${cost:,.0f}</td><td class="num">{recs:,}</td><td class="num">{bens}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>E-Rate Form 471 data unavailable: {esc(str(e))}</em></p>'
+
     # ============================================================
     # SECTION 2: BEAD
     # ============================================================
@@ -11034,6 +11178,71 @@ def build_digital(data, stats):
                 body += '\n</table>'
         except Exception as e:
             body += f'\n<p class="text-muted"><em>ACP data unavailable: {esc(str(e))}</em></p>'
+
+    # ============================================================
+    # SECTION 3b: ECF (Emergency Connectivity Fund)
+    # ============================================================
+    ecf_path = os.path.join(DATA, 'ecf_summary.json')
+    if os.path.exists(ecf_path):
+        try:
+            with open(ecf_path) as f:
+                ecf = json.load(f)
+            ecf_total = ecf.get('total_funding', 0)
+            ecf_records = ecf.get('total_records', 0)
+            ecf_applicants = ecf.get('unique_applicants', 0)
+            ecf_date = ecf.get('date_range', '')
+
+            body += f"""
+<h2 id="ecf">Emergency Connectivity Fund (ECF)</h2>
+<p>The <strong>Emergency Connectivity Fund</strong> was a $7.17B pandemic-era program (part of the American Rescue Plan) that funded laptops, tablets, Wi-Fi hotspots, modems, routers, and broadband connections for schools and libraries serving students, school staff, and library patrons without sufficient internet access. Active {esc(ecf_date)}.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ecf_total/1e9:.2f}B</div><div class="label">Total ECF funding</div></div>
+  <div class="stat-card"><div class="num">{ecf_records:,}</div><div class="label">Funding records</div></div>
+  <div class="stat-card"><div class="num">{ecf_applicants:,}</div><div class="label">Unique applicants</div></div>
+</div>"""
+
+            # Library subset
+            ecf_lib = ecf.get('library', {})
+            if ecf_lib:
+                lib_records = ecf_lib.get('total_records', 0)
+                lib_funding = ecf_lib.get('total_funding', 0)
+                lib_unique = ecf_lib.get('unique_libraries', 0)
+                body += f"""
+<div class="rules-box">
+  <p><strong>Library share:</strong> {lib_records:,} records, ${lib_funding/1e6:.0f}M — across {lib_unique:,} unique libraries.</p>
+</div>"""
+
+            # By product type
+            by_pt = ecf.get('by_product_type', [])
+            if by_pt:
+                max_pt = max((x.get('funding', 0) for x in by_pt), default=1) or 1
+                body += """
+<h3 id="ecf-products">ECF by Product Type</h3>
+<div class="services-bars">"""
+                for row in sorted(by_pt, key=lambda x: x.get('funding', 0), reverse=True):
+                    t = esc(str(row.get('type', '')))
+                    cnt = row.get('count', 0)
+                    fund = row.get('funding', 0)
+                    pct = (fund / max_pt * 100) if max_pt else 0
+                    body += f'\n  <div class="svc-row"><div class="svc-label">{t}</div><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{pct:.1f}%"></div></div><div class="svc-num">${fund/1e6:.0f}M ({cnt:,})</div></div>'
+                body += '\n</div>'
+
+            # Top states
+            by_st = ecf.get('by_state', [])
+            if by_st:
+                top_st = sorted(by_st, key=lambda x: x.get('funding', 0), reverse=True)[:20]
+                body += """
+<h3 id="ecf-top-states">Top States by ECF Funding</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Records</th><th>Total ECF $</th></tr>"""
+                for row in top_st:
+                    st = esc(str(row.get('state', '')))
+                    cnt = row.get('count', 0)
+                    fund = row.get('funding', 0)
+                    body += f'\n  <tr><td><a href="states/{st}.html"><strong>{st}</strong></a></td><td class="num">{cnt:,}</td><td class="num">${fund:,.0f}</td></tr>'
+                body += '\n</table>'
+        except Exception as e:
+            body += f'\n<p class="text-muted"><em>ECF data unavailable: {esc(str(e))}</em></p>'
 
     # ============================================================
     # SECTION 4: Tribal Broadband

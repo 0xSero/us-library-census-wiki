@@ -190,6 +190,11 @@ def panel(active=""):
     <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
     <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
     <a href="index.html#special-libraries" class="list-group-item list-group-item-action small py-1">Special libraries & bookmobiles</a>
+    <a href="index.html#web-coverage" class="list-group-item list-group-item-action small py-1">Website coverage</a>
+    <a href="index.html#arp-grants" class="list-group-item list-group-item-action small py-1">ARP COVID grants</a>
+    <a href="index.html#programs-2024" class="list-group-item list-group-item-action small py-1">FY2024 programs detail</a>
+    <a href="index.html#format-shift" class="list-group-item list-group-item-action small py-1">Book format shift</a>
+    <a href="index.html#nces-sass" class="list-group-item list-group-item-action small py-1">NCES SASS survey</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -605,6 +610,11 @@ def load_all():
         ('library_access_equity', 'library_access_equity_summary.json'),
         ('reading_trends_enhanced', 'reading_trends_enhanced_summary.json'),
         ('special_libraries', 'special_libraries_summary.json'),
+        ('library_web_coverage', 'library_web_coverage_summary.json'),
+        ('imls_arp_grants', 'imls_arp_grants_summary.json'),
+        ('programs_2024_breakdown', 'programs_2024_breakdown_summary.json'),
+        ('book_format_trend', 'book_format_trend_summary.json'),
+        ('nces_sass', 'nces_sass_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1819,6 +1829,11 @@ def compute_stats(data):
     stats['library_access_equity'] = data.get('library_access_equity', {})
     stats['reading_trends_enhanced'] = data.get('reading_trends_enhanced', {})
     stats['special_libraries'] = data.get('special_libraries', {})
+    stats['library_web_coverage'] = data.get('library_web_coverage', {})
+    stats['imls_arp_grants'] = data.get('imls_arp_grants', {})
+    stats['programs_2024_breakdown'] = data.get('programs_2024_breakdown', {})
+    stats['book_format_trend'] = data.get('book_format_trend', {})
+    stats['nces_sass'] = data.get('nces_sass', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -8618,6 +8633,293 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += '<p class="rsrc">Source: Wikipedia articles on special libraries, bookmobiles, the Library Services and Technology Act, summer reading programs, Friends of Libraries, and the American Library Association. Bookmobile counts from IMLS Public Libraries Survey FY2024. Special library type counts from the project&apos;s private library database.</p>'
+
+    # =========================================================================
+    # LIBRARY WEBSITE COVERAGE BY STATE
+    # =========================================================================
+    wcov = stats.get('library_web_coverage', {})
+    if wcov:
+        wcks = wcov.get('key_stats', {})
+        best_st = wcov.get('best_states', [])
+        worst_st = wcov.get('worst_states', [])
+        all_st = wcov.get('all_states', [])
+        wc_facts = wcov.get('key_facts', [])
+
+        body += f"""
+<h2 id="web-coverage">Library Online Presence: Website Coverage by State</h2>
+<p>{esc(wcov.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{wcks.get('total_with_websites',0):,}</div><div class="label">Libraries w/ websites</div></div>
+  <div class="stat-card"><div class="num">{wcks.get('total_libraries_national',0):,}</div><div class="label">Total libraries</div></div>
+  <div class="stat-card"><div class="num">{wcks.get('pct_with_websites_national',0)}%</div><div class="label">National coverage</div></div>
+  <div class="stat-card"><div class="num">{wcks.get('best_state_pct',0)}%</div><div class="label">Best state</div></div>
+  <div class="stat-card"><div class="num">{wcks.get('states_over_90pct',0)}</div><div class="label">States over 90%</div></div>
+  <div class="stat-card"><div class="num">{wcks.get('states_under_25pct',0)}</div><div class="label">States under 25%</div></div>
+</div>"""
+
+        if best_st:
+            body += """
+<h3>Best Website Coverage (Top 15 States)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Libraries</th><th>With Website</th><th>Coverage</th></tr>"""
+            for s in best_st:
+                body += f'\n  <tr><td><a href="states/{s.get("state","")}.html">{esc(s.get("state",""))}</a></td><td class="num">{s.get("total",0):,}</td><td class="num">{s.get("with_url",0):,}</td><td class="pct">{s.get("pct",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if worst_st:
+            body += """
+<h3>Worst Website Coverage (Bottom 15 States)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Libraries</th><th>With Website</th><th>Coverage</th></tr>"""
+            for s in worst_st:
+                body += f'\n  <tr><td><a href="states/{s.get("state","")}.html">{esc(s.get("state",""))}</a></td><td class="num">{s.get("total",0):,}</td><td class="num">{s.get("with_url",0):,}</td><td class="pct">{s.get("pct",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if wc_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in wc_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Project analysis of library website discovery across all 56 states and territories, comparing total library counts against libraries with discoverable URLs.</p>'
+
+    # =========================================================================
+    # IMLS ARP GRANTS
+    # =========================================================================
+    arp = stats.get('imls_arp_grants', {})
+    if arp:
+        aks = arp.get('key_stats', {})
+        awards = arp.get('awards', [])
+        by_state = arp.get('by_state', [])
+        arp_facts = arp.get('key_facts', [])
+
+        body += f"""
+<h2 id="arp-grants">IMLS American Rescue Plan Grants: COVID Digital Inclusion</h2>
+<p>{esc(arp.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${aks.get('total_funding',0):,}</div><div class="label">Total ARP funding</div></div>
+  <div class="stat-card"><div class="num">{aks.get('total_grants',0)}</div><div class="label">ARP grants</div></div>
+  <div class="stat-card"><div class="num">${aks.get('avg_grant_size',0):,}</div><div class="label">Avg grant size</div></div>
+  <div class="stat-card"><div class="num">{esc(str(aks.get('fiscal_year','FY2021')))}</div><div class="label">Fiscal year</div></div>
+  <div class="stat-card"><div class="num">{len(by_state)}</div><div class="label">States funded</div></div>
+  <div class="stat-card"><div class="num">ARP</div><div class="label">Funding source</div></div>
+</div>"""
+
+        if awards:
+            body += """
+<h3>ARP Grant Awards</h3>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>State</th><th>Amount</th></tr>"""
+            for a in awards:
+                amt = a.get('amount') or a.get('total_obligation') or 0
+                body += f'\n  <tr><td>{esc(str(a.get("recipient","")))}</td><td>{esc(str(a.get("state", a.get("state_code",""))))}</td><td class="num">${float(amt):,}</td></tr>'
+            body += '\n</table>'
+
+        if by_state:
+            body += """
+<h3>ARP Funding by State</h3>
+<div class="services-bars">"""
+            max_amt = max(s.get('total', 1) for s in by_state) if by_state else 1
+            for s in by_state[:15]:
+                pct = (s.get('total', 0) / max_amt * 100) if max_amt else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{pct:.0f}%"></div><span class="svc-val">${s.get("total",0):,}</span></div></div>'
+            body += '\n</div>'
+
+        if arp_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in arp_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: IMLS American Rescue Plan Act (ARP) grant awards FY2021, from cached programs_imls_arp_grants.json data file.</p>'
+
+    # =========================================================================
+    # FY2024 PROGRAMS BY AUDIENCE & DELIVERY MODE
+    # =========================================================================
+    p24 = stats.get('programs_2024_breakdown', {})
+    if p24:
+        pks = p24.get('key_stats', {})
+        pba = p24.get('programs_by_audience', {})
+        pbd = p24.get('programs_by_delivery', {})
+        aba = p24.get('attendance_by_audience', {})
+        abd = p24.get('attendance_by_delivery', {})
+        p24_facts = p24.get('key_facts', [])
+
+        body += f"""
+<h2 id="programs-2024">FY2024 Library Programs: Audience &amp; Delivery Mode</h2>
+<p>{esc(p24.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pks.get('total_programs',5090000):,}</div><div class="label">Total programs</div></div>
+  <div class="stat-card"><div class="num">{pks.get('total_attendance',105000000):,}</div><div class="label">Total attendance</div></div>
+  <div class="stat-card"><div class="num">{pks.get('virtual_programs',152000):,}</div><div class="label">Virtual programs</div></div>
+  <div class="stat-card"><div class="num">{pks.get('offsite_programs',536000):,}</div><div class="label">Off-site programs</div></div>
+  <div class="stat-card"><div class="num">{pks.get('virtual_attendance',3040000):,}</div><div class="label">Virtual attendance</div></div>
+  <div class="stat-card"><div class="num">{pks.get('library_systems',9249):,}</div><div class="label">Library systems</div></div>
+</div>"""
+
+        if isinstance(pba, dict) and pba:
+            body += """
+<h3>Programs by Audience</h3>
+<table class="wikitable">
+  <tr><th>Audience</th><th>Programs</th></tr>"""
+            for k, v in pba.items():
+                display = k.replace('_', ' ').title()
+                val_str = f'{int(v):,}' if isinstance(v, (int, float)) and v else str(v)
+                body += f'\n  <tr><td>{esc(display)}</td><td class="num">{val_str}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(pbd, dict) and pbd:
+            body += """
+<h3>Programs by Delivery Mode</h3>
+<table class="wikitable">
+  <tr><th>Delivery Mode</th><th>Programs</th></tr>"""
+            for k, v in pbd.items():
+                display = k.replace('_', ' ').title()
+                val_str = f'{int(v):,}' if isinstance(v, (int, float)) and v else str(v)
+                body += f'\n  <tr><td>{esc(display)}</td><td class="num">{val_str}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(abd, dict) and abd:
+            body += """
+<h3>Attendance by Delivery Mode</h3>
+<table class="wikitable">
+  <tr><th>Delivery Mode</th><th>Attendance</th></tr>"""
+            for k, v in abd.items():
+                display = k.replace('_', ' ').title()
+                val_str = f'{int(v):,}' if isinstance(v, (int, float)) and v else str(v)
+                body += f'\n  <tr><td>{esc(display)}</td><td class="num">{val_str}</td></tr>'
+            body += '\n</table>'
+
+        if p24_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in p24_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: IMLS Public Libraries Survey FY2024 program and attendance data, broken down by audience age group and delivery mode (on-site, off-site, virtual).</p>'
+
+    # =========================================================================
+    # BOOK FORMAT SHIFT
+    # =========================================================================
+    bft = stats.get('book_format_trend', {})
+    if bft:
+        bfks = bft.get('key_stats', {})
+        bf_data = bft.get('trend_data', {})
+        bf_facts = bft.get('key_facts', [])
+
+        body += f"""
+<h2 id="format-shift">Book Format Shift: Print, E-Books &amp; Audiobooks (2011 vs 2025)</h2>
+<p>{esc(bft.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bfks.get('print_2025',64)}%</div><div class="label">Print (2025)</div></div>
+  <div class="stat-card"><div class="num">{bfks.get('ebook_2025',31)}%</div><div class="label">E-books (2025)</div></div>
+  <div class="stat-card"><div class="num">{bfks.get('audio_2025',26)}%</div><div class="label">Audiobooks (2025)</div></div>
+  <div class="stat-card"><div class="num">{bfks.get('ebook_2011',17)}%</div><div class="label">E-books (2011)</div></div>
+  <div class="stat-card"><div class="num">{bfks.get('audio_2011',11)}%</div><div class="label">Audiobooks (2011)</div></div>
+  <div class="stat-card"><div class="num">{bfks.get('overall_reading_2025',75)}%</div><div class="label">Overall reading</div></div>
+</div>"""
+
+        body += f"""
+<h3>Format Preferences Over Time</h3>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">Print books (2011)</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{bfks.get('print_2011',72)}%"></div><span class="svc-val">{bfks.get('print_2011',72)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Print books (2025)</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{bfks.get('print_2025',64)}%"></div><span class="svc-val">{bfks.get('print_2025',64)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">E-books (2011)</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{bfks.get('ebook_2011',17)}%"></div><span class="svc-val">{bfks.get('ebook_2011',17)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">E-books (2025)</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{bfks.get('ebook_2025',31)}%"></div><span class="svc-val">{bfks.get('ebook_2025',31)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Audiobooks (2011)</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{bfks.get('audio_2011',11)}%"></div><span class="svc-val">{bfks.get('audio_2011',11)}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Audiobooks (2025)</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{bfks.get('audio_2025',26)}%"></div><span class="svc-val">{bfks.get('audio_2025',26)}%</span></div></div>
+</div>"""
+
+        if bf_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in bf_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Pew Research Center reading format surveys (2011 and 2025), via census_library_usage cache data.</p>'
+
+    # =========================================================================
+    # NCES SASS SCHOOL LIBRARY MEDIA CENTERS
+    # =========================================================================
+    ncs = stats.get('nces_sass', {})
+    if ncs:
+        nks = ncs.get('key_stats', {})
+        ncs_schools = ncs.get('schools_with_lmc', {})
+        ncs_staff = ncs.get('avg_staff', {})
+        ncs_cert = ncs.get('certified_specialists', {})
+        ncs_auto = ncs.get('automated_catalog', {})
+        ncs_internet = ncs.get('internet_access', {})
+        ncs_facts = ncs.get('key_facts', [])
+
+        body += f"""
+<h2 id="nces-sass">NCES SASS: School Library Media Centers (1999-2012)</h2>
+<p>{esc(ncs.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nks.get('schools_with_lmc_2011',81200):,}</div><div class="label">Schools w/ LMC (2011)</div></div>
+  <div class="stat-card"><div class="num">{nks.get('avg_staff_2011',1.77)}</div><div class="label">Avg staff/center</div></div>
+  <div class="stat-card"><div class="num">{nks.get('certified_specialists_2011',0.90)}</div><div class="label">Certified specialists</div></div>
+  <div class="stat-card"><div class="num">{nks.get('pct_automated_catalog_2011',88.3)}%</div><div class="label">Automated catalogs</div></div>
+  <div class="stat-card"><div class="num">2011-12</div><div class="label">Last survey year</div></div>
+  <div class="stat-card"><div class="num">4</div><div class="label">Survey waves</div></div>
+</div>"""
+
+        body += """
+<h3>Schools with Library Media Centers Over Time</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Total Schools</th><th>Elementary</th><th>Secondary</th><th>Combined</th></tr>"""
+        for key in ['1999_2000_total', '2003_04_total', '2007_08_total', '2011_12_total']:
+            if isinstance(ncs_schools, dict) and key in ncs_schools:
+                yr = key.replace('_total', '').replace('_', '-')
+                total_val = ncs_schools.get(key, '')
+                elem = ncs_schools.get(key.replace('_total', '_elementary'), '')
+                sec = ncs_schools.get(key.replace('_total', '_secondary'), '')
+                comb = ncs_schools.get(key.replace('_total', '_combined'), '')
+                def fmt_num(v):
+                    try:
+                        return f'{int(v):,}'
+                    except (ValueError, TypeError):
+                        return str(v) if v else '&mdash;'
+                body += f'\n  <tr><td class="num">{yr}</td><td class="num">{fmt_num(total_val)}</td><td class="num">{fmt_num(elem)}</td><td class="num">{fmt_num(sec)}</td><td class="num">{fmt_num(comb)}</td></tr>'
+        body += '\n</table>'
+
+        body += """
+<h3>Staffing & Technology Trends</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Avg Staff/Center</th><th>Certified Specialists</th><th>% Automated Catalog</th></tr>"""
+        years = [('1999_2000','1999-00'), ('2003_04','2003-04'), ('2007_08','2007-08'), ('2011_12','2011-12')]
+        for yr_key, yr_label in years:
+            staff_v = ncs_staff.get(yr_key, '') if isinstance(ncs_staff, dict) else ''
+            cert_v = ncs_cert.get(yr_key, '') if isinstance(ncs_cert, dict) else ''
+            auto_v = ncs_auto.get(yr_key, '') if isinstance(ncs_auto, dict) else ''
+            body += f'\n  <tr><td class="num">{yr_label}</td><td class="num">{staff_v}</td><td class="num">{cert_v}</td><td class="pct">{auto_v}%</td></tr>'
+        body += '\n</table>'
+
+        if ncs_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in ncs_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        src = ncs.get('source', '')
+        if src:
+            body += f'<p class="rsrc">Source: {esc(src)}</p>'
+        else:
+            body += '<p class="rsrc">Source: NCES Digest of Education Statistics, Table 701.10, from Schools and Staffing Survey (SASS) data.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

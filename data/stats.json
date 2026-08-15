@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 12:02 UTC",
+  "generated": "2026-08-15 12:08 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -69780,6 +69780,1178 @@
       "Bookmobile numbers peaked in the 1970s at over 2,000 nationwide, declining as digital services expanded.",
       "Summer reading programs combat the 'summer slide' with disproportionate benefits for low-income children.",
       "The ALA accredits Master of Library and Information Science (MLIS) programs and sets professional standards for the field."
+    ]
+  },
+  "library_web_coverage": {
+    "title": "Library Online Presence: Website Coverage by State",
+    "overview": "In an increasingly digital world, a library's website is its virtual front door. Yet website coverage varies dramatically by state. While some states have over 90% of libraries with discoverable websites, others have fewer than 15%, revealing a significant digital presence gap.",
+    "key_stats": {
+      "total_libraries_national": 17144,
+      "total_with_websites": 8928,
+      "pct_with_websites_national": 52.1,
+      "best_state_pct": 90.8,
+      "worst_state_pct": 13.0,
+      "states_over_90pct": 2,
+      "states_under_25pct": 10
+    },
+    "best_states": [
+      {
+        "state": "NH",
+        "total": 239,
+        "with_url": 217,
+        "pct": 90.8
+      },
+      {
+        "state": "VT",
+        "total": 197,
+        "with_url": 178,
+        "pct": 90.4
+      },
+      {
+        "state": "IA",
+        "total": 570,
+        "with_url": 508,
+        "pct": 89.1
+      },
+      {
+        "state": "ME",
+        "total": 274,
+        "with_url": 232,
+        "pct": 84.7
+      },
+      {
+        "state": "WI",
+        "total": 465,
+        "with_url": 384,
+        "pct": 82.6
+      },
+      {
+        "state": "KS",
+        "total": 377,
+        "with_url": 300,
+        "pct": 79.6
+      },
+      {
+        "state": "ND",
+        "total": 97,
+        "with_url": 74,
+        "pct": 76.3
+      },
+      {
+        "state": "MT",
+        "total": 103,
+        "with_url": 76,
+        "pct": 73.8
+      },
+      {
+        "state": "IL",
+        "total": 811,
+        "with_url": 594,
+        "pct": 73.2
+      },
+      {
+        "state": "MA",
+        "total": 492,
+        "with_url": 359,
+        "pct": 73.0
+      },
+      {
+        "state": "NE",
+        "total": 291,
+        "with_url": 210,
+        "pct": 72.2
+      },
+      {
+        "state": "CT",
+        "total": 237,
+        "with_url": 169,
+        "pct": 71.3
+      },
+      {
+        "state": "PA",
+        "total": 649,
+        "with_url": 451,
+        "pct": 69.5
+      },
+      {
+        "state": "NM",
+        "total": 127,
+        "with_url": 88,
+        "pct": 69.3
+      },
+      {
+        "state": "ID",
+        "total": 150,
+        "with_url": 102,
+        "pct": 68.0
+      }
+    ],
+    "worst_states": [
+      {
+        "state": "MD",
+        "total": 193,
+        "with_url": 25,
+        "pct": 13.0
+      },
+      {
+        "state": "GA",
+        "total": 410,
+        "with_url": 61,
+        "pct": 14.9
+      },
+      {
+        "state": "CA",
+        "total": 1134,
+        "with_url": 192,
+        "pct": 16.9
+      },
+      {
+        "state": "WA",
+        "total": 340,
+        "with_url": 60,
+        "pct": 17.6
+      },
+      {
+        "state": "LA",
+        "total": 353,
+        "with_url": 66,
+        "pct": 18.7
+      },
+      {
+        "state": "FL",
+        "total": 537,
+        "with_url": 104,
+        "pct": 19.4
+      },
+      {
+        "state": "GU",
+        "total": 5,
+        "with_url": 1,
+        "pct": 20.0
+      },
+      {
+        "state": "MS",
+        "total": 247,
+        "with_url": 51,
+        "pct": 20.6
+      },
+      {
+        "state": "SC",
+        "total": 195,
+        "with_url": 42,
+        "pct": 21.5
+      },
+      {
+        "state": "NC",
+        "total": 412,
+        "with_url": 89,
+        "pct": 21.6
+      },
+      {
+        "state": "AR",
+        "total": 214,
+        "with_url": 55,
+        "pct": 25.7
+      },
+      {
+        "state": "VA",
+        "total": 367,
+        "with_url": 95,
+        "pct": 25.9
+      },
+      {
+        "state": "NV",
+        "total": 76,
+        "with_url": 22,
+        "pct": 28.9
+      },
+      {
+        "state": "WY",
+        "total": 68,
+        "with_url": 21,
+        "pct": 30.9
+      },
+      {
+        "state": "OH",
+        "total": 725,
+        "with_url": 252,
+        "pct": 34.8
+      }
+    ],
+    "all_states": [
+      {
+        "state": "NH",
+        "total": 239,
+        "with_url": 217,
+        "pct": 90.8
+      },
+      {
+        "state": "VT",
+        "total": 197,
+        "with_url": 178,
+        "pct": 90.4
+      },
+      {
+        "state": "IA",
+        "total": 570,
+        "with_url": 508,
+        "pct": 89.1
+      },
+      {
+        "state": "ME",
+        "total": 274,
+        "with_url": 232,
+        "pct": 84.7
+      },
+      {
+        "state": "WI",
+        "total": 465,
+        "with_url": 384,
+        "pct": 82.6
+      },
+      {
+        "state": "KS",
+        "total": 377,
+        "with_url": 300,
+        "pct": 79.6
+      },
+      {
+        "state": "ND",
+        "total": 97,
+        "with_url": 74,
+        "pct": 76.3
+      },
+      {
+        "state": "MT",
+        "total": 103,
+        "with_url": 76,
+        "pct": 73.8
+      },
+      {
+        "state": "IL",
+        "total": 811,
+        "with_url": 594,
+        "pct": 73.2
+      },
+      {
+        "state": "MA",
+        "total": 492,
+        "with_url": 359,
+        "pct": 73.0
+      },
+      {
+        "state": "NE",
+        "total": 291,
+        "with_url": 210,
+        "pct": 72.2
+      },
+      {
+        "state": "CT",
+        "total": 237,
+        "with_url": 169,
+        "pct": 71.3
+      },
+      {
+        "state": "PA",
+        "total": 649,
+        "with_url": 451,
+        "pct": 69.5
+      },
+      {
+        "state": "NM",
+        "total": 127,
+        "with_url": 88,
+        "pct": 69.3
+      },
+      {
+        "state": "ID",
+        "total": 150,
+        "with_url": 102,
+        "pct": 68.0
+      },
+      {
+        "state": "NY",
+        "total": 1113,
+        "with_url": 756,
+        "pct": 67.9
+      },
+      {
+        "state": "SD",
+        "total": 142,
+        "with_url": 93,
+        "pct": 65.5
+      },
+      {
+        "state": "AL",
+        "total": 304,
+        "with_url": 195,
+        "pct": 64.1
+      },
+      {
+        "state": "TX",
+        "total": 919,
+        "with_url": 587,
+        "pct": 63.9
+      },
+      {
+        "state": "NJ",
+        "total": 472,
+        "with_url": 296,
+        "pct": 62.7
+      },
+      {
+        "state": "RI",
+        "total": 73,
+        "with_url": 44,
+        "pct": 60.3
+      },
+      {
+        "state": "TN",
+        "total": 298,
+        "with_url": 173,
+        "pct": 58.1
+      },
+      {
+        "state": "MI",
+        "total": 668,
+        "with_url": 387,
+        "pct": 57.9
+      },
+      {
+        "state": "OR",
+        "total": 225,
+        "with_url": 129,
+        "pct": 57.3
+      },
+      {
+        "state": "KY",
+        "total": 205,
+        "with_url": 117,
+        "pct": 57.1
+      },
+      {
+        "state": "DE",
+        "total": 36,
+        "with_url": 20,
+        "pct": 55.6
+      },
+      {
+        "state": "UT",
+        "total": 126,
+        "with_url": 70,
+        "pct": 55.6
+      },
+      {
+        "state": "OK",
+        "total": 220,
+        "with_url": 115,
+        "pct": 52.3
+      },
+      {
+        "state": "IN",
+        "total": 446,
+        "with_url": 231,
+        "pct": 51.8
+      },
+      {
+        "state": "WV",
+        "total": 180,
+        "with_url": 93,
+        "pct": 51.7
+      },
+      {
+        "state": "AK",
+        "total": 99,
+        "with_url": 49,
+        "pct": 49.5
+      },
+      {
+        "state": "AZ",
+        "total": 225,
+        "with_url": 102,
+        "pct": 45.3
+      },
+      {
+        "state": "CO",
+        "total": 263,
+        "with_url": 105,
+        "pct": 39.9
+      },
+      {
+        "state": "MO",
+        "total": 400,
+        "with_url": 153,
+        "pct": 38.2
+      },
+      {
+        "state": "MN",
+        "total": 375,
+        "with_url": 135,
+        "pct": 36.0
+      },
+      {
+        "state": "OH",
+        "total": 725,
+        "with_url": 252,
+        "pct": 34.8
+      },
+      {
+        "state": "WY",
+        "total": 68,
+        "with_url": 21,
+        "pct": 30.9
+      },
+      {
+        "state": "NV",
+        "total": 76,
+        "with_url": 22,
+        "pct": 28.9
+      },
+      {
+        "state": "VA",
+        "total": 367,
+        "with_url": 95,
+        "pct": 25.9
+      },
+      {
+        "state": "AR",
+        "total": 214,
+        "with_url": 55,
+        "pct": 25.7
+      },
+      {
+        "state": "NC",
+        "total": 412,
+        "with_url": 89,
+        "pct": 21.6
+      },
+      {
+        "state": "SC",
+        "total": 195,
+        "with_url": 42,
+        "pct": 21.5
+      },
+      {
+        "state": "MS",
+        "total": 247,
+        "with_url": 51,
+        "pct": 20.6
+      },
+      {
+        "state": "GU",
+        "total": 5,
+        "with_url": 1,
+        "pct": 20.0
+      },
+      {
+        "state": "FL",
+        "total": 537,
+        "with_url": 104,
+        "pct": 19.4
+      },
+      {
+        "state": "LA",
+        "total": 353,
+        "with_url": 66,
+        "pct": 18.7
+      },
+      {
+        "state": "WA",
+        "total": 340,
+        "with_url": 60,
+        "pct": 17.6
+      },
+      {
+        "state": "CA",
+        "total": 1134,
+        "with_url": 192,
+        "pct": 16.9
+      },
+      {
+        "state": "GA",
+        "total": 410,
+        "with_url": 61,
+        "pct": 14.9
+      },
+      {
+        "state": "MD",
+        "total": 193,
+        "with_url": 25,
+        "pct": 13.0
+      },
+      {
+        "state": "AS",
+        "total": 0,
+        "with_url": 0,
+        "pct": 0
+      },
+      {
+        "state": "MP",
+        "total": 0,
+        "with_url": 0,
+        "pct": 0
+      },
+      {
+        "state": "PR",
+        "total": 0,
+        "with_url": 0,
+        "pct": 0
+      },
+      {
+        "state": "VI",
+        "total": 0,
+        "with_url": 0,
+        "pct": 0
+      },
+      {
+        "state": "matches",
+        "total": 0,
+        "with_url": 0,
+        "pct": 0
+      }
+    ],
+    "key_facts": [
+      "8,928 of 17,144 US libraries have a discoverable website \u2014 52.1% national coverage.",
+      "The best-covered state is NH at 90.8%.",
+      "10 states have website coverage below 25%.",
+      "States with low website coverage tend to have many small, rural library systems.",
+      "The digital presence gap limits patron access to library services in low-coverage states.",
+      "Nationally, 52.1% of libraries have a discoverable website."
+    ]
+  },
+  "imls_arp_grants": {
+    "title": "IMLS American Rescue Plan Grants: COVID Digital Inclusion",
+    "overview": "IMLS American Rescue Plan Act (ARP) grants awarded in FY2021 to state library administrative agencies to help communities respond to the COVID-19 pandemic through equitable digital inclusion and library services.",
+    "key_stats": {
+      "total_grants": 96,
+      "total_funding": 77736457.33,
+      "fiscal_year": 2021,
+      "avg_grant_size": 809754.0
+    },
+    "awards": [
+      {
+        "award_id": "LS-250197-OLS-21",
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "amount_usd": 10440801.0
+      },
+      {
+        "award_id": "LS-250239-OLS-21",
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "amount_usd": 8396753.42
+      },
+      {
+        "award_id": "LS-250231-OLS-21",
+        "recipient": "STATE LIBRARY OF OHIO",
+        "amount_usd": 4547789.0
+      },
+      {
+        "award_id": "LS-250217-OLS-21",
+        "recipient": "MASS BOARD OF LIBRARY COMMISSIONERS",
+        "amount_usd": 3502013.0
+      },
+      {
+        "award_id": "LS-250238-OLS-21",
+        "recipient": "STATE LIBRARY & ARCHIVES TENNESSEE",
+        "amount_usd": 3500545.0
+      },
+      {
+        "award_id": "LS-250210-OLS-21",
+        "recipient": "INDIANA STATE PUBLIC LIBRARY",
+        "amount_usd": 3471810.0
+      },
+      {
+        "award_id": "LS-250216-OLS-21",
+        "recipient": "MARYLAND STATE LIBRARY",
+        "amount_usd": 3319475.0
+      },
+      {
+        "award_id": "LS-250236-OLS-21",
+        "recipient": "SOUTH CAROLINA STATE LIBRARY",
+        "amount_usd": 3136938.0
+      },
+      {
+        "award_id": "LS-250192-OLS-21",
+        "recipient": "PUBLIC LIBRARY SERVICE ALABAMA",
+        "amount_usd": 3072333.0
+      },
+      {
+        "award_id": "LS-250214-OLS-21",
+        "recipient": "STATE LIBRARY LOUISIANA",
+        "amount_usd": 3012150.0
+      },
+      {
+        "award_id": "LS-250233-OLS-21",
+        "recipient": "STATE OF OREGON - STATE LIBRARY",
+        "amount_usd": 2924165.0
+      },
+      {
+        "award_id": "LS-250199-OLS-21",
+        "recipient": "CONNECTICUT STATE LIBRARY",
+        "amount_usd": 2775022.0
+      },
+      {
+        "award_id": "LS-250240-OLS-21",
+        "recipient": "STATE LIBRARY UTAH",
+        "amount_usd": 2708103.0
+      },
+      {
+        "award_id": "LS-250196-OLS-21",
+        "recipient": "ARKANSAS STATE LIBRARY",
+        "amount_usd": 2660308.0
+      },
+      {
+        "award_id": "LS-250220-OLS-21",
+        "recipient": "MISSISSIPPI LIBRARY COMMISSION",
+        "amount_usd": 2646421.0
+      },
+      {
+        "award_id": "LS-250212-OLS-21",
+        "recipient": "STATE LIBRARY KANSAS",
+        "amount_usd": 2634877.0
+      },
+      {
+        "award_id": "LS-250244-OLS-21",
+        "recipient": "WEST VIRGINIA LIBRARY COMMISSION",
+        "amount_usd": 2388880.0
+      },
+      {
+        "award_id": "LS-250215-OLS-21",
+        "recipient": "MAINE STATE LIBRARY",
+        "amount_usd": 2294177.0
+      },
+      {
+        "award_id": "LS-250222-OLS-21",
+        "recipient": "LIBRARY, MONTANA STATE",
+        "amount_usd": 2235443.0
+      },
+      {
+        "award_id": "LS-250230-OLS-21",
+        "recipient": "NORTH DAKOTA STATE LIBRARY",
+        "amount_usd": 1331033.26
+      },
+      {
+        "award_id": "CAGML-248107-OMLS-20",
+        "recipient": "PUBLIC LIBRARY OF CHARLOTTE & MECKLENBURG COUNTY",
+        "amount_usd": 445554.22
+      },
+      {
+        "award_id": "LG-252391-OLS-22",
+        "recipient": "NEW YORK PUBLIC LIBRARY",
+        "amount_usd": 406885.0
+      },
+      {
+        "award_id": "LG-248566-OLS-20",
+        "recipient": "PUBLIC LIBRARY OF SALT LAKE CITY, THE",
+        "amount_usd": 380993.18
+      },
+      {
+        "award_id": "CAGML-247163-OMLS-20",
+        "recipient": "FREE LIBRARY FOUNDATION",
+        "amount_usd": 349172.75
+      },
+      {
+        "award_id": "CAGML-247437-OMLS-20",
+        "recipient": "MEMPHIS LIBRARY FOUNDATION",
+        "amount_usd": 345620.0
+      },
+      {
+        "award_id": "CAGML-247350-OMLS-20",
+        "recipient": "QUEENS BOROUGH PUBLIC LIBRARY",
+        "amount_usd": 330506.0
+      },
+      {
+        "award_id": "CAGML-247964-OMLS-20",
+        "recipient": "HARRISON COUNTY LIBRARY SYSTEM",
+        "amount_usd": 272352.39
+      },
+      {
+        "award_id": "CAGML-247285-OMLS-20",
+        "recipient": "THE SEATTLE PUBLIC LIBRARY FOUNDATION",
+        "amount_usd": 247307.0
+      },
+      {
+        "award_id": "CAGML-247703-OMLS-20",
+        "recipient": "HARTFORD PUBLIC LIBRARY",
+        "amount_usd": 211194.0
+      },
+      {
+        "award_id": "LS-250248-OLS-21",
+        "recipient": "FELETI BARSTOW PUBLIC LIBRARY",
+        "amount_usd": 210103.0
+      },
+      {
+        "award_id": "CAGML-246849-OMLS-20",
+        "recipient": "FRIENDS OF LONESOME PINE REGIONAL LIBRARY CORPORATION",
+        "amount_usd": 208912.0
+      },
+      {
+        "award_id": "LS-250249-OLS-21",
+        "recipient": "JOETEN KIYU PUBLIC LIBRARY",
+        "amount_usd": 205500.87
+      },
+      {
+        "award_id": "CAGML-247293-OMLS-20",
+        "recipient": "NEWBERRY LIBRARY",
+        "amount_usd": 185000.0
+      },
+      {
+        "award_id": "CAGML-247346-OMLS-20",
+        "recipient": "DAYTON METRO LIBRARY",
+        "amount_usd": 167500.0
+      },
+      {
+        "award_id": "LS-250250-OLS-21",
+        "recipient": "GUAM PUBLIC LIBRARY",
+        "amount_usd": 130874.62
+      },
+      {
+        "award_id": "CAGML-246890-OMLS-21",
+        "recipient": "BROWARD PUBLIC LIBRARY FOUNDATION, INC.",
+        "amount_usd": 126294.0
+      },
+      {
+        "award_id": "CAGML-246962-OMLS-20",
+        "recipient": "WOODROW WILSON PRESIDENTIAL LIBRARY FOUNDATION",
+        "amount_usd": 116834.0
+      },
+      {
+        "award_id": "RE-246392-OLS-20",
+        "recipient": "NEW YORK LIBRARY ASSOCIATION",
+        "amount_usd": 110525.0
+      },
+      {
+        "award_id": "CAGML-248449-OMLS-21",
+        "recipient": "LAS VEGAS-CLARK COUNTY LIBRARY DISTRICT",
+        "amount_usd": 99404.97
+      },
+      {
+        "award_id": "CAGML-247337-OMLS-20",
+        "recipient": "WICOMICO COUNTY FREE LIBRARY, INCORPORATED",
+        "amount_usd": 83769.79
+      },
+      {
+        "award_id": "CAGML-248370-OMLS-21",
+        "recipient": "LAKE COUNTY LIBRARY",
+        "amount_usd": 75500.0
+      },
+      {
+        "award_id": "CAGML-248454-OMLS-21",
+        "recipient": "RED BANK PUBLIC LIBRARY",
+        "amount_usd": 64718.31
+      },
+      {
+        "award_id": "CAGML-247695-OMLS-21",
+        "recipient": "DYER LIBRARY ASSOCIATION",
+        "amount_usd": 52425.5
+      },
+      {
+        "award_id": "ARPML-251024-OMLS-22",
+        "recipient": "THE JANE STERN DORADO COMMUNITY LIBRARY INC",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250966-OMLS-22",
+        "recipient": "CENTRAL RAPPAHANNOCK REGIONAL LIBRARY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250923-OMLS-22",
+        "recipient": "LAS VEGAS-CLARK COUNTY LIBRARY DISTRICT",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250883-OMLS-22",
+        "recipient": "TRAVERSE DES SIOUX LIBRARY SYSTEM",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250854-OMLS-22",
+        "recipient": "ATLANTIC CITY FREE PUB LIBRARY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250808-OMLS-22",
+        "recipient": "DAUPHIN COUNTY LIBRARY SYSTEM",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250775-OMLS-22",
+        "recipient": "METROPOLITAN LIBRARY SERVICE AGENCY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250742-OMLS-22",
+        "recipient": "LIBRARY SYSTEM OF LANCASTER COUNTY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250679-OMLS-22",
+        "recipient": "QUEENS BOROUGH PUBLIC LIBRARY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250678-OMLS-22",
+        "recipient": "MIAMI-DADE COUNTY PUBLIC LIBRARY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250615-OMLS-22",
+        "recipient": "HEARTLAND LIBRARY COOPERATIVE",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250582-OMLS-22",
+        "recipient": "PUBLIC LIBRARY SERVICE ALABAMA",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250576-OMLS-22",
+        "recipient": "WILLIAM A FARNSWORTH LIBRARY & ART MUSEUM INC",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250519-OMLS-22",
+        "recipient": "BOSTON PUBLIC LIBRARY FUND, INC.",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250478-OMLS-22",
+        "recipient": "DAYTON METRO LIBRARY",
+        "amount_usd": 50000.0
+      },
+      {
+        "award_id": "ARPML-250613-OMLS-22",
+        "recipient": "ORANGE COUNTY LIBRARY DISTRICT",
+        "amount_usd": 49983.0
+      },
+      {
+        "award_id": "ARPML-250607-OMLS-22",
+        "recipient": "MEMPHIS LIBRARY FOUNDATION",
+        "amount_usd": 49940.0
+      },
+      {
+        "award_id": "ARPML-250875-OMLS-22",
+        "recipient": "KING COUNTY LIBRARY SYSTEM FOUNDATION",
+        "amount_usd": 49704.0
+      },
+      {
+        "award_id": "ARPML-250926-OMLS-22",
+        "recipient": "CARNEGIE LIBRARY OF HOMESTEAD",
+        "amount_usd": 49454.0
+      },
+      {
+        "award_id": "ARPML-250699-OMLS-22",
+        "recipient": "WOODROW WILSON PRESIDENTIAL LIBRARY FOUNDATION",
+        "amount_usd": 47045.0
+      },
+      {
+        "award_id": "ARPML-251005-OMLS-22",
+        "recipient": "COLUMBUS METROPOLITAN LIBRARY",
+        "amount_usd": 45518.73
+      },
+      {
+        "award_id": "ARPML-250500-OMLS-22",
+        "recipient": "FRIENDS OF THE CEDAR RAPIDS PUBLIC LIBRARY",
+        "amount_usd": 44969.0
+      },
+      {
+        "award_id": "ARPML-250610-OMLS-22",
+        "recipient": "PIKES PEAK LIBRARY DISTRICT FOUNDATION",
+        "amount_usd": 44888.0
+      },
+      {
+        "award_id": "ARPML-250612-OMLS-22",
+        "recipient": "SAN DIEGO COUNTY PUBLIC LAW LIBRARY",
+        "amount_usd": 44173.0
+      },
+      {
+        "award_id": "ARPML-250978-OMLS-22",
+        "recipient": "SANTA CLARA COUNTY LIBRARY",
+        "amount_usd": 42125.0
+      },
+      {
+        "award_id": "ARPML-250818-OMLS-22",
+        "recipient": "JESSAMINE COUNTY PUBLIC LIBRARY",
+        "amount_usd": 40975.0
+      },
+      {
+        "award_id": "ARPML-250580-OMLS-22",
+        "recipient": "PRINCE GEORGE'S COUNTY MEMORIAL LIBRARY",
+        "amount_usd": 40000.0
+      },
+      {
+        "award_id": "ARPML-250499-OMLS-22",
+        "recipient": "PRAIRIE LAKES LIBRARY SYSTEM",
+        "amount_usd": 40000.0
+      },
+      {
+        "award_id": "ARPML-250817-OMLS-22",
+        "recipient": "SONOMA COUNTY LIBRARY",
+        "amount_usd": 39728.7
+      },
+      {
+        "award_id": "ARPML-250880-OMLS-22",
+        "recipient": "FRIENDS OF THE BIRMINGHAM PUBLIC LIBRARY, INC.",
+        "amount_usd": 39694.09
+      },
+      {
+        "award_id": "ARPML-250792-OMLS-22",
+        "recipient": "GREATER POUGHKEEPSIE LIBRARY DISTRICT",
+        "amount_usd": 37333.9
+      },
+      {
+        "award_id": "ARPML-250471-OMLS-22",
+        "recipient": "JEFFERSON COUNTY LIBRARY COOPERATIVE INC",
+        "amount_usd": 36293.0
+      },
+      {
+        "award_id": "ARPML-251026-OMLS-22",
+        "recipient": "LANCASTER PUBLIC LIBRARY",
+        "amount_usd": 32272.3
+      },
+      {
+        "award_id": "ARPML-250835-OMLS-22",
+        "recipient": "BARTOW COUNTY PUBLIC LIBRARY SYSTEM",
+        "amount_usd": 31691.0
+      },
+      {
+        "award_id": "ARPML-250896-OMLS-22",
+        "recipient": "PULASKI COUNTY PUBLIC LIBRARY",
+        "amount_usd": 30363.0
+      },
+      {
+        "award_id": "ARPML-251056-OMLS-22",
+        "recipient": "NEWFOUNDLAND AREA PUBLIC LIBRARY",
+        "amount_usd": 25000.0
+      },
+      {
+        "award_id": "ARPML-250776-OMLS-22",
+        "recipient": "GROVE DOWNERS PUBLIC LIBRARY",
+        "amount_usd": 24802.0
+      },
+      {
+        "award_id": "ARPML-250751-OMLS-22",
+        "recipient": "NEW MEXICO STATE LIBRARY FOUNDATION",
+        "amount_usd": 24750.0
+      },
+      {
+        "award_id": "ARPML-251051-OMLS-22",
+        "recipient": "CONS FREE LIBARY DISTRICT",
+        "amount_usd": 24413.04
+      },
+      {
+        "award_id": "ARPML-250632-OMLS-22",
+        "recipient": "LA VETA REGIONAL LIBRARY DISTRICT",
+        "amount_usd": 23832.9
+      },
+      {
+        "award_id": "ARPML-251042-OMLS-22",
+        "recipient": "SAINT JOSEPH COUNTY PUBLIC LIBRARY",
+        "amount_usd": 22600.0
+      },
+      {
+        "award_id": "ARPML-250538-OMLS-22",
+        "recipient": "THE BALDWIN COUNTY LIBRARY COOPERATIVE, INC.",
+        "amount_usd": 21600.0
+      },
+      {
+        "award_id": "ARPML-250768-OMLS-22",
+        "recipient": "ALPINE PUBLIC LIBRARY ASSOCIATION OF ALPINE, BREWSTER COUNTY, TEXAS",
+        "amount_usd": 21138.87
+      },
+      {
+        "award_id": "ARPML-250681-OMLS-22",
+        "recipient": "PANHANDLE PUBLIC LIBRARY COOPERATIVE SYSTEM",
+        "amount_usd": 20000.0
+      },
+      {
+        "award_id": "ARPML-250701-OMLS-22",
+        "recipient": "WOOD DALE PUBLIC LIBRARY DISTRICT",
+        "amount_usd": 19815.0
+      },
+      {
+        "award_id": "ARPML-250665-OMLS-22",
+        "recipient": "BUFFALO-ERIE COUNTY PUBC LIBRARY",
+        "amount_usd": 17816.0
+      },
+      {
+        "award_id": "ARPML-250550-OMLS-22",
+        "recipient": "SEYMOUR PUBLIC LIBRARY DISTRICT",
+        "amount_usd": 17400.0
+      },
+      {
+        "award_id": "ARPML-250606-OMLS-22",
+        "recipient": "HIGH PLAINS LIBRARY DISTRICT",
+        "amount_usd": 14674.54
+      },
+      {
+        "award_id": "ARPML-250624-OMLS-22",
+        "recipient": "CYNTHIANA-HARRISON COUNTY PUBLIC LIBRARY",
+        "amount_usd": 10068.0
+      },
+      {
+        "award_id": "ARPML-250682-OMLS-22",
+        "recipient": "PAWLING FREE LIBRARY",
+        "amount_usd": 10000.0
+      },
+      {
+        "award_id": "AL-252505-OLS-22",
+        "recipient": "ST LOUIS COUNTY LIBRARY",
+        "amount_usd": 10000.0
+      },
+      {
+        "award_id": "ARPML-250522-OMLS-22",
+        "recipient": "CASEY COUNTY PUBLIC LIBRARY",
+        "amount_usd": 9974.37
+      },
+      {
+        "award_id": "ARPML-250488-OMLS-22",
+        "recipient": "MARSHALL COUNTY PUBLIC LIBRARY",
+        "amount_usd": 6438.61
+      }
+    ],
+    "by_state": [],
+    "key_facts": [
+      "IMLS awarded 96 ARP grants totaling $77,736,457.33 in FY2021.",
+      "The largest recipient was CALIFORNIA STATE LIBRARY at $0.0.",
+      "ARP grants funded digital inclusion: WiFi expansion, hotspot lending, device distribution.",
+      "0 states and territories received ARP funding.",
+      "These grants were critical for libraries during COVID-19 closures."
+    ]
+  },
+  "programs_2024_breakdown": {
+    "title": "FY2024 Library Programs: Audience & Delivery Mode Breakdown",
+    "overview": "In FY2024, US public libraries hosted approximately 5.09M programs with 105M total attendance across 9,249 library systems. This breakdown reveals the shift toward virtual and off-site programming that began during COVID-19.",
+    "key_stats": {
+      "total_programs": 5090000,
+      "total_attendance": 105000000,
+      "library_systems": 9249,
+      "fiscal_year": 2024,
+      "virtual_programs": 152000,
+      "offsite_programs": 536000,
+      "onsite_programs": 4320000,
+      "virtual_attendance": 3040000,
+      "offsite_attendance": 20600000
+    },
+    "programs_by_audience": {
+      "total_programs": 5085437,
+      "children_0_5_programs": 1425324,
+      "children_6_11_programs": 1024730,
+      "children_total_programs": 2450054,
+      "young_adult_programs": 510336,
+      "adult_programs": 1656823,
+      "general_programs": 469877
+    },
+    "programs_by_delivery": {
+      "on_site_programs": 4315567,
+      "off_site_programs": 535605,
+      "virtual_programs": 152164
+    },
+    "attendance_by_audience": {
+      "total_attendance": 105322018,
+      "children_0_5_attendance": 34191721,
+      "children_6_11_attendance": 25505021,
+      "children_total_attendance": 59696742,
+      "young_adult_attendance": 6450189,
+      "adult_attendance": 21080593,
+      "general_attendance": 18744862
+    },
+    "attendance_by_delivery": {
+      "on_site_attendance": 80276524,
+      "off_site_attendance": 20644990,
+      "virtual_attendance": 3037968
+    },
+    "key_facts": [
+      "FY2024 saw approximately 5.09M programs with 105M attendance across 9,249 library systems.",
+      "Children's programs (ages 0-11) account for the largest share of library programming.",
+      "Adult programs totaled approximately 1.66M, serving adults with job training and cultural programming.",
+      "Virtual programs (152,000) were delivered in FY2024, a legacy of COVID-era remote programming.",
+      "Off-site programs (536,000) took services beyond building walls to schools and community centers.",
+      "Virtual program attendance (3,040,000) expanded access for homebound patrons.",
+      "Young adult programs (ages 12-18) are a smaller share, reflecting the challenge of engaging teens."
+    ]
+  },
+  "book_format_trend": {
+    "title": "Book Format Shift: Print, E-Books & Audiobooks (2011 vs 2025)",
+    "overview": "Over 14 years, Americans' reading format preferences shifted dramatically. Print declined from 72% to 64%, while e-books more than doubled from 17% to 31% and audiobooks more than tripled from 11% to 26%. Overall reading remained stable at ~75%.",
+    "key_stats": {
+      "print_2011": 72,
+      "print_2025": 64,
+      "ebook_2011": 17,
+      "ebook_2025": 31,
+      "audio_2011": 11,
+      "audio_2025": 26,
+      "overall_reading_2011": 75,
+      "overall_reading_2025": 75
+    },
+    "trend_data": {},
+    "key_facts": [
+      "Print book readership declined from 72% (2011) to 64% (2025), an 8-point drop.",
+      "E-book readership more than doubled from 17% (2011) to 31% (2025).",
+      "Audiobook readership more than tripled from 11% (2011) to 26% (2025).",
+      "Overall reading remained stable at ~75%.",
+      "The e-book surge reflects Kindle, Libby/OverDrive, and library digital lending.",
+      "Audiobook growth is driven by smartphone apps and commute listening.",
+      "Print remains the dominant format at 64%."
+    ]
+  },
+  "nces_sass": {
+    "title": "NCES SASS: School Library Media Centers (1999-2012)",
+    "overview": "The NCES Schools and Staffing Survey (SASS) was the last comprehensive federal survey of school library media centers, discontinued after 2011-12. It provides a longitudinal view of school library infrastructure, staffing, and technology across four survey waves.",
+    "key_stats": {
+      "schools_with_lmc_1999": 77300,
+      "schools_with_lmc_2011": 81200,
+      "avg_staff_1999": 1.89,
+      "avg_staff_2011": 1.77,
+      "certified_specialists_1999": 0.81,
+      "certified_specialists_2011": 0.9,
+      "pct_automated_catalog_1999": 72.8,
+      "pct_automated_catalog_2011": 88.3
+    },
+    "schools_with_lmc": {
+      "1999_2000_total": 77300,
+      "2003_04_total": 78300,
+      "2007_08_total": 81900,
+      "2011_12_total": 81200,
+      "2011_12_elementary": 58000,
+      "2011_12_secondary": 17100,
+      "2011_12_combined": 6100
+    },
+    "avg_staff": {
+      "1999_2000": 1.89,
+      "2003_04": 1.76,
+      "2007_08": 1.72,
+      "2011_12": 1.77
+    },
+    "certified_specialists": {
+      "1999_2000": 0.81,
+      "2003_04": 0.79,
+      "2007_08": 0.78,
+      "2011_12": 0.9
+    },
+    "automated_catalog": {
+      "1999_2000": 72.8,
+      "2003_04": 82.7,
+      "2007_08": 87.2,
+      "2011_12": 88.3
+    },
+    "internet_access": {},
+    "computers_per_100_students": {},
+    "books_per_100_students": {
+      "1999_2000": 1803,
+      "2003_04": 1891,
+      "2007_08": 2015,
+      "2011_12": 2188
+    },
+    "source": "NCES Digest of Education Statistics, Table 701.10 - Selected statistics on public school libraries/media centers, by level of school. Data from Schools and Staffing Survey (SASS). Table prepared for Digest 2023 (d23). Latest data year is 2011-12 (SASS was discontinued).",
+    "key_facts": [
+      "Schools with library media centers grew from 77,300 (1999-00) to 81,200 (2011-12).",
+      "Average staff per media center declined from 1.89 (1999) to 1.77 (2011).",
+      "Certified specialists rose from 0.81 to 0.90 per center.",
+      "Automated catalog adoption jumped from 72.8% (1999) to 88.3% (2011).",
+      "The SASS was discontinued after 2011-12 \u2014 the last comprehensive federal school library survey.",
+      "In 2011-12, 58,000 elementary and 17,100 secondary schools had library media centers.",
+      "Discontinuation means we lack current national data on school library infrastructure."
     ]
   },
   "consortia": {

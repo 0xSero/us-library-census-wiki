@@ -187,6 +187,8 @@ def panel(active=""):
     <a href="index.html#slide-inequities" class="list-group-item list-group-item-action small py-1">School library inequities</a>
     <a href="index.html#innovation" class="list-group-item list-group-item-action small py-1">Innovation & makerspaces</a>
     <a href="index.html#attitudes" class="list-group-item list-group-item-action small py-1">Public attitudes</a>
+    <a href="index.html#access-equity" class="list-group-item list-group-item-action small py-1">Access equity</a>
+    <a href="index.html#reading-decline" class="list-group-item list-group-item-action small py-1">Reading decline (NEA)</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -599,6 +601,8 @@ def load_all():
         ('slide_inequities', 'slide_inequities_summary.json'),
         ('library_innovation', 'library_innovation_summary.json'),
         ('library_attitudes', 'library_attitudes_summary.json'),
+        ('library_access_equity', 'library_access_equity_summary.json'),
+        ('reading_trends_enhanced', 'reading_trends_enhanced_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -1810,6 +1814,8 @@ def compute_stats(data):
     stats['slide_inequities'] = data.get('slide_inequities', {})
     stats['library_innovation'] = data.get('library_innovation', {})
     stats['library_attitudes'] = data.get('library_attitudes', {})
+    stats['library_access_equity'] = data.get('library_access_equity', {})
+    stats['reading_trends_enhanced'] = data.get('reading_trends_enhanced', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -8326,6 +8332,163 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += '<p class="rsrc">Source: Pew Research Center (Libraries 2016, How Americans Value Public Libraries 2013, Library Usage and Engagement 2016), Gallup library visit frequency survey (2019), and NEA Survey of Public Participation in the Arts (SPPA) 2022 demographic tables.</p>'
+
+    # =========================================================================
+    # LIBRARY ACCESS EQUITY
+    # =========================================================================
+    eqx = stats.get('library_access_equity', {})
+    if eqx:
+        eqks = eqx.get('key_stats', {})
+        impact = eqx.get('us_impact_study_2010', {})
+        ethnicity = eqx.get('library_use_by_ethnicity', {})
+        jobs = eqx.get('libraries_and_jobs', {})
+        comp_race = eqx.get('computer_internet_access_by_race', {})
+        eq_facts = eqx.get('key_facts', [])
+
+        body += f"""
+<h2 id="access-equity">Library Access Equity: Who Uses Libraries &amp; Why It Matters</h2>
+<p>{esc(eqx.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{eqks.get('us_impact_library_computer_users_millions',77)}M</div><div class="label">Library computer users</div></div>
+  <div class="stat-card"><div class="num">{eqks.get('pct_americans_14plus_used_library_computer',33)}%</div><div class="label">Used library tech</div></div>
+  <div class="stat-card"><div class="num">{eqks.get('pct_libraries_job_resources_plftas',92)}%</div><div class="label">Libraries w/ job resources</div></div>
+  <div class="stat-card"><div class="num">{eqks.get('pct_libraries_e_government',96)}%</div><div class="label">E-gov assistance</div></div>
+  <div class="stat-card"><div class="num">{eqks.get('pct_unemployed_used_library',62)}%</div><div class="label">Unemployed using library</div></div>
+  <div class="stat-card"><div class="num">{eqks.get('pct_asian_pacific_use_library_year',72)}%</div><div class="label">Asian/Pacific use rate</div></div>
+</div>"""
+
+        if isinstance(impact, dict) and impact.get('finding'):
+            body += f"""
+<h3>The US IMPACT Study (2010)</h3>
+<div class="rules-box">
+  <p>{esc(impact.get('finding', ''))}</p>
+  <p><strong>{esc(str(impact.get('pct_used_library_computer', 33)))}%</strong> of Americans age 14+ &mdash; approximately <strong>{esc(str(impact.get('people_used_library_computer', '77 million')))}</strong> people &mdash; used a library computer or wireless network.</p>
+  <p>{esc(impact.get('significance', ''))}</p>
+  <p><span class="muted">Source: {esc(impact.get('source', ''))}</span></p>
+</div>"""
+
+        if isinstance(ethnicity, dict):
+            study97 = ethnicity.get('study_1997', {})
+            study02 = ethnicity.get('nces_2002', {})
+            if isinstance(study97, dict) and study97.get('used_last_year'):
+                body += """
+<h3>Library Use by Ethnicity (1997 Study)</h3>
+<table class="wikitable">
+  <tr><th>Ethnicity</th><th>Used Library Past Year</th><th>Used Library Past Month</th></tr>"""
+                last_year = study97.get('used_last_year', {})
+                last_month = study97.get('used_last_month', {})
+                all_groups = sorted(set(list(last_year.keys()) + list(last_month.keys())))
+                for grp in all_groups:
+                    yr_val = last_year.get(grp, '')
+                    mo_val = last_month.get(grp, '')
+                    yr_str = f'{yr_val}%' if yr_val != '' else '&mdash;'
+                    mo_str = f'{mo_val}%' if mo_val != '' else '&mdash;'
+                    display = grp.replace('_', ' ').title()
+                    body += f'\n  <tr><td>{esc(display)}</td><td class="pct">{yr_str}</td><td class="pct">{mo_str}</td></tr>'
+                body += '\n</table>'
+
+            if isinstance(study02, dict) and study02.get('school_assignments_by_race'):
+                body += """
+<h3>Library Computer/Internet Use by Race (NCES 2002)</h3>
+<table class="wikitable">
+  <tr><th>Race</th><th>% Using Library for School Assignments</th><th>% Using Library Computers/Internet</th></tr>"""
+                sa = study02.get('school_assignments_by_race', {})
+                ci = study02.get('computer_internet_use_by_race', {})
+                all_races = sorted(set(list(sa.keys()) + list(ci.keys())))
+                for race in all_races:
+                    sa_val = sa.get(race, '')
+                    ci_val = ci.get(race, '')
+                    sa_str = f'{sa_val}%' if sa_val != '' else '&mdash;'
+                    ci_str = f'{ci_val}%' if ci_val != '' else '&mdash;'
+                    display = race.replace('_', ' ').title()
+                    body += f'\n  <tr><td>{esc(display)}</td><td class="pct">{sa_str}</td><td class="pct">{ci_str}</td></tr>'
+                body += '\n</table>'
+
+        if isinstance(jobs, dict):
+            job_findings = jobs.get('key_findings', [])
+            if job_findings:
+                body += """
+<h3>Libraries as Job-Seeking Infrastructure</h3>
+<p>{esc(jobs.get('description', ''))}</p>
+<ul class="wiki-list">"""
+                for jf in job_findings:
+                    if isinstance(jf, str):
+                        body += f'\n  <li>{esc(jf)}</li>'
+                body += '\n</ul>'
+
+        if eq_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in eq_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: US IMPACT Study 2010 (Bill &amp; Melinda Gates Foundation), NCES Households Use of Public and Other Types of Libraries (2002), ALA fact sheets citing 1997 American Libraries article, and ALA Public Library Funding &amp; Technology Access Study (PLFTAS) 2009-2012.</p>'
+
+    # =========================================================================
+    # READING & LIBRARY VISITS: THE LONG DECLINE
+    # =========================================================================
+    rtx = stats.get('reading_trends_enhanced', {})
+    if rtx:
+        rtks = rtx.get('key_stats', {})
+        rt_by_year = rtx.get('reading_trends_by_year', [])
+        lv_trend = rtx.get('library_visits_trend', [])
+        rt_facts = rtx.get('key_facts', [])
+
+        body += f"""
+<h2 id="reading-decline">Reading &amp; Library Visits: The Long Decline (NEA SPPA 2012-2022)</h2>
+<p>{esc(rtx.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{rtks.get('read_any_book_2012',54.6)}%</div><div class="label">Read any book (2012)</div></div>
+  <div class="stat-card"><div class="num">{rtks.get('read_any_book_2022',48.5)}%</div><div class="label">Read any book (2022)</div></div>
+  <div class="stat-card"><div class="num">{rtks.get('read_novels_2022',37.6)}%</div><div class="label">Read novels (2022)</div></div>
+  <div class="stat-card"><div class="num">{rtks.get('imls_visits_per_capita_2019',3.85)}</div><div class="label">Visits/capita (FY2019)</div></div>
+  <div class="stat-card"><div class="num">{rtks.get('imls_visits_per_capita_2024',2.53)}</div><div class="label">Visits/capita (FY2024)</div></div>
+  <div class="stat-card"><div class="num">-{rtks.get('pct_decline_visits_2019_2024',34)}%</div><div class="label">Visit decline</div></div>
+</div>"""
+
+        if rt_by_year:
+            body += """
+<h3>Reading Rates by Year (NEA SPPA)</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Read Any Book</th><th>Novels/Short Stories</th><th>Poetry</th><th>Plays</th><th>Books &amp;/or Literature</th></tr>"""
+            for r in rt_by_year:
+                def fmt(v):
+                    return f'{v}%' if v is not None else '&mdash;'
+                body += f'\n  <tr><td class="num">{r.get("year","")}</td><td class="pct">{fmt(r.get("read_any_book"))}</td><td class="pct">{fmt(r.get("read_novels_short_stories"))}</td><td class="pct">{fmt(r.get("read_poetry"))}</td><td class="pct">{fmt(r.get("read_plays"))}</td><td class="pct">{fmt(r.get("read_books_and_or_literature"))}</td></tr>'
+            body += '\n</table>'
+
+        if lv_trend:
+            body += """
+<h3>Library Visits Over Time</h3>
+<table class="wikitable">
+  <tr><th>Period</th><th>In-Person Visit Rate</th><th>Any Use Rate</th><th>Avg Visits/Adult</th><th>IMLS Total Visits</th><th>IMLS Per Capita</th><th>Notes</th></tr>"""
+            for v in lv_trend:
+                era = v.get('era', '') or str(v.get('year', ''))
+                pew_visit = v.get('pew_in_person_visit_rate', '')
+                pew_any = v.get('pew_any_use_rate', '') or v.get('pew_any_interaction_rate', '')
+                gallup = v.get('gallup_avg_visits_per_adult', '')
+                imls_total = v.get('imls_total_visits', '')
+                imls_pc = v.get('imls_per_capita', '')
+                note = v.get('note', '')
+                def fmt_v(val):
+                    s = str(val) if val is not None else ''
+                    return s if s else '&mdash;'
+                body += f'\n  <tr><td>{esc(era)}</td><td class="pct">{fmt_v(pew_visit)}</td><td class="pct">{fmt_v(pew_any)}</td><td class="num">{fmt_v(gallup)}</td><td>{fmt_v(imls_total)}</td><td class="num">{fmt_v(imls_pc)}</td><td>{esc(note)}</td></tr>'
+            body += '\n</table>'
+
+        if rt_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in rt_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: NEA Survey of Public Participation in the Arts (SPPA) 2012, 2017, 2022; IMLS Public Libraries Survey FY2019-FY2024; Pew Research Center library usage surveys (2012-2016); Gallup library visit frequency survey (2019).</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

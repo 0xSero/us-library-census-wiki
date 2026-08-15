@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 11:52 UTC",
+  "generated": "2026-08-15 11:56 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -69340,6 +69340,222 @@
       "Midwesterners visit libraries most often (12.9 visits/yr), while Southerners visit least (9.3 visits/yr).",
       "College graduates are the most likely to have visited a library in the past year (59%), followed by women (57%) and parents (55%).",
       "Among library tech users, 61% use library internet for school or work research, and 38% use it to acquire health information."
+    ]
+  },
+  "library_access_equity": {
+    "title": "Library Access Equity: Who Uses Libraries & Why It Matters",
+    "overview": "Public libraries are among the most equitably used institutions in American life, serving Americans across all racial, ethnic, and income groups at remarkably similar rates. The landmark US IMPACT Study (2010) found that 77 million Americans age 14+ used a library computer or wireless network in a single year, making libraries the nation's primary free internet access provider. During the Great Recession, libraries became essential job-seeking infrastructure, with 62% of unemployed Americans using libraries and 92% of libraries providing job resources. This section examines the equity of library access and the critical role libraries play in bridging digital, economic, and informational divides.",
+    "key_stats": {
+      "us_impact_library_computer_users_millions": 77,
+      "pct_americans_14plus_used_library_computer": 33,
+      "pct_libraries_job_resources_plftas": 92,
+      "pct_libraries_e_government": 96,
+      "pct_unemployed_used_library": 62,
+      "pct_libraries_help_job_applications": 76,
+      "pct_asian_pacific_use_library_year": 72,
+      "pct_white_use_library_year": 65
+    },
+    "us_impact_study_2010": {
+      "source": "U.S. IMPACT Study 2010, Bill & Melinda Gates Foundation, via ALA fact sheet",
+      "finding": "Nearly one-third of Americans age 14+ used a public library computer or wireless network in the prior year.",
+      "pct_used_library_computer": 33,
+      "people_used_library_computer": "77 million",
+      "significance": "The US IMPACT Study, funded by the Bill & Melinda Gates Foundation, was the first large-scale national study to document the critical role of public library computers and internet access in American life. It surveyed over 45,000 people across the US and found that library technology access was essential for education, employment, health, e-government, and social connection."
+    },
+    "library_use_by_ethnicity": {
+      "description": "Library use in America is remarkably equitable across racial and ethnic groups. A 1997 study found that Asian/Pacific Islander Americans had the highest library use rate (72% in past year), with all other groups between 58-66%. NCES household data from 2002 showed similar rates of library use for school assignments across all racial groups (20-26%).",
+      "study_1997": {
+        "source": "1997 American Libraries article, via ALA fact sheet",
+        "used_last_year": {
+          "white": 65,
+          "black": 63,
+          "hispanic": 58,
+          "asian_pacific_islander": 72,
+          "american_indian_native_alaskan": 65,
+          "other": 66
+        },
+        "used_last_month": {
+          "white": 44,
+          "black": 45,
+          "hispanic": 41,
+          "asian_pacific_islander": 53,
+          "american_indian_native_alaskan": 46,
+          "other": 51
+        }
+      },
+      "nces_2002": {
+        "source": "NCES, Households Use of Public and Other Types of Libraries (2002), via ALA fact sheet",
+        "school_assignments_by_race": {
+          "black_households": 25,
+          "asian_households": 26,
+          "white_households": 22,
+          "hispanic_households": 20
+        },
+        "computer_internet_use_by_race": {
+          "white_non_hispanic": 8,
+          "black": 13,
+          "hispanic": 12,
+          "asian_pacific_islander": 11,
+          "mixed": 12
+        }
+      }
+    },
+    "libraries_and_jobs": {
+      "description": "During the Great Recession (2008-2012), libraries became essential job-seeking infrastructure. The ALA Public Library Funding & Technology Access Study (PLFTAS) documented the critical role libraries played in helping unemployed Americans find work, submit applications, and access government services.",
+      "plftas_2011_2012": {
+        "libraries_provide_job_resources_percent": 92,
+        "libraries_help_online_job_applications_percent": 76,
+        "libraries_assist_e_government_percent": 96
+      },
+      "plftas_2009_2010": {
+        "libraries_assist_government_services_percent": 79,
+        "free_job_database_access_percent": 88,
+        "help_online_job_applications_percent": 67,
+        "civil_service_exam_materials_percent": 75,
+        "resume_software_percent": 69,
+        "unemployed_who_used_library_percent": 62,
+        "libraries_reduced_operating_hours_percent": 15
+      },
+      "key_findings": [
+        "92% of libraries provided job resources (PLFTAS 2011-12).",
+        "76% of libraries helped patrons with online job applications (PLFTAS 2011-12).",
+        "96% of libraries assisted with e-government services (PLFTAS 2011-12).",
+        "62% of unemployed Americans used the library to seek employment (PLFTAS 2009-10).",
+        "88% of libraries provided free access to job databases (PLFTAS 2009-10).",
+        "75% provided civil service exam materials (PLFTAS 2009-10).",
+        "69% provided resume software (PLFTAS 2009-10).",
+        "15% of libraries reduced operating hours during the recession, limiting access precisely when demand spiked (PLFTAS 2009-10)."
+      ]
+    },
+    "computer_internet_access_by_race": {
+      "description": "The NCES 2002 household study revealed significant racial disparities in who uses library computers and internet. Black (13%), Hispanic (12%), and mixed-race (12%) Americans used library computers at higher rates than white non-Hispanic Americans (8%), suggesting that libraries serve as a critical digital access point for communities of color.",
+      "data_source": "NCES, Households Use of Public and Other Types of Libraries (2002), via ALA fact sheet",
+      "by_race": {
+        "white_non_hispanic": 8,
+        "black": 13,
+        "hispanic": 12,
+        "asian_pacific_islander": 11,
+        "mixed": 12
+      }
+    },
+    "key_facts": [
+      "77 million Americans age 14+ used a public library computer or wireless network in the prior year (US IMPACT Study 2010).",
+      "Nearly one-third (33%) of Americans age 14+ relied on library technology access (US IMPACT Study 2010).",
+      "Library use is remarkably equitable across racial groups: 72% of Asian/Pacific Islander Americans, 65% of white Americans, 63% of Black Americans, and 58% of Hispanic Americans used a library in the past year (1997 study).",
+      "53% of Asian/Pacific Islander Americans used a library in the past month, the highest rate of any racial group (1997 study).",
+      "Black Americans use library computers at a rate 63% higher than white Americans (13% vs 8%, NCES 2002).",
+      "During the Great Recession, 62% of unemployed Americans used libraries for job-seeking (PLFTAS 2009-10).",
+      "92% of public libraries provide job-seeking resources, making them the most widespread free job assistance infrastructure in the country (PLFTAS 2011-12).",
+      "96% of public libraries assist with e-government services, helping citizens navigate government programs online (PLFTAS 2011-12).",
+      "15% of libraries cut hours during the recession, reducing access at the exact moment demand was highest (PLFTAS 2009-10).",
+      "The US IMPACT Study was funded by the Bill & Melinda Gates Foundation and surveyed over 45,000 Americans.",
+      "Library computer/internet use for school assignments was nearly equal across racial groups: Black 25%, Asian 26%, White 22%, Hispanic 20% (NCES 2002).",
+      "The PLFTAS (Public Library Funding & Technology Access Study) documented the critical intersection of library funding, technology access, and community need during 2009-2012."
+    ]
+  },
+  "reading_trends_enhanced": {
+    "title": "Reading & Library Visits: The Long Decline (NEA SPPA 2012-2022)",
+    "overview": "The NEA Survey of Public Participation in the Arts (SPPA) documents a troubling long-term decline in both reading and library visitation. Between 2012 and 2022, the percentage of Americans reading any book fell from 54.6% to 48.5%, while novel/short story reading dropped from 45.2% to 37.6%. Simultaneously, IMLS data shows library visits per capita fell from 3.85 in FY2019 to 2.53 in FY2024 \u2014 a 34% decline that predates but was accelerated by COVID-19. This section presents the year-by-year data from NEA and IMLS.",
+    "key_stats": {
+      "read_any_book_2012": 54.6,
+      "read_any_book_2022": 48.5,
+      "read_novels_2012": 45.2,
+      "read_novels_2022": 37.6,
+      "read_poetry_peak": 11.7,
+      "read_poetry_year": 2017,
+      "imls_visits_per_capita_2019": 3.85,
+      "imls_visits_per_capita_2024": 2.53,
+      "pct_decline_visits_2019_2024": 34
+    },
+    "reading_trends_by_year": [
+      {
+        "year": 2012,
+        "read_any_book": 54.6,
+        "read_novels_short_stories": 45.2,
+        "read_poetry": 6.7,
+        "read_plays": 2.9
+      },
+      {
+        "year": 2017,
+        "read_any_book": 52.7,
+        "read_novels_short_stories": 41.8,
+        "read_poetry": 11.7,
+        "read_plays": 3.7,
+        "read_books_and_or_literature": 57
+      },
+      {
+        "year": 2022,
+        "read_any_book": 48.5,
+        "read_novels_short_stories": 37.6,
+        "read_poetry": 9.2,
+        "read_plays": 2.4,
+        "read_books_and_or_literature": 53,
+        "read_books_and_or_audiobooks": 51.9
+      }
+    ],
+    "library_visits_trend": [
+      {
+        "era": "Pre-2012",
+        "note": "Pew measured 53% in-person visit rate (2012 peak)"
+      },
+      {
+        "year": 2013,
+        "pew_in_person_visit_rate": 48,
+        "pew_any_use_rate": 54,
+        "note": "Declined from 2012"
+      },
+      {
+        "year": 2015,
+        "pew_in_person_visit_rate": 44
+      },
+      {
+        "year": 2016,
+        "pew_in_person_visit_rate": 48,
+        "pew_any_interaction_rate": 53
+      },
+      {
+        "year": 2019,
+        "gallup_avg_visits_per_adult": 10.5,
+        "imls_total_visits": "1.25 billion",
+        "imls_per_capita": 3.85
+      },
+      {
+        "year": 2020,
+        "imls_total_visits": "732 million",
+        "imls_per_capita": 2.23,
+        "note": "COVID-19 pandemic caused sharp decline"
+      },
+      {
+        "year": 2022,
+        "nea_sppa_public_library_visit_rate": 23,
+        "imls_total_visits": "671 million",
+        "imls_per_capita": 2.01,
+        "note": "NEA SPPA first measured library visits; lowest IMLS per-capita in series"
+      },
+      {
+        "year": 2023,
+        "imls_total_visits": "803 million",
+        "imls_per_capita": 2.39,
+        "note": "Recovery underway"
+      },
+      {
+        "year": 2024,
+        "imls_total_visits": "869 million",
+        "imls_per_capita": 2.53,
+        "note": "Continued recovery but still ~34% below FY2019 per-capita"
+      }
+    ],
+    "key_facts": [
+      "The percentage of Americans reading any book declined from 54.6% in 2012 to 48.5% in 2022 \u2014 a 6.1 percentage point drop in a decade (NEA SPPA).",
+      "Novel and short story reading fell from 45.2% (2012) to 37.6% (2022), a decline of 7.6 points.",
+      "Poetry reading spiked to 11.7% in 2017 (up from 6.7% in 2012) before falling back to 9.2% in 2022.",
+      "Play reading has remained consistently low: 2.9% (2012), 3.7% (2017), 2.4% (2022).",
+      "IMLS per-capita library visits fell from 3.85 (FY2019) to 2.01 (FY2022) \u2014 a 48% decline \u2014 before partially recovering to 2.53 in FY2024.",
+      "Total IMLS library visits dropped from 1.25 billion (FY2019) to 732 million (FY2020) due to COVID-19 closures.",
+      "By FY2024, library visits recovered to 869 million but remained 34% below FY2019 per-capita levels.",
+      "Pew Research Center measured in-person library visit rate at 53% in 2012, declining to 44% by 2015 before recovering to 48% in 2016.",
+      "Gallup (2019) found Americans averaged 10.5 library visits per year, with young adults (18-29) visiting most at 15.5 times per year.",
+      "The NEA SPPA first measured public library visitation in 2022, finding a 23% visit rate."
     ]
   },
   "consortia": {

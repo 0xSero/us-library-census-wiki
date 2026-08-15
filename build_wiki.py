@@ -10638,6 +10638,104 @@ def build_funders(data, stats):
             body += f'\n  <tr><td><a href="states/{sr["code"]}.html"><strong>{esc(sr["code"])}</strong></a></td><td class="num">{sr["imls_grants"]:,}</td><td class="num">${sr["imls_amount"]:,.0f}</td><td class="num">{sr["ballot_total"]}</td><td class="num">{sr["ballot_passed"]}</td><td class="num">${sr["ballot_amount"]:,.0f}</td><td class="num">{sr["cens_challenges"]:,}</td><td class="num">{sr["cens_banned"]:,}</td></tr>'
         body += '\n</table>'
 
+    # ---- Book censorship detail ----
+    cens_detail_path = os.path.join(os.path.dirname(WIKI), 'data', 'book_censorship_detail_summary.json')
+    if os.path.exists(cens_detail_path):
+        try:
+            with open(cens_detail_path) as cd_f:
+                cens_detail = json.load(cd_f)
+            total_cens = cens_detail.get('total_records', 0)
+            by_year_c = cens_detail.get('by_year', {})
+            by_state_c = cens_detail.get('by_state', {})
+            by_lib_type = cens_detail.get('by_library_type', {})
+            by_decision = cens_detail.get('by_decision', {})
+            by_ch_type = cens_detail.get('by_challenge_type', {})
+            top_books = cens_detail.get('most_challenged_books', [])
+            top_authors = cens_detail.get('most_challenged_authors', [])
+
+            body += f"""
+<h2 id="censorship-detail">Book Censorship Challenge Database — {total_cens:,} Records</h2>
+<p>Individual book challenge records from the ALA book censorship database — the most granular view of book banning in America.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_cens:,}</div><div class="label">Total challenges</div></div>
+  <div class="stat-card"><div class="num">{len(by_state_c)}</div><div class="label">States affected</div></div>
+  <div class="stat-card"><div class="num">{by_decision.get('Banned/Removed', 0):,}</div><div class="label">Books banned</div></div>
+  <div class="stat-card"><div class="num">{by_decision.get('Still in Process', 0):,}</div><div class="label">Pending</div></div>
+</div>"""
+
+            # Most challenged books
+            if top_books:
+                body += """
+<h3>Most Challenged Books in America</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>Title</th><th>Challenges</th></tr>"""
+                for i, b in enumerate(top_books[:25], 1):
+                    body += f'\n  <tr><td class="num">{i}</td><td><strong>{esc(b.get("title",""))}</strong></td><td class="num">{b.get("count",0):,}</td></tr>'
+                body += '\n</table>'
+
+            # Most challenged authors
+            if top_authors:
+                body += """
+<h3>Most Challenged Authors</h3>
+<table class="wikitable">
+  <tr><th>Rank</th><th>Author</th><th>Challenges</th></tr>"""
+                for i, a in enumerate(top_authors[:20], 1):
+                    body += f'\n  <tr><td class="num">{i}</td><td><strong>{esc(a.get("author",""))}</strong></td><td class="num">{a.get("count",0):,}</td></tr>'
+                body += '\n</table>'
+
+            # By library type
+            if by_lib_type:
+                body += """
+<h3>Challenges by Library Type</h3>
+<div class="services-bars">"""
+                max_lt = max(by_lib_type.values()) if by_lib_type else 1
+                for lt, c in sorted(by_lib_type.items(), key=lambda x: x[1], reverse=True):
+                    pct = (c / max_lt * 100) if max_lt else 0
+                    body += f'\n  <div class="svc-row"><span class="svc-label">{esc(str(lt))}</span><div class="svc-bar"><div class="svc-fill svc-fill-red" style="width:{pct:.0f}%"></div><span class="svc-val">{c:,}</span></div></div>'
+                body += '\n</div>'
+
+            # By challenge type
+            if by_ch_type:
+                body += """
+<h3>Challenge Types</h3>
+<table class="wikitable">
+  <tr><th>Type</th><th>Count</th></tr>"""
+                for ct, c in sorted(by_ch_type.items(), key=lambda x: x[1], reverse=True):
+                    body += f'\n  <tr><td>{esc(str(ct))}</td><td class="num">{c:,}</td></tr>'
+                body += '\n</table>'
+
+            # By decision
+            if by_decision:
+                body += """
+<h3>Challenge Outcomes</h3>
+<table class="wikitable">
+  <tr><th>Decision</th><th>Count</th></tr>"""
+                for dec, c in sorted(by_decision.items(), key=lambda x: x[1], reverse=True):
+                    body += f'\n  <tr><td>{esc(str(dec))}</td><td class="num">{c:,}</td></tr>'
+                body += '\n</table>'
+
+            # By year
+            if by_year_c:
+                body += """
+<h3>Censorship Challenges by Year</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Challenges</th></tr>"""
+                for yr, c in sorted(by_year_c.items()):
+                    body += f'\n  <tr><td>{esc(str(yr))}</td><td class="num">{c:,}</td></tr>'
+                body += '\n</table>'
+
+            # By state
+            if by_state_c:
+                body += """
+<h3>Censorship Challenges by State</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Challenges</th></tr>"""
+                for st, c in sorted(by_state_c.items(), key=lambda x: x[1], reverse=True):
+                    body += f'\n  <tr><td>{esc(str(st))}</td><td class="num">{c:,}</td></tr>'
+                body += '\n</table>'
+        except Exception:
+            pass
+
     # ---- IMLS ARP grants ----
     arp = stats.get('imls_arp_grants', {})
     if arp:

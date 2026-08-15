@@ -167,6 +167,7 @@ def panel(active=""):
     <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
     <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
     <a href="index.html#workforce" class="list-group-item list-group-item-action small py-1">Library workforce</a>
+    <a href="index.html#philanthropy" class="list-group-item list-group-item-action small py-1">Philanthropy & Carnegie</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -487,6 +488,12 @@ def load_all():
             data['library_workforce'] = json.load(f)
     else:
         data['library_workforce'] = {}
+    phil_path = os.path.join(DATA, "library_philanthropy_summary.json")
+    if os.path.exists(phil_path):
+        with open(phil_path) as f:
+            data['philanthropy'] = json.load(f)
+    else:
+        data['philanthropy'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1593,6 +1600,9 @@ def compute_stats(data):
 
     # ---- Library workforce demographics ----
     stats['library_workforce'] = data.get('library_workforce', {})
+
+    # ---- Library philanthropy (Carnegie, Friends, Gates, endowments) ----
+    stats['philanthropy'] = data.get('philanthropy', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -5741,6 +5751,222 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: Wikipedia articles for HathiTrust, Internet Archive, Project Gutenberg, Google Books, and Smithsonian Open Access (citing primary sources including annual reports, press releases, and court opinions). HathiTrust: {ht_vols/1e6:.0f}M volumes ({ht.get("current_stats",{}).get("public_domain_volumes",0)/1e6:.1f}M public domain) from {ht_members} member institutions. Internet Archive: {ia_pages/1e9:.0f}B+ archived web pages and {ia_books/1e6:.0f}M books/texts. Google Books scanned {gb_titles/1e6:.0f}M+ titles with {gb.get("current_stats",{}).get("library_partners",0)} library partners. Note: these collections overlap heavily (Google scans feed HathiTrust; IA and Open Library share titles). Cross-library totals are not disjoint.</p>'
+
+    # ---- Library Philanthropy: Carnegie, Friends, Gates, Endowments ----
+    phil = stats.get('philanthropy', {})
+    if phil and phil.get('carnegie_libraries'):
+        carn = phil.get('carnegie_libraries', {})
+        friends = phil.get('friends_groups', {})
+        ufl = phil.get('ala_united_for_libraries', {})
+        gates = phil.get('gates_foundation', {})
+        endow = phil.get('endowments', [])
+        founds = phil.get('major_foundations', [])
+        priv_giving = phil.get('private_giving_to_libraries', {})
+        crowdfund = phil.get('crowdfunding_and_community_fundraising', {})
+        adopt = phil.get('adopt_a_book_programs', {})
+        key_facts = phil.get('key_facts', [])
+        carn_by_state = carn.get('by_state', [])
+        carn_us = carn.get('total_built_us', 0)
+        carn_world = carn.get('total_built_worldwide', 0)
+        carn_us_dollars = carn.get('total_dollars_us', 0) or carn.get('dollar_total_by_state_parsed', 0)
+        carn_states_count = carn.get('states_with_carnegie_libraries', 0)
+        nyc_grant = carn.get('new_york_city_grant', {}) or {}
+        gates_amt = gates.get('total_committed_estimate_usd', '')
+
+        # Friends group counts
+        fg_counts = friends.get('known_historical_counts', [])
+        fg_latest = fg_counts[-1] if fg_counts else {}
+        fg_members = fg_latest.get('members', 0)
+        fg_groups = fg_latest.get('groups', 0)
+        fg_year = fg_latest.get('year', 0)
+
+        # Compute Carnegie top states for bars
+        carn_sorted = sorted(carn_by_state, key=lambda x: x.get('public_libraries', 0), reverse=True)
+        carn_top = carn_sorted[:10]
+        carn_max = max((s.get('public_libraries', 0) for s in carn_top), default=1) or 1
+        # Compute dollar totals
+        carn_dollar_sorted = sorted(carn_by_state, key=lambda x: x.get('total_amount_usd', 0), reverse=True)
+        carn_dollar_top = carn_dollar_sorted[:10]
+        carn_dollar_max = max((s.get('total_amount_usd', 0) for s in carn_dollar_top), default=1) or 1
+
+        body += f"""
+
+<h2 id="philanthropy">Library Philanthropy: Carnegie, Friends & the Gates Foundation</h2>
+<p class="wiki-sub">Before government funding, there was philanthropy. Andrew Carnegie alone funded {carn_us:,} of the {carn_world:,} library buildings he built worldwide - nearly half of all American libraries in existence by 1919. A century later, the Gates Foundation committed over $1 billion to wire libraries into the digital age. Between these bookends sits a vast ecosystem of Friends of the Library groups (thousands nationally, raising millions annually through book sales and membership drives), library endowments worth billions, and modern foundations whose grant budgets quietly shape the direction of American humanities and literacy.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{carn_us:,}</div><div class="label">Carnegie libraries built in US</div></div>
+  <div class="stat-card"><div class="num">{carn_world:,}</div><div class="label">Carnegie libraries worldwide</div></div>
+  <div class="stat-card"><div class="num">${carn_us_dollars/1e6:.1f}M</div><div class="label">Carnegie US construction grants</div></div>
+  <div class="stat-card"><div class="num">{carn_states_count}</div><div class="label">States with Carnegie libraries</div></div>
+  <div class="stat-card"><div class="num">{fg_groups:,}</div><div class="label">Friends of the Library groups ({fg_year})</div></div>
+  <div class="stat-card"><div class="num">{fg_members/1000:.0f}K</div><div class="label">Friends group members ({fg_year})</div></div>
+  <div class="stat-card"><div class="num">&gt;$1B</div><div class="label">Gates Foundation commitment</div></div>
+  <div class="stat-card"><div class="num">${nyc_grant.get("amount_usd_1901",0)/1e6:.1f}M</div><div class="label">Carnegie's NYPL grant (1901)</div></div>
+</div>"""
+
+        # Carnegie overview narrative + timeline
+        body += f"""
+<h3>Andrew Carnegie's Library Empire (1889-1919)</h3>
+<p>{esc(carn.get("years_active", ""))}. {esc(carn.get("context", "")) if carn.get("context") else "Carnegie funded construction of 1,670 public library buildings across 1,412 American communities for approximately $40 million (~$1.5 billion in 2025 dollars). The program required communities to provide land and commit to annual maintenance &mdash; a matching-fund model that shaped how public libraries were governed for the next century."}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Libraries built worldwide</td><td class="pct">{carn_world:,}</td></tr>
+  <tr><td>Libraries built in United States</td><td class="pct">{carn_us:,}</td></tr>
+  <tr><td>States with Carnegie libraries</td><td class="pct">{carn_states_count}</td></tr>
+  <tr><td>States with none</td><td class="pct">{esc(", ".join(carn.get("states_with_no_carnegie_libraries", []) or ["Alaska", "Delaware"]))}</td></tr>
+  <tr><td>Total US grant dollars (by-state parsed)</td><td class="pct">${carn_us_dollars:,.0f}</td></tr>
+  <tr><td>NYPL branch grant (1901)</td><td class="pct">${nyc_grant.get("amount_usd_1901",0)/1e6:.1f}M for {nyc_grant.get("branches",65)} branches</td></tr>
+  <tr><td>Endowed libraries</td><td class="pct">{esc(carn.get("endowed_libraries", "") or "Braddock, Homestead, Duquesne (PA)")}</td></tr>
+</table>"""
+
+        # Top states by number of Carnegie libraries
+        if carn_top:
+            body += """
+<h3>Top 10 states by number of Carnegie libraries</h3>
+<div class="services-bars">"""
+            for s in carn_top:
+                cnt = s.get('public_libraries', 0)
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(s["state"])}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{cnt/carn_max*100:.1f}%"></span></span>
+    <span class="svc-count">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        # Top states by Carnegie dollars
+        if carn_dollar_top:
+            body += """
+<h3>Top 10 states by Carnegie grant dollars</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Public grants</th><th>Libraries built</th><th>Earliest grant</th><th>Latest grant</th><th>Total (USD)</th></tr>"""
+            for s in carn_dollar_top:
+                body += f"""
+  <tr>
+    <td>{esc(s["state"])}</td>
+    <td class="pct">{s.get("public_grants",0):,}</td>
+    <td>{s.get("public_libraries",0):,}</td>
+    <td>{esc(s.get("earliest_grant",""))}</td>
+    <td>{esc(s.get("latest_grant",""))}</td>
+    <td class="pct">${s.get("total_amount_usd",0):,.0f}</td>
+  </tr>"""
+            body += '\n</table>'
+
+        # Friends of the Library
+        if friends:
+            first_grp = friends.get('first_us_group', {}) or {}
+            first_uni = friends.get('first_university_group', {}) or {}
+            body += f"""
+<h3>Friends of the Library: grassroots fundraising</h3>
+<p>{esc(friends.get("description", "") or "Friends of the Library groups are volunteer-driven nonprofit support organizations that fund-raise on behalf of their local libraries. They are the most widespread form of library philanthropy in the United States, with thousands of groups operating at public library systems nationwide.")}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Estimated national count</td><td class="pct">{esc(str(friends.get("estimated_count_national","")).split(";")[0])}</td></tr>"""
+            if first_grp:
+                body += f'\n  <tr><td>First US Friends group</td><td class="pct">{first_grp.get("year","1922")} &mdash; {esc(first_grp.get("location","Glen Ellyn, Illinois"))}</td></tr>'
+            if first_uni:
+                body += f'\n  <tr><td>First university Friends group</td><td class="pct">{first_uni.get("year","1925")} &mdash; {esc(first_uni.get("location","Harvard University"))}</td></tr>'
+            if fg_counts:
+                body += '\n  <tr><td>Historical growth</td><td>'
+                for hc in fg_counts:
+                    body += f'{hc.get("year","")}: {hc.get("groups",0):,} groups / {hc.get("members",0):,} members; '
+                body = body.rstrip('; ') + '</td></tr>'
+            body += '\n</table>'
+
+        # ALA United for Libraries
+        if ufl:
+            body += f"""
+<h3>United for Libraries (ALA division)</h3>
+<p>{esc(ufl.get("merger_history", ""))} {esc(ufl.get("serves", ""))}.</p>"""
+            if ufl.get('key_programs'):
+                body += '<ul class="wiki-list">'
+                for p in ufl['key_programs']:
+                    body += f'\n  <li>{esc(p)}</li>'
+                body += '\n</ul>'
+
+        # Gates Foundation
+        if gates:
+            notable = gates.get('notable_individual_grants', [])
+            body += f"""
+<h3>Bill &amp; Melinda Gates Foundation: wiring libraries (1997-2018)</h3>
+<p>{esc(gates.get("description", "") or "The Gates Foundation's U.S. Libraries initiative, launched in 1997, aimed to ensure that anyone who could reach a public library could reach the internet. It installed computers, software, and training at library systems across all 50 states, then wound down the Global Libraries program around 2018 as internet access at libraries became near-universal.")}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Program</td><td class="pct">{esc(gates.get("program", ""))}</td></tr>
+  <tr><td>US initiative launched</td><td class="pct">{gates.get("us_libraries_initiative_start_year", 1997)}</td></tr>
+  <tr><td>US reach</td><td class="pct">{esc(gates.get("scope_us", ""))}</td></tr>
+  <tr><td>Estimated total committed</td><td class="pct">{esc(gates.get("total_committed_estimate_usd", "Exceeds $1 billion"))}</td></tr>
+  <tr><td>Program wound down</td><td class="pct">{esc(gates.get("program_end", "c. 2018"))}</td></tr>
+</table>"""
+            if notable:
+                body += """
+<h4>Notable individual Gates grants</h4>
+<table class="wikitable">
+  <tr><th>Grantee</th><th>Amount</th><th>Purpose</th></tr>"""
+                for g in notable:
+                    amt = g.get('amount_usd', 0)
+                    body += f'\n  <tr><td>{esc(g.get("grantee",""))}</td><td class="pct">${amt/1e6:.1f}M</td><td>{esc(g.get("purpose", g.get("year","")))}</td></tr>'
+                body += '\n</table>'
+
+        # Major foundations
+        if founds:
+            body += """
+<h3>Major library-supporting foundations</h3>
+<table class="wikitable">
+  <tr><th>Foundation</th><th>Founded</th><th>Endowment</th><th>Library focus</th></tr>"""
+            for f in founds:
+                endow_val = f.get('endowment_usd', 0)
+                endow_str = f'${endow_val/1e9:.1f}B' if endow_val and endow_val >= 1e9 else (f'${endow_val/1e6:.0f}M' if endow_val else '&mdash;')
+                founded = f.get('founded', '') or f.get('founded_year', '') or '&mdash;'
+                focus = f.get('mission', '') or f.get('library_history', '') or f.get('description', '') or f.get('areas', '')
+                # Trim focus
+                if isinstance(focus, list):
+                    focus = '; '.join(str(x) for x in focus)
+                focus = esc(str(focus))[:240]
+                body += f'\n  <tr><td>{esc(f.get("name",""))}</td><td class="pct">{esc(str(founded))}</td><td class="pct">{endow_str}</td><td>{focus}</td></tr>'
+            body += '\n</table>'
+
+        # Endowments table
+        if endow:
+            body += """
+<h3>Library endowments: billions in the bank</h3>
+<table class="wikitable">
+  <tr><th>Institution</th><th>Endowment</th><th>Year</th><th>Source</th></tr>"""
+            for e in sorted(endow, key=lambda x: x.get('endowment_size_usd', 0), reverse=True):
+                body += f'\n  <tr><td>{esc(e.get("library",""))}</td><td class="pct">${e.get("endowment_size_usd",0)/1e9:.2f}B</td><td class="pct">{e.get("year","")}</td><td>{esc(e.get("source",""))}</td></tr>'
+            body += '\n</table>'
+
+        # Adopt-a-Book programs
+        if adopt and adopt.get('examples'):
+            body += f"""
+<h3>Adopt-a-Book &amp; community programs</h3>
+<p>{esc(adopt.get("description", "") or "Adopt-a-Book programs let donors sponsor the purchase or conservation of specific library books, often with bookplates recognizing the donor. Run by individual libraries, their Friends groups, and affiliated foundations.")}</p>
+<table class="wikitable">
+  <tr><th>Organization</th><th>Notes</th></tr>"""
+            for ex in adopt.get('examples', []):
+                body += f'\n  <tr><td>{esc(ex.get("organization",""))}</td><td>{esc(ex.get("note",""))}</td></tr>'
+            body += '\n</table>'
+
+        # Crowdfunding / community fundraising
+        if crowdfund:
+            body += """
+<h3>Crowdfunding &amp; community fundraising</h3>
+<ul class="wiki-list">"""
+            for k, v in crowdfund.items():
+                if isinstance(v, str) and v:
+                    body += f'\n  <li><strong>{esc(k.replace("_", " ").title())}:</strong> {esc(v)}</li>'
+            body += '\n</ul>'
+
+        # Key facts
+        if key_facts:
+            body += """
+<h3>Key facts</h3>
+<ul class="wiki-list">"""
+            for kf in key_facts:
+                body += f'\n  <li>{esc(kf)}</li>'
+            body += '\n</ul>'
+
+        body += f'<p class="rsrc">Source: Wikipedia articles for Andrew Carnegie library grants, Friends of Libraries, Bill &amp; Melinda Gates Foundation, Carnegie Corporation of New York, Andrew W. Mellon Foundation, and New York Public Library (citing annual reports, the Carnegie Corporation history page, and FOLUSA/ALA United for Libraries materials). Carnegie built {carn_us:,} of {carn_world:,} worldwide libraries across {carn_states_count} states; by-state dollar total parsed from the Wikipedia detail table to ${carn_us_dollars:,.0f}. Friends group counts are historical snapshots (no single national registry exists). The Gates Foundation\'s cumulative library commitment is widely reported as exceeding $1 billion, though the foundation does not publish a single official total. Endowment figures are as of the year cited in each source.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

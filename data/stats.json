@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 02:11 UTC",
+  "generated": "2026-08-15 02:18 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -39448,6 +39448,752 @@
       "source": "AFL-CIO DPE 'Library Workers: Facts & Figures 2016'; Library Journal 2023 Placements & Salaries Survey."
     },
     "source_notes": "Primary employment, wage, and by-state data: U.S. Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), SOC 25-4022 (Librarians and Media Collections Specialists), 25-4031 (Library Technicians), 43-4111 (Library Assistants, Bookkeeping, Clerical), and 25-1082 (Library Science Teachers, Postsecondary) \u2014 May 2023 reference data, published 2024; cached locally at data/bls_librarian_salaries.json (BLS site blocks automated retrieval). Demographics (gender, race, age, education), union membership, and salary disparities: AFL-CIO Department for Professional Employees, 'Library Workers: Facts & Figures' fact sheet, October 2016 (archived via Wayback Machine at data/_cache/workforce_aflcio_facts_figures_2016.html), citing 2014-2015 BLS/CPS data. Recent new-graduate demographics, salary trends, and gender/race breakdown of the class of 2022: Library Journal 'Holding Steady | Placements and Salaries Survey 2022' (2023 survey, archived at data/_cache/workforce_lj_salary_survey_2023.html). Gender history and 2019 workforce figures: Wikipedia 'Librarian' article (data/_cache/workforce_wikipedia_librarian.html), which cites the DPE fact sheet and ALA data. ALA diversity initiatives and Spectrum Scholarship: Wikipedia 'American Library Association' (data/_cache/workforce_wikipedia_ala.html) and archived ALA Office for Diversity page (data/_cache/workforce_ala_office_diversity.html). NOTE: BLS and ALA live websites block automated access (HTTP 403); data was obtained from locally cached BLS files and Wayback Machine snapshots. All percentages are as reported by the cited sources and may use different reference years and occupation definitions."
+  },
+  "philanthropy": {
+    "friends_groups": {
+      "estimated_count_national": "thousands (no single registry; ~10,000+ estimated across all US public library systems)",
+      "known_historical_counts": [
+        {
+          "year": 1973,
+          "groups": 1000,
+          "members": 100000,
+          "source": "Wikipedia: Friends of Libraries (citing FOLUSA history)"
+        },
+        {
+          "year": 1979,
+          "groups": 2000,
+          "members": 500000,
+          "context": "At formation of Friends of Libraries U.S.A. (FOLUSA)",
+          "source": "Wikipedia: Friends of Libraries"
+        }
+      ],
+      "first_us_group": {
+        "year": 1922,
+        "location": "Glen Ellyn, Illinois",
+        "note": "Founded to help purchase books; first-year raised $365 in membership fees"
+      },
+      "first_us_university_group": {
+        "year": 1925,
+        "location": "Harvard University"
+      },
+      "description": "Non-profit charitable volunteer groups formed to support libraries in their communities. Support is financial, political, and cultural. Groups are separate from the libraries they support and made up of volunteers; generally structured with memberships, meetings, bylaws, and 501(c)(3) tax-exempt status. Typical activities: used-book sales, membership drives, retail shops inside libraries, advocacy/lobbying, funding furniture/equipment/books/programming, and capital campaigns for new buildings.",
+      "typical_revenue": {
+        "source": "1987 FOLUSA study",
+        "average_members_per_group": 213,
+        "average_annual_funds_raised_usd": 9408
+      },
+      "state_and_national_structure": "In the US, Friends groups exist at local, state, and national levels. Statewide Friends groups began forming in the 1960s.",
+      "source": "Wikipedia: Friends of Libraries (https://en.wikipedia.org/wiki/Friends_of_the_Library); ALA United for Libraries (https://www.ala.org/united)"
+    },
+    "ala_united_for_libraries": {
+      "current_name": "United for Libraries (ALA division)",
+      "former_names": [
+        "Association of Library Trustees, Advocates, Friends and Foundations (ALTAFF)",
+        "Association for Library Trustees and Advocates (ALTA)",
+        "Friends of Libraries U.S.A. (FOLUSA, founded 1979)"
+      ],
+      "merger_history": "FOLUSA joined with ALTA to form United for Libraries in 2009. ALA's Friends of the Library Committee predates this.",
+      "serves": "Library Trustees, Friends of the Library groups, and library Foundations",
+      "key_programs": [
+        "National Friends of Libraries Week (21st annual held Oct. 18-24, 2026; began 2006)",
+        "Literary Landmark program (60+ sites designated by 2009)",
+        "Trustee Academy and Short Takes for Trustees",
+        "Citizens-Save-Libraries Power Guide",
+        "Books for Babies",
+        "Awards & Grants for Friends/Foundations and Trustees",
+        "Statewide Training for Trustees, Friends, Foundations, and Library Staff (12 partner states: IL, IN, MA, MD, MI, MN, ND, NE, NV, OR, SC, VA)",
+        "Penguin Random House Grant to Rural and Small Libraries (with United for Libraries)"
+      ],
+      "advocacy": "Citizens-Save-Libraries Power Guide; The E's of Libraries resources; Library Legislative Days participation by Friends groups",
+      "source": "ALA United for Libraries (https://www.ala.org/united); Wikipedia: Friends of Libraries"
+    },
+    "carnegie_libraries": {
+      "total_built_worldwide": 2509,
+      "total_built_us": 1689,
+      "by_region_worldwide": [
+        {
+          "region": "United States",
+          "libraries": 1689
+        },
+        {
+          "region": "United Kingdom and Ireland",
+          "libraries": 660
+        },
+        {
+          "region": "Canada",
+          "libraries": 125
+        },
+        {
+          "region": "Other (Australia, South Africa, New Zealand, Serbia, Belgium, France, Caribbean, Mauritius, Malaysia, Fiji)",
+          "libraries": 25
+        }
+      ],
+      "years_active": "1883-1929 (first grant 1880 to Dunfermline, Scotland; first US commission 1886 Allegheny, PA; first US opening 1889 Braddock, PA; last grant shortly before Carnegie's death in 1919)",
+      "total_dollars_worldwide": 56200000,
+      "total_dollars_worldwide_note": "Almost $56.2 million went for construction of 2,509 libraries worldwide.",
+      "total_dollars_us": 40000000,
+      "total_dollars_us_note": "$40 million given for construction of 1,670 public library buildings in 1,412 American communities (Carnegie Corp. history). By-state public-grant dollar total parsed from Wikipedia detail table: $45,864,940.10 (includes some academic/endowed).",
+      "dollar_total_by_state_parsed": 45864940.1,
+      "public_libraries_by_state_parsed": 1687,
+      "academic_libraries_by_state_parsed": 109,
+      "states_with_carnegie_libraries": 50,
+      "states_with_no_carnegie_libraries": [
+        "Alaska",
+        "Delaware"
+      ],
+      "context": "By the time the last grant was made, Carnegie had funded construction of nearly half of the 3,500 libraries then in the United States. Women's clubs led establishment of 75-80% of libraries in communities across the country. Under segregation, Carnegie funded separate libraries for African Americans in the South (e.g., Houston Colored Carnegie Library; Carnegie Library of Savannah, GA opened 1914).",
+      "new_york_city_grant": {
+        "amount_usd_1901": 5200000,
+        "branches": 65,
+        "note": "Carnegie donated $5.2 million (~$201M in 2025 dollars) to construct 65 NYPL branch libraries, operated/maintained by the City of New York."
+      },
+      "endowed_libraries": "Braddock, Homestead, and Duquesne libraries (southwestern PA) were owned and maintained by Carnegie Steel. Four libraries were fully endowed by Carnegie.",
+      "by_state": [
+        {
+          "state": "Indiana",
+          "public_grants": 156,
+          "public_libraries": 165,
+          "academic_libraries": 2,
+          "earliest_grant": "Jan 15, 1901",
+          "latest_grant": "Mar 11, 1918",
+          "total_amount_usd": 2588664.38
+        },
+        {
+          "state": "California",
+          "public_grants": 121,
+          "public_libraries": 142,
+          "academic_libraries": 2,
+          "earliest_grant": "Jul 7, 1899",
+          "latest_grant": "Sep 14, 1917",
+          "total_amount_usd": 2836987.0
+        },
+        {
+          "state": "Illinois",
+          "public_grants": 105,
+          "public_libraries": 106,
+          "academic_libraries": 5,
+          "earliest_grant": "Aug 8, 1900",
+          "latest_grant": "Sep 29, 1915",
+          "total_amount_usd": 1751200.0
+        },
+        {
+          "state": "New York",
+          "public_grants": 41,
+          "public_libraries": 106,
+          "academic_libraries": 3,
+          "earliest_grant": "Dec 8, 1899",
+          "latest_grant": "Dec 22, 1922",
+          "total_amount_usd": 6697149.0
+        },
+        {
+          "state": "Ohio",
+          "public_grants": 79,
+          "public_libraries": 106,
+          "academic_libraries": 7,
+          "earliest_grant": "Jun 30, 1899",
+          "latest_grant": "May 2, 1921",
+          "total_amount_usd": 3239928.64
+        },
+        {
+          "state": "Iowa",
+          "public_grants": 99,
+          "public_libraries": 101,
+          "academic_libraries": 7,
+          "earliest_grant": "Jan 15, 1892",
+          "latest_grant": "Nov 7, 1917",
+          "total_amount_usd": 1705706.0
+        },
+        {
+          "state": "Nebraska",
+          "public_grants": 68,
+          "public_libraries": 69,
+          "academic_libraries": 0,
+          "earliest_grant": "Dec 20, 1899",
+          "latest_grant": "Sep 14, 1917",
+          "total_amount_usd": 706288.0
+        },
+        {
+          "state": "Minnesota",
+          "public_grants": 57,
+          "public_libraries": 65,
+          "academic_libraries": 1,
+          "earliest_grant": "Oct 7, 1899",
+          "latest_grant": "Nov 7, 1917",
+          "total_amount_usd": 998975.0
+        },
+        {
+          "state": "Wisconsin",
+          "public_grants": 60,
+          "public_libraries": 63,
+          "academic_libraries": 2,
+          "earliest_grant": "Feb 13, 1901",
+          "latest_grant": "Sep 29, 1915",
+          "total_amount_usd": 1149511.5
+        },
+        {
+          "state": "Michigan",
+          "public_grants": 53,
+          "public_libraries": 61,
+          "academic_libraries": 0,
+          "earliest_grant": "Feb 6, 1901",
+          "latest_grant": "Apr 16, 1918",
+          "total_amount_usd": 1655950.0
+        },
+        {
+          "state": "Kansas",
+          "public_grants": 58,
+          "public_libraries": 59,
+          "academic_libraries": 7,
+          "earliest_grant": "Jan 3, 1900",
+          "latest_grant": "Nov 9, 1916",
+          "total_amount_usd": 1070496.0
+        },
+        {
+          "state": "Pennsylvania",
+          "public_grants": 27,
+          "public_libraries": 59,
+          "academic_libraries": 9,
+          "earliest_grant": "1886",
+          "latest_grant": "May 3, 1917",
+          "total_amount_usd": 5610587.0
+        },
+        {
+          "state": "Washington",
+          "public_grants": 33,
+          "public_libraries": 44,
+          "academic_libraries": 0,
+          "earliest_grant": "Jan 6, 1901",
+          "latest_grant": "Nov 9, 1916",
+          "total_amount_usd": 1046000.0
+        },
+        {
+          "state": "Massachusetts",
+          "public_grants": 35,
+          "public_libraries": 43,
+          "academic_libraries": 5,
+          "earliest_grant": "Mar 8, 1901",
+          "latest_grant": "Feb 3, 1917",
+          "total_amount_usd": 1651346.0
+        },
+        {
+          "state": "New Jersey",
+          "public_grants": 30,
+          "public_libraries": 36,
+          "academic_libraries": 0,
+          "earliest_grant": "Jan 18, 1900",
+          "latest_grant": "Apr 3, 1917",
+          "total_amount_usd": 1066935.03
+        },
+        {
+          "state": "Colorado",
+          "public_grants": 27,
+          "public_libraries": 35,
+          "academic_libraries": 1,
+          "earliest_grant": "Dec 21, 1899",
+          "latest_grant": "Feb 3, 1917",
+          "total_amount_usd": 779943.0
+        },
+        {
+          "state": "Missouri",
+          "public_grants": 26,
+          "public_libraries": 33,
+          "academic_libraries": 2,
+          "earliest_grant": "Oct 28, 1899",
+          "latest_grant": "May 2, 1921",
+          "total_amount_usd": 1555143.84
+        },
+        {
+          "state": "Texas",
+          "public_grants": 30,
+          "public_libraries": 32,
+          "academic_libraries": 1,
+          "earliest_grant": "Apr 30, 1898",
+          "latest_grant": "Apr 19, 1915",
+          "total_amount_usd": 664500.0
+        },
+        {
+          "state": "Oregon",
+          "public_grants": 25,
+          "public_libraries": 31,
+          "academic_libraries": 1,
+          "earliest_grant": "Feb 21, 1901",
+          "latest_grant": "Jan 6, 1915",
+          "total_amount_usd": 498000.0
+        },
+        {
+          "state": "South Dakota",
+          "public_grants": 25,
+          "public_libraries": 25,
+          "academic_libraries": 2,
+          "earliest_grant": "Jan 24, 1901",
+          "latest_grant": "May 3, 1917",
+          "total_amount_usd": 311000.0
+        },
+        {
+          "state": "Georgia",
+          "public_grants": 20,
+          "public_libraries": 24,
+          "academic_libraries": 5,
+          "earliest_grant": "Oct 3, 1898",
+          "latest_grant": "Jun 11, 1914",
+          "total_amount_usd": 613756.0
+        },
+        {
+          "state": "Oklahoma",
+          "public_grants": 24,
+          "public_libraries": 24,
+          "academic_libraries": 1,
+          "earliest_grant": "Oct 27, 1899",
+          "latest_grant": "Mar 31, 1916",
+          "total_amount_usd": 494500.0
+        },
+        {
+          "state": "Kentucky",
+          "public_grants": 15,
+          "public_libraries": 23,
+          "academic_libraries": 4,
+          "earliest_grant": "Oct 30, 1899",
+          "latest_grant": "Apr 13, 1914",
+          "total_amount_usd": 896800.0
+        },
+        {
+          "state": "Utah",
+          "public_grants": 23,
+          "public_libraries": 23,
+          "academic_libraries": 0,
+          "earliest_grant": "Mar 9, 1901",
+          "latest_grant": "Sep 26, 1919",
+          "total_amount_usd": 255470.0
+        },
+        {
+          "state": "Maine",
+          "public_grants": 18,
+          "public_libraries": 18,
+          "academic_libraries": 2,
+          "earliest_grant": "Jan 15, 1901",
+          "latest_grant": "Feb 15, 1912",
+          "total_amount_usd": 311450.0
+        },
+        {
+          "state": "Montana",
+          "public_grants": 17,
+          "public_libraries": 17,
+          "academic_libraries": 0,
+          "earliest_grant": "Jun 21, 1901",
+          "latest_grant": "Oct 29, 1918",
+          "total_amount_usd": 226700.0
+        },
+        {
+          "state": "Wyoming",
+          "public_grants": 16,
+          "public_libraries": 16,
+          "academic_libraries": 0,
+          "earliest_grant": "Dec 27, 1899",
+          "latest_grant": "Apr 3, 1917",
+          "total_amount_usd": 257500.0
+        },
+        {
+          "state": "Alabama",
+          "public_grants": 14,
+          "public_libraries": 14,
+          "academic_libraries": 5,
+          "earliest_grant": "Feb 13, 1901",
+          "latest_grant": "May 15, 1916",
+          "total_amount_usd": 289840.0
+        },
+        {
+          "state": "Maryland",
+          "public_grants": 1,
+          "public_libraries": 14,
+          "academic_libraries": 0,
+          "earliest_grant": "Nov 10, 1906",
+          "latest_grant": "Nov 10, 1906",
+          "total_amount_usd": 500000.0
+        },
+        {
+          "state": "South Carolina",
+          "public_grants": 14,
+          "public_libraries": 14,
+          "academic_libraries": 4,
+          "earliest_grant": "Jan 13, 1903",
+          "latest_grant": "May 15, 1916",
+          "total_amount_usd": 189700.0
+        },
+        {
+          "state": "Tennessee",
+          "public_grants": 10,
+          "public_libraries": 13,
+          "academic_libraries": 7,
+          "earliest_grant": "Dec 27, 1900",
+          "latest_grant": "Jan 11, 1917",
+          "total_amount_usd": 605500.0
+        },
+        {
+          "state": "Connecticut",
+          "public_grants": 8,
+          "public_libraries": 11,
+          "academic_libraries": 0,
+          "earliest_grant": "Aug 16, 1901",
+          "latest_grant": "Sep 25, 1914",
+          "total_amount_usd": 191900.0
+        },
+        {
+          "state": "Mississippi",
+          "public_grants": 10,
+          "public_libraries": 11,
+          "academic_libraries": 2,
+          "earliest_grant": "Dec 2, 1904",
+          "latest_grant": "Nov 22, 1923",
+          "total_amount_usd": 235000.0
+        },
+        {
+          "state": "Florida",
+          "public_grants": 10,
+          "public_libraries": 10,
+          "academic_libraries": 4,
+          "earliest_grant": "Dec 30, 1901",
+          "latest_grant": "Feb 3, 1917",
+          "total_amount_usd": 254500.0
+        },
+        {
+          "state": "Idaho",
+          "public_grants": 10,
+          "public_libraries": 10,
+          "academic_libraries": 0,
+          "earliest_grant": "Feb 12, 1903",
+          "latest_grant": "Mar 11, 1914",
+          "total_amount_usd": 137500.0
+        },
+        {
+          "state": "North Carolina",
+          "public_grants": 9,
+          "public_libraries": 10,
+          "academic_libraries": 6,
+          "earliest_grant": "Mar 12, 1901",
+          "latest_grant": "Sep 14, 1917",
+          "total_amount_usd": 294313.71
+        },
+        {
+          "state": "Louisiana",
+          "public_grants": 4,
+          "public_libraries": 9,
+          "academic_libraries": 0,
+          "earliest_grant": "Oct 17, 1901",
+          "latest_grant": "Apr 8, 1907",
+          "total_amount_usd": 380000.0
+        },
+        {
+          "state": "New Hampshire",
+          "public_grants": 9,
+          "public_libraries": 9,
+          "academic_libraries": 1,
+          "earliest_grant": "Mar 14, 1902",
+          "latest_grant": "Dec 13, 1907",
+          "total_amount_usd": 154000.0
+        },
+        {
+          "state": "North Dakota",
+          "public_grants": 8,
+          "public_libraries": 8,
+          "academic_libraries": 3,
+          "earliest_grant": "Mar 6, 1901",
+          "latest_grant": "Jan 28, 1916",
+          "total_amount_usd": 201100.0
+        },
+        {
+          "state": "Arizona",
+          "public_grants": 4,
+          "public_libraries": 4,
+          "academic_libraries": 0,
+          "earliest_grant": "Jul 4, 1899",
+          "latest_grant": "Sep 14, 1917",
+          "total_amount_usd": 64000.0
+        },
+        {
+          "state": "Arkansas",
+          "public_grants": 4,
+          "public_libraries": 4,
+          "academic_libraries": 0,
+          "earliest_grant": "Mar 24, 1906",
+          "latest_grant": "Sep 20, 1915",
+          "total_amount_usd": 138600.0
+        },
+        {
+          "state": "Vermont",
+          "public_grants": 4,
+          "public_libraries": 4,
+          "academic_libraries": 1,
+          "earliest_grant": "Jul 25, 1901",
+          "latest_grant": "Mar 18, 1911",
+          "total_amount_usd": 105000.0
+        },
+        {
+          "state": "District of Columbia",
+          "public_grants": 1,
+          "public_libraries": 4,
+          "academic_libraries": 1,
+          "earliest_grant": "Mar 16, 1899",
+          "latest_grant": "Mar 16, 1899",
+          "total_amount_usd": 732000.0
+        },
+        {
+          "state": "New Mexico",
+          "public_grants": 3,
+          "public_libraries": 3,
+          "academic_libraries": 0,
+          "earliest_grant": "Mar 14, 1902",
+          "latest_grant": "Jan 23, 1911",
+          "total_amount_usd": 32000.0
+        },
+        {
+          "state": "Virginia",
+          "public_grants": 2,
+          "public_libraries": 3,
+          "academic_libraries": 4,
+          "earliest_grant": "Mar 8, 1901",
+          "latest_grant": "Dec 14, 1921",
+          "total_amount_usd": 253000.0
+        },
+        {
+          "state": "West Virginia",
+          "public_grants": 3,
+          "public_libraries": 3,
+          "academic_libraries": 1,
+          "earliest_grant": "Dec 30, 1901",
+          "latest_grant": "Apr 8, 1907",
+          "total_amount_usd": 101500.0
+        },
+        {
+          "state": "Hawaii",
+          "public_grants": 1,
+          "public_libraries": 1,
+          "academic_libraries": 0,
+          "earliest_grant": "Nov 29, 1909",
+          "latest_grant": "Nov 29, 1909",
+          "total_amount_usd": 100000.0
+        },
+        {
+          "state": "Nevada",
+          "public_grants": 1,
+          "public_libraries": 1,
+          "academic_libraries": 0,
+          "earliest_grant": "Mar 14, 1902",
+          "latest_grant": "Mar 14, 1902",
+          "total_amount_usd": 15000.0
+        },
+        {
+          "state": "Puerto Rico",
+          "public_grants": 1,
+          "public_libraries": 1,
+          "academic_libraries": 0,
+          "earliest_grant": "October 4, 1901",
+          "latest_grant": "October 4, 1901",
+          "total_amount_usd": 100000.0
+        },
+        {
+          "state": "Rhode Island",
+          "public_grants": 0,
+          "public_libraries": 0,
+          "academic_libraries": 1,
+          "earliest_grant": "Mar 30, 1905",
+          "latest_grant": "Mar 30, 1905",
+          "total_amount_usd": 150000.0
+        }
+      ],
+      "source": "Wikipedia: Carnegie library (https://en.wikipedia.org/wiki/Carnegie_library); Wikipedia: List of Carnegie libraries in the United States; Carnegie Corporation of New York history (https://www.carnegie.org/about/our-history/)"
+    },
+    "major_foundations": [
+      {
+        "name": "Carnegie Corporation of New York (now Andrew Carnegie Foundation)",
+        "endowment_usd": 4100000000,
+        "endowment_year": 2022,
+        "founded": 1911,
+        "founding_endowment_usd": 135000000,
+        "founding_note": "Founded by Andrew Carnegie in 1911 with a $135 million endowment (later increased to $125M given by 1912), the largest single philanthropic trust ever established up to that time.",
+        "mission": "To promote the advancement and diffusion of knowledge and understanding.",
+        "library_history": "By 1911, Carnegie had given away more than $43 million for public library buildings and close to $110 million for other purposes.",
+        "revenue_usd_2022": 602000000,
+        "expenses_usd_2022": 186000000,
+        "fields": "Education, democracy, international peace, higher education in Africa",
+        "source": "Wikipedia: Carnegie Corporation of New York; Carnegie Corporation history page"
+      },
+      {
+        "name": "Andrew W. Mellon Foundation",
+        "endowment_usd": 6100000000,
+        "endowment_year": 2015,
+        "grant_budget_usd_2024": 540000000,
+        "founded": 1969,
+        "areas": "Higher education (including the humanities, libraries, and scholarly communication and information technology); museums and art conservation; performing arts; conservation and the environment",
+        "description": "The Atlantic described the Mellon Foundation, with its $540 million grant budget in 2024, as more influential over the fiscal direction and cultural output of American humanities than any other single entity, including the federal government.",
+        "revenue_usd_2015": 380179226,
+        "expenses_usd_2015": 331375744,
+        "source": "Wikipedia: Andrew W. Mellon Foundation"
+      },
+      {
+        "name": "New York Public Library (private nonprofit; chartered as The New York Public Library, Astor, Lenox and Tilden Foundations)",
+        "type": "Library system / foundation",
+        "endowment_usd": 1448838000,
+        "endowment_year": 2017,
+        "founded": 1895,
+        "budget_usd_2017": 302208000,
+        "branches": 92,
+        "collection_size": "55 million items",
+        "population_served": "3.5 million (the Bronx, Manhattan, and Staten Island)",
+        "founding_philanthropy": "Founded from amalgamation of the Astor Library (John Jacob Astor bequeathed $400,000 in 1848, ~$14.9M in 2025), the Lenox Library (James Lenox donation), and the Tilden Trust (Samuel J. Tilden bequeathed ~$2.4 million in 1886, ~$86M in 2025).",
+        "carnegie_grant": "$5.2 million in 1901 for 65 branch libraries.",
+        "source": "Wikipedia: New York Public Library"
+      },
+      {
+        "name": "Chicago Public Library Foundation",
+        "type": "Library foundation (supports Chicago Public Library)",
+        "associated_library_budget_usd": 106000000,
+        "branches": 81,
+        "collection_size": "5,721,334 volumes",
+        "population_served": "2.8 million",
+        "notable_grants": "In June 2013, the Bill & Melinda Gates Foundation gave a $1 million grant establishing a partnership between Chicago Public Library and the public library system of Aarhus, Denmark.",
+        "founding_history": "Chicago Public Library was created in 1873 from the 'English Book Donation' (8,000 books donated after the 1871 Great Chicago Fire by donors including Queen Victoria, Disraeli, Tennyson, Browning, Mill, Ruskin, and Arnold).",
+        "source": "Wikipedia: Chicago Public Library"
+      },
+      {
+        "name": "Boston Public Library",
+        "type": "Municipal public library (with associated foundation/Association of Friends)",
+        "founded": 1848,
+        "budget_usd_fy2026": 49500000,
+        "branches": 24,
+        "collection_size": "24,079,520",
+        "population_served": "6,547,629 (serves entire state of Massachusetts)",
+        "source": "Wikipedia: Boston Public Library"
+      },
+      {
+        "name": "San Francisco Public Library",
+        "type": "Municipal public library (with Friends of the SFPL foundation)",
+        "budget_usd_fy2017": 126000000,
+        "branches": 27,
+        "collection_size": "3,946,841",
+        "circulation": "10,971,974",
+        "population_served": "870,887",
+        "source": "Wikipedia: San Francisco Public Library"
+      }
+    ],
+    "gates_foundation": {
+      "name": "Bill & Melinda Gates Foundation",
+      "program": "Global Libraries (international) and U.S. Libraries Program",
+      "us_libraries_initiative_start_year": 1997,
+      "goal": "Ensuring that if you can get to a public library, you can reach the internet.",
+      "description": "Introduced a U.S. Libraries initiative in 1997 with the goal of connecting public libraries to the internet. The foundation gave grants, installed computers and software, and provided training and technical support in partnership with public libraries nationwide to increase access and knowledge, helping move public libraries into the digital age. The international Global Libraries program extended this work to public libraries outside the U.S.",
+      "scope_us": "Reached public library systems across all 50 U.S. states with computers, internet access, and training.",
+      "scope_international": "Worked with public libraries outside the U.S.; partners included READ Global (Bhutan, India, Nepal), eIFL Public Library Innovation Program, University of Illinois at Urbana-Champaign, and IREX. Countries reached included Colombia (government partnership announced 2010) and others across multiple regions.",
+      "total_committed_estimate_usd": "Exceeds $1 billion cumulative (US + international library programs, 1997-2018); widely reported figure. Exact official total not stated on current gatesfoundation.org pages (JS-rendered; archived pages confirm program scope but not a single published total).",
+      "notable_individual_grants": [
+        {
+          "grantee": "Southeastern Library Network (SOLINET)",
+          "amount_usd": 12200000,
+          "purpose": "Assist libraries in Louisiana and Mississippi damaged/destroyed by Hurricanes Katrina and Rita"
+        },
+        {
+          "grantee": "Chicago Public Library (partnership with Aarhus, Denmark)",
+          "amount_usd": 1000000,
+          "year": 2013
+        }
+      ],
+      "program_end": "Global Libraries program wound down ~2018 as internet access at libraries became near-universal; foundation shifted focus.",
+      "source": "Wikipedia: Bill & Melinda Gates Foundation (https://en.wikipedia.org/wiki/Bill_%26_Melinda_Gates_Foundation); Wayback Machine archived Gates Foundation Global Libraries pages (2012); Wikipedia: Chicago Public Library"
+    },
+    "endowments": [
+      {
+        "library": "New York Public Library",
+        "endowment_size_usd": 1448838000,
+        "year": 2017,
+        "source": "Wikipedia: New York Public Library (NYPL 2017 Annual Report)"
+      },
+      {
+        "library": "Carnegie Corporation of New York (grantmaker supporting libraries/knowledge)",
+        "endowment_size_usd": 4100000000,
+        "year": 2022,
+        "source": "Wikipedia: Carnegie Corporation of New York"
+      },
+      {
+        "library": "Andrew W. Mellon Foundation (grantmaker supporting libraries/humanities)",
+        "endowment_size_usd": 6100000000,
+        "year": 2015,
+        "source": "Wikipedia: Andrew W. Mellon Foundation"
+      }
+    ],
+    "private_giving_to_libraries": {
+      "total_annual_estimate": "No single authoritative figure publishes total annual private giving to all US libraries. IMLS and ALA track public funding (local/state/federal) but private/donated revenue is reported inconsistently. A meaningful share of private support flows through Friends groups (thousands nationally), library foundations, and endowment income.",
+      "note": "Public libraries derive ~80-90% of revenue from local government (per IMLS PLS); private giving supplements this for programming, collections, and capital projects. Candid (Foundation Center/Candid) tracks foundation grants to libraries but no single national total is published.",
+      "major_modern_donors": [
+        {
+          "donor": "Bill & Melinda Gates Foundation",
+          "focus": "Internet access, computers, and training at public libraries (US and global); 21st-century digital inclusion",
+          "period": "1997-2018"
+        },
+        {
+          "donor": "Andrew W. Mellon Foundation",
+          "focus": "Humanities, libraries, and scholarly communication; major funder of research/academic library initiatives",
+          "period": "1969-present"
+        },
+        {
+          "donor": "Carnegie Corporation of New York",
+          "focus": "Continuation of Andrew Carnegie's library legacy; education and knowledge advancement",
+          "period": "1911-present"
+        }
+      ],
+      "major_historical_donor": {
+        "donor": "Andrew Carnegie",
+        "lifespan": "1835-1919",
+        "total_library_giving_usd": 56200000,
+        "worldwide_libraries_built": 2509,
+        "us_libraries_built": 1689,
+        "note": "Gave away >$43 million for public library buildings and ~$110 million for other purposes by 1911. Funded nearly half of the 3,500 US libraries then in existence."
+      },
+      "source": "IMLS Public Libraries Survey (public revenue data); Wikipedia: Carnegie library, Bill & Melinda Gates Foundation, Andrew W. Mellon Foundation, Carnegie Corporation of New York"
+    },
+    "crowdfunding_and_community_fundraising": {
+      "friends_groups_book_sales": "Used-book sales are a major revenue source for thousands of Friends of the Library groups; book sales can be major community events. Friends also receive book donations to resell.",
+      "membership_drives": "Annual membership drives are a primary fundraising method for Friends groups (membership fees/donations).",
+      "library_retail_shops": "Some Friends groups sell items in retail space inside the libraries they support (e.g., Friends of the Library Shop at Salt Lake City Main Library).",
+      "capital_campaigns": "Some Friends groups formed specifically to build new libraries (e.g., Naples, FL Friends formed 1957 to build Collier County library; accepted donated land leased to the city).",
+      "statewide_friends_groups": "State-level Friends organizations coordinate advocacy and fundraising across local groups (statewide groups began forming in the 1960s).",
+      "modern_crowdfunding": "Platforms such as GoFundMe, Kickstarter, and DonorsChoose are used by libraries and Friends groups for project-specific campaigns; ALA and United for Libraries provide fundraising toolkits (e.g., Citizens-Save-Libraries Power Guide). No single published total for library crowdfunding exists.",
+      "ala_toolkits": "ALA/United for Libraries provide toolkits, factsheets, listservs, free toolkits, and contact information for State Friends Groups to support local fundraising and advocacy.",
+      "source": "Wikipedia: Friends of Libraries; ALA United for Libraries"
+    },
+    "adopt_a_book_programs": {
+      "description": "Adopt-a-Book programs allow donors to sponsor the purchase or conservation of specific library books, often with bookplates recognizing the donor. Run by individual libraries, their Friends groups, and affiliated foundations.",
+      "examples": [
+        {
+          "organization": "Smithsonian Libraries",
+          "note": "Operates an Adopt-a-Book program supporting acquisition and conservation of its 3-million-volume collection; grew through donations (e.g., 1976 gift of 10,000 rare scientific books from the Burndy Library)."
+        },
+        {
+          "organization": "ALA United for Libraries",
+          "note": "Promotes Adopt-a-Book and similar donor programs among member Friends groups and foundations via awards, grants, and resources."
+        }
+      ],
+      "similar_programs": "Many public and academic libraries run 'Adopt-a-Book,' 'Buy-a-Book,' and sponsor-a-shelf programs through their Friends groups or foundations; details vary by institution and are not centrally tallied.",
+      "source": "Wikipedia: Smithsonian Libraries; ALA United for Libraries"
+    },
+    "key_facts": [
+      "Andrew Carnegie funded 2,509 libraries worldwide (1883-1929), including 1,689 in the United States, at a cost of ~$56.2 million (~$40 million for 1,670 US public library buildings in 1,412 communities).",
+      "By the time of Carnegie's last library grant, he had funded construction of nearly half of the 3,500 libraries then in the United States.",
+      "The first US Friends of the Library group was founded in 1922 in Glen Ellyn, Illinois; the first university Friends group at Harvard in 1925.",
+      "By 1973 there were ~1,000 Friends groups with over 100,000 members; by 1979 (at FOLUSA's formation) ~2,000 groups with ~500,000 members.",
+      "Friends of Libraries U.S.A. (FOLUSA, founded 1979) merged with the Association for Library Trustees and Advocates (ALTA) in 2009 to form ALA's United for Libraries, serving Trustees, Friends, and Foundations.",
+      "A 1987 FOLUSA study found Friends groups averaged 213 members and raised $9,408 per year for furniture, equipment, books, and programming.",
+      "The Bill & Melinda Gates Foundation's U.S. Libraries initiative began in 1997 to connect public libraries to the internet, reaching library systems across all 50 states with computers, software, and training; the international Global Libraries program extended this to 30+ countries.",
+      "The Gates Foundation committed more than $1 billion cumulatively to library programs (US and global) before winding down Global Libraries ~2018.",
+      "The New York Public Library holds an endowment of ~$1.45 billion (2017), founded from the Astor, Lenox, and Tilden Foundations and Carnegie's $5.2 million grant for 65 branches.",
+      "The Andrew W. Mellon Foundation, with a ~$6.1 billion endowment and a $540 million annual grant budget (2024), is a leading funder of libraries, humanities, and scholarly communication.",
+      "The Carnegie Corporation of New York (founded 1911 with a $135 million endowment) holds a ~$4.1 billion endowment (2022) and continues Carnegie's knowledge-advancement mission.",
+      "ALA's United for Libraries coordinates the National Friends of Libraries Week (21st annual in 2026), Literary Landmark program (60+ sites by 2009), and statewide training in 12 states.",
+      "Alaska and Delaware are the only US states with no Carnegie libraries.",
+      "Indiana (165), California (142), and Illinois/New York/Ohio (106 each) had the most Carnegie public libraries by state.",
+      "Women's clubs led the establishment of 75-80% of libraries in communities across the country during Carnegie's era.",
+      "Under segregation, Carnegie funded separate libraries for African Americans in the South (e.g., Houston Colored Carnegie Library; Savannah, GA Carnegie Library opened 1914).",
+      "Adopt-a-Book and similar sponsor-a-book programs operate at many libraries (e.g., Smithsonian Libraries) and are promoted by ALA United for Libraries."
+    ],
+    "source_notes": "Primary sources retrieved Aug 2026 and cached in data/_cache/ with prefix 'philanthropy_': Wikipedia REST API/HTML articles (Carnegie library; List of Carnegie libraries in the United States; Carnegie Corporation of New York; Andrew W. Mellon Foundation; Bill & Melinda Gates Foundation; Friends of Libraries; New York Public Library; Chicago Public Library; Boston Public Library; San Francisco Public Library; Smithsonian Libraries); Carnegie Corporation of New York official history page (carnegie.org/about/our-history); ALA United for Libraries official pages (ala.org/united); Wayback Machine archived Gates Foundation Global Libraries pages (2012 snapshot). Carnegie by-state figures were programmatically parsed from the Wikipedia 'List of Carnegie libraries in the United States' detail table (50 states/territories with Carnegie libraries; Alaska and Delaware excluded as having none). Dollar figures for Carnegie grants are historical nominal dollars (1883-1929); modern equivalents noted where Wikipedia provided them. The Gates Foundation Global Libraries total committed figure (>$1 billion) is a widely-reported estimate; the foundation's current website is JavaScript-rendered and does not expose a single published total on static HTML, so the figure is marked as an estimate. Total annual private giving to US libraries is not published as a single authoritative number by IMLS, ALA, or Candid; private/donated revenue is reported inconsistently across ~9,200 public library systems and is not aggregated nationally. ALA United for Libraries subpages (Adopt-a-Book, funding toolkits) are JavaScript-rendered and returned only navigation chrome via static fetch, so Adopt-a-Book details are drawn from the Smithsonian Libraries article and United for Libraries main-page program listings."
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

@@ -10135,6 +10135,80 @@ def build_contacts(data, stats):
             body += f'\n  <tr><td><a href="states/{st_code}.html">{esc(st_code)}</a></td><td class="num">{total_s:,}</td><td class="num">{with_url_s:,}</td><td class="pct">{pct_s}</td></tr>'
         body += '\n</table>'
 
+    # ---- NNLM Health Libraries ----
+    nnlm_path = os.path.join(os.path.dirname(WIKI), 'data', 'nnlm_health_libraries_summary.json')
+    if os.path.exists(nnlm_path):
+        try:
+            with open(nnlm_path) as nf:
+                nnlm = json.load(nf)
+            members = nnlm.get('members', [])
+            if members:
+                body += f"""
+<h2 id="nnlm">National Network of Libraries of Medicine (NNLM) — Health Library Directory</h2>
+<p>{nnlm.get('total_members', len(members)):,} member organizations of the NNLM — health sciences libraries, hospitals, public libraries, and community organizations providing health information services. {nnlm.get('with_phone', 0):,} with phone numbers, {nnlm.get('with_website', 0):,} with websites.</p>"""
+                # Org type breakdown
+                by_type = nnlm.get('by_org_type', {})
+                if by_type:
+                    body += """
+<h3>NNLM Members by Organization Type</h3>
+<table class="wikitable">
+  <tr><th>Organization Type</th><th>Count</th></tr>"""
+                    for t, c in sorted(by_type.items(), key=lambda x: x[1], reverse=True):
+                        body += f'\n  <tr><td>{esc(str(t))}</td><td class="num">{c:,}</td></tr>'
+                    body += '\n</table>'
+
+                # Member directory
+                body += f"""
+<h3>NNLM Member Directory ({len(members):,} organizations)</h3>
+<table class="wikitable">
+  <tr><th>Organization Type</th><th>Address</th><th>Phone</th><th>Website</th></tr>"""
+                for m in sorted(members, key=lambda x: x.get('org_type', ''))[:500]:
+                    otype = esc(m.get('org_type', ''))
+                    addr = esc(m.get('address_blob', ''))
+                    phone = esc(m.get('phone', ''))
+                    website = m.get('website', '')
+                    web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+                    phone_str = phone if phone else '&mdash;'
+                    body += f'\n  <tr><td>{otype}</td><td>{addr}</td><td>{phone_str}</td><td>{web_link}</td></tr>'
+                body += f'\n</table>\n<p>Showing 500 of {len(members):,} NNLM member organizations.</p>'
+        except Exception:
+            pass
+
+    # ---- Library Consortia ----
+    consortia = data.get('consortia', [])
+    if consortia:
+        body += f"""
+<h2 id="consortia-contacts">Library Consortia Directory</h2>
+<p>{len(consortia)} library consortia — multi-type library cooperatives, state-wide resource sharing networks, and regional library systems.</p>
+<table class="wikitable">
+  <tr><th>Consortium</th><th>Abbreviation</th><th>Region</th><th>Members</th><th>Website</th></tr>"""
+        for r in sorted(consortia, key=lambda x: (x.get('consortium_name', '') or '').lower()):
+            name = esc(r.get('consortium_name', ''))
+            abbr = esc(r.get('abbreviation', ''))
+            region = esc(r.get('region', ''))
+            members_c = r.get('member_count', '')
+            website = r.get('website', '')
+            web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+            body += f'\n  <tr><td><strong>{name}</strong></td><td>{abbr}</td><td>{region}</td><td class="num">{esc(str(members_c))}</td><td>{web_link}</td></tr>'
+        body += '\n</table>'
+
+    # ---- FDLP Federal Depository Libraries ----
+    fdlp = data.get('fdlp', [])
+    if fdlp:
+        body += f"""
+<h2 id="fdlp-contacts">Federal Depository Libraries (FDLP)</h2>
+<p>{len(fdlp)} federal depository libraries — libraries that provide free access to U.S. government documents and publications.</p>
+<table class="wikitable">
+  <tr><th>Library</th><th>City</th><th>State</th><th>Website</th></tr>"""
+        for r in sorted(fdlp, key=lambda x: (x.get('name', '') or '').lower())[:300]:
+            name = esc(r.get('name', ''))
+            city = esc(r.get('city', ''))
+            state = esc(r.get('state', ''))
+            website = r.get('website', '') or r.get('url', '')
+            web_link = f'<a href="{esc(website)}" target="_blank">{esc(website)}</a>' if website else '&mdash;'
+            body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td>{web_link}</td></tr>'
+        body += f'\n</table>\n<p>Showing 300 of {len(fdlp)} federal depository libraries.</p>'
+
     body += f"""
 <div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="funders.html">Funders &amp; investors</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""

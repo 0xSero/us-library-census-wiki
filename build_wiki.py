@@ -165,6 +165,7 @@ def panel(active=""):
     <a href="index.html#covid-recovery" class="list-group-item list-group-item-action small py-1">COVID impact &amp; recovery</a>
     <a href="index.html#per-capita-rankings" class="list-group-item list-group-item-action small py-1">Per-capita rankings</a>
     <a href="index.html#pls-extended" class="list-group-item list-group-item-action small py-1">Bookmobiles & WiFi</a>
+    <a href="index.html#ill" class="list-group-item list-group-item-action small py-1">Interlibrary loan</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -473,6 +474,12 @@ def load_all():
             data['pls_extended'] = json.load(f)
     else:
         data['pls_extended'] = {}
+    ill_path = os.path.join(DATA, "ill_summary.json")
+    if os.path.exists(ill_path):
+        with open(ill_path) as f:
+            data['ill'] = json.load(f)
+    else:
+        data['ill'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1573,6 +1580,9 @@ def compute_stats(data):
 
     # ---- PLS Extended Metrics (bookmobiles, ILL, WiFi, etc.) ----
     stats['pls_extended'] = data.get('pls_extended', {})
+
+    # ---- Interlibrary Loan stats ----
+    stats['ill'] = data.get('ill', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -4677,6 +4687,89 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024, compiled via ALA State of America\'s Libraries data. All {pe_n_states} states and territories are included. IMLS uses negative sentinels (-1, -3, -40) for suppressed/unreported values, normalized to 0. The {pe_bookmobiles:,} bookmobiles represent a often-overlooked dimension of library service - Kentucky leads with 74 bookmobiles. Interlibrary loan totals ({pe_ill_from/1e6:.0f}M received vs {pe_ill_to/1e6:.0f}M lent) show a rough balance, though individual states vary widely. Reference transactions ({pe_ref/1e6:.0f}M nationally) have been declining as patrons shift to self-service digital resources.</p>'
+
+    # ---- Interlibrary Loan and Resource Sharing ----
+    ill = stats.get('ill', {})
+    if ill and ill.get('national_totals'):
+        ill_nat = ill['national_totals']
+        ill_borrowed = ill_nat.get('loans_borrowed', 0)
+        ill_lent = ill_nat.get('loans_lent', 0)
+        ill_total = ill_nat.get('total_ill_activity', 0)
+        ill_ratio = ill_nat.get('borrowed_lent_ratio', 1.0)
+        ill_systems = ill_nat.get('reporting_systems_fy2024', 0)
+        ill_trends = ill.get('trends', [])
+        ill_oclc = ill.get('oclc_stats', {})
+        ill_by_state = ill.get('by_state', {})
+        ill_networks = ill.get('networks', [])
+        ill_facts = ill.get('key_facts', [])
+
+        body += f"""
+
+<h2 id="ill">Interlibrary Loan: The Hidden Sharing Network</h2>
+<p class="wiki-sub">Interlibrary loan (ILL) is the system that allows libraries to borrow items from other libraries on behalf of their patrons - making the collective holdings of all US libraries available to every individual library user. In FY2024, US public libraries processed {ill_total/1e6:.0f}M ILL transactions ({ill_borrowed/1e6:.0f}M borrowed, {ill_lent/1e6:.0f}M lent) across {ill_systems:,} reporting systems. The borrowed-to-lent ratio of {ill_ratio:.2f} shows the system is roughly balanced nationally, though individual states vary widely.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ill_total/1e6:.0f}M</div><div class="label">Total ILL transactions (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{ill_borrowed/1e6:.0f}M</div><div class="label">Items borrowed</div></div>
+  <div class="stat-card"><div class="num">{ill_lent/1e6:.0f}M</div><div class="label">Items lent</div></div>
+  <div class="stat-card"><div class="num">{ill_systems:,}</div><div class="label">Reporting library systems</div></div>
+  <div class="stat-card"><div class="num">{ill_ratio:.2f}</div><div class="label">Borrowed/lent ratio</div></div>
+</div>"""
+
+        # 25-year trend chart
+        if ill_trends and len(ill_trends) >= 2:
+            labels = [str(t['year']) for t in ill_trends]
+            totals = [t.get('total', 0) for t in ill_trends]
+            max_total = max(totals) or 1
+            n = len(ill_trends)
+            bw = 32
+            chart_w = n * bw + 60
+            chart_h = 240
+            body += f'\n<h3>ILL volume over 25 years (FY2000-FY2024)</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="ILL volume trend 2000-2024">'
+            for i in range(n):
+                x = 35 + i * bw
+                h = (totals[i] / max_total) * (chart_h - 60) if max_total else 0
+                body += f'<rect x="{x}" y="{chart_h - 40 - h:.1f}" width="{bw - 5}" height="{h:.1f}" fill="var(--accent-blue)" rx="3"/>'
+                if i % 5 == 0 or i == n - 1:
+                    body += f'<text x="{x + (bw-5)/2:.0f}" y="{chart_h - 22}" text-anchor="middle" class="axis-text">{labels[i]}</text>'
+                    body += f'<text x="{x + (bw-5)/2:.0f}" y="{chart_h - 45 - h:.1f}" text-anchor="middle" class="bar-label">{totals[i]/1e6:.0f}M</text>'
+            body += '</svg>'
+
+        # Top states by ILL borrowed
+        ill_states = ill_by_state.get('states', [])
+        if ill_states:
+            body += """
+<h3>Top states by ILL items borrowed</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Borrowed</th><th>Lent</th><th>Total</th></tr>"""
+            for s in ill_states[:15]:
+                body += f'\n  <tr><td><a href="states/{s.get("state","")}.html">{esc(s.get("state_name", s.get("state","")))}</a></td><td class="pct">{s.get("borrowed",0):,}</td><td>{s.get("lent",0):,}</td><td>{s.get("total",0):,}</td></tr>'
+            body += '\n</table>'
+
+        # OCLC resource sharing
+        if ill_oclc:
+            body += f"""
+<h3>OCLC Resource Sharing Network</h3>
+<p>{esc(ill_oclc.get("organization",""))}</p>
+<table class="wikitable">
+  <tr><th>Metric</th><th>Value</th></tr>
+  <tr><td>Total OCLC member libraries</td><td class="pct">{esc(str(ill_oclc.get("member_libraries","")))}</td></tr>
+  <tr><td>Resource sharing network</td><td class="pct">{esc(str(ill_oclc.get("resource_sharing_network_size","")))}</td></tr>
+  <tr><td>E-resource ILL requests/year</td><td class="pct">{esc(str(ill_oclc.get("e_resource_requests_year","")))}</td></tr>
+  <tr><td>Express program (fast fulfillment)</td><td class="pct">{esc(str(ill_oclc.get("express_program","")))}</td></tr>
+  <tr><td>Founded</td><td class="pct">{esc(str(ill_oclc.get("founded","")))}</td></tr>
+</table>"""
+
+        # Resource sharing networks
+        if ill_networks:
+            body += """
+<h3>Major resource sharing networks</h3>
+<table class="wikitable">
+  <tr><th>Network</th><th>Description</th></tr>"""
+            for net in ill_networks:
+                body += f'\n  <tr><td>{esc(net.get("name",""))}</td><td>{esc(net.get("description","")[:150])}{"..." if len(net.get("description",""))>150 else ""}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2024 fields LOANFM (borrowed) and LOANTO (lent), aggregated from {ill_systems:,} public library systems. Trend data covers FY2000-FY2024 (25 years). OCLC statistics from OCLC at-a-glance and resource sharing pages. Note: PLS data covers public libraries only - academic, school, special, and medical library ILL are not included, so the true national ILL volume is higher. The FY2024 total of {ill_total/1e6:.0f}M represents a recovery from the COVID-era low; FY2024 set the all-time record for items borrowed ({ill_borrowed/1e6:.0f}M). For context, FY2024 e-circulation (~{316+245}M items) is ~4x the ILL volume, showing how direct e-licensing now substitutes for some returnable book ILL.</p>'
 
     # ---- ALA State of America's Libraries Report 2024 ----
     ala = stats.get('ala_report', {})

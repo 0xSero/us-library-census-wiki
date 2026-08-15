@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 02:00 UTC",
+  "generated": "2026-08-15 02:06 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -38156,6 +38156,729 @@
         "total_program_attendance": 343186
       }
     }
+  },
+  "ill": {
+    "topic": "Interlibrary Loan (ILL) and Resource Sharing in U.S. Libraries",
+    "generated": "2026-08-14",
+    "scope": "U.S. public libraries (IMLS PLS) plus national resource-sharing networks (OCLC, RapidILL, etc.). Academic-library ILL is tracked separately by ARL Statistics.",
+    "definitions": {
+      "loans_borrowed": "Items a library received FROM other libraries via ILL (IMLS PLS field LOANFM). Also called 'borrowed' or 'received'.",
+      "loans_lent": "Items a library supplied TO other libraries via ILL (IMLS PLS field LOANTO). Also called 'lent' or 'supplied'.",
+      "returnable_vs_nonreturnable": "Industry distinguishes 'returnable' loans (physical books/media shipped back) from 'non-returnable' / document delivery (article scans, chapter PDFs). IMLS PLS counts both in LOANFM/LOANTO without splitting the two; the returnable/non-returnable split is tracked in OCLC/Tipasa and ARL Statistics."
+    },
+    "national_totals": {
+      "fiscal_year": "FY2024",
+      "loans_borrowed": 70740762,
+      "loans_lent": 66603708,
+      "total_ill_activity": 137344470,
+      "borrowed_lent_ratio": 1.062,
+      "source": "IMLS Public Libraries Survey (PLS) FY2024 -- field LOANFM (borrowed) and LOANTO (lent), aggregated nationally from 9,249 public library administrative entities",
+      "reporting_systems_fy2024": 9249,
+      "note": "Totals cover U.S. public library systems only; academic, special, school and medical libraries are not in PLS."
+    },
+    "oclc_stats": {
+      "organization": "OCLC (Online Computer Library Center), Dublin, Ohio",
+      "founded": "1967 (as Ohio College Library Center)",
+      "legal_status": "501(c)(3) nonprofit member cooperative; renamed OCLC, Inc. in 2017",
+      "member_libraries": "~30,000 in 100+ countries (OCLC at-a-glance)",
+      "resource_sharing_network_size": "10,000+ libraries in 50+ countries (largest such network in the world)",
+      "e_resource_requests_per_year": "3,000,000+ e-resource requests delivered through the OCLC network each year (WorldShare ILL)",
+      "daily_search_requests": "40+ million search requests processed each day by OCLC systems (all discovery, not ILL-specific)",
+      "express_program": "1,000+ libraries participate in OCLC Express; copy requests filled in an average of 10 hours; e-resources sometimes delivered in as little as 15 minutes",
+      "lvis_group": "Libraries Very Interested in Sharing (LVIS) -- 2,200 participants that lend to one another for free",
+      "products": [
+        {
+          "name": "Tipasa",
+          "description": "Cloud-based ILL management system; connects to 10,000+ libraries in 50+ countries; patron interface in 18 languages; ISO 18626 compliant; successor to ILLiad for many libraries."
+        },
+        {
+          "name": "WorldShare Interlibrary Loan",
+          "description": "Cloud-based borrowing/lending automation on the WorldShare platform; delivered 3M+ e-resource requests/year; some e-resources delivered in 15 minutes."
+        },
+        {
+          "name": "ILLiad",
+          "description": "Legacy locally-hosted ILL management software (Atlas Systems / OCLC); still operated by many libraries; managed 24/7 by hosting teams."
+        },
+        {
+          "name": "OCLC Resource Sharing for Groups",
+          "description": "Modern consortial borrowing platform for groups/consortia."
+        },
+        {
+          "name": "Relais ILL / D2D",
+          "description": "Acquired by OCLC in 2017 (Relais International, Ottawa); supports direct-to-document and consortial document delivery."
+        },
+        {
+          "name": "RapidILL",
+          "description": "Originally developed at Colorado State University in 1997; acquired by Ex Libris in 2019; 300+ member libraries internationally, most in the U.S. Now part of Ex Libris' Rapido/RapidILL resource-sharing line."
+        }
+      ],
+      "revenue_2020_21_usd_millions": 217.8,
+      "source_urls": [
+        "https://www.oclc.org/en/about.html",
+        "https://www.oclc.org/en/resource-sharing.html",
+        "https://www.oclc.org/en/worldshare-ill.html",
+        "https://www.oclc.org/en/tipasa.html",
+        "https://en.wikipedia.org/wiki/OCLC"
+      ]
+    },
+    "trends": [
+      {
+        "year": 2000,
+        "borrowed": 16261982,
+        "lent": 16466546,
+        "total": 32728528
+      },
+      {
+        "year": 2001,
+        "borrowed": 19300863,
+        "lent": 19515452,
+        "total": 38816315
+      },
+      {
+        "year": 2002,
+        "borrowed": 23328413,
+        "lent": 23251179,
+        "total": 46579592
+      },
+      {
+        "year": 2003,
+        "borrowed": 26586650,
+        "lent": 26669364,
+        "total": 53256014
+      },
+      {
+        "year": 2004,
+        "borrowed": 30470703,
+        "lent": 30157609,
+        "total": 60628312
+      },
+      {
+        "year": 2005,
+        "borrowed": 36042602,
+        "lent": 36047862,
+        "total": 72090464
+      },
+      {
+        "year": 2006,
+        "borrowed": 43050894,
+        "lent": 43700800,
+        "total": 86751694
+      },
+      {
+        "year": 2007,
+        "borrowed": 49969248,
+        "lent": 49929596,
+        "total": 99898844
+      },
+      {
+        "year": 2008,
+        "borrowed": 55467617,
+        "lent": 55152756,
+        "total": 110620373
+      },
+      {
+        "year": 2009,
+        "borrowed": 63405239,
+        "lent": 62459120,
+        "total": 125864359
+      },
+      {
+        "year": 2010,
+        "borrowed": 66062064,
+        "lent": 65324028,
+        "total": 131386092
+      },
+      {
+        "year": 2011,
+        "borrowed": 67868367,
+        "lent": 66762506,
+        "total": 134630873
+      },
+      {
+        "year": 2012,
+        "borrowed": 68525136,
+        "lent": 69134872,
+        "total": 137660008
+      },
+      {
+        "year": 2013,
+        "borrowed": 70680757,
+        "lent": 70788051,
+        "total": 141468808
+      },
+      {
+        "year": 2014,
+        "borrowed": 70495055,
+        "lent": 70651058,
+        "total": 141146113
+      },
+      {
+        "year": 2015,
+        "borrowed": 70483201,
+        "lent": 70194255,
+        "total": 140677456
+      },
+      {
+        "year": 2016,
+        "borrowed": 70739674,
+        "lent": 70032300,
+        "total": 140771974
+      },
+      {
+        "year": 2017,
+        "borrowed": 64112927,
+        "lent": 64408410,
+        "total": 128521337
+      },
+      {
+        "year": 2018,
+        "borrowed": 64642567,
+        "lent": 64246193,
+        "total": 128888760
+      },
+      {
+        "year": 2019,
+        "borrowed": 68842524,
+        "lent": 67827215,
+        "total": 136669739
+      },
+      {
+        "year": 2020,
+        "borrowed": 50017138,
+        "lent": 49654764,
+        "total": 99671902
+      },
+      {
+        "year": 2021,
+        "borrowed": 65915112,
+        "lent": 64221222,
+        "total": 130136334
+      },
+      {
+        "year": 2022,
+        "borrowed": 59007589,
+        "lent": 59319379,
+        "total": 118326968
+      },
+      {
+        "year": 2023,
+        "borrowed": 61898033,
+        "lent": 61173998,
+        "total": 123072031
+      },
+      {
+        "year": 2024,
+        "borrowed": 70740762,
+        "lent": 66603708,
+        "total": 137344470
+      }
+    ],
+    "trend_summary": [
+      {
+        "period": "FY2000",
+        "borrowed": 16261982,
+        "lent": 16466546,
+        "total": 32728528,
+        "note": "Earliest PLS vintage in this dataset; modest ILL volume."
+      },
+      {
+        "period": "FY2000-FY2008",
+        "note": "Rapid growth phase: borrowed rose from 16.3M to 55.5M (+241%) as OCLC resource sharing became ubiquitous and ILLiad workflows matured."
+      },
+      {
+        "period": "FY2009-FY2013",
+        "note": "Plateau/peak era; total ILL transactions peaked at ~141.5M in FY2013 (borrowed 70.7M, lent 70.8M)."
+      },
+      {
+        "period": "FY2014-FY2016",
+        "note": "Flat at ~140M total; first signs of softening as e-book and digital-licensing access began substituting for some returnable ILL."
+      },
+      {
+        "period": "FY2017",
+        "note": "Notable step-down to 128.5M (from 140.8M in 2016, -8.7%), the first sharp decline -- coincides with maturation of statewide e-book platforms and ebook lending."
+      },
+      {
+        "period": "FY2020",
+        "borrowed": 50017138,
+        "lent": 49654764,
+        "total": 99671902,
+        "note": "COVID-19 disruption: fell to 99.7M total (-29.5% from FY2013 peak; -27.3% vs FY2019) as buildings closed and physical shipping halted."
+      },
+      {
+        "period": "FY2021-FY2024",
+        "note": "Recovery: rebounded to 130.1M (2021), dipped to 118.3M (2022), 123.1M (2023), and 137.3M (2024) -- essentially back to pre-pandemic levels but still below the 2013 peak."
+      },
+      {
+        "period": "FY2024",
+        "borrowed": 70740762,
+        "lent": 66603708,
+        "total": 137344470,
+        "note": "FY2024 borrowed (70.74M) exceeded FY2013's borrowed total, making FY2024 the highest borrowed-year on record; lent (66.6M) remained below the 2013 lent peak."
+      },
+      {
+        "period": "FY2000->FY2024",
+        "change_borrowed_pct": 335.0,
+        "change_lent_pct": 304.5,
+        "note": "Over 24 years borrowed grew +335% and lent +305%, but most growth occurred 2000-2013; the 2017-2022 era shows structural softening partly offset by 2024 recovery."
+      }
+    ],
+    "by_state": {
+      "fiscal_year": "FY2024",
+      "source": "IMLS Public Libraries Survey FY2024, LOANFM and LOANTO aggregated by state (STABR)",
+      "states": [
+        {
+          "state": "OH",
+          "borrowed": 8755750,
+          "lent": 8745990
+        },
+        {
+          "state": "OR",
+          "borrowed": 7520488,
+          "lent": 4515513
+        },
+        {
+          "state": "WI",
+          "borrowed": 7459218,
+          "lent": 7343941
+        },
+        {
+          "state": "MA",
+          "borrowed": 6439448,
+          "lent": 6318956
+        },
+        {
+          "state": "NY",
+          "borrowed": 6235823,
+          "lent": 5898189
+        },
+        {
+          "state": "IL",
+          "borrowed": 5623521,
+          "lent": 5465368
+        },
+        {
+          "state": "PA",
+          "borrowed": 5419291,
+          "lent": 5500553
+        },
+        {
+          "state": "MI",
+          "borrowed": 2847328,
+          "lent": 2757596
+        },
+        {
+          "state": "CA",
+          "borrowed": 2371312,
+          "lent": 2369124
+        },
+        {
+          "state": "NJ",
+          "borrowed": 2357890,
+          "lent": 2506023
+        },
+        {
+          "state": "MO",
+          "borrowed": 1456843,
+          "lent": 1384596
+        },
+        {
+          "state": "CT",
+          "borrowed": 1159693,
+          "lent": 1182416
+        },
+        {
+          "state": "CO",
+          "borrowed": 1147760,
+          "lent": 1185178
+        },
+        {
+          "state": "MN",
+          "borrowed": 1036455,
+          "lent": 1018796
+        },
+        {
+          "state": "RI",
+          "borrowed": 998821,
+          "lent": 995674
+        },
+        {
+          "state": "GA",
+          "borrowed": 960705,
+          "lent": 998565
+        },
+        {
+          "state": "KS",
+          "borrowed": 733525,
+          "lent": 737674
+        },
+        {
+          "state": "IN",
+          "borrowed": 659995,
+          "lent": 697859
+        },
+        {
+          "state": "NC",
+          "borrowed": 639205,
+          "lent": 601462
+        },
+        {
+          "state": "ME",
+          "borrowed": 627444,
+          "lent": 617942
+        },
+        {
+          "state": "DE",
+          "borrowed": 597583,
+          "lent": 586562
+        },
+        {
+          "state": "WA",
+          "borrowed": 588112,
+          "lent": 542431
+        },
+        {
+          "state": "TX",
+          "borrowed": 529788,
+          "lent": 451936
+        },
+        {
+          "state": "FL",
+          "borrowed": 501293,
+          "lent": 358714
+        },
+        {
+          "state": "AZ",
+          "borrowed": 473408,
+          "lent": 350262
+        },
+        {
+          "state": "IA",
+          "borrowed": 444873,
+          "lent": 436977
+        },
+        {
+          "state": "MT",
+          "borrowed": 437709,
+          "lent": 435472
+        },
+        {
+          "state": "SC",
+          "borrowed": 433890,
+          "lent": 413927
+        },
+        {
+          "state": "MD",
+          "borrowed": 391874,
+          "lent": 331182
+        },
+        {
+          "state": "AL",
+          "borrowed": 358792,
+          "lent": 375368
+        },
+        {
+          "state": "ID",
+          "borrowed": 349729,
+          "lent": 324068
+        },
+        {
+          "state": "NH",
+          "borrowed": 256687,
+          "lent": 260424
+        },
+        {
+          "state": "VT",
+          "borrowed": 119964,
+          "lent": 121389
+        },
+        {
+          "state": "VA",
+          "borrowed": 110241,
+          "lent": 125751
+        },
+        {
+          "state": "TN",
+          "borrowed": 102915,
+          "lent": 93196
+        },
+        {
+          "state": "LA",
+          "borrowed": 78873,
+          "lent": 65220
+        },
+        {
+          "state": "WV",
+          "borrowed": 78535,
+          "lent": 79458
+        },
+        {
+          "state": "OK",
+          "borrowed": 56120,
+          "lent": 32649
+        },
+        {
+          "state": "ND",
+          "borrowed": 55841,
+          "lent": 58505
+        },
+        {
+          "state": "KY",
+          "borrowed": 52903,
+          "lent": 43691
+        },
+        {
+          "state": "UT",
+          "borrowed": 47971,
+          "lent": 67197
+        },
+        {
+          "state": "MS",
+          "borrowed": 47683,
+          "lent": 41262
+        },
+        {
+          "state": "SD",
+          "borrowed": 47110,
+          "lent": 39782
+        },
+        {
+          "state": "WY",
+          "borrowed": 34208,
+          "lent": 30238
+        },
+        {
+          "state": "NE",
+          "borrowed": 27589,
+          "lent": 30823
+        },
+        {
+          "state": "NV",
+          "borrowed": 23394,
+          "lent": 21483
+        },
+        {
+          "state": "AR",
+          "borrowed": 20986,
+          "lent": 34357
+        },
+        {
+          "state": "NM",
+          "borrowed": 14810,
+          "lent": 7550
+        },
+        {
+          "state": "AK",
+          "borrowed": 7277,
+          "lent": 2275
+        },
+        {
+          "state": "DC",
+          "borrowed": 68,
+          "lent": 0
+        },
+        {
+          "state": "HI",
+          "borrowed": 21,
+          "lent": 144
+        },
+        {
+          "state": "AS",
+          "borrowed": 0,
+          "lent": 0
+        },
+        {
+          "state": "GU",
+          "borrowed": 0,
+          "lent": 0
+        },
+        {
+          "state": "MP",
+          "borrowed": 0,
+          "lent": 0
+        },
+        {
+          "state": "PR",
+          "borrowed": 0,
+          "lent": 0
+        },
+        {
+          "state": "VI",
+          "borrowed": 0,
+          "lent": 0
+        }
+      ],
+      "top_5_by_borrowed": [
+        {
+          "state": "OH",
+          "borrowed": 8755750,
+          "lent": 8745990
+        },
+        {
+          "state": "OR",
+          "borrowed": 7520488,
+          "lent": 4515513
+        },
+        {
+          "state": "WI",
+          "borrowed": 7459218,
+          "lent": 7343941
+        },
+        {
+          "state": "MA",
+          "borrowed": 6439448,
+          "lent": 6318956
+        },
+        {
+          "state": "NY",
+          "borrowed": 6235823,
+          "lent": 5898189
+        }
+      ],
+      "note": "State rankings reflect both library-system density and how aggressively a state routes intra-state requests through ILL rather than consortial shared catalogs. Ohio, Wisconsin, Massachusetts, New York and Illinois dominate because of mature statewide resource-sharing backbones (e.g., OhioLINK, WiLS, MassBLRC/MLS, NYPL/NY3Rs, ILDS/ILLINET). Territories (AS, GU, MP, PR, VI) and HI/DC report near-zero ILL through PLS."
+    },
+    "networks": [
+      {
+        "name": "OCLC Resource Sharing Network",
+        "description": "World's largest ILL network; the backbone of U.S. and global interlibrary loan. Lenders/borrowers are matched through the WorldCat union catalog. Successor products Tipasa and WorldShare ILL replaced the legacy OCLC ILL messaging service.",
+        "members": "10,000+ libraries in 50+ countries",
+        "url": "https://www.oclc.org/en/resource-sharing.html"
+      },
+      {
+        "name": "RapidILL",
+        "description": "Unmediated, automated ILL/document-delivery system developed at Colorado State University in 1997 after the Spring Creek flood destroyed journal holdings. Known for very fast turnaround and high automation. Acquired by Ex Libris in 2019 and now offered alongside Rapido.",
+        "members": "300+ libraries internationally (most in the U.S.)",
+        "url": "https://en.wikipedia.org/wiki/Interlibrary_loan"
+      },
+      {
+        "name": "Libraries Very Interested in Sharing (LVIS)",
+        "description": "An OCLC resource-sharing 'group' whose members agree to lend to one another for free (no per-transaction fee), reducing ILL costs among participants.",
+        "members": "2,200 participating libraries",
+        "url": "https://www.oclc.org/en/worldshare-ill.html"
+      },
+      {
+        "name": "OCLC Express",
+        "description": "An OCLC program for libraries that commit to 18-hour-or-less turnaround; Express libraries receive priority routing of copy requests.",
+        "members": "1,000+ libraries; avg copy-fulfillment 10 hours",
+        "url": "https://www.oclc.org/en/tipasa.html"
+      },
+      {
+        "name": "Center for Research Libraries (CRL)",
+        "description": "A global consortium of university, college and research libraries (75+ years) that operates a buy-in shared-collection model; members borrow from CRL's deep holdings of newspapers, foreign dissertations, archival microforms, and rare materials not held elsewhere.",
+        "members": "200+ research libraries (primarily ARL-level institutions)",
+        "url": "https://www.crl.edu"
+      },
+      {
+        "name": "Research Libraries Group (RLG)",
+        "description": "Former major academic-library resource-sharing network (RLG ILL) and union catalog (RLIN). Merged into OCLC in July 2006; its user base was folded into the OCLC resource-sharing network.",
+        "members": "historical (merged 2006)",
+        "url": "https://en.wikipedia.org/wiki/Research_Libraries_Group"
+      },
+      {
+        "name": "Maine InfoNet",
+        "description": "Maine's statewide library network. Operates MaineCat (a statewide union catalog combining 100+ library collections in 10 large online systems), Minerva (a shared ILS for 60+ libraries of all types), URSUS/MILS (shared catalogs), and the Download Library / Digital Maine Library (shared e-book/e-audio collection).",
+        "members": "100+ library collections; 60+ Minerva libraries",
+        "url": "https://www.maineinfonet.org"
+      },
+      {
+        "name": "National Network of Libraries of Medicine (NNLM) / DOCLINE",
+        "description": "The U.S. medical-library resource-sharing network coordinated by the National Library of Medicine. NLM developed DOCLINE, a specialized request-routing system for biomedical document delivery among NNLM member libraries.",
+        "members": "~6,000 member organizations (NNLM, 8 regions historically)",
+        "url": "https://www.nlm.nih.gov/psd/nnlm/"
+      },
+      {
+        "name": "Amigos Library Services",
+        "description": "Regional library cooperative (successor to AMIGOS Bibliographic Council) providing OCLC billing/cataloging support and resource-sharing services to member libraries, primarily in the Southwest.",
+        "members": "several hundred libraries (regional)",
+        "url": "https://www.amigos.org"
+      },
+      {
+        "name": "State-level consortia / backbones",
+        "description": "Many of the highest-ILL states owe their volume to statewide consortial backbones: OhioLINK (OH), WiLS (WI), Massachusetts Library System (MA), Empire State Library Network/NY3Rs (NY), ILDS/ILLINET (IL), PALCI (PA), MCLS (MI), CARLI (IL academic), etc. These route intra-state requests cheaply, inflating PLS ILL counts relative to states that rely on direct OCLC requests.",
+        "members": "varies by consortium",
+        "url": ""
+      }
+    ],
+    "academic_libraries_arl": {
+      "source": "Association of Research Libraries (ARL) Statistics, published annually since 1963 (ARL assumed responsibility for annual library statistics that year).",
+      "latest_publication": "ARL Statistics 2024 (published 2025), describing collections, staffing, expenditures and service activities of 124 ARL member libraries in the U.S. (plus Canadian members reported separately).",
+      "metrics_tracked": "ARL Statistics include interlibrary loan (borrowed and lent) and document delivery as distinct service metrics for research libraries -- the returnable (book) vs non-returnable (document/article) split is captured here rather than in IMLS PLS.",
+      "access_note": "ARL Statistics tables are a member/paywalled publication; transaction-level totals are not freely available online. IMLS PLS (this file) covers public libraries only, so academic ILL volume is NOT included in the national_totals above.",
+      "arl_members_us": "124",
+      "url": "https://www.arl.org/arl-terms/arl-statistics/"
+    },
+    "document_delivery_vs_book_breakdown": {
+      "summary": "IMLS PLS does NOT split returnable (physical book) from non-returnable (document/article) ILL; both are counted together in LOANFM/LOANTO. The split is tracked by OCLC (Tipasa/WorldShare ILL) and ARL Statistics.",
+      "oclc_e_resource_requests_per_year": "3,000,000+ (OCLC WorldShare ILL) -- a proxy for non-returnable / document-delivery volume through OCLC.",
+      "oclc_physical_loans_estimate": "The bulk of the ~140M annual PLS transactions are returnable physical loans (books/media shipped between public libraries), since public-library ILL is dominated by print monographs; OCLC's 3M+ e-resource figure is a small fraction of total public-library ILL.",
+      "trend_note": "Over time the share of non-returnable (article/document delivery) has fallen as more journal content is licensed directly via database subscriptions; conversely, e-book and digital-audio circulation (316M ebook + 245M e-audio circulations in FY2024 per IMLS PLS digital file) now substitutes for some returnable book ILL -- one structural reason ILL plateaued 2014-2017."
+    },
+    "digital_resource_context_fy2024": {
+      "source": "IMLS PLS FY2024 electronic-services data (this project's data/pls_fy2024_digital.json)",
+      "ebook_circulations": 316063843,
+      "eaudio_circulations": 244723490,
+      "evideo_circulations": 20702457,
+      "total_electronic_material_circulations": 554830894,
+      "physical_book_volumes_held": 639057351,
+      "interpretation": "Public libraries circulated ~555M electronic items in FY2024 -- roughly 4x the total national ILL volume (137M). The expansion of direct e-licensing and statewide shared e-book platforms is the main structural pressure reducing growth in returnable book ILL, even as overall ILL has recovered post-COVID."
+    },
+    "key_facts": [
+      "U.S. public libraries reported 137,344,470 interlibrary-loan transactions in FY2024 (70.74M borrowed, 66.60M lent) -- IMLS Public Libraries Survey.",
+      "ILL peaked at ~141.5M total transactions in FY2013, dipped during COVID to 99.7M in FY2020 (-29.5% from peak), and recovered to 137.3M by FY2024.",
+      "FY2024 set the record for 'borrowed' (materials received via ILL) at 70.74M, surpassing FY2013; 'lent' (66.6M) remained below the 2013 peak of 70.8M.",
+      "Over 24 years (FY2000->FY2024) total public-library ILL grew +318% (borrowed +335%, lent +305%), but nearly all growth occurred 2000-2013; the post-2013 era shows plateau/decline partly offset by post-COVID recovery.",
+      "OCLC operates the world's largest resource-sharing network: 10,000+ libraries in 50+ countries, delivering 3M+ e-resource ILL requests per year; OCLC itself has ~30,000 member libraries in 100+ countries.",
+      "OCLC's Express program (1,000+ libraries) fills copy requests in an average of 10 hours; some e-resource requests deliver in 15 minutes.",
+      "LVIS (Libraries Very Interested in Sharing), an OCLC free-lending group, has 2,200 participating libraries.",
+      "RapidILL, an automated unmediated ILL system developed at Colorado State University in 1997, has 300+ member libraries and was acquired by Ex Libris in 2019.",
+      "The ALA Interlibrary Loan Code for the United States (maintained by RUSA STARS, first national code 1917, current revision 2016) governs U.S. ILL practice.",
+      "Research Libraries Group (RLG) merged into OCLC in July 2006, consolidating U.S. academic-library resource sharing onto the OCLC network.",
+      "Ohio is the #1 ILL state by volume (FY2024: 8.76M borrowed, 8.75M lent) thanks to the OhioLINK consortium backbone; Wisconsin, Massachusetts, New York and Illinois round out the top 5.",
+      "Academic-library ILL is tracked separately by the ARL Statistics (124 U.S. ARL member libraries, latest edition ARL Statistics 2024) and captures the returnable-vs-document-delivery split that IMLS PLS does not.",
+      "IMLS PLS does NOT separate returnable (physical book) from non-returnable (document/article) ILL; both are counted in the LOANFM/LOANTO totals. OCLC reports 3M+ e-resource (largely non-returnable) requests/year as a partial proxy.",
+      "Public libraries circulated ~555M electronic items (ebooks, e-audio, e-video) in FY2024 -- about 4x the national ILL volume -- illustrating how direct e-licensing now substitutes for some ILL demand.",
+      "The borrowed/lent ratio has stayed near 1.0 for two decades (FY2024: 1.06), reflecting that ILL is a reciprocal exchange: libraries borrow roughly as much as they lend."
+    ],
+    "methodology_and_caveats": [
+      "national_totals and by_state are computed directly from IMLS Public Libraries Survey microdata (FY2000-FY2024), fields LOANFM and LOANTO, in this project's data/pls_trends_national.csv and data/pls_trends_by_state.csv (generated by scripts/parse_pls_historical.py).",
+      "PLS covers U.S. public library administrative entities only (9,249 systems in FY2024). Academic, special, school, and medical libraries are excluded -- so the national total UNDERCOUNTS total U.S. ILL activity.",
+      "PLS uses negative sentinels (-1/-3/-9) for missing data; these are treated as zero/missing in aggregation, so a few non-reporting systems contribute 0 (a slight undercount).",
+      "OCLC figures are self-reported by OCLC on its product/about pages and the OCLC Wikipedia article (citing OCLC's 2020-21 annual report); they describe the global network, not U.S.-only volume.",
+      "ARL Statistics (academic research libraries) is a paywalled publication; exact academic ILL transaction counts were not freely retrievable online and are therefore referenced qualitatively.",
+      "The returnable vs non-returnable (document delivery) split is not available in PLS; the breakdown here is inferred from OCLC's 3M+ e-resource figure and industry knowledge, not a direct PLS count."
+    ],
+    "data_files_used": [
+      "data/pls_trends_national.csv (FY2000-FY2024 national ILL totals, LOANFM/LOANTO)",
+      "data/pls_trends_by_state.csv (per-state ILL totals, 2019-2024)",
+      "data/pls_fy2024_digital.json (FY2024 electronic circulation context)",
+      "data/_cache/pls_historical/ (raw IMLS PLS vintages FY2000-FY2023)",
+      "data/_cache/pls_fy2024_csv.zip (raw IMLS PLS FY2024)"
+    ],
+    "cached_sources": [
+      "data/_cache/ill_oclc_about.html (+.txt)",
+      "data/_cache/ill_oclc_resource_sharing.html (+.txt)",
+      "data/_cache/ill_oclc_tipasa.html (+.txt)",
+      "data/_cache/ill_oclc_worldshare_ill.html (+.txt)",
+      "data/_cache/ill_oclc_illiad.html (+.txt)",
+      "data/_cache/ill_oclc_annual_report.html (+.txt)",
+      "data/_cache/ill_wiki_interlibrary_loan.html (+.txt)",
+      "data/_cache/ill_wiki_oclc.html (+.txt)",
+      "data/_cache/ill_wiki_rapidill.html (+.txt)",
+      "data/_cache/ill_wiki_crl.html (+.txt)",
+      "data/_cache/ill_wiki_arl.html (+.txt)",
+      "data/_cache/ill_crl_about.html (+.txt)",
+      "data/_cache/ill_maineinfonet.html (+.txt)",
+      "data/_cache/ill_maineinfonet_about.html (+.txt)",
+      "data/_cache/ill_exlibris_rapidill.html",
+      "data/_cache/ill_nnlm.html",
+      "data/_cache/ill_docline.html",
+      "data/_cache/ill_amigos.html",
+      "data/_cache/ill_arl_statistics.html (+.txt)",
+      "data/_cache/ill_arl_statistics_term.html (+.txt)",
+      "data/_cache/ill_ala_code.html / ill_ala_stars.html / ill_ala_stars_code.html (ALA RUSA 404 boilerplate)",
+      "data/_cache/ill_imls_pls_page.html (+.txt)",
+      "data/_cache/ill_imls_explore.html (+.txt)"
+    ],
+    "source_notes": "Primary quantitative source: IMLS Public Libraries Survey (PLS), FY2000-FY2024, fields LOANFM (loans from / borrowed) and LOANTO (loans to / lent), parsed by scripts/parse_pls_historical.py into data/pls_trends_national.csv and data/pls_trends_by_state.csv. Raw PLS vintages cached under data/_cache/pls_historical/ (FY2000-FY2023) and data/_cache/pls_fy2024_csv.zip (FY2024); FY2024 download URL https://www.imls.gov/sites/default/files/2026-06/pls_fy2024_csv.zip. OCLC and network statistics drawn from OCLC product/about pages (resource-sharing, Tipasa, WorldShare ILL, ILLiad, annual report) and the Wikipedia articles on OCLC, Interlibrary loan, the Center for Research Libraries, and the Association of Research Libraries, all cached under data/_cache/ill_*. State-level and Maine InfoNet details from maineinfonet.org and crl.edu. ARL Statistics referenced from arl.org/arl-terms/arl-statistics/ (latest edition ARL Statistics 2024, 124 U.S. member libraries); ARL transaction-level tables are paywalled and not freely available online. ALA Interlibrary Loan Code for the United States is maintained by the RUSA STARS committee (ala.org/rusa); ALA's CMS returned 404 boilerplate for the tested URLs during this fetch, so the code is cited as a known standard rather than from cached live text. WebFetch calls against several sites (ARL, ALA, OCLC, study repositories) repeatedly timed out or returned 400/403/404; quantitative figures were therefore extracted directly from the curl-cached HTML in data/_cache/ill_* via local text parsing."
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

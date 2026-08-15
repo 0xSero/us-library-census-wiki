@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-14 23:55 UTC",
+  "generated": "2026-08-15 00:12 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -34695,6 +34695,637 @@
         }
       ]
     }
+  },
+  "imls_library_grants": {
+    "source": "USASpending.gov API (awarding agency: Institute of Museum and Library Services)",
+    "total_grants": 936,
+    "total_awarded": 1465541788.23,
+    "total_awarded_millions": 1465.5,
+    "avg_grant": 1565749.77375,
+    "largest_grant": 17318599.0,
+    "states_reached": 32,
+    "year_range": {
+      "min": 2007,
+      "max": 2026
+    },
+    "grants_by_state": [
+      {
+        "state": "CA",
+        "total_awarded": 300558015.77,
+        "grant_count": 24
+      },
+      {
+        "state": "OH",
+        "total_awarded": 103437172.0,
+        "grant_count": 24
+      },
+      {
+        "state": "IN",
+        "total_awarded": 67294561.0,
+        "grant_count": 24
+      },
+      {
+        "state": "TN",
+        "total_awarded": 66148015.0,
+        "grant_count": 22
+      },
+      {
+        "state": "SC",
+        "total_awarded": 53270285.0,
+        "grant_count": 21
+      },
+      {
+        "state": "LA",
+        "total_awarded": 49271034.0,
+        "grant_count": 22
+      },
+      {
+        "state": "OR",
+        "total_awarded": 46642707.58,
+        "grant_count": 21
+      },
+      {
+        "state": "CT",
+        "total_awarded": 44515411.04000001,
+        "grant_count": 27
+      },
+      {
+        "state": "UT",
+        "total_awarded": 39265632.0,
+        "grant_count": 21
+      },
+      {
+        "state": "KS",
+        "total_awarded": 39092535.95,
+        "grant_count": 28
+      },
+      {
+        "state": "AR",
+        "total_awarded": 38636010.03,
+        "grant_count": 21
+      },
+      {
+        "state": "AL",
+        "total_awarded": 38402516.0,
+        "grant_count": 16
+      },
+      {
+        "state": "MS",
+        "total_awarded": 37742392.0,
+        "grant_count": 23
+      },
+      {
+        "state": "MD",
+        "total_awarded": 32483213.06,
+        "grant_count": 11
+      },
+      {
+        "state": "VA",
+        "total_awarded": 27548211.77,
+        "grant_count": 23
+      },
+      {
+        "state": "ME",
+        "total_awarded": 26994462.61,
+        "grant_count": 22
+      },
+      {
+        "state": "MT",
+        "total_awarded": 24214173.72,
+        "grant_count": 23
+      },
+      {
+        "state": "ND",
+        "total_awarded": 21017905.69,
+        "grant_count": 22
+      },
+      {
+        "state": "IA",
+        "total_awarded": 14813245.54,
+        "grant_count": 8
+      },
+      {
+        "state": "MO",
+        "total_awarded": 9979128.0,
+        "grant_count": 4
+      },
+      {
+        "state": "CO",
+        "total_awarded": 9127643.44,
+        "grant_count": 6
+      },
+      {
+        "state": "NY",
+        "total_awarded": 5647292.0,
+        "grant_count": 18
+      },
+      {
+        "state": "ID",
+        "total_awarded": 3894535.0,
+        "grant_count": 3
+      },
+      {
+        "state": "AZ",
+        "total_awarded": 3228606.0,
+        "grant_count": 1
+      },
+      {
+        "state": "NE",
+        "total_awarded": 1311709.0,
+        "grant_count": 1
+      },
+      {
+        "state": "WI",
+        "total_awarded": 767955.0,
+        "grant_count": 2
+      },
+      {
+        "state": "AK",
+        "total_awarded": 743067.8400000001,
+        "grant_count": 2
+      },
+      {
+        "state": "PA",
+        "total_awarded": 718272.0,
+        "grant_count": 4
+      },
+      {
+        "state": "NM",
+        "total_awarded": 472231.0,
+        "grant_count": 3
+      },
+      {
+        "state": "OK",
+        "total_awarded": 126691.5,
+        "grant_count": 1
+      },
+      {
+        "state": "GA",
+        "total_awarded": 49368.0,
+        "grant_count": 2
+      },
+      {
+        "state": "TX",
+        "total_awarded": 21138.87,
+        "grant_count": 1
+      }
+    ],
+    "grants_by_year": [
+      {
+        "year": 2007,
+        "total_awarded": 75200399.0,
+        "grant_count": 24
+      },
+      {
+        "year": 2008,
+        "total_awarded": 82064780.0,
+        "grant_count": 50
+      },
+      {
+        "year": 2009,
+        "total_awarded": 83543361.0,
+        "grant_count": 48
+      },
+      {
+        "year": 2010,
+        "total_awarded": 69222442.0,
+        "grant_count": 45
+      },
+      {
+        "year": 2011,
+        "total_awarded": 64093467.0,
+        "grant_count": 44
+      },
+      {
+        "year": 2012,
+        "total_awarded": 33844016.0,
+        "grant_count": 44
+      },
+      {
+        "year": 2013,
+        "total_awarded": 69317385.8,
+        "grant_count": 55
+      },
+      {
+        "year": 2014,
+        "total_awarded": 66639634.81,
+        "grant_count": 42
+      },
+      {
+        "year": 2015,
+        "total_awarded": 69697621.61,
+        "grant_count": 50
+      },
+      {
+        "year": 2016,
+        "total_awarded": 70659179.62,
+        "grant_count": 42
+      },
+      {
+        "year": 2017,
+        "total_awarded": 72054298.49000001,
+        "grant_count": 49
+      },
+      {
+        "year": 2018,
+        "total_awarded": 70628814.42999999,
+        "grant_count": 41
+      },
+      {
+        "year": 2019,
+        "total_awarded": 74888664.21000001,
+        "grant_count": 50
+      },
+      {
+        "year": 2020,
+        "total_awarded": 90774069.69000001,
+        "grant_count": 80
+      },
+      {
+        "year": 2021,
+        "total_awarded": 150680185.63000003,
+        "grant_count": 119
+      },
+      {
+        "year": 2022,
+        "total_awarded": 82973174.49000001,
+        "grant_count": 43
+      },
+      {
+        "year": 2023,
+        "total_awarded": 79954697.44999999,
+        "grant_count": 36
+      },
+      {
+        "year": 2024,
+        "total_awarded": 79831850.0,
+        "grant_count": 33
+      },
+      {
+        "year": 2025,
+        "total_awarded": 78055522.0,
+        "grant_count": 31
+      },
+      {
+        "year": 2026,
+        "total_awarded": 1418225.0,
+        "grant_count": 10
+      }
+    ],
+    "top_recipients": [
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "total_awarded": 299939149.77,
+        "grant_count": 21
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "total_awarded": 223036791.67999998,
+        "grant_count": 25
+      },
+      {
+        "recipient": "STATE LIBRARY OF OHIO",
+        "total_awarded": 103437172.0,
+        "grant_count": 24
+      },
+      {
+        "recipient": "MASS BOARD OF LIBRARY COMMISSIONERS",
+        "total_awarded": 67055486.0,
+        "grant_count": 22
+      },
+      {
+        "recipient": "STATE LIBRARY & ARCHIVES TENNESSEE",
+        "total_awarded": 66148015.0,
+        "grant_count": 22
+      },
+      {
+        "recipient": "INDIANA STATE PUBLIC LIBRARY",
+        "total_awarded": 63603853.0,
+        "grant_count": 21
+      },
+      {
+        "recipient": "SOUTH CAROLINA STATE LIBRARY",
+        "total_awarded": 53270285.0,
+        "grant_count": 21
+      },
+      {
+        "recipient": "STATE OF OREGON - STATE LIBRARY",
+        "total_awarded": 46642707.58,
+        "grant_count": 21
+      },
+      {
+        "recipient": "CONNECTICUT STATE LIBRARY",
+        "total_awarded": 44515411.04000001,
+        "grant_count": 27
+      },
+      {
+        "recipient": "STATE LIBRARY LOUISIANA",
+        "total_awarded": 41445663.0,
+        "grant_count": 18
+      },
+      {
+        "recipient": "ARKANSAS STATE LIBRARY",
+        "total_awarded": 38636010.03,
+        "grant_count": 21
+      },
+      {
+        "recipient": "PUBLIC LIBRARY SERVICE ALABAMA",
+        "total_awarded": 38402516.0,
+        "grant_count": 16
+      },
+      {
+        "recipient": "STATE LIBRARY KANSAS",
+        "total_awarded": 38042348.95,
+        "grant_count": 23
+      },
+      {
+        "recipient": "MISSISSIPPI LIBRARY COMMISSION",
+        "total_awarded": 37742392.0,
+        "grant_count": 23
+      },
+      {
+        "recipient": "MARYLAND STATE LIBRARY",
+        "total_awarded": 32483213.06,
+        "grant_count": 11
+      },
+      {
+        "recipient": "STATE LIBRARY UTAH",
+        "total_awarded": 31523265.0,
+        "grant_count": 17
+      },
+      {
+        "recipient": "WEST VIRGINIA LIBRARY COMMISSION",
+        "total_awarded": 27026166.77,
+        "grant_count": 20
+      },
+      {
+        "recipient": "MAINE STATE LIBRARY",
+        "total_awarded": 26994462.61,
+        "grant_count": 22
+      },
+      {
+        "recipient": "LIBRARY, MONTANA STATE",
+        "total_awarded": 24214173.72,
+        "grant_count": 23
+      },
+      {
+        "recipient": "NORTH DAKOTA STATE LIBRARY",
+        "total_awarded": 21017905.69,
+        "grant_count": 22
+      }
+    ],
+    "largest_awards": [
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 17318599.0,
+        "state": "CA",
+        "year": 2009,
+        "award_id": "LS-00-10-0005-10",
+        "start_date": "2009-10-01",
+        "end_date": "2011-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 16882275.0,
+        "state": "CA",
+        "year": 2008,
+        "award_id": "LS-00-09-0005-09",
+        "start_date": "2008-10-01",
+        "end_date": "2010-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 16431277.0,
+        "state": "CA",
+        "year": 2007,
+        "award_id": "LS-00-08-0005-08",
+        "start_date": "2007-10-01",
+        "end_date": "2009-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS: 1) STRENGTHENING THE ABILITY OF CALIFORNIA LIBRARIES TO DESIGN EQUITABLE PROGRAMS AND SERVICES IN COLLABORATION WITH THEIR LOCAL COMMUNITIES; 2) EXPANDING THE CAPACITY OF CALIFORNIA LIBRARY WORKERS TO CREATE AND IMPLEMENT SERVICES THAT IMPACT COMMUNITIES EQUITABLY; 3) BROADENING DATA-DRIVEN PLANNING AND DECISION-MAKING CENTERED ON COMMUNITY IMPACT; AND 4) STRENGTHENING EQUITABLE RESOURCE-SHARING AND ACCESS TO INFORMATION, SERVICES, AND OPPORTUNITY WITH AN EMPHASIS ON LOCAL COMMUNITY STRENGTHS AND CHALLENGES.",
+        "amount": 15905100.0,
+        "state": "CA",
+        "year": 2022,
+        "award_id": "LS-253616-OLS-23",
+        "start_date": "2022-10-01",
+        "end_date": "2024-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO INFORMATION, SERVICES, AND RESOURCES IN A TRUSTED COMMUNITY SPACE; 2) DELIVERING ESSENTIAL LITERACY SERVICES AND PROVIDING LEARNING OPPORTUNITIES; 3) INSPIRING INNOVATION, CREATIVITY, CONNECTIONS, AND COLLABORATION; 4) HAVING THE TECHNOLOGY TO DELIVER INFORMATION AND SERVICES IN THE WAYS COMMUNITIES EXPECT AND NEED; 5) CONTRIBUTING TO ECONOMIC DEVELOPMENT AND WORKFORCE INNOVATION; 6) CONNECTING CALIFORNIANS TO THEIR HISTORY AND CULTURE; AND 7) ENGAGING IN CONTINUING EDUCATION AND LEADERSHIP DEVELOPMENT OPPORTUNITIES.",
+        "amount": 15837311.0,
+        "state": "CA",
+        "year": 2019,
+        "award_id": "LS-246140-OLS-20",
+        "start_date": "2019-10-01",
+        "end_date": "2021-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO INFORMATION, SERVICES, AND RESOURCES IN A TRUSTED COMMUNITY SPACE 2) DELIVERING ESSENTIAL LITERACY SERVICES AND PROVIDING LEARNING OPPORTUNITIES 3) INSPIRING INNOVATION, CREATIVITY, CONNECTIONS, AND COLLABORATION 4) HAVING THE TECHNOLOGY TO DELIVER INFORMATION AND SERVICES IN THE WAYS COMMUNITIES EXPECT AND NEED 5) CONTRIBUTING TO ECONOMIC DEVELOPMENT AND WORKFORCE INNOVATION 6) CONNECTING CALIFORNIANS TO THEIR HISTORY AND CULTURE AND 7) ENGAGING IN CONTINUING EDUCATION AND LEADERSHIP DEVELOPMENT OPPORTUNITIES.",
+        "amount": 15723840.0,
+        "state": "CA",
+        "year": 2020,
+        "award_id": "LS-249951-OLS-21",
+        "start_date": "2020-10-01",
+        "end_date": "2022-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS: 1) STRENGTHENING THE ABILITY OF CALIFORNIA LIBRARIES TO DESIGN PROGRAMS AND SERVICES FOR ALL CALIFORNIANS IN COLLABORATION WITH THEIR LOCAL COMMUNITIES; 2) EXPANDING THE CAPACITY OF CALIFORNIA LIBRARY WORKERS TO CREATE AND IMPLEMENT SERVICES THAT IMPACT ALL COMMUNITIES; 3) BROADENING DATA-DRIVEN PLANNING AND DECISION-MAKING CENTERED ON COMMUNITY IMPACT; AND 4) STRENGTHENING RESOURCE-SHARING AND ACCESS TO INFORMATION, SERVICES, AND OPPORTUNITY WITH AN EMPHASIS ON LOCAL COMMUNITY STRENGTHS AND CHALLENGES.",
+        "amount": 15704570.0,
+        "state": "CA",
+        "year": 2024,
+        "award_id": "LS-259166-OLS-25",
+        "start_date": "2024-10-01",
+        "end_date": "2026-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO INFORMATION, SERVICES, AND RESOURCES IN A TRUSTED COMMUNITY SPACE; 2) DELIVERING ESSENTIAL LITERACY SERVICES AND PROVIDING LEARNING OPPORTUNITIES; 3) INSPIRING INNOVATION, CREATIVITY, CONNECTIONS, AND COLLABORATION; 4) HAVING THE TECHNOLOGY TO DELIVER INFORMATION AND SERVICES IN THE WAYS COMMUNITIES EXPECT AND NEED; 5) CONTRIBUTING TO ECONOMIC DEVELOPMENT AND WORKFORCE INNOVATION; 6) CONNECTING CALIFORNIANS TO THEIR HISTORY AND CULTURE; AND 7) ENGAGING IN CONTINUING EDUCATION AND LEADERSHIP DEVELOPMENT OPPORTUNITIES.",
+        "amount": 15686445.0,
+        "state": "CA",
+        "year": 2017,
+        "award_id": "LS-00-18-0005-18",
+        "start_date": "2017-10-01",
+        "end_date": "2019-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS: 1) STRENGTHENING THE ABILITY OF CALIFORNIA LIBRARIES TO DESIGN PROGRAMS AND SERVICES FOR ALL CALIFORNIANS IN COLLABORATION WITH THEIR LOCAL COMMUNITIES; 2) EXPANDING THE CAPACITY OF CALIFORNIA LIBRARY WORKERS TO CREATE AND IMPLEMENT SERVICES THAT IMPACT ALL COMMUNITIES; 3) BROADENING DATA-DRIVEN PLANNING AND DECISION-MAKING CENTERED ON COMMUNITY IMPACT; AND 4) STRENGTHENING RESOURCE-SHARING AND ACCESS TO INFORMATION, SERVICES, AND OPPORTUNITY WITH AN EMPHASIS ON LOCAL COMMUNITY STRENGTHS AND CHALLENGES.",
+        "amount": 15664873.0,
+        "state": "CA",
+        "year": 2025,
+        "award_id": "LS-260813-OLS-26",
+        "start_date": "2025-10-01",
+        "end_date": "2027-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO INFORMATION, SERVICES, AND RESOURCES IN A TRUSTED COMMUNITY SPACE; 2) DELIVERING ESSENTIAL LITERACY SERVICES AND PROVIDING LEARNING OPPORTUNITIES; 3) INSPIRING INNOVATION, CREATIVITY, CONNECTIONS, AND COLLABORATION; 4) HAVING THE TECHNOLOGY TO DELIVER INFORMATION AND SERVICES IN THE WAYS COMMUNITIES EXPECT AND NEED; 5) CONTRIBUTING TO ECONOMIC DEVELOPMENT AND WORKFORCE INNOVATION; 6) CONNECTING CALIFORNIANS TO THEIR HISTORY AND CULTURE; AND 7) ENGAGING IN CONTINUING EDUCATION AND LEADERSHIP DEVELOPMENT OPPORTUNITIES.",
+        "amount": 15642110.0,
+        "state": "CA",
+        "year": 2021,
+        "award_id": "LS-252449-OLS-22",
+        "start_date": "2021-10-01",
+        "end_date": "2023-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 15497372.0,
+        "state": "CA",
+        "year": 2010,
+        "award_id": "LS-00-11-0005-11",
+        "start_date": "2010-10-01",
+        "end_date": "2012-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2013-2017, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO LITERACY SERVICES AND PROGRAMS; 2) PROVIDING TRAINING AND INFORMATION IN SUPPORT OF 21ST CENTURY SKILLS; 3) CREATING NEW TOOLS TO CONNECT CALIFORNIANS TO LIBRARY CONTENT AND SERVICES; 4) CREATING, DIGITIZING AND PRESERVING COLLECTIONS; 5) BRIDGING THE DIGITAL DIVIDE; 6) SHARING CONTENT AND COLLECTIONS ACROSS LIBRARIES; 7) RESPONDING TO COMMUNITY NEEDS NOT CURRENTLY MET BY TRADITIONAL LIBRARY SERVICES; AND 8) ENSURING LIBRARY ACCESS FOR POPULATIONS THAT FACE BARRIERS TO TRADITIONAL LIBRARY SERVICE.",
+        "amount": 15178758.0,
+        "state": "CA",
+        "year": 2016,
+        "award_id": "LS-00-17-0005-17",
+        "start_date": "2016-10-01",
+        "end_date": "2018-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 15052678.0,
+        "state": "CA",
+        "year": 2014,
+        "award_id": "LS-00-15-0005-15",
+        "start_date": "2014-10-01",
+        "end_date": "2016-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 15030377.0,
+        "state": "CA",
+        "year": 2013,
+        "award_id": "LS-00-14-0005-14",
+        "start_date": "2013-10-01",
+        "end_date": "2015-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 15029503.0,
+        "state": "CA",
+        "year": 2011,
+        "award_id": "LS-00-12-0005-12",
+        "start_date": "2011-10-01",
+        "end_date": "2013-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "LSTA STATE GRANTS",
+        "amount": 14896957.7,
+        "state": "CA",
+        "year": 2015,
+        "award_id": "LS-00-16-0005-16",
+        "start_date": "2015-10-01",
+        "end_date": "2017-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS: 1) STRENGTHENING THE ABILITY OF CALIFORNIA LIBRARIES TO DESIGN EQUITABLE PROGRAMS AND SERVICES IN COLLABORATION WITH THEIR LOCAL COMMUNITIES; 2) EXPANDING THE CAPACITY OF CALIFORNIA LIBRARY WORKERS TO CREATE AND IMPLEMENT SERVICES THAT IMPACT COMMUNITIES EQUITABLY; 3) BROADENING DATA-DRIVEN PLANNING AND DECISION-MAKING CENTERED ON COMMUNITY IMPACT; AND 4) STRENGTHENING EQUITABLE RESOURCE-SHARING AND ACCESS TO INFORMATION, SERVICES, AND OPPORTUNITY WITH AN EMPHASIS ON LOCAL COMMUNITY STRENGTHS AND CHALLENGES.",
+        "amount": 14444787.85,
+        "state": "CA",
+        "year": 2023,
+        "award_id": "LS-256808-OLS-24",
+        "start_date": "2023-10-01",
+        "end_date": "2025-09-30"
+      },
+      {
+        "recipient": "CALIFORNIA STATE LIBRARY",
+        "description": "THE CALIFORNIA STATE LIBRARY WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). IN CALIFORNIA, SPECIFIC GOALS ADDRESS 1) PROVIDING EQUITABLE ACCESS TO INFORMATION, SERVICES, AND RESOURCES IN A TRUSTED COMMUNITY SPACE; 2) DELIVERING ESSENTIAL LITERACY SERVICES AND PROVIDING LEARNING OPPORTUNITIES; 3) INSPIRING INNOVATION, CREATIVITY, CONNECTIONS, AND COLLABORATION; 4) HAVING THE TECHNOLOGY TO DELIVER INFORMATION AND SERVICES IN THE WAYS COMMUNITIES EXPECT AND NEED; 5) CONTRIBUTING TO ECONOMIC DEVELOPMENT AND WORKFORCE INNOVATION; 6) CONNECTING CALIFORNIANS TO THEIR HISTORY AND CULTURE; AND 7) ENGAGING IN CONTINUING EDUCATION AND LEADERSHIP DEVELOPMENT OPPORTUNITIES.",
+        "amount": 14435231.22,
+        "state": "CA",
+        "year": 2018,
+        "award_id": "LS-00-19-0005-19",
+        "start_date": "2018-10-01",
+        "end_date": "2020-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "THE TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). SPECIFIC GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) THROUGH TEXAS LIBRARIES, TEXANS WILL HAVE ACCESS TO DIGITAL RESOURCES AND SERVICES NEEDED TO HELP THEM NAVIGATE THE DIGITAL INFORMATION LANDSCAPE SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY MATERIALS AND SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, WORKFORCE READINESS, AND LIFELONG LEARNING; AND 4) TEXANS WILL RECEIVE LIBRARY SERVICES FROM TRAINED LIBRARY STAFF THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 12815954.0,
+        "state": null,
+        "year": 2025,
+        "award_id": "LS-260847-OLS-26",
+        "start_date": "2025-10-01",
+        "end_date": "2027-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "THE TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). SPECIFIC GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) THROUGH TEXAS LIBRARIES, TEXANS WILL HAVE ACCESS TO DIGITAL RESOURCES AND SERVICES NEEDED TO HELP THEM NAVIGATE THE DIGITAL INFORMATION LANDSCAPE SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY MATERIALS AND SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, WORKFORCE READINESS, AND LIFELONG LEARNING; AND 4) TEXANS WILL RECEIVE LIBRARY SERVICES FROM TRAINED LIBRARY STAFF THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 12668868.0,
+        "state": null,
+        "year": 2024,
+        "award_id": "LS-259205-OLS-25",
+        "start_date": "2024-10-01",
+        "end_date": "2026-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "THE TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). SPECIFIC GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) THROUGH TEXAS LIBRARIES, TEXANS WILL HAVE ACCESS TO DIGITAL RESOURCES AND SERVICES NEEDED TO HELP THEM NAVIGATE THE DIGITAL INFORMATION LANDSCAPE SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY MATERIALS AND SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, WORKFORCE READINESS, AND LIFELONG LEARNING; AND 4) TEXANS WILL RECEIVE LIBRARY SERVICES FROM TRAINED LIBRARY STAFF THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 12499215.41,
+        "state": null,
+        "year": 2023,
+        "award_id": "LS-256843-OLS-24",
+        "start_date": "2023-10-01",
+        "end_date": "2025-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "THE TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2023-2027, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). SPECIFIC GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) THROUGH TEXAS LIBRARIES, TEXANS WILL HAVE ACCESS TO DIGITAL RESOURCES AND SERVICES NEEDED TO HELP THEM NAVIGATE THE DIGITAL INFORMATION LANDSCAPE SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY MATERIALS AND SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, WORKFORCE READINESS, AND LIFELONG LEARNING; AND 4) TEXANS WILL RECEIVE LIBRARY SERVICES FROM TRAINED LIBRARY STAFF THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 12468135.0,
+        "state": null,
+        "year": 2022,
+        "award_id": "LS-253655-OLS-23",
+        "start_date": "2022-10-01",
+        "end_date": "2024-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA). STATE GOALS INCLUDE: 1)TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS 2) TEXANS AND TEXAS COMMUNITIES WILL HAVE ACCESS TO INTERNET CONNECTED RESOURCES AND SERVICES THROUGH TEXAS LIBRARIES TO MEET COMMUNITY AND PERSONAL GOALS AND THE SUPPORT NEEDED TO SUE THE RESOURCES AND SERVICES SUCCESSFULLY 3) TEXANS WILL HAVE ACCESS TO LIBRARY SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, DIGITAL LITERACY, AND LIFELONG LEARNING 4) TEXANS WILL ENHANCE THEIR WORKFORCE READINESS, INCLUDING BUSINESS AND ENTREPRENEURIAL ENDEAVORS, THROUGH USE OF MATERIALS AND SERVICES AT THEIR LIBRARIES AND 5) TEXANS WILL RECEIVE LIBRARY SERVICES THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 11938821.0,
+        "state": null,
+        "year": 2020,
+        "award_id": "LS-249990-OLS-21",
+        "start_date": "2020-10-01",
+        "end_date": "2022-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA).\u00a0\u00a0 STATE GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) TEXANS AND TEXAS COMMUNITIES WILL HAVE ACCESS TO INTERNET CONNECTED RESOURCES AND SERVICES THROUGH TEXAS LIBRARIES TO MEET COMMUNITY AND PERSONAL GOALS AND THE SUPPORT NEEDED TO SUE THE RESOURCES AND SERVICES SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, DIGITAL LITERACY, AND LIFELONG LEARNING; 4) TEXANS WILL ENHANCE THEIR WORKFORCE READINESS, INCLUDING BUSINESS AND ENTREPRENEURIAL ENDEAVORS, THROUGH USE OF MATERIALS AND SERVICES AT THEIR LIBRARIES; AND 5) TEXANS WILL RECEIVE LIBRARY SERVICES THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 11748227.08,
+        "state": null,
+        "year": 2021,
+        "award_id": "LS-252486-OLS-22",
+        "start_date": "2021-10-01",
+        "end_date": "2023-09-30"
+      },
+      {
+        "recipient": "LIBRARY & ARCHIVES COMMISSION",
+        "description": "TEXAS STATE LIBRARY AND ARCHIVES COMMISSION WILL USE FUNDS TO SUPPORT THE GOALS OF THEIR FIVE-YEAR PLAN FOR FY 2018-2022, WHICH REFLECT THE PURPOSES AND PRIORITIES OF THE LIBRARY SERVICES AND TECHNOLOGY ACT (LSTA).   STATE GOALS INCLUDE: 1) TEXANS WILL HAVE ACCESS TO SHARED LIBRARY RESOURCES TO MEET THEIR EDUCATIONAL AND INFORMATIONAL NEEDS; 2) TEXANS AND TEXAS COMMUNITIES WILL HAVE ACCESS TO INTERNET CONNECTED RESOURCES AND SERVICES THROUGH TEXAS LIBRARIES TO MEET COMMUNITY AND PERSONAL GOALS AND THE SUPPORT NEEDED TO SUE THE RESOURCES AND SERVICES SUCCESSFULLY; 3) TEXANS WILL HAVE ACCESS TO LIBRARY SERVICES THAT SUPPORT LITERACY AND EDUCATIONAL ATTAINMENT, ESPECIALLY EARLY CHILDHOOD AND FAMILY LITERACY, DIGITAL LITERACY, AND LIFELONG LEARNING; 4) TEXANS WILL ENHANCE THEIR WORKFORCE READINESS, INCLUDING BUSINESS AND ENTREPRENEURIAL ENDEAVORS, THROUGH USE OF MATERIALS AND SERVICES AT THEIR LIBRARIES; AND 5) TEXANS WILL RECEIVE LIBRARY SERVICES THAT EFFECTIVELY RESPOND TO COMMUNITY NEEDS.",
+        "amount": 11726005.99,
+        "state": null,
+        "year": 2018,
+        "award_id": "LS-00-19-0044-19",
+        "start_date": "2018-10-01",
+        "end_date": "2020-09-30"
+      }
+    ]
   },
   "museums": {
     "source": "IMLS Museum Data Files (MDF), formerly Museum Universe Data File (MUDF)",

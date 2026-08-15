@@ -173,6 +173,7 @@ def panel(active=""):
     <a href="index.html#school-librarians" class="list-group-item list-group-item-action small py-1">School librarians</a>
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
     <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
+    <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
     <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
     <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
     <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
@@ -436,6 +437,12 @@ def load_all():
             data['digital_libraries'] = json.load(f)
     else:
         data['digital_libraries'] = {}
+    imls_grants_path = os.path.join(DATA, "imls_library_grants_summary.json")
+    if os.path.exists(imls_grants_path):
+        with open(imls_grants_path) as f:
+            data['imls_library_grants'] = json.load(f)
+    else:
+        data['imls_library_grants'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1521,6 +1528,9 @@ def compute_stats(data):
 
     # ---- Digital libraries (HathiTrust, IA, Gutenberg, etc.) ----
     stats['digital_libraries'] = data.get('digital_libraries', {})
+
+    # ---- IMLS library grants (all programs via USASpending) ----
+    stats['imls_library_grants'] = data.get('imls_library_grants', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3811,6 +3821,89 @@ def build_index(data, stats):
         if n_by_program:
             prog_note = f' The top NEH program for libraries is {n_by_program[0].get("program","")} ({n_by_program[0].get("grants",0)} grants, ${n_by_program[0].get("total_awarded",0)/1e6:.1f}M).'
         body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the National Endowment for the Humanities (toptier agency code 418) where the recipient name contains "library" and award type codes 02-05 (grants). The {n_total} awards span FY{n_yr_min}-FY{n_yr_max} and total ${n_dollars/1e6:.1f}M. Records cover awards with action dates on or after 2007-10-01 (USASpending search limit); NEH\'s own public query (securegrants.neh.gov) covers full history back to 1965 but was unreachable.{ala_note}{prog_note}</p>'
+
+    # ---- IMLS Library Grants (all programs) ----
+    ig = stats.get('imls_library_grants', {})
+    if ig and ig.get('total_grants'):
+        ig_total = ig['total_grants']
+        ig_dollars = ig.get('total_awarded', 0)
+        ig_avg = ig_dollars / ig_total if ig_total else 0
+        ig_states = ig.get('states_reached', 0)
+        ig_yr = ig.get('year_range', {})
+        ig_yr_min = ig_yr.get('min', '')
+        ig_yr_max = ig_yr.get('max', '')
+        ig_by_state = ig.get('grants_by_state', [])
+        ig_by_year = ig.get('grants_by_year', [])
+        ig_top_recipients = ig.get('top_recipients', [])
+        ig_largest = ig.get('largest_awards', [])
+        ig_largest_amt = ig_largest[0]['amount'] if ig_largest else 0
+
+        body += f"""
+
+<h2 id="imls-grants">IMLS Grants to Libraries: All Programs</h2>
+<p class="wiki-sub">The Institute of Museum and Library Services is the primary federal funder of the nation's libraries. Through the Grants to States program (LSTA), National Leadership Grants, Laura Bush 21st Century Librarian Program, and other initiatives, IMLS awarded {ig_total} grants totaling ${ig_dollars/1e9:.1f}B to library recipients from FY{ig_yr_min} to FY{ig_yr_max}. These grants flow primarily to state library agencies, which redistribute funds to local libraries, but also fund direct grants for research, professional development, and digital inclusion initiatives.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ig_dollars/1e9:.1f}B</div><div class="label">Total IMLS library grants</div></div>
+  <div class="stat-card"><div class="num">{ig_total}</div><div class="label">Awards to libraries</div></div>
+  <div class="stat-card"><div class="num">${ig_avg/1e6:.1f}M</div><div class="label">Average grant</div></div>
+  <div class="stat-card"><div class="num">${ig_largest_amt/1e6:.1f}M</div><div class="label">Largest single grant</div></div>
+  <div class="stat-card"><div class="num">{ig_states}</div><div class="label">States reached</div></div>
+  <div class="stat-card"><div class="num">{ig_yr_max - ig_yr_min + 1}</div><div class="label">Years of data</div></div>
+</div>"""
+
+        # Top recipients
+        if ig_top_recipients:
+            body += """
+<h3>Top IMLS library grant recipients</h3>
+<div class="services-bars">"""
+            max_amt = ig_top_recipients[0].get('total_awarded', 0) or 1
+            for r in ig_top_recipients[:12]:
+                name = r.get('recipient', '').title().replace('Llc', 'LLC')
+                amt = r.get('total_awarded', 0)
+                grnts = r.get('grant_count', 1)
+                pct = (amt / max_amt) * 100 if max_amt else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(name)} ({grnts} grants)</span><span class="svc-bar"><span class="svc-fill svc-fill-money" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.1f}M</span></div>'
+            body += '\n</div>'
+
+        # Top states
+        if ig_by_state:
+            body += """
+<h3>IMLS library grants by state</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Grants</th><th>Total awarded</th></tr>"""
+            for s in ig_by_state[:15]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{s["state"]}</a></td><td>{s.get("grant_count",0)}</td><td class="pct">${s.get("total_awarded",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        # By year SVG
+        if ig_by_year and len(ig_by_year) >= 2:
+            labels = [str(y['year']) for y in ig_by_year]
+            amounts = [y.get('total_awarded', 0) for y in ig_by_year]
+            max_amt = max(amounts) or 1
+            n = len(ig_by_year)
+            bw = 38
+            chart_w = n * bw + 60
+            chart_h = 220
+            body += f'\n<h3>IMLS library grants by year</h3>\n<svg class="trend-chart" viewBox="0 0 {chart_w} {chart_h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="IMLS library grants by year">'
+            for i in range(n):
+                x = 40 + i * bw
+                h = (amounts[i] / max_amt) * (chart_h - 60) if max_amt else 0
+                body += f'<rect x="{x}" y="{chart_h - 40 - h:.1f}" width="{bw - 6}" height="{h:.1f}" fill="var(--accent-green)" rx="3"/>'
+                body += f'<text x="{x + (bw-6)/2:.0f}" y="{chart_h - 22}" text-anchor="middle" class="axis-text">{labels[i]}</text>'
+                body += f'<text x="{x + (bw-6)/2:.0f}" y="{chart_h - 45 - h:.1f}" text-anchor="middle" class="bar-label">${amounts[i]/1e6:.0f}M</text>'
+            body += '</svg>'
+
+        # Largest individual grants
+        if ig_largest:
+            body += """
+<h3>Largest individual IMLS library grants</h3>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>State</th><th>Description</th><th>Amount</th><th>Year</th></tr>"""
+            for g in ig_largest[:15]:
+                body += f'\n  <tr><td>{esc(g.get("recipient","").title())}</td><td>{g.get("state","") or "&mdash;"}</td><td>{esc(g.get("description","")[:120])}{"..." if len(g.get("description",""))>120 else ""}</td><td class="pct">${g.get("amount",0)/1e6:.1f}M</td><td>{g.get("year","")}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the Institute of Museum and Library Services (toptier agency) where the recipient name contains "library" and award type codes 02-05 (grants). The {ig_total} awards span FY{ig_yr_min}-FY{ig_yr_max} and total ${ig_dollars/1e9:.1f}B. The Grants to States program (LSTA) is the largest component, flowing through state library agencies. The spike in FY2021 (${max(y.get("total_awarded",0) for y in ig_by_year)/1e6:.0f}M) reflects American Rescue Plan supplemental funding. State extraction from recipient name may undercount some states where the recipient name does not include a state identifier.</p>'
 
     # ---- Library Usage Survey Data (Pew Research + Gallup) ----
     lu = stats.get('library_usage', {})

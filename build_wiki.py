@@ -175,6 +175,13 @@ def panel(active=""):
     <a href="index.html#technology" class="list-group-item list-group-item-action small py-1">Technology & WiFi</a>
     <a href="index.html#tribal-libraries" class="list-group-item list-group-item-action small py-1">Tribal libraries</a>
     <a href="index.html#academic-stats" class="list-group-item list-group-item-action small py-1">Academic libraries</a>
+    <a href="index.html#library-history" class="list-group-item list-group-item-action small py-1">Library history</a>
+    <a href="index.html#library-buildings" class="list-group-item list-group-item-action small py-1">Buildings & architecture</a>
+    <a href="index.html#library-economics" class="list-group-item list-group-item-action small py-1">Economics & ROI</a>
+    <a href="index.html#library-law" class="list-group-item list-group-item-action small py-1">Law & censorship</a>
+    <a href="index.html#school-library-stats" class="list-group-item list-group-item-action small py-1">School libraries</a>
+    <a href="index.html#international" class="list-group-item list-group-item-action small py-1">International comparison</a>
+    <a href="index.html#consortia-summary" class="list-group-item list-group-item-action small py-1">Library consortia</a>
     <a href="index.html#fdlp-directory" class="list-group-item list-group-item-action small py-1">Federal depositories</a>
     <a href="index.html#library-usage" class="list-group-item list-group-item-action small py-1">Library usage surveys</a>
     <a href="index.html#demographics" class="list-group-item list-group-item-action small py-1">Who uses libraries</a>
@@ -573,6 +580,22 @@ def load_all():
             data['lis_programs'] = json.load(f)
     else:
         data['lis_programs'] = {}
+    # ---- New data summaries (build 2) ----
+    for key, fname in [
+        ('library_history', 'library_history_summary.json'),
+        ('library_buildings', 'library_buildings_summary.json'),
+        ('library_economics', 'library_economics_summary.json'),
+        ('library_law', 'library_law_summary.json'),
+        ('school_libraries', 'school_libraries_summary.json'),
+        ('international_libraries', 'international_libraries_summary.json'),
+        ('library_consortia_summary', 'library_consortia_summary.json'),
+    ]:
+        p = os.path.join(DATA, fname)
+        if os.path.exists(p):
+            with open(p) as f:
+                data[key] = json.load(f)
+        else:
+            data[key] = {}
     # Deduplicate gov_services: keep one entry per (agency_name, level),
     # preferring the row with the longest/best services_summary.
     # Also drop boilerplate summaries that just restate the agency name.
@@ -1763,6 +1786,15 @@ def compute_stats(data):
         'top_states': g2s_top_states,
         'top_percapita': g2s_top_percapita,
     }
+
+    # ---- New data summaries (build 2) ----
+    stats['library_history'] = data.get('library_history', {})
+    stats['library_buildings'] = data.get('library_buildings', {})
+    stats['library_economics'] = data.get('library_economics', {})
+    stats['library_law'] = data.get('library_law', {})
+    stats['school_libraries'] = data.get('school_libraries', {})
+    stats['international_libraries'] = data.get('international_libraries', {})
+    stats['library_consortia_summary'] = data.get('library_consortia_summary', {})
 
     # ---- Library consortia ----
     consortia = data.get('consortia', [])
@@ -7222,6 +7254,607 @@ def build_index(data, stats):
             body += '\n</ul>'
 
         body += f'<p class="rsrc">Source: NCES Academic Library Survey (ALS) 2012 and IPEDS Academic Library (AL) component 2022-23, Association of Research Libraries (ARL) statistics (via Wikipedia), and Wikipedia articles on major academic libraries citing primary sources. The {tc_count:,} figure is the NCES survey universe; IPEDS AL 2022-23 contains 3,741 institutions. Physical volumes ({th_vols/1e6:.0f}M) are IPEDS "physical books" &mdash; a narrower count than the legacy ALS "total volumes held" metric. Total expenditures (${exp_total/1e9:.1f}B) reflect the post-2014 IPEDS accounting basis, which runs higher than pre-2014 ALS figures. ARL membership ({arl_members}) includes Canadian and non-academic research libraries.</p>'
+
+    # =========================================================================
+    # LIBRARY HISTORY TIMELINE
+    # =========================================================================
+    hist = stats.get('library_history', {})
+    if hist:
+        hist_eras = hist.get('eras', [])
+        hist_milestones = hist.get('milestones', [])
+        hist_firsts = hist.get('firsts', [])
+        hist_facts = hist.get('key_facts', [])
+        hist_scope = hist.get('scope', '')
+
+        body += f"""
+<h2 id="library-history">A History of American Libraries</h2>
+<p>{esc(hist_scope)}</p>"""
+
+        if hist_eras:
+            body += '<h3>Historical Eras</h3>'
+            for era in hist_eras:
+                era_name = esc(era.get('era', ''))
+                era_sum = esc(era.get('summary', ''))
+                body += f"""
+<div class="rules-box">
+  <h4>{era_name}</h4>
+  <p>{era_sum}</p>
+</div>"""
+
+        if hist_milestones:
+            body += """
+<h3>Milestone Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th><th>Significance</th></tr>"""
+            for m in hist_milestones:
+                yr = m.get('year', '')
+                ev = esc(m.get('event', ''))
+                sig = esc(m.get('significance', ''))
+                body += f'\n  <tr><td class="num">{yr}</td><td>{ev}</td><td>{sig}</td></tr>'
+            body += '\n</table>'
+
+        if hist_firsts:
+            body += """
+<h3>American Library Firsts</h3>
+<table class="wikitable">
+  <tr><th>Category</th><th>Name</th><th>Year</th><th>Location</th></tr>"""
+            for f_item in hist_firsts:
+                cat = esc(f_item.get('category', ''))
+                nm = esc(f_item.get('name', ''))
+                yr = f_item.get('year', '')
+                loc = esc(f_item.get('location', ''))
+                body += f'\n  <tr><td>{cat}</td><td>{nm}</td><td class="num">{yr}</td><td>{loc}</td></tr>'
+            body += '\n</table>'
+
+        if hist_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in hist_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on American library history including the Library Company of Philadelphia, Darby Free Library, Redwood Library and Athenaeum, Boston Public Library, Andrew Carnegie, Melvil Dewey, the American Library Association, the Library of Congress, IMLS, the Library Services and Construction Act, the NLS, the Pratt-Smoot Act, and book censorship history. Compiled and cross-referenced from primary sources cited in each article.</p>'
+
+    # =========================================================================
+    # LIBRARY BUILDINGS & ARCHITECTURE
+    # =========================================================================
+    bld = stats.get('library_buildings', {})
+    if bld:
+        bks = bld.get('key_stats', {})
+        loc_b = bld.get('loc_buildings', [])
+        carn = bld.get('carnegie_libraries', {})
+        nrhp_l = bld.get('nrhp_listed', [])
+        notable_b = bld.get('notable_buildings', [])
+        oldest_b = bld.get('oldest_libraries', [])
+        leed_l = bld.get('leed_certified', [])
+        styles = bld.get('architectural_styles', [])
+        b_timeline = bld.get('history_timeline', [])
+        b_facts = bld.get('key_facts', [])
+
+        carn_built = carn.get('total_built', 1689) if isinstance(carn, dict) else 1689
+        carn_cost = carn.get('total_cost_usd', 41468000) if isinstance(carn, dict) else 41468000
+        carn_states = carn.get('states_with_most', []) if isinstance(carn, dict) else []
+
+        body += f"""
+<h2 id="library-buildings">Library Buildings & Architecture</h2>
+<p>{esc(bld.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{carn_built:,}</div><div class="label">Carnegie libraries</div></div>
+  <div class="stat-card"><div class="num">${carn_cost/1e6:.1f}M</div><div class="label">Carnegie investment</div></div>
+  <div class="stat-card"><div class="num">{len(nrhp_l)}</div><div class="label">NRHP listed</div></div>
+  <div class="stat-card"><div class="num">{len(leed_l)}</div><div class="label">LEED certified</div></div>
+  <div class="stat-card"><div class="num">{bks.get('oldest_library_year', 1747)}</div><div class="label">Oldest library</div></div>
+  <div class="stat-card"><div class="num">3</div><div class="label">LOC buildings</div></div>
+</div>"""
+
+        if loc_b:
+            body += """
+<h3>The Library of Congress: Three Buildings</h3>
+<table class="wikitable">
+  <tr><th>Building</th><th>Opened</th><th>Architect</th><th>Style</th><th>Description</th></tr>"""
+            for b in loc_b:
+                body += f'\n  <tr><td>{esc(b.get("name",""))}</td><td class="num">{b.get("year_opened","")}</td><td>{esc(b.get("architect",""))}</td><td>{esc(b.get("style",""))}</td><td>{esc(b.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if carn_states:
+            body += """
+<h3>Carnegie Libraries by State (Top 10)</h3>
+<div class="services-bars">"""
+            max_c = max(s.get('count', 1) for s in carn_states) if carn_states else 1
+            for s in carn_states[:10]:
+                pct = (s.get('count', 0) / max_c * 100) if max_c else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.0f}%"></div><span class="svc-val">{s.get("count",0)}</span></div></div>'
+            body += '\n</div>'
+
+        if notable_b:
+            body += """
+<h3>Notable Library Buildings</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>City, State</th><th>Year</th><th>Architect</th><th>Style</th><th>Sq Ft</th><th>Description</th></tr>"""
+            for b in notable_b:
+                body += f'\n  <tr><td>{esc(b.get("name",""))}</td><td>{esc(b.get("city",""))}, {esc(b.get("state",""))}</td><td class="num">{b.get("year_built","")}</td><td>{esc(b.get("architect",""))}</td><td>{esc(b.get("style",""))}</td><td>{b.get("sqft",""):,}</td><td>{esc(b.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if oldest_b:
+            body += """
+<h3>America's Oldest Libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>City, State</th><th>Founded</th><th>Description</th></tr>"""
+            for b in oldest_b:
+                body += f'\n  <tr><td>{esc(b.get("name",""))}</td><td>{esc(b.get("city",""))}, {esc(b.get("state",""))}</td><td class="num">{b.get("founded","")}</td><td>{esc(b.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if leed_l:
+            body += """
+<h3>LEED-Certified Libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>City, State</th><th>Level</th><th>Year</th><th>Description</th></tr>"""
+            for b in leed_l:
+                body += f'\n  <tr><td>{esc(b.get("name",""))}</td><td>{esc(b.get("city",""))}, {esc(b.get("state",""))}</td><td>{esc(b.get("leed_level",""))}</td><td class="num">{b.get("year","")}</td><td>{esc(b.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if b_timeline:
+            body += """
+<h3>Architectural Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in b_timeline:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if b_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in b_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on library buildings, Carnegie libraries, the Library of Congress buildings, NRHP listings, LEED certification data, and Library Journal coverage of library architecture. Carnegie data from the Carnegie Corporation archives. NRHP data from the National Register of Historic Places.</p>'
+
+    # =========================================================================
+    # LIBRARY ECONOMICS: FUNDING, ROI & ECONOMIC IMPACT
+    # =========================================================================
+    econ = stats.get('library_economics', {})
+    if econ:
+        eks = econ.get('key_stats', {})
+        fs = econ.get('funding_sources', {})
+        pc_states = econ.get('per_capita_by_state', [])
+        roi = econ.get('roi_studies', [])
+        salaries = econ.get('librarian_salaries', [])
+        ballot = econ.get('ballot_measures', {})
+        impact = econ.get('economic_impact', {})
+        e_timeline = econ.get('history_timeline', [])
+        e_facts = econ.get('key_facts', [])
+
+        total_exp = eks.get('total_public_library_expenditures', 14000000000)
+        avg_pc = eks.get('avg_per_capita_spending', 43)
+        roi_mult = eks.get('roi_multiplier', 5.0)
+        local_pct = fs.get('local_pct', 86) if isinstance(fs, dict) else 86
+        state_pct = fs.get('state_pct', 9) if isinstance(fs, dict) else 9
+        fed_pct = fs.get('federal_pct', 1) if isinstance(fs, dict) else 1
+        other_pct = fs.get('other_pct', 4) if isinstance(fs, dict) else 4
+
+        body += f"""
+<h2 id="library-economics">Library Economics: Funding, ROI & Economic Impact</h2>
+<p>{esc(econ.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${total_exp/1e9:.1f}B</div><div class="label">Total expenditures</div></div>
+  <div class="stat-card"><div class="num">${avg_pc}</div><div class="label">Avg per capita</div></div>
+  <div class="stat-card"><div class="num">${roi_mult:.1f}</div><div class="label">ROI per $1</div></div>
+  <div class="stat-card"><div class="num">{eks.get('total_employ', 149800):,}</div><div class="label">Total employees</div></div>
+  <div class="stat-card"><div class="num">${eks.get('median_librarian_salary', 65670):,}</div><div class="label">Median librarian salary</div></div>
+  <div class="stat-card"><div class="num">{eks.get('ballot_pass_rate', 75)}%</div><div class="label">Ballot pass rate</div></div>
+</div>"""
+
+        body += f"""
+<h3>Funding Sources</h3>
+<div class="services-bars">
+  <div class="svc-row"><span class="svc-label">Local taxes</span><div class="svc-bar"><div class="svc-fill svc-fill-blue" style="width:{local_pct}%"></div><span class="svc-val">{local_pct}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">State funding</span><div class="svc-bar"><div class="svc-fill svc-fill-green" style="width:{state_pct}%"></div><span class="svc-val">{state_pct}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Federal funding</span><div class="svc-bar"><div class="svc-fill svc-fill-yellow" style="width:{max(fed_pct,2)}%"></div><span class="svc-val">{fed_pct}%</span></div></div>
+  <div class="svc-row"><span class="svc-label">Other</span><div class="svc-bar"><div class="svc-fill svc-fill-red" style="width:{other_pct}%"></div><span class="svc-val">{other_pct}%</span></div></div>
+</div>"""
+
+        if pc_states:
+            body += """
+<h3>Per-Capita Spending by State (Top 15)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Per Capita</th></tr>"""
+            for s in pc_states[:15]:
+                st_code = esc(str(s.get('state', '')))
+                pc_val = s.get('per_capita_spending', 0) or s.get('per_capita', 0) or 0
+                try:
+                    pc_num = float(pc_val)
+                except:
+                    pc_num = 0
+                body += f'\n  <tr><td>{st_code}</td><td>${pc_num:.2f}</td></tr>'
+            body += '\n</table>'
+
+        if roi:
+            body += """
+<h3>Return on Investment Studies</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Year</th><th>ROI Ratio</th><th>Finding</th></tr>"""
+            for r in roi:
+                body += f'\n  <tr><td>{esc(r.get("state",""))}</td><td class="num">{r.get("study_year","")}</td><td>${r.get("roi_ratio",0):.2f}</td><td>{esc(r.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if salaries:
+            body += """
+<h3>Librarian Salaries by State (Top 15)</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Avg Salary</th><th>Median Salary</th></tr>"""
+            for s in salaries[:15]:
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td>${s.get("avg_salary",0):,}</td><td>${s.get("median_salary",0):,}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(impact, dict):
+            findings = impact.get('key_findings', [])
+            if findings:
+                body += """
+<h3>Economic Impact Findings</h3>
+<ul class="wiki-list">"""
+                for f_item in findings:
+                    if isinstance(f_item, str):
+                        body += f'\n  <li>{esc(f_item)}</li>'
+                body += '\n</ul>'
+
+        if e_timeline:
+            body += """
+<h3>Economic Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in e_timeline:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if e_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in e_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: IMLS Public Libraries Survey (PLS) FY2022 expenditure data, BLS Occupational Employment Statistics (librarian salaries by state), Library Research Service (Colorado) ROI studies, ALA economic impact reports, and state-level library ballot measure databases. ROI ratios vary by study methodology and should be compared with caution.</p>'
+
+    # =========================================================================
+    # LIBRARY LAW, LEGISLATION & CENSORSHIP
+    # =========================================================================
+    law = stats.get('library_law', {})
+    if law:
+        lks = law.get('key_stats', {})
+        fed_leg = law.get('federal_legislation', [])
+        cens_states = law.get('censorship_by_state', [])
+        cens_timeline = law.get('censorship_timeline', [])
+        prison = law.get('prison_libraries', {})
+        privacy = law.get('privacy_laws', [])
+        ballot = law.get('ballot_measures', {})
+        ada = law.get('ada_compliance', {})
+        l_facts = law.get('key_facts', [])
+
+        total_chal = lks.get('total_book_challenges', 0)
+        total_banned = lks.get('total_books_banned', 0)
+
+        body += f"""
+<h2 id="library-law">Library Law, Legislation & Censorship</h2>
+<p>{esc(law.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_chal:,}</div><div class="label">Book challenges</div></div>
+  <div class="stat-card"><div class="num">{total_banned:,}</div><div class="label">Books banned</div></div>
+  <div class="stat-card"><div class="num">{len(cens_states)}</div><div class="label">States with data</div></div>
+  <div class="stat-card"><div class="num">{len(fed_leg)}</div><div class="label">Federal library laws</div></div>
+  <div class="stat-card"><div class="num">48</div><div class="label">States w/ privacy laws</div></div>
+  <div class="stat-card"><div class="num">{lks.get('ballot_pass_rate', 75)}%</div><div class="label">Ballot pass rate</div></div>
+</div>"""
+
+        if fed_leg:
+            body += """
+<h3>Federal Library Legislation</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Law</th><th>Description</th><th>Effect</th></tr>"""
+            for l in fed_leg:
+                body += f'\n  <tr><td class="num">{l.get("year","")}</td><td>{esc(l.get("law",""))}</td><td>{esc(l.get("description",""))}</td><td>{esc(l.get("effect",""))}</td></tr>'
+            body += '\n</table>'
+
+        if cens_states:
+            body += """
+<h3>Book Challenges & Bans by State</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Challenges</th><th>Banned</th><th>Restricted</th><th>Unique Titles</th><th>School</th><th>Public</th></tr>"""
+            for s in cens_states[:25]:
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td class="num">{s.get("challenges",0):,}</td><td class="num">{s.get("banned",0):,}</td><td class="num">{s.get("restricted",0):,}</td><td class="num">{s.get("unique_titles",0):,}</td><td class="num">{s.get("school_challenges",0):,}</td><td class="num">{s.get("public_library_challenges",0):,}</td></tr>'
+            body += '\n</table>'
+
+        if cens_timeline:
+            body += """
+<h3>Censorship Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in cens_timeline:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(prison, dict) and prison:
+            body += f"""
+<h3>Prison Libraries</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{prison.get('total_federal_prisons', 122)}</div><div class="label">Federal prisons</div></div>
+  <div class="stat-card"><div class="num">{prison.get('total_state_prisons', 1200):,}</div><div class="label">State prisons</div></div>
+  <div class="stat-card"><div class="num">{prison.get('pct_with_libraries', 80)}%</div><div class="label">With libraries</div></div>
+</div>
+<p><strong>Federal mandate:</strong> {esc(prison.get('federal_mandate', ''))}</p>
+<p><strong>Proposed legislation:</strong> {esc(prison.get('proposed_legislation', ''))}</p>"""
+            cases = prison.get('key_cases', [])
+            if cases:
+                body += '<h4>Key Court Cases</h4><ul class="wiki-list">'
+                for c in cases:
+                    body += f'\n  <li>{esc(c)}</li>'
+                body += '\n</ul>'
+
+        if privacy:
+            body += """
+<h3>Reader Privacy Laws</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Law</th><th>Year</th><th>Description</th></tr>"""
+            for p in privacy:
+                body += f'\n  <tr><td>{esc(p.get("state",""))}</td><td>{esc(p.get("law_name",""))}</td><td class="num">{p.get("year","")}</td><td>{esc(p.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if l_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in l_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: PEN America book ban data, ALA Library Bill of Rights, censorship tracking from book_censorship.csv (9MB raw data), state legislation databases, court case records (Bounds v. Smith, Lewis v. Casey, Board of Ed v. Pico), ALA prison library standards, GovTrack legislation data, and library ballot measure databases.</p>'
+
+    # =========================================================================
+    # SCHOOL LIBRARIES
+    # =========================================================================
+    schl = stats.get('school_libraries', {})
+    if schl:
+        sks = schl.get('key_stats', {})
+        swm = schl.get('schools_with_media_centers', {})
+        staffing = schl.get('staffing_by_state', [])
+        trends = schl.get('staffing_trends', [])
+        reqs = schl.get('state_requirements', [])
+        impact_s = schl.get('impact_studies', [])
+        holdings = schl.get('holdings', {})
+        s_timeline = schl.get('history_timeline', [])
+        s_facts = schl.get('key_facts', [])
+
+        body += f"""
+<h2 id="school-library-stats">School Libraries: The Foundation of Literacy</h2>
+<p>{esc(schl.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{sks.get('schools_with_libraries',82000):,}</div><div class="label">Schools w/ libraries</div></div>
+  <div class="stat-card"><div class="num">{sks.get('pct_schools_with_libraries',84)}%</div><div class="label">% with libraries</div></div>
+  <div class="stat-card"><div class="num">{sks.get('total_school_librarians',56000):,}</div><div class="label">School librarians</div></div>
+  <div class="stat-card"><div class="num">{sks.get('pct_with_certified_librarian',61)}%</div><div class="label">% certified</div></div>
+  <div class="stat-card"><div class="num">{sks.get('decline_since_2008_pct',20)}%</div><div class="label">Decline since 2008</div></div>
+  <div class="stat-card"><div class="num">{sks.get('states_requiring_librarian',21)}</div><div class="label">States requiring</div></div>
+</div>"""
+
+        if isinstance(swm, dict) and swm.get('by_state'):
+            body += """
+<h3>Schools With Media Centers by State</h3>
+<div class="services-bars">"""
+            states_b = swm.get('by_state', [])
+            max_p = max(s.get('pct', 1) for s in states_b) if states_b else 1
+            for s in states_b[:15]:
+                pct = (s.get('pct', 0) / max_p * 100) if max_p else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(s.get("state",""))}</span><div class="svc-bar"><div class="svc-fill svc-fill-tech" style="width:{pct:.0f}%"></div><span class="svc-val">{s.get("pct",0)}%</span></div></div>'
+            body += '\n</div>'
+
+        if trends:
+            body += """
+<h3>School Librarian Staffing Trends</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Total Librarians</th><th>Change from 2008</th></tr>"""
+            for t in trends:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td class="num">{t.get("total_librarians",0):,}</td><td class="pct">{t.get("change_pct",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if staffing:
+            body += """
+<h3>Staffing by State</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Schools w/ LMC</th><th>FT Staff</th><th>% Certified</th></tr>"""
+            for s in staffing[:15]:
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td class="num">{s.get("schools_with_lmc",0):,}</td><td class="num">{s.get("fulltime_staff",0):,}</td><td class="pct">{s.get("pct_certified",0)}%</td></tr>'
+            body += '\n</table>'
+
+        if impact_s:
+            body += """
+<h3>Impact Studies: Libraries & Student Achievement</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Year</th><th>Researcher</th><th>Finding</th><th>Effect Size</th></tr>"""
+            for s in impact_s:
+                body += f'\n  <tr><td>{esc(s.get("state",""))}</td><td class="num">{s.get("study_year","")}</td><td>{esc(s.get("researcher",""))}</td><td>{esc(s.get("finding",""))}</td><td>{esc(s.get("effect_size",""))}</td></tr>'
+            body += '\n</table>'
+
+        if s_timeline:
+            body += """
+<h3>History Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in s_timeline:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if s_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in s_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: NCES Digest of Education Statistics (Tables 23.216, 23.701), NCES Schools and Staffing Survey (SASS) 2003-04, 2007-08, 2011-12, AASL standards and research, Scholastic School Library Impact studies, Keith Curry Lance research (Colorado, Alaska, Pennsylvania, Oregon, New Mexico), and School Library Journal staffing data. Decline figures based on NCES SASS longitudinal data.</p>'
+
+    # =========================================================================
+    # INTERNATIONAL LIBRARY COMPARISON
+    # =========================================================================
+    intl = stats.get('international_libraries', {})
+    if intl:
+        iks = intl.get('key_stats', {})
+        us_vs = intl.get('us_vs_world', [])
+        nat_libs = intl.get('national_libraries', [])
+        largest = intl.get('largest_libraries_world', [])
+        profiles = intl.get('country_profiles', [])
+        orgs = intl.get('international_organizations', [])
+        i_facts = intl.get('key_facts', [])
+
+        body += f"""
+<h2 id="international">International Library Comparison: How the US Compares</h2>
+<p>{esc(intl.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{iks.get('us_public_libraries',9212):,}</div><div class="label">US public libraries</div></div>
+  <div class="stat-card"><div class="num">{iks.get('us_per_capita_visits',4.1)}</div><div class="label">US visits/capita</div></div>
+  <div class="stat-card"><div class="num">{iks.get('finland_per_capita_loans',18.6)}</div><div class="label">Finland loans/capita</div></div>
+  <div class="stat-card"><div class="num">{iks.get('uk_public_libraries',3300):,}</div><div class="label">UK public libraries</div></div>
+  <div class="stat-card"><div class="num">{iks.get('ifla_members',1400):,}</div><div class="label">IFLA members</div></div>
+  <div class="stat-card"><div class="num">200+</div><div class="label">National libraries</div></div>
+</div>"""
+
+        if us_vs:
+            body += """
+<h3>US vs World: Key Metrics</h3>
+<table class="wikitable">
+  <tr><th>Metric</th><th>US</th><th>Finland</th><th>UK</th><th>Germany</th><th>Rank</th></tr>"""
+            for m in us_vs:
+                body += f'\n  <tr><td>{esc(m.get("metric",""))}</td><td>{esc(m.get("us",""))}</td><td>{esc(m.get("finland",""))}</td><td>{esc(m.get("uk",""))}</td><td>{esc(m.get("germany",""))}</td><td>{esc(m.get("rank",""))}</td></tr>'
+            body += '\n</table>'
+
+        if nat_libs:
+            body += """
+<h3>Major National Libraries of the World</h3>
+<table class="wikitable">
+  <tr><th>Country</th><th>Library</th><th>Founded</th><th>Collection</th><th>Description</th></tr>"""
+            for n in nat_libs:
+                body += f'\n  <tr><td>{esc(n.get("country",""))}</td><td>{esc(n.get("name",""))}</td><td class="num">{n.get("founded","")}</td><td>{esc(n.get("collection_size",""))}</td><td>{esc(n.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if largest:
+            body += """
+<h3>Largest Libraries in the World</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Country</th><th>Collection</th><th>Description</th></tr>"""
+            for l in largest:
+                body += f'\n  <tr><td>{esc(l.get("name",""))}</td><td>{esc(l.get("country",""))}</td><td>{esc(l.get("collection_size",""))}</td><td>{esc(l.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if profiles:
+            body += """
+<h3>Country Profiles</h3>"""
+            for p in profiles:
+                body += f"""
+<div class="rules-box">
+  <h4>{esc(p.get('country',''))} &mdash; {p.get('libraries',0):,} libraries, {p.get('per_capita_loans',0)} loans/capita</h4>
+  <p>{esc(p.get('description',''))}</p>
+  <p><strong>Notable:</strong> {esc(p.get('notable_feature',''))}</p>
+</div>"""
+
+        if orgs:
+            body += """
+<h3>International Library Organizations</h3>
+<table class="wikitable">
+  <tr><th>Organization</th><th>Founded</th><th>Headquarters</th><th>Members</th><th>Description</th></tr>"""
+            for o in orgs:
+                body += f'\n  <tr><td>{esc(o.get("name",""))}</td><td class="num">{o.get("founded","")}</td><td>{esc(o.get("headquarters",""))}</td><td class="num">{o.get("members",0):,}</td><td>{esc(o.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if i_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in i_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on national libraries, public libraries worldwide, the largest libraries in the world, IFLA, UNESCO Public Library Manifesto, and the World Digital Library. US data from IMLS Public Libraries Survey FY2024. International per-capita figures from respective national library agencies and IFLA reports.</p>'
+
+    # =========================================================================
+    # LIBRARY CONSORTIA (detailed summary)
+    # =========================================================================
+    cons_summ = stats.get('library_consortia_summary', {})
+    if cons_summ:
+        cks = cons_summ.get('key_stats', {})
+        majors = cons_summ.get('major_consortia', [])
+        state_cons = cons_summ.get('state_consortia', [])
+        services = cons_summ.get('services', [])
+        c_timeline = cons_summ.get('history_timeline', [])
+        c_facts = cons_summ.get('key_facts', [])
+
+        body += f"""
+<h2 id="consortia-summary">Library Consortia: Collaboration at Scale</h2>
+<p>{esc(cons_summ.get('overview', ''))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{cks.get('oclc_member_libraries',16000):,}</div><div class="label">OCLC members</div></div>
+  <div class="stat-card"><div class="num">{cks.get('oclc_worldcat_records',540000000):,}</div><div class="label">WorldCat records</div></div>
+  <div class="stat-card"><div class="num">{cks.get('hathitrust_volumes',18000000):,}</div><div class="label">HathiTrust volumes</div></div>
+  <div class="stat-card"><div class="num">{cks.get('arl_members',127)}</div><div class="label">ARL members</div></div>
+  <div class="stat-card"><div class="num">{cks.get('dpla_items',50000000):,}</div><div class="label">DPLA items</div></div>
+  <div class="stat-card"><div class="num">{cks.get('dpla_partners',5000):,}</div><div class="label">DPLA partners</div></div>
+</div>"""
+
+        if majors:
+            body += """
+<h3>Major Library Consortia</h3>
+<table class="wikitable">
+  <tr><th>Consortium</th><th>Founded</th><th>HQ</th><th>Members</th><th>Key Service</th><th>Description</th></tr>"""
+            for c in majors:
+                body += f'\n  <tr><td>{esc(c.get("name",""))}</td><td class="num">{c.get("founded","")}</td><td>{esc(c.get("headquarters",""))}</td><td class="num">{c.get("members",0):,}</td><td>{esc(c.get("key_service",""))}</td><td>{esc(c.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if state_cons:
+            body += """
+<h3>State-Level Consortia</h3>
+<table class="wikitable">
+  <tr><th>Consortium</th><th>State</th><th>Members</th><th>Description</th></tr>"""
+            for c in state_cons:
+                body += f'\n  <tr><td>{esc(c.get("name",""))}</td><td>{esc(c.get("state",""))}</td><td class="num">{c.get("members",0):,}</td><td>{esc(c.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if services:
+            body += """
+<h3>Consortial Services</h3>
+<table class="wikitable">
+  <tr><th>Service</th><th>Provider</th><th>Description</th></tr>"""
+            for s in services:
+                body += f'\n  <tr><td>{esc(s.get("service",""))}</td><td>{esc(s.get("provider",""))}</td><td>{esc(s.get("description",""))}</td></tr>'
+            body += '\n</table>'
+
+        if c_timeline:
+            body += """
+<h3>Consortia Timeline</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in c_timeline:
+                body += f'\n  <tr><td class="num">{t.get("year","")}</td><td>{esc(t.get("event",""))}</td></tr>'
+            body += '\n</table>'
+
+        if c_facts:
+            body += """
+<h3>Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in c_facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+
+        body += '<p class="rsrc">Source: Wikipedia articles on OCLC, HathiTrust, ARL, the Center for Research Libraries, OhioLINK, TexShare, VIVA, Amigos, Lyrasis, Internet2, NISO, and the Digital Public Library of America. OCLC annual reports and WorldCat statistics. DPLA partner data from dpla.org.</p>'
 
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>

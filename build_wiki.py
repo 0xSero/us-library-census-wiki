@@ -174,6 +174,7 @@ def panel(active=""):
     <a href="index.html#usda-grants" class="list-group-item list-group-item-action small py-1">USDA library grants</a>
     <a href="index.html#neh-grants" class="list-group-item list-group-item-action small py-1">NEH library grants</a>
     <a href="index.html#imls-grants" class="list-group-item list-group-item-action small py-1">IMLS all grants</a>
+    <a href="index.html#other-federal-grants" class="list-group-item list-group-item-action small py-1">Other federal grants</a>
     <a href="index.html#state-funding" class="list-group-item list-group-item-action small py-1">State funding mix</a>
     <a href="index.html#loc" class="list-group-item list-group-item-action small py-1">Library of Congress</a>
     <a href="index.html#digital-libraries" class="list-group-item list-group-item-action small py-1">Digital libraries</a>
@@ -443,6 +444,12 @@ def load_all():
             data['imls_library_grants'] = json.load(f)
     else:
         data['imls_library_grants'] = {}
+    other_fed_path = os.path.join(DATA, "other_federal_grants_summary.json")
+    if os.path.exists(other_fed_path):
+        with open(other_fed_path) as f:
+            data['other_federal_grants'] = json.load(f)
+    else:
+        data['other_federal_grants'] = {}
     museums_path = os.path.join(DATA, "museums_summary.json")
     if os.path.exists(museums_path):
         with open(museums_path) as f:
@@ -1531,6 +1538,9 @@ def compute_stats(data):
 
     # ---- IMLS library grants (all programs via USASpending) ----
     stats['imls_library_grants'] = data.get('imls_library_grants', {})
+
+    # ---- Other federal agency grants to libraries ----
+    stats['other_federal_grants'] = data.get('other_federal_grants', {})
 
     # ---- IMLS Museum Data File ----
     stats['museums'] = data.get('museums', {})
@@ -3904,6 +3914,69 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from the Institute of Museum and Library Services (toptier agency) where the recipient name contains "library" and award type codes 02-05 (grants). The {ig_total} awards span FY{ig_yr_min}-FY{ig_yr_max} and total ${ig_dollars/1e9:.1f}B. The Grants to States program (LSTA) is the largest component, flowing through state library agencies. The spike in FY2021 (${max(y.get("total_awarded",0) for y in ig_by_year)/1e6:.0f}M) reflects American Rescue Plan supplemental funding. State extraction from recipient name may undercount some states where the recipient name does not include a state identifier.</p>'
+
+    # ---- Other Federal Agency Grants to Libraries ----
+    ofg = stats.get('other_federal_grants', {})
+    if ofg and ofg.get('total_grants'):
+        ofg_total = ofg['total_grants']
+        ofg_dollars = ofg.get('total_awarded', 0)
+        ofg_agencies = ofg.get('agencies_count', 0)
+        ofg_by_agency = ofg.get('by_agency', [])
+        ofg_by_state = ofg.get('by_state', [])
+        ofg_largest = ofg.get('largest_awards', [])
+
+        body += f"""
+
+<h2 id="other-federal-grants">Other Federal Grants to Libraries</h2>
+<p class="wiki-sub">Beyond IMLS, NEH, and USDA, several other federal agencies award grants to libraries. From USASpending data, {ofg_agencies} federal agencies collectively awarded {ofg_total} grants totaling ${ofg_dollars/1e6:.1f}M to library recipients. The Department of Housing and Urban Development (HUD) is the largest non-library-specific funder, using Community Development Block Grants to support library construction in distressed communities. The Department of the Interior funds libraries on tribal lands and historic preservation projects.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ofg_dollars/1e6:.1f}M</div><div class="label">Total other federal grants</div></div>
+  <div class="stat-card"><div class="num">{ofg_total}</div><div class="label">Awards to libraries</div></div>
+  <div class="stat-card"><div class="num">{ofg_agencies}</div><div class="label">Federal agencies</div></div>
+  <div class="stat-card"><div class="num">${ofg_dollars/ofg_total/1e3:.0f}K</div><div class="label">Average grant</div></div>
+</div>"""
+
+        # By agency bars
+        if ofg_by_agency:
+            body += """
+<h3>Grants by federal agency</h3>
+<div class="services-bars">"""
+            max_amt = ofg_by_agency[0].get('total_awarded', 0) or 1
+            for a in ofg_by_agency:
+                amt = a.get('total_awarded', 0)
+                pct = (amt / max_amt) * 100 if max_amt else 0
+                body += f'\n  <div class="svc-row"><span class="svc-label">{esc(a.get("agency",""))} ({a.get("grants",0)} grants)</span><span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{pct:.1f}%"></span></span><span class="svc-val">${amt/1e6:.1f}M</span></div>'
+            body += '\n</div>'
+
+            # Agency table with full names
+            body += """
+<table class="wikitable">
+  <tr><th>Agency</th><th>Full name</th><th>Grants</th><th>Total awarded</th></tr>"""
+            for a in ofg_by_agency:
+                body += f'\n  <tr><td>{esc(a.get("agency",""))}</td><td>{esc(a.get("agency_name",""))}</td><td>{a.get("grants",0)}</td><td class="pct">${a.get("total_awarded",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        # Top states
+        if ofg_by_state:
+            body += """
+<h3>Top states receiving other federal library grants</h3>
+<table class="wikitable">
+  <tr><th>State</th><th>Total awarded</th></tr>"""
+            for s in ofg_by_state[:15]:
+                body += f'\n  <tr><td><a href="states/{s["state"]}.html">{s["state"]}</a></td><td class="pct">${s.get("total_awarded",0)/1e6:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        # Largest grants
+        if ofg_largest:
+            body += """
+<h3>Largest other federal library grants</h3>
+<table class="wikitable">
+  <tr><th>Recipient</th><th>Agency</th><th>State</th><th>Description</th><th>Amount</th><th>Year</th></tr>"""
+            for g in ofg_largest[:15]:
+                body += f'\n  <tr><td>{esc(g.get("recipient","").title())}</td><td>{g.get("agency","")}</td><td>{g.get("state","") or "&mdash;"}</td><td>{esc(g.get("description","")[:100])}{"..." if len(g.get("description",""))>100 else ""}</td><td class="pct">${g.get("amount",0)/1e6:.1f}M</td><td>{g.get("year","")}</td></tr>'
+            body += '\n</table>'
+
+        body += f'<p class="rsrc">Source: USASpending.gov API, filtered to awards from 7 federal agencies (HUD, DOI, HHS, ED, CNCS, NSF, EPA) where the recipient name contains "library" and award type codes 02-05 (grants). Total: {ofg_total} awards, ${ofg_dollars/1e6:.1f}M. HUD Community Development Block Grants (CDBG) support library construction in low-income communities. DOI grants fund tribal libraries and historic library preservation. HHS grants support library-based health literacy programs. NSF grants fund STEM education at libraries. These are distinct from IMLS, NEH, and USDA awards which are covered in their own sections.</p>'
 
     # ---- Library Usage Survey Data (Pew Research + Gallup) ----
     lu = stats.get('library_usage', {})

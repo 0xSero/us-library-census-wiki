@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-15 00:12 UTC",
+  "generated": "2026-08-15 00:34 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -35324,6 +35324,253 @@
         "award_id": "LS-00-19-0044-19",
         "start_date": "2018-10-01",
         "end_date": "2020-09-30"
+      }
+    ]
+  },
+  "other_federal_grants": {
+    "source": "USASpending.gov API (multiple federal agencies, recipient_search_text=library, award types 02-05)",
+    "total_grants": 156,
+    "total_awarded": 89422777.24,
+    "total_awarded_millions": 89.4,
+    "agencies_count": 7,
+    "by_agency": [
+      {
+        "agency": "HUD",
+        "agency_name": "Department of Housing and Urban Development",
+        "grants": 73,
+        "total_awarded": 53482702.68
+      },
+      {
+        "agency": "DOI",
+        "agency_name": "Department of the Interior",
+        "grants": 53,
+        "total_awarded": 23896458.11
+      },
+      {
+        "agency": "ED",
+        "agency_name": "Department of Education",
+        "grants": 5,
+        "total_awarded": 4643743.0
+      },
+      {
+        "agency": "HHS",
+        "agency_name": "Department of Health and Human Services",
+        "grants": 8,
+        "total_awarded": 3420883.45
+      },
+      {
+        "agency": "CNCS",
+        "agency_name": "Corporation for National and Community Service",
+        "grants": 11,
+        "total_awarded": 1940093.0
+      },
+      {
+        "agency": "NSF",
+        "agency_name": "National Science Foundation",
+        "grants": 4,
+        "total_awarded": 1778897.0
+      },
+      {
+        "agency": "EPA",
+        "agency_name": "Environmental Protection Agency",
+        "grants": 2,
+        "total_awarded": 260000.0
+      }
+    ],
+    "by_state": [
+      {
+        "state": "UT",
+        "total_awarded": 12877836.219999999
+      },
+      {
+        "state": "MT",
+        "total_awarded": 743949.26
+      },
+      {
+        "state": "TN",
+        "total_awarded": 609070.0
+      },
+      {
+        "state": "KS",
+        "total_awarded": 591000.0
+      },
+      {
+        "state": "AK",
+        "total_awarded": 250000.0
+      },
+      {
+        "state": "WA",
+        "total_awarded": 196000.0
+      },
+      {
+        "state": "AR",
+        "total_awarded": 180526.0
+      },
+      {
+        "state": "NY",
+        "total_awarded": 90000.0
+      }
+    ],
+    "largest_awards": [
+      {
+        "recipient": "BRADDOCK CARNEGIE LIBRARY ASSOCIATION",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 4000000.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "SAN DIEGO PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 4000000.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "NATIONAL FIRST LADIES LIBRARY",
+        "agency": "DOI",
+        "description": "NATION FIRST LADIES LIBRARY, INC COOPERATIVE OPERATION AND MANAGEMENT OF FILA",
+        "amount": 3954729.37,
+        "state": null,
+        "year": 2012
+      },
+      {
+        "recipient": "NATIONAL FIRST LADIES LIBRARY",
+        "agency": "DOI",
+        "description": "H6160070001 NATIONAL FIRST LADIES LIBRARY",
+        "amount": 3411064.0,
+        "state": null,
+        "year": 2006
+      },
+      {
+        "recipient": "SANFORD LIBRARY ASSOCIATION",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 3000000.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "LONG BEACH PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "PURPOSE: ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING/CONGRESSIONAL DIRECTED SPENDING AWARDS ARE AUTHORIZED UNDER THE CONSOLIDATED APPROPRIATIONS ACT, 2022 PUBLIC LAW 117-328 AND THE EXPLANATORY STATEMENT FOR DIVISION L OF THAT ACT. PROJECTS SELECTED FOR COMMUNITY PROJECT FUNDING/CONGRESSIONAL DIRECTED SPENDING ARE LISTED IN THE JOINT EXPLANATORY STATEMENT (JES) THAT ACCOMPANIES A SPECIFIC FISCAL YEAR\u2019S APPROPRIATIONS ACT OR CONGRESSIONAL RECORD. THE JES LISTS PROJECT, RECIPIENT, STATE, AMOUNT AND CONGRESSIONAL SPONSOR.; ACTIVITIES TO BE PERFORMED: ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING/CONGRESSIONALLY DIRECTED SPENDING AWARD PROJECTS INCLUDE A WIDE VARIETY OF ACTIVITIES THAT RESULT IN ECONOMIC DEVELOPMENT OR COMMUNITY DEVELOPMENT OUTCOMES. HUD WILL NOT KNOW THE FULL SCOPE OF THE PROJECT UNTIL THE RECIPIENT SUBMITS THE REQUIRED PROJECT NARRATIVE AND CONFIRMS ALIGNMENT WITH THE LANGUAGE AS PROVIDED IN THE CONGRESSIONAL RECORD. TO FIND THE DETAILS OF THE GRANT AWARD AS WRITTEN WITHIN THE CONGRESSIONAL RECORD USE THE FOLLOWING LINK AND PATH SELECTIONS TO GET TO THE DESCRIPTION OF THE ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING GRANTS \nHTTPS://WWW.HUD.GOV/PROGRAM_OFFICES/COMM_PLANNING/EDI-GRANTS, SELECT THE FISCAL YEAR OF INTEREST, SCROLL DOWN TO PROGRAM LAWS AND REGULATIONS, UNDER FISCAL YEAR 20XX CONSOLIDATED APPROPRIATIONS ACT, 20XX: CONGRESSIONAL RECORD (JOINT EXPLANATORY STATEMENT).; EXPECTED OUTCOMES: COMPLETION OF THE PROJECT AS DESCRIBED IN THE JOINT EXPLANATORY STATEMENT (JES) PROJECT DESCRIPTION AND SUBSEQUENT APPROVED PROJECT NARRATIVE.; INTENDED BENEFICIARIES: THE PROJECT BENEFICIARIES ARE THE INDIVIDUALS AND/OR ORGANIZATIONS THAT ARE AWARDED GRANT FUNDS OR SERVED BY THE ENTITIES THAT ARE AWARDED GRANT FUNDS AS IDENTIFIED IN THE JES RECIPIENT OR PROJECT DESCRIPTION SECTIONS.; SUBRECIPIENT ACTIVITIES: THE SUBRECIPIENT ACTIVITIES ARE UNKNOWN AT THE TIME OF AWARD.",
+        "amount": 2500000.0,
+        "state": null,
+        "year": 2024
+      },
+      {
+        "recipient": "GAIL BORDEN PUBLIC LIBRARY DISTRICT",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 2391407.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "MARION COUNTY PUBLIC LIBRARY SYSTEMS",
+        "agency": "HUD",
+        "description": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+        "amount": 2190780.0,
+        "state": null,
+        "year": 2020
+      },
+      {
+        "recipient": "CHATTANOOGA PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "NEIGHBORHOOD STABILIZATION PRG",
+        "amount": 2113727.0,
+        "state": null,
+        "year": 2008
+      },
+      {
+        "recipient": "MARION COUNTY PUBLIC LIBRARY SYSTEMS",
+        "agency": "HUD",
+        "description": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+        "amount": 2041257.0,
+        "state": null,
+        "year": 2021
+      },
+      {
+        "recipient": "CHICAGO PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 2000000.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "FINKELSTEIN MEMORIAL LIBRARY",
+        "agency": "HHS",
+        "description": "COMMUNITY PROJECT FUNDING/CONGRESSIONALLY DIRECTED SPENDING - CONSTRUCTION - FINKELSTEIN MEMORIAL LIBRARY ENRICHMENT CENTER ADDITION FOR MENTAL HEALTH SERVICES THE FINKELSTEIN MEMORIAL LIBRARY WILL CONSTRUCT AN ADDITION TO THE LIBRARY TO HOUSE THE ENRICHMENT CENTER TO PROVIDE LOW-COST OR FREE MENTAL HEALTH SERVICES TO HOMELESS OR LOW-INCOME CLIENTS IN ROCKLAND COUNTY. THE LIBRARY IS CURRENTLY PARTNERING WITH VCS (FORMERLY VOLUNTEER COUNSELING SERVICE OF ROCKLAND COUNTY INC.) TO CREATE A SPACE TO PROVIDE THESE MUCH NEEDED SERVICES. THE EXISTING BUILDING AT 17 S. MADISON AVENUE, SPRING VALLEY, NY 10977 ON THE GROUNDS OF THE FINKELSTEIN MEMORIAL LIBRARY WILL BE DEMOLISHED IN THE FALL OF 2023, AND CONSTRUCTION WILL BEGIN ON AN ADDITION TO HOUSE SPACE FOR FREE MENTAL HEALTH SERVICES TO THE COMMUNITY.  CURRENTLY, VCS HAS AGREED TO PROVIDE THESE SERVICES, BUT THE LIBRARY ALSO HAS SUPPORT ALSO FROM NAMI ROCKLAND, AND THE MHA. THE SCOPE OF THE PROJECT IS TO DEMOLISH THE EXISTING STRUCTURE, AND BUILD A REPLACEMENT ADDITION TO THE LIBRARY WITH SEPARATE SPACE CONSTRUCTED FOR VCS INCLUDING INDIVIDUAL SOUNDPROOF COUNSELING ROOMS, A RECEPTION/WAITING AREA, A SMALL CONFERENCE ROOM, A SEPARATE BATHROOM, SEPARATE ENTRANCE, AND TWO CLASSROOMS FOR THEIR PROGRAMS (SUCH AS THEIR DOMESTIC VIOLENCE PREVENTION CLASS).  GRANT PROGRAM FUNDS WILL BE USED FOR THE CONSTRUCTION OF THE ADDITION, WITH THE COMPLETION OF THE COUNSELING ROOMS ON THE FIRST FLOOR.   SPECIFICATIONS:  -\tWAITING AREA WITH SEATING FOR 5 CLIENTS  -\tRECEPTION AREA WITH PRIVACY SCREEN (DOUBLE MIRROR) FOR THE RECEPTIONIST  -\tVCS STAFF OFFICE WITH 5 CUBICLES LARGE ENOUGH TO HAVE A COMPUTER, DESK, AND CHAIR FOR EACH WITH ROOM FOR THE CENTRAL COPIER, SCANNER AND FAX AND CABINET TO STORE OFFICE SUPPLIES  O\tVCS TO MAINTAIN THE COPY/FAX/SCAN MACHINE WITH PAPER, INK, ETC. -\t5 CLINICAL SOUNDPROOF OFFICE ROOMS FOR THE ACTUAL COUNSELING SESSIONS WITH ENOUGH SPACE FOR 4 PEOPLE -\t1 SOUNDPROOF CONFERENCE ROOM WITH ENOUGH SPACE FOR 10 PEOPLE WHICH CAN ALSO BE USED AS A CLINICAL ROOM -\tIT CLOSET T HAT HAS A LOCKED DOOR AND GOOD VENTILATION  -\tRESTROOM  -\tGROUND LEVEL LOCATION WITH SEPARATE ENTRY FROM THE LIBRARY (FOR SECURITY PURPOSES)  THIS WILL BE DEMOLITION AND NEW CONSTRUCTION BEGINNING IN OCTOBER 2023 TO BE COMPLETED IN AUGUST 2026. NO EQUIPMENT WILL BE PURCHASED AS PART OF THIS APPLICATION.  ALL EQUIPMENT IN THE COUNSELING ROOMS WILL BE SUPPLIED BY VCS. PROJECT DIRECTORS: LAURA WOLVEN, (845) 352-5700 EXT. 283, LMWOLVEN@RCLS.ORG AND RAFAEL MIRABAL, (845) 352-5700 EXT. 223; MIRABALR@RCLS.ORG, FAX: (845) 538-8464 WWW.FINKELSTEINLIBRARY.ORG",
+        "amount": 2000000.0,
+        "state": null,
+        "year": 2023
+      },
+      {
+        "recipient": "MARION COUNTY PUBLIC LIBRARY SYSTEMS",
+        "agency": "HUD",
+        "description": "COMMUNITY DEVELOPMENT BLOCK GRANTS/ENTITLEMENT GRANTS",
+        "amount": 1980599.0,
+        "state": null,
+        "year": 2021
+      },
+      {
+        "recipient": "PENINSULA LIBRARY SYSTEM",
+        "agency": "ED",
+        "description": "LINCS REGIONAL PROFESSIONAL DEVELOPMENT CENTERS",
+        "amount": 1810880.0,
+        "state": null,
+        "year": 2011
+      },
+      {
+        "recipient": "PENINSULA LIBRARY SYSTEM",
+        "agency": "ED",
+        "description": "NATIONAL INSTITUTE FOR LITERACY - LITERACY INFORMATION AND COMMUNICATION (LINCS) REGIONAL RESOURCE CENTERS PROGRAM",
+        "amount": 1801920.0,
+        "state": null,
+        "year": 2006
+      },
+      {
+        "recipient": "NATIONAL FIRST LADIES LIBRARY",
+        "agency": "DOI",
+        "description": "P19AC00002 FILA ELEVATE AWARENESS OF CONTRIBUTIONS OF FIRST LADIES THROUGH PROGRAMS, SERVICES, AND COMMUNITY ENGAGEMENT AT THE FIRST LADIES NATIONAL HISTORIC SITE FY19 $400,000.00",
+        "amount": 1776082.0,
+        "state": null,
+        "year": 2019
+      },
+      {
+        "recipient": "CHATTANOOGA PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "ENTITLED CITIES",
+        "amount": 1742399.0,
+        "state": null,
+        "year": 2008
+      },
+      {
+        "recipient": "CHATTANOOGA PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "ENTITLED CITIES",
+        "amount": 1716636.0,
+        "state": null,
+        "year": 2007
+      },
+      {
+        "recipient": "CHATTANOOGA PUBLIC LIBRARY",
+        "agency": "HUD",
+        "description": "HOME INVESTMENT CPD",
+        "amount": 1193001.0,
+        "state": null,
+        "year": 2008
+      },
+      {
+        "recipient": "THE JONES LIBRARY, INCORPORATED",
+        "agency": "HUD",
+        "description": "ECONOMIC DEVELOPMENT INITIATIVE, COMMUNITY PROJECT FUNDING, AND MISCELLANEOUS GRANTS",
+        "amount": 1110661.0,
+        "state": null,
+        "year": 2023
       }
     ]
   },

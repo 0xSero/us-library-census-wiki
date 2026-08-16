@@ -630,6 +630,7 @@ def load_all():
         ('sustainability', 'library_sustainability_summary.json'),
         ('tech_vendors', 'library_tech_vendors_summary.json'),
         ('law_governance', 'library_law_governance_summary.json'),
+        ('awards', 'library_awards_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -11543,6 +11544,187 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Awards & Recognition Programs ──
+    try:
+        aw = data.get('awards', {})
+        imls_medal = aw.get('imls_national_medal', {})
+        lj_movers = aw.get('lj_movers_shakers', {})
+        lj_loty = aw.get('lj_library_of_the_year', {})
+        lj_small = aw.get('lj_best_small_library', {})
+        lj_lib = aw.get('lj_librarian_of_the_year', {})
+        lj_para = aw.get('lj_paraprofessional_of_the_year', {})
+        ala_lit = aw.get('ala_literary_awards', [])
+        design = aw.get('library_design_awards', {})
+        star = aw.get('star_library_ratings', {})
+        haplr = aw.get('haplr_ratings', {})
+        state_aw = aw.get('state_library_awards', {})
+        best_prac = aw.get('best_practices_recognition', {})
+        aw_findings = aw.get('key_findings', [])
+
+        imls_totals = imls_medal.get('totals', {})
+        imls_by_year = imls_medal.get('by_year', {})
+        imls_by_state = imls_medal.get('by_state', {})
+        imls_recipients = imls_medal.get('library_recipients_all', [])
+        imls_total_count = imls_totals.get('total_recipients', 0)
+        imls_libs = imls_totals.get('libraries', 0)
+        imls_museums = imls_totals.get('museums', 0)
+
+        body += f"""
+<section id="awards">
+<h2><span class="mw-headline">Library Awards & Recognition Programs</span></h2>
+<p>The American library profession recognizes excellence through a rich ecosystem of national awards, state honors, design prizes, and professional recognition programs. The IMLS National Medal is the nation's highest honor for library and museum service, while Library Journal and the ALA administer dozens of awards recognizing literary achievement, professional leadership, and institutional innovation.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{imls_total_count}</div><div class="label">IMLS National Medal recipients</div></div>
+  <div class="stat-card"><div class="num">{imls_libs}</div><div class="label">Medal-winning libraries</div></div>
+  <div class="stat-card"><div class="num">{len(ala_lit)}</div><div class="label">ALA literary awards</div></div>
+  <div class="stat-card"><div class="num">{len(imls_by_state)}</div><div class="label">States with medal winners</div></div>
+</div>"""
+
+        # IMLS National Medal
+        if imls_medal:
+            imls_desc = esc(str(imls_medal.get('description', '')))
+            body += f"""
+<h3><span class="mw-headline">IMLS National Medal for Museum and Library Service</span></h3>
+<div class="rules-box">
+  <p>{imls_desc}</p>
+  <p><strong>Administered by:</strong> {esc(str(imls_medal.get('administered_by', '')))}</p>
+</div>"""
+            if imls_by_year:
+                body += '\n<h4>Medals by Year</h4>'
+                body += '\n<table class="wikitable sortable"><tr><th>Year</th><th>Recipients</th></tr>'
+                for yr, cnt in sorted(imls_by_year.items(), key=lambda x: int(x[0]) if str(x[0]).isdigit() else 0):
+                    body += f'\n<tr><td>{yr}</td><td class="num">{cnt}</td></tr>'
+                body += '\n</table>'
+
+            if imls_by_state:
+                body += '\n<h4>Medals by State</h4>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Recipients</th></tr>'
+                for st, cnt in sorted(imls_by_state.items(), key=lambda x: x[1] if isinstance(x[1], int) else 0, reverse=True):
+                    body += f'\n<tr><td>{esc(str(st))}</td><td class="num">{cnt}</td></tr>'
+                body += '\n</table>'
+
+            if imls_recipients:
+                body += '\n<h4>Notable Library Recipients</h4>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>City</th><th>State</th><th>Year</th></tr>'
+                for r in imls_recipients[:30]:
+                    r_name = esc(str(r.get('name', r.get('recipient', ''))))
+                    r_city = esc(str(r.get('city', '')))
+                    r_state = esc(str(r.get('state', '')))
+                    r_year = r.get('year', '')
+                    body += f'\n<tr><td>{r_name}</td><td>{r_city}</td><td>{r_state}</td><td>{r_year}</td></tr>'
+                body += '\n</table>'
+
+        # ALA literary awards
+        if ala_lit:
+            body += '\n<h3><span class="mw-headline">ALA Literary Awards</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Award</th><th>Description</th><th>First Year</th></tr>'
+            for a in ala_lit:
+                a_name = esc(str(a.get('name', a.get('award', ''))))
+                a_desc = esc(str(a.get('description', '')))
+                a_year = a.get('first_year', a.get('year_established', a.get('started', '')))
+                body += f'\n<tr><td>{a_name}</td><td>{a_desc}</td><td>{a_year}</td></tr>'
+            body += '\n</table>'
+
+        # LJ awards
+        if lj_loty:
+            loty_winners = lj_loty.get('winners', [])
+            body += """
+<h3><span class="mw-headline">Library Journal — Library of the Year</span></h3>
+<div class="rules-box">"""
+            if loty_winners:
+                body += '\n<table class="wikitable"><tr><th>Year</th><th>Library</th></tr>'
+                for w in loty_winners:
+                    w_year = w.get('year', '')
+                    w_lib = esc(str(w.get('library', w.get('winner', w if isinstance(w, str) else ''))))
+                    body += f'\n<tr><td>{w_year}</td><td>{w_lib}</td></tr>'
+                body += '\n</table>'
+            body += '\n</div>'
+
+        if lj_small:
+            small_winners = lj_small.get('winners', [])
+            body += """
+<h3><span class="mw-headline">Library Journal — Best Small Library in America</span></h3>
+<div class="rules-box">"""
+            if small_winners:
+                body += '\n<table class="wikitable"><tr><th>Year</th><th>Library</th></tr>'
+                for w in small_winners:
+                    w_year = w.get('year', '')
+                    w_lib = esc(str(w.get('library', w.get('winner', w if isinstance(w, str) else ''))))
+                    body += f'\n<tr><td>{w_year}</td><td>{w_lib}</td></tr>'
+                body += '\n</table>'
+            body += '\n</div>'
+
+        if lj_movers:
+            ms_desc = esc(str(lj_movers.get('description', '')))
+            ms_scale = esc(str(lj_movers.get('scale', '')))
+            body += f"""
+<h3><span class="mw-headline">Library Journal — Movers & Shakers</span></h3>
+<div class="rules-box">
+  <p>{ms_desc}</p>
+  <p><strong>Scale:</strong> {ms_scale}</p>
+</div>"""
+
+        # Design awards
+        if design:
+            design_desc = esc(str(design.get('program', '')))
+            body += f"""
+<h3><span class="mw-headline">Library Design Awards</span></h3>
+<div class="rules-box">
+  <p>{design_desc}</p>
+  <p><strong>First awarded:</strong> {design.get('first_awarded', '')} | <strong>Frequency:</strong> {esc(str(design.get('frequency', '')))}</p>
+</div>"""
+            notable_buildings = design.get('notable_modern_library_buildings', [])
+            if notable_buildings:
+                body += '\n<h4>Notable Modern Library Buildings</h4>'
+                body += '\n<table class="wikitable"><tr><th>Library</th><th>Location</th></tr>'
+                for nb in notable_buildings:
+                    nb_name = esc(str(nb.get('name', nb if isinstance(nb, str) else '')))
+                    nb_loc = esc(str(nb.get('location', '')))
+                    body += f'\n<tr><td>{nb_name}</td><td>{nb_loc}</td></tr>'
+                body += '\n</table>'
+
+        # Star Library ratings
+        if star:
+            star_desc = esc(str(star.get('program', '')))
+            star_meth = esc(str(star.get('methodology', '')))
+            body += f"""
+<h3><span class="mw-headline">Star Library Ratings (Library Journal Index)</span></h3>
+<div class="rules-box">
+  <p>{star_desc}</p>
+  <p><strong>Started:</strong> {star.get('started', '')}</p>
+  <p><strong>Methodology:</strong> {star_meth}</p>
+</div>"""
+
+        # Best practices recognition
+        if best_prac:
+            bp_overview = esc(str(best_prac.get('overview', '')))
+            body += f"""
+<h3><span class="mw-headline">Best Practices Recognition</span></h3>
+<div class="rules-box">
+  <p>{bp_overview}</p>"""
+            bp_programs = best_prac.get('programs', [])
+            if bp_programs:
+                body += '\n<ul class="wiki-list">'
+                for bp in bp_programs:
+                    bp_name = esc(str(bp.get('name', bp.get('program', bp if isinstance(bp, str) else ''))))
+                    bp_desc = esc(str(bp.get('description', '')))
+                    if bp_desc:
+                        body += f'\n  <li><strong>{bp_name}:</strong> {bp_desc}</li>'
+                    else:
+                        body += f'\n  <li>{bp_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if aw_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in aw_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Law & Governance ──
     try:
         lg = data.get('law_governance', {})
@@ -11893,7 +12075,7 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

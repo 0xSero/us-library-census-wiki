@@ -11534,8 +11534,99 @@ def build_funders(data, stats):
         except Exception as e:
             body += f'\n<p class="text-muted"><em>IMLS program data unavailable: {esc(str(e))}</em></p>'
 
+    # ── Federal Library Legislation ──
+    try:
+        leg = json.load(open(os.path.join(DATA, 'library_legislation_summary.json')))
+        bills_found = int(leg.get('bills_found', 0))
+        by_congress = leg.get('by_congress', {})
+        by_party = leg.get('by_sponsor_party', {})
+        by_status = leg.get('by_status', {})
+        top_bills = leg.get('top_20_bills', [])
+        key_bills = leg.get('key_bills', [])
+
+        body += f"""
+<h2 id="federal-legislation">Federal Library Legislation Tracker</h2>
+<p>{esc(str(leg.get('description', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bills_found}</div><div class="label">Bills Found</div></div>
+  <div class="stat-card"><div class="num">{len(by_congress)}</div><div class="label">Congresses Covered</div></div>
+  <div class="stat-card"><div class="num">{len(by_status)}</div><div class="label">Status Categories</div></div>
+  <div class="stat-card"><div class="num">{len(key_bills)}</div><div class="label">Key Historical Acts</div></div>
+</div>"""
+
+        if by_congress:
+            body += """
+<h3>By Congress</h3>
+<div class="services-bars">"""
+            max_c = max(by_congress.values()) if by_congress else 1
+            for cong, cnt in sorted(by_congress.items()):
+                width = (cnt / max_c) * 100.0 if max_c else 0
+                label = f"Congress {cong}" if cong.isdigit() else esc(str(cong)).title()
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{label}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if by_status:
+            body += """
+<h3>By Legislative Status</h3>
+<table class="wikitable">
+  <tr><th>Status</th><th>Count</th></tr>"""
+            for status, cnt in sorted(by_status.items(), key=lambda x: -x[1]):
+                body += f'\n  <tr><td>{esc(str(status))}</td><td class="num">{cnt}</td></tr>'
+            body += '\n</table>'
+
+        if by_party:
+            body += """
+<h3>By Sponsor Party</h3>
+<div class="services-bars">"""
+            max_p = max(by_party.values()) if by_party else 1
+            party_colors = {'Democrat': 'svc-fill-blue', 'D': 'svc-fill-blue', 'Republican': 'svc-fill-red', 'unknown': 'svc-fill-tech'}
+            for party, cnt in sorted(by_party.items(), key=lambda x: -x[1]):
+                width = (cnt / max_p) * 100.0 if max_p else 0
+                color = party_colors.get(party, 'svc-fill-tech')
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(str(party))}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if key_bills:
+            body += """
+<h3 id="key-library-acts">Key Historical Library Acts</h3>
+<p>Landmark federal legislation that shaped America's library system:</p>
+<table class="wikitable sortable">
+  <tr><th>Act</th><th>Status</th><th>Significance</th></tr>"""
+            for b in key_bills:
+                title = esc(str(b.get('title', '')))
+                status = esc(str(b.get('status', '')))
+                summary = esc(str(b.get('summary', '')))[:200]
+                body += f'\n  <tr><td><strong>{title}</strong></td><td>{status}</td><td>{summary}</td></tr>'
+            body += '\n</table>'
+
+        if top_bills:
+            body += """
+<h3 id="recent-library-bills">Recent Library-Related Bills</h3>
+<table class="wikitable sortable">
+  <tr><th>Bill</th><th>Sponsor</th><th>Party</th><th>Status</th><th>Congress</th></tr>"""
+            for b in top_bills[:20]:
+                title = esc(str(b.get('title', '')))[:120]
+                sponsor = esc(str(b.get('sponsor', '')))
+                party = esc(str(b.get('sponsor_party', '')))
+                status = esc(str(b.get('status', '')))
+                congress = esc(str(b.get('congress', '')))
+                body += f'\n  <tr><td><strong>{title}</strong></td><td>{sponsor}</td><td>{party}</td><td>{status}</td><td>{congress}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:

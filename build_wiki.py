@@ -678,6 +678,8 @@ def load_all():
         ('health', 'library_health_summary.json'),
         ('entrepreneurship', 'library_entrepreneurship_summary.json'),
         ('streaming', 'library_streaming_summary.json'),
+        ('immigrants', 'library_immigrants_summary.json'),
+        ('civic', 'library_civic_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -14171,8 +14173,101 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Libraries Serving Immigrants & Refugees ──
+    try:
+        im = data.get('immigrants', {})
+        if im:
+            im_esl = im.get('esl_programs', {})
+            im_cit = im.get('citizenship_services', {})
+            im_sanctuary = im.get('library_sanctuary', {})
+            im_programs = im.get('notable_programs', [])
+            im_findings = im.get('key_findings', [])
+
+            body += """
+<section id="immigrants">
+<h2><span class="mw-headline">Libraries Serving Immigrants & Refugees</span></h2>
+<p>Libraries are frontline service providers for immigrants and refugees — offering ESL classes, citizenship preparation, legal resources, and multilingual collections.</p>"""
+
+            if im_programs and isinstance(im_programs, list):
+                body += '\n<h3><span class="mw-headline">Notable Programs for Immigrants</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Program</th><th>Library</th><th>Description</th></tr>'
+                for p in im_programs[:15]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_loc_raw = p.get('library', p.get('location', ''))
+                        p_loc = esc(str(p_loc_raw))
+                        p_desc = esc(str(p.get('description', '')))[:120]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_loc}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if im_esl and isinstance(im_esl, dict):
+                body += '\n<h3><span class="mw-headline">ESL Programs</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(im_esl.items())[:5]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if im_cit and isinstance(im_cit, dict):
+                body += '\n<h3><span class="mw-headline">Citizenship Services</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(im_cit.items())[:5]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if im_findings and isinstance(im_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in im_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries & Civic Engagement ──
+    try:
+        cv = data.get('civic', {})
+        if cv:
+            cv_voting = cv.get('voting_services', {})
+            cv_census = cv.get('census_2020', {})
+            cv_programs = cv.get('notable_programs', [])
+            cv_findings = cv.get('key_findings', [])
+
+            body += """
+<section id="civic-engagement">
+<h2><span class="mw-headline">Libraries & Civic Engagement</span></h2>
+<p>Libraries are pillars of democracy — serving as polling places, voter registration sites, census participation hubs, and community forums.</p>"""
+
+            if cv_voting and isinstance(cv_voting, dict):
+                body += '\n<h3><span class="mw-headline">Voting Services</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(cv_voting.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if cv_programs and isinstance(cv_programs, list):
+                body += '\n<h3><span class="mw-headline">Notable Civic Engagement Programs</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Program</th><th>Description</th></tr>'
+                for p in cv_programs[:15]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_desc = esc(str(p.get('description', '')))[:120]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if cv_findings and isinstance(cv_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cv_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

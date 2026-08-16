@@ -653,6 +653,7 @@ def load_all():
         ('rural', 'rural_libraries_summary.json'),
         ('architecture', 'library_architecture_summary.json'),
         ('cataloging', 'library_cataloging_summary.json'),
+        ('publishing_detailed', 'library_publishing_detailed_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -17612,6 +17613,106 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Library Publishing & the Book Industry ──
+    try:
+        pub = data.get('publishing_detailed', {})
+        if pub:
+            pub_industry = pub.get('publishing_industry_library_relations', {})
+            pub_big5 = pub_industry.get('big_five_publishers', []) if isinstance(pub_industry, dict) else []
+            pub_purchasing = pub.get('library_book_purchasing', {})
+            pub_audio = pub.get('audio_digital_formats', {})
+            pub_lib_pub = pub.get('library_as_publisher', {})
+            pub_self = pub.get('self_publishing', {})
+            pub_zines = pub.get('zines_in_libraries', {})
+            pub_censor = pub.get('censorship_publishing', {})
+            pub_findings = pub.get('key_findings', [])
+
+            body += """
+<section id="publishing-detailed">
+<h2><span class="mw-headline">Library Publishing & the Book Industry</span></h2>
+<p>Libraries are the largest single institutional purchaser of books in the United States, spending an estimated $1.6B+ annually on collection materials. This section examines the complex relationship between libraries, publishers, and the evolving book industry.</p>"""
+
+            if pub_big5:
+                body += '\n<h3><span class="mw-headline">Big Five Publishers & Library Relations</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Publisher</th><th>Parent</th><th>Library E-book Policy</th></tr>'
+                for p in pub_big5:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_parent = esc(str(p.get('parent', p.get('owner', ''))))
+                        p_policy_raw = p.get('library_ebook_policy', p.get('ebook_policy', p.get('library_policy', '')))
+                        p_policy = esc(str(p_policy_raw))
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_parent}</td><td>{p_policy}</td></tr>'
+                body += '\n</table>'
+
+            if pub_purchasing:
+                pub_market = pub_purchasing.get('market_size', '')
+                pub_wholesalers = pub_purchasing.get('major_wholesalers_and_vendors', [])
+                if pub_market:
+                    body += f'\n<h3><span class="mw-headline">Library Book Purchasing</span></h3>'
+                    body += f'\n<p>{esc(str(pub_market))}</p>'
+                if pub_wholesalers:
+                    body += '\n<h4>Major Library Wholesalers</h4>'
+                    body += '\n<ul class="wiki-list">'
+                    for w in pub_wholesalers[:8]:
+                        if isinstance(w, dict):
+                            w_name = esc(str(w.get('name', '')))
+                            w_desc = esc(str(w.get('description', w.get('model', ''))))
+                            body += f'\n  <li><strong>{w_name}</strong>{f" — {w_desc}" if w_desc else ""}</li>'
+                        elif isinstance(w, str):
+                            body += f'\n  <li>{esc(w)}</li>'
+                    body += '\n</ul>'
+
+            if pub_audio:
+                od = pub_audio.get('overdrive_libby', {})
+                hoopla = pub_audio.get('hoopla', {})
+                body += '\n<h3><span class="mw-headline">Digital Audio & E-book Platforms</span></h3>'
+                if od:
+                    od_desc = od.get('description', od.get('overview', ''))
+                    if od_desc:
+                        body += f'\n<p><strong>OverDrive/Libby:</strong> {esc(str(od_desc))}</p>'
+                if hoopla:
+                    hoopla_desc = hoopla.get('description', hoopla.get('model', ''))
+                    if hoopla_desc:
+                        body += f'\n<p><strong>hoopla:</strong> {esc(str(hoopla_desc))}</p>'
+
+            if pub_lib_pub:
+                flagships = pub_lib_pub.get('flagship_programs', [])
+                body += '\n<h3><span class="mw-headline">Libraries as Publishers</span></h3>'
+                body += f'\n<p>{esc(str(pub_lib_pub.get("overview", "")))}</p>'
+                if flagships:
+                    body += '\n<ul class="wiki-list">'
+                    for fp in flagships[:8]:
+                        if isinstance(fp, dict):
+                            fp_name = esc(str(fp.get('name', fp.get('program', ''))))
+                            fp_desc = esc(str(fp.get('description', '')))
+                            body += f'\n  <li><strong>{fp_name}</strong>{f" — {fp_desc}" if fp_desc else ""}</li>'
+                        elif isinstance(fp, str):
+                            body += f'\n  <li>{esc(fp)}</li>'
+                    body += '\n</ul>'
+
+            if pub_zines:
+                zine_coll = pub_zines.get('major_collections', [])
+                body += '\n<h3><span class="mw-headline">Zines in Libraries</span></h3>'
+                if zine_coll:
+                    body += '\n<ul class="wiki-list">'
+                    for zc in zine_coll[:8]:
+                        if isinstance(zc, dict):
+                            zc_name = esc(str(zc.get('name', zc.get('library', ''))))
+                            zc_desc = esc(str(zc.get('description', '')))
+                            body += f'\n  <li><strong>{zc_name}</strong>{f" — {zc_desc}" if zc_desc else ""}</li>'
+                        elif isinstance(zc, str):
+                            body += f'\n  <li>{esc(zc)}</li>'
+                    body += '\n</ul>'
+
+            if pub_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pub_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Cataloging, Classification & Metadata Standards ──
     try:
         cat = data.get('cataloging', {})
@@ -17723,7 +17824,7 @@ def build_digital(data, stats):
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#publishing-detailed">Publishing industry</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

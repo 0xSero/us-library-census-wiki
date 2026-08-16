@@ -12421,8 +12421,144 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Census Bureau ACS Demographics ──
+    try:
+        cen = json.load(open(os.path.join(DATA, 'census_library_demographics_summary.json')))
+        nat = cen.get('national_averages', {})
+        ia = cen.get('internet_access_by_state', [])
+        ed = cen.get('education_by_state', [])
+        ddc = cen.get('digital_divide_correlation', {})
+        ibe = cen.get('internet_by_education', {})
+        iage = cen.get('internet_by_age', [])
+
+        body += f"""
+<h2 id="census-demographics">Census Bureau: Internet Access &amp; Education by State</h2>
+<div class="rules-box">
+  <p>{esc(str(cen.get('source', '')))}. {esc(str(cen.get('source_detail', '')))[:300]}</p>
+</div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{float(nat.get('pct_with_internet', 0)):.1f}%</div><div class="label">Have Internet</div></div>
+  <div class="stat-card"><div class="num">{float(nat.get('pct_without_internet', 0)):.1f}%</div><div class="label">No Internet</div></div>
+  <div class="stat-card"><div class="num">{float(nat.get('pct_with_computer', 0)):.1f}%</div><div class="label">Have Computer</div></div>
+  <div class="stat-card"><div class="num">{float(nat.get('pct_highschool', 0)):.1f}%</div><div class="label">HS+ Education</div></div>
+  <div class="stat-card"><div class="num">{float(nat.get('pct_bachelors', 0)):.1f}%</div><div class="label">Bachelor's+</div></div>
+  <div class="stat-card"><div class="num">{float(nat.get('pct_graduate', 0)):.1f}%</div><div class="label">Graduate Degree</div></div>
+</div>"""
+
+        # Digital divide correlation
+        if ddc:
+            corr = ddc.get('pearson_correlation', 0)
+            below = ddc.get('states_below_average_on_both', [])
+            body += f"""
+<h3 id="digital-divide-correlation">The Digital Divide: Education &amp; Internet Correlation</h3>
+<div class="rules-box">
+  <p>{esc(str(ddc.get('description', '')))}</p>
+  <p><strong>Pearson correlation</strong> between bachelor's-degree attainment and internet subscription: <strong>{float(corr):.3f}</strong> — a moderate positive correlation. States with lower educational attainment also tend to have lower internet access, underscoring libraries' dual role as connectivity and learning hubs.</p>
+</div>"""
+            if below:
+                body += """
+<h4>States Below National Average on Both Internet &amp; Education</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>% Bachelor's+</th><th>% with Internet</th></tr>"""
+                for s in below:
+                    sn = esc(str(s.get('state', '')))
+                    pct_b = float(s.get('pct_bachelors', 0))
+                    pct_i = float(s.get('pct_with_internet', 0))
+                    body += f'\n  <tr><td><strong>{sn}</strong></td><td class="num">{pct_b:.1f}%</td><td class="num">{pct_i:.1f}%</td></tr>'
+                body += '\n</table>'
+
+        # Internet access by state — top 10 and bottom 10
+        if ia:
+            ia_sorted = sorted(ia, key=lambda x: float(x.get('pct_with_internet', 0)), reverse=True)
+            body += """
+<h3 id="internet-by-state">Internet Access by State</h3>
+<p>States ranked by percentage of households with an internet subscription (ACS 2023 5-year). These are the communities where public libraries serve as essential internet access points.</p>
+<div class="services-bars">"""
+            max_pct = 100.0
+            for s in ia_sorted[:15]:
+                sn = esc(str(s.get('state', '')))
+                pct = float(s.get('pct_with_internet', 0))
+                width = (pct / max_pct) * 100.0
+                color = 'svc-fill-green' if pct >= 90 else ('svc-fill-blue' if pct >= 85 else 'svc-fill-red')
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{sn}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{pct:.1f}%</span>
+  </div>"""
+            body += '\n</div>'
+
+            body += """
+<h4>Full Internet &amp; Computer Access Table (All States)</h4>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>% Internet</th><th>% Broadband</th><th>% No Internet</th><th>% Computer</th><th>% No Computer</th><th>Households</th></tr>"""
+            for s in ia_sorted:
+                sn = esc(str(s.get('state', '')))
+                pct_i = float(s.get('pct_with_internet', 0))
+                pct_bb = float(s.get('pct_with_broadband', 0))
+                pct_no_i = float(s.get('pct_without_internet', 0))
+                pct_c = float(s.get('pct_with_computer', 0))
+                pct_no_c = float(s.get('pct_no_computer', 0))
+                hh = int(s.get('households', 0))
+                body += f'\n  <tr><td><strong>{sn}</strong></td><td class="num">{pct_i:.1f}%</td><td class="num">{pct_bb:.1f}%</td><td class="num">{pct_no_i:.1f}%</td><td class="num">{pct_c:.1f}%</td><td class="num">{pct_no_c:.1f}%</td><td class="num">{hh:,}</td></tr>'
+            body += '\n</table>'
+
+        # Education by state
+        if ed:
+            ed_sorted = sorted(ed, key=lambda x: float(x.get('pct_bachelors', 0)), reverse=True)
+            body += """
+<h3 id="education-by-state">Educational Attainment by State</h3>
+<p>Adults 25 and older by highest degree attained. Library services — GED classes, adult literacy, college prep — matter most in states with lower attainment.</p>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>% HS+</th><th>% Bachelor's+</th><th>% Graduate+</th><th>Adults 25+</th></tr>"""
+            for s in ed_sorted:
+                sn = esc(str(s.get('state', '')))
+                pct_hs = float(s.get('pct_highschool', 0))
+                pct_b = float(s.get('pct_bachelors', 0))
+                pct_g = float(s.get('pct_graduate', 0))
+                adults = int(s.get('adults_25_plus', 0))
+                body += f'\n  <tr><td><strong>{sn}</strong></td><td class="num">{pct_hs:.1f}%</td><td class="num">{pct_b:.1f}%</td><td class="num">{pct_g:.1f}%</td><td class="num">{adults:,}</td></tr>'
+            body += '\n</table>'
+
+        # Internet by age
+        if iage:
+            body += """
+<h3 id="internet-by-age">Internet Access by Age Group</h3>
+<p>Computer and internet use by age cohort (under 18, 18-64, 65+). The 65+ gap reveals where libraries provide the most age-targeted digital literacy support.</p>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Under 18 %</th><th>18-64 %</th><th>65+ %</th></tr>"""
+            for s in iage[:20]:
+                sn = esc(str(s.get('state', '')))
+                ba = s.get('by_age', {})
+                u18 = float(ba.get('under_18', 0))
+                a64 = float(ba.get('18_to_64', 0))
+                s65 = float(ba.get('65_plus', 0))
+                body += f'\n  <tr><td><strong>{sn}</strong></td><td class="num">{u18:.1f}%</td><td class="num">{a64:.1f}%</td><td class="num">{s65:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        # Internet vs education correlation scatter description
+        if ibe and ibe.get('state_pairs'):
+            body += f"""
+<h3 id="internet-education-correlation">Internet vs. Education: State-Level Pairs</h3>
+<div class="rules-box">
+  <p>{esc(str(ibe.get('description', '')))}</p>
+  <p><strong>Pearson correlation:</strong> {esc(str(ibe.get('pearson_correlation_bachelors_vs_internet', '')))}</p>
+  <p>{esc(str(ibe.get('interpretation', '')))}</p>
+</div>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>% Bachelor's+</th><th>% with Internet</th></tr>"""
+            for sp in ibe.get('state_pairs', []):
+                sn = esc(str(sp.get('state', '')))
+                pct_b = float(sp.get('pct_bachelors', 0))
+                pct_i = float(sp.get('pct_with_internet', 0))
+                body += f'\n  <tr><td><strong>{sn}</strong></td><td class="num">{pct_b:.1f}%</td><td class="num">{pct_i:.1f}%</td></tr>'
+            body += '\n</table>'
+
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

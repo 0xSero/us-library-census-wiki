@@ -671,6 +671,8 @@ def load_all():
         ('library_cards_data', 'library_cards_summary.json'),
         ('library_technology', 'library_technology_summary.json'),
         ('pls_extended', 'pls_extended_metrics.json'),
+        ('climate', 'library_climate_summary.json'),
+        ('history_timeline', 'library_history_timeline_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -13827,8 +13829,106 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Libraries & Climate Change ──
+    try:
+        cl = data.get('climate', {})
+        if cl:
+            cl_impact = cl.get('climate_impact', {})
+            cl_disaster = cl.get('disaster_response', {})
+            cl_resilience = cl.get('libraries_as_resilience_hubs', {})
+            cl_green = cl.get('notable_green_libraries', [])
+            cl_recovery = cl.get('disaster_recovery', [])
+            cl_findings = cl.get('key_findings', [])
+
+            body += """
+<section id="climate">
+<h2><span class="mw-headline">Libraries & Climate Change</span></h2>
+<p>From hurricanes to wildfires, climate change poses growing threats to library buildings and collections. Libraries are also becoming community resilience hubs in the climate crisis.</p>"""
+
+            if cl_resilience and isinstance(cl_resilience, dict):
+                body += '\n<h3><span class="mw-headline">Libraries as Resilience Hubs</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(cl_resilience.items())[:8]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul>'
+
+            if cl_green and isinstance(cl_green, list):
+                body += '\n<h3><span class="mw-headline">Notable Green Libraries</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>Location</th><th>LEED</th></tr>'
+                for g in cl_green[:18]:
+                    if isinstance(g, dict):
+                        g_name_raw = g.get('name', g.get('library', ''))
+                        g_name = esc(str(g_name_raw))
+                        g_loc_raw = g.get('location', g.get('city', ''))
+                        g_loc = esc(str(g_loc_raw))
+                        g_leed_raw = g.get('leed_level', g.get('leed', g.get('certification', '')))
+                        g_leed = esc(str(g_leed_raw))
+                        body += f'\n  <tr><td><strong>{g_name}</strong></td><td>{g_loc}</td><td>{g_leed}</td></tr>'
+                body += '\n</table>'
+
+            if cl_recovery and isinstance(cl_recovery, list):
+                body += '\n<h3><span class="mw-headline">Disaster Recovery Case Studies</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for r in cl_recovery[:10]:
+                    if isinstance(r, dict):
+                        r_name_raw = r.get('library', r.get('name', r.get('event', '')))
+                        r_name = esc(str(r_name_raw))
+                        r_desc = esc(str(r.get('description', r.get('summary', '')))[:150])
+                        body += f'\n  <li><strong>{r_name}</strong>{f" — {r_desc}" if r_desc else ""}</li>'
+                    elif isinstance(r, str):
+                        body += f'\n  <li>{esc(r)}</li>'
+                body += '\n</ul>'
+
+            if cl_findings and isinstance(cl_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cl_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library History Timeline ──
+    try:
+        ht = data.get('history_timeline', {})
+        if ht:
+            ht_colonial = ht.get('colonial_era', {})
+            ht_19th = ht.get('19th_century', {})
+            ht_carnegie = ht.get('carnegie_era', {})
+            ht_20th = ht.get('20th_century', {})
+            ht_figures = ht.get('key_figures', [])
+            ht_findings = ht.get('key_findings', [])
+
+            body += """
+<section id="history-timeline">
+<h2><span class="mw-headline">American Library History Timeline</span></h2>
+<p>From the colonial subscription libraries of the 1700s to today's digital hubs — the complete chronological story of American libraries.</p>"""
+
+            if ht_figures and isinstance(ht_figures, list):
+                body += '\n<h3><span class="mw-headline">Key Figures in Library History</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Name</th><th>Era</th><th>Contribution</th></tr>'
+                for fig in ht_figures[:20]:
+                    if isinstance(fig, dict):
+                        fig_name_raw = fig.get('name', fig.get('figure', ''))
+                        fig_name = esc(str(fig_name_raw))
+                        fig_era = esc(str(fig.get('era', fig.get('dates', ''))))
+                        fig_contrib_raw = fig.get('contribution', fig.get('description', ''))
+                        fig_contrib = esc(str(fig_contrib_raw))[:120]
+                        body += f'\n  <tr><td><strong>{fig_name}</strong></td><td>{fig_era}</td><td>{fig_contrib}</td></tr>'
+                body += '\n</table>'
+
+            if ht_findings and isinstance(ht_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in ht_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

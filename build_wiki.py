@@ -715,6 +715,7 @@ def load_all():
         ('privacy_deep', 'library_privacy_deep_summary.json'),
         ('health_deep', 'library_health_deep_summary.json'),
         ('disaster_deep', 'library_disaster_deep_summary.json'),
+        ('funding_deep', 'library_funding_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -16673,8 +16674,100 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ---- Funding Deep Dive ----
+    try:
+        fd = data.get('funding_deep', {})
+        if fd:
+            body += '\n<hr>'
+            body += '\n<h2 id="funding-deep">Library Funding Deep Dive</h2>'
+            fd_desc = esc(str(fd.get('description', '')))[:500]
+            body += f'\n<p>{fd_desc}</p>'
+
+            fd_over = fd.get('funding_overview', {})
+            if isinstance(fd_over, dict):
+                fd_summary = esc(str(fd_over.get('summary', '')))[:400]
+                fd_totals = esc(str(fd_over.get('fy2024_totals', '')))
+                body += '\n<h3>Funding Overview</h3>'
+                if fd_totals:
+                    if isinstance(fd_totals, dict):
+                        body += '\n<div class="stat-cards">'
+                        for k, v in list(fd_totals.items())[:6]:
+                            body += f'\n<div class="stat-card"><div class="stat-num">{esc(str(v))}</div><div class="stat-label">{esc(str(k)).replace("_"," ")}</div></div>'
+                        body += '\n</div>'
+                    else:
+                        body += f'\n<div class="stat-cards"><div class="stat-card"><div class="stat-num">{fd_totals}</div><div class="stat-label">FY2024 totals</div></div></div>'
+                body += f'\n<p>{fd_summary}</p>'
+
+            fd_local = fd.get('local_funding', {})
+            if isinstance(fd_local, dict):
+                local_summary = esc(str(fd_local.get('summary', '')))[:400]
+                body += f'\n<h3>Local Funding</h3><p>{local_summary}</p>'
+
+            fd_state = fd.get('state_funding', {})
+            if isinstance(fd_state, dict):
+                state_summary = esc(str(fd_state.get('summary', '')))[:400]
+                body += f'\n<h3>State Funding</h3><p>{state_summary}</p>'
+
+            fd_fed = fd.get('federal_funding', {})
+            if isinstance(fd_fed, dict):
+                fed_summary = esc(str(fd_fed.get('summary', '')))[:400]
+                body += f'\n<h3>Federal Funding</h3><p>{fed_summary}</p>'
+
+            fd_imls = fd.get('imls_grants', {})
+            if isinstance(fd_imls, dict):
+                imls_summary = esc(str(fd_imls.get('summary', '')))[:400]
+                body += f'\n<h3>IMLS Grants</h3><p>{imls_summary}</p>'
+
+            fd_er = fd.get('e_rate_program', {})
+            if isinstance(fd_er, dict):
+                er_summary = esc(str(fd_er.get('summary', '')))[:400]
+                body += f'\n<h3>E-Rate Program</h3><p>{er_summary}</p>'
+
+            fd_priv = fd.get('private_funding', {})
+            if isinstance(fd_priv, dict):
+                priv_summary = esc(str(fd_priv.get('summary', '')))[:400]
+                body += f'\n<h3>Private Funding</h3><p>{priv_summary}</p>'
+
+            fd_carnegie = fd.get('carnegie_legacy', {})
+            if isinstance(fd_carnegie, dict):
+                carnegie_summary = esc(str(fd_carnegie.get('summary', '')))[:400]
+                carnegie_totals = esc(str(fd_carnegie.get('totals', '')))
+                body += f'\n<h3>Carnegie Legacy</h3>'
+                if carnegie_totals:
+                    if isinstance(carnegie_totals, dict):
+                        body += '\n<div class="stat-cards">'
+                        for k, v in list(carnegie_totals.items())[:4]:
+                            body += f'\n<div class="stat-card"><div class="stat-num">{esc(str(v))}</div><div class="stat-label">{esc(str(k)).replace("_"," ")}</div></div>'
+                        body += '\n</div>'
+                    else:
+                        body += f'\n<p><strong>{carnegie_totals}</strong></p>'
+                body += f'\n<p>{carnegie_summary}</p>'
+
+            fd_ballot = fd.get('ballot_measures', [])
+            if isinstance(fd_ballot, list) and fd_ballot:
+                body += '\n<h3>Notable Ballot Measures</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Year</th><th>Measure</th><th>Result</th></tr>'
+                for b in fd_ballot[:18]:
+                    if isinstance(b, dict):
+                        b_state = esc(str(b.get('state', '')))
+                        b_year = esc(str(b.get('year', '')))
+                        b_measure = esc(str(b.get('measure', '')))[:120]
+                        b_result = esc(str(b.get('result', '')))
+                        body += f'\n  <tr><td>{b_state}</td><td>{b_year}</td><td>{b_measure}</td><td>{b_result}</td></tr>'
+                body += '\n</table>'
+
+            fd_findings = fd.get('key_findings', [])
+            if isinstance(fd_findings, list) and fd_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in fd_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#funding-deep">Funding</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

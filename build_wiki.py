@@ -14780,8 +14780,70 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Library Website Coverage ──
+    try:
+        wc = json.load(open(os.path.join(DATA, 'library_web_coverage_summary.json')))
+        wc_stats = wc.get('key_stats', {})
+        wc_best = wc.get('best_states', [])
+        wc_worst = wc.get('worst_states', [])
+        wc_all = wc.get('all_states', [])
+        wc_facts = wc.get('key_facts', [])
+
+        wc_total = wc_stats.get('total_libraries_national', 0)
+        wc_with = wc_stats.get('total_with_websites', 0)
+        wc_pct = wc_stats.get('pct_with_websites_national', 0)
+        wc_best_pct = wc_stats.get('best_state_pct', 0)
+        wc_worst_pct = wc_stats.get('worst_state_pct', 0)
+        wc_over90 = wc_stats.get('states_over_90pct', 0)
+        wc_under25 = wc_stats.get('states_under_25pct', 0)
+
+        body += f"""
+<h2 id="web-coverage">Library Website Coverage: The Digital Presence Gap</h2>
+<p>{esc(str(wc.get('overview', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{wc_total:,}</div><div class="label">Total Libraries</div></div>
+  <div class="stat-card"><div class="num">{wc_with:,}</div><div class="label">With Websites</div></div>
+  <div class="stat-card"><div class="num">{wc_pct:.1f}%</div><div class="label">National Coverage</div></div>
+  <div class="stat-card"><div class="num">{wc_over90}</div><div class="label">States Over 90%</div></div>
+  <div class="stat-card"><div class="num">{wc_under25}</div><div class="label">States Under 25%</div></div>
+</div>"""
+
+        if wc_best:
+            body += """
+<h3>Best Website Coverage by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Total Libraries</th><th>With Website</th><th>Coverage %</th></tr>"""
+            for s in wc_best[:15]:
+                sn = esc(str(s.get('state', '')))
+                st = s.get('total', 0)
+                sw = s.get('with_url', 0)
+                sp = s.get('pct', 0)
+                body += f'\n  <tr><td>{sn}</td><td class="num">{st}</td><td class="num">{sw}</td><td class="num">{sp:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if wc_worst:
+            body += """
+<h3>Worst Website Coverage by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Total Libraries</th><th>With Website</th><th>Coverage %</th></tr>"""
+            for s in wc_worst[:15]:
+                sn = esc(str(s.get('state', '')))
+                st = s.get('total', 0)
+                sw = s.get('with_url', 0)
+                sp = s.get('pct', 0)
+                body += f'\n  <tr><td>{sn}</td><td class="num">{st}</td><td class="num">{sw}</td><td class="num">{sp:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if wc_facts:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in wc_facts[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

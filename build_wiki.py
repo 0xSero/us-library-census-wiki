@@ -711,6 +711,10 @@ def load_all():
         ('censorship_deep', 'library_censorship_deep_summary.json'),
         ('workforce_deep', 'library_workforce_deep_summary.json'),
         ('education_deep', 'library_education_deep_summary.json'),
+        ('digital_divide_deep', 'library_digital_divide_deep_summary.json'),
+        ('privacy_deep', 'library_privacy_deep_summary.json'),
+        ('health_deep', 'library_health_deep_summary.json'),
+        ('disaster_deep', 'library_disaster_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -16400,8 +16404,277 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ---- Digital Divide Deep Dive ----
+    try:
+        dd = data.get('digital_divide_deep', {})
+        if dd:
+            body += '\n<hr>'
+            body += '\n<h2 id="digital-divide-deep">Digital Divide Deep Dive</h2>'
+            dd_desc = esc(str(dd.get('description', '')))[:500]
+            body += f'\n<p>{dd_desc}</p>'
+
+            dd_over = dd.get('digital_divide_overview', {})
+            if isinstance(dd_over, dict):
+                dd_summary = esc(str(dd_over.get('summary', '')))[:400]
+                body += f'\n<h3>Overview</h3><p>{dd_summary}</p>'
+
+            dd_broad = dd.get('broadband_stats', {})
+            if isinstance(dd_broad, dict):
+                broad_summary = esc(str(dd_broad.get('summary', '')))[:400]
+                body += f'\n<h3>Broadband Statistics</h3><p>{broad_summary}</p>'
+
+            dd_hot = dd.get('wifi_hotspot_lending', {})
+            if isinstance(dd_hot, dict):
+                hot_summary = esc(str(dd_hot.get('summary', '')))[:400]
+                body += f'\n<h3>Wi-Fi Hotspot Lending</h3><p>{hot_summary}</p>'
+
+            dd_dev = dd.get('device_lending', {})
+            if isinstance(dd_dev, dict):
+                dev_summary = esc(str(dd_dev.get('summary', '')))[:400]
+                body += f'\n<h3>Device Lending</h3><p>{dev_summary}</p>'
+
+            dd_acp = dd.get('acp_program', {})
+            if isinstance(dd_acp, dict):
+                acp_name = esc(str(dd_acp.get('full_name', '')))
+                acp_summary = esc(str(dd_acp.get('summary', '')))[:400]
+                acp_enroll = esc(str(dd_acp.get('national_enrollment', '')))
+                body += f'\n<h3>Affordable Connectivity Program</h3>'
+                if acp_enroll:
+                    body += f'\n<div class="stat-cards"><div class="stat-card"><div class="stat-num">{acp_enroll}</div><div class="stat-label">National enrollment</div></div></div>'
+                body += f'\n<p>{acp_summary}</p>'
+
+            dd_bead = dd.get('bead_program', {})
+            if isinstance(dd_bead, dict):
+                bead_name = esc(str(dd_bead.get('full_name', '')))
+                bead_summary = esc(str(dd_bead.get('summary', '')))[:400]
+                bead_fund = esc(str(dd_bead.get('funding', '')))
+                body += f'\n<h3>BEAD Program</h3>'
+                if bead_fund:
+                    body += f'\n<div class="stat-cards"><div class="stat-card"><div class="stat-num">{bead_fund}</div><div class="stat-label">Total funding</div></div></div>'
+                body += f'\n<p>{bead_summary}</p>'
+
+            dd_er = dd.get('e_rate_program', {})
+            if isinstance(dd_er, dict):
+                er_summary = esc(str(dd_er.get('summary', '')))[:400]
+                body += f'\n<h3>E-Rate Program</h3><p>{er_summary}</p>'
+
+            dd_lit = dd.get('digital_literacy_programs', {})
+            if isinstance(dd_lit, dict):
+                lit_summary = esc(str(dd_lit.get('summary', '')))[:400]
+                body += f'\n<h3>Digital Literacy Programs</h3><p>{lit_summary}</p>'
+
+            dd_notable = dd.get('notable_programs', [])
+            if isinstance(dd_notable, list) and dd_notable:
+                body += '\n<h3>Notable Digital Divide Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for n in dd_notable[:18]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_lib = esc(str(n.get('library', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_lib}</td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            dd_findings = dd.get('key_findings', [])
+            if isinstance(dd_findings, list) and dd_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in dd_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Privacy & Surveillance Deep Dive ----
+    try:
+        pv = data.get('privacy_deep', {})
+        if pv:
+            body += '\n<hr>'
+            body += '\n<h2 id="privacy-deep">Privacy &amp; Surveillance Deep Dive</h2>'
+            pv_desc = esc(str(pv.get('description', '')))[:500]
+            body += f'\n<p>{pv_desc}</p>'
+
+            pv_laws = pv.get('privacy_laws', {})
+            if isinstance(pv_laws, dict):
+                laws_summary = esc(str(pv_laws.get('summary', '')))[:400]
+                body += f'\n<h3>Privacy Laws</h3><p>{laws_summary}</p>'
+
+            pv_state = pv.get('state_privacy_laws', {})
+            if isinstance(pv_state, dict):
+                state_summary = esc(str(pv_state.get('summary', '')))[:400]
+                body += f'\n<h3>State Privacy Laws</h3><p>{state_summary}</p>'
+
+            pv_ala = pv.get('ala_bill_of_rights', {})
+            if isinstance(pv_ala, dict):
+                ala_summary = esc(str(pv_ala.get('summary', '')))[:400]
+                body += f'\n<h3>ALA &amp; Privacy</h3><p>{ala_summary}</p>'
+
+            pv_patriot = pv.get('patriot_act', {})
+            if isinstance(pv_patriot, dict):
+                patriot_summary = esc(str(pv_patriot.get('summary', '')))[:400]
+                s215 = esc(str(pv_patriot.get('section_215', '')))
+                body += f'\n<h3>USA PATRIOT Act</h3>'
+                if s215:
+                    body += f'\n<div class="rules-box"><h4>Section 215</h4><p>{s215}</p></div>'
+                body += f'\n<p>{patriot_summary}</p>'
+
+            pv_vendor = pv.get('vendor_privacy', {})
+            if isinstance(pv_vendor, dict):
+                vendor_summary = esc(str(pv_vendor.get('summary', '')))[:400]
+                body += f'\n<h3>Vendor Privacy Concerns</h3><p>{vendor_summary}</p>'
+
+            pv_cases = pv.get('notable_cases', [])
+            if isinstance(pv_cases, list) and pv_cases:
+                body += '\n<h3>Notable Privacy Cases</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Case</th><th>Year</th><th>Description</th></tr>'
+                for n in pv_cases[:18]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_year = esc(str(n.get('year', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_year}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            pv_findings = pv.get('key_findings', [])
+            if isinstance(pv_findings, list) and pv_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pv_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Health Partnerships Deep Dive ----
+    try:
+        hd = data.get('health_deep', {})
+        if hd:
+            body += '\n<hr>'
+            body += '\n<h2 id="health-deep">Libraries &amp; Public Health Deep Dive</h2>'
+            hd_desc = esc(str(hd.get('description', '')))[:500]
+            body += f'\n<p>{hd_desc}</p>'
+
+            hd_over = hd.get('health_overview', {})
+            if isinstance(hd_over, dict):
+                over_summary = esc(str(hd_over.get('overview', '')))[:400]
+                body += f'\n<h3>Health Overview</h3><p>{over_summary}</p>'
+
+            hd_nlm = hd.get('nlm_network', {})
+            if isinstance(hd_nlm, dict):
+                nlm_summary = esc(str(hd_nlm.get('nlm_overview', '')))[:400]
+                nnlm_summary = esc(str(hd_nlm.get('nnlm_overview', '')))[:300]
+                body += f'\n<h3>NLM &amp; NNLM Network</h3>'
+                body += f'\n<p>{nlm_summary}</p>'
+                if nnlm_summary:
+                    body += f'\n<p>{nnlm_summary}</p>'
+
+            hd_consumer = hd.get('consumer_health', {})
+            if isinstance(hd_consumer, dict):
+                consumer_summary = esc(str(hd_consumer.get('overview', '')))[:400]
+                body += f'\n<h3>Consumer Health Information</h3><p>{consumer_summary}</p>'
+
+            hd_partners = hd.get('public_health_partnerships', {})
+            if isinstance(hd_partners, dict):
+                partners_summary = esc(str(hd_partners.get('overview', '')))[:400]
+                body += f'\n<h3>Public Health Partnerships</h3><p>{partners_summary}</p>'
+
+            hd_mental = hd.get('mental_health_services', {})
+            if isinstance(hd_mental, dict):
+                mental_summary = esc(str(hd_mental.get('overview', '')))[:400]
+                body += f'\n<h3>Mental Health Services</h3><p>{mental_summary}</p>'
+
+            hd_wellness = hd.get('wellness_programs', {})
+            if isinstance(hd_wellness, dict):
+                wellness_summary = esc(str(hd_wellness.get('overview', '')))[:400]
+                body += f'\n<h3>Wellness Programs</h3><p>{wellness_summary}</p>'
+
+            hd_notable = hd.get('notable_programs', [])
+            if isinstance(hd_notable, list) and hd_notable:
+                body += '\n<h3>Notable Health Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for n in hd_notable[:18]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_lib = esc(str(n.get('library', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_lib}</td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            hd_findings = hd.get('key_findings', [])
+            if isinstance(hd_findings, list) and hd_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in hd_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Disaster Response Deep Dive ----
+    try:
+        dr = data.get('disaster_deep', {})
+        if dr:
+            body += '\n<hr>'
+            body += '\n<h2 id="disaster-deep">Disaster Response Deep Dive</h2>'
+            dr_desc = esc(str(dr.get('description', '')))[:500]
+            body += f'\n<p>{dr_desc}</p>'
+
+            dr_types = dr.get('disaster_types', {})
+            if isinstance(dr_types, dict):
+                types_summary = esc(str(dr_types.get('overview', '')))[:400]
+                body += f'\n<h3>Disaster Types</h3><p>{types_summary}</p>'
+
+            dr_hurr = dr.get('hurricane_response', {})
+            if isinstance(dr_hurr, dict):
+                hurr_summary = esc(str(dr_hurr.get('overview', '')))[:400]
+                body += f'\n<h3>Hurricane Response</h3><p>{hurr_summary}</p>'
+
+            dr_wild = dr.get('wildfire_response', {})
+            if isinstance(dr_wild, dict):
+                wild_summary = esc(str(dr_wild.get('overview', '')))[:400]
+                body += f'\n<h3>Wildfire Response</h3><p>{wild_summary}</p>'
+
+            dr_covid = dr.get('covid_response', {})
+            if isinstance(dr_covid, dict):
+                covid_summary = esc(str(dr_covid.get('overview', '')))[:400]
+                body += f'\n<h3>COVID-19 Response</h3><p>{covid_summary}</p>'
+
+            dr_rec = dr.get('disaster_recovery_programs', {})
+            if isinstance(dr_rec, dict):
+                rec_summary = esc(str(dr_rec.get('overview', '')))[:400]
+                body += f'\n<h3>Disaster Recovery Programs</h3><p>{rec_summary}</p>'
+
+            dr_aid = dr.get('mutual_aid_networks', {})
+            if isinstance(dr_aid, dict):
+                aid_summary = esc(str(dr_aid.get('overview', '')))[:400]
+                body += f'\n<h3>Mutual Aid Networks</h3><p>{aid_summary}</p>'
+
+            dr_notable = dr.get('notable_responses', [])
+            if isinstance(dr_notable, list) and dr_notable:
+                body += '\n<h3>Notable Disaster Responses</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>Disaster/Year</th><th>Description</th></tr>'
+                for n in dr_notable[:18]:
+                    if isinstance(n, dict):
+                        n_lib = esc(str(n.get('library', '')))
+                        n_year = esc(str(n.get('disaster_year', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_lib}</strong></td><td>{n_year}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            dr_findings = dr.get('key_findings', [])
+            if isinstance(dr_findings, list) and dr_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in dr_findings[:11]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

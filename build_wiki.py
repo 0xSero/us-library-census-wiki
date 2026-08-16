@@ -705,6 +705,12 @@ def load_all():
         ('makerspace_deep', 'library_makerspace_deep_summary.json'),
         ('indigenous', 'library_indigenous_summary.json'),
         ('architecture_deep', 'library_architecture_deep_summary.json'),
+        ('prison_deep', 'library_prison_deep_summary.json'),
+        ('innovation_deep', 'library_innovation_deep_summary.json'),
+        ('copyright_deep', 'library_copyright_deep_summary.json'),
+        ('censorship_deep', 'library_censorship_deep_summary.json'),
+        ('workforce_deep', 'library_workforce_deep_summary.json'),
+        ('education_deep', 'library_education_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -15997,8 +16003,405 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ---- Prison Libraries Deep Dive ----
+    try:
+        pri = data.get('prison_deep', {})
+        if pri:
+            body += '\n<hr>'
+            body += '\n<h2 id="prison-deep">Prison Libraries Deep Dive</h2>'
+            pri_desc = esc(str(pri.get('description', '')))[:500]
+            body += f'\n<p>{pri_desc}</p>'
+
+            pri_stats = pri.get('prison_library_statistics', {})
+            if isinstance(pri_stats, dict):
+                pri_pop = esc(str(pri_stats.get('prison_population', '')))
+                pri_fac = esc(str(pri_stats.get('total_state_federal_facilities_approx', '')))
+                body += '\n<h3>Prison Library Statistics</h3>'
+                if pri_pop or pri_fac:
+                    body += f'\n<div class="stat-cards">'
+                    if pri_fac:
+                        body += f'\n<div class="stat-card"><div class="stat-num">{pri_fac}</div><div class="stat-label">State/federal facilities</div></div>'
+                    if pri_pop:
+                        body += f'\n<div class="stat-card"><div class="stat-num">{pri_pop}</div><div class="stat-label">Prison population</div></div>'
+                    body += '\n</div>'
+
+            pri_legal = pri.get('legal_right_to_read', {})
+            if isinstance(pri_legal, dict):
+                legal_summary = esc(str(pri_legal.get('summary', '')))[:400]
+                body += f'\n<h3>Legal Right to Read</h3><p>{legal_summary}</p>'
+
+            pri_cens = pri.get('censorship_restrictions', {})
+            if isinstance(pri_cens, dict):
+                cens_summary = esc(str(pri_cens.get('legal_standard', '')))[:400]
+                body += f'\n<h3>Censorship Restrictions</h3><p>{cens_summary}</p>'
+
+            pri_reentry = pri.get('reentry_programs', {})
+            if isinstance(pri_reentry, dict):
+                reentry_summary = esc(str(pri_reentry.get('summary', '')))[:400]
+                body += f'\n<h3>Reentry Programs</h3><p>{reentry_summary}</p>'
+
+            pri_edu = pri.get('education_literacy', {})
+            if isinstance(pri_edu, dict):
+                edu_summary = esc(str(pri_edu.get('summary', '')))[:400]
+                body += f'\n<h3>Education &amp; Literacy</h3><p>{edu_summary}</p>'
+
+            pri_notable = pri.get('notable_prison_libraries', [])
+            if isinstance(pri_notable, list) and pri_notable:
+                body += '\n<h3>Notable Prison Libraries</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library/Program</th><th>State</th><th>Description</th></tr>'
+                for n in pri_notable[:18]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            pri_findings = pri.get('key_findings', [])
+            if isinstance(pri_findings, list) and pri_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pri_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Innovation Deep Dive ----
+    try:
+        inn = data.get('innovation_deep', {})
+        if inn:
+            body += '\n<hr>'
+            body += '\n<h2 id="innovation-deep">Library Innovation Deep Dive</h2>'
+            inn_desc = esc(str(inn.get('description', '')))[:500]
+            body += f'\n<p>{inn_desc}</p>'
+
+            inn_over = inn.get('innovation_overview', {})
+            if isinstance(inn_over, dict):
+                inn_summary = esc(str(inn_over.get('summary', '')))[:400]
+                body += f'\n<h3>Innovation Overview</h3><p>{inn_summary}</p>'
+
+            inn_tech = inn.get('tech_innovations', {})
+            if isinstance(inn_tech, dict):
+                tech_summary = esc(str(inn_tech.get('summary', '')))[:400]
+                body += f'\n<h3>Tech Innovations</h3><p>{tech_summary}</p>'
+
+            inn_svc = inn.get('service_innovations', {})
+            if isinstance(inn_svc, dict):
+                svc_summary = esc(str(inn_svc.get('summary', '')))[:400]
+                body += f'\n<h3>Service Innovations</h3><p>{svc_summary}</p>'
+
+            inn_space = inn.get('space_innovations', {})
+            if isinstance(inn_space, dict):
+                space_summary = esc(str(inn_space.get('summary', '')))[:400]
+                body += f'\n<h3>Space Innovations</h3><p>{space_summary}</p>'
+
+            inn_dig = inn.get('digital_innovations', {})
+            if isinstance(inn_dig, dict):
+                dig_summary = esc(str(inn_dig.get('summary', '')))[:400]
+                body += f'\n<h3>Digital Innovations</h3><p>{dig_summary}</p>'
+
+            inn_barriers = inn.get('innovation_barriers', {})
+            if isinstance(inn_barriers, dict):
+                bar_summary = esc(str(inn_barriers.get('summary', '')))[:400]
+                body += f'\n<h3>Innovation Barriers</h3><p>{bar_summary}</p>'
+
+            inn_notable = inn.get('notable_innovations', [])
+            if isinstance(inn_notable, list) and inn_notable:
+                body += '\n<h3>Notable Innovations</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Innovation</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for n in inn_notable[:17]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_lib = esc(str(n.get('library', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_lib}</td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            inn_findings = inn.get('key_findings', [])
+            if isinstance(inn_findings, list) and inn_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in inn_findings[:11]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Copyright Deep Dive ----
+    try:
+        cp = data.get('copyright_deep', {})
+        if cp:
+            body += '\n<hr>'
+            body += '\n<h2 id="copyright-deep">Copyright &amp; IP Deep Dive</h2>'
+            cp_desc = esc(str(cp.get('description', '')))[:500]
+            body += f'\n<p>{cp_desc}</p>'
+
+            cp_basics = cp.get('copyright_basics', {})
+            if isinstance(cp_basics, dict):
+                basics_summary = esc(str(cp_basics.get('governing_statute', '')))[:400]
+                body += f'\n<h3>Copyright Basics</h3><p>{basics_summary}</p>'
+
+            cp_fs = cp.get('first_sale_doctrine', {})
+            if isinstance(cp_fs, dict):
+                fs_summary = esc(str(cp_fs.get('summary', '')))[:400]
+                fs_statute = esc(str(cp_fs.get('statute', '')))
+                body += f'\n<h3>First Sale Doctrine</h3>'
+                if fs_statute:
+                    body += f'\n<div class="rules-box"><p><strong>{fs_statute}</strong></p>'
+                    body += f'\n<p>{fs_summary}</p></div>'
+                else:
+                    body += f'\n<p>{fs_summary}</p>'
+
+            cp_108 = cp.get('library_exceptions', {})
+            if isinstance(cp_108, dict):
+                s108_summary = esc(str(cp_108.get('summary', '')))[:400]
+                s108_statute = esc(str(cp_108.get('statute', '')))
+                body += f'\n<h3>Section 108 Library Exceptions</h3>'
+                body += f'\n<p><strong>{s108_statute}</strong> — {s108_summary}</p>'
+
+            cp_dl = cp.get('digital_lending', {})
+            if isinstance(cp_dl, dict):
+                dl_summary = esc(str(cp_dl.get('concept', '')))[:400]
+                body += f'\n<h3>Digital Lending</h3><p>{dl_summary}</p>'
+
+            cp_pd = cp.get('public_domain', {})
+            if isinstance(cp_pd, dict):
+                pd_summary = esc(str(cp_pd.get('definition', '')))[:400]
+                pd_day = esc(str(cp_pd.get('public_domain_day', '')))
+                body += f'\n<h3>Public Domain</h3>'
+                body += f'\n<p>{pd_summary}</p>'
+                if pd_day:
+                    body += f'\n<p><strong>Public Domain Day:</strong> {pd_day}</p>'
+
+            cp_cases = cp.get('notable_cases', [])
+            if isinstance(cp_cases, list) and cp_cases:
+                body += '\n<h3>Notable Copyright Cases</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Case</th><th>Year</th><th>Description</th></tr>'
+                for n in cp_cases[:17]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_year = esc(str(n.get('year', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_year}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            cp_findings = cp.get('key_findings', [])
+            if isinstance(cp_findings, list) and cp_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cp_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Censorship Deep Dive (2020s Surge) ----
+    try:
+        cen = data.get('censorship_deep', {})
+        if cen:
+            body += '\n<hr>'
+            body += '\n<h2 id="censorship-surge">Book Bans &amp; Censorship: The 2020s Surge</h2>'
+            cen_desc = esc(str(cen.get('description', '')))[:500]
+            body += f'\n<p>{cen_desc}</p>'
+
+            cen_stats = cen.get('book_ban_statistics', {})
+            if isinstance(cen_stats, dict):
+                cen_2023 = esc(str(cen_stats.get('ala_unique_titles_challenged_2023', '')))
+                cen_2022 = esc(str(cen_stats.get('ala_unique_titles_challenged_2022', '')))
+                cen_2021 = esc(str(cen_stats.get('ala_unique_titles_challenged_2021', '')))
+                body += '\n<h3>Book Ban Statistics</h3>'
+                body += '\n<div class="stat-cards">'
+                if cen_2021:
+                    body += f'\n<div class="stat-card"><div class="stat-num">{cen_2021}</div><div class="stat-label">Titles challenged (2021)</div></div>'
+                if cen_2022:
+                    body += f'\n<div class="stat-card"><div class="stat-num">{cen_2022}</div><div class="stat-label">Titles challenged (2022)</div></div>'
+                if cen_2023:
+                    body += f'\n<div class="stat-card"><div class="stat-num">{cen_2023}</div><div class="stat-label">Titles challenged (2023)</div></div>'
+                body += '\n</div>'
+
+            cen_books = cen.get('most_challenged_books', [])
+            if isinstance(cen_books, list) and cen_books:
+                body += '\n<h3>Most Challenged Books</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Title</th><th>Author</th><th>Reasons</th></tr>'
+                for b in cen_books[:15]:
+                    if isinstance(b, dict):
+                        b_title = esc(str(b.get('title', '')))
+                        b_author = esc(str(b.get('author', '')))
+                        b_reasons = esc(str(b.get('reasons', '')))[:200]
+                        body += f'\n  <tr><td><strong>{b_title}</strong></td><td>{b_author}</td><td>{b_reasons}</td></tr>'
+                body += '\n</table>'
+
+            cen_leg = cen.get('state_legislation', [])
+            if isinstance(cen_leg, list) and cen_leg:
+                body += '\n<h3>State Legislation</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Bill</th><th>State</th><th>Year</th><th>Description</th></tr>'
+                for l in cen_leg[:12]:
+                    if isinstance(l, dict):
+                        l_name = esc(str(l.get('name', '')))
+                        l_state = esc(str(l.get('state', '')))
+                        l_year = esc(str(l.get('year', '')))
+                        l_desc = esc(str(l.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{l_name}</strong></td><td>{l_state}</td><td>{l_year}</td><td>{l_desc}</td></tr>'
+                body += '\n</table>'
+
+            cen_cases = cen.get('notable_cases', [])
+            if isinstance(cen_cases, list) and cen_cases:
+                body += '\n<h3>Notable Cases</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Case</th><th>State</th><th>Description</th></tr>'
+                for n in cen_cases[:15]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            cen_findings = cen.get('key_findings', [])
+            if isinstance(cen_findings, list) and cen_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cen_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Workforce Deep Dive ----
+    try:
+        wf = data.get('workforce_deep', {})
+        if wf:
+            body += '\n<hr>'
+            body += '\n<h2 id="workforce-deep">Library Workforce Deep Dive</h2>'
+            wf_desc = esc(str(wf.get('description', '')))[:500]
+            body += f'\n<p>{wf_desc}</p>'
+
+            wf_stats = wf.get('workforce_statistics', {})
+            if isinstance(wf_stats, dict):
+                wf_lib = esc(str(wf_stats.get('professional_librarians_estimate', '')))
+                wf_total = esc(str(wf_stats.get('total_library_workers_estimate', '')))
+                body += '\n<h3>Workforce Statistics</h3>'
+                body += '\n<div class="stat-cards">'
+                if wf_lib:
+                    body += f'\n<div class="stat-card"><div class="stat-num">{wf_lib}</div><div class="stat-label">Professional librarians</div></div>'
+                if wf_total:
+                    body += f'\n<div class="stat-card"><div class="stat-num">{wf_total}</div><div class="stat-label">Total library workers</div></div>'
+                body += '\n</div>'
+
+            wf_demo = wf.get('librarian_demographics', {})
+            if isinstance(wf_demo, dict):
+                demo_summary = esc(str(wf_demo.get('racial_ethnic_composition', '')))[:400]
+                body += f'\n<h3>Librarian Demographics</h3><p>{demo_summary}</p>'
+
+            wf_edu = wf.get('education_requirements', {})
+            if isinstance(wf_edu, dict):
+                edu_summary = esc(str(wf_edu.get('mlis_degree', '')))[:400]
+                body += f'\n<h3>Education Requirements</h3><p>{edu_summary}</p>'
+
+            wf_salary = wf.get('salary_data', {})
+            if isinstance(wf_salary, dict):
+                salary_median = esc(str(wf_salary.get('national_median_salary', '')))
+                salary_summary = esc(str(wf_salary.get('salary_range_note', '')))[:400]
+                body += '\n<h3>Salary Data</h3>'
+                if salary_median:
+                    body += f'\n<div class="stat-cards"><div class="stat-card"><div class="stat-num">{salary_median}</div><div class="stat-label">National median salary</div></div></div>'
+                if salary_summary:
+                    body += f'\n<p>{salary_summary}</p>'
+                state_salary = wf_salary.get('state_by_state_variation', [])
+                if isinstance(state_salary, list) and state_salary:
+                    body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Median Salary</th></tr>'
+                    for s in state_salary[:15]:
+                        if isinstance(s, dict):
+                            s_state = esc(str(s.get('state', '')))
+                            s_sal = esc(str(s.get('median_salary', '')))
+                            body += f'\n  <tr><td>{s_state}</td><td>{s_sal}</td></tr>'
+                    body += '\n</table>'
+
+            wf_union = wf.get('unionization', {})
+            if isinstance(wf_union, dict):
+                union_summary = esc(str(wf_union.get('headline', '')))[:400]
+                body += f'\n<h3>Unionization</h3><p>{union_summary}</p>'
+
+            wf_vol = wf.get('volunteer_reliance', {})
+            if isinstance(wf_vol, dict):
+                vol_summary = esc(str(wf_vol.get('headline', '')))[:400]
+                body += f'\n<h3>Volunteer Reliance</h3><p>{vol_summary}</p>'
+
+            wf_findings = wf.get('key_findings', [])
+            if isinstance(wf_findings, list) and wf_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in wf_findings[:12]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ---- Education Deep Dive ----
+    try:
+        ed = data.get('education_deep', {})
+        if ed:
+            body += '\n<hr>'
+            body += '\n<h2 id="education-deep">Libraries &amp; Education Deep Dive</h2>'
+            ed_desc = esc(str(ed.get('description', '')))[:500]
+            body += f'\n<p>{ed_desc}</p>'
+
+            ed_school = ed.get('school_library_statistics', {})
+            if isinstance(ed_school, dict):
+                school_summary = esc(str(ed_school.get('overview', '')))[:400]
+                body += f'\n<h3>School Library Statistics</h3><p>{school_summary}</p>'
+
+            ed_acad = ed.get('academic_libraries', {})
+            if isinstance(ed_acad, dict):
+                acad_summary = esc(str(ed_acad.get('overview', '')))[:400]
+                body += f'\n<h3>Academic Libraries</h3><p>{acad_summary}</p>'
+
+            ed_lis = ed.get('lis_education', {})
+            if isinstance(ed_lis, dict):
+                lis_summary = esc(str(ed_lis.get('overview', '')))[:400]
+                body += f'\n<h3>LIS Education</h3><p>{lis_summary}</p>'
+
+            ed_early = ed.get('early_literacy', {})
+            if isinstance(ed_early, dict):
+                early_summary = esc(str(ed_early.get('overview', '')))[:400]
+                body += f'\n<h3>Early Literacy</h3><p>{early_summary}</p>'
+
+            ed_stem = ed.get('stem_education', {})
+            if isinstance(ed_stem, dict):
+                stem_summary = esc(str(ed_stem.get('overview', '')))[:400]
+                body += f'\n<h3>STEM Education</h3><p>{stem_summary}</p>'
+
+            ed_summer = ed.get('summer_learning', {})
+            if isinstance(ed_summer, dict):
+                summer_summary = esc(str(ed_summer.get('overview', '')))[:400]
+                body += f'\n<h3>Summer Learning</h3><p>{summer_summary}</p>'
+
+            ed_notable = ed.get('notable_programs', [])
+            if isinstance(ed_notable, list) and ed_notable:
+                body += '\n<h3>Notable Education Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for n in ed_notable[:17]:
+                    if isinstance(n, dict):
+                        n_name = esc(str(n.get('name', '')))
+                        n_lib = esc(str(n.get('library', '')))
+                        n_state = esc(str(n.get('state', '')))
+                        n_desc = esc(str(n.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{n_name}</strong></td><td>{n_lib}</td><td>{n_state}</td><td>{n_desc}</td></tr>'
+                body += '\n</table>'
+
+            ed_findings = ed.get('key_findings', [])
+            if isinstance(ed_findings, list) and ed_findings:
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in ed_findings[:13]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

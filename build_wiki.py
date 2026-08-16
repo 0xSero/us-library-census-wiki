@@ -9299,6 +9299,137 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Library Consortia ──
+    try:
+        con = json.load(open(os.path.join(DATA, 'library_consortia_enhanced_summary.json')))
+        total_con = con.get('total_consortia', {})
+        by_state_con = con.get('by_state', {})
+        by_type_con = con.get('by_type', {})
+        notable_con = con.get('notable_consortia', [])
+        services_con = con.get('services_offered', [])
+
+        total_us = int(total_con.get('us_based', total_con.get('total', 0))) if isinstance(total_con, dict) else 0
+        total_all = int(total_con.get('total_all', total_con.get('worldwide', 0))) if isinstance(total_con, dict) else 0
+
+        body += f"""
+<h2 id="consortia">Library Consortia</h2>
+<p>{esc(str(con.get('title', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_us}</div><div class="label">US Consortia</div></div>
+  <div class="stat-card"><div class="num">{total_all}</div><div class="label">Total Worldwide</div></div>
+  <div class="stat-card"><div class="num">{len(by_state_con)}</div><div class="label">States Represented</div></div>
+  <div class="stat-card"><div class="num">{len(notable_con)}</div><div class="label">Notable Consortia</div></div>
+</div>"""
+
+        if notable_con:
+            body += """
+<h3>Notable Consortia</h3>
+<table class="wikitable sortable">
+  <tr><th>Consortium</th><th>Members</th><th>Founded</th><th>Description</th></tr>"""
+            for c in notable_con[:12]:
+                if isinstance(c, dict):
+                    name = esc(str(c.get('name', '')))
+                    members = esc(str(c.get('members', c.get('member_count', ''))))
+                    founded = esc(str(c.get('founded', c.get('year', ''))))
+                    desc = esc(str(c.get('description', c.get('note', ''))))[:150]
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td class="num">{members}</td><td>{founded}</td><td>{desc}</td></tr>'
+            body += '\n</table>'
+
+        if services_con:
+            body += """
+<h3>Common Consortium Services</h3>
+<ul class="wiki-list">"""
+            for s in services_con[:10]:
+                if isinstance(s, dict):
+                    body += f'\n  <li><strong>{esc(str(s.get("service", s.get("name", ""))))}</strong></li>'
+                elif isinstance(s, str):
+                    body += f'\n  <li>{esc(s)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
+    # ── Special Libraries ──
+    try:
+        spl = json.load(open(os.path.join(DATA, 'special_libraries_inventory_summary.json')))
+        total_spl = spl.get('total_special_libraries', {})
+        by_type_spl = spl.get('by_type', {})
+        notable_spl = spl.get('notable_special_libraries', [])
+        bookmobiles = spl.get('bookmobiles', {})
+
+        total_sl = int(total_spl.get('verified', total_spl.get('total', 0))) if isinstance(total_spl, dict) else 0
+
+        body += f"""
+<h2 id="special-libraries">Special Libraries</h2>
+<p>{esc(str(spl.get('title', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_sl:,}</div><div class="label">Verified Special Libraries</div></div>
+  <div class="stat-card"><div class="num">{len(by_type_spl)}</div><div class="label">Type Categories</div></div>
+  <div class="stat-card"><div class="num">{int(bookmobiles.get('total', 0)) if isinstance(bookmobiles, dict) else 0}</div><div class="label">Bookmobiles</div></div>
+</div>"""
+
+        if by_type_spl:
+            body += """
+<h3>By Type</h3>
+<div class="services-bars">"""
+            max_t = max(by_type_spl.values()) if by_type_spl else 1
+            for t, cnt in sorted(by_type_spl.items(), key=lambda x: -x[1]):
+                if isinstance(cnt, (int, float)):
+                    width = (cnt / max_t) * 100.0 if max_t else 0
+                    body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(str(t).title())}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if notable_spl:
+            body += """
+<h3>Notable Special Libraries</h3>
+<ul class="wiki-list">"""
+            for n in notable_spl[:13]:
+                if isinstance(n, dict):
+                    body += f'\n  <li><strong>{esc(str(n.get("name", "")))}</strong>: {esc(str(n.get("description", n.get("note", ""))))[:150]}</li>'
+                elif isinstance(n, str):
+                    body += f'\n  <li>{esc(n)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
+    # ── Digital Libraries & DPLA ──
+    try:
+        dli = json.load(open(os.path.join(DATA, 'digital_libraries_inventory_summary.json')))
+        total_dl = dli.get('total_digital_libraries', {})
+        dpla_hubs = dli.get('dpla_hubs_count', {})
+        dpla_coll = dli.get('dpla_collections', {})
+        hathi = dli.get('hathitrust_volumes', {})
+        ia = dli.get('internet_archive_stats', {})
+
+        total_platforms = int(total_dl.get('platforms', total_dl.get('total', 0))) if isinstance(total_dl, dict) else 0
+        dpla_hub_count = int(dpla_hubs.get('total', dpla_hubs.get('count', 0))) if isinstance(dpla_hubs, dict) else 0
+        dpla_items = int(dpla_coll.get('items', dpla_coll.get('total_items', 0))) if isinstance(dpla_coll, dict) else 0
+        hathi_vols = int(hathi.get('volumes', hathi.get('total', 0))) if isinstance(hathi, dict) else 0
+
+        body += f"""
+<h2 id="digital-libraries">Digital Libraries &amp; DPLA</h2>
+<p>{esc(str(dli.get('title', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_platforms}</div><div class="label">Major Platforms</div></div>
+  <div class="stat-card"><div class="num">{dpla_hub_count}</div><div class="label">DPLA Hubs</div></div>
+  <div class="stat-card"><div class="num">{dpla_items/1e6:.1f}M</div><div class="label">DPLA Items</div></div>
+  <div class="stat-card"><div class="num">{hathi_vols/1e6:.0f}M</div><div class="label">HathiTrust Volumes</div></div>
+</div>"""
+
+        if ia:
+            body += f"""
+<h3>Internet Archive</h3>
+<div class="rules-box">"""
+            for k, v in list(ia.items())[:8]:
+                body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:150]}</p>'
+            body += '\n</div>'
+    except Exception:
+        pass
+
     # ── Library Economics & ROI ──
     try:
         econ = json.load(open(os.path.join(DATA, 'library_economics_summary.json')))
@@ -10096,9 +10227,146 @@ via a scheduled pipeline.</p>
 Each run is idempotent and resumable — it picks up where the last run left off, using
 caches in <code>data/_cache/</code>. Google Places API quota resets daily at midnight PT,
 so ratings accumulate across runs. The wiki can be rebuilt at any time by re-running
-<code>python3 wiki/build_wiki.py</code>.</p>
+<code>python3 wiki/build_wiki.py</code>.</p>"""
 
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a></div>
+    # ── Library History Timeline ──
+    try:
+        hts = json.load(open(os.path.join(DATA, 'library_history_timeline_summary.json')))
+        milestones = hts.get('key_milestones', [])
+        founding = hts.get('founding_dates_of_major_libraries', [])
+        facts = hts.get('key_facts', [])
+
+        body += f"""
+<h2 id="history-timeline">Library History Timeline</h2>
+<p>{esc(str(hts.get('scope', '')))}</p>"""
+
+        if milestones:
+            body += """
+<h3>Key Milestones in American Library History</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Milestone</th></tr>"""
+            for m in milestones[:30]:
+                if isinstance(m, dict):
+                    yr = esc(str(m.get('year', m.get('date', ''))))
+                    event = esc(str(m.get('event', m.get('milestone', m.get('description', '')))))
+                    body += f'\n  <tr><td class="num"><strong>{yr}</strong></td><td>{event}</td></tr>'
+            body += '\n</table>'
+
+        if founding:
+            body += """
+<h3>Founding Dates of Major Libraries</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Library</th><th>Location</th></tr>"""
+            for f in founding[:20]:
+                if isinstance(f, dict):
+                    yr = esc(str(f.get('year', f.get('founded', ''))))
+                    name = esc(str(f.get('name', f.get('library', ''))))
+                    loc = esc(str(f.get('location', f.get('city', ''))))
+                    body += f'\n  <tr><td class="num">{yr}</td><td><strong>{name}</strong></td><td>{loc}</td></tr>'
+            body += '\n</table>'
+
+        if facts:
+            body += """
+<h3>Key Historical Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in facts[:15]:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
+    # ── Prison Libraries ──
+    try:
+        pris = json.load(open(os.path.join(DATA, 'prison_libraries_inventory_summary.json')))
+        total_pris = pris.get('total_prison_libraries', {})
+        prison_counts = pris.get('prison_counts', {})
+        key_orgs = pris.get('key_organizations', [])
+        key_stats = pris.get('key_statistics', {})
+        legislation = pris.get('legislation', {})
+
+        total_val = int(total_pris.get('estimated', total_pris.get('total', 0))) if isinstance(total_pris, dict) else 0
+        total_fed = int(prison_counts.get('federal_prisons', prison_counts.get('federal', 0))) if isinstance(prison_counts, dict) else 0
+        total_state = int(prison_counts.get('state_prisons', prison_counts.get('state', 0))) if isinstance(prison_counts, dict) else 0
+
+        body += f"""
+<h2 id="prison-libraries">Prison Libraries</h2>
+<p>{esc(str(pris.get('title', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_val:,}</div><div class="label">Estimated Prison Libraries</div></div>
+  <div class="stat-card"><div class="num">{total_fed:,}</div><div class="label">Federal Prisons</div></div>
+  <div class="stat-card"><div class="num">{total_state:,}</div><div class="label">State Prisons</div></div>
+</div>"""
+
+        if key_orgs:
+            body += """
+<h3>Key Organizations</h3>
+<ul class="wiki-list">"""
+            for org in key_orgs:
+                if isinstance(org, dict):
+                    body += f'\n  <li><strong>{esc(str(org.get("name", "")))}</strong>: {esc(str(org.get("description", org.get("note", ""))))[:150]}</li>'
+                elif isinstance(org, str):
+                    body += f'\n  <li>{esc(org)}</li>'
+            body += '\n</ul>'
+
+        if key_stats:
+            body += """
+<h3>Key Statistics</h3>
+<div class="rules-box">"""
+            for k, v in key_stats.items():
+                body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+            body += '\n</div>'
+    except Exception:
+        pass
+
+    # ── Library Access & Accessibility ──
+    try:
+        lac = json.load(open(os.path.join(DATA, 'library_access_combined_summary.json')))
+        cards = lac.get('library_card_statistics', {})
+        access_feat = lac.get('accessibility_features', {})
+        equity = lac.get('equity_programs', {})
+        findings = lac.get('key_findings', [])
+
+        body += """
+<h2 id="access-equity">Library Access, Equity &amp; Accessibility</h2>"""
+
+        if cards:
+            body += """
+<h3>Library Card Statistics</h3>
+<div class="rules-box">"""
+            for k, v in list(cards.items())[:10]:
+                body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+            body += '\n</div>'
+
+        if access_feat:
+            body += """
+<h3>Accessibility Features</h3>
+<div class="rules-box">"""
+            for k, v in list(access_feat.items())[:8]:
+                body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+            body += '\n</div>'
+
+        if equity:
+            body += """
+<h3>Equity Programs</h3>
+<div class="rules-box">"""
+            for k, v in list(equity.items())[:6]:
+                body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+            body += '\n</div>'
+
+        if findings:
+            body += """
+<h3>Key Findings</h3>
+<ul class="wiki-list">"""
+            for f_item in findings[:15]:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
+    body += f"""
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

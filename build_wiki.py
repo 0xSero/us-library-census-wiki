@@ -654,6 +654,7 @@ def load_all():
         ('architecture', 'library_architecture_summary.json'),
         ('cataloging', 'library_cataloging_summary.json'),
         ('publishing_detailed', 'library_publishing_detailed_summary.json'),
+        ('state_funding', 'state_funding_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -15957,8 +15958,89 @@ def build_funders(data, stats):
     except Exception:
         pass
 
+    # ── State Funding Rankings ──
+    try:
+        sf = data.get('state_funding', {})
+        if sf:
+            sf_national = sf.get('national_totals', {})
+            sf_top10 = sf.get('top_10', {})
+            sf_bottom10 = sf.get('bottom_10', {})
+            sf_mix = sf.get('funding_mix_dependency', {})
+            sf_meta = sf.get('metadata', {})
+
+            body += """
+<section id="state-funding-rankings">
+<h2><span class="mw-headline">State Funding Rankings & Analysis</span></h2>"""
+
+            if sf_national:
+                sf_total = sf_national.get('total_income', 0)
+                sf_local = sf_national.get('local_government_income', 0)
+                sf_state = sf_national.get('state_government_income', 0)
+                sf_fed = sf_national.get('federal_government_income', 0)
+                sf_other = sf_national.get('other_income', 0)
+                sf_exp = sf_national.get('operating_expenditures', 0)
+
+                def fmt_b(v):
+                    return f"${v/1e9:.1f}B" if isinstance(v, (int, float)) and v else esc(str(v))
+
+                body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{fmt_b(sf_total)}</div><div class="label">Total income</div></div>
+  <div class="stat-card"><div class="num">{fmt_b(sf_local)}</div><div class="label">Local government</div></div>
+  <div class="stat-card"><div class="num">{fmt_b(sf_state)}</div><div class="label">State government</div></div>
+  <div class="stat-card"><div class="num">{fmt_b(sf_fed)}</div><div class="label">Federal government</div></div>
+</div>"""
+
+            # Top 10 by total per capita
+            sf_top_pc = sf_top10.get('total_per_capita', [])
+            if sf_top_pc:
+                body += '\n<h3><span class="mw-headline">Top 10 States by Total Funding per Capita</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Total Funding</th><th>Per Capita</th></tr>'
+                for s in sf_top_pc[:10]:
+                    if isinstance(s, dict):
+                        s_state = esc(str(s.get('state', '')))
+                        s_total = s.get('total_funding', s.get('total', 0))
+                        s_pc = s.get('per_capita', 0)
+                        s_total_fmt = f"${s_total/1e9:.1f}B" if isinstance(s_total, (int, float)) and s_total else esc(str(s_total))
+                        s_pc_fmt = f"${s_pc:.2f}" if isinstance(s_pc, (int, float)) else esc(str(s_pc))
+                        body += f'\n  <tr><td>{s_state}</td><td class="num">{s_total_fmt}</td><td class="num">{s_pc_fmt}</td></tr>'
+                body += '\n</table>'
+
+            # Bottom 10 by total per capita
+            sf_bot_pc = sf_bottom10.get('total_per_capita', [])
+            if sf_bot_pc:
+                body += '\n<h3><span class="mw-headline">Bottom 10 States by Total Funding per Capita</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Total Funding</th><th>Per Capita</th></tr>'
+                for s in sf_bot_pc[:10]:
+                    if isinstance(s, dict):
+                        s_state = esc(str(s.get('state', '')))
+                        s_total = s.get('total_funding', s.get('total', 0))
+                        s_pc = s.get('per_capita', 0)
+                        s_total_fmt = f"${s_total/1e6:.0f}M" if isinstance(s_total, (int, float)) and s_total else esc(str(s_total))
+                        s_pc_fmt = f"${s_pc:.2f}" if isinstance(s_pc, (int, float)) else esc(str(s_pc))
+                        body += f'\n  <tr><td>{s_state}</td><td class="num">{s_total_fmt}</td><td class="num">{s_pc_fmt}</td></tr>'
+                body += '\n</table>'
+
+            # Funding mix
+            if sf_mix:
+                most_local = sf_mix.get('most_dependent_on_local_funding', [])
+                least_local = sf_mix.get('least_dependent_on_local_funding', [])
+                if most_local:
+                    body += '\n<h3><span class="mw-headline">Funding Mix: Most &amp; Least Dependent on Local Funding</span></h3>'
+                    body += '\n<table class="wikitable"><tr><th>State</th><th>Local Share</th><th>Category</th></tr>'
+                    for s in (most_local + least_local)[:15]:
+                        if isinstance(s, dict):
+                            s_state = esc(str(s.get('state', '')))
+                            s_pct = s.get('pct', s.get('percent', 0))
+                            s_pct_fmt = f"{s_pct:.1f}%" if isinstance(s_pct, (int, float)) else esc(str(s_pct))
+                            cat = "Most local" if s in most_local else "Least local"
+                            body += f'\n  <tr><td>{s_state}</td><td class="num">{s_pct_fmt}</td><td>{cat}</td></tr>'
+                    body += '\n</table>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#friends-foundations">Friends &amp; foundations</a> | <a href="#volunteers">Volunteers</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#economics-detailed">Economics</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#friends-foundations">Friends &amp; foundations</a> | <a href="#volunteers">Volunteers</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#state-funding-rankings">State rankings</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#economics-detailed">Economics</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:

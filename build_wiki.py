@@ -11488,8 +11488,60 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Services for Special Populations ──
+    try:
+        sp = json.load(open(os.path.join(DATA, 'library_special_populations_summary.json')))
+        sp_populations = sp.get('populations_covered', [])
+        sp_findings = sp.get('key_findings', [])
+
+        body += f"""
+<h2 id="special-populations">Library Services for Special &amp; Underserved Populations</h2>
+<p>{esc(str(sp.get('description', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{len(sp_populations)}</div><div class="label">Populations Served</div></div>
+</div>"""
+
+        # Build sections for each population type
+        pop_sections = [
+            ('disabilities_services', 'People with Disabilities', 'disabilities'),
+            ('veterans_services', 'Veterans', 'veterans'),
+            ('immigrant_services', 'Immigrants &amp; Refugees', 'immigrants'),
+            ('homeless_services', 'People Experiencing Homelessness', 'homeless'),
+            ('senior_services', 'Seniors', 'seniors'),
+            ('youth_services', 'Children &amp; Youth', 'youth'),
+            ('indigenous_services', 'Indigenous / Native American', 'indigenous'),
+            ('lgbtq_services', 'LGBTQ+ Community', 'lgbtq'),
+            ('rural_services', 'Rural Communities', 'rural'),
+        ]
+        for key, title, anchor in pop_sections:
+            pop_data = sp.get(key, {})
+            if isinstance(pop_data, dict) and pop_data:
+                overview = pop_data.get('overview', '')
+                key_services = pop_data.get('key_services', [])
+                body += f"""
+<h3 id="sp-{anchor}">{title}</h3>
+<p>{esc(str(overview))[:300]}</p>"""
+                if isinstance(key_services, list) and key_services:
+                    body += '\n<ul class="wiki-list">'
+                    for ks in key_services[:6]:
+                        if isinstance(ks, dict):
+                            ks_name = ks.get('service', ks.get('name', ''))
+                            ks_desc = ks.get('description', '')
+                            body += f'\n  <li><strong>{esc(str(ks_name))}</strong> — {esc(str(ks_desc))[:150]}</li>'
+                        else:
+                            body += f'\n  <li>{esc(str(ks))}</li>'
+                    body += '\n</ul>'
+
+        if sp_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in sp_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#censorship">Censorship</a> | <a href="#intellectual-freedom">Intellectual freedom</a> | <a href="#covid-recovery">COVID recovery</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#book-formats">Book formats</a> | <a href="#library-attitudes">Attitudes</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -15229,8 +15281,80 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Digital Divide Enhanced ──
+    try:
+        dd = json.load(open(os.path.join(DATA, 'digital_divide_broadband_summary.json')))
+        dd_nat = dd.get('national_statistics', {})
+        dd_by_state = dd.get('by_state', [])
+        dd_demo = dd.get('by_demographic', {})
+        dd_programs = dd.get('federal_programs', {})
+        dd_library = dd.get('library_role', {})
+        dd_findings = dd.get('key_findings', [])
+
+        dd_bb = dd_nat.get('broadband_subscription', {}) if isinstance(dd_nat, dict) else {}
+        bb_pct = dd_bb.get('pct_households_with_broadband', 0)
+        bb_no_pct = dd_bb.get('pct_households_without_broadband_or_internet', 0)
+        bb_no_pop = dd_bb.get('population_without_broadband_estimate', 0)
+        bb_no_pop_m = bb_no_pop / 1e6 if isinstance(bb_no_pop, (int, float)) and bb_no_pop else 0
+
+        body += f"""
+<h2 id="digital-divide-enhanced">The Digital Divide: 45 Million Americans Without Broadband</h2>
+<p>{esc(str(dd.get('description', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bb_pct:.0f}%</div><div class="label">Have Broadband</div></div>
+  <div class="stat-card"><div class="num">{bb_no_pct:.0f}%</div><div class="label">No Broadband</div></div>
+  <div class="stat-card"><div class="num">{bb_no_pop_m:.0f}M</div><div class="label">Without Broadband</div></div>
+  <div class="stat-card"><div class="num">{len(dd_by_state)}</div><div class="label">States with Data</div></div>
+</div>"""
+
+        if isinstance(dd_demo, dict) and dd_demo.get('income_gap'):
+            ig = dd_demo.get('income_gap', {})
+            if isinstance(ig, dict) and ig:
+                body += '\n<div class="rules-box"><h3>Income Gap</h3><ul class="wiki-list">'
+                for k, v in list(ig.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <li><strong>{display_k}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul></div>'
+
+        if isinstance(dd_library, dict) and dd_library:
+            body += '\n<div class="rules-box"><h3>The Library Role in Digital Inclusion</h3><ul class="wiki-list">'
+            for k, v in list(dd_library.items())[:6]:
+                if isinstance(v, (str, int, float)):
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <li><strong>{display_k}:</strong> {esc(str(v))[:200]}</li>'
+                elif isinstance(v, dict):
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    v_str = str(v.get('description', v.get('overview', str(v))))[:200]
+                    body += f'\n  <li><strong>{display_k}:</strong> {esc(v_str)}</li>'
+            body += '\n</ul></div>'
+
+        if dd_by_state:
+            body += """
+<h3>Digital Divide by State (Top 15 — Most Unserved)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Broadband %</th><th>ACP Enrolled</th><th>BEAD Allocation</th></tr>"""
+            for s in dd_by_state[:15]:
+                if isinstance(s, dict):
+                    sn = esc(str(s.get('state', '')))
+                    sb = s.get('broadband_pct', s.get('pct_broadband', 0))
+                    sa = s.get('acp_enrolled', 0)
+                    sa_k = sa / 1e3 if isinstance(sa, (int, float)) and sa else 0
+                    sb_alloc = s.get('bead_allocation', 0)
+                    sb_alloc_m = sb_alloc / 1e6 if isinstance(sb_alloc, (int, float)) and sb_alloc else 0
+                    sb_str = f"{sb:.1f}%" if isinstance(sb, (int, float)) and sb else str(sb)[:10]
+                    body += f'\n  <tr><td>{sn}</td><td class="num">{sb_str}</td><td class="num">{sa_k:.0f}K</td><td class="num">${sb_alloc_m:.0f}M</td></tr>'
+            body += '\n</table>'
+
+        if dd_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in dd_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

@@ -655,6 +655,7 @@ def load_all():
         ('cataloging', 'library_cataloging_summary.json'),
         ('publishing_detailed', 'library_publishing_detailed_summary.json'),
         ('state_funding', 'state_funding_summary.json'),
+        ('research_data', 'library_research_data_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -3431,6 +3432,62 @@ def build_index(data, stats):
                     if isinstance(v, (str, int, float)):
                         body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
                 body += '\n</ul>'
+    except Exception:
+        pass
+
+    # ---- Libraries & Research Data Science ----
+    try:
+        rd = data.get('research_data', {})
+        if rd:
+            rd_rdm = rd.get('data_management_services', {})
+            rd_scholar = rd.get('scholarly_communication', {})
+            rd_dh = rd.get('digital_humanities', {})
+            rd_sysrev = rd.get('systematic_reviews', {})
+            rd_notable = rd.get('notable_research_libraries', {})
+            rd_findings = rd.get('key_findings', [])
+
+            body += f"""
+<h3 id="research-data">Libraries & Research Data Science</h3>
+<p class="wiki-sub">Academic and research libraries increasingly support the full research lifecycle — from data management plans to systematic reviews to digital humanities to open access publishing.</p>"""
+
+            if rd_rdm:
+                body += '\n<h4>Research Data Management</h4>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in rd_rdm.items():
+                    if isinstance(v, str) and len(v) > 20:
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if rd_scholar:
+                body += '\n<h4>Scholarly Communication & Open Access</h4>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in rd_scholar.items():
+                    if isinstance(v, str) and len(v) > 20:
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if rd_dh:
+                body += '\n<h4>Digital Humanities</h4>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in rd_dh.items():
+                    if isinstance(v, str) and len(v) > 20:
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if rd_notable:
+                arl_members = rd_notable.get('arl', rd_notable.get('arl_statistics', ''))
+                body += '\n<h4>Notable Research Libraries</h4>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in rd_notable.items():
+                    if isinstance(v, str) and len(v) > 20:
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if rd_findings:
+                body += '\n<div class="rules-box"><h4>Key Findings</h4><ul class="wiki-list">'
+                for f in rd_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
     except Exception:
         pass
 

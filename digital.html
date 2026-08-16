@@ -1855,6 +1855,45 @@
   <li>Website/CMS has no single winner: WordPress/Drupal for general sites, Springshare LibGuides near-universal in academic, BiblioCommons for the largest urban public systems, and vendor-hosted catalogs doubling as websites for the smallest libraries.</li>
   <li>OCLC is the library-technology utility layer: ~30,000 member libraries in 100+ countries, $217.8M revenue (FY2020-21), runs WorldCat (largest OPAC in the world), the largest resource-sharing network (10,000+ libraries, 3M+ e-resource requests/yr), and a broad product line spanning cataloging (Connexion), ILS/LSP (WMS), discovery (WorldCat Discovery), ILL (Tipasa/WorldShare ILL/ILLiad), and digital collections (CONTENTdm).</li>
 </ul></div>
+<section id="cataloging">
+<h2><span class="mw-headline">Cataloging, Classification & Metadata Standards</span></h2>
+<p>Behind every library catalog is a vast infrastructure of classification systems, cataloging standards, authority files, and metadata schemas — the intellectual architecture that makes library collections discoverable.</p>
+<h3><span class="mw-headline">Classification Systems</span></h3>
+<table class="wikitable"><tr><th>System</th><th>Adoption</th><th>Key Features</th></tr>
+  <tr><td><strong>Dewey Decimal Classification</strong></td><td>{&#x27;us_public_libraries_pct_approx&#x27;: 70, &#x27;global_note&#x27;: &#x27;OCLC reports DDC is used by more than 200,000 libraries in at least 135 countries; it is the most widely used library classification system in the world.&#x27;, &#x27;typical_users&#x27;: [&#x27;Public libraries&#x27;, &#x27;School libraries (K-12)&#x27;, &#x27;Many small and mid-size academic libraries&#x27;, &#x27;Some special libraries&#x27;]}</td><td></td></tr>
+  <tr><td><strong>Library of Congress Classification</strong></td><td>{&#x27;primary_users&#x27;: [&#x27;Most large academic and research libraries&#x27;, &#x27;Library of Congress itself&#x27;, &#x27;Many large public libraries and library consortia&#x27;, &#x27;Most U.S. federal and national libraries&#x27;], &#x27;rationale&#x27;: &#x27;Better suited to large, research-oriented collections than DDC; more granular and subject-specific schedules, especially in law (K), medicine (R), and technology (T).&#x27;}</td><td></td></tr>
+  <tr><td><strong>Universal Decimal Classification</strong></td><td>{&#x27;typical_users&#x27;: [&#x27;Many European national and academic libraries&#x27;, &#x27;Special libraries, particularly in science and technology&#x27;, &#x27;International documentation centers&#x27;], &#x27;us_note&#x27;: &#x27;Limited use in U.S. libraries; primarily a special-library and international standard.&#x27;}</td><td></td></tr>
+  <tr><td><strong>National Library of Medicine Classification</strong></td><td>{&#x27;typical_users&#x27;: [&#x27;Health sciences and medical libraries&#x27;, &#x27;Hospital libraries&#x27;, &#x27;Academic medical centers&#x27;]}</td><td></td></tr>
+  <tr><td><strong>Moys Classification Scheme for Law Libraries</strong></td><td></td><td></td></tr>
+  <tr><td><strong>Colon Classification</strong></td><td></td><td></td></tr>
+  <tr><td><strong>Bliss Bibliographic Classification</strong></td><td></td><td></td></tr>
+</table>
+<h3><span class="mw-headline">OCLC & WorldCat</span></h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">1971</div><div class="label">Launched</div></div>
+  <div class="stat-card"><div class="num">OCLC Online Union Catalog (shared bibliographic database)</div><div class="label">Type</div></div>
+  <div class="stat-card"><div class="num">The world&#x27;s largest union catalog of library collections, used for copy cataloging, resource sharing, interlibrary loan, reference, and discovery.</div><div class="label">Function</div></div>
+</div>
+<h3><span class="mw-headline">Discovery Layers</span></h3>
+<table class="wikitable"><tr><th>System</th><th>Vendor</th><th>Type</th></tr>
+  <tr><td><strong>Primo</strong></td><td>Ex Libris (now part of Clarivate)</td><td>Discovery layer / unified search</td></tr>
+  <tr><td><strong>Summon</strong></td><td>Serials Solutions -&gt; ProQuest -&gt; Ex Libris (Clarivate)</td><td>Discovery layer / unified search</td></tr>
+  <tr><td><strong>EBSCO Discovery Service</strong></td><td>EBSCO Information Services</td><td>Discovery layer / unified search</td></tr>
+  <tr><td><strong>WorldCat Discovery / WorldShare Management</strong></td><td>OCLC</td><td>Discovery layer integrated with WorldShare Management Services</td></tr>
+  <tr><td><strong>Blacklight</strong></td><td>Open source (community-led, originated at University of Virginia)</td><td>Open-source discovery layer</td></tr>
+  <tr><td><strong>VuFind</strong></td><td>Open source (originated at Villanova University)</td><td>Open-source discovery layer</td></tr>
+</table>
+<h3><span class="mw-headline">Key Findings</span></h3>
+<div class="rules-box"><ul class="wiki-list">
+  <li>The U.S. library cataloging landscape is split between two classification schedules: Dewey (DDC) dominates public and school libraries (~70% of public libraries) while the Library of Congress Classification (LCC) dominates academic and research collections, reflecting each scheme&#x27;s design intent.</li>
+  <li>DDC has had 23 print editions, with DDC 23 (2011) the final print edition; OCLC now maintains the system continuously online through WebDewey. The copyright and licensing remain with OCLC (which acquired Forest Press in 1988), unlike LCC, which LC maintains freely.</li>
+  <li>RDA replaced AACR2 as the cataloging code for the Anglo-American world; it was released in June 2010 and adopted by the Library of Congress and peer national libraries by March 31, 2013. RDA is built on the FRBR/FRAD (and now IFLA LRM) conceptual models.</li>
+  <li>MARC21 remains the dominant record-encoding format, but it is in a managed transition toward BIBFRAME, the Library of Congress&#x27;s linked-data model (BIBFRAME 2.0, 2016). The two standards coexist, with MARC-to-BIBFRAME conversion tooling and the Sinopia editor enabling production linked-data cataloging.</li>
+  <li>OCLC and WorldCat form the backbone of U.S. cataloging cooperation. WorldCat contains more than 540 million bibliographic records representing over 2 billion holdings from roughly 16,000 member libraries in more than 100 countries; the majority of U.S. cataloging is copy cataloging sourced from WorldCat.</li>
+  <li>Authority control in the U.S. is anchored by LC&#x27;s Name Authority File (LCNAF) and Subject Headings (LCSH, ~350,000+ headings). OCLC extends these through FAST (faceted LCSH, ~1.8M records) and VIAF (a ~30M-record international name-authority hub), all increasingly available as open linked data.</li>
+  <li>Subject access is highly discipline-specific: medical libraries use NLM&#x27;s MeSH (~30,000 descriptors), education libraries use the ERIC Thesaurus (~11,000+ descriptors), art libraries use the Getty AAT (~70,000+ terms), and school/small public libraries use the Sears List - all crosswalked to LCSH.</li>
+  <li>A family of metadata schemas supplements MARC for digital and preservation work: Dublin Core (interoperability), MODS (library-style XML), METS (object packaging), PREMIS (preservation), VRA Core (visual resources), and EAD (archival finding aids), with CIDOC-CRM emerging as a shared cultural-heritage ontology.</li>
+</ul></div>
 <section id="dpla">
 <h2><span class="mw-headline">Digital Public Library of America (DPLA)</span></h2>
 <p>The Digital Public Library of America is a national digital library that aggregates metadata and thumbnails from millions of photographs, manuscripts, books, sounds, moving images, and more from libraries, archives, and museums across the United States. Founded April 18, 2013, headquartered in Boston, Massachusetts, U.S., it provides free and open access to America's cultural heritage.</p>
@@ -1898,8 +1937,8 @@
   <tr><td></td><td class="num">47.0M</td></tr>
   <tr><td></td><td class="num">53.0M</td></tr>
 </table>
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
-<p class="edit-note">Generated on 2026-08-16 05:32 UTC.</p>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
+<p class="edit-note">Generated on 2026-08-16 05:44 UTC.</p>
       </div>
     </main>
   </div>
@@ -1908,7 +1947,7 @@
   <small class="text-muted">
     AGI · EIN 42-4298008 ·
     <a href="about.html">About</a> · <a href="search.html">Search</a> · <a href="map.html">Map</a>
-    <br>Data updated 2026-08-16 05:32 UTC
+    <br>Data updated 2026-08-16 05:44 UTC
   </small>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

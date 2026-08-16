@@ -650,6 +650,9 @@ def load_all():
         ('food', 'library_food_summary.json'),
         ('workforce_detailed', 'library_workforce_detailed_summary.json'),
         ('accessibility_detailed', 'library_accessibility_detailed_summary.json'),
+        ('rural', 'rural_libraries_summary.json'),
+        ('architecture', 'library_architecture_summary.json'),
+        ('cataloging', 'library_cataloging_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -12631,6 +12634,160 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Architecture & Building Design ──
+    try:
+        arch = data.get('architecture', {})
+        if arch:
+            arch_eras = arch.get('architectural_eras', [])
+            arch_iconic = arch.get('iconic_buildings', [])
+            arch_carnegie = arch.get('carnegie_architecture', {})
+            arch_renovations = arch.get('notable_renovations', [])
+            arch_trends = arch.get('building_trends', {})
+            arch_findings = arch.get('key_findings', [])
+
+            body += """
+<section id="architecture">
+<h2><span class="mw-headline">Library Architecture & Building Design</span></h2>
+<p>Library buildings are among America's most significant civic structures — from grand Beaux-Arts palaces of the Gilded Age to the bold contemporary designs of Rem Koolhaas and Moshe Safdie. This section traces the architectural evolution of the American library.</p>"""
+
+            if arch_eras:
+                body += '\n<h3><span class="mw-headline">Architectural Eras</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Era</th><th>Period</th><th>Characteristics</th></tr>'
+                for era in arch_eras:
+                    if isinstance(era, dict):
+                        e_name = esc(str(era.get('era', '')))
+                        e_dates = esc(str(era.get('approximate_dates', '')))
+                        e_chars = esc(str(era.get('characteristics', era.get('key_features', ''))))
+                        body += f'\n  <tr><td><strong>{e_name}</strong></td><td>{e_dates}</td><td>{e_chars}</td></tr>'
+                body += '\n</table>'
+
+            if arch_iconic:
+                body += '\n<h3><span class="mw-headline">Iconic Library Buildings</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Building</th><th>Location</th><th>Architect</th><th>Year</th></tr>'
+                for b in arch_iconic[:25]:
+                    if isinstance(b, dict):
+                        b_name = esc(str(b.get('name', '')))
+                        b_loc = esc(str(b.get('location', '')))
+                        b_arch = esc(str(b.get('architect', '')))
+                        b_year = b.get('year_built', b.get('year', ''))
+                        body += f'\n  <tr><td>{b_name}</td><td>{b_loc}</td><td>{b_arch}</td><td>{b_year}</td></tr>'
+                body += '\n</table>'
+
+            if arch_carnegie:
+                c_total = arch_carnegie.get('total_united_states', 0)
+                c_world = arch_carnegie.get('total_worldwide', 0)
+                body += '\n<h3><span class="mw-headline">Carnegie Library Architecture</span></h3>'
+                if c_total or c_world:
+                    body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{c_world:,}</div><div class="label">Carnegie libraries worldwide</div></div>
+  <div class="stat-card"><div class="num">{c_total:,}</div><div class="label">In the United States</div></div>
+</div>"""
+                body += f'\n<p>{esc(str(arch_carnegie.get("overview", "")))}</p>'
+
+            if arch_renovations:
+                body += '\n<h3><span class="mw-headline">Notable Renovations</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for r in arch_renovations:
+                    if isinstance(r, dict):
+                        r_proj = esc(str(r.get('project', '')))
+                        r_desc = esc(str(r.get('description', r.get('significance', ''))))
+                        body += f'\n  <li><strong>{r_proj}</strong>{f" — {r_desc}" if r_desc else ""}</li>'
+                body += '\n</ul>'
+
+            if arch_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in arch_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Rural Libraries & Small Community Service ──
+    try:
+        rur = data.get('rural', {})
+        if rur:
+            rur_stats = rur.get('rural_statistics', {})
+            rur_counts = rur_stats.get('rural_library_counts', {})
+            rur_smallest = rur.get('smallest_libraries', {})
+            rur_funding = rur.get('rural_funding', {})
+            rur_bm = rur.get('bookmobiles_mobile', {})
+            rur_tribal = rur.get('tribal_libraries', {})
+            rur_broadband = rur.get('rural_broadband', {})
+            rur_success = rur.get('success_stories', {})
+            rur_challenges = rur.get('rural_challenges', {})
+            rur_findings = rur.get('key_findings', [])
+
+            body += """
+<section id="rural-libraries">
+<h2><span class="mw-headline">Rural Libraries & Small Community Service</span></h2>
+<p>Thousands of U.S. libraries serve communities of fewer than 10,000 people, often operating on minimal budgets with limited staff. This section details the unique challenges and innovations of rural library service.</p>"""
+
+            if rur_counts:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(rur_counts.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        k_disp = esc(str(k).replace('_', ' ').title())
+                        v_disp = esc(str(v))
+                        body += f'\n  <div class="stat-card"><div class="num">{v_disp}</div><div class="label">{k_disp}</div></div>'
+                body += '\n</div>'
+
+            if rur_bm:
+                bm_total = rur_bm.get('national_total', 0)
+                bm_top = rur_bm.get('top_states_by_bookmobile_count', [])
+                body += '\n<h3><span class="mw-headline">Bookmobiles & Mobile Services</span></h3>'
+                if bm_total:
+                    body += f'\n<p><strong>{bm_total}</strong> bookmobiles operate nationwide. {esc(str(rur_bm.get("trend_note", "")))}</p>'
+                if bm_top:
+                    body += '\n<table class="wikitable"><tr><th>State</th><th>Bookmobiles</th></tr>'
+                    for st in bm_top[:10]:
+                        if isinstance(st, dict):
+                            st_name = esc(str(st.get('state', '')))
+                            st_count = st.get('count', 0)
+                            body += f'\n  <tr><td>{st_name}</td><td class="num">{st_count}</td></tr>'
+                    body += '\n</table>'
+
+            if rur_tribal:
+                t_total = rur_tribal.get('estimated_total', '')
+                body += '\n<h3><span class="mw-headline">Tribal Libraries</span></h3>'
+                body += f'\n<p>{esc(str(rur_tribal.get("definition_note", rur_tribal.get("estimate_basis", ""))))}</p>'
+
+            if rur_broadband:
+                body += '\n<h3><span class="mw-headline">Rural Broadband & Libraries</span></h3>'
+                body += f'\n<p>{esc(str(rur_broadband.get("libraries_as_broadband_anchors", "")))}</p>'
+
+            if rur_success:
+                s_notable = rur_success.get('notable_libraries', [])
+                if s_notable:
+                    body += '\n<h3><span class="mw-headline">Rural Library Success Stories</span></h3>'
+                    body += '\n<ul class="wiki-list">'
+                    for lib in s_notable[:10]:
+                        if isinstance(lib, dict):
+                            l_name = esc(str(lib.get('name', '')))
+                            l_desc = esc(str(lib.get('description', lib.get('note', ''))))
+                            body += f'\n  <li><strong>{l_name}</strong>{f" — {l_desc}" if l_desc else ""}</li>'
+                        elif isinstance(lib, str):
+                            body += f'\n  <li>{esc(lib)}</li>'
+                    body += '\n</ul>'
+
+            if rur_challenges:
+                body += '\n<h3><span class="mw-headline">Rural Library Challenges</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in rur_challenges.items():
+                    if isinstance(v, (str, int, float)) and v:
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul>'
+
+            if rur_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in rur_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Accessibility & ADA Compliance ──
     try:
         acc = data.get('accessibility_detailed', {})
@@ -13133,7 +13290,7 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -17455,6 +17612,64 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Cataloging, Classification & Metadata Standards ──
+    try:
+        cat = data.get('cataloging', {})
+        if cat:
+            cat_class = cat.get('classification_systems', {})
+            cat_systems = cat_class.get('systems', []) if isinstance(cat_class, dict) else []
+            cat_oclc = cat.get('oclc_worldcat', {})
+            cat_wc = cat_oclc.get('worldcat', {}) if isinstance(cat_oclc, dict) else {}
+            cat_disc = cat.get('discovery_layers', {})
+            cat_disc_systems = cat_disc.get('discovery_systems', []) if isinstance(cat_disc, dict) else []
+            cat_findings = cat.get('key_findings', [])
+
+            body += """
+<section id="cataloging">
+<h2><span class="mw-headline">Cataloging, Classification & Metadata Standards</span></h2>
+<p>Behind every library catalog is a vast infrastructure of classification systems, cataloging standards, authority files, and metadata schemas — the intellectual architecture that makes library collections discoverable.</p>"""
+
+            if cat_systems:
+                body += '\n<h3><span class="mw-headline">Classification Systems</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>System</th><th>Adoption</th><th>Key Features</th></tr>'
+                for s in cat_systems:
+                    if isinstance(s, dict):
+                        s_name = esc(str(s.get('name', '')))
+                        s_adoption = esc(str(s.get('adoption', s.get('usage', ''))))
+                        s_features = esc(str(s.get('key_features', s.get('description', ''))))
+                        body += f'\n  <tr><td><strong>{s_name}</strong></td><td>{s_adoption}</td><td>{s_features}</td></tr>'
+                body += '\n</table>'
+
+            if cat_wc:
+                body += '\n<h3><span class="mw-headline">OCLC & WorldCat</span></h3>'
+                body += '\n<div class="stats-grid">'
+                for k, v in list(cat_wc.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        k_disp = esc(str(k).replace('_', ' ').title())
+                        v_disp = esc(str(v))
+                        body += f'\n  <div class="stat-card"><div class="num">{v_disp}</div><div class="label">{k_disp}</div></div>'
+                body += '\n</div>'
+
+            if cat_disc_systems:
+                body += '\n<h3><span class="mw-headline">Discovery Layers</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>System</th><th>Vendor</th><th>Type</th></tr>'
+                for ds in cat_disc_systems:
+                    if isinstance(ds, dict):
+                        ds_name = esc(str(ds.get('name', '')))
+                        ds_vendor = esc(str(ds.get('vendor', ds.get('developer', ''))))
+                        ds_type = esc(str(ds.get('type', '')))
+                        body += f'\n  <tr><td><strong>{ds_name}</strong></td><td>{ds_vendor}</td><td>{ds_type}</td></tr>'
+                body += '\n</table>'
+
+            if cat_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cat_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Digital Public Library of America (DPLA) ──
     try:
         dpla = data.get('dpla', {})
@@ -17508,7 +17723,7 @@ def build_digital(data, stats):
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

@@ -9299,6 +9299,160 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Public Library Collections, Circulation & Visits ──
+    try:
+        coll = json.load(open(os.path.join(DATA, 'library_collections_summary.json')))
+        tc = coll.get('total_collection_items', {})
+        circ = coll.get('circulation_stats', {})
+        visits = coll.get('visits_stats', {})
+        progs = coll.get('programs_stats', {})
+        eres = coll.get('e_resource_stats', {})
+        by_format = coll.get('by_format', {})
+        trends = coll.get('trends', [])
+        top_sys = coll.get('top_10_systems_by_collection', [])
+
+        total_coll = int(tc.get('total_physical_collection', 0)) if isinstance(tc, dict) else 0
+        total_circ = int(circ.get('total_annual_circulation', 0)) if isinstance(circ, dict) else 0
+        per_cap_circ = float(circ.get('per_capita_circulation', 0)) if isinstance(circ, dict) else 0
+        total_visits = int(visits.get('total_annual_visits', 0)) if isinstance(visits, dict) else 0
+        per_cap_visits = float(visits.get('per_capita_visits', 0)) if isinstance(visits, dict) else 0
+        total_progs = int(progs.get('total_programs_offered', 0)) if isinstance(progs, dict) else 0
+        prog_att = int(progs.get('total_program_attendance', 0)) if isinstance(progs, dict) else 0
+        ebooks = int(eres.get('ebook_circulation', 0)) if isinstance(eres, dict) else 0
+        internet_terms = int(eres.get('public_internet_terminals', 0)) if isinstance(eres, dict) else 0
+
+        body += f"""
+<h2 id="collections">Public Library Collections, Circulation &amp; Visits (FY2024)</h2>
+<p>{esc(str(coll.get('source', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_coll/1e6:.0f}M</div><div class="label">Total Collection Items</div></div>
+  <div class="stat-card"><div class="num">{total_circ/1e6:.0f}M</div><div class="label">Annual Circulation</div></div>
+  <div class="stat-card"><div class="num">{total_visits/1e6:.0f}M</div><div class="label">Annual Visits</div></div>
+  <div class="stat-card"><div class="num">{total_progs/1e6:.1f}M</div><div class="label">Programs Offered</div></div>
+  <div class="stat-card"><div class="num">{per_cap_circ:.1f}</div><div class="label">Circulation Per Capita</div></div>
+  <div class="stat-card"><div class="num">{per_cap_visits:.1f}</div><div class="label">Visits Per Capita</div></div>
+</div>"""
+
+        # E-resources
+        if eres:
+            body += f"""
+<h3>Electronic Resources</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ebooks/1e6:.1f}M</div><div class="label">E-Book Circulation</div></div>
+  <div class="stat-card"><div class="num">{int(eres.get('eaudio_circulation', 0))/1e6:.1f}M</div><div class="label">E-Audio Circulation</div></div>
+  <div class="stat-card"><div class="num">{int(eres.get('evideo_circulation', 0))/1e6:.1f}M</div><div class="label">E-Video Circulation</div></div>
+  <div class="stat-card"><div class="num">{internet_terms:,}</div><div class="label">Public Internet Terminals</div></div>
+</div>"""
+
+        # Collection by format
+        if tc and isinstance(tc, dict):
+            body += """
+<h3>Collection by Format</h3>
+<table class="wikitable">
+  <tr><th>Format</th><th>Items</th></tr>"""
+            for k, v in tc.items():
+                if isinstance(v, (int, float)):
+                    body += f'\n  <tr><td>{esc(str(k).replace("_", " ").title())}</td><td class="num">{int(v):,}</td></tr>'
+            body += '\n</table>'
+
+        # Trends
+        if trends:
+            body += """
+<h3>Circulation &amp; Visit Trends</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Total Circulation</th><th>Per Capita</th><th>Library Visits</th><th>Visits Per Capita</th></tr>"""
+            for t in trends:
+                yr = esc(str(t.get('year', '')))
+                tc2 = int(t.get('total_circulation', 0)) if t.get('total_circulation') else 0
+                pc = float(t.get('per_capita_circulation', 0)) if t.get('per_capita_circulation') else 0
+                lv = int(t.get('library_visits', 0)) if t.get('library_visits') else 0
+                vpc = float(t.get('visits_per_capita', 0)) if t.get('visits_per_capita') else 0
+                body += f'\n  <tr><td>{yr}</td><td class="num">{tc2:,}</td><td class="num">{pc:.1f}</td><td class="num">{lv:,}</td><td class="num">{vpc:.1f}</td></tr>'
+            body += '\n</table>'
+
+        # Top systems by collection
+        if top_sys:
+            body += """
+<h3>Top 10 Systems by Collection Size</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Collection Size</th></tr>"""
+            for s in top_sys[:10]:
+                st = esc(str(s.get('state_name', s.get('state', ''))))
+                val = int(s.get('value', 0)) if s.get('value') else 0
+                body += f'\n  <tr><td><strong>{st}</strong></td><td class="num">{val:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Public Reading Habits & Library Usage ──
+    try:
+        prs = json.load(open(os.path.join(DATA, 'public_reading_survey_summary.json')))
+        cards = prs.get('library_cards', {})
+        visit_freq = prs.get('how_often_americans_visit_libraries', {})
+        services = prs.get('services_used_most', {})
+        habits = prs.get('reading_habits', {})
+        attitudes = prs.get('public_attitudes_toward_libraries', {})
+        key_findings = prs.get('key_findings', {})
+
+        body += f"""
+<h2 id="reading-survey">How Americans Read &amp; Use Libraries</h2>
+<p>{esc(str(prs.get('source', '')))}</p>"""
+
+        if cards:
+            imls_cards = int(cards.get('registered_borrowers_imls_fy2024', 0)) if cards.get('registered_borrowers_imls_fy2024') else 0
+            ala_cards = int(cards.get('ala_estimated_cardholders', 0)) if cards.get('ala_estimated_cardholders') else 0
+            pct_pop = float(cards.get('pct_population_registered', 0)) if cards.get('pct_population_registered') else 0
+            pew_pct = float(cards.get('pew_pct_have_library_card_2013', 0)) if cards.get('pew_pct_have_library_card_2013') else 0
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{imls_cards/1e6:.0f}M</div><div class="label">Registered Borrowers (IMLS FY2024)</div></div>
+  <div class="stat-card"><div class="num">{ala_cards/1e6:.0f}M</div><div class="label">ALA Estimated Cardholders</div></div>
+  <div class="stat-card"><div class="num">{pct_pop:.0f}%</div><div class="label">% Population Registered</div></div>
+  <div class="stat-card"><div class="num">{pew_pct:.0f}%</div><div class="label">Pew: Have Library Card (2013)</div></div>
+</div>"""
+
+        if habits:
+            avg_books = float(habits.get('avg_books_read_per_year', 0)) if habits.get('avg_books_read_per_year') else 0
+            pct_lit = float(habits.get('pct_adults_read_literature_2022', 0)) if habits.get('pct_adults_read_literature_2022') else 0
+            pct_print = float(habits.get('pct_read_print_books', 0)) if habits.get('pct_read_print_books') else 0
+            pct_ebook = float(habits.get('pct_read_ebooks', 0)) if habits.get('pct_read_ebooks') else 0
+            pct_audio = float(habits.get('pct_listen_audiobooks', 0)) if habits.get('pct_listen_audiobooks') else 0
+            body += f"""
+<h3>Reading Habits</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{avg_books:.0f}</div><div class="label">Avg Books Read/Year</div></div>
+  <div class="stat-card"><div class="num">{pct_lit:.0f}%</div><div class="label">Read Literature (2022)</div></div>
+  <div class="stat-card"><div class="num">{pct_print:.0f}%</div><div class="label">Read Print Books</div></div>
+  <div class="stat-card"><div class="num">{pct_ebook:.0f}%</div><div class="label">Read E-Books</div></div>
+  <div class="stat-card"><div class="num">{pct_audio:.0f}%</div><div class="label">Listen to Audiobooks</div></div>
+</div>"""
+
+        if visit_freq:
+            pct_used = float(visit_freq.get('pct_used_library_past_year_2013', 0)) if visit_freq.get('pct_used_library_past_year_2013') else 0
+            pct_inperson = float(visit_freq.get('pct_in_person_visit_2013', 0)) if visit_freq.get('pct_in_person_visit_2013') else 0
+            pct_web = float(visit_freq.get('pct_website_visit_2013', 0)) if visit_freq.get('pct_website_visit_2013') else 0
+            body += f"""
+<h3>Library Visit Frequency</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{pct_used:.0f}%</div><div class="label">Used Library Past Year</div></div>
+  <div class="stat-card"><div class="num">{pct_inperson:.0f}%</div><div class="label">In-Person Visit</div></div>
+  <div class="stat-card"><div class="num">{pct_web:.0f}%</div><div class="label">Website Visit</div></div>
+</div>"""
+
+        if key_findings:
+            body += """
+<h3>Key Findings</h3>
+<div class="rules-box">"""
+            for k, v in key_findings.items():
+                if isinstance(v, dict):
+                    for k2, v2 in v.items():
+                        body += f'\n  <p><strong>{esc(str(k2).replace("_", " ").title())}:</strong> {esc(str(v2))[:200]}</p>'
+                elif isinstance(v, str):
+                    body += f'\n  <p><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</p>'
+            body += '\n</div>'
+    except Exception:
+        pass
+
     # ── Library Buildings & Architecture ──
     try:
         bld = json.load(open(os.path.join(DATA, 'library_buildings_summary.json')))
@@ -11682,6 +11836,132 @@ def build_funders(data, stats):
                 body += '\n</div>'
         except Exception as e:
             body += f'\n<p class="text-muted"><em>IMLS program data unavailable: {esc(str(e))}</em></p>'
+
+    # ── IMLS Recent Awards (via USAspending.gov) ──
+    try:
+        ira = json.load(open(os.path.join(DATA, 'imls_recent_awards_summary.json')))
+        total_awards = int(ira.get('total_awards', 0))
+        total_funding = float(ira.get('total_funding', 0))
+        avg_award = float(ira.get('avg_award', 0))
+        by_year = ira.get('by_year', [])
+        by_state = ira.get('by_state', [])
+        by_program = ira.get('by_program', [])
+        top_recip = ira.get('top_recipients', [])
+        top_awards = ira.get('top_20_individual_awards', [])
+
+        body += f"""
+<h2 id="imls-recent-awards">IMLS Recent Awards (USAspending.gov)</h2>
+<p>{esc(str(ira.get('source', '')))}. {esc(str(ira.get('source_detail', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_awards:,}</div><div class="label">Total Awards</div></div>
+  <div class="stat-card"><div class="num">${total_funding/1e9:.2f}B</div><div class="label">Total Funding</div></div>
+  <div class="stat-card"><div class="num">${avg_award:,.0f}</div><div class="label">Avg Award</div></div>
+  <div class="stat-card"><div class="num">{len(by_year)}</div><div class="label">Fiscal Years</div></div>
+</div>"""
+
+        if by_year:
+            body += """
+<h3>Awards by Fiscal Year</h3>
+<table class="wikitable sortable">
+  <tr><th>Fiscal Year</th><th>Awards</th><th>Funding</th></tr>"""
+            for y in by_year:
+                fy = esc(str(y.get('fiscal_year', '')))
+                aw = int(y.get('awards', 0))
+                fm = float(y.get('funding_millions', 0))
+                body += f'\n  <tr><td>{fy}</td><td class="num">{aw:,}</td><td class="num">${fm:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        if by_program:
+            body += """
+<h3>By IMLS Program</h3>
+<table class="wikitable sortable">
+  <tr><th>Program</th><th>CFDA</th><th>Awards</th><th>Funding</th></tr>"""
+            for p in by_program:
+                prog = esc(str(p.get('program', '')))
+                cfda = esc(str(p.get('cfda', '')))
+                aw = int(p.get('awards', 0))
+                fm = float(p.get('funding_millions', 0))
+                body += f'\n  <tr><td><strong>{prog}</strong></td><td>{cfda}</td><td class="num">{aw:,}</td><td class="num">${fm:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        if top_recip:
+            body += """
+<h3>Top 25 Recipients</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>State</th><th>City</th><th>Awards</th><th>Total Funding</th></tr>"""
+            for r in top_recip[:25]:
+                name = esc(str(r.get('recipient', '')))
+                state = esc(str(r.get('state', '')))
+                city = esc(str(r.get('city', '')))
+                aw = int(r.get('awards', 0))
+                funding = float(r.get('total_funding', 0))
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{state}</td><td>{city}</td><td class="num">{aw:,}</td><td class="num">${funding:,.0f}</td></tr>'
+            body += '\n</table>'
+
+        if by_state:
+            bs_sorted = sorted(by_state, key=lambda x: float(x.get('funding', 0)), reverse=True)
+            body += """
+<h3>Funding by State</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Awards</th><th>Funding</th><th>Recipients</th></tr>"""
+            for s in bs_sorted[:30]:
+                st = esc(str(s.get('state', '')))
+                aw = int(s.get('awards', 0))
+                fm = float(s.get('funding_millions', 0))
+                recip = int(s.get('distinct_recipients', 0))
+                body += f'\n  <tr><td><strong>{st}</strong></td><td class="num">{aw:,}</td><td class="num">${fm:.1f}M</td><td class="num">{recip:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── SLAA Budgets & State Aid ──
+    try:
+        slaa = json.load(open(os.path.join(DATA, 'slaa_budget_summary.json')))
+        total_aid = int(slaa.get('total_state_aid', 0))
+        total_lsta = int(slaa.get('total_lstaa_funds', 0))
+        total_income = int(slaa.get('total_agency_income', 0))
+        total_agencies = int(slaa.get('total_agencies', 0))
+        services = slaa.get('services_offered', [])
+        trends = slaa.get('trends', [])
+        by_state_d = slaa.get('by_state', {})
+
+        body += f"""
+<h2 id="slaa-budgets">State Library Agency Budgets (SLAA Survey)</h2>
+<p>{esc(str(slaa.get('source', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_agencies}</div><div class="label">State Agencies</div></div>
+  <div class="stat-card"><div class="num">${total_income/1e9:.2f}B</div><div class="label">Total Agency Income</div></div>
+  <div class="stat-card"><div class="num">${total_aid/1e6:.0f}M</div><div class="label">Total State Aid</div></div>
+  <div class="stat-card"><div class="num">${total_lsta/1e6:.0f}M</div><div class="label">LSTA Funds</div></div>
+</div>"""
+
+        if services:
+            body += """
+<h3>Services Offered by State Agencies</h3>
+<table class="wikitable sortable">
+  <tr><th>Service</th><th>States Offering</th><th>% of Agencies</th></tr>"""
+            for s in services[:20]:
+                svc = esc(str(s.get('service', '')))
+                cnt = int(s.get('states_offering', 0))
+                pct = float(s.get('pct_of_agencies', 0))
+                body += f'\n  <tr><td><strong>{svc}</strong></td><td class="num">{cnt}</td><td class="num">{pct:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if trends:
+            body += """
+<h3>SLAA Budget Trends</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Agencies</th><th>Income Total</th><th>LSTA Income</th><th>State Income</th></tr>"""
+            for t in trends:
+                yr = esc(str(t.get('year', '')))
+                ag = int(t.get('agencies', 0))
+                inc = int(t.get('income_total', 0))
+                lsta = int(t.get('lsta_income', 0))
+                st_inc = int(t.get('state_income', 0))
+                body += f'\n  <tr><td>{yr}</td><td class="num">{ag}</td><td class="num">${inc:,}</td><td class="num">${lsta:,}</td><td class="num">${st_inc:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
 
     # ── Federal Library Legislation ──
     try:

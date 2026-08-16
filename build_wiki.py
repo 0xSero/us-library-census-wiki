@@ -12512,8 +12512,235 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Programs & Community Services Detailed ──
+    try:
+        pd = data.get('programs_detailed', {})
+        if pd:
+            pd_sr = pd.get('summer_reading', {})
+            pd_el = pd.get('early_literacy', {})
+            pd_ae = pd.get('adult_education', {})
+            pd_stem = pd.get('stem_steam', {})
+            pd_bc = pd.get('book_clubs', {})
+            pd_auth = pd.get('author_events', {})
+            pd_hw = pd.get('health_wellness', {})
+            pd_ca = pd.get('cultural_arts', {})
+            pd_out = pd.get('outreach_programs', {})
+            pd_findings = pd.get('key_findings', [])
+
+            sr_reg = pd_sr.get('participation_scale', {}).get('estimated_annual_child_teen_registrants', 0)
+            sr_cslp = pd_sr.get('cslp', {})
+            sr_iread = pd_sr.get('iread', {})
+
+            body += f"""
+<section id="programs-detailed">
+<h2><span class="mw-headline">Library Programs & Community Services</span></h2>
+<p>Beyond books, U.S. libraries deliver an extraordinary range of programs serving every age group — from summer reading that reaches millions of children to adult literacy, STEM education, author events, health services, and outreach to those who cannot visit the building.</p>"""
+
+            sr_reg_display = f"{sr_reg/1e6:.0f}M+" if isinstance(sr_reg, (int, float)) and sr_reg else (esc(str(sr_reg)) if sr_reg else "—")
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{sr_reg_display}</div><div class="label">Annual summer reading registrants</div></div>
+  <div class="stat-card"><div class="num">2</div><div class="label">National summer reading programs</div></div>
+  <div class="stat-card"><div class="num">{esc(str(sr_cslp.get('founded', '')))}</div><div class="label">CSLP founded</div></div>
+</div>"""
+
+            # Summer Reading
+            sr_models = pd_sr.get('notable_program_models', [])
+            sr_studies = pd_sr.get('impact_studies', [])
+            body += '\n<h3><span class="mw-headline">Summer Reading Programs</span></h3>'
+            body += f'\n<p>{esc(str(pd_sr.get("overview", "")))}</p>'
+            if sr_cslp:
+                body += f'\n<p><strong>{esc(str(sr_cslp.get("name", "Collaborative Summer Library Program")))}</strong> — Founded {esc(str(sr_cslp.get("founded", "")))}. {esc(str(sr_cslp.get("structure", "")))}</p>'
+            if sr_iread:
+                body += f'\n<p><strong>{esc(str(sr_iread.get("name", "iREAD")))}</strong> — {esc(str(sr_iread.get("description", sr_iread.get("model", ""))))}</p>'
+            if sr_studies:
+                body += '\n<h4>Impact Studies</h4>'
+                body += '\n<ul class="wiki-list">'
+                for s in sr_studies:
+                    s_name = esc(str(s.get('name', '')))
+                    s_author = esc(str(s.get('author', '')))
+                    s_year = s.get('year', '')
+                    s_finding = esc(str(s.get('finding', s.get('result', ''))))
+                    body += f'\n  <li><strong>{s_name}</strong>{f" ({s_author}, {s_year})" if s_author or s_year else ""}: {s_finding}</li>'
+                body += '\n</ul>'
+
+            # Early Literacy
+            body += '\n<h3><span class="mw-headline">Early Literacy Programs</span></h3>'
+            body += f'\n<p>{esc(str(pd_el.get("overview", "")))}</p>'
+            ecrr = pd_el.get('every_child_ready_to_read', {})
+            tbbk = pd_el.get('thousand_books_before_kindergarten', {})
+            if ecrr:
+                body += f'\n<p><strong>{esc(str(ecrr.get("name", "Every Child Ready to Read")))}</strong> — {esc(str(ecrr.get("focus", "")))}</p>'
+            if tbbk:
+                body += f'\n<p><strong>{esc(str(tbbk.get("name", "1,000 Books Before Kindergarten")))}</strong> — {esc(str(tbbk.get("description", "")))}</p>'
+            st = pd_el.get('storytime_programs', {})
+            if st:
+                st_types = st.get('common_types', [])
+                if st_types:
+                    body += '\n<h4>Storytime Program Types</h4>'
+                    body += '\n<ul class="wiki-list">'
+                    for t in st_types:
+                        body += f'\n  <li>{esc(str(t))}</li>'
+                    body += '\n</ul>'
+
+            # Adult Education
+            body += '\n<h3><span class="mw-headline">Adult Education & Lifelong Learning</span></h3>'
+            body += f'\n<p>{esc(str(pd_ae.get("overview", "")))}</p>'
+            ae_sections = [
+                ('GED & Adult Literacy', 'ged_and_adult_literacy'),
+                ('ESL/ESOL', 'esl_esol'),
+                ('Citizenship Classes', 'citizenship_classes'),
+                ('Job Training & Workforce', 'job_training_and_workforce'),
+                ('Digital Literacy', 'digital_literacy'),
+            ]
+            body += '\n<table class="wikitable"><tr><th>Program Area</th><th>Description</th></tr>'
+            for label, key in ae_sections:
+                ae_data = pd_ae.get(key, {})
+                ae_desc = esc(str(ae_data.get('description', ae_data.get('overview', ''))) if isinstance(ae_data, dict) else str(ae_data))
+                body += f'\n  <tr><td><strong>{label}</strong></td><td>{ae_desc}</td></tr>'
+            body += '\n</table>'
+
+            # STEM/STEAM
+            body += '\n<h3><span class="mw-headline">STEM & STEAM Programming</span></h3>'
+            body += f'\n<p>{esc(str(pd_stem.get("overview", "")))}</p>'
+            nasa = pd_stem.get('nasa_at_my_library', {})
+            star_net = pd_stem.get('star_net_traveling_exhibitions', {})
+            if nasa:
+                body += f'\n<p><strong>{esc(str(nasa.get("name", "NASA@My Library")))}</strong> — Funder: {esc(str(nasa.get("funder", "")))}. {esc(str(nasa.get("description", "")))}</p>'
+            if star_net:
+                star_exhibits = star_net.get('exhibitions', [])
+                body += f'\n<p><strong>{esc(str(star_net.get("name", "STAR Net Traveling Exhibitions")))}</strong> — {esc(str(star_net.get("description", "")))}</p>'
+                if star_exhibits:
+                    body += '\n<ul class="wiki-list">'
+                    for ex in star_exhibits:
+                        body += f'\n  <li>{esc(str(ex))}</li>'
+                    body += '\n</ul>'
+            robotics = pd_stem.get('coding_and_robotics', {})
+            if robotics:
+                robotics_ex = robotics.get('examples', [])
+                body += f'\n<p><strong>Coding & Robotics:</strong> {esc(str(robotics.get("description", "")))}</p>'
+                if robotics_ex:
+                    body += '\n<ul class="wiki-list">'
+                    for ex in robotics_ex:
+                        if isinstance(ex, dict):
+                            ex_name = esc(str(ex.get('name', '')))
+                            ex_role = esc(str(ex.get('role', ex.get('description', ''))))
+                            body += f'\n  <li><strong>{ex_name}</strong> — {ex_role}</li>'
+                        else:
+                            body += f'\n  <li>{esc(str(ex))}</li>'
+                    body += '\n</ul>'
+
+            # Book Clubs
+            body += '\n<h3><span class="mw-headline">Book Clubs & Reading Groups</span></h3>'
+            body += f'\n<p>{esc(str(pd_bc.get("overview", "")))}</p>'
+            bc_programs = [
+                ('One Book, One Community', 'one_book_one_community'),
+                ('Great Decisions', 'great_decisions'),
+                ('NEA Big Read', 'nea_big_read'),
+                ('Oprah Book Club Influence', 'oprah_book_club_influence'),
+            ]
+            body += '\n<table class="wikitable"><tr><th>Program</th><th>Details</th></tr>'
+            for label, key in bc_programs:
+                bc_data = pd_bc.get(key, {})
+                if isinstance(bc_data, dict):
+                    bc_desc = esc(str(bc_data.get('description', bc_data.get('model', bc_data.get('origin', '')))))
+                    body += f'\n  <tr><td><strong>{label}</strong></td><td>{bc_desc}</td></tr>'
+            body += '\n</table>'
+
+            # Author Events
+            body += '\n<h3><span class="mw-headline">Author Events & Book Festivals</span></h3>'
+            body += f'\n<p>{esc(str(pd_auth.get("overview", "")))}</p>'
+            nbf = pd_auth.get('national_book_festival', {})
+            if nbf:
+                body += f'\n<p><strong>{esc(str(nbf.get("name", "National Book Festival")))}</strong> — Organized by {esc(str(nbf.get("organizer", "")))}, launched {esc(str(nbf.get("launched", "")))}. {esc(str(nbf.get("founder_note", "")))}</p>'
+            bf_circuit = pd_auth.get('book_festival_circuit', {})
+            if bf_circuit:
+                bf_fests = bf_circuit.get('notable_festivals', [])
+                body += f'\n<p>{esc(str(bf_circuit.get("description", "")))}</p>'
+                if bf_fests:
+                    body += '\n<ul class="wiki-list">'
+                    for fest in bf_fests:
+                        if isinstance(fest, dict):
+                            fest_name = esc(str(fest.get('name', '')))
+                            fest_city = esc(str(fest.get('city', '')))
+                            body += f'\n  <li><strong>{fest_name}</strong>{f" — {fest_city}" if fest_city else ""}</li>'
+                        else:
+                            body += f'\n  <li>{esc(str(fest))}</li>'
+                    body += '\n</ul>'
+
+            # Health & Wellness
+            body += '\n<h3><span class="mw-headline">Health & Wellness Services</span></h3>'
+            body += f'\n<p>{esc(str(pd_hw.get("overview", "")))}</p>'
+            hw_sections = [
+                ('Trauma-Informed Services', 'trauma_informed_services'),
+                ('Social Workers in Libraries', 'social_workers_in_libraries'),
+                ('Mental Health Resources', 'mental_health_resources'),
+                ('Health Literacy', 'health_literacy'),
+                ('Wellness Programming', 'wellness_programming'),
+                ('Vaccine & Clinical Services', 'vaccine_and_clinical_services'),
+            ]
+            body += '\n<table class="wikitable"><tr><th>Service Area</th><th>Description</th></tr>'
+            for label, key in hw_sections:
+                hw_data = pd_hw.get(key, {})
+                if isinstance(hw_data, dict):
+                    hw_desc = esc(str(hw_data.get('description', '')))
+                    body += f'\n  <tr><td><strong>{label}</strong></td><td>{hw_desc}</td></tr>'
+            body += '\n</table>'
+
+            # Cultural Arts
+            body += '\n<h3><span class="mw-headline">Cultural & Arts Programming</span></h3>'
+            body += f'\n<p>{esc(str(pd_ca.get("overview", "")))}</p>'
+            ca_sections = [
+                ('Art Exhibitions', 'art_exhibitions'),
+                ('Concerts & Performing Arts', 'concerts_and_performing_arts'),
+                ('Film Screenings', 'film_screenings'),
+                ('Craft Workshops', 'craft_workshops'),
+                ('Cultural Heritage Months', 'cultural_heritage_months'),
+            ]
+            body += '\n<table class="wikitable"><tr><th>Program Type</th><th>Details</th></tr>'
+            for label, key in ca_sections:
+                ca_data = pd_ca.get(key, {})
+                if isinstance(ca_data, dict):
+                    ca_desc = esc(str(ca_data.get('description', '')))
+                    ca_ex = ca_data.get('examples', [])
+                    if ca_ex:
+                        ca_desc += ' Examples: ' + '; '.join(esc(str(e)) for e in ca_ex[:5])
+                    body += f'\n  <tr><td><strong>{label}</strong></td><td>{ca_desc}</td></tr>'
+            body += '\n</table>'
+
+            # Outreach
+            body += '\n<h3><span class="mw-headline">Outreach Services</span></h3>'
+            body += f'\n<p>{esc(str(pd_out.get("overview", "")))}</p>'
+            bm = pd_out.get('bookmobiles', {})
+            bm_count = bm.get('national_count', 0) if isinstance(bm, dict) else 0
+            if bm_count:
+                body += f'\n<div class="stat-card" style="display:inline-block;margin:0.5em;"><div class="num">{bm_count}</div><div class="label">Bookmobiles nationwide</div></div>'
+            out_sections = [
+                ('Bookmobiles', 'bookmobiles'),
+                ('Homebound Services', 'homebound_services'),
+                ('Prison Library Services', 'prison_library_services'),
+                ('Hospital Libraries', 'hospital_libraries'),
+                ('Daycare & Head Start Visits', 'daycare_and_head_start_visits'),
+            ]
+            body += '\n<table class="wikitable"><tr><th>Outreach Type</th><th>Description</th></tr>'
+            for label, key in out_sections:
+                out_data = pd_out.get(key, {})
+                if isinstance(out_data, dict):
+                    out_desc = esc(str(out_data.get('description', '')))
+                    body += f'\n  <tr><td><strong>{label}</strong></td><td>{out_desc}</td></tr>'
+            body += '\n</table>'
+
+            if pd_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pd_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#disaster-response">Disaster response</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#disaster-response">Disaster response</a> | <a href="#programs-detailed">Programs</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

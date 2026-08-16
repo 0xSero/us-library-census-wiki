@@ -9239,6 +9239,66 @@ def build_index(data, stats):
         except Exception as e:
             body += f'\n<p class="text-muted"><em>NCES school libraries by state data unavailable: {esc(str(e))}</em></p>'
 
+    # ── Major Library Systems by Network Size ──
+    try:
+        t100 = json.load(open(os.path.join(DATA, 'top_100_for_claude_summary.json')))
+        t100_stats = t100.get('key_stats', {})
+        t100_domains = t100.get('top_20_domains_by_outlets', [])
+        body += f"""
+<h2 id="major-systems">Major Library Systems by Network Size</h2>
+<p>{esc(str(t100.get('overview', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(t100_stats.get('total_domains', 0)):,}</div><div class="label">Top Domains</div></div>
+  <div class="stat-card"><div class="num">{int(t100_stats.get('total_outlets_represented', 0)):,}</div><div class="label">Outlets Represented</div></div>
+  <div class="stat-card"><div class="num">{int(t100_stats.get('states_represented', 0)):,}</div><div class="label">States</div></div>
+  <div class="stat-card"><div class="num">{float(t100_stats.get('avg_outlets_per_domain', 0)):.1f}</div><div class="label">Avg Outlets/Domain</div></div>
+</div>
+<h3>Top 20 Library Domains by Outlet Count</h3>
+<table class="wikitable sortable">
+  <tr><th>Rank</th><th>Domain</th><th>Outlets</th><th>City</th><th>State</th></tr>"""
+        for i, d in enumerate(t100_domains[:20], 1):
+            domain = esc(str(d.get('domain', '')))
+            outlets = int(d.get('outlets', 0))
+            city = esc(str(d.get('city', '')))
+            state = esc(str(d.get('state', '')))
+            body += f'\n  <tr><td>{i}</td><td><strong>{domain}</strong></td><td class="num">{outlets:,}</td><td>{city}</td><td>{state}</td></tr>'
+        body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Library System Rating Targets ──
+    try:
+        tsr = json.load(open(os.path.join(DATA, 'top_systems_ratings_summary.json')))
+        tsr_stats = tsr.get('key_stats', {})
+        hr = tsr.get('human_ratings_list', {})
+        hr_top = hr.get('top_10_by_outlets', [])
+        body += f"""
+<h2 id="rating-targets">Library System Rating Targets</h2>
+<p>{esc(str(tsr.get('overview', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(tsr_stats.get('total_human_ratings_list', 0)):,}</div><div class="label">Human Rating Targets</div></div>
+  <div class="stat-card"><div class="num">{int(tsr_stats.get('total_llm_ratings_list', 0)):,}</div><div class="label">LLM Rating Targets</div></div>
+  <div class="stat-card"><div class="num">{int(tsr_stats.get('shared_fscs_count', 0)):,}</div><div class="label">Shared (Overlap)</div></div>
+  <div class="stat-card"><div class="num">{int(tsr_stats.get('human_only', 0)):,}</div><div class="label">Human-Only</div></div>
+</div>"""
+        if hr_top:
+            body += f"""
+<h3>Human Ratings List: Top 10 by Outlets</h3>
+<table class="wikitable sortable">
+  <tr><th>FSCS</th><th>System</th><th>City</th><th>State</th><th>Outlets</th><th>Population Served</th></tr>"""
+            for s in hr_top[:10]:
+                fscs = esc(str(s.get('fscs', '')))
+                name = esc(str(s.get('name', '')))
+                city = esc(str(s.get('city', '')))
+                state = esc(str(s.get('state', '')))
+                outlets = int(s.get('outlets', 0))
+                pop = int(s.get('population_served', 0))
+                body += f'\n  <tr><td>{fscs}</td><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td class="num">{outlets:,}</td><td class="num">{pop:,}</td></tr>'
+            body += '\n</table>'
+            body += f'<p>The human ratings list covers {int(hr.get("total_outlets", 0)):,} outlets across {int(hr.get("states_represented", 0))} states, serving a combined population of {int(hr.get("total_population_served", 0)):,}. {int(hr.get("systems_with_website", 0))} of {int(hr.get("total_systems", 0))} systems have a website.</p>'
+    except Exception:
+        pass
+
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>
 <table class="wikitable leaderboard-table">
@@ -12280,8 +12340,89 @@ def build_digital(data, stats):
         except Exception as e:
             body += f'\n<p class="text-muted"><em>Museum data unavailable: {esc(str(e))}</em></p>'
 
+    # ── Library Digital Presence & Social Media ──
+    try:
+        enr = json.load(open(os.path.join(DATA, 'library_enrichment_summary.json')))
+        enr_stats = enr.get('key_stats', {})
+        enr_cov = enr.get('enrichment_coverage', {})
+        body += f"""
+<h2 id="social-media">Library Digital Presence &amp; Social Media</h2>
+<p>{esc(str(enr.get('overview', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(enr_stats.get('total_records', 0)):,}</div><div class="label">Records Enriched</div></div>
+  <div class="stat-card"><div class="num">{int(enr_stats.get('records_with_website', 0)):,}</div><div class="label">With Website</div></div>
+  <div class="stat-card"><div class="num">{int(enr_stats.get('records_with_any_social', 0)):,}</div><div class="label">With Social Media</div></div>
+  <div class="stat-card"><div class="num">{int(enr_stats.get('records_with_email', 0)):,}</div><div class="label">With Email</div></div>
+</div>
+<h3>Social Media &amp; Contact Coverage</h3>
+<div class="services-bars">"""
+        max_enr = int(enr_stats.get('total_records', 1)) or 1
+        label_map = {'website': 'Website', 'email': 'Email', 'facebook': 'Facebook', 'instagram': 'Instagram', 'youtube': 'YouTube', 'twitter': 'Twitter/X'}
+        for channel in ['website', 'email', 'facebook', 'instagram', 'youtube', 'twitter']:
+            c = enr_cov.get(channel, {})
+            count = int(c.get('count', 0))
+            pct = float(c.get('pct', 0))
+            width = min(100.0, (count / max_enr) * 100.0)
+            body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{label_map.get(channel, channel)}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{count:,} ({pct:.1f}%)</span>
+  </div>"""
+        body += '\n</div>'
+    except Exception:
+        pass
+
+    # ── Verified Library Website Domains ──
+    try:
+        rld = json.load(open(os.path.join(DATA, 'real_library_domains_summary.json')))
+        usd = json.load(open(os.path.join(DATA, 'unique_system_domains_summary.json')))
+        rld_stats = rld.get('key_stats', {})
+        usd_stats = usd.get('key_stats', {})
+        rld_tld = rld.get('domain_tld_breakdown', {})
+        body += f"""
+<h2 id="library-domains">Verified Library Website Domains</h2>
+<p>{esc(str(rld.get('overview', '')))}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(rld_stats.get('total_domains', 0)):,}</div><div class="label">Verified Domains</div></div>
+  <div class="stat-card"><div class="num">{int(usd_stats.get('total_domains', 0)):,}</div><div class="label">Unique System Domains</div></div>
+  <div class="stat-card"><div class="num">{int(rld_stats.get('total_outlets_represented', 0)):,}</div><div class="label">Outlets Represented</div></div>
+  <div class="stat-card"><div class="num">{int(rld_stats.get('states_represented', 0)):,}</div><div class="label">States &amp; Territories</div></div>
+</div>
+<h3>Domain TLD Distribution</h3>
+<div class="services-bars">"""
+        max_tld = max(rld_tld.values()) if rld_tld else 1
+        tld_colors = {'.org': 'svc-fill-blue', '.com': 'svc-fill-green', '.us': 'svc-fill-yellow', '.gov': 'svc-fill-red', '.net': 'svc-fill-tech', '.edu': 'svc-fill-people'}
+        for tld, cnt in sorted(rld_tld.items(), key=lambda x: -x[1])[:12]:
+            width = (cnt / max_tld) * 100.0 if max_tld else 0
+            color = tld_colors.get(tld, 'svc-fill-tech')
+            body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(str(tld))}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt:,}</span>
+  </div>"""
+        body += '\n</div>'
+
+        top_sys = rld.get('top_20_systems_by_domain_count', [])
+        if top_sys:
+            body += """
+<h3>Largest Library Systems by Outlet Count</h3>
+<table class="wikitable sortable">
+  <tr><th>Domain</th><th>Outlets</th><th>City</th><th>State</th><th>Example Branch</th></tr>"""
+            for s in top_sys[:20]:
+                domain = esc(str(s.get('domain', '')))
+                outlets = int(s.get('outlets', 0))
+                city = esc(str(s.get('city', '')))
+                state = esc(str(s.get('state', '')))
+                ex_name = esc(str(s.get('example_name', '')))
+                body += f'\n  <tr><td><strong>{domain}</strong></td><td class="num">{outlets:,}</td><td>{city}</td><td>{state}</td><td>{ex_name}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

@@ -696,6 +696,8 @@ def load_all():
         ('disability', 'library_disability_summary.json'),
         ('community_support', 'library_community_support_summary.json'),
         ('food_deep', 'library_food_deep_summary.json'),
+        ('ai_ethics', 'library_ai_ethics_summary.json'),
+        ('publishing_deep', 'library_publishing_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -15429,8 +15431,122 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Libraries & AI Ethics ──
+    try:
+        ae = data.get('ai_ethics', {})
+        if ae:
+            ae_cataloging = ae.get('ai_in_cataloging', {})
+            ae_chatbots = ae.get('chatbots', {})
+            ae_literacy = ae.get('ai_literacy', {})
+            ae_privacy = ae.get('data_privacy', {})
+            ae_bias = ae.get('algorithmic_bias', {})
+            ae_policies = ae.get('generative_ai_policies', {})
+            ae_copyright = ae.get('ai_copyright', {})
+            ae_initiatives = ae.get('notable_initiatives', [])
+            ae_ala = ae.get('ala_positions', {})
+            ae_findings = ae.get('key_findings', [])
+
+            body += """
+<h2 id="ai-ethics">Libraries &amp; AI Ethics</h2>
+<p>As artificial intelligence transforms information access, U.S. public libraries are navigating AI in cataloging, chatbots, generative AI tools, copyright concerns, and the need for AI literacy — while ALA and OCLC develop policies to protect patron privacy and ensure equitable access.</p>"""
+
+            if ae_cataloging and isinstance(ae_cataloging, dict):
+                ae_cat_ov = esc(str(ae_cataloging.get('summary', '')))
+                body += f'\n<h3>AI in Cataloging</h3><p>{ae_cat_ov}</p>'
+
+            if ae_chatbots and isinstance(ae_chatbots, dict):
+                ae_chat_ov = esc(str(ae_chatbots.get('summary', '')))
+                body += f'\n<h3>Library Chatbots</h3><p>{ae_chat_ov}</p>'
+
+            if ae_literacy and isinstance(ae_literacy, dict):
+                ae_lit_ov = esc(str(ae_literacy.get('summary', '')))
+                body += f'\n<h3>AI Literacy</h3><p>{ae_lit_ov}</p>'
+
+            if ae_privacy and isinstance(ae_privacy, dict):
+                ae_priv_ov = esc(str(ae_privacy.get('summary', '')))
+                body += f'\n<h3>Data Privacy &amp; AI</h3><p>{ae_priv_ov}</p>'
+
+            if ae_copyright and isinstance(ae_copyright, dict):
+                ae_copy_ov = esc(str(ae_copyright.get('summary', '')))
+                body += f'\n<h3>AI &amp; Copyright</h3><p>{ae_copy_ov}</p>'
+
+            if ae_initiatives and isinstance(ae_initiatives, list):
+                body += '\n<h3>Notable AI Initiatives</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Initiative</th><th>Library</th><th>Description</th></tr>'
+                for i in ae_initiatives[:15]:
+                    if isinstance(i, dict):
+                        i_name = esc(str(i.get('name', '')))
+                        i_lib = esc(str(i.get('library', '')))
+                        i_desc = esc(str(i.get('description', '')))[:200]
+                        body += f'\n  <tr><td><strong>{i_name}</strong></td><td>{i_lib}</td><td>{i_desc}</td></tr>'
+                body += '\n</table>'
+
+            if ae_findings and isinstance(ae_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in ae_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries & Publishing (Deep) ──
+    try:
+        pd = data.get('publishing_deep', {})
+        if pd:
+            pd_presses = pd.get('library_presses', {})
+            pd_community = pd.get('community_publishing', {})
+            pd_zines = pd.get('zine_collections', {})
+            pd_self = pd.get('self_publishing', {})
+            pd_author = pd.get('author_programs', {})
+            pd_oa = pd.get('open_access', {})
+            pd_programs = pd.get('notable_programs', [])
+            pd_partners = pd.get('partnerships', {})
+            pd_findings = pd.get('key_findings', [])
+
+            body += """
+<h2 id="publishing-deep">Libraries &amp; Publishing Deep Dive</h2>
+<p>From zine collections and community oral history projects to self-publishing platforms and library presses, U.S. public libraries are increasingly active publishers and publishing support hubs — helping communities create and share their own stories.</p>"""
+
+            if pd_presses and isinstance(pd_presses, dict):
+                pd_presses_ov = esc(str(pd_presses.get('summary', '')))
+                body += f'\n<h3>Library Presses</h3><p>{pd_presses_ov}</p>'
+
+            if pd_zines and isinstance(pd_zines, dict):
+                pd_zines_ov = esc(str(pd_zines.get('summary', '')))
+                body += f'\n<h3>Zine Collections</h3><p>{pd_zines_ov}</p>'
+
+            if pd_community and isinstance(pd_community, dict):
+                pd_comm_ov = esc(str(pd_community.get('summary', '')))
+                body += f'\n<h3>Community Publishing</h3><p>{pd_comm_ov}</p>'
+
+            if pd_self and isinstance(pd_self, dict):
+                pd_self_ov = esc(str(pd_self.get('summary', '')))
+                body += f'\n<h3>Self-Publishing Support</h3><p>{pd_self_ov}</p>'
+
+            if pd_programs and isinstance(pd_programs, list):
+                body += '\n<h3>Notable Publishing Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for p in pd_programs[:15]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_lib = esc(str(p.get('library', p.get('location', ''))))
+                        p_state = esc(str(p.get('state', '')))
+                        p_desc = esc(str(p.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_lib}</td><td>{p_state}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if pd_findings and isinstance(pd_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pd_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

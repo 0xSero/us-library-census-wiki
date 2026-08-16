@@ -10459,8 +10459,112 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Data.gov Library Datasets ──
+    try:
+        dg = json.load(open(os.path.join(DATA, 'datagov_library_datasets_summary.json')))
+        total_ds = int(dg.get('total_datasets_found', 0))
+        by_org = dg.get('by_organization', [])
+        by_fmt = dg.get('by_format', [])
+        top_ds = dg.get('top_datasets', [])
+        recent_ds = dg.get('recent_datasets', [])
+
+        body += f"""
+<h2 id="datagov">Open Data: Library Datasets on Data.gov</h2>
+<p>{esc(str(dg.get('source', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_ds}</div><div class="label">Datasets Found</div></div>
+  <div class="stat-card"><div class="num">{len(by_org)}</div><div class="label">Publishing Organizations</div></div>
+  <div class="stat-card"><div class="num">{len(by_fmt)}</div><div class="label">Data Formats</div></div>
+</div>"""
+
+        if by_org:
+            body += """
+<h3>Top Publishing Organizations</h3>
+<div class="services-bars">"""
+            max_org = max(o.get('datasets', 0) for o in by_org) if by_org else 1
+            for o in by_org[:12]:
+                org = esc(str(o.get('organization', '')))
+                cnt = int(o.get('datasets', 0))
+                width = (cnt / max_org) * 100.0 if max_org else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{org}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-tech" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if by_fmt:
+            body += """
+<h3>Available Data Formats</h3>
+<div class="services-bars">"""
+            max_fmt = max(f.get('count', 0) for f in by_fmt) if by_fmt else 1
+            for f_item in by_fmt[:10]:
+                fmt = esc(str(f_item.get('format', '')))
+                cnt = int(f_item.get('count', 0))
+                width = (cnt / max_fmt) * 100.0 if max_fmt else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{fmt}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-blue" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if top_ds:
+            body += """
+<h3>Top Datasets</h3>
+<table class="wikitable sortable">
+  <tr><th>Dataset</th><th>Organization</th><th>Format</th></tr>"""
+            for ds in top_ds[:15]:
+                title = esc(str(ds.get('title', '')))[:120]
+                org = esc(str(ds.get('organization', '')))
+                fmt = esc(str(ds.get('format', '')))
+                body += f'\n  <tr><td><strong>{title}</strong></td><td>{org}</td><td>{fmt}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Library of Congress Enhanced ──
+    try:
+        loc = json.load(open(os.path.join(DATA, 'loc_enhanced_summary.json')))
+        fy24 = loc.get('fy2024', {})
+        buildings = loc.get('buildings', [])
+        hist = loc.get('historical_growth', [])
+
+        body += f"""
+<h2 id="loc">Library of Congress</h2>
+<p>{esc(str(loc.get('description', '')))[:300]}</p>"""
+
+        if fy24:
+            total_items = fy24.get('total_collection_items', 0)
+            items_m = int(total_items) / 1e6 if total_items else 0
+            cr = fy24.get('copyright_registrations', 0)
+            cr_m = int(cr) / 1e6 if cr else 0
+            ref_req = int(fy24.get('reference_requests', 0)) if fy24.get('reference_requests') else 0
+            items_str = f"{items_m:.0f}M"
+            cr_str = f"{cr_m:.1f}M"
+            ref_str = f"{ref_req:,}"
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{items_str}</div><div class="label">Total Collection Items</div></div>
+  <div class="stat-card"><div class="num">{cr_str}</div><div class="label">Copyright Registrations</div></div>
+  <div class="stat-card"><div class="num">{ref_str}</div><div class="label">Reference Requests</div></div>
+</div>"""
+
+        if buildings:
+            body += """
+<h3>LOC Buildings</h3>
+<ul class="wiki-list">"""
+            for b in buildings[:5]:
+                if isinstance(b, dict):
+                    body += f'\n  <li><strong>{esc(str(b.get("name", "")))}</strong> — {esc(str(b.get("year", "")))}: {esc(str(b.get("description", "")))[:150]}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -12423,6 +12527,148 @@ def build_funders(data, stats):
                 lsta = int(t.get('lsta_income', 0))
                 st_inc = int(t.get('state_income', 0))
                 body += f'\n  <tr><td>{yr}</td><td class="num">{ag}</td><td class="num">${inc:,}</td><td class="num">${lsta:,}</td><td class="num">${st_inc:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── NEH Library Grants Enhanced ──
+    try:
+        neh = json.load(open(os.path.join(DATA, 'neh_library_grants_enhanced_summary.json')))
+        neh_total = int(neh.get('total_library_grants', 0))
+        neh_funding = float(neh.get('total_funding', 0))
+        neh_avg = float(neh.get('avg_grant_size', 0))
+        neh_programs = neh.get('by_program', [])
+        neh_top = neh.get('top_20_library_grants', [])
+
+        body += f"""
+<h2 id="neh-enhanced">NEH Library Grants (Enhanced)</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{neh_total}</div><div class="label">Library Grants</div></div>
+  <div class="stat-card"><div class="num">${neh_funding/1e6:.1f}M</div><div class="label">Total Funding</div></div>
+  <div class="stat-card"><div class="num">${neh_avg:,.0f}</div><div class="label">Avg Grant</div></div>
+</div>"""
+
+        if neh_top:
+            body += """
+<h3>Top NEH Library Grants</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>Amount</th><th>State</th><th>Year</th><th>Description</th></tr>"""
+            for g in neh_top[:15]:
+                rec = esc(str(g.get('recipient', '')))
+                amt = float(g.get('amount', 0)) if g.get('amount') else 0
+                st = esc(str(g.get('state', '')))
+                yr = esc(str(g.get('year', '')))
+                desc = esc(str(g.get('description', '')))[:120]
+                body += f'\n  <tr><td><strong>{rec}</strong></td><td class="num">${amt:,.0f}</td><td>{st}</td><td>{yr}</td><td>{desc}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── USDA Library Grants Enhanced ──
+    try:
+        usda = json.load(open(os.path.join(DATA, 'usda_library_grants_enhanced_summary.json')))
+        usda_total = int(usda.get('total_grants', 0))
+        usda_funding = float(usda.get('grant_dollars_obligated', usda.get('total_funding', 0)))
+        usda_avg = float(usda.get('avg_grant_size', 0))
+        usda_top = usda.get('top_20_grants', [])
+
+        body += f"""
+<h2 id="usda-enhanced">USDA Library Grants (Enhanced)</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{usda_total}</div><div class="label">Grants</div></div>
+  <div class="stat-card"><div class="num">${usda_funding/1e6:.1f}M</div><div class="label">Grant Funding</div></div>
+  <div class="stat-card"><div class="num">${usda_avg:,.0f}</div><div class="label">Avg Grant</div></div>
+</div>"""
+
+        if usda_top:
+            body += """
+<h3>Top USDA Library Grants</h3>
+<table class="wikitable sortable">
+  <tr><th>Recipient</th><th>Amount</th><th>State</th><th>Year</th></tr>"""
+            for g in usda_top[:15]:
+                rec = esc(str(g.get('recipient', '')))
+                amt = float(g.get('amount', g.get('obligated_amount', 0))) if g.get('amount') or g.get('obligated_amount') else 0
+                st = esc(str(g.get('state', '')))
+                yr = esc(str(g.get('year', g.get('fiscal_year', ''))))
+                body += f'\n  <tr><td><strong>{rec}</strong></td><td class="num">${amt:,.0f}</td><td>{st}</td><td>{yr}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── IMLS ARP Grants Enhanced ──
+    try:
+        arp = json.load(open(os.path.join(DATA, 'imls_arp_grants_enhanced_summary.json')))
+        arp_total = int(arp.get('total_grants', 0))
+        arp_funding = float(arp.get('total_funding', 0))
+        arp_avg = float(arp.get('avg_grant_size', 0))
+        arp_top = arp.get('top_20_grants', [])
+
+        body += f"""
+<h2 id="imls-arp-enhanced">IMLS American Rescue Plan Grants</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{arp_total}</div><div class="label">ARP Grants</div></div>
+  <div class="stat-card"><div class="num">${arp_funding/1e6:.1f}M</div><div class="label">Total ARP Funding</div></div>
+  <div class="stat-card"><div class="num">${arp_avg:,.0f}</div><div class="label">Avg ARP Grant</div></div>
+</div>"""
+    except Exception:
+        pass
+
+    # ── Philanthropy Enhanced ──
+    try:
+        phil = json.load(open(os.path.join(DATA, 'philanthropy_enhanced_summary.json')))
+        carnegie_p = phil.get('carnegie_library_grants', {})
+        gates_p = phil.get('gates_foundation_grants', {})
+        other_found = phil.get('other_major_foundations', [])
+        total_phil = phil.get('total_philanthropic_investment', {})
+
+        carnegie_total = int(carnegie_p.get('us_buildings', carnegie_p.get('total_built', 0))) if isinstance(carnegie_p, dict) else 0
+        carnegie_cost = float(carnegie_p.get('us_cost', carnegie_p.get('total_cost_usd', 0))) if isinstance(carnegie_p, dict) else 0
+
+        body += f"""
+<h2 id="philanthropy-enhanced">Library Philanthropy (Enhanced)</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{carnegie_total:,}</div><div class="label">Carnegie Libraries</div></div>
+  <div class="stat-card"><div class="num">${carnegie_cost/1e6:.0f}M</div><div class="label">Carnegie Investment</div></div>
+  <div class="stat-card"><div class="num">$1B+</div><div class="label">Gates Foundation (est.)</div></div>
+</div>"""
+
+        if other_found:
+            body += """
+<h3>Other Major Foundations</h3>
+<ul class="wiki-list">"""
+            for f in other_found[:8]:
+                if isinstance(f, dict):
+                    body += f'\n  <li><strong>{esc(str(f.get("name", f.get("foundation", ""))))}</strong>: {esc(str(f.get("description", f.get("note", ""))))[:150]}</li>'
+                elif isinstance(f, str):
+                    body += f'\n  <li>{esc(f)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
+    # ── Other Federal Grants Enhanced ──
+    try:
+        ofg = json.load(open(os.path.join(DATA, 'other_federal_grants_enhanced_summary.json')))
+        ofg_total = int(ofg.get('total_grants', 0))
+        ofg_funding = float(ofg.get('total_funding', 0))
+        ofg_by_agency = ofg.get('by_agency', [])
+
+        body += f"""
+<h2 id="other-federal-enhanced">Other Federal Library Grants</h2>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ofg_total}</div><div class="label">Grants</div></div>
+  <div class="stat-card"><div class="num">${ofg_funding/1e6:.1f}M</div><div class="label">Total Funding</div></div>
+</div>"""
+        if ofg_by_agency:
+            body += """
+<h3>By Federal Agency</h3>
+<table class="wikitable sortable">
+  <tr><th>Agency</th><th>Grants</th><th>Funding</th></tr>"""
+            for a in ofg_by_agency[:10]:
+                if isinstance(a, dict):
+                    ag = esc(str(a.get('agency', a.get('name', ''))))
+                    cnt = int(a.get('grants', a.get('count', 0))) if a.get('grants') or a.get('count') else 0
+                    fund = float(a.get('funding', a.get('amount', 0))) if a.get('funding') or a.get('amount') else 0
+                    body += f'\n  <tr><td><strong>{ag}</strong></td><td class="num">{cnt}</td><td class="num">${fund:,.0f}</td></tr>'
             body += '\n</table>'
     except Exception:
         pass

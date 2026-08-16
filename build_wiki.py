@@ -9299,6 +9299,155 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Library Buildings & Architecture ──
+    try:
+        bld = json.load(open(os.path.join(DATA, 'library_buildings_summary.json')))
+        bks = bld.get('key_stats', {})
+        carnegie = bld.get('carnegie_libraries', {})
+        nrhp = bld.get('nrhp_listed', [])
+        notable = bld.get('notable_buildings', [])
+        oldest = bld.get('oldest_libraries', [])
+        leed = bld.get('leed_certified', [])
+        styles = bld.get('architectural_styles', [])
+        timeline = bld.get('history_timeline', [])
+        facts = bld.get('key_facts', [])
+
+        body += f"""
+<h2 id="buildings">Library Buildings &amp; Architecture</h2>
+<p>{esc(str(bld.get('overview', '')))[:600]}...</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(bks.get('carnegie_libraries_built', 0)):,}</div><div class="label">Carnegie Libraries Built</div></div>
+  <div class="stat-card"><div class="num">${int(bks.get('carnegie_total_cost', 0))/1e6:.0f}M</div><div class="label">Carnegie's Investment</div></div>
+  <div class="stat-card"><div class="num">{int(bks.get('carnegie_communities', 0)):,}</div><div class="label">Communities Served</div></div>
+  <div class="stat-card"><div class="num">{int(bks.get('oldest_library_year', 0))}</div><div class="label">Oldest Library Founded</div></div>
+</div>"""
+
+        # Carnegie libraries
+        if carnegie:
+            body += f"""
+<h3 id="carnegie-libraries">Carnegie Libraries</h3>
+<p>Andrew Carnegie funded the construction of <strong>{int(carnegie.get('total_built', 0)):,}</strong> library buildings in the United States between 1883 and 1929, spending roughly ${int(carnegie.get('total_cost_usd', 0))/1e6:.0f} million. Of {int(carnegie.get('communities_served', 0)):,} communities served, {int(carnegie.get('buildings_still_extant_1992', 0)):,} buildings were still extant as of 1992, with {int(carnegie.get('buildings_still_used_as_libraries_1992', 0)):,} still operating as libraries.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{int(carnegie.get('buildings_still_extant_1992', 0)):,}</div><div class="label">Still Extant (1992)</div></div>
+  <div class="stat-card"><div class="num">{int(carnegie.get('buildings_still_used_as_libraries_1992', 0)):,}</div><div class="label">Still Libraries</div></div>
+  <div class="stat-card"><div class="num">{int(carnegie.get('buildings_demolished_1992', 0)):,}</div><div class="label">Demolished</div></div>
+  <div class="stat-card"><div class="num">{int(carnegie.get('buildings_expanded_1992', 0)):,}</div><div class="label">Expanded</div></div>
+</div>"""
+            cn = carnegie.get('notable_examples', [])
+            if cn:
+                body += """
+<h4>Notable Carnegie Libraries</h4>
+<table class="wikitable sortable">
+  <tr><th>Library</th><th>City</th><th>State</th><th>Year</th><th>Notes</th></tr>"""
+                for c in cn[:15]:
+                    name = esc(str(c.get('name', '')))
+                    city = esc(str(c.get('city', '')))
+                    state = esc(str(c.get('state', '')))
+                    year = esc(str(c.get('year', '')))
+                    note = esc(str(c.get('note', '')))[:150]
+                    body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td class="num">{year}</td><td>{note}</td></tr>'
+                body += '\n</table>'
+
+        # Oldest libraries
+        if oldest:
+            body += """
+<h3 id="oldest-libraries">America's Oldest Libraries</h3>
+<table class="wikitable sortable">
+  <tr><th>Library</th><th>City</th><th>State</th><th>Founded</th><th>Description</th></tr>"""
+            for o in oldest[:12]:
+                name = esc(str(o.get('name', '')))
+                city = esc(str(o.get('city', '')))
+                state = esc(str(o.get('state', '')))
+                founded = esc(str(o.get('founded', '')))
+                desc = esc(str(o.get('description', '')))[:150]
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td class="num">{founded}</td><td>{desc}</td></tr>'
+            body += '\n</table>'
+
+        # Notable buildings
+        if notable:
+            body += """
+<h3 id="notable-buildings">Notable Library Buildings</h3>
+<table class="wikitable sortable">
+  <tr><th>Building</th><th>City</th><th>State</th><th>Year Built</th><th>Architect</th><th>Style</th><th>Sq Ft</th></tr>"""
+            for b in notable[:15]:
+                name = esc(str(b.get('name', '')))
+                city = esc(str(b.get('city', '')))
+                state = esc(str(b.get('state', '')))
+                yr = esc(str(b.get('year_built', '')))
+                arch = esc(str(b.get('architect', '')))
+                style = esc(str(b.get('style', '')))
+                sqft = int(b.get('sqft', 0)) if b.get('sqft') else 0
+                sqft_str = f'{sqft:,}' if sqft else '&mdash;'
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td class="num">{yr}</td><td>{arch}</td><td>{style}</td><td class="num">{sqft_str}</td></tr>'
+            body += '\n</table>'
+
+        # NRHP listed
+        if nrhp:
+            body += """
+<h3 id="nrhp-library-buildings">National Register of Historic Places</h3>
+<table class="wikitable sortable">
+  <tr><th>Building</th><th>City</th><th>State</th><th>Year Listed</th><th>Description</th></tr>"""
+            for n in nrhp[:10]:
+                name = esc(str(n.get('name', '')))
+                city = esc(str(n.get('city', '')))
+                state = esc(str(n.get('state', '')))
+                yr = esc(str(n.get('year_listed', '')))
+                desc = esc(str(n.get('description', '')))[:150]
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td class="num">{yr}</td><td>{desc}</td></tr>'
+            body += '\n</table>'
+
+        # LEED certified
+        if leed:
+            body += """
+<h3 id="leed-libraries">LEED-Certified Libraries</h3>
+<table class="wikitable sortable">
+  <tr><th>Library</th><th>City</th><th>State</th><th>LEED Level</th><th>Year</th><th>Description</th></tr>"""
+            for l in leed[:7]:
+                name = esc(str(l.get('name', '')))
+                city = esc(str(l.get('city', '')))
+                state = esc(str(l.get('state', '')))
+                level = esc(str(l.get('leed_level', '')))
+                yr = esc(str(l.get('year', '')))
+                desc = esc(str(l.get('description', '')))[:150]
+                body += f'\n  <tr><td><strong>{name}</strong></td><td>{city}</td><td>{state}</td><td>{level}</td><td class="num">{yr}</td><td>{desc}</td></tr>'
+            body += '\n</table>'
+
+        # Architectural styles
+        if styles:
+            body += """
+<h3 id="architectural-styles">Architectural Styles</h3>
+<table class="wikitable">
+  <tr><th>Style</th><th>Examples</th></tr>"""
+            for s in styles:
+                style = esc(str(s.get('style', '')))
+                examples = esc(str(', '.join(s.get('examples', []))))
+                body += f'\n  <tr><td><strong>{style}</strong></td><td>{examples}</td></tr>'
+            body += '\n</table>'
+
+        # History timeline
+        if timeline:
+            body += """
+<h3 id="building-history-timeline">Library Building History Timeline</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Event</th></tr>"""
+            for t in timeline:
+                yr = esc(str(t.get('year', '')))
+                event = esc(str(t.get('event', '')))
+                body += f'\n  <tr><td class="num"><strong>{yr}</strong></td><td>{event}</td></tr>'
+            body += '\n</table>'
+
+        # Key facts
+        if facts:
+            body += """
+<h3 id="building-key-facts">Key Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in facts:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
     body += f"""
 <h2 id="leaderboard">State Leaderboard</h2>
 <table class="wikitable leaderboard-table">

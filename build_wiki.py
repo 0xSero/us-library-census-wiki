@@ -11100,6 +11100,108 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Associations & Professional Organizations ──
+    try:
+        assoc = json.load(open(os.path.join(DATA, 'library_associations_summary.json')))
+        ala = assoc.get('ala_details', {})
+        state_assoc = assoc.get('state_associations', [])
+        specialized = assoc.get('specialized_associations', [])
+        advocacy = assoc.get('advocacy_organizations', [])
+        cooperatives = assoc.get('cooperatives', [])
+        lis = assoc.get('lis_programs', {})
+        assoc_findings = assoc.get('key_findings', [])
+
+        ala_members_raw = ala.get('membership', 0) if isinstance(ala, dict) else 0
+        if isinstance(ala_members_raw, dict):
+            ala_members = ala_members_raw.get('approximate_total', 0)
+        elif isinstance(ala_members_raw, (int, float)):
+            ala_members = ala_members_raw
+        else:
+            ala_members = 0
+
+        ala_budget_raw = ala.get('budget', 0) if isinstance(ala, dict) else 0
+        if isinstance(ala_budget_raw, dict):
+            ala_budget = ala_budget_raw.get('approximate_annual_operating_budget_usd', 0)
+        elif isinstance(ala_budget_raw, (int, float)):
+            ala_budget = ala_budget_raw
+        else:
+            ala_budget = 0
+        ala_budget_m = ala_budget / 1e6 if isinstance(ala_budget, (int, float)) and ala_budget else 0
+
+        lis_count = 0
+        if isinstance(lis, dict):
+            lis_count = lis.get('total_programs', lis.get('count', 0))
+            if not isinstance(lis_count, (int, float)):
+                lis_count = 0
+
+        body += f"""
+<h2 id="associations">Library Associations &amp; Professional Organizations</h2>
+<p>{esc(str(assoc.get('description', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ala_members:,}</div><div class="label">ALA Members</div></div>
+  <div class="stat-card"><div class="num">${ala_budget_m:.0f}M</div><div class="label">ALA Budget</div></div>
+  <div class="stat-card"><div class="num">{len(state_assoc)}</div><div class="label">State Associations</div></div>
+  <div class="stat-card"><div class="num">{len(specialized)}</div><div class="label">Specialized Assns.</div></div>
+  <div class="stat-card"><div class="num">{lis_count}</div><div class="label">LIS Programs</div></div>
+</div>"""
+
+        if isinstance(ala, dict) and ala.get('name'):
+            ala_founded = ala.get('founded', '')
+            ala_hq = ala.get('headquarters', '')
+            ala_mission = ala.get('mission', '')
+            body += f"""
+<div class="rules-box">
+  <h3>American Library Association (ALA)</h3>
+  <p><strong>Founded:</strong> {esc(str(ala_founded))} | <strong>HQ:</strong> {esc(str(ala_hq))[:100]}</p>
+  <p>{esc(str(ala_mission))[:300]}</p>
+</div>"""
+
+        if specialized:
+            body += """
+<h3>Specialized Library Associations</h3>
+<table class="wikitable sortable">
+  <tr><th>Association</th><th>Founded</th><th>Focus</th></tr>"""
+            for s in specialized[:12]:
+                if isinstance(s, dict):
+                    sn = esc(str(s.get('name', '')))
+                    sf = esc(str(s.get('founded', '')))
+                    sfoc = esc(str(s.get('focus', s.get('description', ''))))[:120]
+                    body += f'\n  <tr><td><strong>{sn}</strong></td><td>{sf}</td><td>{sfoc}</td></tr>'
+            body += '\n</table>'
+
+        if advocacy:
+            body += """
+<h3>Library Advocacy Organizations</h3>
+<table class="wikitable">
+  <tr><th>Organization</th><th>Focus</th></tr>"""
+            for a in advocacy[:8]:
+                if isinstance(a, dict):
+                    an = esc(str(a.get('name', '')))
+                    afoc = esc(str(a.get('focus', a.get('description', ''))))[:150]
+                    body += f'\n  <tr><td><strong>{an}</strong></td><td>{afoc}</td></tr>'
+            body += '\n</table>'
+
+        if cooperatives:
+            body += """
+<h3>Library Cooperatives & Consortia</h3>
+<table class="wikitable">
+  <tr><th>Cooperative</th><th>Members</th><th>Focus</th></tr>"""
+            for c in cooperatives[:12]:
+                if isinstance(c, dict):
+                    cn = esc(str(c.get('name', '')))
+                    cm = esc(str(c.get('members', '')))
+                    cfoc = esc(str(c.get('focus', c.get('description', ''))))[:120]
+                    body += f'\n  <tr><td><strong>{cn}</strong></td><td>{cm}</td><td>{cfoc}</td></tr>'
+            body += '\n</table>'
+
+        if assoc_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in assoc_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Social Impact & Outcomes ──
     try:
         imp = json.load(open(os.path.join(DATA, 'library_impact_outcomes_summary.json')))
@@ -13798,8 +13900,82 @@ def build_funders(data, stats):
     except Exception:
         pass
 
+    # ── Friends of the Library & Foundations ──
+    try:
+        ff = json.load(open(os.path.join(DATA, 'friends_foundations_summary.json')))
+        ff_groups = ff.get('total_friends_groups_estimated', 0)
+        ff_endow = ff.get('total_foundation_endowments', 0)
+        ff_endow_b = ff_endow / 1e9 if ff_endow else 0
+        ff_notable = ff.get('notable_foundations', [])
+        ff_grantmakers = ff.get('major_grantmaking_foundations', [])
+        ff_corporate = ff.get('corporate_sponsors', [])
+        ff_findings = ff.get('key_findings', [])
+
+        body += f"""
+<h2 id="friends-foundations">Friends of the Library &amp; Library Foundations</h2>
+<p>{esc(str(ff.get('description', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ff_groups:,}+</div><div class="label">Friends Groups (est.)</div></div>
+  <div class="stat-card"><div class="num">${ff_endow_b:.1f}B</div><div class="label">Foundation Endowments</div></div>
+  <div class="stat-card"><div class="num">{len(ff_notable)}</div><div class="label">Notable Foundations</div></div>
+  <div class="stat-card"><div class="num">{len(ff_corporate)}</div><div class="label">Corporate Sponsors</div></div>
+</div>"""
+
+        if ff_notable:
+            body += """
+<h3>Notable Library Foundations</h3>
+<table class="wikitable sortable">
+  <tr><th>Foundation</th><th>Endowment/Budget</th><th>Location</th><th>Focus</th></tr>"""
+            for f in ff_notable[:12]:
+                if isinstance(f, dict):
+                    fn = esc(str(f.get('name', '')))
+                    fe_raw = f.get('endowment', f.get('budget', 0))
+                    fe_m = fe_raw / 1e6 if isinstance(fe_raw, (int, float)) and fe_raw else 0
+                    fl = esc(str(f.get('location', '')))
+                    ffoc = esc(str(f.get('focus', f.get('description', ''))))[:120]
+                    fe_str = f"${fe_m:.0f}M" if fe_m else esc(str(fe_raw))[:30]
+                    body += f'\n  <tr><td><strong>{fn}</strong></td><td class="num">{fe_str}</td><td>{fl}</td><td>{ffoc}</td></tr>'
+            body += '\n</table>'
+
+        if ff_grantmakers:
+            body += """
+<h3>Major Grantmaking Foundations</h3>
+<table class="wikitable">
+  <tr><th>Foundation</th><th>Total Giving</th><th>Library Focus</th></tr>"""
+            for f in ff_grantmakers[:10]:
+                if isinstance(f, dict):
+                    fn = esc(str(f.get('name', '')))
+                    ft_raw = f.get('total_giving', f.get('giving', 0))
+                    ft_b = ft_raw / 1e9 if isinstance(ft_raw, (int, float)) and ft_raw else 0
+                    ft_str = f"${ft_b:.1f}B" if ft_b else esc(str(ft_raw))[:30]
+                    ffoc = esc(str(f.get('library_focus', f.get('focus', ''))))[:120]
+                    body += f'\n  <tr><td><strong>{fn}</strong></td><td class="num">{ft_str}</td><td>{ffoc}</td></tr>'
+            body += '\n</table>'
+
+        if ff_corporate:
+            body += """
+<h3>Corporate Sponsors</h3>
+<table class="wikitable">
+  <tr><th>Corporation</th><th>Contribution</th></tr>"""
+            for c in ff_corporate[:10]:
+                if isinstance(c, dict):
+                    cn = esc(str(c.get('name', c.get('corporation', ''))))
+                    cc_raw = c.get('amount', c.get('contribution', 0))
+                    cc_m = cc_raw / 1e6 if isinstance(cc_raw, (int, float)) and cc_raw else 0
+                    cc_str = f"${cc_m:.0f}M" if cc_m else esc(str(cc_raw))[:50]
+                    body += f'\n  <tr><td>{cn}</td><td class="num">{cc_str}</td></tr>'
+            body += '\n</table>'
+
+        if ff_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in ff_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#friends-foundations">Friends &amp; foundations</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:
@@ -14987,8 +15163,74 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Publishing & Collection Development ──
+    try:
+        pub = json.load(open(os.path.join(DATA, 'publishing_collection_development_summary.json')))
+        pub_stats = pub.get('publishing_stats', {})
+        pub_budgets = pub.get('materials_budgets', {})
+        pub_vendors = pub.get('major_vendors', [])
+        pub_ebook = pub.get('ebook_licensing', [])
+        pub_trends = pub.get('collection_trends', [])
+        pub_findings = pub.get('key_findings', [])
+
+        body += f"""
+<h2 id="publishing">Publishing Industry &amp; Library Collection Development</h2>
+<p>{esc(str(pub.get('description', '')))[:400]}</p>"""
+
+        if isinstance(pub_stats, dict) and pub_stats.get('market_size'):
+            ms = pub_stats.get('market_size', {})
+            ms_rev = ms.get('total_publisher_revenue_2023_usd', 0)
+            ms_rev_b = ms_rev / 1e9 if isinstance(ms_rev, (int, float)) and ms_rev else 0
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${ms_rev_b:.1f}B</div><div class="label">Publisher Revenue (2023)</div></div>
+  <div class="stat-card"><div class="num">{pub_stats.get('isbn_assigned_2023', '~4.3M')}</div><div class="label">ISBNs Assigned</div></div>
+  <div class="stat-card"><div class="num">{len(pub_vendors)}</div><div class="label">Major Vendors</div></div>
+  <div class="stat-card"><div class="num">{len(pub_ebook)}</div><div class="label">E-Book Licensing Models</div></div>
+</div>"""
+
+        if isinstance(pub_budgets, dict) and pub_budgets:
+            body += '\n<div class="rules-box"><h3>Library Materials Budgets</h3><ul class="wiki-list">'
+            for k, v in list(pub_budgets.items())[:6]:
+                v_str = str(v)[:200] if v else 'N/A'
+                display_k = esc(str(k)).replace('_', ' ').title()
+                body += f'\n  <li><strong>{display_k}:</strong> {esc(v_str)}</li>'
+            body += '\n</ul></div>'
+
+        if pub_vendors:
+            body += """
+<h3>Major Library Vendors</h3>
+<table class="wikitable sortable">
+  <tr><th>Vendor</th><th>Services</th></tr>"""
+            for v in pub_vendors[:12]:
+                if isinstance(v, dict):
+                    vn = esc(str(v.get('name', '')))
+                    vs = esc(str(v.get('services', v.get('description', ''))))[:150]
+                    body += f'\n  <tr><td><strong>{vn}</strong></td><td>{vs}</td></tr>'
+            body += '\n</table>'
+
+        if pub_ebook:
+            body += """
+<h3>E-Book Licensing Models</h3>
+<table class="wikitable">
+  <tr><th>Publisher</th><th>Pricing Model</th></tr>"""
+            for e in pub_ebook[:10]:
+                if isinstance(e, dict):
+                    en = esc(str(e.get('publisher', e.get('name', ''))))
+                    em = esc(str(e.get('model', e.get('pricing', ''))))[:120]
+                    body += f'\n  <tr><td>{en}</td><td>{em}</td></tr>'
+            body += '\n</table>'
+
+        if pub_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in pub_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

@@ -680,6 +680,14 @@ def load_all():
         ('streaming', 'library_streaming_summary.json'),
         ('immigrants', 'library_immigrants_summary.json'),
         ('civic', 'library_civic_summary.json'),
+        ('homelessness', 'library_homelessness_summary.json'),
+        ('workforce_dev', 'library_workforce_dev_summary.json'),
+        ('literacy', 'library_literacy_summary.json'),
+        ('youth', 'library_youth_summary.json'),
+        ('tech_infrastructure', 'library_tech_infrastructure_summary.json'),
+        ('assessment', 'library_assessment_summary.json'),
+        ('veterans', 'library_veterans_summary.json'),
+        ('seniors', 'library_seniors_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -10817,6 +10825,365 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Workforce Development ──
+    try:
+        wf = data.get('workforce_dev', {})
+        if wf:
+            wf_jobs = wf.get('job_training', {})
+            wf_career = wf.get('career_services', {})
+            wf_partners = wf.get('workforce_partnerships', {})
+            wf_digital = wf.get('digital_skills', {})
+            wf_programs = wf.get('notable_programs', [])
+            wf_impact = wf.get('economic_impact', {})
+            wf_findings = wf.get('key_findings', [])
+
+            body += """
+<h2 id="workforce-dev">Libraries &amp; Workforce Development</h2>
+<p>Public libraries are the most widely available workforce-development on-ramp in the country: virtually every U.S. public library offers some combination of job-search help, digital-literacy instruction, and access to online learning platforms — services that connect millions of job seekers to employment each year.</p>"""
+
+            if wf_jobs and isinstance(wf_jobs, dict):
+                wf_jobs_ov = esc(str(wf_jobs.get('overview', wf_jobs.get('summary', ''))))
+                body += f'\n<h3>Job Training</h3><p>{wf_jobs_ov}</p>'
+
+            if wf_career and isinstance(wf_career, dict):
+                wf_career_ov = esc(str(wf_career.get('overview', wf_career.get('summary', ''))))
+                body += f'\n<h3>Career Services</h3><p>{wf_career_ov}</p>'
+                wf_services = wf_career.get('services', [])
+                if wf_services and isinstance(wf_services, list):
+                    body += '\n<ul class="wiki-list">'
+                    for s in wf_services[:10]:
+                        body += f'\n  <li>{esc(str(s))}</li>'
+                    body += '\n</ul>'
+
+            if wf_partners and isinstance(wf_partners, dict):
+                wf_part_ov = esc(str(wf_partners.get('overview', wf_partners.get('summary', ''))))
+                body += f'\n<h3>Workforce Partnerships</h3><p>{wf_part_ov}</p>'
+                wf_wioa = wf_partners.get('wioa_and_american_job_centers', '')
+                if wf_wioa:
+                    body += f'\n<div class="rules-box"><p>{esc(str(wf_wioa))}</p></div>'
+
+            if wf_digital and isinstance(wf_digital, dict):
+                wf_dig_ov = esc(str(wf_digital.get('overview', wf_digital.get('summary', ''))))
+                body += f'\n<h3>Digital Skills</h3><p>{wf_dig_ov}</p>'
+                wf_ns = wf_digital.get('northstar_digital_literacy', '')
+                if wf_ns:
+                    body += f'\n<div class="rules-box"><p>{esc(str(wf_ns))}</p></div>'
+
+            if wf_programs and isinstance(wf_programs, list):
+                body += '\n<h3>Notable Workforce Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Description</th></tr>'
+                for p in wf_programs[:15]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_desc = esc(str(p.get('description', '')))[:200]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if wf_impact and isinstance(wf_impact, dict):
+                wf_imp_ov = esc(str(wf_impact.get('overview', '')))
+                body += f'\n<h3>Economic Impact</h3><p>{wf_imp_ov}</p>'
+                wf_ind = wf_impact.get('individual_level', [])
+                wf_comm = wf_impact.get('community_level', [])
+                if wf_ind and isinstance(wf_ind, list):
+                    body += '\n<div class="rules-box"><h4>Individual Level</h4><ul class="wiki-list">'
+                    for i in wf_ind[:6]:
+                        body += f'\n  <li>{esc(str(i))}</li>'
+                    body += '\n</ul></div>'
+                if wf_comm and isinstance(wf_comm, list):
+                    body += '\n<div class="rules-box"><h4>Community Level</h4><ul class="wiki-list">'
+                    for c in wf_comm[:6]:
+                        body += f'\n  <li>{esc(str(c))}</li>'
+                    body += '\n</ul></div>'
+
+            if wf_findings and isinstance(wf_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in wf_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries & Youth ──
+    try:
+        yth = data.get('youth', {})
+        if yth:
+            yth_teen = yth.get('teen_programs', {})
+            yth_homework = yth.get('homework_help', {})
+            yth_stem = yth.get('stem_youth', {})
+            yth_summer = yth.get('summer_learning', {})
+            yth_spaces = yth.get('notable_spaces', [])
+            yth_ala = yth.get('ala_youth', {})
+            yth_findings = yth.get('key_findings', [])
+
+            body += """
+<h2 id="youth-services">Libraries &amp; Youth Services</h2>
+<p>From dedicated teen spaces and STEM robotics labs to summer reading programs that combat learning loss, U.S. public libraries are foundational youth-development institutions — codified in the PLA's 2007 service responses and supported by ALSC and YALSA divisions of the ALA.</p>"""
+
+            if yth_teen and isinstance(yth_teen, dict):
+                yth_teen_ov = esc(str(yth_teen.get('summary', '')))
+                body += f'\n<h3>Teen Programs</h3><p>{yth_teen_ov}</p>'
+                yth_tabs = yth_teen.get('teen_advisory_boards', '')
+                yth_spaces_t = yth_teen.get('teen_spaces', '')
+                if yth_tabs:
+                    body += f'\n<div class="rules-box"><p>{esc(str(yth_tabs))}</p></div>'
+
+            if yth_stem and isinstance(yth_stem, dict):
+                yth_stem_ov = esc(str(yth_stem.get('summary', '')))
+                body += f'\n<h3>STEM &amp; STEAM for Youth</h3><p>{yth_stem_ov}</p>'
+                stem_items = [
+                    ('nasa_at_my_library', 'NASA @ My Library'),
+                    ('girls_who_code', 'Girls Who Code'),
+                    ('first_robotics', 'FIRST Robotics'),
+                    ('coding_in_libraries', 'Coding in Libraries'),
+                ]
+                body += '\n<ul class="wiki-list">'
+                for k, label in stem_items:
+                    sv = yth_stem.get(k, '')
+                    if sv:
+                        body += f'\n  <li><strong>{esc(label)}:</strong> {esc(str(sv))[:200]}</li>'
+                body += '\n</ul>'
+
+            if yth_summer and isinstance(yth_summer, dict):
+                yth_summer_ov = esc(str(yth_summer.get('summary', '')))
+                body += f'\n<h3>Summer Learning</h3><p>{yth_summer_ov}</p>'
+                yth_sr = yth_summer.get('summer_reading_programs', '')
+                yth_meals = yth_summer.get('summer_meal_programs', '')
+                if yth_sr:
+                    body += f'\n<div class="rules-box"><p>{esc(str(yth_sr))}</p></div>'
+                if yth_meals:
+                    body += f'\n<div class="rules-box"><p>{esc(str(yth_meals))}</p></div>'
+
+            if yth_spaces and isinstance(yth_spaces, list):
+                body += '\n<h3>Notable Youth &amp; Teen Spaces</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Space</th><th>Location</th><th>Operator</th><th>Focus</th></tr>'
+                for s in yth_spaces[:19]:
+                    if isinstance(s, dict):
+                        s_name = esc(str(s.get('name', '')))
+                        s_loc = esc(str(s.get('location', '')))
+                        s_op = esc(str(s.get('operator', '')))
+                        s_focus = esc(str(s.get('focus', '')))[:180]
+                        body += f'\n  <tr><td><strong>{s_name}</strong></td><td>{s_loc}</td><td>{s_op}</td><td>{s_focus}</td></tr>'
+                body += '\n</table>'
+
+            if yth_ala and isinstance(yth_ala, dict):
+                yth_ala_ov = esc(str(yth_ala.get('summary', '')))
+                body += f'\n<h3>ALA Youth Divisions</h3><p>{yth_ala_ov}</p>'
+                yth_alsc = yth_ala.get('alsc', '')
+                yth_yalsa = yth_ala.get('yalsa', '')
+                if yth_alsc:
+                    body += f'\n<div class="rules-box"><h4>ALSC</h4><p>{esc(str(yth_alsc))}</p></div>'
+                if yth_yalsa:
+                    body += f'\n<div class="rules-box"><h4>YALSA</h4><p>{esc(str(yth_yalsa))}</p></div>'
+
+            if yth_findings and isinstance(yth_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in yth_findings[:10]:
+                    if isinstance(f, dict):
+                        f_text = esc(str(f.get('finding', f.get('text', ''))))
+                        body += f'\n  <li>{f_text}</li>'
+                    else:
+                        body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Technology Infrastructure ──
+    try:
+        ti = data.get('tech_infrastructure', {})
+        if ti:
+            ti_ils = ti.get('ils_systems', {})
+            ti_disco = ti.get('discovery_layers', {})
+            ti_wifi = ti.get('wifi_infrastructure', {})
+            ti_computers = ti.get('computing_devices', {})
+            ti_printing = ti.get('printing_services', {})
+            ti_networks = ti.get('library_networks', {})
+            ti_selfco = ti.get('self_checkout', {})
+            ti_findings = ti.get('key_findings', [])
+
+            body += """
+<h2 id="tech-infrastructure">Library Technology Infrastructure</h2>
+<p>The technology backbone of America's public libraries: integrated library systems (ILS), discovery layers, Wi-Fi networks, public computing, and the self-service technologies that power modern library operations.</p>"""
+
+            if ti_ils and isinstance(ti_ils, dict):
+                ti_ils_ov = esc(str(ti_ils.get('summary', '')))
+                ti_ils_market = esc(str(ti_ils.get('market_consolidation', '')))
+                body += f'\n<h3>Integrated Library Systems (ILS)</h3><p>{ti_ils_ov}</p>'
+                if ti_ils_market:
+                    body += f'\n<div class="rules-box"><p>{ti_ils_market}</p></div>'
+                ti_ils_systems = ti_ils.get('systems', [])
+                if ti_ils_systems and isinstance(ti_ils_systems, list):
+                    body += '\n<table class="wikitable sortable"><tr><th>System</th><th>Type</th><th>Vendor</th><th>Notes</th></tr>'
+                    for s in ti_ils_systems[:12]:
+                        if isinstance(s, dict):
+                            s_name = esc(str(s.get('name', s.get('system', ''))))
+                            s_type = esc(str(s.get('type', '')))
+                            s_vendor = esc(str(s.get('vendor', s.get('developer', ''))))
+                            s_notes = esc(str(s.get('notes', s.get('description', ''))))[:180]
+                            body += f'\n  <tr><td><strong>{s_name}</strong></td><td>{s_type}</td><td>{s_vendor}</td><td>{s_notes}</td></tr>'
+                    body += '\n</table>'
+                ti_ils_oss = ti_ils.get('open_source_movement', '')
+                if ti_ils_oss:
+                    body += f'\n<div class="rules-box"><h4>Open Source Movement</h4><p>{esc(str(ti_ils_oss))}</p></div>'
+
+            if ti_disco and isinstance(ti_disco, dict):
+                ti_disco_ov = esc(str(ti_disco.get('summary', '')))
+                body += f'\n<h3>Discovery Layers</h3><p>{ti_disco_ov}</p>'
+                ti_platforms = ti_disco.get('platforms', [])
+                if ti_platforms and isinstance(ti_platforms, list):
+                    body += '\n<table class="wikitable sortable"><tr><th>Platform</th><th>Vendor</th><th>Description</th></tr>'
+                    for p in ti_platforms[:8]:
+                        if isinstance(p, dict):
+                            p_name = esc(str(p.get('name', p.get('platform', ''))))
+                            p_vendor = esc(str(p.get('vendor', '')))
+                            p_desc = esc(str(p.get('description', '')))[:180]
+                            body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_vendor}</td><td>{p_desc}</td></tr>'
+                    body += '\n</table>'
+
+            if ti_wifi and isinstance(ti_wifi, dict):
+                ti_wifi_ov = esc(str(ti_wifi.get('summary', '')))
+                body += f'\n<h3>Wi-Fi Infrastructure</h3><p>{ti_wifi_ov}</p>'
+                ti_wifi_avail = ti_wifi.get('availability', '')
+                ti_wifi_sessions = ti_wifi.get('wifi_sessions_imls_fy2024', '')
+                body += '\n<div class="stats-grid">'
+                if ti_wifi_avail:
+                    body += f'\n  <div class="stat-card"><div class="num">Availability</div><div class="label">{esc(str(ti_wifi_avail))[:200]}</div></div>'
+                if ti_wifi_sessions:
+                    body += f'\n  <div class="stat-card"><div class="num">FY2024 Sessions</div><div class="label">{esc(str(ti_wifi_sessions))[:200]}</div></div>'
+                body += '\n</div>'
+
+            if ti_computers and isinstance(ti_computers, dict):
+                ti_comp_ov = esc(str(ti_computers.get('summary', '')))
+                body += f'\n<h3>Public Computing</h3><p>{ti_comp_ov}</p>'
+                ti_comp_pcs = ti_computers.get('public_internet_computers_imls_fy2024', '')
+                ti_comp_sessions = ti_computers.get('public_internet_user_sessions_imls_fy2024', '')
+                body += '\n<div class="stats-grid">'
+                if ti_comp_pcs:
+                    body += f'\n  <div class="stat-card"><div class="num">Public computers</div><div class="label">{esc(str(ti_comp_pcs))[:200]}</div></div>'
+                if ti_comp_sessions:
+                    body += f'\n  <div class="stat-card"><div class="num">User sessions</div><div class="label">{esc(str(ti_comp_sessions))[:200]}</div></div>'
+                body += '\n</div>'
+
+            if ti_printing and isinstance(ti_printing, dict):
+                ti_print_ov = esc(str(ti_printing.get('summary', '')))
+                body += f'\n<h3>Printing Services</h3><p>{ti_print_ov}</p>'
+                ti_3d = ti_printing.get('three_d_printing', '')
+                if ti_3d:
+                    body += f'\n<div class="rules-box"><h4>3D Printing</h4><p>{esc(str(ti_3d))}</p></div>'
+
+            if ti_selfco and isinstance(ti_selfco, dict):
+                ti_sc_ov = esc(str(ti_selfco.get('summary', '')))
+                body += f'\n<h3>Self-Checkout</h3><p>{ti_sc_ov}</p>'
+                ti_rfid = ti_selfco.get('rfid_based', '')
+                ti_mobile = ti_selfco.get('mobile_checkout_apps', '')
+                if ti_rfid:
+                    body += f'\n<div class="rules-box"><p>{esc(str(ti_rfid))}</p></div>'
+                if ti_mobile:
+                    body += f'\n<div class="rules-box"><p>{esc(str(ti_mobile))}</p></div>'
+
+            if ti_findings and isinstance(ti_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in ti_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Assessment & Measurement ──
+    try:
+        la = data.get('assessment', {})
+        if la:
+            la_perf = la.get('performance_metrics', {})
+            la_po = la.get('project_outcome', {})
+            la_bench = la.get('benchmarking', {})
+            la_roi = la.get('social_roi', {})
+            la_studies = la.get('impact_studies', [])
+            la_assessments = la.get('notable_assessments', [])
+            la_findings = la.get('key_findings', [])
+
+            body += """
+<h2 id="assessment">Library Assessment &amp; Measurement</h2>
+<p>How libraries measure their impact: from IMLS Public Libraries Survey data and ISO 16439 international standards to PLA's Project Outcome toolkit and return-on-investment studies that quantify the economic and social value of library services.</p>"""
+
+            if la_perf and isinstance(la_perf, dict):
+                la_perf_ov = esc(str(la_perf.get('summary', '')))
+                body += f'\n<h3>Performance Metrics</h3><p>{la_perf_ov}</p>'
+                la_iso = la_perf.get('iso_16439', '')
+                la_cipp = la_perf.get('cipp_evaluation_model', '')
+                if la_iso:
+                    body += f'\n<div class="rules-box"><h4>ISO 16439</h4><p>{esc(str(la_iso))}</p></div>'
+                if la_cipp:
+                    body += f'\n<div class="rules-box"><h4>CIPP Evaluation Model</h4><p>{esc(str(la_cipp))}</p></div>'
+
+            if la_po and isinstance(la_po, dict):
+                la_po_ov = esc(str(la_po.get('summary', '')))
+                body += f'\n<h3>Project Outcome (PLA)</h3><p>{la_po_ov}</p>'
+                la_areas = la_po.get('outcome_areas', [])
+                if la_areas and isinstance(la_areas, list):
+                    body += '\n<ul class="wiki-list">'
+                    for a in la_areas[:8]:
+                        body += f'\n  <li>{esc(str(a))}</li>'
+                    body += '\n</ul>'
+
+            if la_roi and isinstance(la_roi, dict):
+                la_roi_ov = esc(str(la_roi.get('summary', '')))
+                la_roi_range = esc(str(la_roi.get('roi_range_per_dollar', '')))
+                body += f'\n<h3>Social Return on Investment</h3><p>{la_roi_ov}</p>'
+                if la_roi_range:
+                    body += f'\n<div class="stats-grid"><div class="stat-card"><div class="num">ROI Range</div><div class="label">{la_roi_range}</div></div></div>'
+                la_studies_roi = la_roi.get('roi_studies', [])
+                if la_studies_roi and isinstance(la_studies_roi, list):
+                    body += '\n<table class="wikitable sortable"><tr><th>Study</th><th>ROI</th><th>Year</th></tr>'
+                    for r in la_studies_roi[:10]:
+                        if isinstance(r, dict):
+                            r_name_raw = r.get('jurisdiction', r.get('study', r.get('name', '')))
+                            r_roi_raw = r.get('roi', r.get('value', ''))
+                            r_year_raw = r.get('year', '')
+                            r_name = esc(str(r_name_raw))
+                            r_roi = esc(str(r_roi_raw))
+                            r_year = esc(str(r_year_raw))
+                            body += f'\n  <tr><td><strong>{r_name}</strong></td><td>{r_roi}</td><td>{r_year}</td></tr>'
+                    body += '\n</table>'
+
+            if la_studies and isinstance(la_studies, list):
+                body += '\n<h3>Impact Studies</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Study</th><th>Description</th></tr>'
+                for s in la_studies[:12]:
+                    if isinstance(s, dict):
+                        s_name_raw = s.get('name', s.get('study', s.get('title', '')))
+                        s_desc_raw = s.get('description', s.get('finding', ''))
+                        s_name = esc(str(s_name_raw))
+                        s_desc = esc(str(s_desc_raw))[:200]
+                        body += f'\n  <tr><td><strong>{s_name}</strong></td><td>{s_desc}</td></tr>'
+                    else:
+                        body += f'\n  <tr><td>{esc(str(s))[:200]}</td><td></td></tr>'
+                body += '\n</table>'
+
+            if la_assessments and isinstance(la_assessments, list):
+                body += '\n<h3>Notable Assessment Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Description</th></tr>'
+                for a in la_assessments[:15]:
+                    if isinstance(a, dict):
+                        a_name_raw = a.get('name', a.get('program', a.get('title', '')))
+                        a_desc_raw = a.get('description', a.get('overview', ''))
+                        a_name = esc(str(a_name_raw))
+                        a_desc = esc(str(a_desc_raw))[:200]
+                        body += f'\n  <tr><td><strong>{a_name}</strong></td><td>{a_desc}</td></tr>'
+                    else:
+                        body += f'\n  <tr><td>{esc(str(a))[:200]}</td><td></td></tr>'
+                body += '\n</table>'
+
+            if la_findings and isinstance(la_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in la_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
 <h2>Map Legend</h2>
 <div class="rules-box">
@@ -10827,7 +11194,7 @@ def build_index(data, stats):
   </ul>
 </div>
 
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a> | <a href="#innovation-deep">Innovation deep dive</a> | <a href="#entrepreneurship">Entrepreneurship</a> | <a href="#circulation-rankings">Circulation</a> | <a href="#library-cards">Library cards</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a> | <a href="#innovation-deep">Innovation deep dive</a> | <a href="#entrepreneurship">Entrepreneurship</a> | <a href="#circulation-rankings">Circulation</a> | <a href="#library-cards">Library cards</a> | <a href="#workforce-dev">Workforce dev</a> | <a href="#youth-services">Youth services</a> | <a href="#tech-infrastructure">Tech infrastructure</a> | <a href="#assessment">Assessment</a></div>
 <div class="relatedbox">
   <h3>Keep exploring</h3>
   <ul>
@@ -14266,8 +14633,337 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Libraries & Homelessness ──
+    try:
+        hl = data.get('homelessness', {})
+        if hl:
+            hl_stats = hl.get('homeless_patron_stats', {})
+            hl_shelter = hl.get('library_as_daytime_shelter', {})
+            hl_social = hl.get('social_workers_in_libraries', {})
+            hl_services = hl.get('homeless_services', {})
+            hl_programs = hl.get('notable_programs', [])
+            hl_findings = hl.get('key_findings', [])
+
+            body += """
+<h2 id="homelessness">Libraries &amp; Homelessness</h2>
+<p>Public libraries are among the few public indoor spaces open to all without expectation of purchase, making them de facto daytime shelters for people experiencing homelessness. A growing number of systems now embed professional social workers and peer support specialists to connect vulnerable patrons with housing, health, and benefits services.</p>"""
+
+            if hl_stats and isinstance(hl_stats, dict):
+                hl_ov = esc(str(hl_stats.get('overview', '')))
+                body += f'\n<p>{hl_ov}</p>'
+                hl_ctx = hl_stats.get('national_homelessness_context', '')
+                if hl_ctx:
+                    body += f'\n<div class="rules-box"><h3>National Context</h3><p>{esc(str(hl_ctx))}</p></div>'
+                hl_enc = hl_stats.get('library_patron_encounters', '')
+                hl_est = hl_stats.get('libraries_serving_homeless_estimate', '')
+                if hl_enc or hl_est:
+                    body += '\n<div class="stats-grid">'
+                    if hl_enc:
+                        body += f'\n  <div class="stat-card"><div class="num">Patron encounters</div><div class="label">{esc(str(hl_enc))[:200]}</div></div>'
+                    if hl_est:
+                        body += f'\n  <div class="stat-card"><div class="num">Systems serving homeless</div><div class="label">{esc(str(hl_est))[:200]}</div></div>'
+                    body += '\n</div>'
+
+            if hl_social and isinstance(hl_social, dict):
+                hl_soc_ov = esc(str(hl_social.get('overview', '')))
+                hl_origin = esc(str(hl_social.get('origin_sfpl', '')))
+                body += f'\n<h3>Social Workers in Libraries</h3><p>{hl_soc_ov}</p>'
+                if hl_origin:
+                    body += f'\n<div class="rules-box"><p>{hl_origin}</p></div>'
+                hl_systems = hl_social.get('systems_with_social_workers', [])
+                if hl_systems and isinstance(hl_systems, list):
+                    body += '\n<table class="wikitable sortable"><tr><th>Library system</th><th>Details</th></tr>'
+                    for s in hl_systems[:15]:
+                        if isinstance(s, dict):
+                            s_name_raw = s.get('library', s.get('name', s.get('system', '')))
+                            s_desc_raw = s.get('description', s.get('detail', ''))
+                            s_name = esc(str(s_name_raw))
+                            s_desc = esc(str(s_desc_raw))[:200]
+                            body += f'\n  <tr><td><strong>{s_name}</strong></td><td>{s_desc}</td></tr>'
+                    body += '\n</table>'
+
+            if hl_services and isinstance(hl_services, dict):
+                hl_svc_ov = esc(str(hl_services.get('overview', '')))
+                body += f'\n<h3>Services Offered</h3><p>{hl_svc_ov}</p>'
+                service_keys = ['showers', 'laundry', 'mail_services', 'storage', 'hygiene_kits', 'restroom_access', 'computer_internet_charging']
+                body += '\n<div class="stats-grid">'
+                for sk in service_keys:
+                    sv = hl_services.get(sk, '')
+                    if sv:
+                        sk_disp = esc(str(sk).replace('_', ' ').title())
+                        body += f'\n  <div class="stat-card"><div class="num">{sk_disp}</div><div class="label">{esc(str(sv))[:150]}</div></div>'
+                body += '\n</div>'
+
+            if hl_programs and isinstance(hl_programs, list):
+                body += '\n<h3>Notable Homeless Outreach Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Started</th><th>Description</th></tr>'
+                for p in hl_programs[:18]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_lib = esc(str(p.get('library', p.get('location', ''))))
+                        p_state = esc(str(p.get('state', '')))
+                        p_started = esc(str(p.get('started', p.get('year', ''))))
+                        p_desc = esc(str(p.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_lib}</td><td>{p_state}</td><td>{p_started}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if hl_findings and isinstance(hl_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in hl_findings[:10]:
+                    if isinstance(f, dict):
+                        f_text = esc(str(f.get('finding', f.get('text', ''))))
+                        body += f'\n  <li>{f_text}</li>'
+                    else:
+                        body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries & Literacy ──
+    try:
+        lit = data.get('literacy', {})
+        if lit:
+            lit_stats = lit.get('literacy_stats', [])
+            lit_programs = lit.get('notable_programs', [])
+            lit_findings = lit.get('key_findings', [])
+            lit_adult = lit.get('adult_literacy', {})
+            lit_early = lit.get('early_literacy', {})
+            lit_digital = lit.get('digital_literacy', {})
+            lit_summer = lit.get('summer_reading', {})
+
+            body += """
+<h2 id="literacy">Libraries &amp; Literacy</h2>
+<p>From early literacy storytimes to adult reading instruction, digital skills classes, and summer reading programs that combat learning loss, libraries are the nation's most accessible literacy infrastructure — open to all ages, free of charge, in nearly every community.</p>"""
+
+            if lit_stats and isinstance(lit_stats, list):
+                body += '\n<h3>National Literacy Statistics</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Metric</th><th>Value</th><th>Source</th><th>Context</th></tr>'
+                for s in lit_stats[:10]:
+                    if isinstance(s, dict):
+                        s_metric = esc(str(s.get('metric', '')))
+                        s_value = esc(str(s.get('value', '')))
+                        s_source = esc(str(s.get('source', '')))
+                        s_ctx = esc(str(s.get('context', '')))[:200]
+                        body += f'\n  <tr><td><strong>{s_metric}</strong></td><td>{s_value}</td><td>{s_source}</td><td>{s_ctx}</td></tr>'
+                body += '\n</table>'
+
+            lit_sections = [
+                ('adult_literacy', lit_adult, 'Adult Literacy'),
+                ('early_literacy', lit_early, 'Early Literacy'),
+                ('digital_literacy', lit_digital, 'Digital Literacy'),
+                ('summer_reading', lit_summer, 'Summer Reading'),
+            ]
+            for _, ldict, ltitle in lit_sections:
+                if ldict and isinstance(ldict, dict):
+                    l_ov = esc(str(ldict.get('overview', ldict.get('summary', ''))))
+                    body += f'\n<h3>{ltitle}</h3><p>{l_ov}</p>'
+                    l_model = ldict.get('flagship_model', ldict.get('research_basis', ''))
+                    if l_model:
+                        body += f'\n<div class="rules-box"><p>{esc(str(l_model))}</p></div>'
+
+            if lit_programs and isinstance(lit_programs, list):
+                body += '\n<h3>Notable Literacy Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Organization</th><th>Focus</th><th>Description</th></tr>'
+                for p in lit_programs[:17]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_org = esc(str(p.get('organization', p.get('library', ''))))
+                        p_focus = esc(str(p.get('focus', '')))
+                        p_desc = esc(str(p.get('description', '')))[:180]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_org}</td><td>{p_focus}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if lit_findings and isinstance(lit_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in lit_findings[:9]:
+                    if isinstance(f, dict):
+                        f_text = esc(str(f.get('finding', f.get('text', ''))))
+                        body += f'\n  <li>{f_text}</li>'
+                    else:
+                        body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries Serving Veterans ──
+    try:
+        vt = data.get('veterans', {})
+        if vt:
+            vt_programs = vt.get('veteran_programs', {})
+            vt_va = vt.get('va_partnerships', {})
+            vt_military = vt.get('military_families', {})
+            vt_history = vt.get('veteran_history', {})
+            vt_services = vt.get('veteran_services', {})
+            vt_notable = vt.get('notable_programs', [])
+            vt_ala = vt.get('ala_initiatives', {})
+            vt_dod = vt.get('dod_partnerships', {})
+            vt_demo = vt.get('veteran_demographics', {})
+            vt_findings = vt.get('key_findings', [])
+
+            body += """
+<h2 id="veterans">Libraries Serving Veterans</h2>
+<p>Public libraries serve millions of U.S. veterans and military families — offering VA claims assistance, GI Bill information, veteran book clubs, oral history projects in partnership with the Library of Congress Veterans History Project, and connections to benefits and crisis resources.</p>"""
+
+            if vt_demo and isinstance(vt_demo, dict):
+                vt_demo_ov = esc(str(vt_demo.get('overview', '')))
+                vt_pop = esc(str(vt_demo.get('national_veteran_population', '')))
+                body += f'\n<p>{vt_demo_ov}</p>'
+                if vt_pop:
+                    body += f'\n<div class="rules-box"><h3>National Veteran Population</h3><p>{vt_pop}</p></div>'
+
+            if vt_va and isinstance(vt_va, dict):
+                vt_va_ov = esc(str(vt_va.get('overview', '')))
+                body += f'\n<h3>VA Partnerships</h3><p>{vt_va_ov}</p>'
+                vt_vba = vt_va.get('veterans_benefits_administration', '')
+                vt_vha = vt_va.get('va_medical_centers', '')
+                vt_crisis = vt_va.get('veterans_crisis_line', '')
+                body += '\n<ul class="wiki-list">'
+                if vt_vba:
+                    body += f'\n  <li><strong>VBA:</strong> {esc(str(vt_vba))[:200]}</li>'
+                if vt_vha:
+                    body += f'\n  <li><strong>VHA:</strong> {esc(str(vt_vha))[:200]}</li>'
+                if vt_crisis:
+                    body += f'\n  <li><strong>Crisis Line:</strong> {esc(str(vt_crisis))[:200]}</li>'
+                body += '\n</ul>'
+
+            if vt_history and isinstance(vt_history, dict):
+                vt_hist_ov = esc(str(vt_history.get('overview', '')))
+                vt_vhp = esc(str(vt_history.get('loc_veterans_history_project', '')))
+                body += f'\n<h3>Veterans History Project</h3><p>{vt_hist_ov}</p>'
+                if vt_vhp:
+                    body += f'\n<div class="rules-box"><p>{vt_vhp}</p></div>'
+
+            if vt_services and isinstance(vt_services, dict):
+                vt_svc_ov = esc(str(vt_services.get('overview', '')))
+                body += f'\n<h3>Veteran Services at Libraries</h3><p>{vt_svc_ov}</p>'
+                svc_keys = ['va_claims_assistance', 'veteran_service_officer_hours', 'gi_bill_information', 'dd214_and_records_help', 'voter_and_civic_services']
+                body += '\n<ul class="wiki-list">'
+                for sk in svc_keys:
+                    sv = vt_services.get(sk, '')
+                    if sv:
+                        sk_disp = esc(str(sk).replace('_', ' ').title())
+                        body += f'\n  <li><strong>{sk_disp}:</strong> {esc(str(sv))[:200]}</li>'
+                body += '\n</ul>'
+
+            if vt_notable and isinstance(vt_notable, list):
+                body += '\n<h3>Notable Veteran Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for p in vt_notable[:17]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_lib = esc(str(p.get('library', p.get('location', ''))))
+                        p_state = esc(str(p.get('state', '')))
+                        p_desc = esc(str(p.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_lib}</td><td>{p_state}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if vt_ala and isinstance(vt_ala, dict):
+                vt_ala_ov = esc(str(vt_ala.get('overview', '')))
+                body += f'\n<h3>ALA Veterans Initiatives</h3><p>{vt_ala_ov}</p>'
+                vt_ala_srv = vt_ala.get('ala_libraries_serve_veterans', '')
+                if vt_ala_srv:
+                    body += f'\n<div class="rules-box"><p>{esc(str(vt_ala_srv))}</p></div>'
+
+            if vt_findings and isinstance(vt_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in vt_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Libraries Serving Seniors ──
+    try:
+        sn = data.get('seniors', {})
+        if sn:
+            sn_programs = sn.get('senior_programs', {})
+            sn_digital = sn.get('digital_inclusion_seniors', {})
+            sn_health = sn.get('health_wellness_seniors', {})
+            sn_social = sn.get('social_connection', {})
+            sn_learning = sn.get('lifelong_learning', {})
+            sn_genealogy = sn.get('genealogy', {})
+            sn_notable = sn.get('notable_programs', [])
+            sn_aging = sn.get('aging_statistics', {})
+            sn_findings = sn.get('key_findings', [])
+
+            body += """
+<h2 id="seniors">Libraries Serving Seniors</h2>
+<p>As the U.S. population ages — with 65+ projected to outnumber children under 18 by 2034 — public libraries are becoming essential hubs for older adults: offering digital inclusion programs, memory cafes, genealogy resources, lifelong learning, Medicare information, and social connection programs that combat isolation.</p>"""
+
+            if sn_aging and isinstance(sn_aging, dict):
+                sn_aging_ov = esc(str(sn_aging.get('overview', '')))
+                sn_census = esc(str(sn_aging.get('census_projections', '')))
+                body += f'\n<p>{sn_aging_ov}</p>'
+                if sn_census:
+                    body += f'\n<div class="rules-box"><h3>Census Projections</h3><p>{sn_census}</p></div>'
+
+            if sn_digital and isinstance(sn_digital, dict):
+                sn_dig_ov = esc(str(sn_digital.get('overview', '')))
+                sn_pew = esc(str(sn_digital.get('pew_research_statistics', '')))
+                body += f'\n<h3>Digital Inclusion for Seniors</h3><p>{sn_dig_ov}</p>'
+                if sn_pew:
+                    body += f'\n<div class="rules-box"><p>{sn_pew}</p></div>'
+
+            if sn_health and isinstance(sn_health, dict):
+                sn_health_ov = esc(str(sn_health.get('overview', '')))
+                body += f'\n<h3>Health &amp; Wellness</h3><p>{sn_health_ov}</p>'
+                sn_aarp = sn_health.get('aarp_partnerships', '')
+                sn_medicare = sn_health.get('medicare_information', '')
+                sn_memory = sn_health.get('memory_cafes', '')
+                body += '\n<ul class="wiki-list">'
+                if sn_aarp:
+                    body += f'\n  <li><strong>AARP partnerships:</strong> {esc(str(sn_aarp))[:200]}</li>'
+                if sn_medicare:
+                    body += f'\n  <li><strong>Medicare info:</strong> {esc(str(sn_medicare))[:200]}</li>'
+                if sn_memory:
+                    body += f'\n  <li><strong>Memory cafes:</strong> {esc(str(sn_memory))[:200]}</li>'
+                body += '\n</ul>'
+
+            if sn_learning and isinstance(sn_learning, dict):
+                sn_learn_ov = esc(str(sn_learning.get('overview', '')))
+                body += f'\n<h3>Lifelong Learning</h3><p>{sn_learn_ov}</p>'
+                sn_osher = sn_learning.get('osher_lifelong_learning_institutes', '')
+                if sn_osher:
+                    body += f'\n<div class="rules-box"><p>{esc(str(sn_osher))}</p></div>'
+
+            if sn_genealogy and isinstance(sn_genealogy, dict):
+                sn_gen_ov = esc(str(sn_genealogy.get('overview', '')))
+                body += f'\n<h3>Genealogy Resources</h3><p>{sn_gen_ov}</p>'
+                sn_ancestry = sn_genealogy.get('ancestry_library_edition', '')
+                sn_fsearch = sn_genealogy.get('familysearch', '')
+                body += '\n<ul class="wiki-list">'
+                if sn_ancestry:
+                    body += f'\n  <li><strong>Ancestry Library Edition:</strong> {esc(str(sn_ancestry))[:200]}</li>'
+                if sn_fsearch:
+                    body += f'\n  <li><strong>FamilySearch:</strong> {esc(str(sn_fsearch))[:200]}</li>'
+                body += '\n</ul>'
+
+            if sn_notable and isinstance(sn_notable, list):
+                body += '\n<h3>Notable Senior Programs</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Program</th><th>Library</th><th>State</th><th>Description</th></tr>'
+                for p in sn_notable[:18]:
+                    if isinstance(p, dict):
+                        p_name = esc(str(p.get('name', '')))
+                        p_lib = esc(str(p.get('library', p.get('location', ''))))
+                        p_state = esc(str(p.get('state', '')))
+                        p_desc = esc(str(p.get('description', '')))[:160]
+                        body += f'\n  <tr><td><strong>{p_name}</strong></td><td>{p_lib}</td><td>{p_state}</td><td>{p_desc}</td></tr>'
+                body += '\n</table>'
+
+            if sn_findings and isinstance(sn_findings, list):
+                body += '\n<h3>Key Findings</h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in sn_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

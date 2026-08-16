@@ -9960,6 +9960,193 @@ def build_index(data, stats):
     body += f"""
 </div>
 
+<h2 id="health-libraries">Health &amp; Medical Libraries: NLM &amp; NNLM</h2>"""
+
+    # ── Health Libraries ──
+    try:
+        hl = json.load(open(os.path.join(DATA, 'health_libraries_combined_summary.json')))
+        hl_total = hl.get('total_health_libraries', 0)
+        hl_nlm = hl.get('nlm_stats', {})
+        hl_nnlm = hl.get('nnlm_stats', {})
+        hl_services = hl.get('key_services', [])
+        hl_findings = hl.get('key_findings', [])
+        hl_by_state = hl.get('by_state', {})
+        nlm_items = hl_nlm.get('collection_items', hl_nlm.get('total_items', 0))
+        nlm_items_m = nlm_items / 1e6 if nlm_items else 0
+        nnlm_members = hl_nnlm.get('member_organizations', 0)
+        nnlm_regions = hl_nnlm.get('regions', 0)
+
+        body += f"""
+<p>{esc(str(hl.get('description', '')))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{hl_total:,}</div><div class="label">Health Libraries</div></div>
+  <div class="stat-card"><div class="num">{nlm_items_m:.0f}M</div><div class="label">NLM Collection Items</div></div>
+  <div class="stat-card"><div class="num">{nnlm_members:,}+</div><div class="label">NNLM Members</div></div>
+  <div class="stat-card"><div class="num">{nnlm_regions}</div><div class="label">NNLM Regions</div></div>
+</div>"""
+
+        if isinstance(hl_nlm, dict) and hl_nlm:
+            nlm_name = esc(str(hl_nlm.get('name', 'National Library of Medicine')))
+            nlm_founded = esc(str(hl_nlm.get('founded', '')))
+            nlm_loc = esc(str(hl_nlm.get('location', '')))
+            body += f"""
+<div class="rules-box">
+  <h3>National Library of Medicine (NLM)</h3>
+  <p><strong>Founded:</strong> {nlm_founded}</p>
+  <p><strong>Location:</strong> {nlm_loc[:200]}</p>
+</div>"""
+
+        if isinstance(hl_nnlm, dict) and hl_nnlm:
+            nnlm_desc = esc(str(hl_nnlm.get('description', '')))[:300]
+            body += f"""
+<div class="rules-box">
+  <h3>Network of the National Library of Medicine (NNLM)</h3>
+  <p>{nnlm_desc}</p>
+</div>"""
+
+        if hl_services:
+            body += '\n<h3>Key Health Library Services</h3><ul class="wiki-list">'
+            for s in hl_services[:8]:
+                if isinstance(s, dict):
+                    s_name = s.get('service', s.get('name', ''))
+                    s_desc = s.get('description', '')
+                    body += f'\n  <li><strong>{esc(str(s_name))}</strong> — {esc(str(s_desc))[:150]}</li>'
+                else:
+                    body += f'\n  <li>{esc(str(s))}</li>'
+            body += '\n</ul>'
+
+        if hl_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in hl_findings[:4]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Workforce Enhanced ──
+    try:
+        wf = json.load(open(os.path.join(DATA, 'library_workforce_enhanced_summary.json')))
+        wf_total = wf.get('total_employed', 0)
+        wf_by_occ = wf.get('by_occupation', [])
+        wf_by_state = wf.get('by_state', [])
+        wf_salary = wf.get('salary_data', {})
+        wf_diversity = wf.get('diversity_stats', {})
+        wf_lis = wf.get('lis_education_programs', {})
+        wf_findings = wf.get('key_findings', [])
+
+        body += f"""
+<h2 id="workforce">Library Workforce: Who Staffs America's Libraries</h2>
+<p>{esc(str(wf.get('description', '')))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{wf_total:,}</div><div class="label">Total Employed</div></div>
+  <div class="stat-card"><div class="num">{len(wf_by_occ)}</div><div class="label">Occupation Types</div></div>
+  <div class="stat-card"><div class="num">{len(wf_by_state)}</div><div class="label">States with Data</div></div>
+  <div class="stat-card"><div class="num">{wf_lis.get("total_programs", wf_lis.get("count", 0))}</div><div class="label">LIS Education Programs</div></div>
+</div>"""
+
+        if wf_by_occ:
+            body += """
+<h3>By Occupation</h3>
+<div class="services-bars">"""
+            max_occ = max(o.get('count', o.get('employed', 0)) for o in wf_by_occ) if wf_by_occ else 1
+            for o in wf_by_occ[:12]:
+                on_raw = o.get('occupation', o.get('title', o.get('name', '')))
+                on = esc(str(on_raw))[:40]
+                oc = o.get('count', o.get('employed', 0))
+                width = (oc / max_occ) * 100.0 if max_occ else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{on}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-people" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{oc:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if isinstance(wf_salary, dict) and wf_salary:
+            sal_avg = wf_salary.get('avg_salary', wf_salary.get('median_salary', 0))
+            sal_max = wf_salary.get('max_salary', 0)
+            sal_min = wf_salary.get('min_salary', 0)
+            body += f"""
+<h3>Salary Data</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${sal_avg:,.0f}</div><div class="label">Average Salary</div></div>
+  <div class="stat-card"><div class="num">${sal_max:,.0f}</div><div class="label">Highest Salary</div></div>
+  <div class="stat-card"><div class="num">${sal_min:,.0f}</div><div class="label">Lowest Salary</div></div>
+</div>"""
+
+        if isinstance(wf_diversity, dict) and wf_diversity:
+            body += '\n<div class="rules-box"><h3>Workforce Diversity</h3><ul class="wiki-list">'
+            for k, v in list(wf_diversity.items())[:6]:
+                body += f'\n  <li><strong>{esc(str(k)).replace("_", " ").title()}:</strong> {esc(str(v))}</li>'
+            body += '\n</ul></div>'
+
+        if isinstance(wf_lis, dict) and wf_lis:
+            body += '\n<div class="rules-box"><h3>LIS Education Programs</h3><ul class="wiki-list">'
+            for k, v in list(wf_lis.items())[:5]:
+                body += f'\n  <li><strong>{esc(str(k)).replace("_", " ").title()}:</strong> {esc(str(v))}</li>'
+            body += '\n</ul></div>'
+
+        if wf_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in wf_findings[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Innovation Enhanced ──
+    try:
+        inno = json.load(open(os.path.join(DATA, 'library_innovation_enhanced_summary.json')))
+        inno_by_type = inno.get('by_type', [])
+        inno_innovations = inno.get('key_innovations', [])
+        inno_findings = inno.get('key_findings', [])
+        inno_policy = inno.get('federal_policy_context', '')
+
+        body += f"""
+<h2 id="library-innovation">Library Innovation: Beyond Books — Makerspaces, WiFi &amp; Emerging Services</h2>
+<p>{esc(str(inno.get('overview', '')))[:400]}</p>"""
+
+        if inno_by_type:
+            body += """
+<h3>Services Offered by America's Libraries</h3>
+<div class="services-bars">"""
+            max_inno = max(t.get('pct_offering', 0) for t in inno_by_type) if inno_by_type else 1
+            for t in inno_by_type[:15]:
+                tn_raw = t.get('service', t.get('type', ''))
+                tn = esc(str(tn_raw))[:40]
+                tp = t.get('pct_offering', 0)
+                width = tp if tp else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{tn}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-green" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{tp}%</span>
+  </div>"""
+            body += '\n</div>'
+
+        if inno_innovations:
+            body += '\n<h3>Key Innovations</h3><ul class="wiki-list">'
+            for inv in inno_innovations[:8]:
+                if isinstance(inv, dict):
+                    inv_name = inv.get('innovation', inv.get('name', ''))
+                    inv_desc = inv.get('description', '')
+                    body += f'\n  <li><strong>{esc(str(inv_name))}</strong> — {esc(str(inv_desc))[:200]}</li>'
+                else:
+                    body += f'\n  <li>{esc(str(inv))}</li>'
+            body += '\n</ul>'
+
+        if inno_policy:
+            body += f'\n<div class="rules-box"><h3>Federal Policy Context</h3><p>{esc(str(inno_policy))[:400]}</p></div>'
+
+        if inno_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in inno_findings[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    body += f"""
 <h2>Map Legend</h2>
 <div class="rules-box">
   <ul>
@@ -9969,7 +10156,7 @@ def build_index(data, stats):
   </ul>
 </div>
 
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a></div>
 <div class="relatedbox">
   <h3>Keep exploring</h3>
   <ul>
@@ -9977,6 +10164,9 @@ def build_index(data, stats):
     <li><a href="map.html">Full-page interactive map →</a></li>
     <li><a href="gov.html">Government sites overview →</a></li>
     <li><a href="about.html">Methodology & data sources →</a></li>
+    <li><a href="funders.html">Funders & investors →</a></li>
+    <li><a href="digital.html">Digital inclusion →</a></li>
+    <li><a href="encyclopedia.html">Encyclopedia →</a></li>
   </ul>
 </div>
 <p class="edit-note">Generated from CSV data by wiki/build_wiki.py on {now_str()}.</p>"""
@@ -10398,7 +10588,9 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
 <ul class="wiki-list">"""
             for org in key_orgs:
                 if isinstance(org, dict):
-                    body += f'\n  <li><strong>{esc(str(org.get("name", "")))}</strong>: {esc(str(org.get("description", org.get("note", ""))))[:150]}</li>'
+                    org_name = org.get('name', '')
+                    org_desc = org.get('description', org.get('note', ''))
+                    body += f'\n  <li><strong>{esc(str(org_name))}</strong>: {esc(str(org_desc))[:150]}</li>'
                 elif isinstance(org, str):
                     body += f'\n  <li>{esc(org)}</li>'
             body += '\n</ul>'
@@ -10563,8 +10755,275 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Book Censorship Enhanced ──
+    try:
+        cen = json.load(open(os.path.join(DATA, 'censorship_enhanced_summary.json')))
+        cen_challenges = cen.get('total_challenges', {})
+        cen_ala = cen_challenges.get('ala_state_report', 0) if isinstance(cen_challenges, dict) else 0
+        cen_mag = cen_challenges.get('comprehensive_magnusson', 0) if isinstance(cen_challenges, dict) else 0
+        cen_banned = cen.get('total_books_banned', 0)
+        cen_restricted = cen.get('total_restricted', 0)
+        cen_by_state = cen.get('by_state', [])
+        cen_by_year = cen.get('by_year', [])
+        cen_books = cen.get('most_challenged_books', [])
+        cen_authors = cen.get('most_challenged_authors', [])
+        cen_decisions = cen.get('by_decision', [])
+        cen_findings = cen.get('key_findings', [])
+
+        body += f"""
+<h2 id="censorship">Book Bans &amp; Censorship: The Fight Over What Americans Can Read</h2>
+<p>{esc(str(cen.get('source', '')))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{cen_mag:,}</div><div class="label">Challenges (Magnusson)</div></div>
+  <div class="stat-card"><div class="num">{cen_ala:,}</div><div class="label">Challenges (ALA)</div></div>
+  <div class="stat-card"><div class="num">{cen_banned:,}</div><div class="label">Books Banned</div></div>
+  <div class="stat-card"><div class="num">{cen_restricted:,}</div><div class="label">Books Restricted</div></div>
+</div>"""
+
+        if cen_by_state:
+            body += """
+<h3>Censorship by State (Top 15)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Challenges</th><th>Banned/Removed</th><th>Ban Rate</th><th>School</th><th>Public</th></tr>"""
+            for s in cen_by_state[:15]:
+                sn = esc(str(s.get('state_name', s.get('state', ''))))
+                tc = s.get('total_challenges', 0)
+                br = s.get('banned_removed', 0)
+                rate = s.get('ban_rate', 0)
+                sc = s.get('school', 0)
+                pu = s.get('public', 0)
+                body += f'\n  <tr><td>{sn}</td><td class="num">{tc:,}</td><td class="num">{br:,}</td><td class="num">{rate:.1f}%</td><td class="num">{sc:,}</td><td class="num">{pu:,}</td></tr>'
+            body += '\n</table>'
+
+        if cen_by_year:
+            body += """
+<h3>Censorship Trends by Year</h3>
+<div class="services-bars">"""
+            max_y = max(y.get('count', 0) for y in cen_by_year) if cen_by_year else 1
+            for y in cen_by_year:
+                yr = y.get('year', '')
+                cnt = y.get('count', 0)
+                width = (cnt / max_y) * 100.0 if max_y else 0
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{yr}</span>
+    <span class="svc-bar"><span class="svc-fill svc-fill-red" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{cnt:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if cen_books:
+            body += """
+<h3>Most Challenged Books</h3>
+<table class="wikitable sortable">
+  <tr><th>Title</th><th>Challenges</th></tr>"""
+            for b in cen_books[:15]:
+                bt = esc(str(b.get('title', '')))
+                bc = b.get('count', 0)
+                body += f'\n  <tr><td>{bt}</td><td class="num">{bc}</td></tr>'
+            body += '\n</table>'
+
+        if cen_authors:
+            body += """
+<h3>Most Challenged Authors</h3>
+<table class="wikitable sortable">
+  <tr><th>Author</th><th>Challenges</th></tr>"""
+            for a in cen_authors[:10]:
+                an = esc(str(a.get('author', a.get('name', ''))))
+                ac = a.get('count', 0)
+                body += f'\n  <tr><td>{an}</td><td class="num">{ac}</td></tr>'
+            body += '\n</table>'
+
+        if cen_decisions:
+            body += """
+<h3>Challenge Outcomes</h3>
+<div class="services-bars">"""
+            max_d = max(d.get('count', 0) for d in cen_decisions) if cen_decisions else 1
+            dec_colors = {'Banned': 'svc-fill-red', 'Removed': 'svc-fill-red', 'Restricted': 'svc-fill-yellow', 'Retained': 'svc-fill-green', 'Still': 'svc-fill-tech', 'Other': 'svc-fill-blue'}
+            for d in cen_decisions:
+                dn = esc(str(d.get('decision', '')))
+                dc = d.get('count', 0)
+                width = (dc / max_d) * 100.0 if max_d else 0
+                color = dec_colors.get(dn.split('/')[0], 'svc-fill-tech')
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{dn}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">{dc:,}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if cen_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in cen_findings[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Intellectual Freedom Enhanced ──
+    try:
+        ife = json.load(open(os.path.join(DATA, 'intellectual_freedom_enhanced_summary.json')))
+        ife_stats = ife.get('key_statistics', {})
+        ife_orgs = ife.get('key_organizations', [])
+        ife_principles = ife.get('key_principles', [])
+        ife_bbweek = ife.get('banned_books_week', {})
+
+        body += f"""
+<h2 id="intellectual-freedom">Intellectual Freedom: The Core Value of Librarianship</h2>
+<p>{esc(str(ife.get('overview', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{ife_stats.get('ala_challenges_2023', 0):,}</div><div class="label">ALA Challenges (2023)</div></div>
+  <div class="stat-card"><div class="num">{ife_stats.get('books_banned_removed', 0):,}</div><div class="label">Books Banned/Removed</div></div>
+  <div class="stat-card"><div class="num">{ife_stats.get('library_bill_of_rights_adopted', 1939)}</div><div class="label">Bill of Rights (est.)</div></div>
+  <div class="stat-card"><div class="num">{ife_stats.get('banned_books_week_started', 1982)}</div><div class="label">Banned Books Week (est.)</div></div>
+</div>"""
+
+        if ife_principles:
+            body += '\n<div class="rules-box"><h3>Key Principles</h3><ul class="wiki-list">'
+            for p in ife_principles[:8]:
+                if isinstance(p, dict):
+                    p_name = p.get('principle', p.get('title', ''))
+                    p_desc = p.get('description', '')
+                    body += f'\n  <li><strong>{esc(str(p_name))}</strong> — {esc(str(p_desc))[:200]}</li>'
+                else:
+                    body += f'\n  <li>{esc(str(p))}</li>'
+            body += '\n</ul></div>'
+
+        if ife_orgs:
+            body += """
+<h3>Key Organizations</h3>
+<table class="wikitable">
+  <tr><th>Organization</th><th>Founded</th><th>Role</th></tr>"""
+            for o in ife_orgs[:10]:
+                on = esc(str(o.get('name', '')))
+                of = esc(str(o.get('founded', '')))
+                or_ = esc(str(o.get('role', '')))[:200]
+                body += f'\n  <tr><td><strong>{on}</strong></td><td>{of}</td><td>{or_}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(ife_bbweek, dict) and ife_bbweek:
+            bbw_desc = ife_bbweek.get('description', ife_bbweek.get('overview', ''))
+            body += f'\n<div class="rules-box"><h3>Banned Books Week</h3><p>{esc(str(bbw_desc))[:300]}</p></div>'
+    except Exception:
+        pass
+
+    # ── COVID Recovery Enhanced ──
+    try:
+        cov = json.load(open(os.path.join(DATA, 'covid_recovery_enhanced_summary.json')))
+        cov_impact = cov.get('impact_stats', {})
+        cov_recovery = cov.get('recovery_stats', {})
+        cov_timeline = cov_recovery.get('timeline', [])
+        cov_findings = cov.get('key_findings', [])
+
+        cov_visits = cov_impact.get('visits', {})
+        cov_circ = cov_impact.get('circulation', {})
+        cov_prog = cov_impact.get('programs', {})
+
+        body += f"""
+<h2 id="covid-recovery">COVID-19 Impact &amp; Recovery</h2>
+<p>The COVID-19 pandemic caused the sharpest disruption in the history of American public libraries. This section tracks the decline and partial recovery through FY2024.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{cov_visits.get("drop_pct", 0):.1f}%</div><div class="label">Visit Drop (FY19-FY20)</div></div>
+  <div class="stat-card"><div class="num">{cov_circ.get("drop_pct", 0):.1f}%</div><div class="label">Circulation Drop</div></div>
+  <div class="stat-card"><div class="num">{cov_recovery.get("visits_recovery_pct", 0):.1f}%</div><div class="label">Visits Recovery (FY24)</div></div>
+  <div class="stat-card"><div class="num">{cov_recovery.get("income_change_pct", 0):+.1f}%</div><div class="label">Income Change</div></div>
+</div>"""
+
+        if cov_timeline:
+            body += """
+<h3>Recovery Timeline</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Visits</th><th>vs Baseline</th><th>Circulation</th><th>vs Baseline</th><th>Programs</th><th>vs Baseline</th></tr>"""
+            for t in cov_timeline:
+                yr = esc(str(t.get('year', '')))
+                vis = t.get('visits', 0)
+                vis_m = vis / 1e6 if vis else 0
+                vis_pct = t.get('visits_vs_baseline_pct', 0)
+                cir = t.get('circulation', 0)
+                cir_m = cir / 1e6 if cir else 0
+                cir_pct = t.get('circ_vs_baseline_pct', 0)
+                prg = t.get('programs', 0)
+                prg_m = prg / 1e6 if prg else 0
+                prg_pct = t.get('programs_vs_baseline_pct', 0)
+                body += f'\n  <tr><td>{yr}</td><td class="num">{vis_m:.0f}M</td><td class="num">{vis_pct:.1f}%</td><td class="num">{cir_m:.0f}M</td><td class="num">{cir_pct:.1f}%</td><td class="num">{prg_m:.1f}M</td><td class="num">{prg_pct:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if cov_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in cov_findings[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── International Libraries Comparison ──
+    try:
+        intl = json.load(open(os.path.join(DATA, 'international_libraries_enhanced_summary.json')))
+        intl_countries = intl.get('total_countries_documented', 0)
+        intl_by_country = intl.get('by_country', [])
+        intl_notable = intl.get('notable_international_libraries', [])
+        intl_compare = intl.get('comparison_with_us', {})
+        intl_ifla = intl.get('ifla_global_rankings', {})
+        intl_wdl = intl.get('world_digital_library', {})
+        intl_findings = intl.get('key_findings', [])
+
+        body += f"""
+<h2 id="international-libraries">International Library Landscape: How the US Compares</h2>
+<p>{esc(str(intl.get('description', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{intl_countries}</div><div class="label">Countries Documented</div></div>
+  <div class="stat-card"><div class="num">{len(intl_by_country)}</div><div class="label">Countries with Data</div></div>
+  <div class="stat-card"><div class="num">{len(intl_notable)}</div><div class="label">Notable Libraries</div></div>
+</div>"""
+
+        if intl_by_country:
+            body += """
+<h3>Libraries by Country</h3>
+<table class="wikitable sortable">
+  <tr><th>Country</th><th>Libraries</th><th>Population</th><th>Per Capita</th></tr>"""
+            for c in intl_by_country[:20]:
+                cn = esc(str(c.get('country', c.get('name', ''))))
+                cl = c.get('total_libraries', c.get('libraries', 0))
+                cp = c.get('population', 0)
+                cp_m = cp / 1e6 if cp else 0
+                cpc = c.get('per_capita', 0)
+                body += f'\n  <tr><td>{cn}</td><td class="num">{cl:,}</td><td class="num">{cp_m:.1f}M</td><td class="num">{cpc}</td></tr>'
+            body += '\n</table>'
+
+        if intl_notable:
+            body += """
+<h3>Notable International Libraries</h3>
+<table class="wikitable">
+  <tr><th>Library</th><th>Country</th><th>Founded</th><th>Collection</th></tr>"""
+            for l in intl_notable[:15]:
+                ln = esc(str(l.get('name', '')))
+                lc = esc(str(l.get('country', '')))
+                lf = esc(str(l.get('founded', '')))
+                lcol = esc(str(l.get('collection_size', l.get('collection', ''))))
+                body += f'\n  <tr><td><strong>{ln}</strong></td><td>{lc}</td><td>{lf}</td><td>{lcol}</td></tr>'
+            body += '\n</table>'
+
+        if isinstance(intl_compare, dict) and intl_compare:
+            body += f'\n<div class="rules-box"><h3>Comparison with the United States</h3><ul class="wiki-list">'
+            for k, v in list(intl_compare.items())[:6]:
+                body += f'\n  <li><strong>{esc(str(k)).replace("_"," ").title()}:</strong> {esc(str(v))[:200]}</li>'
+            body += '\n</ul></div>'
+
+        if isinstance(intl_ifla, dict) and intl_ifla:
+            ifla_desc = intl_ifla.get('description', str(intl_ifla))
+            body += f'\n<div class="rules-box"><h3>IFLA Global Rankings</h3><p>{esc(str(ifla_desc))[:400]}</p></div>'
+
+        if intl_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in intl_findings[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#censorship">Censorship</a> | <a href="#intellectual-freedom">Intellectual freedom</a> | <a href="#covid-recovery">COVID recovery</a> | <a href="#international-libraries">International</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -12764,8 +13223,219 @@ def build_funders(data, stats):
     except Exception:
         pass
 
+    # ── State Funding Enhanced ──
+    try:
+        sf = json.load(open(os.path.join(DATA, 'state_funding_enhanced_summary.json')))
+        sf_total = sf.get('total_state_funding', {})
+        sf_by_type = sf.get('by_funding_type', [])
+        sf_by_state = sf.get('by_state', [])
+        sf_findings = sf.get('key_findings', [])
+        sf_income_val = sf_total.get('total_income', 0)
+        sf_income_b = sf_income_val / 1e9 if sf_income_val else 0
+        sf_pop = sf_total.get('population_served', 0)
+        sf_pop_m = sf_pop / 1e6 if sf_pop else 0
+        sf_pc = sf_total.get('total_income_per_capita', 0)
+        sf_juris = sf_total.get('jurisdictions_included', 0)
+
+        body += f"""
+<h2 id="state-funding-enhanced">State Library Funding: Who Pays for America's Public Libraries</h2>
+<p>{esc(str(sf.get('source', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${sf_income_b:.1f}B</div><div class="label">Total Income (FY2024)</div></div>
+  <div class="stat-card"><div class="num">${sf_pc:.2f}</div><div class="label">Per Capita</div></div>
+  <div class="stat-card"><div class="num">{sf_pop_m:.0f}M</div><div class="label">Population Served</div></div>
+  <div class="stat-card"><div class="num">{sf_juris}</div><div class="label">Jurisdictions</div></div>
+</div>"""
+
+        if sf_by_type:
+            body += """
+<h3>Funding Sources: Local vs State vs Federal</h3>
+<div class="services-bars">"""
+            max_amt = max(t.get('amount', 0) for t in sf_by_type) if sf_by_type else 1
+            type_colors = {'Local': 'svc-fill-blue', 'State': 'svc-fill-green', 'Federal': 'svc-fill-red'}
+            for t in sf_by_type:
+                tname = esc(str(t.get('type', '')))
+                tamount = t.get('amount', 0)
+                tamount_b = tamount / 1e9 if tamount else 0
+                tpct = t.get('pct_of_total', 0)
+                tpc = t.get('per_capita', 0)
+                width = (tamount / max_amt) * 100.0 if max_amt else 0
+                color = type_colors.get(tname.split()[0], 'svc-fill-tech')
+                body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{tname}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">${tamount_b:.1f}B ({tpct:.1f}%)</span>
+  </div>"""
+            body += '\n</div>'
+
+        if sf_by_state:
+            body += """
+<h3>Funding by State (Top 20)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Total Income</th><th>Per Capita</th><th>Local %</th><th>State %</th><th>Federal %</th></tr>"""
+            for s in sf_by_state[:20]:
+                sn = esc(str(s.get('state_name', s.get('state', ''))))
+                ti = s.get('total_income', 0)
+                ti_m = ti / 1e6 if ti else 0
+                pc = s.get('total_income_per_capita', 0)
+                lp = s.get('local_pct', 0)
+                sp = s.get('state_pct', 0)
+                fp = s.get('federal_pct', 0)
+                body += f'\n  <tr><td>{sn}</td><td class="num">${ti_m:.0f}M</td><td class="num">${pc:.2f}</td><td class="num">{lp:.1f}%</td><td class="num">{sp:.1f}%</td><td class="num">{fp:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if sf_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in sf_findings[:6]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Ballot Measures Enhanced ──
+    try:
+        bm = json.load(open(os.path.join(DATA, 'ballot_measures_enhanced_summary.json')))
+        bm_total = bm.get('total_measures', 0)
+        bm_pass = bm.get('total_pass', 0)
+        bm_fail = bm.get('total_fail', 0)
+        bm_rate = bm.get('pass_rate', 0)
+        bm_amt = bm.get('total_amount_requested', 0)
+        bm_amt_m = bm_amt / 1e6 if bm_amt else 0
+        bm_by_state = bm.get('by_state', [])
+        bm_notable = bm.get('notable_measures', {})
+
+        body += f"""
+<h2 id="ballot-measures-enhanced">Library Ballot Measures: Voters Decide on Library Funding</h2>
+<p>{esc(str(bm.get('source', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bm_total}</div><div class="label">Ballot Measures</div></div>
+  <div class="stat-card"><div class="num">{bm_pass}</div><div class="label">Passed</div></div>
+  <div class="stat-card"><div class="num">{bm_fail}</div><div class="label">Failed</div></div>
+  <div class="stat-card"><div class="num">{bm_rate:.1f}%</div><div class="label">Pass Rate</div></div>
+  <div class="stat-card"><div class="num">${bm_amt_m:.0f}M</div><div class="label">Total Requested</div></div>
+</div>"""
+
+        if bm_by_state:
+            body += """
+<h3>Ballot Measures by State (Top 15)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Total</th><th>Passed</th><th>Failed</th><th>Pass Rate</th><th>Amount</th></tr>"""
+            for s in bm_by_state[:15]:
+                sn = esc(str(s.get('state', '')))
+                st = s.get('total', 0)
+                sp = s.get('pass', 0)
+                sf_ = s.get('fail', 0)
+                sr = s.get('pass_rate', 0)
+                sa = s.get('amount', 0)
+                sa_m = sa / 1e6 if sa else 0
+                body += f'\n  <tr><td>{sn}</td><td class="num">{st}</td><td class="num">{sp}</td><td class="num">{sf_}</td><td class="num">{sr:.1f}%</td><td class="num">${sa_m:.1f}M</td></tr>'
+            body += '\n</table>'
+
+        nm_passed = bm_notable.get('largest_passed', []) if isinstance(bm_notable, dict) else []
+        nm_failed = bm_notable.get('largest_failed', []) if isinstance(bm_notable, dict) else []
+        if nm_passed:
+            body += """
+<h3>Notable Passed Measures</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Library</th><th>Amount</th><th>State</th></tr>"""
+            for m in nm_passed[:8]:
+                yr = esc(str(m.get('year', '')))
+                ls = esc(str(m.get('library_system', '')))[:80]
+                amt = m.get('amount_requested', 0)
+                amt_m = amt / 1e6 if amt else 0
+                st = esc(str(m.get('state', '')))
+                body += f'\n  <tr><td>{yr}</td><td>{ls}</td><td class="num">${amt_m:.1f}M</td><td>{st}</td></tr>'
+            body += '\n</table>'
+        if nm_failed:
+            body += """
+<h3>Notable Failed Measures</h3>
+<table class="wikitable">
+  <tr><th>Year</th><th>Library</th><th>Amount</th><th>State</th></tr>"""
+            for m in nm_failed[:8]:
+                yr = esc(str(m.get('year', '')))
+                ls = esc(str(m.get('library_system', '')))[:80]
+                amt = m.get('amount_requested', 0)
+                amt_m = amt / 1e6 if amt else 0
+                st = esc(str(m.get('state', '')))
+                body += f'\n  <tr><td>{yr}</td><td>{ls}</td><td class="num">${amt_m:.1f}M</td><td>{st}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── NSF Library Grants ──
+    try:
+        nsf = json.load(open(os.path.join(DATA, 'nsf_library_grants_summary.json')))
+        nsf_total = nsf.get('total_grants', 0)
+        nsf_amt = nsf.get('total_awarded', 0)
+        nsf_amt_m = nsf.get('total_awarded_millions', 0)
+        nsf_avg = nsf.get('avg_grant', 0)
+        nsf_avg_k = nsf_avg / 1e3 if nsf_avg else 0
+        nsf_largest = nsf.get('largest_grant', 0)
+        nsf_largest_k = nsf_largest / 1e3 if nsf_largest else 0
+        nsf_by_prog = nsf.get('grants_by_program', [])
+        nsf_by_state = nsf.get('grants_by_state', [])
+        nsf_top = nsf.get('top_recipients', [])
+        nsf_largest_awards = nsf.get('enriched_largest_awards', nsf.get('largest_awards', []))
+
+        body += f"""
+<h2 id="nsf-grants">National Science Foundation Library Grants</h2>
+<p>{esc(str(nsf.get('source', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{nsf_total}</div><div class="label">NSF Grants</div></div>
+  <div class="stat-card"><div class="num">${nsf_amt_m:.1f}M</div><div class="label">Total Awarded</div></div>
+  <div class="stat-card"><div class="num">${nsf_avg_k:.0f}K</div><div class="label">Average Grant</div></div>
+  <div class="stat-card"><div class="num">${nsf_largest_k:.0f}K</div><div class="label">Largest Grant</div></div>
+</div>"""
+
+        if nsf_by_prog:
+            body += """
+<h3>Grants by NSF Program</h3>
+<table class="wikitable sortable">
+  <tr><th>Program</th><th>Grants</th><th>Total Awarded</th></tr>"""
+            for p in nsf_by_prog[:15]:
+                pn_raw = p.get('program', p.get('name', ''))
+                pn = esc(str(pn_raw))
+                pc = p.get('count', p.get('grants', 0))
+                pa = p.get('total_awarded', p.get('amount', 0))
+                pa_m = pa / 1e6 if pa else 0
+                body += f'\n  <tr><td>{pn}</td><td class="num">{pc}</td><td class="num">${pa_m:.2f}M</td></tr>'
+            body += '\n</table>'
+
+        if nsf_top:
+            body += """
+<h3>Top NSF Recipients</h3>
+<table class="wikitable sortable">
+  <tr><th>Institution</th><th>Grants</th><th>Total Awarded</th></tr>"""
+            for r in nsf_top[:15]:
+                rn_raw = r.get('recipient', r.get('institution', r.get('name', '')))
+                rn = esc(str(rn_raw))[:60]
+                rc = r.get('count', r.get('grants', 0))
+                ra = r.get('total_awarded', r.get('amount', 0))
+                ra_m = ra / 1e6 if ra else 0
+                body += f'\n  <tr><td>{rn}</td><td class="num">{rc}</td><td class="num">${ra_m:.2f}M</td></tr>'
+            body += '\n</table>'
+
+        if nsf_largest_awards:
+            body += """
+<h3>Largest NSF Awards</h3>
+<table class="wikitable sortable">
+  <tr><th>Title</th><th>Institution</th><th>Amount</th><th>Year</th></tr>"""
+            for a in nsf_largest_awards[:15]:
+                at = esc(str(a.get('title', '')))[:100]
+                ai_raw = a.get('recipient', a.get('institution', ''))
+                ai = esc(str(ai_raw))[:50]
+                aa = a.get('amount', a.get('total_awarded', 0))
+                aa_k = aa / 1e3 if aa else 0
+                ay_raw = a.get('year', a.get('fiscal_year', ''))
+                ay = esc(str(ay_raw))
+                body += f'\n  <tr><td>{at}</td><td>{ai}</td><td class="num">${aa_k:.0f}K</td><td>{ay}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="index.html#neh-grants">NEH grants</a> | <a href="index.html#usda-grants">USDA grants</a> | <a href="index.html#philanthropy">Philanthropy</a> | <a href="index.html#state-funding">State funding</a> | <a href="index.html#ballot-measures">Ballot measures</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:

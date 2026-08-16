@@ -663,6 +663,7 @@ def load_all():
         ('advocacy', 'library_advocacy_summary.json'),
         ('social_media', 'library_social_media_summary.json'),
         ('special_collections', 'library_special_collections_summary.json'),
+        ('privacy', 'library_privacy_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -13541,8 +13542,72 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Privacy & Surveillance ──
+    try:
+        pv = data.get('privacy', {})
+        if pv:
+            pv_patriot = pv.get('patriot_act', {})
+            pv_fbi = pv.get('fbi_surveillance', {})
+            pv_states = pv.get('state_privacy_statutes', {})
+            pv_cases = pv.get('notable_cases', [])
+            pv_findings = pv.get('key_findings', [])
+
+            body += """
+<section id="privacy">
+<h2><span class="mw-headline">Library Privacy & Surveillance</span></h2>
+<p>Protecting patron privacy is a core value of librarianship. This section covers the legal framework, surveillance threats, and privacy-protective practices that safeguard what people read and access.</p>"""
+
+            if pv_patriot and isinstance(pv_patriot, dict):
+                body += '\n<h3><span class="mw-headline">USA PATRIOT Act & Libraries</span></h3>'
+                pa_desc_raw = pv_patriot.get('description', pv_patriot.get('overview', ''))
+                if pa_desc_raw:
+                    body += f'\n<p>{esc(str(pa_desc_raw))}</p>'
+                pa_sections = pv_patriot.get('key_sections', {})
+                if isinstance(pa_sections, dict):
+                    body += '\n<ul class="wiki-list">'
+                    for sk, sv in list(pa_sections.items())[:5]:
+                        if isinstance(sv, (str, int, float)):
+                            body += f'\n  <li><strong>{esc(str(sk).replace("_", " ").title())}:</strong> {esc(str(sv))}</li>'
+                    body += '\n</ul>'
+
+            if pv_fbi and isinstance(pv_fbi, dict):
+                body += '\n<h3><span class="mw-headline">FBI Surveillance History</span></h3>'
+                fb_desc_raw = pv_fbi.get('description', pv_fbi.get('overview', ''))
+                if fb_desc_raw:
+                    body += f'\n<p>{esc(str(fb_desc_raw))}</p>'
+
+            if pv_states and isinstance(pv_states, dict):
+                body += '\n<h3><span class="mw-headline">State Library Privacy Statutes</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Protection Type</th><th>Citation</th></tr>'
+                for st, st_data in list(pv_states.items())[:20]:
+                    if isinstance(st_data, dict):
+                        st_type = esc(str(st_data.get('protection_type', st_data.get('type', ''))))
+                        st_cite = esc(str(st_data.get('citation', '')))
+                        body += f'\n  <tr><td><strong>{esc(str(st))}</strong></td><td>{st_type}</td><td>{st_cite}</td></tr>'
+                body += '\n</table>'
+
+            if pv_cases and isinstance(pv_cases, list):
+                body += '\n<h3><span class="mw-headline">Notable Privacy Cases</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Case</th><th>Year</th><th>Significance</th></tr>'
+                for c in pv_cases[:10]:
+                    if isinstance(c, dict):
+                        c_name = esc(str(c.get('case', c.get('name', ''))))
+                        c_year = c.get('year', '')
+                        c_sig = esc(str(c.get('significance', c.get('description', '')))[:120])
+                        body += f'\n  <tr><td><strong>{c_name}</strong></td><td>{c_year}</td><td>{c_sig}</td></tr>'
+                body += '\n</table>'
+
+            if pv_findings and isinstance(pv_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in pv_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

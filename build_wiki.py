@@ -9960,6 +9960,84 @@ def build_index(data, stats):
     body += f"""
 </div>
 
+<h2 id="circulation-stats">Circulation &amp; Library Cards: How Americans Use Their Libraries</h2>"""
+
+    # ── Circulation Summary ──
+    try:
+        circ = json.load(open(os.path.join(DATA, 'circulation_summary.json')))
+        circ_nat = circ.get('national', {})
+        circ_by_state = circ.get('by_state', [])
+        circ_top = circ.get('top_by_circulation', [])
+
+        circ_total = circ_nat.get('total_circulation', 0)
+        circ_total_b = circ_total / 1e9 if circ_total else 0
+        circ_pc = circ_nat.get('circulation_per_capita', 0)
+        circ_reg = circ_nat.get('registered_borrowers', 0)
+        circ_reg_m = circ_reg / 1e6 if circ_reg else 0
+
+        body += f"""
+<p>Detailed circulation statistics from IMLS PLS showing how much libraries are being used across the country.</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{circ_total_b:.2f}B</div><div class="label">Total Circulation</div></div>
+  <div class="stat-card"><div class="num">{circ_pc:.2f}</div><div class="label">Circulation Per Capita</div></div>
+  <div class="stat-card"><div class="num">{circ_reg_m:.0f}M</div><div class="label">Registered Borrowers</div></div>
+</div>"""
+
+        if circ_top:
+            body += """
+<h3>Top Library Systems by Circulation</h3>
+<table class="wikitable sortable">
+  <tr><th>Library System</th><th>State</th><th>Circulation</th><th>Per Capita</th></tr>"""
+            for t in circ_top[:15]:
+                tn = esc(str(t.get('library_system', t.get('name', ''))))[:50]
+                ts = esc(str(t.get('state', '')))
+                tc = t.get('circulation', 0)
+                tc_m = tc / 1e6 if tc else 0
+                tpc = t.get('per_capita', 0)
+                body += f'\n  <tr><td>{tn}</td><td>{ts}</td><td class="num">{tc_m:.1f}M</td><td class="num">{tpc:.2f}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Library Cards Summary ──
+    try:
+        lc = json.load(open(os.path.join(DATA, 'library_cards_summary.json')))
+        lc_nat = lc.get('national_stats', {})
+        lc_by_state = lc.get('by_state', [])
+        lc_trends = lc.get('trends', {})
+        lc_dvp = lc.get('digital_vs_physical', {})
+
+        lc_total = lc_nat.get('total_cardholders', 0)
+        lc_total_m = lc_total / 1e6 if lc_total else 0
+        lc_pct = lc_nat.get('pct_population_with_cards', 0)
+        lc_active = lc_nat.get('active_borrowers', 0)
+        lc_active_m = lc_active / 1e6 if lc_active else 0
+
+        body += f"""
+<h3 id="library-cards">Library Cards: 155M Americans Hold One</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{lc_total_m:.0f}M</div><div class="label">Total Cardholders</div></div>
+  <div class="stat-card"><div class="num">{lc_pct:.1f}%</div><div class="label">Population with Cards</div></div>
+  <div class="stat-card"><div class="num">{lc_active_m:.0f}M</div><div class="label">Active Borrowers</div></div>
+</div>"""
+
+        if lc_by_state:
+            body += """
+<h3>Library Card Holders by State (Top 15)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Cardholders</th><th>% Population</th><th>Per Capita</th></tr>"""
+            for s in lc_by_state[:15]:
+                sn = esc(str(s.get('state', '')))
+                sc = s.get('cardholders', 0)
+                sc_m = sc / 1e6 if sc else 0
+                sp = s.get('pct_population', 0)
+                spc = s.get('per_capita', 0)
+                body += f'\n  <tr><td>{sn}</td><td class="num">{sc_m:.1f}M</td><td class="num">{sp:.1f}%</td><td class="num">{spc:.2f}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    body += f"""
 <h2 id="health-libraries">Health &amp; Medical Libraries: NLM &amp; NNLM</h2>"""
 
     # ── Health Libraries ──
@@ -11022,8 +11100,149 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Reading Trends Enhanced ──
+    try:
+        rt = json.load(open(os.path.join(DATA, 'reading_trends_enhanced_summary.json')))
+        rt_stats = rt.get('key_stats', {})
+        rt_by_year = rt.get('reading_trends_by_year', [])
+        rt_visits = rt.get('library_visits_trend', [])
+        rt_facts = rt.get('key_facts', [])
+
+        body += f"""
+<h2 id="reading-trends">Reading &amp; Library Visits: The Long Decline</h2>
+<p>{esc(str(rt.get('overview', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{rt_stats.get('read_any_book_2012', 0):.1f}%</div><div class="label">Read Any Book (2012)</div></div>
+  <div class="stat-card"><div class="num">{rt_stats.get('read_any_book_2022', 0):.1f}%</div><div class="label">Read Any Book (2022)</div></div>
+  <div class="stat-card"><div class="num">{rt_stats.get('pct_decline_visits_2019_2024', 0)}%</div><div class="label">Visit Decline (2019-24)</div></div>
+  <div class="stat-card"><div class="num">{rt_stats.get('imls_visits_per_capita_2024', 0):.2f}</div><div class="label">Visits Per Capita (2024)</div></div>
+</div>"""
+
+        if rt_by_year:
+            body += """
+<h3>Reading Trends by Year (NEA SPPA)</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Read Any Book</th><th>Novels/Short Stories</th><th>Poetry</th><th>Plays</th></tr>"""
+            for y in rt_by_year:
+                yr = y.get('year', '')
+                rab = y.get('read_any_book', 0)
+                rns = y.get('read_novels_short_stories', 0)
+                rp = y.get('read_poetry', 0)
+                rpl = y.get('read_plays', 0)
+                body += f'\n  <tr><td>{yr}</td><td class="num">{rab:.1f}%</td><td class="num">{rns:.1f}%</td><td class="num">{rp:.1f}%</td><td class="num">{rpl:.1f}%</td></tr>'
+            body += '\n</table>'
+
+        if rt_facts:
+            body += '\n<div class="rules-box"><h3>Key Facts</h3><ul class="wiki-list">'
+            for f in rt_facts[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Book Format Trend ──
+    try:
+        bf = json.load(open(os.path.join(DATA, 'book_format_trend_summary.json')))
+        bf_stats = bf.get('key_stats', {})
+        bf_facts = bf.get('key_facts', [])
+
+        body += f"""
+<h2 id="book-formats">Book Format Shift: Print, E-Books &amp; Audiobooks</h2>
+<p>{esc(str(bf.get('overview', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{bf_stats.get('print_2011', 0)}%</div><div class="label">Print (2011)</div></div>
+  <div class="stat-card"><div class="num">{bf_stats.get('print_2025', 0)}%</div><div class="label">Print (2025)</div></div>
+  <div class="stat-card"><div class="num">{bf_stats.get('ebook_2011', 0)}%</div><div class="label">E-Book (2011)</div></div>
+  <div class="stat-card"><div class="num">{bf_stats.get('ebook_2025', 0)}%</div><div class="label">E-Book (2025)</div></div>
+  <div class="stat-card"><div class="num">{bf_stats.get('audio_2025', 0)}%</div><div class="label">Audiobook (2025)</div></div>
+</div>"""
+
+        if bf_facts:
+            body += '\n<div class="rules-box"><h3>Key Facts</h3><ul class="wiki-list">'
+            for f in bf_facts[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Attitudes (Pew Research) ──
+    try:
+        la = json.load(open(os.path.join(DATA, 'library_attitudes_summary.json')))
+        la_stats = la.get('key_stats', {})
+        la_attitudes = la.get('attitudes', {})
+        la_reasons = la.get('reasons_for_use', [])
+        la_demographics = la.get('demographics', {})
+        la_facts = la.get('key_facts', [])
+
+        body += f"""
+<h2 id="library-attitudes">Public Attitudes Toward Libraries (Pew Research)</h2>
+<p>{esc(str(la.get('overview', '')))[:400]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{la_stats.get('pct_say_libraries_provide_resources', 0)}%</div><div class="label">Provide Needed Resources</div></div>
+  <div class="stat-card"><div class="num">{la_stats.get('pct_say_closing_major_impact_community', 0)}%</div><div class="label">Closing = Major Impact</div></div>
+  <div class="stat-card"><div class="num">{la_stats.get('pct_say_libraries_safe_place', 0)}%</div><div class="label">Safe Place for All</div></div>
+  <div class="stat-card"><div class="num">{la_stats.get('pct_say_libraries_educational', 0)}%</div><div class="label">Educational Resource</div></div>
+</div>"""
+
+        if isinstance(la_attitudes, dict) and la_attitudes.get('findings'):
+            body += '\n<h3>Key Findings from Pew Research</h3><ul class="wiki-list">'
+            for finding in la_attitudes.get('findings', [])[:8]:
+                if isinstance(finding, dict):
+                    ftext = finding.get('finding', '')
+                    fsrc = finding.get('source', '')
+                    body += f'\n  <li>{esc(str(ftext))} <em>({esc(str(fsrc))})</em></li>'
+                else:
+                    body += f'\n  <li>{esc(str(finding))}</li>'
+            body += '\n</ul>'
+
+        if la_facts:
+            body += '\n<div class="rules-box"><h3>Key Facts</h3><ul class="wiki-list">'
+            for f in la_facts[:5]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── ALA State of America's Libraries Report ──
+    try:
+        ala = json.load(open(os.path.join(DATA, 'ala_report_summary.json')))
+        ala_stats = ala.get('key_statistics', {})
+        ala_books = ala.get('top_10_challenged_books', [])
+        ala_state_leg = ala.get('state_legislation', {})
+        ala_fed_leg = ala.get('federal_legislation', [])
+
+        ala_title = esc(str(ala.get('report_title', '')))
+        ala_year = esc(str(ala.get('report_year', '')))
+        body += f"""
+<h2 id="ala-report">ALA State of America's Libraries Report</h2>
+<p>{ala_title} ({ala_year})</p>"""
+
+        if isinstance(ala_stats, dict) and ala_stats:
+            body += '\n<div class="stats-grid">'
+            for k, v in list(ala_stats.items())[:6]:
+                display_k = esc(str(k)).replace('_', ' ').title()
+                body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+            body += '\n</div>'
+
+        if ala_books:
+            body += """
+<h3>Top 10 Most Challenged Books</h3>
+<table class="wikitable">
+  <tr><th>#</th><th>Title</th><th>Author</th></tr>"""
+            for i, b in enumerate(ala_books[:10], 1):
+                if isinstance(b, dict):
+                    bt = esc(str(b.get('title', '')))
+                    ba = esc(str(b.get('author', '')))
+                else:
+                    bt = esc(str(b))
+                    ba = ''
+                body += f'\n  <tr><td>{i}</td><td>{bt}</td><td>{ba}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#censorship">Censorship</a> | <a href="#intellectual-freedom">Intellectual freedom</a> | <a href="#covid-recovery">COVID recovery</a> | <a href="#international-libraries">International</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#history-timeline">History</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#access-equity">Access &amp; equity</a> | <a href="#censorship">Censorship</a> | <a href="#intellectual-freedom">Intellectual freedom</a> | <a href="#covid-recovery">COVID recovery</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#book-formats">Book formats</a> | <a href="#library-attitudes">Attitudes</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

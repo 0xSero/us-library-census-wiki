@@ -664,6 +664,13 @@ def load_all():
         ('social_media', 'library_social_media_summary.json'),
         ('special_collections', 'library_special_collections_summary.json'),
         ('privacy', 'library_privacy_summary.json'),
+        ('circulation', 'circulation_summary.json'),
+        ('impact_outcomes', 'library_impact_outcomes_summary.json'),
+        ('buildings_inventory', 'library_buildings_inventory_summary.json'),
+        ('special_populations', 'library_special_populations_summary.json'),
+        ('library_cards_data', 'library_cards_summary.json'),
+        ('library_technology', 'library_technology_summary.json'),
+        ('pls_extended', 'pls_extended_metrics.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -10587,6 +10594,125 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Circulation Rankings ──
+    try:
+        circ = data.get('circulation', {})
+        if circ:
+            circ_natl = circ.get('national', {})
+            circ_top = circ.get('top_by_circulation', [])
+            circ_pc = circ.get('top_by_per_capita_circulation', [])
+            circ_visits = circ.get('top_by_visits', [])
+            circ_facts = circ.get('key_facts', [])
+
+            body += """
+<h2 id="circulation-rankings">Library Circulation Rankings</h2>
+<p>National circulation statistics from the IMLS Public Libraries Survey — the most comprehensive picture of what Americans borrow from their libraries.</p>"""
+
+            if circ_natl and isinstance(circ_natl, dict):
+                body += '\n<div class="stats-grid">'
+                for k, v in list(circ_natl.items())[:8]:
+                    if isinstance(v, (int, float, str)):
+                        k_disp = esc(str(k).replace('_', ' ').title())
+                        v_disp = esc(str(v))
+                        body += f'\n  <div class="stat-card"><div class="num">{v_disp}</div><div class="label">{k_disp}</div></div>'
+                body += '\n</div>'
+
+            if circ_top and isinstance(circ_top, list):
+                body += '\n<h3>Top 15 Library Systems by Total Circulation</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>State</th><th>Circulation</th></tr>'
+                for row in circ_top[:15]:
+                    if isinstance(row, dict):
+                        r_name = esc(str(row.get('library', row.get('name', ''))))
+                        r_state = esc(str(row.get('state', '')))
+                        r_circ = row.get('circulation', row.get('total_circulation', 0))
+                        try:
+                            r_circ_disp = f'{int(r_circ):,}'
+                        except (ValueError, TypeError):
+                            r_circ_disp = esc(str(r_circ))
+                        body += f'\n  <tr><td>{r_name}</td><td>{r_state}</td><td class="num">{r_circ_disp}</td></tr>'
+                body += '\n</table>'
+
+            if circ_pc and isinstance(circ_pc, list):
+                body += '\n<h3>Top 15 by Circulation Per Capita</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>State</th><th>Per Capita</th></tr>'
+                for row in circ_pc[:15]:
+                    if isinstance(row, dict):
+                        r_name = esc(str(row.get('library', row.get('name', ''))))
+                        r_state = esc(str(row.get('state', '')))
+                        r_pc = row.get('per_capita', row.get('circulation_per_capita', ''))
+                        body += f'\n  <tr><td>{r_name}</td><td>{r_state}</td><td class="num">{esc(str(r_pc))}</td></tr>'
+                body += '\n</table>'
+
+            if circ_visits and isinstance(circ_visits, list):
+                body += '\n<h3>Top 15 by Annual Visits</h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>State</th><th>Visits</th></tr>'
+                for row in circ_visits[:15]:
+                    if isinstance(row, dict):
+                        r_name = esc(str(row.get('library', row.get('name', ''))))
+                        r_state = esc(str(row.get('state', '')))
+                        r_visits = row.get('visits', row.get('annual_visits', 0))
+                        try:
+                            r_visits_disp = f'{int(r_visits):,}'
+                        except (ValueError, TypeError):
+                            r_visits_disp = esc(str(r_visits))
+                        body += f'\n  <tr><td>{r_name}</td><td>{r_state}</td><td class="num">{r_visits_disp}</td></tr>'
+                body += '\n</table>'
+
+            if circ_facts and isinstance(circ_facts, list):
+                body += '\n<div class="rules-box"><h3>Key Facts</h3><ul class="wiki-list">'
+                for f in circ_facts[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Cards ──
+    try:
+        lc = data.get('library_cards_data', {})
+        if lc:
+            lc_natl = lc.get('national_stats', {})
+            lc_trends = lc.get('trends', {})
+            lc_demo = lc.get('demographics', {})
+            lc_dvp = lc.get('digital_vs_physical', {})
+            lc_facts = lc.get('key_facts', [])
+
+            body += """
+<h2 id="library-cards">Library Card Statistics</h2>
+<p>How many Americans hold library cards, and who are they? Registration data reveals the reach of public library service.</p>"""
+
+            if lc_natl and isinstance(lc_natl, dict):
+                body += '\n<div class="stats-grid">'
+                for k, v in list(lc_natl.items())[:8]:
+                    if isinstance(v, (int, float, str)):
+                        k_disp = esc(str(k).replace('_', ' ').title())
+                        v_disp = esc(str(v))
+                        body += f'\n  <div class="stat-card"><div class="num">{v_disp}</div><div class="label">{k_disp}</div></div>'
+                body += '\n</div>'
+
+            if lc_trends and isinstance(lc_trends, dict):
+                body += '\n<h3>Registration Trends</h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(lc_trends.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul>'
+
+            if lc_dvp and isinstance(lc_dvp, dict):
+                body += '\n<h3>Digital vs. Physical Cards</h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(lc_dvp.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul>'
+
+            if lc_facts and isinstance(lc_facts, list):
+                body += '\n<div class="rules-box"><h3>Key Facts</h3><ul class="wiki-list">'
+                for f in lc_facts[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
 <h2>Map Legend</h2>
 <div class="rules-box">
@@ -10597,7 +10723,7 @@ def build_index(data, stats):
   </ul>
 </div>
 
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a> | <a href="#circulation-rankings">Circulation</a> | <a href="#library-cards">Library cards</a></div>
 <div class="relatedbox">
   <h3>Keep exploring</h3>
   <ul>
@@ -13606,8 +13732,103 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Impact & Outcomes ──
+    try:
+        io = data.get('impact_outcomes', {})
+        if io:
+            io_econ = io.get('economic_impact', {})
+            io_edu = io.get('educational_impact', {})
+            io_dig = io.get('digital_inclusion_impact', {})
+            io_health = io.get('health_impact', {})
+            io_community = io.get('community_hub', {})
+            io_studies = io.get('key_studies', [])
+            io_findings = io.get('key_findings', [])
+
+            body += """
+<section id="impact-outcomes">
+<h2><span class="mw-headline">Library Impact & Outcomes</span></h2>
+<p>What difference do libraries actually make? This section synthesizes research on the measurable economic, educational, and social impact of public libraries.</p>"""
+
+            if io_econ and isinstance(io_econ, dict):
+                body += '\n<h3><span class="mw-headline">Economic Impact</span></h3>'
+                body += '\n<div class="stats-grid">'
+                for k, v in list(io_econ.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{esc(str(k).replace("_", " ").title())}</div></div>'
+                body += '\n</div>'
+
+            if io_edu and isinstance(io_edu, dict):
+                body += '\n<h3><span class="mw-headline">Educational Impact</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(io_edu.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))}</li>'
+                body += '\n</ul>'
+
+            if io_studies and isinstance(io_studies, list):
+                body += '\n<h3><span class="mw-headline">Key Studies</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for s in io_studies[:10]:
+                    if isinstance(s, dict):
+                        s_name_raw = s.get('study', s.get('name', s.get('title', '')))
+                        s_name = esc(str(s_name_raw))
+                        s_finding_raw = s.get('finding', s.get('result', ''))
+                        s_finding = esc(str(s_finding_raw))[:150]
+                        body += f'\n  <li><strong>{s_name}</strong>{f" — {s_finding}" if s_finding else ""}</li>'
+                    elif isinstance(s, str):
+                        body += f'\n  <li>{esc(s)}</li>'
+                body += '\n</ul>'
+
+            if io_findings and isinstance(io_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in io_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Buildings Inventory ──
+    try:
+        bi = data.get('buildings_inventory', {})
+        if bi:
+            bi_total = bi.get('total_building_records', 0)
+            bi_notable = bi.get('notable_buildings', [])
+            bi_oldest = bi.get('oldest_libraries', [])
+            bi_carnegie = bi.get('carnegie_buildings', {})
+            bi_nrhp = bi.get('NRHP_listed', {})
+            bi_leed = bi.get('leed_certified', {})
+
+            body += f"""
+<section id="buildings-inventory">
+<h2><span class="mw-headline">Library Buildings Inventory</span></h2>
+<p>A comprehensive inventory of {bi_total:,} library building records, including historic structures, Carnegie buildings, and LEED-certified facilities.</p>"""
+
+            if bi_oldest and isinstance(bi_oldest, list):
+                body += '\n<h3><span class="mw-headline">Oldest Libraries in America</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>Founded</th><th>Location</th></tr>'
+                for lib in bi_oldest[:15]:
+                    if isinstance(lib, dict):
+                        b_name = esc(str(lib.get('name', lib.get('library', ''))))
+                        b_year = lib.get('year', lib.get('founded', lib.get('year_founded', '')))
+                        b_loc = esc(str(lib.get('location', lib.get('city', ''))))
+                        body += f'\n  <tr><td><strong>{b_name}</strong></td><td>{esc(str(b_year))}</td><td>{b_loc}</td></tr>'
+                body += '\n</table>'
+
+            if bi_carnegie and isinstance(bi_carnegie, dict):
+                c_total = bi_carnegie.get('total', bi_carnegie.get('count', ''))
+                body += '\n<h3><span class="mw-headline">Carnegie Buildings</span></h3>'
+                body += f'\n<p><strong>{esc(str(c_total))}</strong> Carnegie-funded library buildings documented in the inventory.</p>'
+
+            if bi_nrhp and isinstance(bi_nrhp, dict):
+                n_total = bi_nrhp.get('total', bi_nrhp.get('count', ''))
+                body += '\n<h3><span class="mw-headline">National Register of Historic Places</span></h3>'
+                body += f'\n<p><strong>{esc(str(n_total))}</strong> library buildings listed on the National Register of Historic Places.</p>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

@@ -9299,6 +9299,100 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Academic Library Statistics ──
+    try:
+        ac = json.load(open(os.path.join(DATA, 'academic_libraries_summary.json')))
+        tc = ac.get('total_count', {})
+        holdings = ac.get('total_holdings', {})
+        arl = ac.get('arl', {})
+        expend = ac.get('expenditures', {})
+        staffing = ac.get('staffing', {})
+        carnegie_classes = ac.get('by_carnegie_class', [])
+
+        respondents = int(tc.get('respondents_2022_23', 0)) if isinstance(tc, dict) else 0
+        universe = int(tc.get('institutions_in_ipeds_universe', 0)) if isinstance(tc, dict) else 0
+        phys_vols = float(holdings.get('physical_volumes_2022_23', 0)) if isinstance(holdings, dict) else 0
+        total_exp = float(expend.get('total_usd_2022_23', 0)) if isinstance(expend, dict) else 0
+        total_fte = float(staffing.get('total_fte_2022_23', 0)) if isinstance(staffing, dict) else 0
+        arl_members = int(arl.get('member_count', 0)) if isinstance(arl, dict) else 0
+
+        body += f"""
+<h2 id="academic-stats">Academic Library Statistics (IPEDS 2022-23)</h2>
+<p>{esc(str(ac.get('description', '')))[:300]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{respondents:,}</div><div class="label">Respondent Libraries</div></div>
+  <div class="stat-card"><div class="num">{universe:,}</div><div class="label">IPEDS Universe</div></div>
+  <div class="stat-card"><div class="num">{phys_vols/1e6:.0f}M</div><div class="label">Physical Volumes</div></div>
+  <div class="stat-card"><div class="num">${total_exp/1e9:.1f}B</div><div class="label">Total Expenditures</div></div>
+  <div class="stat-card"><div class="num">{int(total_fte):,}</div><div class="label">Total FTE Staff</div></div>
+  <div class="stat-card"><div class="num">{arl_members}</div><div class="label">ARL Members</div></div>
+</div>"""
+
+        if carnegie_classes:
+            body += """
+<h3>By Carnegie Classification</h3>
+<table class="wikitable sortable">
+  <tr><th>Classification</th><th>Institutions</th></tr>"""
+            for c in carnegie_classes[:8]:
+                if isinstance(c, dict):
+                    cls_val = c.get('classification', c.get('class', c.get('name', '')))
+                    cnt_val = c.get('count', c.get('institutions', 0))
+                    cls = esc(str(cls_val))
+                    cnt = int(cnt_val) if cnt_val else 0
+                    body += f'\n  <tr><td><strong>{cls}</strong></td><td class="num">{cnt:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── School Library Impact ──
+    try:
+        sl = json.load(open(os.path.join(DATA, 'school_libraries_summary.json')))
+        slks = sl.get('key_stats', {})
+        requirements = sl.get('state_requirements', [])
+        impact = sl.get('impact_studies', [])
+        holdings_sl = sl.get('holdings', {})
+
+        total_sl = int(slks.get('total_schools_with_libraries', 0)) if isinstance(slks, dict) else 0
+        pct_sl = float(slks.get('pct_schools_with_libraries', 0)) if isinstance(slks, dict) else 0
+        total_libs_sl = int(slks.get('total_school_librarians', 0)) if isinstance(slks, dict) else 0
+        pct_cert = float(slks.get('pct_with_certified_librarian', 0)) if isinstance(slks, dict) else 0
+        states_req = int(slks.get('states_requiring_librarian', 0)) if isinstance(slks, dict) else 0
+
+        body += f"""
+<h2 id="school-library-impact">School Libraries: Impact &amp; Requirements</h2>
+<p>{esc(str(sl.get('overview', '')))[:300]}...</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_sl:,}</div><div class="label">Schools with Libraries</div></div>
+  <div class="stat-card"><div class="num">{pct_sl:.0f}%</div><div class="label">% Schools with Libraries</div></div>
+  <div class="stat-card"><div class="num">{total_libs_sl:,}</div><div class="label">School Librarians</div></div>
+  <div class="stat-card"><div class="num">{states_req}</div><div class="label">States Requiring Librarian</div></div>
+</div>"""
+
+        if requirements:
+            body += """
+<h3>State Requirements for School Librarians</h3>
+<ul class="wiki-list">"""
+            for r in requirements[:15]:
+                if isinstance(r, dict):
+                    body += f'\n  <li><strong>{esc(str(r.get("state", r.get("name", ""))))}</strong>: {esc(str(r.get("requirement", r.get("note", ""))))[:150]}</li>'
+                elif isinstance(r, str):
+                    body += f'\n  <li>{esc(r)}</li>'
+            body += '\n</ul>'
+
+        if impact:
+            body += """
+<h3>Impact Studies</h3>
+<table class="wikitable">
+  <tr><th>Study</th><th>Key Finding</th></tr>"""
+            for s in impact[:10]:
+                if isinstance(s, dict):
+                    study = esc(str(s.get('study', s.get('name', ''))))
+                    finding = esc(str(s.get('finding', s.get('description', ''))))[:200]
+                    body += f'\n  <tr><td><strong>{study}</strong></td><td>{finding}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     # ── Library Consortia ──
     try:
         con = json.load(open(os.path.join(DATA, 'library_consortia_enhanced_summary.json')))

@@ -11100,6 +11100,151 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Social Impact & Outcomes ──
+    try:
+        imp = json.load(open(os.path.join(DATA, 'library_impact_outcomes_summary.json')))
+        imp_econ = imp.get('economic_impact', {})
+        imp_edu = imp.get('educational_impact', {})
+        imp_digital = imp.get('digital_inclusion_impact', {})
+        imp_health = imp.get('health_impact', {})
+        imp_hub = imp.get('community_hub', {})
+        imp_work = imp.get('workforce_impact', {})
+        imp_equity = imp.get('equity_impact', {})
+        imp_democ = imp.get('democratization_of_knowledge', {})
+        imp_progs = imp.get('specific_program_impacts', {})
+        imp_studies = imp.get('key_studies', [])
+        imp_findings = imp.get('key_findings', [])
+
+        body += f"""
+<h2 id="library-impact">Library Social Impact &amp; Community Outcomes</h2>
+<p>{esc(str(imp.get('description', '')))[:400]}</p>"""
+
+        # Economic impact
+        if isinstance(imp_econ, dict) and imp_econ.get('key_stats'):
+            econ_stats = imp_econ.get('key_stats', {})
+            roi_studies = imp_econ.get('roi_studies', [])
+            body += """
+<h3>Economic Impact: Libraries Return More Than They Cost</h3>"""
+            if isinstance(econ_stats, dict) and econ_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(econ_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+            if roi_studies:
+                body += """
+<table class="wikitable sortable">
+  <tr><th>State/City</th><th>ROI</th><th>Year</th><th>Key Finding</th></tr>"""
+                for r in roi_studies[:10]:
+                    if isinstance(r, dict):
+                        rs = esc(str(r.get('state', r.get('location', ''))))
+                        rr = esc(str(r.get('roi', r.get('ratio', ''))))
+                        ry = esc(str(r.get('year', '')))
+                        rf = esc(str(r.get('finding', r.get('description', ''))))[:120]
+                        body += f'\n  <tr><td>{rs}</td><td class="num">{rr}</td><td>{ry}</td><td>{rf}</td></tr>'
+                body += '\n</table>'
+
+        # Educational impact
+        if isinstance(imp_edu, dict) and imp_edu.get('key_stats'):
+            body += """
+<h3>Educational Impact</h3>"""
+            edu_stats = imp_edu.get('key_stats', {})
+            if isinstance(edu_stats, dict) and edu_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(edu_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+
+        # Digital inclusion impact
+        if isinstance(imp_digital, dict) and imp_digital.get('key_stats'):
+            body += """
+<h3>Digital Inclusion Impact</h3>"""
+            dig_stats = imp_digital.get('key_stats', {})
+            if isinstance(dig_stats, dict) and dig_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(dig_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+
+        # Health impact
+        if isinstance(imp_health, dict) and imp_health.get('key_stats'):
+            body += """
+<h3>Health &amp; Wellbeing Impact</h3>"""
+            health_stats = imp_health.get('key_stats', {})
+            if isinstance(health_stats, dict) and health_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(health_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+
+        # Community hub
+        if isinstance(imp_hub, dict) and imp_hub.get('key_stats'):
+            body += """
+<h3>Community Hub Function</h3>"""
+            hub_stats = imp_hub.get('key_stats', {})
+            if isinstance(hub_stats, dict) and hub_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(hub_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+
+        # Workforce impact
+        if isinstance(imp_work, dict) and imp_work.get('key_stats'):
+            body += """
+<h3>Workforce Development Impact</h3>"""
+            work_stats = imp_work.get('key_stats', {})
+            if isinstance(work_stats, dict) and work_stats:
+                body += '\n<div class="stats-grid">'
+                for k, v in list(work_stats.items())[:5]:
+                    display_k = esc(str(k)).replace('_', ' ').title()
+                    body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{display_k}</div></div>'
+                body += '\n</div>'
+
+        # Specific program impacts
+        if isinstance(imp_progs, dict) and imp_progs:
+            prog_overview = imp_progs.get('overview', '')
+            body += f"""
+<h3>Specific Program Impacts</h3>
+<p>{esc(str(prog_overview))[:300]}</p>
+<ul class="wiki-list">"""
+            prog_keys = ['summer_food_service_program', 'wifi_hotspot_lending', 'library_of_things', 'seed_libraries', 'tool_libraries', 'makerspaces', 'bookmobiles_and_mobile_services']
+            for pk in prog_keys:
+                pv = imp_progs.get(pk, '')
+                if pv:
+                    display_pk = pk.replace('_', ' ').title()
+                    if isinstance(pv, dict):
+                        pv_text = pv.get('description', pv.get('overview', str(pv)))
+                    else:
+                        pv_text = str(pv)
+                    body += f'\n  <li><strong>{esc(display_pk)}</strong> — {esc(str(pv_text))[:200]}</li>'
+            body += '\n</ul>'
+
+        # Key studies
+        if imp_studies:
+            body += """
+<h3>Key Studies on Library Impact</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Source</th><th>Key Finding</th></tr>"""
+            for s in imp_studies[:12]:
+                if isinstance(s, dict):
+                    sy = esc(str(s.get('year', '')))
+                    ss = esc(str(s.get('source', '')))
+                    sf = esc(str(s.get('finding', '')))[:150]
+                    body += f'\n  <tr><td>{sy}</td><td>{ss}</td><td>{sf}</td></tr>'
+            body += '\n</table>'
+
+        if imp_findings:
+            body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+            for f in imp_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Reading Trends Enhanced ──
     try:
         rt = json.load(open(os.path.join(DATA, 'reading_trends_enhanced_summary.json')))

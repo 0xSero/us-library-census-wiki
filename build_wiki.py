@@ -673,6 +673,8 @@ def load_all():
         ('pls_extended', 'pls_extended_metrics.json'),
         ('climate', 'library_climate_summary.json'),
         ('history_timeline', 'library_history_timeline_summary.json'),
+        ('censorship_detailed', 'censorship_detailed_summary.json'),
+        ('innovation_detailed', 'library_innovation_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -10596,6 +10598,61 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Library Innovation Deep Dive ──
+    try:
+        inno2 = data.get('innovation_detailed', {})
+        if inno2:
+            inno2_ai = inno2.get('ai_in_libraries', [])
+            inno2_lot = inno2.get('library_of_things', [])
+            inno2_innov = inno2.get('innovative_libraries', [])
+            inno2_findings = inno2.get('key_findings', [])
+
+            body += """
+<h2 id="innovation-deep">Library Innovation Deep Dive: AI, Library of Things & Future Spaces</h2>
+<p>The cutting edge of library innovation — from AI-powered discovery to Library of Things collections to VR branches.</p>"""
+
+            if inno2_ai and isinstance(inno2_ai, list):
+                body += '\n<h3>AI in Libraries</h3>'
+                body += '\n<ul class="wiki-list">'
+                for ai in inno2_ai[:8]:
+                    if isinstance(ai, dict):
+                        ai_name = esc(str(ai.get('application', ai.get('name', ''))))
+                        ai_desc = esc(str(ai.get('description', '')))[:150]
+                        body += f'\n  <li><strong>{ai_name}</strong>{f" — {ai_desc}" if ai_desc else ""}</li>'
+                    elif isinstance(ai, str):
+                        body += f'\n  <li>{esc(ai)}</li>'
+                body += '\n</ul>'
+
+            if inno2_lot and isinstance(inno2_lot, list):
+                body += '\n<h3>Library of Things Programs</h3>'
+                body += '\n<table class="wikitable"><tr><th>Library</th><th>Location</th><th>Items Lent</th></tr>'
+                for lot in inno2_lot[:18]:
+                    if isinstance(lot, dict):
+                        lot_name = esc(str(lot.get('library', lot.get('name', ''))))
+                        lot_loc = esc(str(lot.get('location', '')))
+                        lot_items = esc(str(lot.get('items', lot.get('collection', '')))[:100])
+                        body += f'\n  <tr><td><strong>{lot_name}</strong></td><td>{lot_loc}</td><td>{lot_items}</td></tr>'
+                body += '\n</table>'
+
+            if inno2_innov and isinstance(inno2_innov, list):
+                body += '\n<h3>Most Innovative Libraries in America</h3>'
+                body += '\n<table class="wikitable"><tr><th>Library</th><th>Location</th><th>Innovation</th></tr>'
+                for lib in inno2_innov[:15]:
+                    if isinstance(lib, dict):
+                        lib_name = esc(str(lib.get('library', lib.get('name', ''))))
+                        lib_loc = esc(str(lib.get('location', '')))
+                        lib_innov = esc(str(lib.get('innovation', lib.get('description', '')))[:120])
+                        body += f'\n  <tr><td><strong>{lib_name}</strong></td><td>{lib_loc}</td><td>{lib_innov}</td></tr>'
+                body += '\n</table>'
+
+            if inno2_findings and isinstance(inno2_findings, list):
+                body += '\n<div class="rules-box"><h3>Key Findings</h3><ul class="wiki-list">'
+                for f in inno2_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Circulation Rankings ──
     try:
         circ = data.get('circulation', {})
@@ -10725,7 +10782,7 @@ def build_index(data, stats):
   </ul>
 </div>
 
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a> | <a href="#circulation-rankings">Circulation</a> | <a href="#library-cards">Library cards</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="search.html?type=public">Public</a> | <a href="search.html?type=private">Private</a> | <a href="search.html?type=gov">Government</a> | <a href="search.html?type=hours">Hours</a> | <a href="search.html?type=services">Services</a> | <a href="#health-libraries">Health libraries</a> | <a href="#workforce">Workforce</a> | <a href="#library-innovation">Innovation</a> | <a href="#innovation-deep">Innovation deep dive</a> | <a href="#circulation-rankings">Circulation</a> | <a href="#library-cards">Library cards</a></div>
 <div class="relatedbox">
   <h3>Keep exploring</h3>
   <ul>
@@ -13734,6 +13791,86 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Book Bans & Censorship Detailed ──
+    try:
+        cd = data.get('censorship_detailed', {})
+        if cd:
+            cd_stats = cd.get('ban_statistics', {})
+            cd_books = cd.get('most_challenged_books', [])
+            cd_states = cd.get('ban_by_state', [])
+            cd_legis = cd.get('legislation', [])
+            cd_orgs = cd.get('organizations', [])
+            cd_cases = cd.get('notable_cases', [])
+            cd_findings = cd.get('key_findings', [])
+
+            body += """
+<section id="censorship-detailed">
+<h2><span class="mw-headline">Book Bans & Censorship in America</span></h2>
+<p>The most comprehensive data available on book challenges, bans, and censorship legislation across the United States — from PEN America and ALA tracking data.</p>"""
+
+            if cd_stats and isinstance(cd_stats, dict):
+                body += '\n<div class="stats-grid">'
+                for k, v in list(cd_stats.items())[:8]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{esc(str(k).replace("_", " ").title())}</div></div>'
+                body += '\n</div>'
+
+            if cd_books and isinstance(cd_books, list):
+                body += '\n<h3><span class="mw-headline">Most Challenged Books</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>#</th><th>Title</th><th>Author</th><th>Challenges</th><th>Reasons</th></tr>'
+                for b in cd_books[:20]:
+                    if isinstance(b, dict):
+                        b_rank = b.get('rank', '')
+                        b_title = esc(str(b.get('title', '')))
+                        b_author = esc(str(b.get('author', '')))
+                        b_count = b.get('challenge_count', '')
+                        b_reasons = esc(str(b.get('reasons', '')))[:100]
+                        body += f'\n  <tr><td>{b_rank}</td><td><strong>{b_title}</strong></td><td>{b_author}</td><td class="num">{esc(str(b_count))}</td><td>{b_reasons}</td></tr>'
+                body += '\n</table>'
+
+            if cd_states and isinstance(cd_states, list):
+                body += '\n<h3><span class="mw-headline">Book Bans by State</span></h3>'
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Challenges</th><th>Banned/Removed</th></tr>'
+                for s in cd_states[:17]:
+                    if isinstance(s, dict):
+                        s_state = esc(str(s.get('state', '')))
+                        s_chal = s.get('total_challenges', '')
+                        s_banned = s.get('banned_removed', '')
+                        body += f'\n  <tr><td><strong>{s_state}</strong></td><td class="num">{esc(str(s_chal))}</td><td class="num">{esc(str(s_banned))}</td></tr>'
+                body += '\n</table>'
+
+            if cd_legis and isinstance(cd_legis, list):
+                body += '\n<h3><span class="mw-headline">Censorship-Related Legislation</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Law/Bill</th><th>State</th><th>Year</th><th>Type</th></tr>'
+                for l in cd_legis[:12]:
+                    if isinstance(l, dict):
+                        l_name = esc(str(l.get('name', '')))
+                        l_state = esc(str(l.get('state', '')))
+                        l_year = l.get('year', '')
+                        l_type = esc(str(l.get('type', '')))
+                        body += f'\n  <tr><td><strong>{l_name}</strong></td><td>{l_state}</td><td>{l_year}</td><td>{l_type}</td></tr>'
+                body += '\n</table>'
+
+            if cd_cases and isinstance(cd_cases, list):
+                body += '\n<h3><span class="mw-headline">Notable Censorship Court Cases</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Case</th><th>Year</th><th>Parties</th></tr>'
+                for c in cd_cases[:10]:
+                    if isinstance(c, dict):
+                        c_name = esc(str(c.get('name', '')))
+                        c_year = c.get('year', '')
+                        c_parties = esc(str(c.get('parties', '')))[:100]
+                        body += f'\n  <tr><td><strong>{c_name}</strong></td><td>{c_year}</td><td>{c_parties}</td></tr>'
+                body += '\n</table>'
+
+            if cd_findings and isinstance(cd_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in cd_findings[:10]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Impact & Outcomes ──
     try:
         io = data.get('impact_outcomes', {})
@@ -13928,7 +14065,7 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

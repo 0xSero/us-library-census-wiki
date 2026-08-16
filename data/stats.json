@@ -1708,7 +1708,7 @@
       "circulation": 25569226
     }
   ],
-  "generated": "2026-08-16 08:15 UTC",
+  "generated": "2026-08-16 08:44 UTC",
   "slaa": {
     "agencies": 51,
     "total_budget": 1484082994,
@@ -68904,164 +68904,843 @@
     ]
   },
   "library_innovation": {
-    "title": "Library Innovation: Hotspots, Makerspaces & Emerging Services",
-    "overview": "America's public libraries have evolved far beyond book lending into hubs of technological innovation and community creation. From WiFi hotspot lending that brings internet access into homes, to makerspaces equipped with 3D printers and audio/video editing tools, libraries are bridging the digital divide and fostering creativity in ways unimaginable a generation ago. The FCC's 2024 decision to allow E-rate funding for off-premises hotspot lending marked a watershed moment, recognizing libraries as essential digital equity infrastructure.",
-    "key_stats": {
-      "pct_libraries_free_wifi": 98,
-      "pct_libraries_summer_reading": 95,
-      "pct_digital_literacy_training": 90,
-      "pct_help_with_jobs": 73,
-      "pct_online_job_resources": 68,
-      "pct_3d_printers_patrons": 13,
-      "households_without_internet_millions": 24,
-      "hotspot_lending_decade": "2013-2023"
-    },
-    "hotspot_lending": {
-      "description": "Library mobile hotspot lending programs allow patrons to borrow cellular WiFi hotspots, bringing internet access to households without home broadband. What began as a handful of pioneering programs in the early 2010s grew into a widespread service embraced by urban and suburban library systems nationwide.",
-      "emergence": "Over the past few years [of the mid-2010s], some public libraries in the United States started to lend out hotspots to patrons.",
-      "growth_period": "Grew rapidly roughly 2013-2023 (ALA describes 'a decade of library hotspot and device lending expertise' as of 2023).",
-      "covid_expansion": "During the COVID-19 pandemic (2020-2021) many libraries expanded outdoor/parking-lot Wi-Fi and hotspot lending to serve students and patrons cut off from school and work; libraries extended Wi-Fi signals to parking lots so patrons could access the internet from cars even when buildings were closed.",
-      "notable_programs": [
-        "New York Public Library Hotspot program (NYPL) \u2014 one of the earliest and largest, lending cellular hotspots to patrons without home internet, funded in part by philanthropic grants.",
-        "Chicago Public Library \u2014 early municipal hotspot lending program.",
-        "Kansas City Public Library and other mid-size urban systems \u2014 early adopters."
+    "title": "Library Innovation & Future Trends",
+    "compiled_at": "2026-08-15",
+    "description": "A comprehensive reference on library innovation and future trends, covering AI in libraries (chatbots, AI cataloging, AI-powered discovery, ChatGPT integration, AI ethics), innovation programs (IMLS grants, the ALA Center for the Future of Libraries, Library Lab, Knight Foundation grants), emerging technologies (VR/AR, 3D printing, robotics, IoT, blockchain, voice assistants), future library space design, Library of Things programs, streaming services (Kanopy, Hoopla, OverDrive), gamification, libraries in the metaverse, the most innovative libraries in America, and global trends (Singapore, Finland, Denmark, South Korea, Netherlands). Compiled from verified web research (Wikipedia, ALA, IMLS, Knight Foundation, vendor press) and previously verified summary files in this data directory.",
+    "ai_in_libraries": {
+      "overview": "Artificial intelligence moved from the periphery to the mainstream of library operations between 2022 and 2025. The release of ChatGPT in November 2022 catalyzed library experimentation, the ALA Center for the Future of Libraries tracks 'Artificial Intelligence' as one of its core trend cards, and major library vendors (OCLC, EBSCO, ProQuest, Clarivate, OverDrive) embedded AI into cataloging, discovery, and reader engagement products. Libraries are simultaneously enthusiastic about efficiency gains and cautious about bias, copyright, hallucination, and patron-privacy risks.",
+      "applications": [
+        {
+          "application": "AI chatbots and virtual assistants",
+          "description": "Libraries and their vendors deploy chatbots to answer frequently asked questions (hours, locations, card applications, hold status) 24/7. Some academic libraries (e.g., North Carolina State University Libraries' 'Ask the Librarian' service) and public systems have piloted ChatGPT-style assistants on their websites. The ALA tracks chatbots under both its 'Artificial Intelligence' and 'Robots' trend cards.",
+          "status": "Widespread pilots; vendor-embedded production use growing",
+          "examples": [
+            "NC State University Libraries virtual assistant pilots",
+            "San Jose Public University and public-library consortial chatbots",
+            "OCLC QuestionPoint / LibAnswers (Springshare) automated triage",
+            "Vendor chatbots on discovery layers (Primo, Summon, WorldCat Discovery)"
+          ],
+          "source": "ALA Center for the Future of Libraries (Artificial Intelligence trend card); Wikipedia 'Chatbot'"
+        },
+        {
+          "application": "AI cataloging and metadata",
+          "description": "AI-assisted cataloging uses machine-learning models to suggest subject headings, generate Dewey/LC call numbers, classify resources, deduplicate records, and enrich bibliographic metadata. OCLC has applied AI to collection management and metadata quality, and Clarivate/ProQuest use AI in indexing and abstracting. The Library of Congress has experimented with machine-learning subject suggestion.",
+          "status": "Vendor production; ongoing experimentation at LC and large research libraries",
+          "examples": [
+            "OCLC metadata enrichment and deduplication (WorldCat)",
+            "Clarivate machine-learning indexing in Web of Science",
+            "Library of Congress Labs machine-readable subject experiments",
+            "Backstage Library Works AI-assisted retrospective conversion"
+          ],
+          "source": "library_tech_vendors_summary.json; ALA Center for the Future of Libraries"
+        },
+        {
+          "application": "AI-powered discovery and search",
+          "description": "Discovery layers increasingly use semantic search, vector retrieval, and large language models to surface relevant results beyond exact keyword matches. EBSCO's EBSCO Discovery Service, Ex Libris Primo, and ProQuest Summon have all added AI relevance tuning; several vendors launched generative-AI search assistants in 2023-2025 that summarize results for patrons.",
+          "status": "Vendor production, rapidly evolving 2023-2025",
+          "examples": [
+            "EBSCO EDS AI relevance tuning and 2024 generative search pilots",
+            "Ex Libris Primo AI relevancy and generative summaries",
+            "ProQuest Summon semantic search",
+            "OCLC WorldCat Discovery AI-assisted recommendations"
+          ],
+          "source": "library_tech_vendors_summary.json; vendor press releases"
+        },
+        {
+          "application": "ChatGPT and generative AI integration",
+          "description": "After ChatGPT's November 2022 release, libraries began publishing generative-AI usage guidance, piloting ChatGPT for readers' advisory and reference triage, and integrating generative models into research guides. The ALA's Center for the Future of Libraries issued guidance and the Association of College & Research Libraries (ACRL) published frameworks on AI literacy. Many libraries added 'AI literacy' programming for patrons in 2024-2025.",
+          "status": "Active experimentation; policy formation 2023-2025",
+          "examples": [
+            "ALA / ACRL AI-literacy guidance and programming",
+            "University of Rhode Island 'AI Lab' (first academic-library AI lab in the U.S., opened 2018)",
+            "Public-library ChatGPT workshops (e.g., Skokie, Charlotte Mecklenburg)",
+            "Generative-AI reader's-advisory pilots in several urban systems"
+          ],
+          "source": "ALA Center for the Future of Libraries; ACRL; American Libraries magazine"
+        },
+        {
+          "application": "AI ethics and concerns",
+          "description": "Libraries are scrutinizing AI for bias, copyright infringement (training-data provenance), hallucinated citations, surveillance, and patron-privacy risks. The ALA, the Library Freedom Project, and IFLA have issued statements emphasizing human oversight, transparency, opt-in data use, and intellectual-freedom safeguards. Key concerns: AI-generated fake citations in student work, license terms that allow vendor training on patron queries, and inequitable access to premium AI tools.",
+          "status": "Active policy debate; guidance emerging",
+          "key_concerns": [
+            "Training-data copyright and author consent",
+            "Hallucinated citations undermining reference integrity",
+            "Algorithmic bias in discovery ranking and recommendations",
+            "Patron-query privacy and vendor data retention",
+            "Digital divide in access to premium generative-AI tools",
+            "Intellectual freedom and censorship-by-algorithm risks"
+          ],
+          "source": "ALA Center for the Future of Libraries; Library Freedom Project; IFLA Statement on Libraries and Artificial Intelligence"
+        }
       ],
-      "federal_policy": {
-        "learn_without_limits_2023": "In 2023 the FCC (Chairwoman Jessica Rosenworcel) unveiled the Learn Without Limits initiative, proposing to allow libraries and schools to use E-rate funds to purchase Wi-Fi hotspots and services for patrons/students to use off-premises \u2014 building on the decade of library hotspot lending experience.",
-        "fcc_2024_eligibility": "The FCC in 2024 added off-premises hotspot lending eligibility under E-rate (Wi-Fi hotspots and school-bus Wi-Fi).",
-        "fcc_2025_rollback": "In October 2025, the FCC under chairman Brendan Carr voted 2-1 to end E-rate support for Wi-Fi hotspots and school-bus Wi-Fi. ALA and coalition partners filed comments/letters (2025-2026) opposing the rollback."
-      },
-      "national_count_note": "No single authoritative national count of libraries offering hotspot lending is published by IMLS or ALA as a recurring statistic. Industry reporting (American Libraries Magazine, Public Libraries Online, 'Check Out a Library Hotspot', 2016) documents widespread adoption among urban and suburban systems; the ALA characterizes it as a mature, decade-old service as of 2023. A precise national total is not centrally aggregated in IMLS PLS."
+      "ala_trend_card": "The ALA Center for the Future of Libraries publishes a dedicated 'Artificial Intelligence' trend card alongside related cards for 'Robots,' 'Anonymity,' 'Privacy Shifting,' 'Data Everywhere,' and 'Facial Recognition,' signaling that AI is treated as a cluster of intersecting trends rather than a single technology."
     },
-    "makerspaces": {
-      "description": "A library makerspace (hackerspace/hacklab) is an area/service offering patrons tools to create intellectual and physical materials: computers, 3-D printers, 3D scanning, audio/video capture and editing, and traditional arts and crafts.",
-      "first_public_library_makerspace": "Fayetteville Free Library (Fayetteville, NY), conceived by Lauren Britton as MLIS coursework (2012 article; makerspace began ~2011).",
-      "early_history": "Precursors: 1873 Gowanda Ladies Social Society (later Ladies Library Association) quilted/knit/sewed; 1905 Carnegie Library of Pittsburgh children's dept crafts; 1979 Merrimack Public Library (NH) crafts.",
-      "tools_typically_offered": [
-        "3D printers and 3D scanning",
-        "Audio/video capture and editing equipment",
-        "Computers with design software",
-        "Traditional arts and crafts supplies",
-        "Laser cutters and CNC machines",
-        "Electronics and soldering equipment"
+    "innovation_programs": {
+      "imls_grants": {
+        "overview": "The Institute of Museum and Library Services (IMLS) is the primary federal funder of library innovation. IMLS is an independent agency established in 1996 under the Museum and Library Services Act, with a fiscal-year 2023 budget of $313.58 million and approximately 70 employees. The Office of Library Services offers five funding opportunities: National Leadership Grants for Libraries, Native American Library Services Basic and Enhancement Grants, Native Hawaiian Library Services Grants, and the Laura Bush 21st Century Librarian Program. About 1,500 Grants to States projects run each year under the Library Services and Technology Act (LSTA).",
+        "key_programs": [
+          {
+            "program": "National Leadership Grants for Libraries",
+            "purpose": "Support projects that address significant challenges and opportunities facing the library field and that have the potential to advance practice in the profession.",
+            "typical_award_size": "$250,000-$1,000,000",
+            "innovation_focus": "AI, digital inclusion, makerspaces, accessibility, community engagement",
+            "source": "Wikipedia 'Institute of Museum and Library Services'; imls.gov"
+          },
+          {
+            "program": "Sparks! Ignition Grants for Libraries",
+            "purpose": "Small grants (historically up to ~$50,000) to test and evaluate innovative, potentially transformative ideas in library services. Fayetteville Free Library's 2011 makerspace was seeded by a Sparks! Ignition grant.",
+            "innovation_focus": "Pilot projects, prototypes, novel service models",
+            "source": "Wikipedia 'Institute of Museum and Library Services'; library_makerspaces_summary.json"
+          },
+          {
+            "program": "Laura Bush 21st Century Librarian Program (LB21)",
+            "purpose": "Support developing a diverse workforce of librarians to meet the changing learning and information needs of the American public, including training in AI, data science, and emerging technologies.",
+            "innovation_focus": "Workforce development, fellowships, AI/data training",
+            "source": "imls.gov grant programs"
+          },
+          {
+            "program": "Grants to States (LSTA)",
+            "purpose": "The largest IMLS program by volume: ~1,500 projects/year administered by State Library Administrative Agencies (SLAAs) on themes including digital inclusion, climate change, and addressing historic inequities.",
+            "innovation_focus": "Broadband, digital literacy, hotspot lending, STEAM",
+            "source": "Wikipedia 'Institute of Museum and Library Services'"
+          }
+        ],
+        "fy2023_budget": "$313.58 million",
+        "established": 1996,
+        "current_leadership_note": "IMLS leadership has been in flux; Keith Sonderling is listed as Acting Director as of 2023-era sources, reflecting the agency's exposure to political transitions and the 2025 effort to dismantle the agency."
+      },
+      "ala_center_for_the_future_of_libraries": {
+        "overview": "The ALA Center for the Future of Libraries, hosted by the American Library Association, is the profession's foresight and trend-tracking hub. It maps societal, technological, and demographic trends to library practice through trend cards, a Future of Libraries Fellowship, an Advisory Group, newsletters, and the annual Symposium on the Future of Libraries.",
+        "offerings": [
+          "Trend Cards (40+ trends mapped to library implications)",
+          "Future of Libraries Fellowship",
+          "Symposium on the Future of Libraries (annual)",
+          "Advisory Group of practitioners and futurists",
+          "Newsletters and 'Get Involved' member engagement"
+        ],
+        "trend_cards_sample": [
+          "Artificial Intelligence",
+          "Anonymity",
+          "Badging",
+          "Basic Income",
+          "Blockchain",
+          "Co-Working / Co-Living",
+          "Connected Learning",
+          "Connected Toys",
+          "Corporate Influence",
+          "Creative Placemaking",
+          "Data Everywhere",
+          "Design Thinking",
+          "Digital Natives",
+          "Drones",
+          "Emerging Adulthood",
+          "Experiential Retail",
+          "Facial Recognition",
+          "Fandom",
+          "Flipped Learning",
+          "Gamification",
+          "Haptic Technology",
+          "Income Inequality",
+          "Internet of Things",
+          "Maker Movement",
+          "Micro-Mobility",
+          "Privacy Shifting",
+          "Resilience",
+          "Rethinking Rural",
+          "Robots",
+          "Self-Driving Cars",
+          "Sharing Economy",
+          "Short Reading",
+          "Smart Cities",
+          "Subscription Boxes",
+          "Unplugged"
+        ],
+        "source": "ala.org/tools/future (verified 2026-08-15)"
+      },
+      "library_lab": {
+        "overview": "The term 'Library Lab' denotes innovation labs embedded in or serving libraries. Two notable senses exist: (1) the Harvard Library Innovation Lab (LIL), a software-development team inside Harvard Library that builds open-source tools for libraries (including StackLife, the Caselaw Access Project, and Perma.cc, a service that archives cited web pages for legal scholarship); and (2) 'library lab' as a generic label for in-library experimentation spaces that overlap with makerspaces.",
+        "harvard_lil_projects": [
+          "Perma.cc (web-link preservation for legal/court citations)",
+          "Caselaw Access Project (digitized U.S. case law, open access)",
+          "StackLife (collaborative bookshelf / discovery prototype)",
+          "Library Cloud and open metadata work"
+        ],
+        "generic_use": "Many public and academic libraries brand their digital experimentation or maker spaces as 'labs' (e.g., NC State University Libraries' makerspace ecosystem, Allen County Public Library Maker Labs, the Library of Congress Labs).",
+        "source": "Wikipedia 'Library of Congress Labs'; library_makerspaces_summary.json; lil.law.harvard.edu"
+      },
+      "knight_foundation_grants": {
+        "overview": "The John S. and James L. Knight Foundation, a private independent foundation founded in December 1950 and headquartered in Miami, Florida, focuses on journalism, arts, research, and community development. Its endowment was $2.5 billion in 2023. Through open competitions, Knight has funded library innovation, most notably the Knight News Challenge on Libraries.",
+        "knight_news_challenge_on_libraries": {
+          "description": "A multi-year open-competition grant program that asked 'How might libraries serve 21st-century information needs?' It funded projects connecting libraries to internet access, open data, civic technology, and digital services. The News Challenge model itself began in 2006 as a fund for projects improving how communities access news and information.",
+          "funded_themes": [
+            "Libraries as community information hubs",
+            "Open data and civic-tech partnerships with libraries",
+            "Digital inclusion and internet access through libraries",
+            "Innovative library service prototypes"
+          ],
+          "related_programs": [
+            "Knight News Challenge (est. 2006, digital news/information projects)",
+            "Knight Cities Challenge (grassroots civic projects)",
+            "Knight Arts Challenge ($20 million, South Florida arts, 2008)"
+          ]
+        },
+        "endowment_2023": "$2.5 billion",
+        "founded": "December 1950 (originally Charles L. Knight Memorial Education Fund, 1940)",
+        "headquarters": "Miami, Florida",
+        "source": "Wikipedia 'Knight Foundation'; knightfoundation.org"
+      }
+    },
+    "emerging_tech": {
+      "overview": "Beyond books, U.S. libraries are adopting an expanding portfolio of emerging technologies. The ALA Center for the Future of Libraries explicitly tracks many of these as trend cards (Internet of Things, Robots, Drones, Self-Driving Cars, Haptic Technology, Facial Recognition, Blockchain). 3D printing is the most widespread maker technology, with an estimated 500-700 public libraries offering it.",
+      "technologies": [
+        {
+          "technology": "Virtual and Augmented Reality (VR/AR)",
+          "description": "Libraries lend VR headsets (Meta Quest, HTC Vive) and run VR programs for education, job training, travel, and accessibility. AR is used for wayfinding and to overlay historical context onto physical spaces. Academic libraries use VR for immersive research and simulation.",
+          "status": "Growing; headsets lent at dozens of public systems",
+          "examples": [
+            "State Library of Queensland 'The Edge' digital makerspace (VR/AR)",
+            "Academic-library VR labs (NC State, University of Oklahoma)",
+            "Public-library VR lending (Skokie, Sacramento, others)"
+          ],
+          "source": "library_makerspaces_summary.json; Wikipedia 'State Library of Queensland'"
+        },
+        {
+          "technology": "3D printing and fabrication",
+          "description": "The flagship maker technology: an estimated 500-700 U.S. public libraries offer 3D printing. Fayetteville Free Library (NY) launched the first public-library makerspace in 2011; Chicago Public Library opened its Innovation Lab Maker Lab in 2013 with 3D printers, a milling machine, and laser cutters, winning the Chicago Innovation Awards Social Innovator Award.",
+          "status": "Widespread; mature service line",
+          "estimated_public_libraries_offering_3d_printing": "500-700 (2023, estimate)",
+          "source": "library_makerspaces_summary.json; Wikipedia 'Chicago Public Library'; Pew Research 2016"
+        },
+        {
+          "technology": "Robotics",
+          "description": "Robots in libraries range from book-delivery robots (Helsinki Oodi's robots transport books to the third floor) to humanoid service robots and telepresence units. The ALA tracks 'Robots' as a dedicated trend card; some libraries use robotics kits (LEGO Mindstorms, NAO) in STEAM programming.",
+          "status": "Pilot and programming-stage",
+          "examples": [
+            "Helsinki Central Library Oodi book-transport robots",
+            "Library robotics programming (LEGO, NAO, Sphero)",
+            "Telepresence robots for homebound patrons"
+          ],
+          "source": "Wikipedia 'Helsinki Central Library Oodi'; ALA 'Robots' trend card"
+        },
+        {
+          "technology": "Internet of Things (IoT)",
+          "description": "Library buildings use IoT sensors for occupancy counting, environmental monitoring (temperature, humidity, CO2 for collection preservation), smart lighting, and space utilization analytics. The ALA Center for the Future of Libraries tracks 'Internet of Things' as a trend card.",
+          "status": "Building-management deployment; patron-facing early stage",
+          "source": "ALA 'Internet of Things' trend card; library tech trade press"
+        },
+        {
+          "technology": "Blockchain for libraries",
+          "description": "ALA's Center for the Future of Libraries funded research and published a 'Blockchain' trend card exploring uses such as provenance for digital collections, interlibrary-loan tracking, credentialing, and decentralized catalog infrastructure. San Jose State University's iSchool led an IMLS-funded investigation of blockchain applications for information services.",
+          "status": "Research and pilot stage; not widely deployed",
+          "source": "ALA 'Blockchain' trend card; IMLS National Leadership Grant to SJSU iSchool"
+        },
+        {
+          "technology": "Voice assistants and smart speakers",
+          "description": "Libraries pilot voice-assistant skills on Amazon Alexa and Google Assistant for catalog search, hold placement, and event information. The ALA tracks 'Connected Toys' and voice-interface implications for children and accessibility.",
+          "status": "Early pilot stage",
+          "examples": [
+            "Library Alexa skills (e.g., due-date and catalog queries)",
+            "Voice-assisted accessibility services for visually impaired patrons"
+          ],
+          "source": "ALA 'Connected Toys' and 'Artificial Intelligence' trend cards"
+        }
+      ]
+    },
+    "future_spaces": {
+      "overview": "The future library is being redesigned around flexibility, creation, and community use rather than book storage. As collections move to shared off-site and digital storage, floor space is reallocated to collaborative, maker, and media-production uses. The ALA Center for the Future of Libraries tracks 'Co-Working / Co-Living' and 'Experiential Retail' as trends shaping library space.",
+      "space_types": [
+        {
+          "space": "Flexible / reconfigurable spaces",
+          "description": "Movable walls, modular furniture, and power/data in the floor allow libraries to reconfigure a single room between lecture, study, performance, and event modes. Examples include Salt Lake City Public Library's 'Urban Room' foyer spanning five floors under a 20,000-sq-ft skylight.",
+          "examples": [
+            "Salt Lake City Public Library Urban Room",
+            "Seattle Central Library living-room-style floors",
+            "Anythink Wright flexibility model"
+          ],
+          "source": "Wikipedia 'Salt Lake City Public Library'; library_makerspaces_summary.json"
+        },
+        {
+          "space": "Co-working spaces",
+          "description": "Libraries provide free or low-cost co-working environments with Wi-Fi, power, meeting rooms, and business resources, serving remote workers, freelancers, and small-business owners. The ALA explicitly tracks 'Co-Working / Co-Living' as a trend card.",
+          "examples": [
+            "Chicago Public Library business hubs",
+            "Anythink co-working",
+            "Rural-library telework stations"
+          ],
+          "source": "ALA 'Co-Working / Co-Living' trend card"
+        },
+        {
+          "space": "Recording studios (audio/video)",
+          "description": "Sound-treated recording booths with microphones, mixing boards, cameras, and editing software let patrons produce music, voiceovers, and video. Audio/video production is the fastest-growing maker category.",
+          "examples": [
+            "Allen County Public Library media studios (Fort Wayne, IN)",
+            "Nashville Public Library Studio NPL",
+            "Skokie Public Library digital media lab"
+          ],
+          "source": "library_makerspaces_summary.json"
+        },
+        {
+          "space": "Podcast studios",
+          "description": "Dedicated podcast booths have proliferated since ~2018, lowering barriers for community storytelling and civic journalism. Many are bookable by cardholders at no cost.",
+          "examples": [
+            "Fayetteville Public Library (AR) podcast/audio studio",
+            "Chicago Public Library YOUmedia and maker audio",
+            "Public-library podcast booths nationwide (Skokie, Sacramento, etc.)"
+          ],
+          "source": "Wikipedia 'Fayetteville Public Library'; library_makerspaces_summary.json"
+        },
+        {
+          "space": "Simulation labs",
+          "description": "Spaces equipped with VR/AR headsets, driving or medical simulators, and screen-based training environments for career and life-skills simulation (job interviews, public-speaking, technical training).",
+          "examples": [
+            "Academic-library simulation and VR labs",
+            "Workforce-development simulation at public libraries"
+          ],
+          "source": "library_makerspaces_summary.json; emerging-tech VR programs"
+        },
+        {
+          "space": "Teaching kitchens",
+          "description": "Demonstration kitchens for culinary-literacy programming, nutrition classes, and community events. Fayetteville Public Library (AR) added a teaching kitchen in its 2021 expansion.",
+          "examples": [
+            "Fayetteville Public Library teaching kitchen (AR, 2021)"
+          ],
+          "source": "Wikipedia 'Fayetteville Public Library'"
+        }
+      ]
+    },
+    "library_of_things": {
+      "overview": "A Library of Things lends non-traditional items beyond books. The concept has historical precedents (St. Louis, MO, lent tennis rackets and board games as early as 1894). The term 'Library of Things' was popularized in the UK by a 2014 London grassroots experiment inspired by the Toronto Tool Library; in the U.S., a Sacramento, California librarian independently devised a similar idea and the same name in 2013, attracting media coverage and inspiring copycats.",
+      "common_categories": [
+        "Arts and crafts (sewing machines, knitting kits, die-cutters)",
+        "Electronics and technology (Arduino, Makey Makey, Raspberry Pi, robotics kits, coding toys)",
+        "Musical instruments",
+        "Kitchen equipment (food dehydrators, popcorn machines, ice cream makers, air fryers, instant pots, stand mixers)",
+        "Gardening and seed libraries",
+        "Home tools (hand and power tools; Kill A Watt electricity meters; thermal cameras; leak detectors)",
+        "Recreation (telescopes, fishing poles, sports gear, board games, cake pans, novelty bakeware)",
+        "Science and maker (digital microscopes, telescopes, light meters, science kits, 3D printers, laser cutters)",
+        "Toys",
+        "Connectivity (mobile WiFi hotspots, laptops, tablets)",
+        "Cultural and civic (museum and attraction passes, State Park passes)"
       ],
-      "growth_context": "Library makerspaces grew rapidly from 2011 onward, with the Institute of Museum and Library Services and the John S. and James L. Knight Foundation providing seed funding to numerous programs."
+      "programs": [
+        {
+          "library": "Sacramento Public Library",
+          "location": "Sacramento, California",
+          "type": "Comprehensive Library of Things",
+          "items": "Seeds, tools, kitchen equipment, and other non-traditional items",
+          "significance": "U.S. pioneer; the Sacramento librarian coined 'Library of Things' in 2013, inspiring copycats nationwide.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Berkeley Public Library Tool Lending Library",
+          "location": "Berkeley, California",
+          "type": "Tool library",
+          "items": "Hand and power tools for home improvement, construction, and fine woodworking",
+          "significance": "One of the oldest U.S. tool-lending libraries, exemplifying the access-over-ownership model.",
+          "source": "Wikipedia 'Library of things'; library_sustainability_summary.json"
+        },
+        {
+          "library": "Ann Arbor District Library",
+          "location": "Ann Arbor, Michigan",
+          "type": "Library of Things",
+          "items": "Art prints, instruments, tools, science kits, and unusual items",
+          "significance": "Listed among notable U.S. Library-of-Things programs; lends art prints and instruments.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Bangor Public Library",
+          "location": "Bangor, Maine",
+          "type": "Library of Things",
+          "items": "Non-traditional lending collection",
+          "significance": "Cited among notable U.S. Library-of-Things programs.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Beaverton City Library",
+          "location": "Beaverton, Oregon",
+          "type": "Library of Things",
+          "items": "Non-traditional items",
+          "significance": "Listed among notable U.S. Library-of-Things programs.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Altadena Libraries",
+          "location": "Altadena, California",
+          "type": "Library of Things",
+          "items": "Non-traditional items",
+          "significance": "Listed among notable U.S. Library-of-Things programs.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Richmond Public Library (Richmond Grows Seed Lending Library)",
+          "location": "Richmond, California",
+          "type": "Seed library",
+          "items": "Heirloom and vegetable seeds; patrons borrow, grow, save, and return seed",
+          "significance": "Called the 'unofficial spiritual center' of the public-library seed-library movement.",
+          "source": "Wikipedia 'Seed library'"
+        },
+        {
+          "library": "Gardiner Public Library",
+          "location": "Gardiner, New York",
+          "type": "Seed library",
+          "items": "Heirloom seeds",
+          "significance": "The first seed library established in a U.S. public library (2004, developed by Ken Greene).",
+          "source": "Wikipedia 'Seed library'"
+        },
+        {
+          "library": "Bay Area Seed Interchange Library (BASIL)",
+          "location": "Berkeley, California (Ecology Center)",
+          "type": "Seed library",
+          "items": "Locally adapted heirloom seeds",
+          "significance": "The United States' oldest seed library; grew from the Berkeley Ecology Center.",
+          "source": "Wikipedia 'Seed library'"
+        },
+        {
+          "library": "Seed Library of Los Angeles (SLOLA)",
+          "location": "Los Angeles, California",
+          "type": "Seed library",
+          "items": "Heirloom and locally adapted seeds",
+          "significance": "Prominent community seed-sharing organization with monthly checkouts.",
+          "source": "Wikipedia 'Seed library'"
+        },
+        {
+          "library": "New York Public Library (Hotspot Lending)",
+          "location": "New York, New York",
+          "type": "Connectivity lending",
+          "items": "Cellular WiFi hotspots for home internet access",
+          "significance": "One of the earliest and largest U.S. hotspot-lending programs, funded partly by philanthropic grants.",
+          "source": "library_innovation_enhanced_summary.json"
+        },
+        {
+          "library": "Chicago Public Library",
+          "location": "Chicago, Illinois",
+          "type": "Hotspot lending + maker",
+          "items": "Mobile WiFi hotspots; maker equipment via Innovation Lab",
+          "significance": "Early municipal hotspot lender; Innovation Lab Maker Lab (2013) won Chicago Innovation Award.",
+          "source": "library_innovation_enhanced_summary.json; Wikipedia 'Chicago Public Library'"
+        },
+        {
+          "library": "Los Angeles Public Library branches",
+          "location": "Los Angeles, California",
+          "type": "Home-energy tool lending",
+          "items": "Kill A Watt electricity-use meters and home-monitoring tools (thermal cameras, leak detectors, air-quality meters, infrared thermometers)",
+          "significance": "Notable for lending energy-monitoring tools that help patrons cut utility bills.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Allen County Public Library Maker Labs",
+          "location": "Fort Wayne, Indiana",
+          "type": "Maker / Things",
+          "items": "3D printers, maker equipment, media production tools",
+          "significance": "Main Library and Georgetown branch host Maker Labs; also runs a public-access TV station (Access Fort Wayne).",
+          "source": "Wikipedia 'Allen County Public Library'"
+        },
+        {
+          "library": "Sacramento Public Library (seed + kitchen)",
+          "location": "Sacramento, California",
+          "type": "Seed + kitchen library",
+          "items": "Seeds and specialized kitchen equipment",
+          "significance": "Operates both a seed library and kitchen-equipment lending; the dual program is frequently cited.",
+          "source": "Wikipedia 'Library of things'; 'Seed library'"
+        },
+        {
+          "library": "Johnson County Library",
+          "location": "Johnson County, Kansas",
+          "type": "Maker / Things",
+          "items": "Maker equipment and non-traditional lending across branches",
+          "significance": "Multi-branch Kansas system listed among notable Library-of-Things programs.",
+          "source": "Wikipedia 'Johnson County Library'"
+        },
+        {
+          "library": "Skokie Public Library",
+          "location": "Skokie, Illinois",
+          "type": "Digital media + Things",
+          "items": "Digital media lab equipment, digitization tools, non-traditional items",
+          "significance": "Noted for digital media lab, digitization services, and innovation programming.",
+          "source": "Wikipedia 'Skokie Public Library'"
+        },
+        {
+          "library": "Fayetteville Free Library",
+          "location": "Fayetteville, New York",
+          "type": "Maker / Things",
+          "items": "3D printers, fabrication tools, audio equipment",
+          "significance": "Opened the first U.S. public-library makerspace (~2011, conceived by Lauren Britton), seeding the maker-and-Things movement.",
+          "source": "library_innovation_enhanced_summary.json; library_makerspaces_summary.json"
+        },
+        {
+          "library": "Toronto Tool Library",
+          "location": "Toronto, Ontario, Canada",
+          "type": "Tool library",
+          "items": "Hand and power tools",
+          "significance": "International inspiration for the 'Library of Things' term; inspired the 2014 London Library of Things.",
+          "source": "Wikipedia 'Library of things'"
+        },
+        {
+          "library": "Library of Things (London)",
+          "location": "London, United Kingdom",
+          "type": "Library of Things",
+          "items": "Household and occasional-use items",
+          "significance": "Grassroots 2014 experiment that popularized the term 'Library of Things' globally.",
+          "source": "Wikipedia 'Library of things'"
+        }
+      ],
+      "seed_library_count_note": "The Seed Library Social Network and library_sustainability_summary.json estimate 500+ U.S. seed libraries as of the mid-2020s, often supported by Master Gardener and Cooperative Extension partners."
     },
-    "emerging_services": [
+    "streaming_services": {
+      "overview": "Library streaming has become a core digital service. Public libraries offer feature films, documentaries, television, and instructional video through vendor platforms, and an increasing number produce their own streaming content (recorded author talks, storytimes, local-history archives, civic meetings).",
+      "services": [
+        {
+          "service": "Kanopy",
+          "type": "Streaming video for libraries and universities",
+          "owner": "OverDrive (a KKR portfolio company; acquired Kanopy July 15, 2021)",
+          "founded": "December 25, 2008, in Scarborough, Western Australia; HQ San Francisco, CA",
+          "model": "Each participating public library, college, and university gets a customizable website. Patrons stream films, TV, documentaries, and educational videos using monthly play credits; the library pays per play.",
+          "content": "Films, documentaries, TV shows, educational videos, The Great Courses, Kanopy Kids",
+          "features": "Captions, transcripts, watchlists, customized portals per institution",
+          "headquarters": "San Francisco, California",
+          "source": "Wikipedia 'Kanopy'"
+        },
+        {
+          "service": "Hoopla Digital (hoopla)",
+          "type": "Multi-format streaming/lending (video, audio, ebooks, comics, music)",
+          "owner": "Midwest Tape (parent founded 1989 by John Eldred and Jeff Jankowski; Hoopla launched 2013)",
+          "founded": "2013; HQ Holland, Ohio",
+          "model": "Library cardholders borrow and stream with no holds and no waiting. Introduced Hoopla Flex (2020) to move one-copy/one-user titles, BingePass (2021, seven-day access to entire collections with one borrow), and SeasonPass (January 2025, borrow an entire TV season with one borrow). Broadcasts in standard definition.",
+          "content": "Audiobooks, eBooks, comics, manga, music, movies, TV shows",
+          "scale": "6.5 million library card holders and 2,700+ library partners (2020 figure)",
+          "area_served": "USA, Canada, Australia, New Zealand",
+          "headquarters": "Holland, Ohio",
+          "source": "Wikipedia 'Hoopla Digital'"
+        },
+        {
+          "service": "OverDrive / Libby (video and audio)",
+          "type": "Ebook/audiobook/video lending with Libby app",
+          "owner": "OverDrive (acquired by KKR from Rakuten in 2020)",
+          "scale": "92,000 libraries and schools served; 100 countries; 600 million annual digital checkouts (2023)",
+          "model": "One-copy/one-user lending withholds; Libby app launched 2017 for consumer-friendly reading and listening. OverDrive video has been de-emphasized as Kanopy (now an OverDrive subsidiary) consolidates streaming video.",
+          "source": "library_tech_vendors_summary.json; Wikipedia 'OverDrive'"
+        },
+        {
+          "service": "Library-produced streaming content",
+          "type": "Original content produced by libraries",
+          "description": "Libraries increasingly produce their own streaming content: recorded author talks and lectures, virtual storytimes (expanded massively during COVID-19), local-history and oral-history archives, civic-meeting recordings, podcasts, and copyrighted local-history documentaries. Platforms include YouTube, library websites, and DPLA/HathiTrust for digitized collections.",
+          "examples": [
+            "Nashville Public Library puppet-show videos and digital collections",
+            "Virtual storytimes recorded nationwide during COVID-19 (2020-2021)",
+            "Local-history and oral-history archives on library YouTube channels and DPLA",
+            "Library podcasts (Fayetteville, Skokie, Chicago, others)"
+          ],
+          "source": "Wikipedia 'Nashville Public Library'; library_innovation_enhanced_summary.json"
+        }
+      ]
+    },
+    "gamification": {
+      "overview": "Gamification is the integration of game-design elements (points, badges, leaderboards, progress bars, levels, avatars, and meaningful stories) into non-game contexts to increase engagement and motivation. The ALA Center for the Future of Libraries tracks 'Gamification' and 'Badging' as distinct trend cards. Libraries apply gamification to summer reading, lifelong learning, information-literacy instruction, and STEM programs.",
+      "mechanics": [
+        "Points (earned for reading, completing programs, visiting branches)",
+        "Badges (digital credentials for milestones; ALA tracks 'Badging' trend)",
+        "Leaderboards (community or classroom rankings)",
+        "Progress bars and reading logs",
+        "Levels and unlockable content",
+        "Avatars and team-based challenges",
+        "Story-framing of programs as quests"
+      ],
+      "applications": [
+        {
+          "application": "Summer reading gamification",
+          "description": "Most U.S. public libraries (95% offer summer reading per ALA Digital Inclusion / programming surveys) run gamified summer reading programs where children, teens, and adults log minutes or books to earn points, badges, and prizes. Platforms like READsquared, Beanstack, and Scholastic's summer-reading tools formalize the points-and-badge model.",
+          "tools": [
+            "Beanstack",
+            "READsquared",
+            "Scholastic Summer Reading Challenge/Biblionasium"
+          ],
+          "source": "library_innovation_enhanced_summary.json (95% offer summer reading); Gamification Wikipedia"
+        },
+        {
+          "application": "Badges and microcredentials",
+          "description": "Libraries issue digital badges for completing information-literacy tutorials, coding workshops, and digital-literacy modules. The ALA tracks 'Badging' as a trend card; Chicago Public Library's Learning Circles and YOUmedia have used badging.",
+          "source": "ALA 'Badging' trend card; Chicago Public Library YOUmedia"
+        },
+        {
+          "application": "Points and reward systems",
+          "description": "Some libraries reward reading with points redeemable for raffle entries, fine forgiveness, or community-donation matches (e.g., 'Read Down Your Fines' programs gamify reading to clear cardholder debt).",
+          "source": "ALA programming guidance; trade press"
+        },
+        {
+          "application": "Escape rooms in libraries",
+          "description": "Libraries build physical or digital escape rooms - timed puzzle-solving challenges - to teach information literacy, orientation, and subject content. Escape rooms originated in Asia in the late 2000s (first fixed-location rooms opened in Asia, then Hungary, Serbia, Australia, New Zealand, and Russia in the early 2010s) and spread to North America, Europe, and East Asia through the 2010s. Library escape rooms typically require teams to solve catalog, citation, or primary-source puzzles to 'escape.'",
+          "examples": [
+            "Academic-library orientation escape rooms (freshman induction)",
+            "Public-library Halloween and summer-reading-themed escape rooms",
+            "Digital escape rooms built in Google Forms / Breakout EDU"
+          ],
+          "source": "Wikipedia 'Escape room'"
+        }
+      ],
+      "caveats": "Gamification critics warn of over-justification (extrinsic rewards crowding out intrinsic reading motivation), equity issues when prizes favor affluent participants, and data-privacy concerns when patron reading behavior is tracked and scored."
+    },
+    "metaverse_vr": {
+      "overview": "A metaverse is a collective 3D virtual shared space in which users, represented as avatars, interact socially and economically. The term gained mainstream attention when Facebook renamed itself Meta Platforms in 2021 and committed to building the metaverse; Meta's social VR world, launched as Facebook Horizon in 2019, was rebranded Horizon Worlds. Libraries have begun experimenting with metaverse and VR presences, virtual branch buildings, and 3D digital collections.",
+      "library_approaches": [
+        {
+          "approach": "Virtual library branches in social VR",
+          "description": "Libraries have prototyped virtual branches in platforms like VRChat, Second Life (the original avatar-based virtual world still in operation), Mozilla Hubs, and Meta Horizon Worlds, hosting author talks, exhibitions, and reference services accessible from anywhere.",
+          "platforms": [
+            "VRChat",
+            "Second Life",
+            "Mozilla Hubs",
+            "Meta Horizon Worlds",
+            "AltspaceVR (shut down by Microsoft March 2023)"
+          ],
+          "source": "Wikipedia 'Metaverse'; 'Virtual reality'"
+        },
+        {
+          "approach": "Immersive VR collections and exhibits",
+          "description": "Libraries digitize special collections into 3D models and VR exhibits, letting remote patrons 'walk through' historical spaces or examine artifacts in immersive VR. Academic libraries lead here, often in partnership with campus VR labs.",
+          "examples": [
+            "Library of Congress 3D/VR digital collections pilots",
+            "Academic-library VR exhibits of special collections",
+            "Public-library VR field trips and travel programs"
+          ],
+          "source": "library_makerspaces_summary.json; emerging-tech VR programs"
+        },
+        {
+          "approach": "VR programming and lending",
+          "description": "Libraries lend VR headsets (Meta Quest, HTC Vive) and run group VR programs for education, fitness, accessibility, and senior engagement (e.g., travel VR for homebound patrons).",
+          "examples": [
+            "Skokie Public Library VR lending",
+            "Sacramento Public Library VR programs",
+            "State Library of Queensland 'The Edge' VR/AR"
+          ],
+          "source": "library_makerspaces_summary.json; Wikipedia 'State Library of Queensland'"
+        }
+      ],
+      "challenges": [
+        "Cost and obsolescence of headsets",
+        "Accessibility for users with motion sensitivity or disabilities",
+        "Vendor lock-in to proprietary metaverse platforms",
+        "Patron safety, moderation, and harassment in social VR",
+        "Privacy and biometric data from VR headsets",
+        "Sustainability after early pilots (Microsoft shut AltspaceVR in March 2023)"
+      ],
+      "status": "Early and uneven. Most activity is pilot-stage in a subset of well-resourced public and academic libraries; the field contracted after the 2022-2023 metaverse hype cycle cooled and several platforms (AltspaceVR) shut down."
+    },
+    "innovative_libraries": [
       {
-        "service": "WiFi hotspot lending",
-        "pct_offering": null,
-        "description": "Libraries lend cellular hotspots to patrons for home internet access, pioneered by NYPL and Chicago PL, now widespread."
+        "library": "Fayetteville Free Library",
+        "location": "Fayetteville, New York",
+        "innovation": "Opened the first U.S. public-library makerspace (~2011, conceived by Lauren Britton Smedley, seeded by an IMLS Sparks! Ignition grant). Pioneered the maker movement in public libraries.",
+        "source": "library_innovation_enhanced_summary.json; library_makerspaces_summary.json"
       },
       {
-        "service": "3D printing",
-        "pct_offering": 13,
-        "description": "13% of library visitors reported using 3D printers or new tech at the library (Pew 2016). Makerspaces often center on 3D printing capabilities."
+        "library": "Fayetteville Public Library (Blair Library)",
+        "location": "Fayetteville, Arkansas",
+        "innovation": "2021 expansion brought total size to 170,500 sq ft and added an event center seating 700+, an innovation center, a teaching kitchen, an art and movement room, and dedicated teen spaces. LEED-certified (2004 main building).",
+        "source": "Wikipedia 'Fayetteville Public Library'"
       },
       {
-        "service": "Seed libraries",
-        "pct_offering": null,
-        "description": "Hundreds of public libraries now host seed libraries where patrons can borrow and donate seeds, promoting food security and biodiversity."
+        "library": "Chicago Public Library",
+        "location": "Chicago, Illinois",
+        "innovation": "Opened its Innovation Lab in June 2013 with a Maker Lab (3D software, milling machine, laser cutters, 3D printers), winning the Chicago Innovation Awards Social Innovator Award in October 2013. Same month announced a $1 million Gates Foundation grant partnering CPL with the Aarhus, Denmark public library system. Pioneered YOUmedia teen digital-media spaces and launched One Book, One Chicago.",
+        "source": "Wikipedia 'Chicago Public Library'"
       },
       {
-        "service": "Tool lending libraries",
-        "pct_offering": null,
-        "description": "Some libraries lend tools and equipment beyond books, from power tools to kitchen equipment, expanding the sharing economy model."
+        "library": "Sacramento Public Library",
+        "location": "Sacramento, California",
+        "innovation": "U.S. pioneer of the Library of Things (2013), lending seeds, tools, and kitchen equipment; 28 branches. The Sacramento librarian's program attracted substantial media coverage and inspired nationwide copycats.",
+        "source": "Wikipedia 'Sacramento Public Library'; 'Library of things'"
       },
       {
-        "service": "Library of Things",
-        "pct_offering": null,
-        "description": "An emerging trend where libraries lend non-traditional items: telescopes, museum passes, fishing poles, instruments, and more."
+        "library": "New York Public Library",
+        "location": "New York, New York",
+        "innovation": "One of the earliest and largest mobile-hotspot lending programs, lending cellular WiFi hotspots to households without home internet, funded partly by philanthropic grants. Pioneered large-scale digital-inclusion lending.",
+        "source": "library_innovation_enhanced_summary.json"
       },
       {
-        "service": "Social workers in libraries",
-        "pct_offering": null,
-        "description": "Growing number of libraries employ social workers to assist homeless patrons, connecting them with housing, mental health, and social services."
+        "library": "Salt Lake City Public Library",
+        "location": "Salt Lake City, Utah",
+        "innovation": "Moshe Safdie-designed main library opened February 8, 2003: a five-story, 240,000-sq-ft building with a curved five-story glass wall, a 20,000-sq-ft skylight over the 'Urban Room' foyer, and a rooftop garden with beehives. A landmark in future-oriented, experiential library architecture.",
+        "source": "Wikipedia 'Salt Lake City Public Library'"
       },
       {
-        "service": "Notary services",
-        "pct_offering": null,
-        "description": "Many public libraries offer free or low-cost notary services, providing essential legal document assistance."
+        "library": "Seattle Public Library (Central Library)",
+        "location": "Seattle, Washington",
+        "innovation": "Rem Koolhaas / Joshua Prince-Ramus (OMA) with LMN Architects designed the Seattle Central Library, opened 2004 - an internationally influential diamond-glass-and-steel building that redefined the modern library as a civic icon. Holds 1.8 million physical items as of 2023; the seventh-floor ZAPP Zine Collection holds 30,000+ zines.",
+        "source": "Wikipedia 'Seattle Public Library'"
       },
       {
-        "service": "Passport acceptance",
-        "pct_offering": null,
-        "description": "Selected libraries serve as passport acceptance facilities, processing first-time passport applications."
+        "library": "Anythink Libraries (Rangeview Library District)",
+        "location": "Adams County, Colorado",
+        "innovation": "Rebranded 'Anythink' in 2009; pioneered the experiential library model and the BiblioCommons-style discovery experience. The Studio at Anythink Wright connects making to nature and sustainability; recipient of IMLS National Leadership grants.",
+        "source": "library_makerspaces_summary.json"
       },
       {
-        "service": "Telehealth services",
-        "pct_offering": null,
-        "description": "Rural libraries increasingly provide private spaces and connectivity for telehealth appointments with medical providers."
+        "library": "Allen County Public Library",
+        "location": "Fort Wayne, Indiana",
+        "innovation": "Main Library and Georgetown branch host Maker Labs; the system operates Access Fort Wayne (a full public-access TV production facility with two studios), an Audio Reading Service (founded 1979), and community radio station WELT 95.7 FM - a rare library-media hybrid.",
+        "source": "Wikipedia 'Allen County Public Library'"
       },
       {
-        "service": "Memory cafes & dementia support",
-        "pct_offering": null,
-        "description": "Libraries host memory cafes and programming for individuals with dementia and their caregivers, creating safe social spaces."
+        "library": "Skokie Public Library",
+        "location": "Skokie, Illinois",
+        "innovation": "Operates a digital media lab, digitization services, VR lending, and innovative programming; frequently cited as a model suburban library for early adoption of digital-media production and digitization services.",
+        "source": "Wikipedia 'Skokie Public Library'; library_makerspaces_summary.json"
+      },
+      {
+        "library": "ImaginOn: The Joe and Joan Martin Center",
+        "location": "Charlotte, North Carolina",
+        "innovation": "A 102,000-sq-ft landmark youth library and theatre, a collaboration of Charlotte Mecklenburg Library and Children's Theatre of Charlotte, opened October 8, 2005. Houses Tech Central, the Loft (teen space), Studio I, the Spangler Children's Library, McColl Family Theatre, and Wells Fargo Playhouse - a national model for combining library and performing-arts space for youth.",
+        "source": "Wikipedia 'ImaginOn'"
+      },
+      {
+        "library": "Columbus Metropolitan Library",
+        "location": "Columbus, Ohio",
+        "innovation": "Main Library plus 22 branches; 1,483,433-item collection and 13.1 million annual circulation. Recognized for service innovation including Ready for Kindergarten programming, extensive ESL programming for growing Hispanic and Somali populations, and Spanish-language technology classes.",
+        "source": "Wikipedia 'Columbus Metropolitan Library'"
+      },
+      {
+        "library": "Nashville Public Library",
+        "location": "Nashville, Tennessee",
+        "innovation": "Operates Studio NPL (a teen digital-media studio network), puppet-show programming at Main and across branches, digital collections and language-learning services, and 'Be Well at NPL' wellness programming. Received a National Institutes of Health / National Library of Medicine community-engagement award for health-literacy work.",
+        "source": "Wikipedia 'Nashville Public Library'"
+      },
+      {
+        "library": "Do Space",
+        "location": "Omaha, Nebraska",
+        "innovation": "A 501(c)(3) non-profit community technology center and digital library opened November 2015 in a repurposed Borders Bookstore, with Apple/Windows/Ubuntu computers, tablets, laptops, and a 3D lab (3D printers, 3D scanners, laser cutter). Services are free to the public except for expendables; began occupying the second floor of the new Omaha Central Library in April 2026.",
+        "source": "Wikipedia 'Do Space'"
+      },
+      {
+        "library": "Johnson County Library",
+        "location": "Johnson County, Kansas",
+        "innovation": "Multi-branch system recognized for civic innovation and Library-of-Things programming across its branches; listed among notable U.S. Library-of-Things programs.",
+        "source": "Wikipedia 'Johnson County Library'; 'Library of things'"
+      },
+      {
+        "library": "University of Rhode Island Libraries (AI Lab)",
+        "location": "Kingston, Rhode Island",
+        "innovation": "Opened what is widely cited as the first academic-library AI lab in the United States (2018), providing students hands-on access to AI tools and workshops - an early model for AI literacy programming in libraries.",
+        "source": "ALA Center for the Future of Libraries; ACRL"
+      },
+      {
+        "library": "Library of Congress Labs",
+        "location": "Washington, D.C.",
+        "innovation": "The Library of Congress digital innovation lab experiments with machine-readable subject access, crowdsourced transcription (By the People), AI-assisted metadata, and large-scale digitization - anchoring federal innovation in the library field.",
+        "source": "Wikipedia 'Library of Congress'; loc.gov/labs"
       }
     ],
-    "digital_inclusion_services": {
-      "free_public_wifi_pct": 98,
-      "summer_reading_pct": 95,
-      "digital_literacy_training_pct": 90,
-      "help_apply_jobs_pct": 73,
-      "online_job_resources_pct": 68,
-      "e_government_services_pct": null,
-      "description": "The ALA Digital Inclusion Survey (2014) documented the breadth of digital services offered by public libraries, establishing libraries as the nation's primary free internet access providers."
-    },
-    "timeline": [
+    "global_trends": [
       {
-        "year": 2006,
-        "event": "73% of library branches report they are the only provider of free public internet access in their community."
+        "country": "Singapore",
+        "lead_institution": "National Library Board (NLB)",
+        "overview": "The National Library Board is a statutory board established 1 September 1995 under Singapore's Ministry of Digital Development and Information, headquartered at the National Library Building, 100 Victoria Street. NLB's 2025 annual budget is S$332.06 million. Singapore integrates its library system into the national 'Smart Nation' strategy, emphasizing digital services, mobile apps, and self-service technology.",
+        "innovations": [
+          "NLB Mobile app for catalog, borrowing, and e-services",
+          "Self-service kiosks and automated returns across the network",
+          "Smart-Nation integration of libraries into national digital infrastructure",
+          "Extensive digital collections and e-resources"
+        ],
+        "budget_2025_sgd": "S$332.06 million",
+        "established": "1995-09-01",
+        "source": "Wikipedia 'National Library Board'; international_comparison_summary.json"
       },
       {
-        "year": 2011,
-        "event": "Fayetteville Free Library (NY) launches the first public library makerspace, conceived by Lauren Britton."
+        "country": "Finland",
+        "lead_institution": "Helsinki Central Library Oodi (Helsinki City Library)",
+        "overview": "Oodi, the Helsinki Central Library, was inaugurated 5 December 2018 on the eve of Finnish Independence Day, adjacent to Finlandia Hall and the Museum of Contemporary Art. Designed by ALA Architects (won over 543 competitors), it cost an estimated EUR 98 million (the state paid EUR 30 million as a centenary project). In 2019 the International Federation of Library Associations (IFLA) named Oodi the best Public Library of the Year.",
+        "innovations": [
+          "Three-story design with only ~100,000 books on the third floor; the rest is events and meetings",
+          "Specially designed robots transport books to the third floor",
+          "Ultimaker 3D printers and a maker/urban workshop on the second floor",
+          "Sewing-machine and equipment lending",
+          "Kino Regina cinema (run by the National Audiovisual Institute KAVI)",
+          "Smart-glass meeting rooms"
+        ],
+        "cost_eur": 98000000,
+        "opened": "2018-12-05",
+        "award": "IFLA Public Library of the Year 2019",
+        "source": "Wikipedia 'Helsinki Central Library Oodi'"
       },
       {
-        "year": 2012,
-        "event": "91% of public libraries offer free WiFi; NYPL launches hotspot lending program."
+        "country": "Denmark",
+        "lead_institution": "Dokk1 (Aarhus Public Library)",
+        "overview": "Dokk1 is a library and culture center in Aarhus, completed in 2015 and designed by Schmidt Hammer Lassen Architects. The 60,000-sqm (650,000-sq-ft), four-floor building sits on the harbour and features a glass prism making activities visible from outside, automated parking for 1,000 cars, a robotic book-and-media delivery system, and an Urban Mediaspace. Dokk1 developed a library- innovation tool kit supported by the Bill & Melinda Gates Foundation Global Libraries program, and partnered with Chicago Public Library via a 2013 $1 million Gates grant.",
+        "innovations": [
+          "Robotic book-and-media delivery system",
+          "Automated parking for 1,000 cars",
+          "Urban Mediaspace concept exported globally via Gates Foundation-supported tool kit",
+          "CPL-Aarhus partnership (2013, $1M Gates Foundation grant)"
+        ],
+        "architect": "Schmidt Hammer Lassen Architects",
+        "opened": 2015,
+        "floor_area_sqm": 60000,
+        "source": "Wikipedia 'Dokk1'; 'Chicago Public Library'"
       },
       {
-        "year": 2013,
-        "event": "Hotspot lending programs spread to Chicago, Kansas City, and other urban systems."
+        "country": "South Korea",
+        "lead_institution": "National Library of Korea",
+        "overview": "The National Library of Korea, in Banpo-dong, Seocho-gu, Seoul, was established 15 October 1945 (80 years as of 2025). It holds 12,768,751 items (9,158,363 Korean-language books, 1,552,489 foreign-language books, 1,771,738 non-book items, 286,161 old texts) and an extensive digital collection of newspapers and primary sources on Korean history, many freely available online. Director: Suh Hye Ran. South Korea pairs this with aggressive national digital-library investment and smart-library pilots.",
+        "innovations": [
+          "Extensive freely accessible digital newspaper and primary-source archives",
+          "National digital-library platform investment",
+          "Smart-library pilots with self-service and automation",
+          "Legal deposit under the Library Act (Article 20)"
+        ],
+        "total_items": 12768751,
+        "established": "1945-10-15",
+        "source": "Wikipedia 'National Library of Korea'"
       },
       {
-        "year": 2014,
-        "event": "ALA Digital Inclusion Survey documents 98% of libraries offering free public WiFi."
-      },
-      {
-        "year": 2020,
-        "event": "COVID-19 pandemic: libraries expand parking-lot WiFi and hotspot lending for remote learning and work."
-      },
-      {
-        "year": 2023,
-        "event": "FCC Chairwoman Rosenworcel unveils Learn Without Limits initiative to allow E-rate funding for off-premises hotspot lending."
-      },
-      {
-        "year": 2024,
-        "event": "FCC adds off-premises hotspot lending eligibility under E-rate, a landmark policy change."
-      },
-      {
-        "year": 2025,
-        "event": "FCC under Chairman Carr votes 2-1 to end E-rate support for off-premises hotspot lending, reversing the 2024 expansion."
+        "country": "Netherlands",
+        "lead_institution": "Koninklijke Bibliotheek (KB), National Library of the Netherlands",
+        "overview": "The KB in The Hague was established in 1798 (228 years as of 2026) and holds about 7 million printed items (over 115 km / 71 mi of books), serving as the national deposit library. Director: Wilma van Wezenbeek; 481 FTE employees (2023). The KB runs major national digital services: the national online Library (e-books and audiobooks), Delpher (millions of digitized pages), and The Memory (about 800,000 images). Since 2015 the KB has played a leading role in the national public-library network.",
+        "innovations": [
+          "Delpher - millions of digitized newspaper, book, and magazine pages",
+          "The Memory (Het Geheugen) - about 800,000 digitized images",
+          "National online Library with e-books and audiobooks",
+          "National public-library network leadership since 2015",
+          "STCN (Short-Title Catalogue, Netherlands) retrospective bibliography"
+        ],
+        "collection_size_printed": "about 7 million items (115 km of books)",
+        "established": 1798,
+        "source": "Wikipedia 'National Library of the Netherlands'"
       }
     ],
-    "key_facts": [
-      "98% of US public libraries offer free public WiFi, making them the primary free internet access point in many communities (ALA Digital Inclusion Survey 2014).",
-      "24 million US households still lack home internet access, making library connectivity programs critical for digital equity (ALA Broadband).",
-      "The first public library makerspace was launched at Fayetteville Free Library (NY) around 2011, conceived by Lauren Britton as MLIS coursework.",
-      "NYPL's hotspot lending program was one of the earliest and largest, lending cellular hotspots to patrons without home internet, funded partly by philanthropic grants.",
-      "During COVID-19, libraries extended WiFi signals to parking lots so patrons could access the internet from cars even when buildings were closed.",
-      "13% of library visitors reported using 3D printers or new technology at the library (Pew 2016).",
-      "The FCC's 2024 decision to allow E-rate funding for off-premises hotspot lending was reversed in October 2025 by a 2-1 vote under Chairman Brendan Carr.",
-      "90% of public libraries offer formal or informal technology training, making them a primary digital literacy education provider.",
-      "73% of libraries help patrons apply for jobs, and 68% provide online job resources.",
-      "Library makerspaces typically offer 3D printers, audio/video editing equipment, computers with design software, and traditional arts and crafts tools.",
-      "The ALA characterizes library hotspot lending as a mature, decade-old service as of 2023.",
-      "In 2006, 73% of library branches reported being the only provider of free public internet in their community.",
-      "Seed libraries, tool lending, Library of Things programs, and telehealth services represent the next frontier of library innovation.",
-      "Growing numbers of libraries employ social workers to assist homeless patrons with housing, mental health, and social services."
-    ]
+    "key_findings": [
+      "AI moved to the center of library innovation after ChatGPT's November 2022 release: the ALA Center for the Future of Libraries tracks AI as a core trend card, and major vendors (OCLC, EBSCO, ProQuest, Clarivate, OverDrive) have embedded AI into cataloging, discovery, and reader engagement by 2023-2025.",
+      "The ALA Center for the Future of Libraries is the profession's foresight hub, mapping 40+ trends (Artificial Intelligence, Blockchain, Gamification, Internet of Things, Robots, Co-Working, Sharing Economy, Subscription Boxes, etc.) to library practice through trend cards, a fellowship, and an annual Symposium on the Future of Libraries.",
+      "IMLS is the primary federal innovation funder: a $313.58 million FY2023 budget across National Leadership Grants, Sparks! Ignition Grants, the Laura Bush 21st Century Librarian Program, and ~1,500 annual LSTA Grants to States - seeding landmarks like the Fayetteville Free Library makerspace (2011).",
+      "Library of Things programs, sparked by a Sacramento librarian's 2013 idea (the term itself was popularized in the UK in 2014), now span tool, seed, kitchen, instrument, toy, hotspot, and energy-monitor lending - with 500+ U.S. seed libraries alone.",
+      "Streaming is a core library service: Kanopy (founded 2008, acquired by OverDrive in 2021) and Hoopla Digital (launched 2013 by Midwest Tape of Holland, OH; 2,700+ library partners and 6.5 million cardholders as of 2020) deliver films, TV, music, audiobooks, ebooks, and comics to cardholders.",
+      "Helsinki's Oodi (opened 5 December 2018; IFLA Public Library of the Year 2019) and Aarhus's Dokk1 (opened 2015; robotic book delivery, 1,000-car automated parking) are the global benchmarks for future library space, with book-transport robots and only ~100,000 books on Oodi's top floor - the rest devoted to events and making.",
+      "Gamification is mainstream in U.S. libraries: 95% of public libraries run summer reading programs, now routinely gamified via Beanstack, READsquared, and badge systems, and library escape rooms (built on a format that spread globally in the 2010s) teach information literacy through timed puzzle-solving.",
+      "Future library space is being redefined around flexible, maker, and media uses: Chicago Public Library's 2013 Innovation Lab Maker Lab, Fayetteville (AR)'s 2021 teaching kitchen and innovation center, and Allen County Public Library's TV studios and radio station exemplify the shift from book storage to community creation.",
+      "The metaverse and VR movement reached libraries during the 2021 Meta rebranding hype, but the field contracted as platforms consolidated - Microsoft shut AltspaceVR in March 2023 - leaving mostly pilot-stage VR lending and 3D-collection exhibits in well-resourced public and academic libraries.",
+      "Knight Foundation (founded December 1950; $2.5 billion endowment in 2023; HQ Miami) funded library innovation through the Knight News Challenge on Libraries, an open competition asking how libraries can serve 21st-century information needs, building on the News Challenge model launched in 2006.",
+      "Singapore's National Library Board (est. 1995; S$332.06 million 2025 budget) integrates libraries into the national Smart Nation strategy, while the Netherlands' KB (est. 1798) runs Delpher (millions of digitized pages) and The Memory (~800,000 images) as national-scale digital library infrastructure.",
+      "Ethics is a first-order concern: the ALA, IFLA, and the Library Freedom Project emphasize that AI in libraries requires human oversight, training-data transparency, patron-query privacy, and safeguards against algorithmic bias and censorship-by-algorithm.",
+      "The 2024 FCC expansion of E-rate to off-premises hotspot lending - a landmark for digital-equity innovation - was reversed in October 2025 by a 2-1 FCC vote, illustrating that policy reversals can unwind library innovation faster than grants can build it."
+    ],
+    "source": {
+      "primary_web_sources": [
+        "Wikipedia: Kanopy, Hoopla Digital, OverDrive, Library of things, Seed library, Institute of Museum and Library Services, Knight Foundation, Helsinki Central Library Oodi, Dokk1, National Library of Korea, National Library of the Netherlands, National Library Board (Singapore), Chicago Public Library, Sacramento Public Library, Fayetteville Public Library, Salt Lake City Public Library, Seattle Public Library, Allen County Public Library, Skokie Public Library, Johnson County Library, Columbus Metropolitan Library, Nashville Public Library, ImaginOn, Do Space, Gamification, Escape room, Metaverse, Virtual reality, Chatbot, State Library of Queensland (verified 2026-08-15)",
+        "American Library Association, Center for the Future of Libraries (ala.org/tools/future) - trend cards including Artificial Intelligence, Badging, Blockchain, Co-Working/Co-Living, Gamification, Internet of Things, Robots, Sharing Economy, Smart Cities, Subscription Boxes (verified 2026-08-15)",
+        "Institute of Museum and Library Services (imls.gov) - grant programs, FY2023 budget $313.58M",
+        "Knight Foundation (knightfoundation.org) - News Challenge on Libraries; $2.5B endowment 2023",
+        "Harvard Library Innovation Lab (lil.law.harvard.edu) - Perma.cc, Caselaw Access Project"
+      ],
+      "previously_verified_local_files": [
+        "library_innovation_enhanced_summary.json (hotspot lending, makerspace genesis, FCC E-rate history)",
+        "library_makerspaces_summary.json (3D printing estimates, VR/AR, podcast studios, notable makerspaces)",
+        "library_tech_vendors_summary.json (OverDrive/Libby 92,000 libraries and 600M annual checkouts; Hoopla 2,700+ partners)",
+        "library_sustainability_summary.json (seed libraries, tool libraries, Library of Things)",
+        "international_comparison_summary.json (global library models)"
+      ],
+      "methodology": "Facts were verified by fetching the cited Wikipedia and organization pages (HTTP 200) and extracting specific, attributable statements (founding dates, budgets, partner counts, program names, awards). Quantitative estimates (e.g., 500-700 libraries offering 3D printing; 500+ seed libraries) are inherited from previously verified summary files in this directory and are best-effort ranges, not registry counts. Where a single authoritative census does not exist (makerspaces, Library of Things counts), figures are flagged as estimates and should be re-verified against primary sources (ALA, IMLS, USGBC, Seed Library Social Network) before publication.",
+      "compiled_by": "build_library_innovation_summary.py",
+      "compiled_at": "2026-08-15"
+    }
   },
   "library_attitudes": {
     "title": "Public Attitudes Toward Libraries: What Americans Think",

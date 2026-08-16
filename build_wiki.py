@@ -9299,6 +9299,108 @@ def build_index(data, stats):
     except Exception:
         pass
 
+    # ── Library Economics & ROI ──
+    try:
+        econ = json.load(open(os.path.join(DATA, 'library_economics_summary.json')))
+        eks = econ.get('key_stats', {})
+        funding_sources = econ.get('funding_sources', {})
+        roi_studies = econ.get('roi_studies', [])
+        per_capita = econ.get('per_capita_by_state', [])
+
+        total_funding_val = float(eks.get('total_annual_funding_billions', 0)) if eks.get('total_annual_funding_billions') else float(eks.get('total_funding', 0))
+        avg_roi = float(eks.get('avg_roi', 0)) if eks.get('avg_roi') else 0
+        per_cap_funding = float(eks.get('per_capita_funding', 0)) if eks.get('per_capita_funding') else 0
+        total_libs = int(eks.get('total_libraries', 0)) if eks.get('total_libraries') else 0
+
+        body += f"""
+<h2 id="economics">Library Economics &amp; Return on Investment</h2>
+<p>{esc(str(econ.get('overview', '')))[:400]}...</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${total_funding_val:.1f}B</div><div class="label">Annual Funding</div></div>
+  <div class="stat-card"><div class="num">${avg_roi:.1f}</div><div class="label">Avg ROI per $1</div></div>
+  <div class="stat-card"><div class="num">${per_cap_funding:.0f}</div><div class="label">Per Capita Funding</div></div>
+  <div class="stat-card"><div class="num">{total_libs:,}</div><div class="label">Total Libraries</div></div>
+</div>"""
+
+        if funding_sources:
+            body += """
+<h3>Funding Sources Breakdown</h3>
+<div class="services-bars">"""
+            max_fs = max(funding_sources.values()) if funding_sources else 1
+            fs_colors = {'local': 'svc-fill-blue', 'state': 'svc-fill-green', 'federal': 'svc-fill-red', 'other': 'svc-fill-tech'}
+            for src, amt in funding_sources.items():
+                if isinstance(amt, (int, float)):
+                    width = (amt / max_fs) * 100.0 if max_fs else 0
+                    color = fs_colors.get(src, 'svc-fill-tech')
+                    body += f"""
+  <div class="svc-row">
+    <span class="svc-label">{esc(str(src).title())}</span>
+    <span class="svc-bar"><span class="svc-fill {color}" style="width:{width:.1f}%"></span></span>
+    <span class="svc-pct">${float(amt):,.0f}</span>
+  </div>"""
+            body += '\n</div>'
+
+        if roi_studies:
+            body += """
+<h3>ROI Studies</h3>
+<table class="wikitable">
+  <tr><th>Study</th><th>Location</th><th>ROI</th><th>Key Finding</th></tr>"""
+            for r in roi_studies[:10]:
+                if isinstance(r, dict):
+                    study = esc(str(r.get('study', r.get('name', ''))))
+                    loc = esc(str(r.get('location', r.get('state', ''))))
+                    roi = esc(str(r.get('roi', r.get('return', ''))))
+                    finding = esc(str(r.get('finding', r.get('description', ''))))[:150]
+                    body += f'\n  <tr><td><strong>{study}</strong></td><td>{loc}</td><td class="num">{roi}</td><td>{finding}</td></tr>'
+            body += '\n</table>'
+
+        if per_capita:
+            body += """
+<h3>Per Capita Funding by State (Top 20)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Per Capita</th></tr>"""
+            for s in per_capita[:20]:
+                if isinstance(s, dict):
+                    st = esc(str(s.get('state', s.get('name', ''))))
+                    pc = float(s.get('per_capita', s.get('value', 0))) if s.get('per_capita') or s.get('value') else 0
+                    body += f'\n  <tr><td><strong>{st}</strong></td><td class="num">${pc:,.2f}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Library Programs & Attendance ──
+    try:
+        progs = json.load(open(os.path.join(DATA, 'library_programs_summary.json')))
+        nat = progs.get('national', {})
+        top_prog = progs.get('top_by_total_programs', [])
+        top_att = progs.get('top_by_attendance', [])
+
+        total_programs = int(nat.get('total_programs', 0)) if isinstance(nat, dict) else 0
+        total_attendance = int(nat.get('total_attendance', 0)) if isinstance(nat, dict) else 0
+
+        body += f"""
+<h2 id="programs">Library Programs &amp; Attendance</h2>
+<p>{esc(str(progs.get('source_notes', '')))[:200]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_programs/1e6:.1f}M</div><div class="label">Total Programs</div></div>
+  <div class="stat-card"><div class="num">{total_attendance/1e6:.0f}M</div><div class="label">Total Attendance</div></div>
+</div>"""
+
+        if top_prog:
+            body += """
+<h3>Top 15 States by Total Programs</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Programs</th><th>Attendance</th></tr>"""
+            for s in top_prog[:15]:
+                if isinstance(s, dict):
+                    st = esc(str(s.get('state', s.get('state_name', ''))))
+                    prog = int(s.get('total_programs', s.get('programs', 0))) if s.get('total_programs') or s.get('programs') else 0
+                    att = int(s.get('total_attendance', s.get('attendance', 0))) if s.get('total_attendance') or s.get('attendance') else 0
+                    body += f'\n  <tr><td><strong>{st}</strong></td><td class="num">{prog:,}</td><td class="num">{att:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
     # ── Public Library Collections, Circulation & Visits ──
     try:
         coll = json.load(open(os.path.join(DATA, 'library_collections_summary.json')))
@@ -13077,8 +13179,112 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Interlibrary Loan (ILL) ──
+    try:
+        ill = json.load(open(os.path.join(DATA, 'ill_summary.json')))
+        total_ill = int(ill.get('total_ill_transactions', 0))
+        by_type = ill.get('by_type', {})
+        by_state_ill = ill.get('by_state', [])
+        trends_ill = ill.get('trends', [])
+
+        borrowing = int(by_type.get('borrowing', 0)) if isinstance(by_type, dict) else 0
+        lending = int(by_type.get('lending', 0)) if isinstance(by_type, dict) else 0
+
+        body += f"""
+<h2 id="ill">Interlibrary Loan (ILL) Statistics</h2>
+<p>{esc(str(ill.get('source', '')))[:250]}</p>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_ill/1e6:.0f}M</div><div class="label">Total ILL Transactions (FY2024)</div></div>
+  <div class="stat-card"><div class="num">{borrowing/1e6:.0f}M</div><div class="label">Borrowed</div></div>
+  <div class="stat-card"><div class="num">{lending/1e6:.0f}M</div><div class="label">Lent</div></div>
+  <div class="stat-card"><div class="num">{len(trends_ill)}</div><div class="label">Years of Data</div></div>
+</div>"""
+
+        if by_state_ill:
+            bs_sorted = sorted(by_state_ill, key=lambda x: int(x.get('borrowed', 0)) if isinstance(x.get('borrowed'), (int, float)) else 0, reverse=True)
+            body += """
+<h3>ILL by State (Top 20)</h3>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Borrowed</th><th>Lent</th></tr>"""
+            for s in bs_sorted[:20]:
+                st = esc(str(s.get('state', '')))
+                bor = int(s.get('borrowed', 0)) if isinstance(s.get('borrowed'), (int, float)) else 0
+                lent = int(s.get('lent', 0)) if isinstance(s.get('lent'), (int, float)) else 0
+                body += f'\n  <tr><td><strong>{st}</strong></td><td class="num">{bor:,}</td><td class="num">{lent:,}</td></tr>'
+            body += '\n</table>'
+
+        if trends_ill:
+            body += """
+<h3>ILL Trends Over Time</h3>
+<table class="wikitable sortable">
+  <tr><th>Year</th><th>Borrowed</th><th>Lent</th><th>Total</th></tr>"""
+            for t in trends_ill[-10:]:
+                yr = esc(str(t.get('year', '')))
+                bor = int(t.get('borrowed', 0)) if isinstance(t.get('borrowed'), (int, float)) else 0
+                lent = int(t.get('lent', 0)) if isinstance(t.get('lent'), (int, float)) else 0
+                body += f'\n  <tr><td>{yr}</td><td class="num">{bor:,}</td><td class="num">{lent:,}</td><td class="num">{bor+lent:,}</td></tr>'
+            body += '\n</table>'
+    except Exception:
+        pass
+
+    # ── Library Technology Inventory ──
+    try:
+        lti = json.load(open(os.path.join(DATA, 'library_tech_inventory_summary.json')))
+        inv = lti.get('inventory', {})
+        key_facts = lti.get('key_facts', [])
+        timeline = lti.get('combined_timeline', [])
+
+        body += f"""
+<h2 id="tech-inventory">Library Technology Inventory</h2>
+<p>{esc(str(lti.get('purpose', '')))}</p>"""
+
+        # E-Rate funding from inventory
+        er = inv.get('erate_funding', {})
+        if er:
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${float(er.get('total_commitments_billions', 0)):.1f}B</div><div class="label">E-Rate Commitments</div></div>
+  <div class="stat-card"><div class="num">{int(er.get('applicants', 0)):,}</div><div class="label">Applicants</div></div>
+  <div class="stat-card"><div class="num">{float(er.get('pct_fiber', 0)):.0f}%</div><div class="label">Fiber Connectivity</div></div>
+</div>"""
+
+        # Digital divide
+        dd = inv.get('digital_divide', {})
+        if dd:
+            body += f"""
+<h3>Digital Divide Metrics</h3>
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{float(dd.get('pct_no_home_broadband', 0)):.0f}%</div><div class="label">No Home Broadband</div></div>
+  <div class="stat-card"><div class="num">{float(dd.get('pct_no_internet', 0)):.0f}%</div><div class="label">No Internet At All</div></div>
+  <div class="stat-card"><div class="num">{int(dd.get('households_without', 0))/1e6:.0f}M</div><div class="label">Households Without</div></div>
+</div>"""
+
+        # Emerging services
+        es = inv.get('emerging_services', [])
+        if es:
+            body += """
+<h3>Emerging Technology Services</h3>
+<ul class="wiki-list">"""
+            for svc in es:
+                if isinstance(svc, dict):
+                    body += f'\n  <li><strong>{esc(str(svc.get("service", svc.get("name", ""))))}</strong>: {esc(str(svc.get("description", svc.get("note", ""))))[:150]}</li>'
+                elif isinstance(svc, str):
+                    body += f'\n  <li>{esc(svc)}</li>'
+            body += '\n</ul>'
+
+        if key_facts:
+            body += """
+<h3>Key Technology Facts</h3>
+<ul class="wiki-list">"""
+            for f_item in key_facts[:15]:
+                if isinstance(f_item, str):
+                    body += f'\n  <li>{esc(f_item)}</li>'
+            body += '\n</ul>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

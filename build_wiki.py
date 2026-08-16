@@ -677,6 +677,7 @@ def load_all():
         ('innovation_detailed', 'library_innovation_summary.json'),
         ('health', 'library_health_summary.json'),
         ('entrepreneurship', 'library_entrepreneurship_summary.json'),
+        ('streaming', 'library_streaming_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -19030,8 +19031,64 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Library Streaming & Digital Media ──
+    try:
+        st = data.get('streaming', {})
+        if st:
+            st_od = st.get('overdrive_libby', {})
+            st_hoopla = st.get('hoopla', {})
+            st_kanopy = st.get('kanopy', {})
+            st_usage = st.get('usage_stats', {})
+            st_findings = st.get('key_findings', [])
+
+            body += """
+<section id="streaming">
+<h2><span class="mw-headline">Library Streaming & Digital Media Platforms</span></h2>
+<p>Libraries circulate billions of digital items annually through streaming platforms — e-books, audiobooks, video, music, and comics.</p>"""
+
+            if st_od and isinstance(st_od, dict):
+                body += '\n<h3><span class="mw-headline">OverDrive / Libby</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(st_od.items())[:8]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if st_hoopla and isinstance(st_hoopla, dict):
+                body += '\n<h3><span class="mw-headline">Hoopla Digital</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(st_hoopla.items())[:8]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if st_kanopy and isinstance(st_kanopy, dict):
+                body += '\n<h3><span class="mw-headline">Kanopy</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(st_kanopy.items())[:8]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if st_usage and isinstance(st_usage, dict):
+                body += '\n<h3><span class="mw-headline">Digital Circulation Trends</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for k, v in list(st_usage.items())[:6]:
+                    if isinstance(v, (str, int, float)):
+                        body += f'\n  <li><strong>{esc(str(k).replace("_", " ").title())}:</strong> {esc(str(v))[:200]}</li>'
+                body += '\n</ul>'
+
+            if st_findings and isinstance(st_findings, list):
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in st_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#social-media-deep">Social media deep dive</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#consortia-detailed">Consortia</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#publishing-detailed">Publishing industry</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#social-media-deep">Social media deep dive</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#cataloging">Cataloging</a> | <a href="#dpla">DPLA</a> | <a href="#consortia-detailed">Consortia</a> | <a href="#streaming">Streaming</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#publishing-detailed">Publishing industry</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

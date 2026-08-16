@@ -631,6 +631,14 @@ def load_all():
         ('tech_vendors', 'library_tech_vendors_summary.json'),
         ('law_governance', 'library_law_governance_summary.json'),
         ('awards', 'library_awards_summary.json'),
+        ('education', 'library_education_summary.json'),
+        ('makerspaces', 'library_makerspaces_summary.json'),
+        ('school_detailed', 'school_libraries_detailed_summary.json'),
+        ('collections_detailed', 'library_collections_detailed_summary.json'),
+        ('academic_detailed', 'academic_libraries_detailed_summary.json'),
+        ('economics_detailed', 'library_economics_detailed_summary.json'),
+        ('history_detailed', 'library_history_detailed_summary.json'),
+        ('programs_detailed', 'library_programs_detailed_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -3230,6 +3238,78 @@ def build_index(data, stats):
 
         body += f'<p class="rsrc">Source: NCES Academic Library Survey (ALS) 2000–2012 (biennial) + IPEDS Academic Libraries 2014–2023 (annual). {als.get("institutions_2023", 0):,} institutions in 2023, {als.get("institutions_2012", 0):,} in 2012. Academic libraries are browsable via search (filter by type "academic").</p>'
 
+    # ---- Academic Libraries Detailed (ARL, budgets, consortia, special collections) ----
+    acd = data.get('academic_detailed', {})
+    if acd:
+        try:
+            acd_stats = acd.get('statistics', {})
+            acd_largest = acd.get('largest_libraries', [])
+            acd_budgets = acd.get('budgets', {})
+            acd_arl = acd.get('arl', {})
+            acd_consortia = acd.get('consortia', {})
+            acd_special = acd.get('special_collections', {})
+            acd_digital = acd.get('digital_transformation', {})
+            acd_findings = acd.get('key_findings', [])
+
+            arl_members = acd_arl.get('total_members', acd_arl.get('us_academic_members', 0))
+            arl_spending = acd_budgets.get('total_spending_usd_2022_23', acd_budgets.get('total_expenditures', 0))
+
+            body += f"""
+<h3 id="academic-detailed">Academic Libraries — Research & Special Collections</h3>
+<p class="wiki-sub">Beyond the NCES survey data, academic libraries include the Association of Research Libraries (ARL) — {arl_members} member institutions collectively spending ${arl_spending/1e9:.1f}B annually — and hold some of the world's most significant special collections.</p>"""
+
+            # Largest libraries — could be dict with top_20 list or direct list
+            acd_largest_list = []
+            if isinstance(acd_largest, dict):
+                acd_largest_list = acd_largest.get('top_20_by_physical_volumes', [])
+            elif isinstance(acd_largest, list):
+                acd_largest_list = acd_largest
+
+            if acd_largest_list:
+                body += '\n<h4>Largest Academic Libraries by Collection Size</h4>'
+                body += '\n<table class="wikitable sortable"><tr><th>Rank</th><th>Institution</th><th>Physical Volumes</th></tr>'
+                for lib in acd_largest_list[:20]:
+                    lib_rank = lib.get('rank', '')
+                    lib_inst = esc(str(lib.get('institution', lib.get('university', ''))))
+                    lib_vol = lib.get('physical_volumes_ipeds_2022_23', lib.get('physical_volumes', lib.get('volumes', 0)))
+                    body += f'\n  <tr><td>{lib_rank}</td><td>{lib_inst}</td><td class="num">{lib_vol:,}</td></tr>'
+                body += '\n</table>'
+
+            if acd_special:
+                sc_notable = acd_special.get('notable_collections', []) if isinstance(acd_special, dict) else acd_special
+                if sc_notable:
+                    body += '\n<h4>Notable Special Collections</h4>'
+                    body += '\n<table class="wikitable"><tr><th>Institution</th><th>Library/Collection</th><th>Highlights</th></tr>'
+                    for sc in sc_notable:
+                        sc_inst_raw = sc.get('institution', sc.get('university', ''))
+                        sc_inst = esc(str(sc_inst_raw))
+                        sc_lib_raw = sc.get('library', sc.get('collection', sc.get('name', '')))
+                        sc_lib = esc(str(sc_lib_raw))
+                        sc_high = sc.get('highlights', [])
+                        sc_hold = esc(str('; '.join(sc_high) if sc_high else sc.get('description', '')))
+                        body += f'\n  <tr><td>{sc_inst}</td><td>{sc_lib}</td><td>{sc_hold}</td></tr>'
+                    body += '\n</table>'
+
+            if acd_consortia:
+                con_major = acd_consortia.get('major_consortia', []) if isinstance(acd_consortia, dict) else acd_consortia
+                if con_major:
+                    body += '\n<h4>Academic Library Consortia</h4>'
+                    body += '\n<table class="wikitable"><tr><th>Consortium</th><th>Scope</th><th>Members</th></tr>'
+                    for con in con_major:
+                        con_name = esc(str(con.get('name', con.get('consortium', ''))))
+                        con_scope = esc(str(con.get('scope', con.get('description', ''))))
+                        con_members = con.get('member_count', con.get('members', ''))
+                        body += f'\n  <tr><td>{con_name}</td><td>{con_scope}</td><td class="num">{con_members}</td></tr>'
+                    body += '\n</table>'
+
+            if acd_findings:
+                body += '\n<div class="rules-box"><h4>Key Findings</h4><ul class="wiki-list">'
+                for f in acd_findings[:6]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+        except Exception:
+            pass
+
     # ---- Institutional Characteristics (IPEDS HD2023 + EF2023A) ----
     ic = stats.get('institution_characteristics', {})
     if ic and ic.get('total_institutions'):
@@ -5287,6 +5367,96 @@ def build_index(data, stats):
             body += '\n</table>'
 
         body += '<p class="rsrc">Source: NCES Schools and Staffing Survey (SASS), Table Library. Data from 2011-12 is the most recent available because the SASS was replaced by the National Teacher and Principal Survey (NTPS) in 2015-16, which does not include a school library component. The 72.4 percentage-point spread between Tennessee (97.6%) and California (25.2%) represents one of the largest state-level disparities in any educational metric. Charter schools have dramatically lower staffing: 32.8% full-time certified vs 67.4% for traditional public schools. Data currency note: this data is over a decade old; current school librarian access rates are likely lower due to budget cuts and the SASS/NTPS discontinuation has created a data gap.</p>'
+
+    # ---- School Libraries: Impact Studies & Equity (detailed) ----
+    sd = data.get('school_detailed', {})
+    if sd:
+        try:
+            sd_impact = sd.get('impact_studies', {})
+            sd_studies = sd_impact.get('studies', [])
+            sd_challenges = sd.get('book_challenges', {})
+            sd_equity = sd.get('equity_gaps', {})
+            sd_staffing = sd.get('staffing', {})
+            sd_findings = sd.get('key_findings', [])
+
+            if sd_studies:
+                body += """
+<h3 id="school-impact">School Library Impact Studies</h3>
+<p class="wiki-sub">Research spanning three decades has consistently shown that well-staffed, well-funded school libraries improve student achievement — regardless of community wealth or demographics.</p>
+<table class="wikitable sortable">
+  <tr><th>State</th><th>Year</th><th>Researcher</th><th>Key Finding</th></tr>"""
+                for s in sd_studies:
+                    s_state = esc(str(s.get('state', '')))
+                    s_year = s.get('study_year', '')
+                    s_researcher = esc(str(s.get('researcher', '')))
+                    s_finding = esc(str(s.get('finding', '')))
+                    body += f'\n  <tr><td>{s_state}</td><td>{s_year}</td><td>{s_researcher}</td><td>{s_finding}</td></tr>'
+                body += '\n</table>'
+
+            sd_decline = sd_staffing.get('decline_summary', '')
+            if sd_decline:
+                body += f'\n<h3 id="school-staffing-decline">School Librarian Staffing Decline</h3>\n<p class="wiki-sub">{esc(str(sd_decline))}</p>'
+
+            sd_losses = sd_staffing.get('state_losses_2010_2019', [])
+            if sd_losses:
+                body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Librarian Losses (2010-2019)</th><th>% Change</th></tr>'
+                for sl in sd_losses[:15]:
+                    sl_state = esc(str(sl.get('state', '')))
+                    sl_loss = sl.get('librarians_lost', sl.get('loss', 0))
+                    sl_pct = sl.get('pct_change', sl.get('percent_change', ''))
+                    body += f'\n  <tr><td>{sl_state}</td><td class="num">{sl_loss}</td><td class="num">{sl_pct}</td></tr>'
+                body += '\n</table>'
+
+            if sd_challenges and sd_challenges.get('total_records_tracked'):
+                sd_total_ch = sd_challenges.get('total_records_tracked', 0)
+                sd_by_year = sd_challenges.get('by_year', [])
+                body += f"""
+<h3 id="school-challenges">Book Challenges in School Libraries</h3>
+<p class="wiki-sub">School libraries have been the primary target of the recent wave of book challenges. {sd_total_ch:,} challenge records have been tracked, with the vast majority targeting school libraries rather than public libraries.</p>"""
+                if sd_by_year:
+                    body += '\n<table class="wikitable"><tr><th>Year</th><th>Challenges</th></tr>'
+                    for yr in sd_by_year:
+                        if isinstance(yr, dict):
+                            yr_year = yr.get('year', '')
+                            yr_count = yr.get('challenges', yr.get('count', 0))
+                            body += f'\n  <tr><td>{yr_year}</td><td class="num">{yr_count}</td></tr>'
+                    body += '\n</table>'
+                sd_top = sd_challenges.get('by_state_top_15', [])
+                if sd_top:
+                    body += '\n<h4>Top States for School Library Challenges</h4>\n<table class="wikitable sortable"><tr><th>State</th><th>Challenges</th></tr>'
+                    for st in sd_top:
+                        if isinstance(st, dict):
+                            st_state = esc(str(st.get('state', '')))
+                            st_count = st.get('challenges', st.get('count', 0))
+                            body += f'\n  <tr><td>{st_state}</td><td class="num">{st_count}</td></tr>'
+                    body += '\n</table>'
+
+            if sd_equity:
+                eq_overview = esc(str(sd_equity.get('overview', '')))
+                eq_stats = sd_equity.get('key_stats', {})
+                body += f"""
+<h3 id="school-equity">School Library Equity Gaps</h3>
+<p class="wiki-sub">{eq_overview}</p>"""
+                if eq_stats:
+                    body += '\n<div class="stats-grid">'
+                    for k, v in eq_stats.items():
+                        display_k = k.replace('_', ' ').title()
+                        body += f'\n  <div class="stat-card"><div class="num">{esc(str(v))}</div><div class="label">{esc(display_k)}</div></div>'
+                    body += '\n</div>'
+                eq_findings = sd_equity.get('inequity_findings', [])
+                if eq_findings:
+                    body += '\n<div class="rules-box"><ul class="wiki-list">'
+                    for ef in eq_findings[:8]:
+                        body += f'\n  <li>{esc(str(ef))}</li>'
+                    body += '\n</ul></div>'
+
+            if sd_findings:
+                body += '\n<h3>School Libraries — Key Findings</h3>\n<div class="rules-box"><ul class="wiki-list">'
+                for f in sd_findings[:8]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+        except Exception:
+            pass
 
     # ---- ALA-Accredited LIS Degree Programs ----
     lis = stats.get('lis_programs', {})
@@ -10614,7 +10784,8 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
             for m in milestones[:30]:
                 if isinstance(m, dict):
                     yr = esc(str(m.get('year', m.get('date', ''))))
-                    event = esc(str(m.get('event', m.get('milestone', m.get('description', '')))))
+                    event_raw = m.get('event', m.get('milestone', m.get('description', '')))
+                    event = esc(str(event_raw))
                     body += f'\n  <tr><td class="num"><strong>{yr}</strong></td><td>{event}</td></tr>'
             body += '\n</table>'
 
@@ -11544,6 +11715,105 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── LIS Education Programs ──
+    try:
+        edu = data.get('education', {})
+        acc = edu.get('accredited_programs', {})
+        acc_summary = acc.get('summary', {})
+        acc_programs = acc.get('programs', [])
+        doctoral = edu.get('doctoral_programs', {})
+        tech = edu.get('technician_programs', {})
+        school_cert = edu.get('school_librarian_certification', {})
+        ce = edu.get('continuing_education', {})
+        diversity = edu.get('diversity_initiatives', {})
+        student_demo = edu.get('student_demographics', {})
+        online = edu.get('online_programs', {})
+        edu_findings = edu.get('key_findings', [])
+
+        total_acc = acc_summary.get('total_us_accredited_programs', 0)
+        states_with = acc_summary.get('states_and_territories_with_programs', 0)
+        fully_online = acc_summary.get('fully_online_programs', 0)
+
+        body += f"""
+<section id="lis-education">
+<h2><span class="mw-headline">Library & Information Science Education</span></h2>
+<p>The American Library Association accredits {total_acc} Master's programs in Library and Information Science across {states_with} states and territories. These programs prepare the next generation of librarians, information professionals, and researchers.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_acc}</div><div class="label">ALA-accredited MLIS programs</div></div>
+  <div class="stat-card"><div class="num">{states_with}</div><div class="label">States with programs</div></div>
+  <div class="stat-card"><div class="num">{fully_online}</div><div class="label">Fully online programs</div></div>
+  <div class="stat-card"><div class="num">{acc_summary.get('programs_offering_doctoral', 0)}</div><div class="label">Programs offering doctoral degrees</div></div>
+</div>"""
+
+        if acc_programs:
+            body += '\n<h3><span class="mw-headline">ALA-Accredited MLIS Programs</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Institution</th><th>City</th><th>State</th><th>Type</th><th>Accreditation</th><th>First Accredited</th><th>Delivery</th></tr>'
+            for p in acc_programs:
+                p_inst = esc(str(p.get('institution_name', '')))
+                p_city = esc(str(p.get('city', '')))
+                p_state = esc(str(p.get('state_code', p.get('state', ''))))
+                p_type = esc(str(p.get('institution_type', '')))
+                p_acc = esc(str(p.get('accreditation_status', '')))
+                p_year = p.get('first_accredited_year', '')
+                p_deliv = esc(str(', '.join(p.get('delivery_modalities', []))))
+                body += f'\n<tr><td>{p_inst}</td><td>{p_city}</td><td>{p_state}</td><td>{p_type}</td><td>{p_acc}</td><td>{p_year}</td><td>{p_deliv}</td></tr>'
+            body += '\n</table>'
+
+        # School librarian certification
+        cert_states = school_cert.get('states', [])
+        if cert_states:
+            body += '\n<h3><span class="mw-headline">School Librarian Certification by State</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Model</th><th>Notes</th></tr>'
+            for cs in cert_states:
+                cs_state = esc(str(cs.get('state', '')))
+                cs_model = esc(str(cs.get('model', '')))
+                cs_notes = esc(str(cs.get('notes', '')))
+                body += f'\n<tr><td>{cs_state}</td><td>{cs_model}</td><td>{cs_notes}</td></tr>'
+            body += '\n</table>'
+
+        # Online programs
+        if online:
+            fully = online.get('fully_online_programs', [])
+            hybrid = online.get('programs_with_online_option', [])
+            body += f"""
+<h3><span class="mw-headline">Online & Hybrid Programs</span></h3>
+<div class="rules-box">
+  <p><strong>Fully online programs:</strong> {len(fully)}</p>
+  <p><strong>Programs with online option:</strong> {len(hybrid)}</p>
+</div>"""
+
+        # Diversity initiatives
+        if diversity:
+            spectrum = diversity.get('ala_spectrum_scholarship', {})
+            body += """
+<h3><span class="mw-headline">Diversity Initiatives</span></h3>
+<div class="rules-box">"""
+            if spectrum:
+                spec_desc = esc(str(spectrum.get('description', spectrum if isinstance(spectrum, str) else '')))
+                body += f'\n<p><strong>ALA Spectrum Scholarship:</strong> {spec_desc}</p>'
+            ethnic = diversity.get('ethnic_affiliate_scholarship_programs', [])
+            if ethnic:
+                body += '\n<p><strong>Ethnic affiliate scholarship programs:</strong></p><ul class="wiki-list">'
+                for e in ethnic:
+                    e_name = esc(str(e.get('name', e if isinstance(e, str) else '')))
+                    e_desc = esc(str(e.get('description', '')))
+                    if e_desc:
+                        body += f'\n  <li><strong>{e_name}:</strong> {e_desc}</li>'
+                    else:
+                        body += f'\n  <li>{e_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if edu_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in edu_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Awards & Recognition Programs ──
     try:
         aw = data.get('awards', {})
@@ -12074,8 +12344,176 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library History Deep Dive ──
+    try:
+        hd = data.get('history_detailed', {})
+        hd_colonial = hd.get('colonial_era', {})
+        hd_carnegie = hd.get('carnegie_libraries', {})
+        hd_firsts = hd.get('major_firsts', [])
+        hd_figures = hd.get('key_figures', [])
+        hd_fed_tl = hd.get('federal_legislation_timeline', [])
+        hd_arch = hd.get('architecture_history', {})
+        hd_women = hd.get('women_in_librarianship', {})
+        hd_aa = hd.get('african_american_history', {})
+        hd_tech_milestones = hd.get('technology_milestones', [])
+        hd_findings = hd.get('key_findings', [])
+
+        carnegie_totals = hd_carnegie.get('totals', {})
+        carnegie_grants = carnegie_totals.get('total_grants', carnegie_totals.get('grants', 0))
+        carnegie_buildings = carnegie_totals.get('total_buildings', carnegie_totals.get('buildings', 0))
+        carnegie_amount = carnegie_totals.get('total_amount_usd', carnegie_totals.get('total_usd', 0))
+
+        body += f"""
+<section id="history-detailed">
+<h2><span class="mw-headline">American Library History — Deep Dive</span></h2>
+<p>A detailed chronicle of the American library movement — from colonial-era reading societies to Andrew Carnegie's transformative grants, the feminization of the profession, African American library history, and the technology revolution.</p>"""
+
+        if carnegie_totals:
+            body += f"""
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{carnegie_grants:,}</div><div class="label">Carnegie library grants</div></div>
+  <div class="stat-card"><div class="num">{carnegie_buildings:,}</div><div class="label">Carnegie library buildings</div></div>
+  <div class="stat-card"><div class="num">${carnegie_amount/1e6:.1f}M</div><div class="label">Total Carnegie donations</div></div>
+</div>"""
+
+        if hd_firsts:
+            body += '\n<h3><span class="mw-headline">Major Library Firsts</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Year</th><th>Milestone</th><th>Description</th></tr>'
+            for m in hd_firsts:
+                m_year = m.get('year', '')
+                m_name_raw = m.get('milestone', m.get('name', m.get('event', '')))
+                m_name = esc(str(m_name_raw))
+                m_desc = esc(str(m.get('description', m.get('detail', ''))))
+                body += f'\n  <tr><td>{m_year}</td><td>{m_name}</td><td>{m_desc}</td></tr>'
+            body += '\n</table>'
+
+        if hd_figures:
+            body += '\n<h3><span class="mw-headline">Key Figures in Library History</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Name</th><th>Role</th><th>Contribution</th></tr>'
+            for fig in hd_figures:
+                fig_name = esc(str(fig.get('name', fig.get('figure', ''))))
+                fig_role = esc(str(fig.get('role', fig.get('title', ''))))
+                fig_contrib = esc(str(fig.get('contribution', fig.get('description', ''))))
+                body += f'\n  <tr><td>{fig_name}</td><td>{fig_role}</td><td>{fig_contrib}</td></tr>'
+            body += '\n</table>'
+
+        if hd_fed_tl:
+            body += '\n<h3><span class="mw-headline">Federal Legislation Timeline</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Year</th><th>Legislation</th><th>Description</th></tr>'
+            for leg in hd_fed_tl:
+                leg_year = leg.get('year', '')
+                leg_name_raw = leg.get('legislation', leg.get('law', leg.get('name', '')))
+                leg_name = esc(str(leg_name_raw))
+                leg_desc = esc(str(leg.get('description', '')))
+                body += f'\n  <tr><td>{leg_year}</td><td>{leg_name}</td><td>{leg_desc}</td></tr>'
+            body += '\n</table>'
+
+        if hd_tech_milestones:
+            body += '\n<h3><span class="mw-headline">Technology Milestones</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Year</th><th>Milestone</th></tr>'
+            for tm in hd_tech_milestones:
+                tm_year = tm.get('year', '')
+                tm_event_raw = tm.get('milestone', tm.get('event', tm.get('description', '')))
+                tm_event = esc(str(tm_event_raw))
+                body += f'\n  <tr><td>{tm_year}</td><td>{tm_event}</td></tr>'
+            body += '\n</table>'
+
+        if hd_women:
+            women_timeline = hd_women.get('timeline', [])
+            women_notable = hd_women.get('notable_women', [])
+            if women_notable:
+                body += '\n<h3><span class="mw-headline">Women in Librarianship</span></h3>'
+                body += '\n<p>The feminization of librarianship is one of the defining features of the profession. Women now comprise approximately 80% of the library workforce.</p>'
+                body += '\n<table class="wikitable"><tr><th>Name</th><th>Contribution</th></tr>'
+                for w in women_notable:
+                    w_name = esc(str(w.get('name', '')))
+                    w_contrib = esc(str(w.get('contribution', w.get('description', ''))))
+                    body += f'\n  <tr><td>{w_name}</td><td>{w_contrib}</td></tr>'
+                body += '\n</table>'
+
+        if hd_aa:
+            aa_branches = hd_aa.get('segregated_branches', [])
+            aa_figures = hd_aa.get('notable_figures', [])
+            if aa_branches or aa_figures:
+                body += '\n<h3><span class="mw-headline">African American Library History</span></h3>'
+                if aa_branches:
+                    body += '\n<h4>Segregated Library Branches</h4>'
+                    body += '\n<table class="wikitable"><tr><th>Branch</th><th>Location</th><th>Year</th></tr>'
+                    for b in aa_branches:
+                        b_name = esc(str(b.get('name', b.get('branch', ''))))
+                        b_loc = esc(str(b.get('location', b.get('city', ''))))
+                        b_year = b.get('year', b.get('year_opened', ''))
+                        body += f'\n  <tr><td>{b_name}</td><td>{b_loc}</td><td>{b_year}</td></tr>'
+                    body += '\n</table>'
+                if aa_figures:
+                    body += '\n<h4>Notable African American Library Pioneers</h4>'
+                    body += '\n<ul class="wiki-list">'
+                    for af in aa_figures:
+                        af_name = esc(str(af.get('name', '')))
+                        af_contrib = esc(str(af.get('contribution', af.get('description', ''))))
+                        body += f'\n  <li><strong>{af_name}:</strong> {af_contrib}</li>'
+                    body += '\n</ul>'
+
+        if hd_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in hd_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Disaster Response & Resilience ──
+    try:
+        dr_path = os.path.join(DATA, 'library_disaster_response_summary.json')
+        dr = {}
+        if os.path.exists(dr_path):
+            with open(dr_path) as dr_f:
+                dr = json.load(dr_f)
+        if dr:
+            dr_hurricanes = dr.get('hurricane_responses', [])
+            dr_wildfires = dr.get('wildfire_responses', [])
+            dr_floods = dr.get('flood_responses', [])
+            dr_tornadoes = dr.get('tornado_responses', [])
+            dr_pandemic = dr.get('pandemic_response', {})
+            dr_hubs = dr.get('resilience_hubs', {})
+            dr_findings = dr.get('key_findings', [])
+
+            body += f"""
+<section id="disaster-response">
+<h2><span class="mw-headline">Library Disaster Response & Community Resilience</span></h2>
+<p>Libraries have served as emergency shelters, cooling centers, and community recovery hubs during America's worst natural disasters — from Hurricane Katrina to the Maui wildfires, from Joplin tornadoes to the COVID-19 pandemic.</p>"""
+
+            if dr_hurricanes:
+                body += '\n<h3><span class="mw-headline">Hurricane Responses</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Hurricane</th><th>Year</th><th>Library Response</th></tr>'
+                for h in dr_hurricanes:
+                    h_name = esc(str(h.get('name', h.get('hurricane', ''))))
+                    h_year = h.get('year', h.get('landfall_date', ''))
+                    h_resp_raw = h.get('library_response', h.get('description', h.get('impact', '')))
+                    h_resp = esc(str(h_resp_raw))
+                    body += f'\n  <tr><td>{h_name}</td><td>{h_year}</td><td>{h_resp}</td></tr>'
+                body += '\n</table>'
+
+            if dr_wildfires:
+                body += '\n<h3><span class="mw-headline">Wildfire Responses</span></h3>'
+                body += '\n<ul class="wiki-list">'
+                for w in dr_wildfires:
+                    w_name = esc(str(w.get('name', w.get('event', ''))))
+                    body += f'\n  <li>{w_name}</li>'
+                body += '\n</ul>'
+
+            if dr_findings:
+                body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+                body += '\n<div class="rules-box"><ul class="wiki-list">'
+                for f in dr_findings[:6]:
+                    body += f'\n  <li>{esc(str(f))}</li>'
+                body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-detailed">History</a> | <a href="#disaster-response">Disaster response</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -14560,8 +14998,110 @@ def build_funders(data, stats):
     except Exception:
         pass
 
+    # ── Library Economics Deep Dive ──
+    try:
+        ed = data.get('economics_detailed', {})
+        ed_total = ed.get('total_spending', {})
+        ed_model = ed.get('funding_model_breakdown', {})
+        ed_staff = ed.get('staff_costs', {})
+        ed_coll = ed.get('collection_budgets', {})
+        ed_capital = ed.get('capital_expenditures', {})
+        ed_state = ed.get('state_comparison', {})
+        ed_impact = ed.get('economic_impact', {})
+        ed_federal = ed.get('federal_funding', {})
+        ed_philanthropic = ed.get('philanthropic_funding', {})
+        ed_cuts = ed.get('budget_cuts', {})
+        ed_findings = ed.get('key_findings', [])
+
+        total_fy2024 = ed_total.get('operating_expenditures_fy2024', ed_total.get('total_spending_fy2024', 0))
+        per_capita = ed_total.get('per_capita_fy2024', ed_total.get('per_capita', 0))
+
+        body += f"""
+<section id="economics-detailed">
+<h2><span class="mw-headline">Library Economics Deep Dive</span></h2>
+<p>A comprehensive financial analysis of America's public libraries — from total operating expenditures and funding model breakdowns to staff costs, collection budgets, capital spending, state-by-state comparisons, and economic impact studies.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">${total_fy2024/1e9:.1f}B</div><div class="label">Total operating expenditures (FY2024)</div></div>
+  <div class="stat-card"><div class="num">${per_capita:.2f}</div><div class="label">Per capita spending</div></div>
+</div>"""
+
+        # Funding model breakdown
+        if ed_model:
+            fm = ed_model.get('fy2024_split', ed_model.get('funding_split', {}))
+            if fm:
+                body += '\n<h3><span class="mw-headline">Funding Model Breakdown</span></h3>'
+                body += '\n<div class="services-bars">'
+                for src, pct in fm.items():
+                    if isinstance(pct, (int, float)):
+                        src_name = src.replace('_', ' ').title()
+                        body += f'\n  <div class="svc-row"><span class="svc-label">{esc(src_name)}</span><div class="svc-bar"><div class="svc-fill svc-fill-money" style="width:{pct}%"></div></div><span class="svc-val">{pct:.1f}%</span></div>'
+                body += '\n</div>'
+
+        # State comparison
+        ed_state_data = ed_state.get('by_state', ed_state.get('rankings', []))
+        if ed_state_data:
+            body += '\n<h3><span class="mw-headline">Per Capita Spending by State</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Per Capita</th><th>Total Spending</th></tr>'
+            for s in ed_state_data[:20]:
+                if isinstance(s, dict):
+                    s_state = esc(str(s.get('state', s.get('state_name', ''))))
+                    s_pc = s.get('per_capita', s.get('per_capita_spending', 0))
+                    s_total = s.get('total_spending', s.get('total_expenditures', 0))
+                    body += f'\n  <tr><td>{s_state}</td><td class="num">${s_pc:.2f}</td><td class="num">${s_total:,.0f}</td></tr>'
+            body += '\n</table>'
+
+        # Economic impact (ROI studies)
+        ed_roi = ed_impact.get('roi_studies', ed_impact.get('studies', []))
+        if ed_roi:
+            body += '\n<h3><span class="mw-headline">Economic Impact / ROI Studies</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>State/Study</th><th>ROI per $1</th><th>Year</th></tr>'
+            for r in ed_roi:
+                r_state_raw = r.get('state', r.get('study', r.get('location', '')))
+                r_state = esc(str(r_state_raw))
+                r_roi = esc(str(r.get('roi', r.get('return_on_investment', ''))))
+                r_year = r.get('year', '')
+                body += f'\n  <tr><td>{r_state}</td><td class="num">{r_roi}</td><td>{r_year}</td></tr>'
+            body += '\n</table>'
+
+        # Federal funding
+        if ed_federal:
+            fed_programs = ed_federal.get('programs', ed_federal.get('agencies', []))
+            if fed_programs:
+                body += '\n<h3><span class="mw-headline">Federal Funding Programs</span></h3>'
+                body += '\n<table class="wikitable"><tr><th>Program</th><th>Total Funding</th><th>Description</th></tr>'
+                for fp in fed_programs:
+                    fp_name_raw = fp.get('program', fp.get('name', fp.get('agency', '')))
+                    fp_name = esc(str(fp_name_raw))
+                    fp_amount = fp.get('total_funding', fp.get('amount', fp.get('cumulative', '')))
+                    fp_desc = esc(str(fp.get('description', '')))
+                    body += f'\n  <tr><td>{fp_name}</td><td class="num">{fp_amount}</td><td>{fp_desc}</td></tr>'
+                body += '\n</table>'
+
+        # Budget cuts
+        ed_crisis = ed_cuts.get('crisis_events', ed_cuts.get('events', []))
+        if ed_crisis:
+            body += '\n<h3><span class="mw-headline">Budget Cuts & Restoration</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Period</th><th>Event</th><th>Impact</th></tr>'
+            for c in ed_crisis:
+                c_period_raw = c.get('period', c.get('year', c.get('date', '')))
+                c_period = esc(str(c_period_raw))
+                c_event = esc(str(c.get('event', c.get('description', ''))))
+                c_impact = esc(str(c.get('impact', '')))
+                body += f'\n  <tr><td>{c_period}</td><td>{c_event}</td><td>{c_impact}</td></tr>'
+            body += '\n</table>'
+
+        if ed_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in ed_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#friends-foundations">Friends &amp; foundations</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#imls-grants">IMLS grants</a> | <a href="#neh-grants">NEH grants</a> | <a href="#usda-grants">USDA grants</a> | <a href="#philanthropy">Philanthropy</a> | <a href="#friends-foundations">Friends &amp; foundations</a> | <a href="#state-funding-enhanced">State funding</a> | <a href="#ballot-measures-enhanced">Ballot measures</a> | <a href="#nsf-grants">NSF grants</a> | <a href="#economics-detailed">Economics</a> | <a href="#federal-legislation">Federal legislation</a> | <a href="contacts.html">Library contacts</a> | <a href="digital.html">Digital inclusion</a> | <a href="encyclopedia.html">Encyclopedia</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'funders.html'), 'w') as f:
@@ -15887,6 +16427,191 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Library Collections Deep Dive ──
+    try:
+        cd_data = data.get('collections_detailed', {})
+        cd_total = cd_data.get('total_collections', {})
+        cd_circ = cd_data.get('circulation_trends', {})
+        cd_formats = cd_data.get('format_breakdown', {})
+        cd_budgets = cd_data.get('development_budgets', {})
+        cd_pub = cd_data.get('publishing_industry', {})
+        cd_big5 = cd_data.get('big_five_publishers', {})
+        cd_diversity = cd_data.get('collection_diversity', {})
+        cd_weeding = cd_data.get('weeding_practices', {})
+        cd_special = cd_data.get('special_formats', {})
+        cd_findings = cd_data.get('key_findings', [])
+
+        pub_coll = cd_total.get('public_libraries', {})
+        aca_coll = cd_total.get('academic_libraries', {})
+        nat_agg = cd_total.get('national_aggregate_estimate', {})
+        total_circ = cd_circ.get('total_circulation_fy2024', 0)
+
+        body += f"""
+<section id="collections-detailed">
+<h2><span class="mw-headline">Library Collections Deep Dive</span></h2>
+<p>A detailed look at the physical and digital collections held by America's libraries, circulation trends, format shifts, collection development budgets, and the publishing industry that supplies them.</p>"""
+
+        if pub_coll or aca_coll:
+            body += '\n<div class="stats-grid">'
+            pub_items = pub_coll.get('physical_items', pub_coll.get('total_volumes', 0))
+            aca_items = aca_coll.get('physical_volumes', aca_coll.get('total_volumes', 0))
+            body += f'\n  <div class="stat-card"><div class="num">{pub_items/1e6:.0f}M</div><div class="label">Public library physical items</div></div>'
+            body += f'\n  <div class="stat-card"><div class="num">{aca_items/1e6:.0f}M</div><div class="label">Academic library volumes</div></div>'
+            body += f'\n  <div class="stat-card"><div class="num">{total_circ/1e6:.0f}M</div><div class="label">Total circulation (FY2024)</div></div>'
+            mat_total = cd_budgets.get('total_all_us_library_sectors_materials_est_usd', 0)
+            body += f'\n  <div class="stat-card"><div class="num">${mat_total/1e9:.1f}B</div><div class="label">Total materials spending (all sectors)</div></div>'
+            body += '\n</div>'
+
+        # Circulation trends
+        cd_series = cd_circ.get('annual_series', [])
+        if cd_series:
+            body += '\n<h3><span class="mw-headline">Circulation Trends (FY2010-FY2024)</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Fiscal Year</th><th>Total Circulation</th><th>Per Capita</th></tr>'
+            for yr in cd_series:
+                if isinstance(yr, dict):
+                    yr_year = yr.get('fiscal_year', yr.get('year', ''))
+                    yr_circ = yr.get('total_circulation', yr.get('circulation', 0))
+                    yr_pc = yr.get('per_capita', '')
+                    body += f'\n  <tr><td>{yr_year}</td><td class="num">{yr_circ:,}</td><td class="num">{yr_pc}</td></tr>'
+            body += '\n</table>'
+
+        # Big Five publishers
+        cd_pubs = cd_big5.get('publishers', [])
+        if cd_pubs:
+            body += '\n<h3><span class="mw-headline">Big Five Publishers & E-Book Licensing</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Publisher</th><th>Parent</th><th>Library E-Book Policy</th></tr>'
+            for pub in cd_pubs:
+                pub_name_raw = pub.get('name', pub.get('publisher', ''))
+                pub_name = esc(str(pub_name_raw))
+                pub_parent_raw = pub.get('parent', pub.get('parent_company', ''))
+                pub_parent = esc(str(pub_parent_raw))
+                pub_policy_raw = pub.get('library_ebook_policy', pub.get('ebook_policy', pub.get('policy', '')))
+                pub_policy = esc(str(pub_policy_raw))
+                body += f'\n  <tr><td>{pub_name}</td><td>{pub_parent}</td><td>{pub_policy}</td></tr>'
+            body += '\n</table>'
+
+        # Collection diversity
+        ccbc = cd_diversity.get('ccbc_diversity_statistics', [])
+        if ccbc:
+            body += '\n<h3><span class="mw-headline">Collection Diversity (CCBC Statistics)</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Year</th><th>Books by/about POC</th><th>% of Total</th></tr>'
+            for c in ccbc:
+                if isinstance(c, dict):
+                    c_year = c.get('year', '')
+                    c_count = c.get('books_by_or_about_poc', c.get('count', 0))
+                    c_pct = c.get('pct_of_total', c.get('percentage', ''))
+                    body += f'\n  <tr><td>{c_year}</td><td class="num">{c_count}</td><td class="num">{c_pct}%</td></tr>'
+            body += '\n</table>'
+
+        # Special formats
+        if cd_special:
+            body += '\n<h3><span class="mw-headline">Special Format Collections</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for k, v in cd_special.items():
+                if k == 'source':
+                    continue
+                if isinstance(v, dict):
+                    v_desc = esc(str(v.get('description', v.get('overview', ''))))
+                    display_k = k.replace('_', ' ').title()
+                    body += f'\n  <li><strong>{display_k}:</strong> {v_desc}</li>'
+            body += '\n</ul></div>'
+
+        if cd_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in cd_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Makerspaces & Library of Things ──
+    try:
+        mk = data.get('makerspaces', {})
+        mk_stats = mk.get('statistics', {})
+        mk_notable = mk.get('notable_makerspaces', [])
+        mk_equip = mk.get('equipment', [])
+        mk_funding = mk.get('funding_sources', [])
+        mk_programs = mk.get('programming', [])
+        mk_impact = mk.get('impact_studies', [])
+        mk_lot = mk.get('library_of_things', {})
+        mk_di = mk.get('digital_inclusion', {})
+        mk_challenges = mk.get('challenges', [])
+        mk_findings = mk.get('key_findings', [])
+
+        mk_total_low = mk_stats.get('estimated_total_low', mk_stats.get('total_estimate_low', ''))
+        mk_total_high = mk_stats.get('estimated_total_high', mk_stats.get('total_estimate_high', ''))
+
+        body += f"""
+<section id="makerspaces">
+<h2><span class="mw-headline">Library Makerspaces & Library of Things</span></h2>
+<p>Library makerspaces have emerged as a transformative service, offering patrons access to 3D printers, laser cutters, electronics, and creative technology. An estimated {mk_total_low}–{mk_total_high} makerspaces operate across US libraries, spanning public, academic, and school library settings.</p>"""
+
+        if mk_notable:
+            body += '\n<h3><span class="mw-headline">Notable Library Makerspaces</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>Location</th><th>Year</th><th>Equipment/Features</th></tr>'
+            for m in mk_notable:
+                m_name_raw = m.get('name', m.get('library', ''))
+                m_name = esc(str(m_name_raw))
+                m_loc = esc(str(m.get('location', '')))
+                m_year = m.get('year', m.get('year_opened', ''))
+                m_feat_raw = m.get('equipment', m.get('features', m.get('description', '')))
+                m_feat = esc(str(m_feat_raw))
+                body += f'\n<tr><td>{m_name}</td><td>{m_loc}</td><td>{m_year}</td><td>{m_feat}</td></tr>'
+            body += '\n</table>'
+
+        if mk_equip:
+            body += '\n<h3><span class="mw-headline">Equipment Typically Available</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Category</th><th>Equipment</th><th>Cost Range</th></tr>'
+            for e in mk_equip:
+                e_cat_raw = e.get('category', e.get('name', ''))
+                e_cat = esc(str(e_cat_raw))
+                e_items_raw = e.get('items', e.get('equipment', ''))
+                e_items = esc(str(e_items_raw))
+                e_cost_raw = e.get('cost_range', e.get('cost', ''))
+                e_cost = esc(str(e_cost_raw))
+                body += f'\n<tr><td>{e_cat}</td><td>{e_items}</td><td>{e_cost}</td></tr>'
+            body += '\n</table>'
+
+        if mk_lot:
+            lot_desc_raw = mk_lot.get('overview', mk_lot.get('description', ''))
+            lot_desc = esc(str(lot_desc_raw))
+            lot_cats = mk_lot.get('categories', mk_lot.get('lending_categories', []))
+            body += f"""
+<h3><span class="mw-headline">Library of Things</span></h3>
+<div class="rules-box">
+  <p>{lot_desc}</p>"""
+            if lot_cats:
+                body += '\n<p><strong>Lending categories:</strong></p><ul class="wiki-list">'
+                for lc in lot_cats:
+                    lc_name_raw = lc.get('category', lc.get('name', lc if isinstance(lc, str) else ''))
+                    lc_name = esc(str(lc_name_raw))
+                    body += f'\n  <li>{lc_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if mk_programs:
+            body += '\n<h3><span class="mw-headline">Maker Programming</span></h3>'
+            body += '\n<ul class="wiki-list">'
+            for p in mk_programs:
+                p_name_raw = p.get('program', p.get('name', p if isinstance(p, str) else ''))
+                p_name = esc(str(p_name_raw))
+                p_desc = esc(str(p.get('description', '')))
+                if p_desc:
+                    body += f'\n  <li><strong>{p_name}:</strong> {p_desc}</li>'
+                else:
+                    body += f'\n  <li>{p_name}</li>'
+            body += '\n</ul>'
+
+        if mk_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in mk_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     # ── Library Technology Vendors & Systems ──
     try:
         tv = data.get('tech_vendors', {})
@@ -16032,7 +16757,7 @@ def build_digital(data, stats):
         pass
 
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#collections-detailed">Collections</a> | <a href="#makerspaces">Makerspaces</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

@@ -749,6 +749,10 @@ def load_all():
         ('reference_deep', 'library_reference_deep_summary.json'),
         ('seed_deep', 'library_seed_deep_summary.json'),
         ('interlibrary_loan_deep', 'library_interlibrary_loan_deep_summary.json'),
+        ('copyright_literacy_deep', 'library_copyright_literacy_deep_summary.json'),
+        ('lifelong_learning_deep', 'library_lifelong_learning_deep_summary.json'),
+        ('governance_deep', 'library_governance_deep_summary.json'),
+        ('makerspace_network_deep', 'library_makerspace_network_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -17894,8 +17898,82 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # Copyright & Information Literacy Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('copyright_literacy_deep', {}),
+            'copyright-literacy-deep', 'Copyright &amp; Information Literacy Deep Dive',
+            [('literacy_overview', 'Overview'),
+             ('acrl_framework', 'ACRL Framework'),
+             ('copyright_education', 'Copyright Education'),
+             ('media_literacy', 'Media Literacy'),
+             ('digital_literacy', 'Digital Literacy'),
+             ('instructional_design', 'Instructional Design'),
+             ('assessment_of_literacy', 'Assessment of Literacy')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Lifelong Learning & Adult Education Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('lifelong_learning_deep', {}),
+            'lifelong-learning-deep', 'Lifelong Learning &amp; Adult Education Deep Dive',
+            [('learning_overview', 'Overview'),
+             ('adult_education', 'Adult Education'),
+             ('esl_services', 'ESL Services'),
+             ('digital_skills', 'Digital Skills'),
+             ('personal_enrichment', 'Personal Enrichment'),
+             ('online_learning', 'Online Learning'),
+             ('partnerships', 'Partnerships')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Library Governance & Board Structures Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('governance_deep', {}),
+            'governance-deep', 'Library Governance &amp; Board Structures Deep Dive',
+            [('governance_overview', 'Overview'),
+             ('governance_models', 'Governance Models'),
+             ('library_boards', 'Library Boards'),
+             ('state_library_agencies', 'State Library Agencies'),
+             ('funding_authority', 'Funding Authority'),
+             ('accreditation', 'Accreditation')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Makerspace Network Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('makerspace_network_deep', {}),
+            'makerspace-network-deep', 'Library Makerspaces &amp; Fab Labs Network Deep Dive',
+            [('network_overview', 'Network Overview'),
+             ('equipment', 'Equipment'),
+             ('curriculum', 'Curriculum'),
+             ('staffing', 'Staffing'),
+             ('impact_studies', 'Impact Studies'),
+             ('national_networks', 'National Networks')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#funding-deep">Funding</a> | <a href="#reading-trends-deep">Reading trends</a> | <a href="#special-collections-deep">Special collections</a> | <a href="#history-deep">History deep</a> | <a href="#consortia-deep">Consortia</a> | <a href="#accessibility-deep">Accessibility</a> | <a href="#economics-deep">Economics</a> | <a href="#awards-deep">Awards</a> | <a href="#volunteers-deep">Volunteers</a> | <a href="#advocacy-deep">Advocacy</a> | <a href="#social-media-deep">Social media</a> | <a href="#cataloging-deep">Cataloging</a> | <a href="#tech-vendors-deep">Tech vendors</a> | <a href="#streaming-deep">Streaming</a> | <a href="#assessment-deep">Assessment</a> | <a href="#law-deep">Law</a> | <a href="#friends-deep">Friends</a> | <a href="#self-publishing-deep">Self-publishing</a> | <a href="#genealogy-deep">Genealogy</a> | <a href="#youth-deep">Youth</a> | <a href="#workforce-dev-deep">Workforce dev</a> | <a href="#tech-infra-deep">Tech infra</a> | <a href="#programs-deep">Programs</a> | <a href="#collections-deep">Collections</a> | <a href="#outreach-deep">Outreach</a> | <a href="#social-worker-deep">Social workers</a> | <a href="#climate-resilience-deep">Climate resilience</a> | <a href="#gaming-deep">Gaming</a> | <a href="#preservation-deep">Preservation</a> | <a href="#book-clubs-deep">Book clubs</a> | <a href="#reentry-deep">Reentry</a> | <a href="#reference-deep">Reference</a> | <a href="#seed-deep">Seed libraries</a> | <a href="#ill-deep">Interlibrary loan</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#funding-deep">Funding</a> | <a href="#reading-trends-deep">Reading trends</a> | <a href="#special-collections-deep">Special collections</a> | <a href="#history-deep">History deep</a> | <a href="#consortia-deep">Consortia</a> | <a href="#accessibility-deep">Accessibility</a> | <a href="#economics-deep">Economics</a> | <a href="#awards-deep">Awards</a> | <a href="#volunteers-deep">Volunteers</a> | <a href="#advocacy-deep">Advocacy</a> | <a href="#social-media-deep">Social media</a> | <a href="#cataloging-deep">Cataloging</a> | <a href="#tech-vendors-deep">Tech vendors</a> | <a href="#streaming-deep">Streaming</a> | <a href="#assessment-deep">Assessment</a> | <a href="#law-deep">Law</a> | <a href="#friends-deep">Friends</a> | <a href="#self-publishing-deep">Self-publishing</a> | <a href="#genealogy-deep">Genealogy</a> | <a href="#youth-deep">Youth</a> | <a href="#workforce-dev-deep">Workforce dev</a> | <a href="#tech-infra-deep">Tech infra</a> | <a href="#programs-deep">Programs</a> | <a href="#collections-deep">Collections</a> | <a href="#outreach-deep">Outreach</a> | <a href="#social-worker-deep">Social workers</a> | <a href="#climate-resilience-deep">Climate resilience</a> | <a href="#gaming-deep">Gaming</a> | <a href="#preservation-deep">Preservation</a> | <a href="#book-clubs-deep">Book clubs</a> | <a href="#reentry-deep">Reentry</a> | <a href="#reference-deep">Reference</a> | <a href="#seed-deep">Seed libraries</a> | <a href="#ill-deep">Interlibrary loan</a> | <a href="#copyright-literacy-deep">Copyright &amp; literacy</a> | <a href="#lifelong-learning-deep">Lifelong learning</a> | <a href="#governance-deep">Governance</a> | <a href="#makerspace-network-deep">Makerspace network</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:

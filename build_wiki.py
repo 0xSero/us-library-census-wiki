@@ -627,6 +627,9 @@ def load_all():
         ('nces_sass', 'nces_sass_summary.json'),
         ('national_snapshot', 'national_snapshot_summary.json'),
         ('intellectual_freedom', 'intellectual_freedom_summary.json'),
+        ('sustainability', 'library_sustainability_summary.json'),
+        ('tech_vendors', 'library_tech_vendors_summary.json'),
+        ('law_governance', 'library_law_governance_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -11540,8 +11543,357 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # ── Library Law & Governance ──
+    try:
+        lg = data.get('law_governance', {})
+        enab_states = lg.get('states_with_enabling_legislation', 0)
+        enab_by_state = lg.get('enabling_legislation_by_state', [])
+        dist_laws = lg.get('library_district_laws', {})
+        dist_states = lg.get('states_with_library_districts', [])
+        board_models = lg.get('board_governance_models', {})
+        priv_statutes = lg.get('privacy_statutes', [])
+        if_laws = lg.get('intellectual_freedom_laws', [])
+        ompr = lg.get('open_meeting_and_public_records_laws', {})
+        emp_cert = lg.get('employment_law_and_certification', {})
+        cert_by_state = lg.get('certification_requirements_by_state', [])
+        copyright_lend = lg.get('copyright_and_lending', {})
+        fed_laws = lg.get('key_federal_laws', [])
+        court_cases = lg.get('key_court_cases', [])
+        lg_findings = lg.get('key_findings', [])
+
+        dist_count = dist_laws.get('count_authorizing', 0)
+        dist_tax = dist_laws.get('count_with_taxing_authority', 0)
+
+        body += f"""
+<section id="law-governance">
+<h2><span class="mw-headline">Library Law & Governance</span></h2>
+<p>A comprehensive reference to the legal framework governing U.S. public libraries — from state enabling legislation and library district laws to board governance models, reader privacy statutes, intellectual freedom laws, open meeting and public records requirements, employment/certification, and copyright/lending frameworks.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{enab_states}</div><div class="label">States with enabling legislation</div></div>
+  <div class="stat-card"><div class="num">{dist_count}</div><div class="label">States authorizing library districts</div></div>
+  <div class="stat-card"><div class="num">{dist_tax}</div><div class="label">Districts with taxing authority</div></div>
+  <div class="stat-card"><div class="num">{len(priv_statutes)}</div><div class="label">States with privacy statutes</div></div>
+  <div class="stat-card"><div class="num">{len(fed_laws)}</div><div class="label">Key federal laws</div></div>
+  <div class="stat-card"><div class="num">{len(court_cases)}</div><div class="label">Key court cases</div></div>
+</div>"""
+
+        if enab_by_state:
+            body += '\n<h3><span class="mw-headline">State Enabling Legislation</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>State</th><th>Statute</th><th>Year</th><th>Key Provisions</th></tr>'
+            for es in enab_by_state[:25]:
+                es_state = esc(str(es.get('state', '')))
+                es_statute = esc(str(es.get('statute_citation', es.get('statute', ''))))
+                es_year = es.get('enactment_year', es.get('year', ''))
+                es_prov = esc(str(es.get('key_provisions', es.get('provisions', ''))))
+                body += f'\n<tr><td>{es_state}</td><td>{es_statute}</td><td>{es_year}</td><td>{es_prov}</td></tr>'
+            body += '\n</table>'
+
+        if dist_laws:
+            dist_models = dist_laws.get('district_models', [])
+            body += """
+<h3><span class="mw-headline">Library District Laws</span></h3>
+<div class="rules-box">
+  <p>Library districts are special-purpose governmental units with independent taxing authority. They represent one of the most powerful funding mechanisms for libraries in the U.S.</p>"""
+            if dist_models:
+                body += '\n<ul class="wiki-list">'
+                for dm in dist_models:
+                    dm_name = esc(str(dm.get('model', dm.get('name', dm if isinstance(dm, str) else ''))))
+                    dm_desc = esc(str(dm.get('description', '')))
+                    if dm_desc:
+                        body += f'\n  <li><strong>{dm_name}:</strong> {dm_desc}</li>'
+                    else:
+                        body += f'\n  <li>{dm_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if board_models:
+            body += """
+<h3><span class="mw-headline">Board Governance Models</span></h3>
+<div class="rules-box">"""
+            appt_models = board_models.get('appointment_models', '')
+            if appt_models:
+                body += f'\n<p><strong>Appointment models:</strong> {esc(str(appt_models))}</p>'
+            board_sizes = board_models.get('common_board_sizes', '')
+            if board_sizes:
+                body += f'\n<p><strong>Common board sizes:</strong> {esc(str(board_sizes))}</p>'
+            term_lengths = board_models.get('common_term_lengths', '')
+            if term_lengths:
+                body += f'\n<p><strong>Common term lengths:</strong> {esc(str(term_lengths))}</p>'
+            body += '\n</div>'
+
+        if if_laws:
+            body += '\n<h3><span class="mw-headline">Intellectual Freedom Laws</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>State</th><th>Law/Policy</th><th>Year</th><th>Type</th><th>Description</th></tr>'
+            for il in if_laws:
+                il_state = esc(str(il.get('state', '')))
+                il_law = esc(str(il.get('law_name', il.get('law', ''))))
+                il_year = esc(str(il.get('year', '')))
+                il_type = esc(str(il.get('type', '')))
+                il_desc = esc(str(il.get('description', '')))
+                body += f'\n<tr><td>{il_state}</td><td>{il_law}</td><td>{il_year}</td><td>{il_type}</td><td>{il_desc}</td></tr>'
+            body += '\n</table>'
+
+        if copyright_lend:
+            body += """
+<h3><span class="mw-headline">Copyright & Lending Framework</span></h3>
+<div class="rules-box">"""
+            fs = copyright_lend.get('first_sale_doctrine', '')
+            if fs:
+                body += f'\n<p><strong>First Sale Doctrine (§109):</strong> {esc(str(fs))}</p>'
+            lib_exemp = copyright_lend.get('library_reproduction_exemption', '')
+            if lib_exemp:
+                body += f'\n<p><strong>Library Reproduction Exemption (§108):</strong> {esc(str(lib_exemp))}</p>'
+            fair_use = copyright_lend.get('fair_use', '')
+            if fair_use:
+                body += f'\n<p><strong>Fair Use (§107):</strong> {esc(str(fair_use))}</p>'
+            dl = copyright_lend.get('digital_lending_limitations', '')
+            if dl:
+                body += f'\n<p><strong>Digital lending limitations:</strong> {esc(str(dl))}</p>'
+            ill = copyright_lend.get('interlibrary_loan', '')
+            if ill:
+                body += f'\n<p><strong>Interlibrary loan:</strong> {esc(str(ill))}</p>'
+            body += '\n</div>'
+
+        if court_cases:
+            body += '\n<h3><span class="mw-headline">Key Court Cases</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Case</th><th>Year</th><th>Issue</th><th>Ruling</th></tr>'
+            for cc in court_cases:
+                cc_name = esc(str(cc.get('case_name', cc.get('case', ''))))
+                cc_year = cc.get('year', '')
+                cc_issue = esc(str(cc.get('issue', '')))
+                cc_ruling = esc(str(cc.get('ruling', cc.get('holding', ''))))
+                body += f'\n<tr><td>{cc_name}</td><td>{cc_year}</td><td>{cc_issue}</td><td>{cc_ruling}</td></tr>'
+            body += '\n</table>'
+
+        if lg_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in lg_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
+    # ── Library Sustainability & Green Initiatives ──
+    try:
+        sust = data.get('sustainability', {})
+        leed_libs = sust.get('leed_certified_libraries', [])
+        leed_sum = sust.get('leed_summary', {})
+        notable_green = sust.get('notable_green_libraries', [])
+        sustainrt = sust.get('sustainrt', {})
+        solar = sust.get('solar_energy', {})
+        seed = sust.get('seed_libraries', {})
+        sust_coll = sust.get('sustainable_collections', {})
+        climate = sust.get('climate_resilience', {})
+        ev = sust.get('ev_charging', {})
+        green_part = sust.get('green_partnerships', {})
+        sust_findings = sust.get('key_findings', [])
+
+        leed_count = leed_sum.get('documented_entries', len(leed_libs))
+        by_level = leed_sum.get('by_level', {})
+        states_repr_raw = leed_sum.get('states_represented', 0)
+        states_repr = len(states_repr_raw) if isinstance(states_repr_raw, list) else states_repr_raw
+
+        body += f"""
+<section id="sustainability">
+<h2><span class="mw-headline">Library Sustainability & Green Initiatives</span></h2>
+<p>Libraries across the United States are increasingly embracing sustainability — from LEED-certified green buildings and rooftop solar arrays to seed libraries, tool-lending programs, and climate-resilience hubs. This section documents the breadth of environmental initiatives in the American library landscape.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{leed_count}</div><div class="label">LEED-certified libraries documented</div></div>
+  <div class="stat-card"><div class="num">{states_repr}</div><div class="label">States with LEED libraries</div></div>
+  <div class="stat-card"><div class="num">{by_level.get('Gold', 0)}</div><div class="label">LEED Gold certified</div></div>
+  <div class="stat-card"><div class="num">{by_level.get('Silver', 0)}</div><div class="label">LEED Silver certified</div></div>
+</div>"""
+
+        if leed_libs:
+            body += '\n<h3><span class="mw-headline">LEED-Certified Library Buildings</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>Library</th><th>City</th><th>State</th><th>LEED Level</th><th>Year</th><th>Rating System</th></tr>'
+            for lib in leed_libs:
+                lib_name = esc(str(lib.get('library', '')))
+                lib_city = esc(str(lib.get('city', '')))
+                lib_state = esc(str(lib.get('state', '')))
+                lib_level = esc(str(lib.get('level', '')))
+                lib_year = lib.get('year_certified', '')
+                lib_rating = esc(str(lib.get('rating_system', '')))
+                body += f'\n<tr><td>{lib_name}</td><td>{lib_city}</td><td>{lib_state}</td><td>{lib_level}</td><td>{lib_year}</td><td>{lib_rating}</td></tr>'
+            body += '\n</table>'
+
+        if notable_green:
+            body += '\n<h3><span class="mw-headline">Notable Green Library Buildings</span></h3>'
+            body += '\n<p>Beyond formal LEED certification, many libraries are celebrated for sustainable design:</p>'
+            for g in notable_green:
+                g_name = esc(str(g.get('name', '')))
+                g_loc = esc(str(g.get('location', '')))
+                g_year = g.get('year_opened', '')
+                g_arch = esc(str(g.get('architect', '')))
+                g_cert = esc(str(g.get('certification', '')))
+                g_sig = esc(str(g.get('significance', '')))
+                body += f"""
+<div class="rules-box">
+  <p><strong>{g_name}</strong> ({g_loc}, opened {g_year})</p>
+  <p><em>Architect:</em> {g_arch}</p>
+  <p>{g_sig}</p>
+  <p><em>Certification:</em> {g_cert}</p>"""
+                feats = g.get('features', [])
+                if feats:
+                    body += '\n<ul class="wiki-list">'
+                    for ft in feats:
+                        body += f'\n  <li>{esc(str(ft))}</li>'
+                    body += '\n</ul>'
+                body += '\n</div>'
+
+        if sustainrt:
+            srt_name = esc(str(sustainrt.get('name', '')))
+            srt_parent = esc(str(sustainrt.get('parent_organization', '')))
+            srt_estab = esc(str(sustainrt.get('established', '')))
+            srt_mission = esc(str(sustainrt.get('mission', '')))
+            body += f"""
+<h3><span class="mw-headline">ALA Sustainability Round Table (SustainRT)</span></h3>
+<div class="rules-box">
+  <p><strong>{srt_name}</strong> — {srt_parent}, established {srt_estab}.</p>
+  <p>{srt_mission}</p>"""
+            srt_init = sustainrt.get('key_initiatives', [])
+            if srt_init:
+                body += '\n<p><strong>Key initiatives:</strong></p><ul class="wiki-list">'
+                for init in srt_init:
+                    body += f'\n  <li>{esc(str(init))}</li>'
+                body += '\n</ul>'
+            srt_res = sustainrt.get('resources_offered', [])
+            if srt_res:
+                body += '\n<p><strong>Resources offered:</strong></p><ul class="wiki-list">'
+                for res in srt_res:
+                    body += f'\n  <li>{esc(str(res))}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if solar:
+            sol_overview = esc(str(solar.get('overview', '')))
+            sol_savings = esc(str(solar.get('estimated_savings', '')))
+            sol_scale = esc(str(solar.get('scale_note', '')))
+            body += f"""
+<h3><span class="mw-headline">Solar Energy at Libraries</span></h3>
+<div class="rules-box">
+  <p>{sol_overview}</p>
+  <p><strong>Estimated savings:</strong> {sol_savings}</p>
+  <p><strong>Scale:</strong> {sol_scale}</p>"""
+            sol_installs = solar.get('notable_installations', [])
+            if sol_installs:
+                body += '\n<table class="wikitable"><tr><th>Library</th><th>System Size</th><th>Details</th></tr>'
+                for inst in sol_installs:
+                    inst_lib = esc(str(inst.get('library', inst.get('name', ''))))
+                    inst_size = esc(str(inst.get('system_size', inst.get('capacity', ''))))
+                    inst_det = esc(str(inst.get('details', inst.get('description', ''))))
+                    body += f'\n<tr><td>{inst_lib}</td><td>{inst_size}</td><td>{inst_det}</td></tr>'
+                body += '\n</table>'
+            body += '\n</div>'
+
+        if seed:
+            seed_overview = esc(str(seed.get('overview', '')))
+            seed_count = esc(str(seed.get('estimated_count_us', '')))
+            seed_count_note = esc(str(seed.get('estimated_count_us_note', '')))
+            seed_origin = esc(str(seed.get('origin', '')))
+            body += f"""
+<h3><span class="mw-headline">Seed Libraries</span></h3>
+<div class="rules-box">
+  <p>{seed_overview}</p>
+  <p><strong>Estimated US seed libraries:</strong> {seed_count} ({seed_count_note})</p>
+  <p><strong>Origin:</strong> {seed_origin}</p>"""
+            seed_notable = seed.get('notable_seed_libraries', [])
+            if seed_notable:
+                body += '\n<p><strong>Notable seed libraries:</strong></p><ul class="wiki-list">'
+                for sn in seed_notable:
+                    sn_name = esc(str(sn.get('name', sn if isinstance(sn, str) else '')))
+                    body += f'\n  <li>{sn_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if climate:
+            clim_overview = esc(str(climate.get('overview', '')))
+            body += f"""
+<h3><span class="mw-headline">Climate Resilience & Community Hubs</span></h3>
+<div class="rules-box">
+  <p>{clim_overview}</p>"""
+            cooling = climate.get('cooling_centers', '')
+            warming = climate.get('warming_centers', '')
+            if cooling:
+                body += f'\n<p><strong>Cooling centers:</strong> {esc(str(cooling))}</p>'
+            if warming:
+                body += f'\n<p><strong>Warming centers:</strong> {esc(str(warming))}</p>'
+            emergency = climate.get('emergency_and_disaster_recovery', '')
+            if emergency:
+                body += f'\n<p><strong>Emergency & disaster recovery:</strong> {esc(str(emergency))}</p>'
+            res_hub = climate.get('resilience_hub_model', '')
+            if res_hub:
+                body += f'\n<p><strong>Resilience hub model:</strong> {esc(str(res_hub))}</p>'
+            body += '\n</div>'
+
+        if sust_coll:
+            sc_overview = esc(str(sust_coll.get('overview', '')))
+            body += f"""
+<h3><span class="mw-headline">Sustainable Lending Collections</span></h3>
+<div class="rules-box">
+  <p>{sc_overview}</p>"""
+            tool_libs = sust_coll.get('tool_libraries', [])
+            if tool_libs:
+                body += '\n<p><strong>Tool libraries:</strong></p><ul class="wiki-list">'
+                for tl in tool_libs:
+                    tl_name = esc(str(tl.get('name', tl if isinstance(tl, str) else '')))
+                    body += f'\n  <li>{tl_name}</li>'
+                body += '\n</ul>'
+            lot = sust_coll.get('library_of_things', [])
+            if lot:
+                body += '\n<p><strong>Library of Things programs:</strong></p><ul class="wiki-list">'
+                for lt in lot:
+                    lt_name = esc(str(lt.get('name', lt if isinstance(lt, str) else '')))
+                    body += f'\n  <li>{lt_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if ev:
+            ev_overview = esc(str(ev.get('overview', '')))
+            ev_count = esc(str(ev.get('estimated_count', '')))
+            body += f"""
+<h3><span class="mw-headline">EV Charging at Libraries</span></h3>
+<div class="rules-box">
+  <p>{ev_overview}</p>
+  <p><strong>Estimated count:</strong> {ev_count}</p>"""
+            ev_examples = ev.get('notable_examples', [])
+            if ev_examples:
+                body += '\n<ul class="wiki-list">'
+                for ex in ev_examples:
+                    ex_name = esc(str(ex.get('library', ex.get('location', ex if isinstance(ex, str) else ''))))
+                    body += f'\n  <li>{ex_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if green_part:
+            gp_overview = esc(str(green_part.get('overview', '')))
+            body += f"""
+<h3><span class="mw-headline">Green Partnerships</span></h3>
+<div class="rules-box">
+  <p>{gp_overview}</p>"""
+            partnerships = green_part.get('partnerships', [])
+            if partnerships:
+                body += '\n<ul class="wiki-list">'
+                for pt in partnerships:
+                    pt_name = esc(str(pt.get('partner', pt.get('name', pt if isinstance(pt, str) else ''))))
+                    body += f'\n  <li>{pt_name}</li>'
+                body += '\n</ul>'
+            body += '\n</div>'
+
+        if sust_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in sust_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#special-populations">Special populations</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#history-timeline">History</a> | <a href="#censorship">Censorship</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
@@ -15353,8 +15705,152 @@ def build_digital(data, stats):
     except Exception:
         pass
 
+    # ── Library Technology Vendors & Systems ──
+    try:
+        tv = data.get('tech_vendors', {})
+        ils_ms = tv.get('ils_market_share', [])
+        ils_sum = tv.get('ils_summary', {})
+        discovery = tv.get('discovery_layers', [])
+        ebooks = tv.get('ebook_platforms', [])
+        ebook_sum = tv.get('ebook_summary', {})
+        repos = tv.get('digital_repositories', [])
+        rfid = tv.get('self_check_rfid', [])
+        print_mgmt = tv.get('computer_print_mgmt', [])
+        cms = tv.get('website_cms', [])
+        oclc = tv.get('oclc_services', {})
+        wifi = tv.get('library_wifi', {})
+        tv_findings = tv.get('key_findings', [])
+
+        total_pub = ils_sum.get('total_us_public_library_systems_approx', 0)
+        total_aca = ils_sum.get('total_us_academic_libraries_approx', 0)
+        oclc_members = oclc.get('member_libraries', 0)
+        oclc_rev = oclc.get('revenue_2020_21_usd_millions', 0)
+        ebook_circ = ebook_sum.get('total_2023_us_library_ebook_circulation_approx', 0)
+
+        body += f"""
+<section id="tech-vendors">
+<h2><span class="mw-headline">Library Technology Vendors & Systems</span></h2>
+<p>The technology stack powering America's libraries is a multi-billion-dollar ecosystem of integrated library systems (ILS), discovery layers, e-book platforms, self-checkout/RFID systems, print management, and website content management systems. The market has consolidated dramatically, with a few large vendors — Ex Libris/Clarivate, OCLC, and SirsiDynix — dominating across segments.</p>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">{total_pub}</div><div class="label">US public library systems</div></div>
+  <div class="stat-card"><div class="num">{total_aca}</div><div class="label">US academic libraries</div></div>
+  <div class="stat-card"><div class="num">{oclc_members}</div><div class="label">OCLC member libraries</div></div>
+  <div class="stat-card"><div class="num">${oclc_rev}M</div><div class="label">OCLC revenue FY2020-21</div></div>
+</div>"""
+
+        if ils_ms:
+            body += '\n<h3><span class="mw-headline">Integrated Library Systems (ILS) — Market Share</span></h3>'
+            body += '\n<table class="wikitable sortable"><tr><th>#</th><th>Vendor</th><th>Product</th><th>Type</th><th>Primary Segment</th><th>Est. Libraries</th></tr>'
+            for v in ils_ms:
+                v_rank = v.get('rank', '')
+                v_vendor = esc(str(v.get('vendor', '')))
+                v_product = esc(str(v.get('product', '')))
+                v_type = esc(str(v.get('type', '')))
+                v_seg = esc(str(v.get('primary_segment', '')))
+                v_libs = v.get('libraries_us_approx', v.get('libraries_approx', ''))
+                body += f'\n<tr><td>{v_rank}</td><td>{v_vendor}</td><td>{v_product}</td><td>{v_type}</td><td>{v_seg}</td><td class="num">{v_libs}</td></tr>'
+            body += '\n</table>'
+
+        if discovery:
+            body += '\n<h3><span class="mw-headline">Discovery Layers</span></h3>'
+            body += "\n<p>Discovery layers are the search interfaces that patrons use to find materials across a library's catalog, databases, and digital collections:</p>"
+            body += '\n<table class="wikitable sortable"><tr><th>Product</th><th>Vendor</th><th>Est. US Libraries</th><th>Segment</th></tr>'
+            for d in discovery:
+                d_product = esc(str(d.get('product', '')))
+                d_vendor = esc(str(d.get('vendor', '')))
+                d_libs = d.get('libraries_us_approx', '')
+                d_seg = esc(str(d.get('primary_segment', '')))
+                body += f'\n<tr><td>{d_product}</td><td>{d_vendor}</td><td class="num">{d_libs}</td><td>{d_seg}</td></tr>'
+            body += '\n</table>'
+
+        if ebooks:
+            body += '\n<h3><span class="mw-headline">E-Book & Digital Media Platforms</span></h3>'
+            body += f'\n<p>The US library e-book circulation reached approximately <strong>{ebook_circ}</strong> checkouts in 2023. The market is dominated by OverDrive/Libby:</p>'
+            body += '\n<table class="wikitable sortable"><tr><th>Platform</th><th>Owner</th><th>Libraries/Schools</th><th>Countries</th></tr>'
+            for e in ebooks:
+                e_platform = esc(str(e.get('platform', '')))
+                e_owner = esc(str(e.get('owner', '')))
+                e_libs = e.get('libraries_schools_served', e.get('libraries_served', ''))
+                e_countries = e.get('countries', '')
+                body += f'\n<tr><td>{e_platform}</td><td>{e_owner}</td><td class="num">{e_libs}</td><td class="num">{e_countries}</td></tr>'
+            body += '\n</table>'
+
+        if rfid:
+            body += '\n<h3><span class="mw-headline">Self-Checkout & RFID Systems</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Vendor</th><th>Products</th><th>HQ</th></tr>'
+            for r in rfid:
+                r_vendor = esc(str(r.get('vendor', '')))
+                r_products = esc(str(r.get('products', '')))
+                r_hq = esc(str(r.get('hq', '')))
+                body += f'\n<tr><td>{r_vendor}</td><td>{r_products}</td><td>{r_hq}</td></tr>'
+            body += '\n</table>'
+
+        if print_mgmt:
+            body += '\n<h3><span class="mw-headline">Computer & Print Management</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Product</th><th>Vendor</th><th>Est. US Libraries</th><th>Market Position</th></tr>'
+            for p in print_mgmt:
+                p_product = esc(str(p.get('product', '')))
+                p_vendor = esc(str(p.get('vendor', '')))
+                p_libs = p.get('us_libraries_approx', '')
+                p_pos = esc(str(p.get('market_position', '')))
+                body += f'\n<tr><td>{p_product}</td><td>{p_vendor}</td><td class="num">{p_libs}</td><td>{p_pos}</td></tr>'
+            body += '\n</table>'
+
+        if cms:
+            body += '\n<h3><span class="mw-headline">Library Website CMS</span></h3>'
+            body += '\n<table class="wikitable"><tr><th>Platform</th><th>Type</th><th>Est. US Libraries</th><th>Position</th></tr>'
+            for c in cms:
+                c_platform = esc(str(c.get('platform', '')))
+                c_type = esc(str(c.get('type', '')))
+                c_libs = c.get('us_libraries_approx', '')
+                c_pos = esc(str(c.get('market_position', '')))
+                body += f'\n<tr><td>{c_platform}</td><td>{c_type}</td><td class="num">{c_libs}</td><td>{c_pos}</td></tr>'
+            body += '\n</table>'
+
+        if oclc:
+            oclc_org = esc(str(oclc.get('organization', '')))
+            oclc_founded = oclc.get('founded', '')
+            oclc_ceo = esc(str(oclc.get('ceo', '')))
+            oclc_wc = esc(str(oclc.get('worldcat', '')))
+            body += f"""
+<h3><span class="mw-headline">OCLC — The Cooperative Giant</span></h3>
+<div class="rules-box">
+  <p><strong>{oclc_org}</strong>, founded {oclc_founded}. CEO: {oclc_ceo}.</p>
+  <p><strong>WorldCat:</strong> {oclc_wc}</p>
+  <p><strong>Member libraries:</strong> {oclc_members} in 100+ countries</p>
+  <p><strong>Revenue (FY2020-21):</strong> ${oclc_rev}M</p>
+</div>"""
+
+        if wifi:
+            wifi_desc = esc(str(wifi.get('description', '')))
+            wifi_prev = esc(str(wifi.get('prevalence', '')))
+            wifi_sessions = wifi.get('imls_wifi_sessions_fy2024', '')
+            body += f"""
+<h3><span class="mw-headline">Library WiFi & Hotspot Lending</span></h3>
+<div class="rules-box">
+  <p>{wifi_desc}</p>
+  <p><strong>Prevalence:</strong> {wifi_prev}</p>
+  <p><strong>IMLS WiFi sessions (FY2024):</strong> {wifi_sessions}</p>"""
+            hotspot = wifi.get('hotspot_lending', '')
+            if hotspot:
+                body += f'\n<p><strong>Hotspot lending:</strong> {esc(str(hotspot))}</p>'
+            erate = wifi.get('erate_context', '')
+            if erate:
+                body += f'\n<p><strong>E-Rate context:</strong> {esc(str(erate))}</p>'
+            body += '\n</div>'
+
+        if tv_findings:
+            body += '\n<h3><span class="mw-headline">Key Findings</span></h3>'
+            body += '\n<div class="rules-box"><ul class="wiki-list">'
+            for f in tv_findings[:8]:
+                body += f'\n  <li>{esc(str(f))}</li>'
+            body += '\n</ul></div>'
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html#digital-divide">Digital divide</a> | <a href="#erate">E-Rate</a> | <a href="#bead">BEAD</a> | <a href="#acp">ACP</a> | <a href="#tribal-broadband">Tribal broadband</a> | <a href="#tribal-libraries">Tribal libraries</a> | <a href="#bls-salaries">BLS salaries</a> | <a href="#museums">Museums</a> | <a href="#social-media">Social media</a> | <a href="#library-domains">Domains</a> | <a href="#census-demographics">Census demographics</a> | <a href="#ill">ILL</a> | <a href="#tech-inventory">Tech inventory</a> | <a href="#tech-vendors">Tech vendors</a> | <a href="#web-coverage">Web coverage</a> | <a href="#publishing">Publishing</a> | <a href="#digital-divide-enhanced">Digital divide</a> | <a href="index.html#library-law">Library law</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'digital.html'), 'w') as f:

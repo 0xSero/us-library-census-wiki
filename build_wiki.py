@@ -805,6 +805,22 @@ def load_all():
         ('language_learning_deep', 'library_language_learning_deep_summary.json'),
         ('makerspace_labs_deep', 'library_makerspace_labs_deep_summary.json'),
         ('sensory_autism_deep', 'library_sensory_autism_deep_summary.json'),
+        ('legal_clinics_deep', 'library_legal_clinics_deep_summary.json'),
+        ('adult_literacy_deep', 'library_adult_literacy_deep_summary.json'),
+        ('social_work_deep', 'library_social_work_deep_summary.json'),
+        ('streaming_media_deep', 'library_streaming_media_deep_summary.json'),
+        ('k12_partnerships_deep', 'library_k12_partnerships_deep_summary.json'),
+        ('workforce_tech_deep', 'library_workforce_tech_deep_summary.json'),
+        ('senior_services_deep', 'library_senior_services_deep_summary.json'),
+        ('civic_engagement_deep', 'library_civic_engagement_deep_summary.json'),
+        ('teen_services_deep', 'library_teen_services_deep_summary.json'),
+        ('stem_education_deep', 'library_stem_education_deep_summary.json'),
+        ('early_literacy_deep', 'library_early_literacy_deep_summary.json'),
+        ('health_insurance_deep', 'library_health_insurance_deep_summary.json'),
+        ('financial_empowerment_deep', 'library_financial_empowerment_deep_summary.json'),
+        ('nature_outdoors_deep', 'library_nature_outdoors_deep_summary.json'),
+        ('genealogy_research_deep', 'library_genealogy_research_deep_summary.json'),
+        ('disability_inclusion_deep', 'library_disability_inclusion_deep_summary.json'),
     ]:
         p = os.path.join(DATA, fname)
         if os.path.exists(p):
@@ -18917,8 +18933,280 @@ so ratings accumulate across runs. The wiki can be rebuilt at any time by re-run
     except Exception:
         pass
 
+    # Legal Clinics & Free Law Programs Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('legal_clinics_deep', {}),
+            'legal-clinics-deep', 'Library Legal Clinics &amp; Free Law Programs Deep Dive',
+            [('legal_overview', 'Legal Overview'),
+             ('free_clinics', 'Free Clinics'),
+             ('notary_services', 'Notary Services'),
+             ('legal_databases', 'Legal Databases'),
+             ('immigration_legal', 'Immigration Legal')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Adult Literacy & Basic Skills Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('adult_literacy_deep', {}),
+            'adult-literacy-deep', 'Library Adult Literacy &amp; Basic Skills Deep Dive',
+            [('literacy_overview', 'Literacy Overview'),
+             ('reading_adults', 'Reading Adults'),
+             ('digital_literacy', 'Digital Literacy'),
+             ('numeracy', 'Numeracy'),
+             ('tutor_training', 'Tutor Training')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Social Work & Community Navigation Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('social_work_deep', {}),
+            'social-work-deep', 'Library Social Work &amp; Community Navigation Deep Dive',
+            [('social_work_overview', 'Social Work Overview'),
+             ('embedded_social_workers', 'Embedded Social Workers'),
+             ('peer_navigators', 'Peer Navigators'),
+             ('crisis_intervention', 'Crisis Intervention'),
+             ('community_partnerships', 'Community Partnerships')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Streaming Media & Digital Content Platforms Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('streaming_media_deep', {}),
+            'streaming-media-deep', 'Library Streaming Media &amp; Digital Content Deep Dive',
+            [('streaming_overview', 'Streaming Overview'),
+             ('video_platforms', 'Video Platforms'),
+             ('audio_platforms', 'Audio Platforms'),
+             ('music_streaming', 'Music Streaming'),
+             ('access_challenges', 'Access Challenges')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # K-12 School Partnerships Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('k12_partnerships_deep', {}),
+            'k12-partnerships-deep', 'Library K-12 School Partnerships Deep Dive',
+            [('partnerships_overview', 'Partnerships Overview'),
+             ('school_visits', 'School Visits'),
+             ('student_card_programs', 'Student Card Programs'),
+             ('summer_learning', 'Summer Learning'),
+             ('teacher_resources', 'Teacher Resources')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Workforce Technology & Job Search Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('workforce_tech_deep', {}),
+            'workforce-tech-deep', 'Library Workforce Technology &amp; Job Search Deep Dive',
+            [('workforce_overview', 'Workforce Overview'),
+             ('job_search_technology', 'Job Search Technology'),
+             ('online_applications', 'Online Applications'),
+             ('skills_training', 'Skills Training'),
+             ('employer_partnerships', 'Employer Partnerships')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Senior Services & Aging-in-Place Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('senior_services_deep', {}),
+            'senior-services-deep', 'Library Senior Services &amp; Aging-in-Place Deep Dive',
+            [('senior_overview', 'Senior Overview'),
+             ('technology_training', 'Technology Training'),
+             ('homebound_services', 'Homebound Services'),
+             ('memory_programs', 'Memory Programs'),
+             ('social_connection', 'Social Connection')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Civic Engagement & Democracy Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('civic_engagement_deep', {}),
+            'civic-engagement-deep', 'Library Civic Engagement &amp; Democracy Deep Dive',
+            [('civic_overview', 'Civic Overview'),
+             ('voter_engagement', 'Voter Engagement'),
+             ('candidate_forums', 'Candidate Forums'),
+             ('civic_education', 'Civic Education'),
+             ('community_dialogue', 'Community Dialogue')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Teen Services & Youth Development Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('teen_services_deep', {}),
+            'teen-services-deep', 'Library Teen Services &amp; Youth Development Deep Dive',
+            [('teen_overview', 'Teen Overview'),
+             ('teen_spaces', 'Teen Spaces'),
+             ('youth_development', 'Youth Development'),
+             ('creative_programs', 'Creative Programs'),
+             ('mental_health_teens', 'Mental Health Teens')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # STEM Education & Science Programs Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('stem_education_deep', {}),
+            'stem-education-deep', 'Library STEM Education &amp; Science Programs Deep Dive',
+            [('stem_overview', 'STEM Overview'),
+             ('science_programs', 'Science Programs'),
+             ('math_programs', 'Math Programs'),
+             ('technology_programs', 'Technology Programs'),
+             ('star_net_partnership', 'STAR Net Partnership')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Early Literacy & Childhood Reading Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('early_literacy_deep', {}),
+            'early-literacy-deep', 'Library Early Literacy &amp; Childhood Reading Deep Dive',
+            [('early_lit_overview', 'Early Literacy Overview'),
+             ('storytime', 'Storytime'),
+             ('every_child_ready', 'Every Child Ready to Read'),
+             ('1000_books', '1000 Books Before Kindergarten'),
+             ('kindergarten_readiness', 'Kindergarten Readiness')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Health Insurance Navigation Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('health_insurance_deep', {}),
+            'health-insurance-deep', 'Library Health Insurance Navigation &amp; ACA Deep Dive',
+            [('insurance_overview', 'Insurance Overview'),
+             ('aca_enrollment', 'ACA Enrollment'),
+             ('medicaid_help', 'Medicaid Help'),
+             ('medicare_navigation', 'Medicare Navigation'),
+             ('childrens_insurance', "Children's Insurance")],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Financial Empowerment & Banking Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('financial_empowerment_deep', {}),
+            'financial-empowerment-deep', 'Library Financial Empowerment &amp; Banking Deep Dive',
+            [('financial_overview', 'Financial Overview'),
+             ('banking_access', 'Banking Access'),
+             ('savings_programs', 'Savings Programs'),
+             ('credit_building', 'Credit Building'),
+             ('predatory_lending', 'Predatory Lending')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Nature & Outdoor Programs Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('nature_outdoors_deep', {}),
+            'nature-outdoors-deep', 'Library Nature &amp; Outdoor Programs Deep Dive',
+            [('nature_overview', 'Nature Overview'),
+             ('park_passes', 'Park Passes'),
+             ('nature_explore', 'Nature Explore'),
+             ('citizen_science_nature', 'Citizen Science Nature'),
+             ('environmental_education', 'Environmental Education')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Genealogy Research Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('genealogy_research_deep', {}),
+            'genealogy-research-deep', 'Library Genealogy &amp; Family History Research Deep Dive',
+            [('genealogy_overview', 'Genealogy Overview'),
+             ('research_databases', 'Research Databases'),
+             ('special_collections', 'Special Collections'),
+             ('digitization', 'Digitization'),
+             ('research_assistance', 'Research Assistance')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
+    # Disability Inclusion & Accessibility Deep Dive
+    try:
+        body += _render_deep_section(
+            data.get('disability_inclusion_deep', {}),
+            'disability-inclusion-deep', 'Library Disability Inclusion &amp; Accessibility Deep Dive',
+            [('inclusion_overview', 'Inclusion Overview'),
+             ('physical_accessibility', 'Physical Accessibility'),
+             ('sensory_accessibility', 'Sensory Accessibility'),
+             ('cognitive_accessibility', 'Cognitive Accessibility'),
+             ('developmental_disabilities', 'Developmental Disabilities')],
+            'notable_programs',
+            [('name', 0), ('library', 0), ('state', 0), ('description', 160)],
+            ['Program', 'Library', 'State', 'Description']
+        )
+    except Exception:
+        pass
+
     body += f"""
-<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#funding-deep">Funding</a> | <a href="#reading-trends-deep">Reading trends</a> | <a href="#special-collections-deep">Special collections</a> | <a href="#history-deep">History deep</a> | <a href="#consortia-deep">Consortia</a> | <a href="#accessibility-deep">Accessibility</a> | <a href="#economics-deep">Economics</a> | <a href="#awards-deep">Awards</a> | <a href="#volunteers-deep">Volunteers</a> | <a href="#advocacy-deep">Advocacy</a> | <a href="#social-media-deep">Social media</a> | <a href="#cataloging-deep">Cataloging</a> | <a href="#tech-vendors-deep">Tech vendors</a> | <a href="#streaming-deep">Streaming</a> | <a href="#assessment-deep">Assessment</a> | <a href="#law-deep">Law</a> | <a href="#friends-deep">Friends</a> | <a href="#self-publishing-deep">Self-publishing</a> | <a href="#genealogy-deep">Genealogy</a> | <a href="#youth-deep">Youth</a> | <a href="#workforce-dev-deep">Workforce dev</a> | <a href="#tech-infra-deep">Tech infra</a> | <a href="#programs-deep">Programs</a> | <a href="#collections-deep">Collections</a> | <a href="#outreach-deep">Outreach</a> | <a href="#social-worker-deep">Social workers</a> | <a href="#climate-resilience-deep">Climate resilience</a> | <a href="#gaming-deep">Gaming</a> | <a href="#preservation-deep">Preservation</a> | <a href="#book-clubs-deep">Book clubs</a> | <a href="#reentry-deep">Reentry</a> | <a href="#reference-deep">Reference</a> | <a href="#seed-deep">Seed libraries</a> | <a href="#ill-deep">Interlibrary loan</a> | <a href="#copyright-literacy-deep">Copyright &amp; literacy</a> | <a href="#lifelong-learning-deep">Lifelong learning</a> | <a href="#governance-deep">Governance</a> | <a href="#makerspace-network-deep">Makerspace network</a> | <a href="#web-ux-deep">Web UX</a> | <a href="#surveillance-deep">Surveillance</a> | <a href="#security-deep">Security</a> | <a href="#staff-deep">Staff</a> | <a href="#civic-data-deep">Civic data</a> | <a href="#philanthropy-deep">Philanthropy</a> | <a href="#bookmobiles-deep">Bookmobiles</a> | <a href="#entrepreneurship-deep">Entrepreneurship</a> | <a href="#closures-deep">Closures</a> | <a href="#esl-deep">ESL</a> | <a href="#vr-xr-deep">VR/XR</a> | <a href="#memory-cafe-deep">Memory cafes</a> | <a href="#author-events-deep">Author events</a> | <a href="#analytics-deep">Analytics</a> | <a href="#summer-reading-deep">Summer reading</a> | <a href="#benefits-navigation-deep">Benefits navigation</a> | <a href="#music-services-deep">Music</a> | <a href="#podcasts-deep">Podcasts</a> | <a href="#comic-con-deep">Comic cons</a> | <a href="#financial-literacy-deep">Financial literacy</a> | <a href="#zines-deep">Zines</a> | <a href="#homework-help-deep">Homework help</a> | <a href="#assistive-tech-deep">Assistive tech</a> | <a href="#translation-deep">Translation</a> | <a href="#gov-docs-deep">GovDocs</a> | <a href="#food-programs-deep">Food programs</a> | <a href="#crisis-response-deep">Crisis response</a> | <a href="#notary-legal-deep">Notary &amp; legal</a> | <a href="#energy-assistance-deep">Energy assistance</a> | <a href="#citizenship-services-deep">Citizenship</a> | <a href="#3d-printing-deep">3D printing</a> | <a href="#passport-services-deep">Passport</a> | <a href="#tax-prep-deep">Tax prep</a> | <a href="#voter-services-deep">Voter services</a> | <a href="#housing-assistance-deep">Housing</a> | <a href="#oral-history-deep">Oral history</a> | <a href="#dementia-services-deep">Dementia</a> | <a href="#robotics-deep">Robotics</a> | <a href="#immigration-services-deep">Immigration</a> | <a href="#genealogy-dna-deep">Genealogy &amp; DNA</a> | <a href="#reentry-support-deep">Reentry support</a> | <a href="#lockers-kiosks-deep">Lockers &amp; kiosks</a> | <a href="#board-games-deep">Board games</a> | <a href="#telehealth-deep">Telehealth</a> | <a href="#community-gardens-deep">Community gardens</a> | <a href="#writing-programs-deep">Writing programs</a> | <a href="#podcast-studios-deep">Podcast studios</a> | <a href="#coding-classes-deep">Coding classes</a> | <a href="#art-exhibits-deep">Art exhibits</a> | <a href="#language-learning-deep">Language learning</a> | <a href="#makerspace-labs-deep">Makerspace labs</a> | <a href="#sensory-autism-deep">Sensory &amp; autism</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
+<div class="catlinks"><span class="cat-title">Categories: </span><a href="index.html">Main page</a> | <a href="search.html">Search</a> | <a href="map.html">Map</a> | <a href="#associations">Associations</a> | <a href="#library-impact">Impact</a> | <a href="#impact-outcomes">Impact outcomes</a> | <a href="#buildings-inventory">Buildings inventory</a> | <a href="#history-timeline">History timeline</a> | <a href="#special-populations">Special populations</a> | <a href="#immigrants">Immigrants</a> | <a href="#civic-engagement">Civic engagement</a> | <a href="#homelessness">Homelessness</a> | <a href="#literacy">Literacy</a> | <a href="#veterans">Veterans</a> | <a href="#seniors">Seniors</a> | <a href="#arts">Arts</a> | <a href="#legal-services">Legal services</a> | <a href="#transportation">Transportation</a> | <a href="#sustainability-deep">Sustainability deep</a> | <a href="#mental-health">Mental health</a> | <a href="#disability-services">Disability</a> | <a href="#community-support">Community support</a> | <a href="#food-security-deep">Food security deep</a> | <a href="#ai-ethics">AI ethics</a> | <a href="#publishing-deep">Publishing deep</a> | <a href="#lgbtq-services">LGBTQ+</a> | <a href="#rural-deep">Rural deep</a> | <a href="#international-deep">International deep</a> | <a href="#open-data">Open data</a> | <a href="#makerspace-deep">Makerspaces</a> | <a href="#indigenous-libraries">Indigenous</a> | <a href="#architecture-deep">Architecture deep</a> | <a href="#prison-deep">Prison libraries</a> | <a href="#innovation-deep">Innovation</a> | <a href="#copyright-deep">Copyright deep</a> | <a href="#censorship-surge">Censorship surge</a> | <a href="#workforce-deep">Workforce</a> | <a href="#education-deep">Education</a> | <a href="#digital-divide-deep">Digital divide</a> | <a href="#privacy-deep">Privacy</a> | <a href="#health-deep">Health</a> | <a href="#disaster-deep">Disaster</a> | <a href="#funding-deep">Funding</a> | <a href="#reading-trends-deep">Reading trends</a> | <a href="#special-collections-deep">Special collections</a> | <a href="#history-deep">History deep</a> | <a href="#consortia-deep">Consortia</a> | <a href="#accessibility-deep">Accessibility</a> | <a href="#economics-deep">Economics</a> | <a href="#awards-deep">Awards</a> | <a href="#volunteers-deep">Volunteers</a> | <a href="#advocacy-deep">Advocacy</a> | <a href="#social-media-deep">Social media</a> | <a href="#cataloging-deep">Cataloging</a> | <a href="#tech-vendors-deep">Tech vendors</a> | <a href="#streaming-deep">Streaming</a> | <a href="#assessment-deep">Assessment</a> | <a href="#law-deep">Law</a> | <a href="#friends-deep">Friends</a> | <a href="#self-publishing-deep">Self-publishing</a> | <a href="#genealogy-deep">Genealogy</a> | <a href="#youth-deep">Youth</a> | <a href="#workforce-dev-deep">Workforce dev</a> | <a href="#tech-infra-deep">Tech infra</a> | <a href="#programs-deep">Programs</a> | <a href="#collections-deep">Collections</a> | <a href="#outreach-deep">Outreach</a> | <a href="#social-worker-deep">Social workers</a> | <a href="#climate-resilience-deep">Climate resilience</a> | <a href="#gaming-deep">Gaming</a> | <a href="#preservation-deep">Preservation</a> | <a href="#book-clubs-deep">Book clubs</a> | <a href="#reentry-deep">Reentry</a> | <a href="#reference-deep">Reference</a> | <a href="#seed-deep">Seed libraries</a> | <a href="#ill-deep">Interlibrary loan</a> | <a href="#copyright-literacy-deep">Copyright &amp; literacy</a> | <a href="#lifelong-learning-deep">Lifelong learning</a> | <a href="#governance-deep">Governance</a> | <a href="#makerspace-network-deep">Makerspace network</a> | <a href="#web-ux-deep">Web UX</a> | <a href="#surveillance-deep">Surveillance</a> | <a href="#security-deep">Security</a> | <a href="#staff-deep">Staff</a> | <a href="#civic-data-deep">Civic data</a> | <a href="#philanthropy-deep">Philanthropy</a> | <a href="#bookmobiles-deep">Bookmobiles</a> | <a href="#entrepreneurship-deep">Entrepreneurship</a> | <a href="#closures-deep">Closures</a> | <a href="#esl-deep">ESL</a> | <a href="#vr-xr-deep">VR/XR</a> | <a href="#memory-cafe-deep">Memory cafes</a> | <a href="#author-events-deep">Author events</a> | <a href="#analytics-deep">Analytics</a> | <a href="#summer-reading-deep">Summer reading</a> | <a href="#benefits-navigation-deep">Benefits navigation</a> | <a href="#music-services-deep">Music</a> | <a href="#podcasts-deep">Podcasts</a> | <a href="#comic-con-deep">Comic cons</a> | <a href="#financial-literacy-deep">Financial literacy</a> | <a href="#zines-deep">Zines</a> | <a href="#homework-help-deep">Homework help</a> | <a href="#assistive-tech-deep">Assistive tech</a> | <a href="#translation-deep">Translation</a> | <a href="#gov-docs-deep">GovDocs</a> | <a href="#food-programs-deep">Food programs</a> | <a href="#crisis-response-deep">Crisis response</a> | <a href="#notary-legal-deep">Notary &amp; legal</a> | <a href="#energy-assistance-deep">Energy assistance</a> | <a href="#citizenship-services-deep">Citizenship</a> | <a href="#3d-printing-deep">3D printing</a> | <a href="#passport-services-deep">Passport</a> | <a href="#tax-prep-deep">Tax prep</a> | <a href="#voter-services-deep">Voter services</a> | <a href="#housing-assistance-deep">Housing</a> | <a href="#oral-history-deep">Oral history</a> | <a href="#dementia-services-deep">Dementia</a> | <a href="#robotics-deep">Robotics</a> | <a href="#immigration-services-deep">Immigration</a> | <a href="#genealogy-dna-deep">Genealogy &amp; DNA</a> | <a href="#reentry-support-deep">Reentry support</a> | <a href="#lockers-kiosks-deep">Lockers &amp; kiosks</a> | <a href="#board-games-deep">Board games</a> | <a href="#telehealth-deep">Telehealth</a> | <a href="#community-gardens-deep">Community gardens</a> | <a href="#writing-programs-deep">Writing programs</a> | <a href="#podcast-studios-deep">Podcast studios</a> | <a href="#coding-classes-deep">Coding classes</a> | <a href="#art-exhibits-deep">Art exhibits</a> | <a href="#language-learning-deep">Language learning</a> | <a href="#makerspace-labs-deep">Makerspace labs</a> | <a href="#sensory-autism-deep">Sensory &amp; autism</a> | <a href="#legal-clinics-deep">Legal clinics</a> | <a href="#adult-literacy-deep">Adult literacy</a> | <a href="#social-work-deep">Social work</a> | <a href="#streaming-media-deep">Streaming media</a> | <a href="#k12-partnerships-deep">K-12 partnerships</a> | <a href="#workforce-tech-deep">Workforce tech</a> | <a href="#senior-services-deep">Senior services</a> | <a href="#civic-engagement-deep">Civic engagement</a> | <a href="#teen-services-deep">Teen services</a> | <a href="#stem-education-deep">STEM education</a> | <a href="#early-literacy-deep">Early literacy</a> | <a href="#health-insurance-deep">Health insurance</a> | <a href="#financial-empowerment-deep">Financial empowerment</a> | <a href="#nature-outdoors-deep">Nature &amp; outdoors</a> | <a href="#genealogy-research-deep">Genealogy research</a> | <a href="#disability-inclusion-deep">Disability inclusion</a> | <a href="#lis-education">LIS education</a> | <a href="#awards">Awards</a> | <a href="#law-governance">Law &amp; governance</a> | <a href="#sustainability">Sustainability</a> | <a href="#climate">Climate</a> | <a href="#public-health">Public health</a> | <a href="#history-detailed">History</a> | <a href="#architecture">Architecture</a> | <a href="#disaster-response">Disaster response</a> | <a href="#fdlp">FDLP</a> | <a href="#nlm">NLM</a> | <a href="#prison-libraries">Prison libraries</a> | <a href="#rural-libraries">Rural libraries</a> | <a href="#accessibility">Accessibility</a> | <a href="#programs-detailed">Programs</a> | <a href="#food-nutrition">Food security</a> | <a href="#special-collections">Special collections</a> | <a href="#privacy">Privacy</a> | <a href="#censorship">Censorship</a> | <a href="#censorship-detailed">Book bans</a> | <a href="#covid-recovery">COVID</a> | <a href="#international-libraries">International</a> | <a href="#intl-comparison">Intl comparison</a> | <a href="#copyright">Copyright &amp; IP</a> | <a href="#reading-trends">Reading trends</a> | <a href="#ala-report">ALA report</a> | <a href="#datagov">Data.gov</a> | <a href="#loc">Library of Congress</a></div>
 <p class="edit-note">Generated on {now_str()}.</p>"""
 
     with open(os.path.join(WIKI, 'about.html'), 'w') as f:
